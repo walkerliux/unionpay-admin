@@ -13,7 +13,21 @@
 
 
 	<context:component-scan base-package="com.unionpay.withhold.trade" />
-
+	<mvc:annotation-driven content-negotiation-manager="contentManager"/>
+	<bean id="contentManager"
+                class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+                <property name="favorPathExtension" value="true"/>
+                <property name="ignoreAcceptHeader" value="true" />
+                <property name="defaultContentType" value="application/json" />
+                <property name="useJaf" value="false"/>
+                <property name="mediaTypes">
+	                <map>
+	                    <entry key="json" value="application/json" />
+	                    <entry key="html" value="text/html" />
+	                    <entry key="xml" value="application/xml" />
+	                </map>
+                </property>
+        </bean>
 	<!--JSP视图解析器 -->
 	<bean id="jstlViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
@@ -23,7 +37,7 @@
 	<!-- <bean id="springContextHelper" class="com.zcbspay.platform.business.fe.context.SpringContextHelper"></bean> -->
 
 
-	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
 
 	</bean>
 
@@ -34,25 +48,25 @@
 			</list>
 		</property>
 
-		<!-- <property name="customArgumentResolvers">
+		 <property name="customArgumentResolvers">
 			<list>
 				<ref bean="dateHandlerMethodArgumentResolver" />
 			</list>
-		</property> -->
+		</property>
 
 	</bean>
-
+ -->
 	<!-- <bean id="dateHandlerMethodArgumentResolver" class="com.zcbspay.platform.business.fe.context.DateHandlerMethodArgumentResolver"></bean> -->
 
-	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+	<!-- <bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
 		<property name="supportedMediaTypes">
 			<list>
 				<value>text/html;charset=UTF-8</value>
 				<value>application/json;charset=UTF-8</value>
 			</list>
 		</property>
-	</bean>
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+	</bean> -->
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 		<property name="exceptionMappings">
 			<props>
 				<prop key="org.apache.shiro.authz.UnauthorizedException">403</prop>
@@ -61,10 +75,10 @@
 			</props>
 		</property>
 
-	</bean>
+	</bean> -->
 
-    <!-- 对静态资源文件的访问 不支持访问WEB-INF目录 -->  
-    <mvc:default-servlet-handler/>  
+    <!-- 对静态资源文件的访问 不支持访问WEB-INF目录  
+    <mvc:default-servlet-handler/>  --> 
 
 	<!-- 对静态资源文件的访问 支持访问WEB-INF目录 -->
 <!-- 	<mvc:resources location="/resources/img/" mapping="/resources/img/**" /> -->
