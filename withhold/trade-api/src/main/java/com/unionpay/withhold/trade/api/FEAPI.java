@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.unionpay.withhold.bean.ResultBean;
+import com.unionpay.withhold.trade.api.bean.ResultBean;
 
-//@Component
+@Component
 public class FEAPI {
 	@Autowired
     private RestTemplate template;
@@ -18,7 +18,7 @@ public class FEAPI {
 	 * @return
 	 */
 	public ResultBean realTimeCollect(String data) {
-		return template.postForObject(url+"/realtime/collect?data={data}", null, ResultBean.class, data);
+		return template.getForObject(url+"/realtime/collect?data={data}", ResultBean.class, data);
 	} 	
 	
 	/**
