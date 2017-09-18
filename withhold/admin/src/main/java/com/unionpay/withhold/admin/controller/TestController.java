@@ -21,6 +21,7 @@ public class TestController {
 	public String test(String data){
 		
 	    return "test ok!"+data;
+//	    ghjgjgjhgjgjh
 	}
 }
 
