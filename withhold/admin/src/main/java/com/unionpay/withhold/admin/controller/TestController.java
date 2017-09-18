@@ -20,8 +20,8 @@ public class TestController {
 	@ResponseBody
 	public String test(String data){
 		
-	    return "test ok!"+data;
-//	    ghjgjgjhgjgjh
+	    return "testgulgkifyukifyuk ok!ok"+data;//sssss
+//	    ghjgjgjhgjgjh98798789979879879
 	}
 }
 
