@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TRspmsgMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TRspmsg" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TRspmsg" >
     <id column="RSPID" property="rspid" jdbcType="VARCHAR" />
     <result column="APICODE" property="apicode" jdbcType="VARCHAR" />
     <result column="APIINFO" property="apiinfo" jdbcType="CHAR" />
@@ -74,7 +74,7 @@
   <sql id="Base_Column_List" >
     RSPID, APICODE, APIINFO, RETCODE, KIND, REASON, CHNLTYPE, CHNLRSPCODE, RSPINFO, NOTES
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TRspmsgExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TRspmsgExample" >
     select
     <if test="distinct" >
       distinct
@@ -98,13 +98,13 @@
     delete from t_rspmsg
     where RSPID = #{rspid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TRspmsgExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TRspmsgExample" >
     delete from t_rspmsg
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TRspmsg" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TRspmsg" >
     insert into t_rspmsg (RSPID, APICODE, APIINFO, 
       RETCODE, KIND, REASON, 
       CHNLTYPE, CHNLRSPCODE, RSPINFO, 
@@ -114,7 +114,7 @@
       #{chnltype,jdbcType=VARCHAR}, #{chnlrspcode,jdbcType=VARCHAR}, #{rspinfo,jdbcType=VARCHAR}, 
       #{notes,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TRspmsg" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TRspmsg" >
     insert into t_rspmsg
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="rspid != null" >
@@ -181,7 +181,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TRspmsgExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TRspmsgExample" resultType="java.lang.Integer" >
     select count(*) from t_rspmsg
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -241,7 +241,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TRspmsg" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TRspmsg" >
     update t_rspmsg
     <set >
       <if test="apicode != null" >
@@ -274,7 +274,7 @@
     </set>
     where RSPID = #{rspid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TRspmsg" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TRspmsg" >
     update t_rspmsg
     set APICODE = #{apicode,jdbcType=VARCHAR},
       APIINFO = #{apiinfo,jdbcType=CHAR},

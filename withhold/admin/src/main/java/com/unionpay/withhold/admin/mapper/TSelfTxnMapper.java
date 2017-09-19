@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSelfTxnExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TSelfTxnMapper {
     int countByExample(TSelfTxnExample example);

@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TRiskCase;
 import com.unionpay.withhold.admin.pojo.TRiskCaseExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TRiskCaseMapper {
     int countByExample(TRiskCaseExample example);

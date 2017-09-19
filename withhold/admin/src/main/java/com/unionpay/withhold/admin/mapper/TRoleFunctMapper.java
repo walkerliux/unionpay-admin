@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TRoleFunct;
 import com.unionpay.withhold.admin.pojo.TRoleFunctExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TRoleFunctMapper {
     int countByExample(TRoleFunctExample example);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TOperationLogMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TOperationLog" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TOperationLog" >
     <id column="LOG_ID" property="logId" jdbcType="DECIMAL" />
     <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
     <result column="USERNAME" property="username" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     LOG_ID, USER_ID, USERNAME, OP_DATE, OP_CONTENT, IP, HOST_NAME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TOperationLogExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOperationLogExample" >
     select
     <if test="distinct" >
       distinct
@@ -95,13 +95,13 @@
     delete from t_operation_log
     where LOG_ID = #{logId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TOperationLogExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TOperationLogExample" >
     delete from t_operation_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TOperationLog" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TOperationLog" >
     insert into t_operation_log (LOG_ID, USER_ID, USERNAME, 
       OP_DATE, OP_CONTENT, IP, 
       HOST_NAME)
@@ -109,7 +109,7 @@
       #{opDate,jdbcType=TIMESTAMP}, #{opContent,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
       #{hostName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TOperationLog" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TOperationLog" >
     insert into t_operation_log
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="logId != null" >
@@ -158,7 +158,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TOperationLogExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TOperationLogExample" resultType="java.lang.Integer" >
     select count(*) from t_operation_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -206,7 +206,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TOperationLog" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TOperationLog" >
     update t_operation_log
     <set >
       <if test="userId != null" >
@@ -230,7 +230,7 @@
     </set>
     where LOG_ID = #{logId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TOperationLog" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TOperationLog" >
     update t_operation_log
     set USER_ID = #{userId,jdbcType=VARCHAR},
       USERNAME = #{username,jdbcType=VARCHAR},

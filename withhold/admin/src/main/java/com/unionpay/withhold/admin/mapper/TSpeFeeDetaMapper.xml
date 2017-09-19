@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TSpeFeeDetaMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TSpeFeeDeta" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="RATE_ID" property="rateId" jdbcType="CHAR" />
     <result column="MINFEE" property="minfee" jdbcType="CHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     TID, RATE_ID, MINFEE, MAXFEE, FIXFEE, FEERATE, FUNCTION
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeDetaExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
     select
     <if test="distinct" >
       distinct
@@ -85,19 +85,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeDetaExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
     delete from t_spe_fee_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeDeta" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
     insert into t_spe_fee_deta (TID, RATE_ID, MINFEE, MAXFEE, 
       FIXFEE, FEERATE, FUNCTION)
     values (#{tid,jdbcType=CHAR}, #{rateId,jdbcType=CHAR}, #{minfee,jdbcType=CHAR}, #{maxfee,jdbcType=CHAR}, 
       #{fixfee,jdbcType=CHAR}, #{feerate,jdbcType=CHAR}, #{function,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeDeta" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
     insert into t_spe_fee_deta
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -146,7 +146,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeDetaExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" resultType="java.lang.Integer" >
     select count(*) from t_spe_fee_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

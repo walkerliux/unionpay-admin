@@ -1,11 +1,15 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+
 import com.unionpay.withhold.admin.pojo.TChnlBank;
 import com.unionpay.withhold.admin.pojo.TChnlBankExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TChnlBankMapper {
     int countByExample(TChnlBankExample example);

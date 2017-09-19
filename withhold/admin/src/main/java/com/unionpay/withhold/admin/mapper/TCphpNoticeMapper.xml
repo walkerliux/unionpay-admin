@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TCphpNoticeMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TCphpNotice" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TCphpNotice" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="responseCode" property="responsecode" jdbcType="CHAR" />
     <result column="message" property="message" jdbcType="CHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     TID, responseCode, message, merId, orFileName, fileName, inTime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCphpNoticeExample" >
     select
     <if test="distinct" >
       distinct
@@ -85,13 +85,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TCphpNoticeExample" >
     delete from t_cphp_notice
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TCphpNotice" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCphpNotice" >
     insert into t_cphp_notice (TID, responseCode, message, 
       merId, orFileName, fileName, 
       inTime)
@@ -99,7 +99,7 @@
       #{merid,jdbcType=CHAR}, #{orfilename,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, 
       #{intime,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TCphpNotice" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCphpNotice" >
     insert into t_cphp_notice
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -148,7 +148,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCphpNoticeExample" resultType="java.lang.Integer" >
     select count(*) from t_cphp_notice
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkLogMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TChnlCpdkLog" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     <id column="TID" property="tid" jdbcType="CHAR" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
     <result column="merId" property="merid" jdbcType="CHAR" />
@@ -109,7 +109,7 @@
     baseStationSn, codeInputType, mobileForBank, orderdesc, chkValue, responseCode, transStat, 
     message, chnlRetDate, inTime, upTime, chnlFee
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLogExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" >
     select
     <if test="distinct" >
       distinct
@@ -133,13 +133,13 @@
     delete from t_chnl_cpdk_log
     where TID = #{tid,jdbcType=CHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLogExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" >
     delete from t_chnl_cpdk_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLog" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     insert into t_chnl_cpdk_log (TID, TXNSEQNO, merId, 
       transDate, orderNo, transType, 
       openBankId, cardType, cardNo, 
@@ -167,7 +167,7 @@
       #{chnlretdate,jdbcType=CHAR}, #{intime,jdbcType=CHAR}, #{uptime,jdbcType=CHAR}, 
       #{chnlfee,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLog" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     insert into t_chnl_cpdk_log
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -420,7 +420,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLogExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_cpdk_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -604,7 +604,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLog" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     update t_chnl_cpdk_log
     <set >
       <if test="txnseqno != null" >
@@ -730,7 +730,7 @@
     </set>
     where TID = #{tid,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkLog" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     update t_chnl_cpdk_log
     set TXNSEQNO = #{txnseqno,jdbcType=CHAR},
       merId = #{merid,jdbcType=CHAR},

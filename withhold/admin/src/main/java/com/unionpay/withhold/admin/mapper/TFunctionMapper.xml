@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TFunctionMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TFunction" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TFunction" >
     <id column="FUNCT_ID" property="functId" jdbcType="DECIMAL" />
     <result column="FUNCT_NAME" property="functName" jdbcType="VARCHAR" />
     <result column="FUNCT_ORDER" property="functOrder" jdbcType="DECIMAL" />
@@ -80,7 +80,7 @@
     FUNCT_ID, FUNCT_NAME, FUNCT_ORDER, PARENT_ID, URL, ICON, STATUS, LEVEL_ID, LEAFNODE, 
     SYS_FLAG, FUNCT_TYPE, ISADMIN, MOVE_SORT, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TFunctionExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" >
     select
     <if test="distinct" >
       distinct
@@ -104,13 +104,13 @@
     delete from t_function
     where FUNCT_ID = #{functId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TFunctionExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" >
     delete from t_function
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TFunction" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
     insert into t_function (FUNCT_ID, FUNCT_NAME, FUNCT_ORDER, 
       PARENT_ID, URL, ICON, 
       STATUS, LEVEL_ID, LEAFNODE, 
@@ -124,7 +124,7 @@
       #{moveSort,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TFunction" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
     insert into t_function
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="functId != null" >
@@ -221,7 +221,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TFunctionExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" resultType="java.lang.Integer" >
     select count(*) from t_function
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -301,7 +301,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TFunction" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
     update t_function
     <set >
       <if test="functName != null" >
@@ -349,7 +349,7 @@
     </set>
     where FUNCT_ID = #{functId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TFunction" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
     update t_function
     set FUNCT_NAME = #{functName,jdbcType=VARCHAR},
       FUNCT_ORDER = #{functOrder,jdbcType=DECIMAL},

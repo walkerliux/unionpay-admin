@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TLimitMemDay;
 import com.unionpay.withhold.admin.pojo.TLimitMemDayExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TLimitMemDayMapper {
     int countByExample(TLimitMemDayExample example);

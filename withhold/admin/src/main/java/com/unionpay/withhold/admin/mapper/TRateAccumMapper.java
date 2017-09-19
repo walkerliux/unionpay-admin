@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TRateAccum;
 import com.unionpay.withhold.admin.pojo.TRateAccumExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TRateAccumMapper {
     int countByExample(TRateAccumExample example);

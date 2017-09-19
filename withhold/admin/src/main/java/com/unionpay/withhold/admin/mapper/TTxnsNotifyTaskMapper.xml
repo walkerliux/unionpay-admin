@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TTxnsNotifyTaskMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TTxnsNotifyTask" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
     <id column="ID" property="id" jdbcType="DECIMAL" />
     <result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
@@ -76,7 +76,7 @@
     ID, MEMBER_ID, TXNSEQNO, SEND_TIMES, MAX_SEND_TIMES, DATA, SEND_STATUS, HTTP_RESCODE, 
     NOTIFY_URL, TASK_TYPE, TARDE_TYPE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTaskExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" >
     select
     <if test="distinct" >
       distinct
@@ -100,13 +100,13 @@
     delete from t_txns_notify_task
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTaskExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" >
     delete from t_txns_notify_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTask" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
     insert into t_txns_notify_task (ID, MEMBER_ID, TXNSEQNO, 
       SEND_TIMES, MAX_SEND_TIMES, DATA, 
       SEND_STATUS, HTTP_RESCODE, NOTIFY_URL, 
@@ -116,7 +116,7 @@
       #{sendStatus,jdbcType=VARCHAR}, #{httpRescode,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, 
       #{taskType,jdbcType=VARCHAR}, #{tardeType,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTask" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
     insert into t_txns_notify_task
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTaskExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_notify_task
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTask" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
     update t_txns_notify_task
     <set >
       <if test="memberId != null" >
@@ -289,7 +289,7 @@
     </set>
     where ID = #{id,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TTxnsNotifyTask" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
     update t_txns_notify_task
     set MEMBER_ID = #{memberId,jdbcType=VARCHAR},
       TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},

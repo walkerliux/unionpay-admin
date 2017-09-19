@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TSelfTxnMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TSelfTxn" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSelfTxn" >
     <id column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
     <result column="INSTIID" property="instiid" jdbcType="VARCHAR" />
@@ -87,7 +87,7 @@
     PAYTRCNO, CFEE, DFEE, RETCODE, ACQSETTLEDATE, PROID, STATUS, RESULT, NOTES, REMARKS, 
     CHECKING_ID
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TSelfTxnExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" >
     select
     <if test="distinct" >
       distinct
@@ -111,13 +111,13 @@
     delete from t_self_txn
     where TID = #{tid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TSelfTxnExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" >
     delete from t_self_txn
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TSelfTxn" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
     insert into t_self_txn (TID, TXNSEQNO, INSTIID, 
       PAYORDNO, TXNDATETIME, BUSICODE, 
       AMOUNT, PAN, MERCHNO, 
@@ -135,7 +135,7 @@
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{checkingId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TSelfTxn" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
     insert into t_self_txn
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -268,7 +268,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TSelfTxnExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" resultType="java.lang.Integer" >
     select count(*) from t_self_txn
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -372,7 +372,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TSelfTxn" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
     update t_self_txn
     <set >
       <if test="txnseqno != null" >
@@ -438,7 +438,7 @@
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TSelfTxn" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
     update t_self_txn
     set TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
       INSTIID = #{instiid,jdbcType=VARCHAR},

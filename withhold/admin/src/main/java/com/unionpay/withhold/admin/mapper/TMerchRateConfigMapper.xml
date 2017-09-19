@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TMerchRateConfig" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     <id column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="TARGET" property="target" jdbcType="VARCHAR" />
     <result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
@@ -76,7 +76,7 @@
     TID, TARGET, MEMBER_ID, BUSICODE, SETLFLG, RATE_METHOD, RATE_ID, INTIME, INUSER, 
     NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfigExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" >
     select
     <if test="distinct" >
       distinct
@@ -100,13 +100,13 @@
     delete from t_merch_rate_config
     where TID = #{tid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfigExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" >
     delete from t_merch_rate_config
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfig" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     insert into t_merch_rate_config (TID, TARGET, MEMBER_ID, 
       BUSICODE, SETLFLG, RATE_METHOD, 
       RATE_ID, INTIME, INUSER, 
@@ -116,7 +116,7 @@
       #{rateId,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfig" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     insert into t_merch_rate_config
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfigExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" resultType="java.lang.Integer" >
     select count(*) from t_merch_rate_config
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfig" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     update t_merch_rate_config
     <set >
       <if test="target != null" >
@@ -289,7 +289,7 @@
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TMerchRateConfig" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     update t_merch_rate_config
     set TARGET = #{target,jdbcType=VARCHAR},
       MEMBER_ID = #{memberId,jdbcType=VARCHAR},

@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TChnlCpqryLog;
 import com.unionpay.withhold.admin.pojo.TChnlCpqryLogExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TChnlCpqryLogMapper {
     int countByExample(TChnlCpqryLogExample example);

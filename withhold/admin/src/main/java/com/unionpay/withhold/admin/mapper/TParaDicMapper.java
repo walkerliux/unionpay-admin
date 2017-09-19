@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TParaDicExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TParaDicMapper {
     int countByExample(TParaDicExample example);

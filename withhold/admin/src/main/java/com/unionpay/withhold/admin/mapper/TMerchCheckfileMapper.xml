@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TMerchCheckfileMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TMerchCheckfile" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="merchNo" property="merchno" jdbcType="CHAR" />
     <result column="checkDate" property="checkdate" jdbcType="CHAR" />
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List" >
     TID, merchNo, checkDate, intime, fileName, uri, requestTime, url
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TMerchCheckfileExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" >
     select
     <if test="distinct" >
       distinct
@@ -86,13 +86,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchCheckfileExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" >
     delete from t_merch_checkfile
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TMerchCheckfile" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
     insert into t_merch_checkfile (TID, merchNo, checkDate, 
       intime, fileName, uri, requestTime, 
       url)
@@ -100,7 +100,7 @@
       #{intime,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, #{uri,jdbcType=CHAR}, #{requesttime,jdbcType=CHAR}, 
       #{url,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TMerchCheckfile" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
     insert into t_merch_checkfile
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -155,7 +155,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchCheckfileExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" resultType="java.lang.Integer" >
     select count(*) from t_merch_checkfile
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlDetaMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TChnlDeta" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     <id column="CHNLID" property="chnlid" jdbcType="VARCHAR" />
     <result column="CHNLCODE" property="chnlcode" jdbcType="VARCHAR" />
     <result column="CHNLNAME" property="chnlname" jdbcType="VARCHAR" />
@@ -93,7 +93,7 @@
     DATAKEY, ENCODE, NOTES, REMARKS, FRONTURL, BACKURL, SAFEURL, CHNLMERCHNO, IMPL, REFUND_IMPL, 
     limitnum, limitamt, TRADEELEMENT, CHKFILEURL, CHKFILGETTYPE, CFFTPUSER, CFFTPPWD
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TChnlDetaExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlDetaExample" >
     select
     <if test="distinct" >
       distinct
@@ -117,13 +117,13 @@
     delete from t_chnl_deta
     where CHNLID = #{chnlid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlDetaExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlDetaExample" >
     delete from t_chnl_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TChnlDeta" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     insert into t_chnl_deta (CHNLID, CHNLCODE, CHNLNAME, 
       INSTICODE, CHNLTYPE, STATUS, 
       URL, BMK, MACKEY, PINKEY, 
@@ -143,7 +143,7 @@
       #{tradeelement,jdbcType=CHAR}, #{chkfileurl,jdbcType=CHAR}, #{chkfilgettype,jdbcType=CHAR}, 
       #{cfftpuser,jdbcType=CHAR}, #{cfftppwd,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TChnlDeta" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     insert into t_chnl_deta
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="chnlid != null" >
@@ -312,7 +312,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlDetaExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlDetaExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -440,7 +440,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TChnlDeta" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     update t_chnl_deta
     <set >
       <if test="chnlcode != null" >
@@ -524,7 +524,7 @@
     </set>
     where CHNLID = #{chnlid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TChnlDeta" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     update t_chnl_deta
     set CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
       CHNLNAME = #{chnlname,jdbcType=VARCHAR},

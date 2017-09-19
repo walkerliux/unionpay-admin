@@ -1,11 +1,14 @@
 package com.unionpay.withhold.admin.mapper;
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TOrderCollectSingleMapper {
     int countByExample(TOrderCollectSingleExample example);

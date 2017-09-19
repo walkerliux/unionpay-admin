@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TTxnsLogMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TTxnsLog" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TTxnsLog" >
     <id column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
     <result column="TXNDATE" property="txndate" jdbcType="CHAR" />
     <result column="TXNTIME" property="txntime" jdbcType="CHAR" />
@@ -142,7 +142,7 @@
     ACCBUSICODE, ACCCOOPINSTINO, PAN_NAME, PRODUCTCODE, GROUPCODE, INPAN_NAME, FEEPAYMODEL, 
     PATHCODE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TTxnsLogExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
     select
     <if test="distinct" >
       distinct
@@ -166,13 +166,13 @@
     delete from t_txns_log
     where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TTxnsLogExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
     delete from t_txns_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TTxnsLog" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLog" >
     insert into t_txns_log (TXNSEQNO, TXNDATE, TXNTIME, 
       APPTYPE, BUSITYPE, BUSICODE, 
       AMOUNT, TRADCOMM, CHNLFEE, 
@@ -222,7 +222,7 @@
       #{inpanName,jdbcType=VARCHAR}, #{feepaymodel,jdbcType=VARCHAR}, #{pathcode,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TTxnsLog" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLog" >
     insert into t_txns_log
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="txnseqno != null" >
@@ -643,7 +643,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TTxnsLogExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -939,7 +939,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TTxnsLog" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLog" >
     update t_txns_log
     <set >
       <if test="txndate != null" >
@@ -1149,7 +1149,7 @@
     </set>
     where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TTxnsLog" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLog" >
     update t_txns_log
     set TXNDATE = #{txndate,jdbcType=CHAR},
       TXNTIME = #{txntime,jdbcType=CHAR},
