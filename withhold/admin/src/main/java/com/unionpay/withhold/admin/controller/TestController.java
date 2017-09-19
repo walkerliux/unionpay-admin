@@ -19,9 +19,9 @@ public class TestController {
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	@ResponseBody
 	public String test(String data){
-		
-
-	    return "test ok!"+data;
+	    return "test ok!1233443"+data;
+        
 	}
 }
 
+	
