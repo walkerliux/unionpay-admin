@@ -65,6 +65,10 @@ public class SingleCollectBean implements Serializable {
 	private String bizType;
 	//交易子类
 	private String txnSubType;
+	//交易序列号
+	private String txnseqno;
+	//受理订单号
+	private String tn;
 	/**
 	 * 数据有效性检查结果
 	 */
@@ -260,6 +264,22 @@ public class SingleCollectBean implements Serializable {
 
 	public void setTxnSubType(String txnSubType) {
 		this.txnSubType = txnSubType;
+	}
+
+	public String getTxnseqno() {
+		return txnseqno;
+	}
+
+	public void setTxnseqno(String txnseqno) {
+		this.txnseqno = txnseqno;
+	}
+
+	public String getTn() {
+		return tn;
+	}
+
+	public void setTn(String tn) {
+		this.tn = tn;
 	}
 
 }
