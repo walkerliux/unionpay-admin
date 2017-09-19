@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.pojo.TUserRoleExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TUserRoleMapper {
     int countByExample(TUserRoleExample example);

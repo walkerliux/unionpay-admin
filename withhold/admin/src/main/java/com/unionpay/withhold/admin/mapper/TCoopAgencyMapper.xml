@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TCoopAgencyMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TCoopAgency" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TCoopAgency" >
     <id column="CAID" property="caid" jdbcType="DECIMAL" />
     <result column="CACODE" property="cacode" jdbcType="VARCHAR" />
     <result column="CANAME" property="caname" jdbcType="VARCHAR" />
@@ -88,7 +88,7 @@
     SUPERCODE, RISKVER, INUSER, INTIME, STEXA_USER, STEXA_TIME, STEXA_OPT, CVLEXA_USER, 
     CVLEXA_TIME, CVLEXA_OPT, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCoopAgencyExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyExample" >
     select
     <if test="distinct" >
       distinct
@@ -112,13 +112,13 @@
     delete from t_coop_agency
     where CAID = #{caid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TCoopAgencyExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyExample" >
     delete from t_coop_agency
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TCoopAgency" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgency" >
     insert into t_coop_agency (CAID, CACODE, CANAME, 
       CAPROVINCE, CACITY, ADDRESS, 
       CONTACT, CONT_PHONE, STATUS, 
@@ -136,7 +136,7 @@
       #{cvlexaTime,jdbcType=TIMESTAMP}, #{cvlexaOpt,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TCoopAgency" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgency" >
     insert into t_coop_agency
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="caid != null" >
@@ -275,7 +275,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TCoopAgencyExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyExample" resultType="java.lang.Integer" >
     select count(*) from t_coop_agency
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -383,7 +383,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TCoopAgency" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgency" >
     update t_coop_agency
     <set >
       <if test="cacode != null" >
@@ -452,7 +452,7 @@
     </set>
     where CAID = #{caid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TCoopAgency" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgency" >
     update t_coop_agency
     set CACODE = #{cacode,jdbcType=VARCHAR},
       CANAME = #{caname,jdbcType=VARCHAR},

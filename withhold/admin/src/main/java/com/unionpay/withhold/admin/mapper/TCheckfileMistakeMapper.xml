@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TCheckfileMistakeMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TCheckfileMistake" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
     <id column="IID" property="iid" jdbcType="DECIMAL" />
     <result column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
@@ -105,7 +105,7 @@
     ACCEPT_OPINION, DEAL_END_DATE, DEAL_OPERATOR_ID, DEAL_DATE, DEAL_RESULT, DEAL_OPINION, 
     VISIT_OPERATOR_ID, VISIT_DATE, VISIT_RESULT, VISIT_OPINION, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistakeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" >
     select
     <if test="distinct" >
       distinct
@@ -129,13 +129,13 @@
     delete from t_checkfile_mistake
     where IID = #{iid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistakeExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" >
     delete from t_checkfile_mistake
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistake" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
     insert into t_checkfile_mistake (IID, TID, TXNSEQNO, 
       INSTIID, PAYORDNO, TXNDATETIME, 
       BUSICODE, AMOUNT, PAN, 
@@ -163,7 +163,7 @@
       #{visitResult,jdbcType=DECIMAL}, #{visitOpinion,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistake" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
     insert into t_checkfile_mistake
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="iid != null" >
@@ -392,7 +392,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistakeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" resultType="java.lang.Integer" >
     select count(*) from t_checkfile_mistake
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -560,7 +560,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistake" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
     update t_checkfile_mistake
     <set >
       <if test="tid != null" >
@@ -674,7 +674,7 @@
     </set>
     where IID = #{iid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TCheckfileMistake" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
     update t_checkfile_mistake
     set TID = #{tid,jdbcType=DECIMAL},
       TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},

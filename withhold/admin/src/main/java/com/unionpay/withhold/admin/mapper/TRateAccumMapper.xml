@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TRateAccumMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TRateAccum" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TRateAccum" >
     <id column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
     <result column="RATE_DESC" property="rateDesc" jdbcType="VARCHAR" />
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List" >
     TID, RATE_ID, RATE_DESC, ACCMODE, ACCOBJ, SERVICEFEE, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TRateAccumExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" >
     select
     <if test="distinct" >
       distinct
@@ -96,13 +96,13 @@
     delete from t_rate_accum
     where TID = #{tid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TRateAccumExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" >
     delete from t_rate_accum
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TRateAccum" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
     insert into t_rate_accum (TID, RATE_ID, RATE_DESC, 
       ACCMODE, ACCOBJ, SERVICEFEE, 
       NOTES, REMARKS)
@@ -110,7 +110,7 @@
       #{accmode,jdbcType=DECIMAL}, #{accobj,jdbcType=VARCHAR}, #{servicefee,jdbcType=DECIMAL}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TRateAccum" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
     insert into t_rate_accum
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -165,7 +165,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TRateAccumExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" resultType="java.lang.Integer" >
     select count(*) from t_rate_accum
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -217,7 +217,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TRateAccum" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
     update t_rate_accum
     <set >
       <if test="rateId != null" >
@@ -244,7 +244,7 @@
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TRateAccum" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
     update t_rate_accum
     set RATE_ID = #{rateId,jdbcType=DECIMAL},
       RATE_DESC = #{rateDesc,jdbcType=VARCHAR},

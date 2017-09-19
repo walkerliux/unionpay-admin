@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TUserMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TUser" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TUser" >
     <id column="USER_ID" property="userId" jdbcType="INTEGER" />
     <result column="USER_CODE" property="userCode" jdbcType="VARCHAR" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
@@ -79,7 +79,7 @@
     USER_ID, USER_CODE, USER_NAME, LOGIN_NAME, PWD, PWD_VALID, PWD_ERROR_NUMBER, LAST_LOGIN_TIME, 
     CREATOR, CREATE_DATE, ISADMIN, STATUS, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TUserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TUserExample" >
     select
     <if test="distinct" >
       distinct
@@ -103,13 +103,13 @@
     delete from t_user
     where USER_ID = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TUserExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TUserExample" >
     delete from t_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TUser" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TUser" >
     insert into t_user (USER_ID, USER_CODE, USER_NAME, 
       LOGIN_NAME, PWD, PWD_VALID, 
       PWD_ERROR_NUMBER, LAST_LOGIN_TIME, CREATOR, 
@@ -121,7 +121,7 @@
       #{createDate,jdbcType=TIMESTAMP}, #{isadmin,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TUser" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TUser" >
     insert into t_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userId != null" >
@@ -212,7 +212,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TUserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TUserExample" resultType="java.lang.Integer" >
     select count(*) from t_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -288,7 +288,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TUser" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TUser" >
     update t_user
     <set >
       <if test="userCode != null" >
@@ -333,7 +333,7 @@
     </set>
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TUser" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TUser" >
     update t_user
     set USER_CODE = #{userCode,jdbcType=VARCHAR},
       USER_NAME = #{userName,jdbcType=VARCHAR},

@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TBlacklistIdnum;
 import com.unionpay.withhold.admin.pojo.TBlacklistIdnumExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TBlacklistIdnumMapper {
     int countByExample(TBlacklistIdnumExample example);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TCardBinMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TCardBin" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TCardBin" >
     <id column="CARDBIN" property="cardbin" jdbcType="VARCHAR" />
     <id column="CARDLEN" property="cardlen" jdbcType="DECIMAL" />
     <result column="BINLEN" property="binlen" jdbcType="DECIMAL" />
@@ -70,7 +70,7 @@
   <sql id="Base_Column_List" >
     CARDBIN, CARDLEN, BINLEN, CARDNAME, BANKCODE, TYPE
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCardBinExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" >
     select
     <if test="distinct" >
       distinct
@@ -84,25 +84,25 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCardBinKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCardBinKey" >
     select 
     <include refid="Base_Column_List" />
     from t_card_bin
     where CARDBIN = #{cardbin,jdbcType=VARCHAR}
       and CARDLEN = #{cardlen,jdbcType=DECIMAL}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TCardBinKey" >
+  <delete id="deleteByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCardBinKey" >
     delete from t_card_bin
     where CARDBIN = #{cardbin,jdbcType=VARCHAR}
       and CARDLEN = #{cardlen,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TCardBinExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" >
     delete from t_card_bin
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TCardBin" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     insert into t_card_bin (CARDBIN, CARDLEN, BINLEN, 
       CARDNAME, BANKCODE, TYPE
       )
@@ -110,7 +110,7 @@
       #{cardname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TCardBin" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     insert into t_card_bin
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cardbin != null" >
@@ -153,7 +153,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TCardBinExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" resultType="java.lang.Integer" >
     select count(*) from t_card_bin
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -197,7 +197,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TCardBin" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     update t_card_bin
     <set >
       <if test="binlen != null" >
@@ -216,7 +216,7 @@
     where CARDBIN = #{cardbin,jdbcType=VARCHAR}
       and CARDLEN = #{cardlen,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TCardBin" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     update t_card_bin
     set BINLEN = #{binlen,jdbcType=DECIMAL},
       CARDNAME = #{cardname,jdbcType=VARCHAR},

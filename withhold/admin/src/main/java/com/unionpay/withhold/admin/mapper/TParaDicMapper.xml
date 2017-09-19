@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TParaDicMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TParaDic" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TParaDic" >
     <id column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="PARA_CODE" property="paraCode" jdbcType="VARCHAR" />
     <result column="PARENT_ID" property="parentId" jdbcType="DECIMAL" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     TID, PARA_CODE, PARENT_ID, PARA_NAME, PARA_TYPE, HAS_SUB, STATUS, ADDED, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TParaDicExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" >
     select
     <if test="distinct" >
       distinct
@@ -97,13 +97,13 @@
     delete from t_para_dic
     where TID = #{tid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TParaDicExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" >
     delete from t_para_dic
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TParaDic" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TParaDic" >
     insert into t_para_dic (TID, PARA_CODE, PARENT_ID, 
       PARA_NAME, PARA_TYPE, HAS_SUB, 
       STATUS, ADDED, REMARKS
@@ -113,7 +113,7 @@
       #{status,jdbcType=DECIMAL}, #{added,jdbcType=DECIMAL}, #{remarks,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TParaDic" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TParaDic" >
     insert into t_para_dic
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -174,7 +174,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TParaDicExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" resultType="java.lang.Integer" >
     select count(*) from t_para_dic
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -230,7 +230,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TParaDic" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TParaDic" >
     update t_para_dic
     <set >
       <if test="paraCode != null" >
@@ -260,7 +260,7 @@
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TParaDic" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TParaDic" >
     update t_para_dic
     set PARA_CODE = #{paraCode,jdbcType=VARCHAR},
       PARENT_ID = #{parentId,jdbcType=DECIMAL},

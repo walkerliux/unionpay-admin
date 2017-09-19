@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TMerchDetaApply" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchDetaApply" >
     <id column="SELF_ID" property="selfId" jdbcType="DECIMAL" />
     <result column="MERCH_ID" property="merchId" jdbcType="DECIMAL" />
     <result column="MEM_ID" property="memId" jdbcType="DECIMAL" />
@@ -99,7 +99,7 @@
     CACODE, MCC, MCC_LIST, transfactors, STATUS, IN_USER, IN_TIME, STEXA_USER, STEXA_TIME, 
     STEXA_OPT, CVLEXA_USER, CVLEXA_TIME, CVLEXA_OPT, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApplyExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample" >
     select
     <if test="distinct" >
       distinct
@@ -123,13 +123,13 @@
     delete from t_merch_deta_apply
     where SELF_ID = #{selfId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApplyExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample" >
     delete from t_merch_deta_apply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApply" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApply" >
     insert into t_merch_deta_apply (SELF_ID, MERCH_ID, MEM_ID, 
       MEMBER_NAME, MEMBER_ID, ADDRESS, 
       POST_CODE, CONTACT, CONT_PHONE, 
@@ -153,7 +153,7 @@
       #{cvlexaUser,jdbcType=DECIMAL}, #{cvlexaTime,jdbcType=TIMESTAMP}, #{cvlexaOpt,jdbcType=VARCHAR}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApply" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApply" >
     insert into t_merch_deta_apply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="selfId != null" >
@@ -352,7 +352,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApplyExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample" resultType="java.lang.Integer" >
     select count(*) from t_merch_deta_apply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -500,7 +500,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApply" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApply" >
     update t_merch_deta_apply
     <set >
       <if test="merchId != null" >
@@ -599,7 +599,7 @@
     </set>
     where SELF_ID = #{selfId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TMerchDetaApply" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchDetaApply" >
     update t_merch_deta_apply
     set MERCH_ID = #{merchId,jdbcType=DECIMAL},
       MEM_ID = #{memId,jdbcType=DECIMAL},

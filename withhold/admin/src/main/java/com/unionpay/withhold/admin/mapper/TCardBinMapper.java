@@ -1,11 +1,10 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TCardBinExample;
 import com.unionpay.withhold.admin.pojo.TCardBinKey;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TCardBinMapper {
     int countByExample(TCardBinExample example);

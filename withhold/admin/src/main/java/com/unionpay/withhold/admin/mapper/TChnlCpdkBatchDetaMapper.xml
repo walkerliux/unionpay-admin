@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkBatchDetaMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDeta" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     <id column="TID" property="tid" jdbcType="CHAR" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
     <result column="batchNo" property="batchno" jdbcType="CHAR" />
@@ -86,7 +86,7 @@
     certType, certId, curyId, transAmt, purpose, priv1, responseCode, message, inTime, 
     upTime, extField
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDetaExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
     select
     <if test="distinct" >
       distinct
@@ -110,13 +110,13 @@
     delete from t_chnl_cpdk_batch_deta
     where TID = #{tid,jdbcType=CHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDetaExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
     delete from t_chnl_cpdk_batch_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDeta" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     insert into t_chnl_cpdk_batch_deta (TID, TXNSEQNO, batchNo, 
       transDate, orderNo, openBankId, 
       cardType, cardNo, usrName, certType, 
@@ -130,7 +130,7 @@
       #{priv1,jdbcType=CHAR}, #{responsecode,jdbcType=CHAR}, #{message,jdbcType=CHAR}, 
       #{intime,jdbcType=CHAR}, #{uptime,jdbcType=CHAR}, #{extfield,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDeta" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     insert into t_chnl_cpdk_batch_deta
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -257,7 +257,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDetaExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_cpdk_batch_deta
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -357,7 +357,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDeta" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     update t_chnl_cpdk_batch_deta
     <set >
       <if test="txnseqno != null" >
@@ -420,7 +420,7 @@
     </set>
     where TID = #{tid,jdbcType=CHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TChnlCpdkBatchDeta" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     update t_chnl_cpdk_batch_deta
     set TXNSEQNO = #{txnseqno,jdbcType=CHAR},
       batchNo = #{batchno,jdbcType=CHAR},

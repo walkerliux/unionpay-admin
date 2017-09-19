@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TUserRoleMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TUserRole" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TUserRole" >
     <id column="USER_ROLE_ID" property="userRoleId" jdbcType="DECIMAL" />
     <result column="USER_ID" property="userId" jdbcType="DECIMAL" />
     <result column="ROLE_ID" property="roleId" jdbcType="DECIMAL" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     USER_ROLE_ID, USER_ID, ROLE_ID
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TUserRoleExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TUserRoleExample" >
     select
     <if test="distinct" >
       distinct
@@ -91,19 +91,19 @@
     delete from t_user_role
     where USER_ROLE_ID = #{userRoleId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TUserRoleExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TUserRoleExample" >
     delete from t_user_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TUserRole" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TUserRole" >
     insert into t_user_role (USER_ROLE_ID, USER_ID, ROLE_ID
       )
     values (#{userRoleId,jdbcType=DECIMAL}, #{userId,jdbcType=DECIMAL}, #{roleId,jdbcType=DECIMAL}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TUserRole" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TUserRole" >
     insert into t_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userRoleId != null" >
@@ -128,7 +128,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TUserRoleExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TUserRoleExample" resultType="java.lang.Integer" >
     select count(*) from t_user_role
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -160,7 +160,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TUserRole" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TUserRole" >
     update t_user_role
     <set >
       <if test="userId != null" >
@@ -172,7 +172,7 @@
     </set>
     where USER_ROLE_ID = #{userRoleId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TUserRole" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TUserRole" >
     update t_user_role
     set USER_ID = #{userId,jdbcType=DECIMAL},
       ROLE_ID = #{roleId,jdbcType=DECIMAL}

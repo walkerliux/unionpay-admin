@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TOrderCollectBatch" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
     <id column="TID" property="tid" jdbcType="DECIMAL" />
     <result column="ACCESSTYPE" property="accesstype" jdbcType="VARCHAR" />
     <result column="COOPINSTIID" property="coopinstiid" jdbcType="VARCHAR" />
@@ -91,7 +91,7 @@
     BACKURL, BATCHNO, TXNTIME, TXNDATE, TOTALQTY, TOTALAMT, RESERVED, RESPCODE, RESPMSG, 
     STATUS, ORDERCOMMITIME, ORDERFINSHTIME, SYNCNOTIFY, TN, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatchExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
     select
     <if test="distinct" >
       distinct
@@ -115,13 +115,13 @@
     delete from t_order_collect_batch
     where TID = #{tid,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatchExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
     delete from t_order_collect_batch
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatch" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
     insert into t_order_collect_batch (TID, ACCESSTYPE, COOPINSTIID, 
       MERID, VERSION, ENCODING, 
       TXNTYPE, TXNSUBTYPE, BIZTYPE, 
@@ -141,7 +141,7 @@
       #{syncnotify,jdbcType=VARCHAR}, #{tn,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatch" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
     insert into t_order_collect_batch
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -298,7 +298,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatchExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" resultType="java.lang.Integer" >
     select count(*) from t_order_collect_batch
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -418,7 +418,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatch" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
     update t_order_collect_batch
     <set >
       <if test="accesstype != null" >
@@ -496,7 +496,7 @@
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TOrderCollectBatch" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
     update t_order_collect_batch
     set ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
       COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},

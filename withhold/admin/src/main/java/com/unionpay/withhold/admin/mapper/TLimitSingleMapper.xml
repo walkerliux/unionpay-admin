@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TLimitSingleMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TLimitSingle" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TLimitSingle" >
     <id column="T_ID" property="tId" jdbcType="DECIMAL" />
     <result column="CASEID" property="caseid" jdbcType="DECIMAL" />
     <result column="MAX_AMOUNT" property="maxAmount" jdbcType="DECIMAL" />
@@ -72,7 +72,7 @@
   <sql id="Base_Column_List" >
     T_ID, CASEID, MAX_AMOUNT, MIN_AMOUNT, RISKLEVEL, STATUS, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TLimitSingleExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" >
     select
     <if test="distinct" >
       distinct
@@ -96,13 +96,13 @@
     delete from t_limit_single
     where T_ID = #{tId,jdbcType=DECIMAL}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TLimitSingleExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" >
     delete from t_limit_single
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TLimitSingle" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
     insert into t_limit_single (T_ID, CASEID, MAX_AMOUNT, 
       MIN_AMOUNT, RISKLEVEL, STATUS, 
       NOTES, REMARKS)
@@ -110,7 +110,7 @@
       #{minAmount,jdbcType=DECIMAL}, #{risklevel,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TLimitSingle" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
     insert into t_limit_single
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tId != null" >
@@ -165,7 +165,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TLimitSingleExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" resultType="java.lang.Integer" >
     select count(*) from t_limit_single
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -217,7 +217,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TLimitSingle" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
     update t_limit_single
     <set >
       <if test="caseid != null" >
@@ -244,7 +244,7 @@
     </set>
     where T_ID = #{tId,jdbcType=DECIMAL}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TLimitSingle" >
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
     update t_limit_single
     set CASEID = #{caseid,jdbcType=DECIMAL},
       MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},

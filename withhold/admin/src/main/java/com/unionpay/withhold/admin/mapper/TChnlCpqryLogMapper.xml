@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpqryLogMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TChnlCpqryLog" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpqryLog" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="merId" property="merid" jdbcType="CHAR" />
     <result column="transType" property="transtype" jdbcType="CHAR" />
@@ -80,7 +80,7 @@
     TID, merId, transType, orderNo, transDate, version, priv1, responseCode, transAmt, 
     curyId, transStat, chnlRetDate, message, inTime, upTime
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TChnlCpqryLogExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpqryLogExample" >
     select
     <if test="distinct" >
       distinct
@@ -94,13 +94,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpqryLogExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpqryLogExample" >
     delete from t_chnl_cpqry_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TChnlCpqryLog" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpqryLog" >
     insert into t_chnl_cpqry_log (TID, merId, transType, 
       orderNo, transDate, version, 
       priv1, responseCode, transAmt, 
@@ -112,7 +112,7 @@
       #{curyid,jdbcType=CHAR}, #{transstat,jdbcType=CHAR}, #{chnlretdate,jdbcType=CHAR}, 
       #{message,jdbcType=CHAR}, #{intime,jdbcType=CHAR}, #{uptime,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TChnlCpqryLog" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpqryLog" >
     insert into t_chnl_cpqry_log
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -209,7 +209,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TChnlCpqryLogExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpqryLogExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_cpqry_log
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

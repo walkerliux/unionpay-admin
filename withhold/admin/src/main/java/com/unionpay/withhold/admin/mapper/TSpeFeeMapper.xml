@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TSpeFeeMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TSpeFee" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSpeFee" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="RATE_ID" property="rateId" jdbcType="CHAR" />
     <result column="RATE_DESC" property="rateDesc" jdbcType="CHAR" />
@@ -69,7 +69,7 @@
   <sql id="Base_Column_List" >
     TID, RATE_ID, RATE_DESC, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" >
     select
     <if test="distinct" >
       distinct
@@ -83,19 +83,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" >
     delete from t_spe_fee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TSpeFee" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
     insert into t_spe_fee (TID, RATE_ID, RATE_DESC, 
       NOTES, REMARKS)
     values (#{tid,jdbcType=CHAR}, #{rateId,jdbcType=CHAR}, #{rateDesc,jdbcType=CHAR}, 
       #{notes,jdbcType=CHAR}, #{remarks,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TSpeFee" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
     insert into t_spe_fee
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TSpeFeeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" resultType="java.lang.Integer" >
     select count(*) from t_spe_fee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

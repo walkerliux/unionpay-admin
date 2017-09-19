@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TChnlDetaExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TChnlDetaMapper {
     int countByExample(TChnlDetaExample example);

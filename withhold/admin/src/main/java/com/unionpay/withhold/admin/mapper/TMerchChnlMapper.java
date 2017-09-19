@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
 import com.unionpay.withhold.admin.pojo.TMerchChnlExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TMerchChnlMapper {
     int countByExample(TMerchChnlExample example);

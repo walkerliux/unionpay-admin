@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TBankMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TBank" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TBank" >
     <result column="TID" property="tid" jdbcType="CHAR" />
     <result column="bankCode" property="bankcode" jdbcType="CHAR" />
     <result column="bankName" property="bankname" jdbcType="CHAR" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     TID, bankCode, bankName
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TBankExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TBankExample" >
     select
     <if test="distinct" >
       distinct
@@ -81,19 +81,19 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TBankExample" >
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TBankExample" >
     delete from t_bank
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TBank" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
     insert into t_bank (TID, bankCode, bankName
       )
     values (#{tid,jdbcType=CHAR}, #{bankcode,jdbcType=CHAR}, #{bankname,jdbcType=CHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TBank" >
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
     insert into t_bank
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
@@ -118,7 +118,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TBankExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TBankExample" resultType="java.lang.Integer" >
     select count(*) from t_bank
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />

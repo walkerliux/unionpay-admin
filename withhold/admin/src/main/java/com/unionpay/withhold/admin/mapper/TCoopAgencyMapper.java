@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TCoopAgencyMapper {
     int countByExample(TCoopAgencyExample example);

@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.pojo.TSettProcessExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TSettProcessMapper {
     int countByExample(TSettProcessExample example);

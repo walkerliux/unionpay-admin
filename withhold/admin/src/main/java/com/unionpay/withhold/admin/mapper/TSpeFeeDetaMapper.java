@@ -1,10 +1,9 @@
 package com.unionpay.withhold.admin.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.unionpay.withhold.admin.pojo.TSpeFeeDeta;
 import com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TSpeFeeDetaMapper {
     int countByExample(TSpeFeeDetaExample example);
