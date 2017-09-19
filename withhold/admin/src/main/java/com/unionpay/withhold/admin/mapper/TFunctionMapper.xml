@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TFunctionMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TFunction" >
+    <id column="FUNCT_ID" property="functId" jdbcType="DECIMAL" />
+    <result column="FUNCT_NAME" property="functName" jdbcType="VARCHAR" />
+    <result column="FUNCT_ORDER" property="functOrder" jdbcType="DECIMAL" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
+    <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="LEVEL_ID" property="levelId" jdbcType="DECIMAL" />
+    <result column="LEAFNODE" property="leafnode" jdbcType="VARCHAR" />
+    <result column="SYS_FLAG" property="sysFlag" jdbcType="VARCHAR" />
+    <result column="FUNCT_TYPE" property="functType" jdbcType="DECIMAL" />
+    <result column="ISADMIN" property="isadmin" jdbcType="VARCHAR" />
+    <result column="MOVE_SORT" property="moveSort" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FUNCT_ID, FUNCT_NAME, FUNCT_ORDER, PARENT_ID, URL, ICON, STATUS, LEVEL_ID, LEAFNODE, 
+    SYS_FLAG, FUNCT_TYPE, ISADMIN, MOVE_SORT, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_function
+    where FUNCT_ID = #{functId,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_function
+    where FUNCT_ID = #{functId,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" >
+    delete from t_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
+    insert into t_function (FUNCT_ID, FUNCT_NAME, FUNCT_ORDER, 
+      PARENT_ID, URL, ICON, 
+      STATUS, LEVEL_ID, LEAFNODE, 
+      SYS_FLAG, FUNCT_TYPE, ISADMIN, 
+      MOVE_SORT, NOTES, REMARKS
+      )
+    values (#{functId,jdbcType=DECIMAL}, #{functName,jdbcType=VARCHAR}, #{functOrder,jdbcType=DECIMAL}, 
+      #{parentId,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{levelId,jdbcType=DECIMAL}, #{leafnode,jdbcType=VARCHAR}, 
+      #{sysFlag,jdbcType=VARCHAR}, #{functType,jdbcType=DECIMAL}, #{isadmin,jdbcType=VARCHAR}, 
+      #{moveSort,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
+    insert into t_function
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="functId != null" >
+        FUNCT_ID,
+      </if>
+      <if test="functName != null" >
+        FUNCT_NAME,
+      </if>
+      <if test="functOrder != null" >
+        FUNCT_ORDER,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="url != null" >
+        URL,
+      </if>
+      <if test="icon != null" >
+        ICON,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="levelId != null" >
+        LEVEL_ID,
+      </if>
+      <if test="leafnode != null" >
+        LEAFNODE,
+      </if>
+      <if test="sysFlag != null" >
+        SYS_FLAG,
+      </if>
+      <if test="functType != null" >
+        FUNCT_TYPE,
+      </if>
+      <if test="isadmin != null" >
+        ISADMIN,
+      </if>
+      <if test="moveSort != null" >
+        MOVE_SORT,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="functId != null" >
+        #{functId,jdbcType=DECIMAL},
+      </if>
+      <if test="functName != null" >
+        #{functName,jdbcType=VARCHAR},
+      </if>
+      <if test="functOrder != null" >
+        #{functOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        #{levelId,jdbcType=DECIMAL},
+      </if>
+      <if test="leafnode != null" >
+        #{leafnode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlag != null" >
+        #{sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="functType != null" >
+        #{functType,jdbcType=DECIMAL},
+      </if>
+      <if test="isadmin != null" >
+        #{isadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="moveSort != null" >
+        #{moveSort,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TFunctionExample" resultType="java.lang.Integer" >
+    select count(*) from t_function
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_function
+    <set >
+      <if test="record.functId != null" >
+        FUNCT_ID = #{record.functId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.functName != null" >
+        FUNCT_NAME = #{record.functName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functOrder != null" >
+        FUNCT_ORDER = #{record.functOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="record.parentId != null" >
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        URL = #{record.url,jdbcType=VARCHAR},
+      </if>
+      <if test="record.icon != null" >
+        ICON = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.levelId != null" >
+        LEVEL_ID = #{record.levelId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.leafnode != null" >
+        LEAFNODE = #{record.leafnode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysFlag != null" >
+        SYS_FLAG = #{record.sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functType != null" >
+        FUNCT_TYPE = #{record.functType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isadmin != null" >
+        ISADMIN = #{record.isadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.moveSort != null" >
+        MOVE_SORT = #{record.moveSort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_function
+    set FUNCT_ID = #{record.functId,jdbcType=DECIMAL},
+      FUNCT_NAME = #{record.functName,jdbcType=VARCHAR},
+      FUNCT_ORDER = #{record.functOrder,jdbcType=DECIMAL},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      URL = #{record.url,jdbcType=VARCHAR},
+      ICON = #{record.icon,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      LEVEL_ID = #{record.levelId,jdbcType=DECIMAL},
+      LEAFNODE = #{record.leafnode,jdbcType=VARCHAR},
+      SYS_FLAG = #{record.sysFlag,jdbcType=VARCHAR},
+      FUNCT_TYPE = #{record.functType,jdbcType=DECIMAL},
+      ISADMIN = #{record.isadmin,jdbcType=VARCHAR},
+      MOVE_SORT = #{record.moveSort,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
+    update t_function
+    <set >
+      <if test="functName != null" >
+        FUNCT_NAME = #{functName,jdbcType=VARCHAR},
+      </if>
+      <if test="functOrder != null" >
+        FUNCT_ORDER = #{functOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null" >
+        ICON = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="levelId != null" >
+        LEVEL_ID = #{levelId,jdbcType=DECIMAL},
+      </if>
+      <if test="leafnode != null" >
+        LEAFNODE = #{leafnode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlag != null" >
+        SYS_FLAG = #{sysFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="functType != null" >
+        FUNCT_TYPE = #{functType,jdbcType=DECIMAL},
+      </if>
+      <if test="isadmin != null" >
+        ISADMIN = #{isadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="moveSort != null" >
+        MOVE_SORT = #{moveSort,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FUNCT_ID = #{functId,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TFunction" >
+    update t_function
+    set FUNCT_NAME = #{functName,jdbcType=VARCHAR},
+      FUNCT_ORDER = #{functOrder,jdbcType=DECIMAL},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      URL = #{url,jdbcType=VARCHAR},
+      ICON = #{icon,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      LEVEL_ID = #{levelId,jdbcType=DECIMAL},
+      LEAFNODE = #{leafnode,jdbcType=VARCHAR},
+      SYS_FLAG = #{sysFlag,jdbcType=VARCHAR},
+      FUNCT_TYPE = #{functType,jdbcType=DECIMAL},
+      ISADMIN = #{isadmin,jdbcType=VARCHAR},
+      MOVE_SORT = #{moveSort,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where FUNCT_ID = #{functId,jdbcType=DECIMAL}
+  </update>
+</mapper>

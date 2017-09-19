@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TOrderCollectSingleMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TOrderCollectSingle" >
+    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="ACCESSTYPE" property="accesstype" jdbcType="VARCHAR" />
+    <result column="COOPINSTIID" property="coopinstiid" jdbcType="VARCHAR" />
+    <result column="MERID" property="merid" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="ENCODING" property="encoding" jdbcType="VARCHAR" />
+    <result column="TXNTYPE" property="txntype" jdbcType="VARCHAR" />
+    <result column="TXNSUBTYPE" property="txnsubtype" jdbcType="VARCHAR" />
+    <result column="BIZTYPE" property="biztype" jdbcType="VARCHAR" />
+    <result column="BACKURL" property="backurl" jdbcType="VARCHAR" />
+    <result column="MERNAME" property="mername" jdbcType="VARCHAR" />
+    <result column="MERABBR" property="merabbr" jdbcType="VARCHAR" />
+    <result column="ORDERID" property="orderid" jdbcType="VARCHAR" />
+    <result column="TXNTIME" property="txntime" jdbcType="VARCHAR" />
+    <result column="PAYTIMEOUT" property="paytimeout" jdbcType="VARCHAR" />
+    <result column="TXNAMT" property="txnamt" jdbcType="DECIMAL" />
+    <result column="CURRENCYCODE" property="currencycode" jdbcType="VARCHAR" />
+    <result column="DEBTORBANK" property="debtorbank" jdbcType="VARCHAR" />
+    <result column="DEBTORACCOUNT" property="debtoraccount" jdbcType="VARCHAR" />
+    <result column="DEBTORNAME" property="debtorname" jdbcType="VARCHAR" />
+    <result column="DEBTORCONSIGN" property="debtorconsign" jdbcType="VARCHAR" />
+    <result column="CREDITORBANK" property="creditorbank" jdbcType="VARCHAR" />
+    <result column="CREDITORACCOUNT" property="creditoraccount" jdbcType="VARCHAR" />
+    <result column="CREDITORNAME" property="creditorname" jdbcType="VARCHAR" />
+    <result column="PROPRIETARY" property="proprietary" jdbcType="VARCHAR" />
+    <result column="SUMMARY" property="summary" jdbcType="VARCHAR" />
+    <result column="ORDERDESC" property="orderdesc" jdbcType="VARCHAR" />
+    <result column="RESERVED" property="reserved" jdbcType="VARCHAR" />
+    <result column="RESPCODE" property="respcode" jdbcType="VARCHAR" />
+    <result column="RESPMSG" property="respmsg" jdbcType="VARCHAR" />
+    <result column="TN" property="tn" jdbcType="VARCHAR" />
+    <result column="RELATETRADETXN" property="relatetradetxn" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="ORDERCOMMITIME" property="ordercommitime" jdbcType="VARCHAR" />
+    <result column="SYNCNOTIFY" property="syncnotify" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, ACCESSTYPE, COOPINSTIID, MERID, VERSION, ENCODING, TXNTYPE, TXNSUBTYPE, BIZTYPE, 
+    BACKURL, MERNAME, MERABBR, ORDERID, TXNTIME, PAYTIMEOUT, TXNAMT, CURRENCYCODE, DEBTORBANK, 
+    DEBTORACCOUNT, DEBTORNAME, DEBTORCONSIGN, CREDITORBANK, CREDITORACCOUNT, CREDITORNAME, 
+    PROPRIETARY, SUMMARY, ORDERDESC, RESERVED, RESPCODE, RESPMSG, TN, RELATETRADETXN, 
+    STATUS, ORDERCOMMITIME, SYNCNOTIFY, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_order_collect_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_collect_single
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_order_collect_single
+    where TID = #{tid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" >
+    delete from t_order_collect_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingle" >
+    insert into t_order_collect_single (TID, ACCESSTYPE, COOPINSTIID, 
+      MERID, VERSION, ENCODING, 
+      TXNTYPE, TXNSUBTYPE, BIZTYPE, 
+      BACKURL, MERNAME, MERABBR, 
+      ORDERID, TXNTIME, PAYTIMEOUT, 
+      TXNAMT, CURRENCYCODE, DEBTORBANK, 
+      DEBTORACCOUNT, DEBTORNAME, DEBTORCONSIGN, 
+      CREDITORBANK, CREDITORACCOUNT, CREDITORNAME, 
+      PROPRIETARY, SUMMARY, ORDERDESC, 
+      RESERVED, RESPCODE, RESPMSG, 
+      TN, RELATETRADETXN, STATUS, 
+      ORDERCOMMITIME, SYNCNOTIFY, NOTES, 
+      REMARKS)
+    values (#{tid,jdbcType=DECIMAL}, #{accesstype,jdbcType=VARCHAR}, #{coopinstiid,jdbcType=VARCHAR}, 
+      #{merid,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{encoding,jdbcType=VARCHAR}, 
+      #{txntype,jdbcType=VARCHAR}, #{txnsubtype,jdbcType=VARCHAR}, #{biztype,jdbcType=VARCHAR}, 
+      #{backurl,jdbcType=VARCHAR}, #{mername,jdbcType=VARCHAR}, #{merabbr,jdbcType=VARCHAR}, 
+      #{orderid,jdbcType=VARCHAR}, #{txntime,jdbcType=VARCHAR}, #{paytimeout,jdbcType=VARCHAR}, 
+      #{txnamt,jdbcType=DECIMAL}, #{currencycode,jdbcType=VARCHAR}, #{debtorbank,jdbcType=VARCHAR}, 
+      #{debtoraccount,jdbcType=VARCHAR}, #{debtorname,jdbcType=VARCHAR}, #{debtorconsign,jdbcType=VARCHAR}, 
+      #{creditorbank,jdbcType=VARCHAR}, #{creditoraccount,jdbcType=VARCHAR}, #{creditorname,jdbcType=VARCHAR}, 
+      #{proprietary,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{orderdesc,jdbcType=VARCHAR}, 
+      #{reserved,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, 
+      #{tn,jdbcType=VARCHAR}, #{relatetradetxn,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{ordercommitime,jdbcType=VARCHAR}, #{syncnotify,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingle" >
+    insert into t_order_collect_single
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="accesstype != null" >
+        ACCESSTYPE,
+      </if>
+      <if test="coopinstiid != null" >
+        COOPINSTIID,
+      </if>
+      <if test="merid != null" >
+        MERID,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="encoding != null" >
+        ENCODING,
+      </if>
+      <if test="txntype != null" >
+        TXNTYPE,
+      </if>
+      <if test="txnsubtype != null" >
+        TXNSUBTYPE,
+      </if>
+      <if test="biztype != null" >
+        BIZTYPE,
+      </if>
+      <if test="backurl != null" >
+        BACKURL,
+      </if>
+      <if test="mername != null" >
+        MERNAME,
+      </if>
+      <if test="merabbr != null" >
+        MERABBR,
+      </if>
+      <if test="orderid != null" >
+        ORDERID,
+      </if>
+      <if test="txntime != null" >
+        TXNTIME,
+      </if>
+      <if test="paytimeout != null" >
+        PAYTIMEOUT,
+      </if>
+      <if test="txnamt != null" >
+        TXNAMT,
+      </if>
+      <if test="currencycode != null" >
+        CURRENCYCODE,
+      </if>
+      <if test="debtorbank != null" >
+        DEBTORBANK,
+      </if>
+      <if test="debtoraccount != null" >
+        DEBTORACCOUNT,
+      </if>
+      <if test="debtorname != null" >
+        DEBTORNAME,
+      </if>
+      <if test="debtorconsign != null" >
+        DEBTORCONSIGN,
+      </if>
+      <if test="creditorbank != null" >
+        CREDITORBANK,
+      </if>
+      <if test="creditoraccount != null" >
+        CREDITORACCOUNT,
+      </if>
+      <if test="creditorname != null" >
+        CREDITORNAME,
+      </if>
+      <if test="proprietary != null" >
+        PROPRIETARY,
+      </if>
+      <if test="summary != null" >
+        SUMMARY,
+      </if>
+      <if test="orderdesc != null" >
+        ORDERDESC,
+      </if>
+      <if test="reserved != null" >
+        RESERVED,
+      </if>
+      <if test="respcode != null" >
+        RESPCODE,
+      </if>
+      <if test="respmsg != null" >
+        RESPMSG,
+      </if>
+      <if test="tn != null" >
+        TN,
+      </if>
+      <if test="relatetradetxn != null" >
+        RELATETRADETXN,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="ordercommitime != null" >
+        ORDERCOMMITIME,
+      </if>
+      <if test="syncnotify != null" >
+        SYNCNOTIFY,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="accesstype != null" >
+        #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null" >
+        #{coopinstiid,jdbcType=VARCHAR},
+      </if>
+      <if test="merid != null" >
+        #{merid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null" >
+        #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null" >
+        #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="txnsubtype != null" >
+        #{txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="biztype != null" >
+        #{biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="backurl != null" >
+        #{backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mername != null" >
+        #{mername,jdbcType=VARCHAR},
+      </if>
+      <if test="merabbr != null" >
+        #{merabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntime != null" >
+        #{txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="paytimeout != null" >
+        #{paytimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="txnamt != null" >
+        #{txnamt,jdbcType=DECIMAL},
+      </if>
+      <if test="currencycode != null" >
+        #{currencycode,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorbank != null" >
+        #{debtorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="debtoraccount != null" >
+        #{debtoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorname != null" >
+        #{debtorname,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorconsign != null" >
+        #{debtorconsign,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorbank != null" >
+        #{creditorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="creditoraccount != null" >
+        #{creditoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorname != null" >
+        #{creditorname,jdbcType=VARCHAR},
+      </if>
+      <if test="proprietary != null" >
+        #{proprietary,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdesc != null" >
+        #{orderdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved != null" >
+        #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null" >
+        #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respmsg != null" >
+        #{respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null" >
+        #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="relatetradetxn != null" >
+        #{relatetradetxn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="ordercommitime != null" >
+        #{ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="syncnotify != null" >
+        #{syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_collect_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_order_collect_single
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accesstype != null" >
+        ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coopinstiid != null" >
+        COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merid != null" >
+        MERID = #{record.merid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encoding != null" >
+        ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txntype != null" >
+        TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txnsubtype != null" >
+        TXNSUBTYPE = #{record.txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.biztype != null" >
+        BIZTYPE = #{record.biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backurl != null" >
+        BACKURL = #{record.backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mername != null" >
+        MERNAME = #{record.mername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merabbr != null" >
+        MERABBR = #{record.merabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderid != null" >
+        ORDERID = #{record.orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txntime != null" >
+        TXNTIME = #{record.txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paytimeout != null" >
+        PAYTIMEOUT = #{record.paytimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txnamt != null" >
+        TXNAMT = #{record.txnamt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.currencycode != null" >
+        CURRENCYCODE = #{record.currencycode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtorbank != null" >
+        DEBTORBANK = #{record.debtorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtoraccount != null" >
+        DEBTORACCOUNT = #{record.debtoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtorname != null" >
+        DEBTORNAME = #{record.debtorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.debtorconsign != null" >
+        DEBTORCONSIGN = #{record.debtorconsign,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditorbank != null" >
+        CREDITORBANK = #{record.creditorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditoraccount != null" >
+        CREDITORACCOUNT = #{record.creditoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creditorname != null" >
+        CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proprietary != null" >
+        PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.summary != null" >
+        SUMMARY = #{record.summary,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderdesc != null" >
+        ORDERDESC = #{record.orderdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserved != null" >
+        RESERVED = #{record.reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respcode != null" >
+        RESPCODE = #{record.respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respmsg != null" >
+        RESPMSG = #{record.respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tn != null" >
+        TN = #{record.tn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.relatetradetxn != null" >
+        RELATETRADETXN = #{record.relatetradetxn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=CHAR},
+      </if>
+      <if test="record.ordercommitime != null" >
+        ORDERCOMMITIME = #{record.ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syncnotify != null" >
+        SYNCNOTIFY = #{record.syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_order_collect_single
+    set TID = #{record.tid,jdbcType=DECIMAL},
+      ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
+      MERID = #{record.merid,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
+      TXNSUBTYPE = #{record.txnsubtype,jdbcType=VARCHAR},
+      BIZTYPE = #{record.biztype,jdbcType=VARCHAR},
+      BACKURL = #{record.backurl,jdbcType=VARCHAR},
+      MERNAME = #{record.mername,jdbcType=VARCHAR},
+      MERABBR = #{record.merabbr,jdbcType=VARCHAR},
+      ORDERID = #{record.orderid,jdbcType=VARCHAR},
+      TXNTIME = #{record.txntime,jdbcType=VARCHAR},
+      PAYTIMEOUT = #{record.paytimeout,jdbcType=VARCHAR},
+      TXNAMT = #{record.txnamt,jdbcType=DECIMAL},
+      CURRENCYCODE = #{record.currencycode,jdbcType=VARCHAR},
+      DEBTORBANK = #{record.debtorbank,jdbcType=VARCHAR},
+      DEBTORACCOUNT = #{record.debtoraccount,jdbcType=VARCHAR},
+      DEBTORNAME = #{record.debtorname,jdbcType=VARCHAR},
+      DEBTORCONSIGN = #{record.debtorconsign,jdbcType=VARCHAR},
+      CREDITORBANK = #{record.creditorbank,jdbcType=VARCHAR},
+      CREDITORACCOUNT = #{record.creditoraccount,jdbcType=VARCHAR},
+      CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
+      PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
+      SUMMARY = #{record.summary,jdbcType=VARCHAR},
+      ORDERDESC = #{record.orderdesc,jdbcType=VARCHAR},
+      RESERVED = #{record.reserved,jdbcType=VARCHAR},
+      RESPCODE = #{record.respcode,jdbcType=VARCHAR},
+      RESPMSG = #{record.respmsg,jdbcType=VARCHAR},
+      TN = #{record.tn,jdbcType=VARCHAR},
+      RELATETRADETXN = #{record.relatetradetxn,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=CHAR},
+      ORDERCOMMITIME = #{record.ordercommitime,jdbcType=VARCHAR},
+      SYNCNOTIFY = #{record.syncnotify,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingle" >
+    update t_order_collect_single
+    <set >
+      <if test="accesstype != null" >
+        ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null" >
+        COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
+      </if>
+      <if test="merid != null" >
+        MERID = #{merid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null" >
+        ENCODING = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null" >
+        TXNTYPE = #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="txnsubtype != null" >
+        TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="biztype != null" >
+        BIZTYPE = #{biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="backurl != null" >
+        BACKURL = #{backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mername != null" >
+        MERNAME = #{mername,jdbcType=VARCHAR},
+      </if>
+      <if test="merabbr != null" >
+        MERABBR = #{merabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null" >
+        ORDERID = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntime != null" >
+        TXNTIME = #{txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="paytimeout != null" >
+        PAYTIMEOUT = #{paytimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="txnamt != null" >
+        TXNAMT = #{txnamt,jdbcType=DECIMAL},
+      </if>
+      <if test="currencycode != null" >
+        CURRENCYCODE = #{currencycode,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorbank != null" >
+        DEBTORBANK = #{debtorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="debtoraccount != null" >
+        DEBTORACCOUNT = #{debtoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorname != null" >
+        DEBTORNAME = #{debtorname,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorconsign != null" >
+        DEBTORCONSIGN = #{debtorconsign,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorbank != null" >
+        CREDITORBANK = #{creditorbank,jdbcType=VARCHAR},
+      </if>
+      <if test="creditoraccount != null" >
+        CREDITORACCOUNT = #{creditoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="creditorname != null" >
+        CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
+      </if>
+      <if test="proprietary != null" >
+        PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null" >
+        SUMMARY = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdesc != null" >
+        ORDERDESC = #{orderdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved != null" >
+        RESERVED = #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null" >
+        RESPCODE = #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respmsg != null" >
+        RESPMSG = #{respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null" >
+        TN = #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="relatetradetxn != null" >
+        RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="ordercommitime != null" >
+        ORDERCOMMITIME = #{ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="syncnotify != null" >
+        SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingle" >
+    update t_order_collect_single
+    set ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
+      MERID = #{merid,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      ENCODING = #{encoding,jdbcType=VARCHAR},
+      TXNTYPE = #{txntype,jdbcType=VARCHAR},
+      TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
+      BIZTYPE = #{biztype,jdbcType=VARCHAR},
+      BACKURL = #{backurl,jdbcType=VARCHAR},
+      MERNAME = #{mername,jdbcType=VARCHAR},
+      MERABBR = #{merabbr,jdbcType=VARCHAR},
+      ORDERID = #{orderid,jdbcType=VARCHAR},
+      TXNTIME = #{txntime,jdbcType=VARCHAR},
+      PAYTIMEOUT = #{paytimeout,jdbcType=VARCHAR},
+      TXNAMT = #{txnamt,jdbcType=DECIMAL},
+      CURRENCYCODE = #{currencycode,jdbcType=VARCHAR},
+      DEBTORBANK = #{debtorbank,jdbcType=VARCHAR},
+      DEBTORACCOUNT = #{debtoraccount,jdbcType=VARCHAR},
+      DEBTORNAME = #{debtorname,jdbcType=VARCHAR},
+      DEBTORCONSIGN = #{debtorconsign,jdbcType=VARCHAR},
+      CREDITORBANK = #{creditorbank,jdbcType=VARCHAR},
+      CREDITORACCOUNT = #{creditoraccount,jdbcType=VARCHAR},
+      CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
+      PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
+      SUMMARY = #{summary,jdbcType=VARCHAR},
+      ORDERDESC = #{orderdesc,jdbcType=VARCHAR},
+      RESERVED = #{reserved,jdbcType=VARCHAR},
+      RESPCODE = #{respcode,jdbcType=VARCHAR},
+      RESPMSG = #{respmsg,jdbcType=VARCHAR},
+      TN = #{tn,jdbcType=VARCHAR},
+      RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=CHAR},
+      ORDERCOMMITIME = #{ordercommitime,jdbcType=VARCHAR},
+      SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+</mapper>

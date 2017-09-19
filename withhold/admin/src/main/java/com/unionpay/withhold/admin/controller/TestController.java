@@ -20,6 +20,7 @@ public class TestController {
 	@ResponseBody
 	public String test(String data){
 	    return "test ok!1233443"+data;
+        
 	}
 }
 

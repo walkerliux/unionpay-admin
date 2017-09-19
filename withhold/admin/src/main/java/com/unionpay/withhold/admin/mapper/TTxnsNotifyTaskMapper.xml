@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TTxnsNotifyTaskMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
+    <id column="ID" property="id" jdbcType="DECIMAL" />
+    <result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
+    <result column="SEND_TIMES" property="sendTimes" jdbcType="DECIMAL" />
+    <result column="MAX_SEND_TIMES" property="maxSendTimes" jdbcType="DECIMAL" />
+    <result column="DATA" property="data" jdbcType="VARCHAR" />
+    <result column="SEND_STATUS" property="sendStatus" jdbcType="VARCHAR" />
+    <result column="HTTP_RESCODE" property="httpRescode" jdbcType="VARCHAR" />
+    <result column="NOTIFY_URL" property="notifyUrl" jdbcType="VARCHAR" />
+    <result column="TASK_TYPE" property="taskType" jdbcType="VARCHAR" />
+    <result column="TARDE_TYPE" property="tardeType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MEMBER_ID, TXNSEQNO, SEND_TIMES, MAX_SEND_TIMES, DATA, SEND_STATUS, HTTP_RESCODE, 
+    NOTIFY_URL, TASK_TYPE, TARDE_TYPE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_txns_notify_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_txns_notify_task
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_txns_notify_task
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" >
+    delete from t_txns_notify_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
+    insert into t_txns_notify_task (ID, MEMBER_ID, TXNSEQNO, 
+      SEND_TIMES, MAX_SEND_TIMES, DATA, 
+      SEND_STATUS, HTTP_RESCODE, NOTIFY_URL, 
+      TASK_TYPE, TARDE_TYPE)
+    values (#{id,jdbcType=DECIMAL}, #{memberId,jdbcType=VARCHAR}, #{txnseqno,jdbcType=VARCHAR}, 
+      #{sendTimes,jdbcType=DECIMAL}, #{maxSendTimes,jdbcType=DECIMAL}, #{data,jdbcType=VARCHAR}, 
+      #{sendStatus,jdbcType=VARCHAR}, #{httpRescode,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=VARCHAR}, #{tardeType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
+    insert into t_txns_notify_task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="memberId != null" >
+        MEMBER_ID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="sendTimes != null" >
+        SEND_TIMES,
+      </if>
+      <if test="maxSendTimes != null" >
+        MAX_SEND_TIMES,
+      </if>
+      <if test="data != null" >
+        DATA,
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS,
+      </if>
+      <if test="httpRescode != null" >
+        HTTP_RESCODE,
+      </if>
+      <if test="notifyUrl != null" >
+        NOTIFY_URL,
+      </if>
+      <if test="taskType != null" >
+        TASK_TYPE,
+      </if>
+      <if test="tardeType != null" >
+        TARDE_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTimes != null" >
+        #{sendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="maxSendTimes != null" >
+        #{maxSendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        #{sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="httpRescode != null" >
+        #{httpRescode,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null" >
+        #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="tardeType != null" >
+        #{tardeType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTaskExample" resultType="java.lang.Integer" >
+    select count(*) from t_txns_notify_task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_txns_notify_task
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.memberId != null" >
+        MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txnseqno != null" >
+        TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTimes != null" >
+        SEND_TIMES = #{record.sendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxSendTimes != null" >
+        MAX_SEND_TIMES = #{record.maxSendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="record.data != null" >
+        DATA = #{record.data,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendStatus != null" >
+        SEND_STATUS = #{record.sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.httpRescode != null" >
+        HTTP_RESCODE = #{record.httpRescode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notifyUrl != null" >
+        NOTIFY_URL = #{record.notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskType != null" >
+        TASK_TYPE = #{record.taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tardeType != null" >
+        TARDE_TYPE = #{record.tardeType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_txns_notify_task
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
+      TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      SEND_TIMES = #{record.sendTimes,jdbcType=DECIMAL},
+      MAX_SEND_TIMES = #{record.maxSendTimes,jdbcType=DECIMAL},
+      DATA = #{record.data,jdbcType=VARCHAR},
+      SEND_STATUS = #{record.sendStatus,jdbcType=VARCHAR},
+      HTTP_RESCODE = #{record.httpRescode,jdbcType=VARCHAR},
+      NOTIFY_URL = #{record.notifyUrl,jdbcType=VARCHAR},
+      TASK_TYPE = #{record.taskType,jdbcType=VARCHAR},
+      TARDE_TYPE = #{record.tardeType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
+    update t_txns_notify_task
+    <set >
+      <if test="memberId != null" >
+        MEMBER_ID = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTimes != null" >
+        SEND_TIMES = #{sendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="maxSendTimes != null" >
+        MAX_SEND_TIMES = #{maxSendTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="data != null" >
+        DATA = #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="sendStatus != null" >
+        SEND_STATUS = #{sendStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="httpRescode != null" >
+        HTTP_RESCODE = #{httpRescode,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null" >
+        NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      </if>
+      <if test="tardeType != null" >
+        TARDE_TYPE = #{tardeType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TTxnsNotifyTask" >
+    update t_txns_notify_task
+    set MEMBER_ID = #{memberId,jdbcType=VARCHAR},
+      TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      SEND_TIMES = #{sendTimes,jdbcType=DECIMAL},
+      MAX_SEND_TIMES = #{maxSendTimes,jdbcType=DECIMAL},
+      DATA = #{data,jdbcType=VARCHAR},
+      SEND_STATUS = #{sendStatus,jdbcType=VARCHAR},
+      HTTP_RESCODE = #{httpRescode,jdbcType=VARCHAR},
+      NOTIFY_URL = #{notifyUrl,jdbcType=VARCHAR},
+      TASK_TYPE = #{taskType,jdbcType=VARCHAR},
+      TARDE_TYPE = #{tardeType,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

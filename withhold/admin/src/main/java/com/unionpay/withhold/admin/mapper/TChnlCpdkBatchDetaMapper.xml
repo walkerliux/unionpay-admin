@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkBatchDetaMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
+    <id column="TID" property="tid" jdbcType="CHAR" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
+    <result column="batchNo" property="batchno" jdbcType="CHAR" />
+    <result column="transDate" property="transdate" jdbcType="CHAR" />
+    <result column="orderNo" property="orderno" jdbcType="CHAR" />
+    <result column="openBankId" property="openbankid" jdbcType="CHAR" />
+    <result column="cardType" property="cardtype" jdbcType="CHAR" />
+    <result column="cardNo" property="cardno" jdbcType="CHAR" />
+    <result column="usrName" property="usrname" jdbcType="CHAR" />
+    <result column="certType" property="certtype" jdbcType="CHAR" />
+    <result column="certId" property="certid" jdbcType="CHAR" />
+    <result column="curyId" property="curyid" jdbcType="CHAR" />
+    <result column="transAmt" property="transamt" jdbcType="CHAR" />
+    <result column="purpose" property="purpose" jdbcType="CHAR" />
+    <result column="priv1" property="priv1" jdbcType="CHAR" />
+    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
+    <result column="message" property="message" jdbcType="CHAR" />
+    <result column="inTime" property="intime" jdbcType="CHAR" />
+    <result column="upTime" property="uptime" jdbcType="CHAR" />
+    <result column="extField" property="extfield" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TXNSEQNO, batchNo, transDate, orderNo, openBankId, cardType, cardNo, usrName, 
+    certType, certId, curyId, transAmt, purpose, priv1, responseCode, message, inTime, 
+    upTime, extField
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_batch_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_batch_deta
+    where TID = #{tid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_chnl_cpdk_batch_deta
+    where TID = #{tid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
+    delete from t_chnl_cpdk_batch_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
+    insert into t_chnl_cpdk_batch_deta (TID, TXNSEQNO, batchNo, 
+      transDate, orderNo, openBankId, 
+      cardType, cardNo, usrName, certType, 
+      certId, curyId, transAmt, purpose, 
+      priv1, responseCode, message, 
+      inTime, upTime, extField)
+    values (#{tid,jdbcType=CHAR}, #{txnseqno,jdbcType=CHAR}, #{batchno,jdbcType=CHAR}, 
+      #{transdate,jdbcType=CHAR}, #{orderno,jdbcType=CHAR}, #{openbankid,jdbcType=CHAR}, 
+      #{cardtype,jdbcType=CHAR}, #{cardno,jdbcType=CHAR}, #{usrname,jdbcType=CHAR}, #{certtype,jdbcType=CHAR}, 
+      #{certid,jdbcType=CHAR}, #{curyid,jdbcType=CHAR}, #{transamt,jdbcType=CHAR}, #{purpose,jdbcType=CHAR}, 
+      #{priv1,jdbcType=CHAR}, #{responsecode,jdbcType=CHAR}, #{message,jdbcType=CHAR}, 
+      #{intime,jdbcType=CHAR}, #{uptime,jdbcType=CHAR}, #{extfield,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
+    insert into t_chnl_cpdk_batch_deta
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="batchno != null" >
+        batchNo,
+      </if>
+      <if test="transdate != null" >
+        transDate,
+      </if>
+      <if test="orderno != null" >
+        orderNo,
+      </if>
+      <if test="openbankid != null" >
+        openBankId,
+      </if>
+      <if test="cardtype != null" >
+        cardType,
+      </if>
+      <if test="cardno != null" >
+        cardNo,
+      </if>
+      <if test="usrname != null" >
+        usrName,
+      </if>
+      <if test="certtype != null" >
+        certType,
+      </if>
+      <if test="certid != null" >
+        certId,
+      </if>
+      <if test="curyid != null" >
+        curyId,
+      </if>
+      <if test="transamt != null" >
+        transAmt,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="priv1 != null" >
+        priv1,
+      </if>
+      <if test="responsecode != null" >
+        responseCode,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="intime != null" >
+        inTime,
+      </if>
+      <if test="uptime != null" >
+        upTime,
+      </if>
+      <if test="extfield != null" >
+        extField,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=CHAR},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="batchno != null" >
+        #{batchno,jdbcType=CHAR},
+      </if>
+      <if test="transdate != null" >
+        #{transdate,jdbcType=CHAR},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=CHAR},
+      </if>
+      <if test="openbankid != null" >
+        #{openbankid,jdbcType=CHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=CHAR},
+      </if>
+      <if test="cardno != null" >
+        #{cardno,jdbcType=CHAR},
+      </if>
+      <if test="usrname != null" >
+        #{usrname,jdbcType=CHAR},
+      </if>
+      <if test="certtype != null" >
+        #{certtype,jdbcType=CHAR},
+      </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=CHAR},
+      </if>
+      <if test="curyid != null" >
+        #{curyid,jdbcType=CHAR},
+      </if>
+      <if test="transamt != null" >
+        #{transamt,jdbcType=CHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=CHAR},
+      </if>
+      <if test="priv1 != null" >
+        #{priv1,jdbcType=CHAR},
+      </if>
+      <if test="responsecode != null" >
+        #{responsecode,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=CHAR},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=CHAR},
+      </if>
+      <if test="extfield != null" >
+        #{extfield,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_cpdk_batch_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_chnl_cpdk_batch_deta
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=CHAR},
+      </if>
+      <if test="record.txnseqno != null" >
+        TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="record.batchno != null" >
+        batchNo = #{record.batchno,jdbcType=CHAR},
+      </if>
+      <if test="record.transdate != null" >
+        transDate = #{record.transdate,jdbcType=CHAR},
+      </if>
+      <if test="record.orderno != null" >
+        orderNo = #{record.orderno,jdbcType=CHAR},
+      </if>
+      <if test="record.openbankid != null" >
+        openBankId = #{record.openbankid,jdbcType=CHAR},
+      </if>
+      <if test="record.cardtype != null" >
+        cardType = #{record.cardtype,jdbcType=CHAR},
+      </if>
+      <if test="record.cardno != null" >
+        cardNo = #{record.cardno,jdbcType=CHAR},
+      </if>
+      <if test="record.usrname != null" >
+        usrName = #{record.usrname,jdbcType=CHAR},
+      </if>
+      <if test="record.certtype != null" >
+        certType = #{record.certtype,jdbcType=CHAR},
+      </if>
+      <if test="record.certid != null" >
+        certId = #{record.certid,jdbcType=CHAR},
+      </if>
+      <if test="record.curyid != null" >
+        curyId = #{record.curyid,jdbcType=CHAR},
+      </if>
+      <if test="record.transamt != null" >
+        transAmt = #{record.transamt,jdbcType=CHAR},
+      </if>
+      <if test="record.purpose != null" >
+        purpose = #{record.purpose,jdbcType=CHAR},
+      </if>
+      <if test="record.priv1 != null" >
+        priv1 = #{record.priv1,jdbcType=CHAR},
+      </if>
+      <if test="record.responsecode != null" >
+        responseCode = #{record.responsecode,jdbcType=CHAR},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=CHAR},
+      </if>
+      <if test="record.intime != null" >
+        inTime = #{record.intime,jdbcType=CHAR},
+      </if>
+      <if test="record.uptime != null" >
+        upTime = #{record.uptime,jdbcType=CHAR},
+      </if>
+      <if test="record.extfield != null" >
+        extField = #{record.extfield,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_chnl_cpdk_batch_deta
+    set TID = #{record.tid,jdbcType=CHAR},
+      TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
+      batchNo = #{record.batchno,jdbcType=CHAR},
+      transDate = #{record.transdate,jdbcType=CHAR},
+      orderNo = #{record.orderno,jdbcType=CHAR},
+      openBankId = #{record.openbankid,jdbcType=CHAR},
+      cardType = #{record.cardtype,jdbcType=CHAR},
+      cardNo = #{record.cardno,jdbcType=CHAR},
+      usrName = #{record.usrname,jdbcType=CHAR},
+      certType = #{record.certtype,jdbcType=CHAR},
+      certId = #{record.certid,jdbcType=CHAR},
+      curyId = #{record.curyid,jdbcType=CHAR},
+      transAmt = #{record.transamt,jdbcType=CHAR},
+      purpose = #{record.purpose,jdbcType=CHAR},
+      priv1 = #{record.priv1,jdbcType=CHAR},
+      responseCode = #{record.responsecode,jdbcType=CHAR},
+      message = #{record.message,jdbcType=CHAR},
+      inTime = #{record.intime,jdbcType=CHAR},
+      upTime = #{record.uptime,jdbcType=CHAR},
+      extField = #{record.extfield,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
+    update t_chnl_cpdk_batch_deta
+    <set >
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="batchno != null" >
+        batchNo = #{batchno,jdbcType=CHAR},
+      </if>
+      <if test="transdate != null" >
+        transDate = #{transdate,jdbcType=CHAR},
+      </if>
+      <if test="orderno != null" >
+        orderNo = #{orderno,jdbcType=CHAR},
+      </if>
+      <if test="openbankid != null" >
+        openBankId = #{openbankid,jdbcType=CHAR},
+      </if>
+      <if test="cardtype != null" >
+        cardType = #{cardtype,jdbcType=CHAR},
+      </if>
+      <if test="cardno != null" >
+        cardNo = #{cardno,jdbcType=CHAR},
+      </if>
+      <if test="usrname != null" >
+        usrName = #{usrname,jdbcType=CHAR},
+      </if>
+      <if test="certtype != null" >
+        certType = #{certtype,jdbcType=CHAR},
+      </if>
+      <if test="certid != null" >
+        certId = #{certid,jdbcType=CHAR},
+      </if>
+      <if test="curyid != null" >
+        curyId = #{curyid,jdbcType=CHAR},
+      </if>
+      <if test="transamt != null" >
+        transAmt = #{transamt,jdbcType=CHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=CHAR},
+      </if>
+      <if test="priv1 != null" >
+        priv1 = #{priv1,jdbcType=CHAR},
+      </if>
+      <if test="responsecode != null" >
+        responseCode = #{responsecode,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        inTime = #{intime,jdbcType=CHAR},
+      </if>
+      <if test="uptime != null" >
+        upTime = #{uptime,jdbcType=CHAR},
+      </if>
+      <if test="extfield != null" >
+        extField = #{extfield,jdbcType=CHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
+    update t_chnl_cpdk_batch_deta
+    set TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      batchNo = #{batchno,jdbcType=CHAR},
+      transDate = #{transdate,jdbcType=CHAR},
+      orderNo = #{orderno,jdbcType=CHAR},
+      openBankId = #{openbankid,jdbcType=CHAR},
+      cardType = #{cardtype,jdbcType=CHAR},
+      cardNo = #{cardno,jdbcType=CHAR},
+      usrName = #{usrname,jdbcType=CHAR},
+      certType = #{certtype,jdbcType=CHAR},
+      certId = #{certid,jdbcType=CHAR},
+      curyId = #{curyid,jdbcType=CHAR},
+      transAmt = #{transamt,jdbcType=CHAR},
+      purpose = #{purpose,jdbcType=CHAR},
+      priv1 = #{priv1,jdbcType=CHAR},
+      responseCode = #{responsecode,jdbcType=CHAR},
+      message = #{message,jdbcType=CHAR},
+      inTime = #{intime,jdbcType=CHAR},
+      upTime = #{uptime,jdbcType=CHAR},
+      extField = #{extfield,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=CHAR}
+  </update>
+</mapper>
