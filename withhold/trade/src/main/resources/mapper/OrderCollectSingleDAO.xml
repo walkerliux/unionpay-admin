@@ -715,4 +715,9 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
+  <select id="getCollctSingleOrder" resultMap="BaseResultMap"
+	parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO">
+	select * from t_order_collect_single 
+		where MERID = #{merid,jdbcType=VARCHAR} and ORDERID = #{orderid,jdbcType=VARCHAR}
+</select>
 </mapper>

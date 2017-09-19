@@ -1,5 +1,10 @@
 package com.unionpay.withhold.admin.mapper;
 
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample;
 import java.util.List;
