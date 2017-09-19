@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TCphpNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TCphpNotice" >
+    <result column="TID" property="tid" jdbcType="CHAR" />
+    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
+    <result column="message" property="message" jdbcType="CHAR" />
+    <result column="merId" property="merid" jdbcType="CHAR" />
+    <result column="orFileName" property="orfilename" jdbcType="CHAR" />
+    <result column="fileName" property="filename" jdbcType="CHAR" />
+    <result column="inTime" property="intime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, responseCode, message, merId, orFileName, fileName, inTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_cphp_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" >
+    delete from t_cphp_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TCphpNotice" >
+    insert into t_cphp_notice (TID, responseCode, message, 
+      merId, orFileName, fileName, 
+      inTime)
+    values (#{tid,jdbcType=CHAR}, #{responsecode,jdbcType=CHAR}, #{message,jdbcType=CHAR}, 
+      #{merid,jdbcType=CHAR}, #{orfilename,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, 
+      #{intime,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TCphpNotice" >
+    insert into t_cphp_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="responsecode != null" >
+        responseCode,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="merid != null" >
+        merId,
+      </if>
+      <if test="orfilename != null" >
+        orFileName,
+      </if>
+      <if test="filename != null" >
+        fileName,
+      </if>
+      <if test="intime != null" >
+        inTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=CHAR},
+      </if>
+      <if test="responsecode != null" >
+        #{responsecode,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=CHAR},
+      </if>
+      <if test="merid != null" >
+        #{merid,jdbcType=CHAR},
+      </if>
+      <if test="orfilename != null" >
+        #{orfilename,jdbcType=CHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TCphpNoticeExample" resultType="java.lang.Integer" >
+    select count(*) from t_cphp_notice
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_cphp_notice
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=CHAR},
+      </if>
+      <if test="record.responsecode != null" >
+        responseCode = #{record.responsecode,jdbcType=CHAR},
+      </if>
+      <if test="record.message != null" >
+        message = #{record.message,jdbcType=CHAR},
+      </if>
+      <if test="record.merid != null" >
+        merId = #{record.merid,jdbcType=CHAR},
+      </if>
+      <if test="record.orfilename != null" >
+        orFileName = #{record.orfilename,jdbcType=CHAR},
+      </if>
+      <if test="record.filename != null" >
+        fileName = #{record.filename,jdbcType=CHAR},
+      </if>
+      <if test="record.intime != null" >
+        inTime = #{record.intime,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_cphp_notice
+    set TID = #{record.tid,jdbcType=CHAR},
+      responseCode = #{record.responsecode,jdbcType=CHAR},
+      message = #{record.message,jdbcType=CHAR},
+      merId = #{record.merid,jdbcType=CHAR},
+      orFileName = #{record.orfilename,jdbcType=CHAR},
+      fileName = #{record.filename,jdbcType=CHAR},
+      inTime = #{record.intime,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
