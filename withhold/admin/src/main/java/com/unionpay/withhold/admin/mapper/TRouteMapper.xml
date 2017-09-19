@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TRouteMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TRoute" >
+    <id column="ROUTID" property="routid" jdbcType="INTEGER" />
+    <result column="ROUTVER" property="routver" jdbcType="VARCHAR" />
+    <result column="ROUTNAME" property="routname" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="INUSER" property="inuser" jdbcType="DECIMAL" />
+    <result column="UPTIME" property="uptime" jdbcType="TIMESTAMP" />
+    <result column="UPUSER" property="upuser" jdbcType="DECIMAL" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ROUTID, ROUTVER, ROUTNAME, STATUS, INTIME, INUSER, UPTIME, UPUSER, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TRouteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_route
+    where ROUTID = #{routid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_route
+    where ROUTID = #{routid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TRouteExample" >
+    delete from t_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TRoute" >
+    insert into t_route (ROUTID, ROUTVER, ROUTNAME, 
+      STATUS, INTIME, INUSER, 
+      UPTIME, UPUSER, NOTES, 
+      REMARKS)
+    values (#{routid,jdbcType=INTEGER}, #{routver,jdbcType=VARCHAR}, #{routname,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, 
+      #{uptime,jdbcType=TIMESTAMP}, #{upuser,jdbcType=DECIMAL}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TRoute" >
+    insert into t_route
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="routid != null" >
+        ROUTID,
+      </if>
+      <if test="routver != null" >
+        ROUTVER,
+      </if>
+      <if test="routname != null" >
+        ROUTNAME,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="uptime != null" >
+        UPTIME,
+      </if>
+      <if test="upuser != null" >
+        UPUSER,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="routid != null" >
+        #{routid,jdbcType=INTEGER},
+      </if>
+      <if test="routver != null" >
+        #{routver,jdbcType=VARCHAR},
+      </if>
+      <if test="routname != null" >
+        #{routname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null" >
+        #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TRouteExample" resultType="java.lang.Integer" >
+    select count(*) from t_route
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_route
+    <set >
+      <if test="record.routid != null" >
+        ROUTID = #{record.routid,jdbcType=INTEGER},
+      </if>
+      <if test="record.routver != null" >
+        ROUTVER = #{record.routver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.routname != null" >
+        ROUTNAME = #{record.routname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uptime != null" >
+        UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upuser != null" >
+        UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_route
+    set ROUTID = #{record.routid,jdbcType=INTEGER},
+      ROUTVER = #{record.routver,jdbcType=VARCHAR},
+      ROUTNAME = #{record.routname,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TRoute" >
+    update t_route
+    <set >
+      <if test="routver != null" >
+        ROUTVER = #{routver,jdbcType=VARCHAR},
+      </if>
+      <if test="routname != null" >
+        ROUTNAME = #{routname,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null" >
+        UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null" >
+        UPUSER = #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROUTID = #{routid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TRoute" >
+    update t_route
+    set ROUTVER = #{routver,jdbcType=VARCHAR},
+      ROUTNAME = #{routname,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{upuser,jdbcType=DECIMAL},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where ROUTID = #{routid,jdbcType=INTEGER}
+  </update>
+</mapper>

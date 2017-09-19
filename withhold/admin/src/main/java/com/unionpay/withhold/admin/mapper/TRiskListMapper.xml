@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TRiskListMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TRiskList" >
+    <id column="ORDERS" property="orders" jdbcType="DECIMAL" />
+    <result column="RID" property="rid" jdbcType="DECIMAL" />
+    <result column="STRATEGY" property="strategy" jdbcType="VARCHAR" />
+    <result column="EXCFNC" property="excfnc" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ORDERS, RID, STRATEGY, EXCFNC, NOTES, REMARKS, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TRiskListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_risk_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_risk_list
+    where ORDERS = #{orders,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from t_risk_list
+    where ORDERS = #{orders,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TRiskListExample" >
+    delete from t_risk_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TRiskList" >
+    insert into t_risk_list (ORDERS, RID, STRATEGY, 
+      EXCFNC, NOTES, REMARKS, 
+      STATUS)
+    values (#{orders,jdbcType=DECIMAL}, #{rid,jdbcType=DECIMAL}, #{strategy,jdbcType=VARCHAR}, 
+      #{excfnc,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TRiskList" >
+    insert into t_risk_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orders != null" >
+        ORDERS,
+      </if>
+      <if test="rid != null" >
+        RID,
+      </if>
+      <if test="strategy != null" >
+        STRATEGY,
+      </if>
+      <if test="excfnc != null" >
+        EXCFNC,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orders != null" >
+        #{orders,jdbcType=DECIMAL},
+      </if>
+      <if test="rid != null" >
+        #{rid,jdbcType=DECIMAL},
+      </if>
+      <if test="strategy != null" >
+        #{strategy,jdbcType=VARCHAR},
+      </if>
+      <if test="excfnc != null" >
+        #{excfnc,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TRiskListExample" resultType="java.lang.Integer" >
+    select count(*) from t_risk_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_risk_list
+    <set >
+      <if test="record.orders != null" >
+        ORDERS = #{record.orders,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rid != null" >
+        RID = #{record.rid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.strategy != null" >
+        STRATEGY = #{record.strategy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.excfnc != null" >
+        EXCFNC = #{record.excfnc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_risk_list
+    set ORDERS = #{record.orders,jdbcType=DECIMAL},
+      RID = #{record.rid,jdbcType=DECIMAL},
+      STRATEGY = #{record.strategy,jdbcType=VARCHAR},
+      EXCFNC = #{record.excfnc,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=DECIMAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TRiskList" >
+    update t_risk_list
+    <set >
+      <if test="rid != null" >
+        RID = #{rid,jdbcType=DECIMAL},
+      </if>
+      <if test="strategy != null" >
+        STRATEGY = #{strategy,jdbcType=VARCHAR},
+      </if>
+      <if test="excfnc != null" >
+        EXCFNC = #{excfnc,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ORDERS = #{orders,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TRiskList" >
+    update t_risk_list
+    set RID = #{rid,jdbcType=DECIMAL},
+      STRATEGY = #{strategy,jdbcType=VARCHAR},
+      EXCFNC = #{excfnc,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where ORDERS = #{orders,jdbcType=DECIMAL}
+  </update>
+</mapper>

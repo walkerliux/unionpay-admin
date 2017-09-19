@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TRiskCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.bean.TRiskCase" >
+    <id column="CASEID" property="caseid" jdbcType="DECIMAL" />
+    <result column="RISKID" property="riskid" jdbcType="DECIMAL" />
+    <result column="BUSICODE" property="busicode" jdbcType="VARCHAR" />
+    <result column="BUSINAME" property="businame" jdbcType="VARCHAR" />
+    <result column="RISKVER" property="riskver" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="INUSER" property="inuser" jdbcType="DECIMAL" />
+    <result column="UPTIME" property="uptime" jdbcType="TIMESTAMP" />
+    <result column="UPUSER" property="upuser" jdbcType="DECIMAL" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="ACTIVEFLAG" property="activeflag" jdbcType="VARCHAR" />
+    <result column="INITFLAG" property="initflag" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    CASEID, RISKID, BUSICODE, BUSINAME, RISKVER, STATUS, INTIME, INUSER, UPTIME, UPUSER, 
+    NOTES, REMARKS, ACTIVEFLAG, INITFLAG
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.bean.TRiskCaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_risk_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_risk_case
+    where CASEID = #{caseid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_risk_case
+    where CASEID = #{caseid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.bean.TRiskCaseExample" >
+    delete from t_risk_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.bean.TRiskCase" >
+    insert into t_risk_case (CASEID, RISKID, BUSICODE, 
+      BUSINAME, RISKVER, STATUS, 
+      INTIME, INUSER, UPTIME, 
+      UPUSER, NOTES, REMARKS, 
+      ACTIVEFLAG, INITFLAG)
+    values (#{caseid,jdbcType=DECIMAL}, #{riskid,jdbcType=DECIMAL}, #{busicode,jdbcType=VARCHAR}, 
+      #{businame,jdbcType=VARCHAR}, #{riskver,jdbcType=CHAR}, #{status,jdbcType=VARCHAR}, 
+      #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, #{uptime,jdbcType=TIMESTAMP}, 
+      #{upuser,jdbcType=DECIMAL}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{activeflag,jdbcType=VARCHAR}, #{initflag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.bean.TRiskCase" >
+    insert into t_risk_case
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="caseid != null" >
+        CASEID,
+      </if>
+      <if test="riskid != null" >
+        RISKID,
+      </if>
+      <if test="busicode != null" >
+        BUSICODE,
+      </if>
+      <if test="businame != null" >
+        BUSINAME,
+      </if>
+      <if test="riskver != null" >
+        RISKVER,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="uptime != null" >
+        UPTIME,
+      </if>
+      <if test="upuser != null" >
+        UPUSER,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="activeflag != null" >
+        ACTIVEFLAG,
+      </if>
+      <if test="initflag != null" >
+        INITFLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="caseid != null" >
+        #{caseid,jdbcType=DECIMAL},
+      </if>
+      <if test="riskid != null" >
+        #{riskid,jdbcType=DECIMAL},
+      </if>
+      <if test="busicode != null" >
+        #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="businame != null" >
+        #{businame,jdbcType=VARCHAR},
+      </if>
+      <if test="riskver != null" >
+        #{riskver,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null" >
+        #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="activeflag != null" >
+        #{activeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="initflag != null" >
+        #{initflag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.bean.TRiskCaseExample" resultType="java.lang.Integer" >
+    select count(*) from t_risk_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_risk_case
+    <set >
+      <if test="record.caseid != null" >
+        CASEID = #{record.caseid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.riskid != null" >
+        RISKID = #{record.riskid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.busicode != null" >
+        BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businame != null" >
+        BUSINAME = #{record.businame,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskver != null" >
+        RISKVER = #{record.riskver,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uptime != null" >
+        UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upuser != null" >
+        UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeflag != null" >
+        ACTIVEFLAG = #{record.activeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.initflag != null" >
+        INITFLAG = #{record.initflag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_risk_case
+    set CASEID = #{record.caseid,jdbcType=DECIMAL},
+      RISKID = #{record.riskid,jdbcType=DECIMAL},
+      BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      BUSINAME = #{record.businame,jdbcType=VARCHAR},
+      RISKVER = #{record.riskver,jdbcType=CHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      ACTIVEFLAG = #{record.activeflag,jdbcType=VARCHAR},
+      INITFLAG = #{record.initflag,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.bean.TRiskCase" >
+    update t_risk_case
+    <set >
+      <if test="riskid != null" >
+        RISKID = #{riskid,jdbcType=DECIMAL},
+      </if>
+      <if test="busicode != null" >
+        BUSICODE = #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="businame != null" >
+        BUSINAME = #{businame,jdbcType=VARCHAR},
+      </if>
+      <if test="riskver != null" >
+        RISKVER = #{riskver,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null" >
+        UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null" >
+        UPUSER = #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="activeflag != null" >
+        ACTIVEFLAG = #{activeflag,jdbcType=VARCHAR},
+      </if>
+      <if test="initflag != null" >
+        INITFLAG = #{initflag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CASEID = #{caseid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.bean.TRiskCase" >
+    update t_risk_case
+    set RISKID = #{riskid,jdbcType=DECIMAL},
+      BUSICODE = #{busicode,jdbcType=VARCHAR},
+      BUSINAME = #{businame,jdbcType=VARCHAR},
+      RISKVER = #{riskver,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{upuser,jdbcType=DECIMAL},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      ACTIVEFLAG = #{activeflag,jdbcType=VARCHAR},
+      INITFLAG = #{initflag,jdbcType=VARCHAR}
+    where CASEID = #{caseid,jdbcType=DECIMAL}
+  </update>
+</mapper>
