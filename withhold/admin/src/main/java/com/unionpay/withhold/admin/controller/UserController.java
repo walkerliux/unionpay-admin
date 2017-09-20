@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+import org.springframework.web.servlet.ModelAndView;
+
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MD5Util;
@@ -30,7 +33,33 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	
+	@ResponseBody
+    @RequestMapping("/index")
+    public ModelAndView index(HttpServletRequest request) {
+        ModelAndView result=new ModelAndView("/system/user/user_manager");
+        return result;
+    }
+	/**
+	 * 查询
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+    @RequestMapping("/query")
+	public Map<String, Object> query(TUser user,int page,int rows){
+		Map<String, Object> variables = new HashMap<String, Object>();
+		if (user != null) {
+			variables.put("userName", user.getUserName());
+			variables.put("userCode", user.getUserCode());
+			//variables.put("organId", user.getOrganId());
+			//variables.put("deptId", user.getDeptId());
+			variables.put("roleId", user.getNotes());
+		}
+		Map<String, Object> userList = userService.findUserByPage(variables,page, rows);
+		
+		return new HashMap<String, Object>();
+		//return userService.findUserByPage(variables,page, rows);
+	}
 	
 	/**
 	 * 重置密码

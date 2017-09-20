@@ -40,22 +40,23 @@ public class FunctionServiceImpl implements FunctionService {
 		
 		if(list!=null&&list.size()>0){
 			//中间表
-			TUserFunct tUserFunct = list.get(0);
-			Long functId = tUserFunct.getFunctId();
-			//得到父TFunction
-			TFunction parent = tFunctionMapper.selectByPrimaryKey(functId);
-			result.add(parent);
-			//查子TFunction
-			TFunctionExample tFunctionExample = new TFunctionExample();
-			Criteria tFcriteria = tFunctionExample.createCriteria();
-			tFcriteria.andParentIdEqualTo(functId.toString());
-			//得到子TFunctions
-			List<TFunction> sons = tFunctionMapper.selectByExample(tFunctionExample);			
-			if(sons!=null&&sons.size()>0){
-				for (TFunction son : sons) {
-					result.add(son);
-				}
-			}
+			for (TUserFunct tUserFunct : list) {
+				Long functId = tUserFunct.getFunctId();
+				//得到父TFunction
+				TFunction parent = tFunctionMapper.selectByPrimaryKey(functId);
+				result.add(parent);
+			    //查子TFunction
+			    TFunctionExample tFunctionExample = new TFunctionExample();
+			    Criteria tFcriteria = tFunctionExample.createCriteria();
+			    tFcriteria.andParentIdEqualTo(functId.toString());
+			    //得到子TFunctions
+			    List<TFunction> sons = tFunctionMapper.selectByExample(tFunctionExample);			
+			    if(sons!=null&&sons.size()>0){
+				   for (TFunction son : sons) {
+					 result.add(son);
+				 }
+			 }
+		  }
 		}
 		return result;
 	}
