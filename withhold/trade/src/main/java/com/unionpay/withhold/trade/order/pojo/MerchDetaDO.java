@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class MerchDetaDO {
-    private Long merchId;
+    private Integer merchId;
 
     private Long memId;
 
@@ -66,11 +66,11 @@ public class MerchDetaDO {
 
     private String remarks;
 
-    public Long getMerchId() {
+    public Integer getMerchId() {
         return merchId;
     }
 
-    public void setMerchId(Long merchId) {
+    public void setMerchId(Integer merchId) {
         this.merchId = merchId;
     }
 

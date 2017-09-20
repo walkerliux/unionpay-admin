@@ -10,6 +10,6 @@ public interface CollectBusinessService {
 	 * @param singleCollectBean
 	 * @return
 	 */
-	public ResultBean createSingleCollectOrder(SingleCollectBean singleCollectBean);
+	public ResultBean createSingleCollectOrder(final SingleCollectBean singleCollectBean);
 
 }

@@ -14,8 +14,10 @@ public class MessageCheckHandler implements EventHandler<SingleCollectBean>{
 
 	@Override
 	public void onEvent(SingleCollectBean singleCollectBean, long sequence, boolean endOfBatch) throws Exception {
-		if(singleCollectBean.getFinalResult().isResultBool()) {
-			return;
+		if(singleCollectBean.getFinalResult()!=null) {
+			if(singleCollectBean.getFinalResult().isResultBool()) {
+				return;
+			}
 		}
 		ResultBean resultBean = ValidateLocator.validateBeans(singleCollectBean);
 		singleCollectBean.setMessageCheck(resultBean);

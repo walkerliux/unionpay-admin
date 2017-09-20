@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.unionpay.withhold.trade.order.dao.MerchDetaDAO">
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.order.pojo.MerchDetaDO">
-    <id column="MERCH_ID" jdbcType="DECIMAL" property="merchId" />
+    <id column="MERCH_ID" jdbcType="INTEGER" property="merchId" />
     <result column="MEM_ID" jdbcType="DECIMAL" property="memId" />
     <result column="MEMBER_ID" jdbcType="VARCHAR" property="memberId" />
     <result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName" />
@@ -113,15 +113,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_merch_deta
-    where MERCH_ID = #{merchId,jdbcType=DECIMAL}
+    where MERCH_ID = #{merchId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_merch_deta
-    where MERCH_ID = #{merchId,jdbcType=DECIMAL}
+    where MERCH_ID = #{merchId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.trade.order.pojo.MerchDetaDOExample">
     delete from t_merch_deta
@@ -141,7 +141,7 @@
       STEXA_TIME, STEXA_OPT, CVLEXA_USER, 
       CVLEXA_TIME, CVLEXA_OPT, NOTES, 
       REMARKS)
-    values (#{merchId,jdbcType=DECIMAL}, #{memId,jdbcType=DECIMAL}, #{memberId,jdbcType=VARCHAR}, 
+    values (#{merchId,jdbcType=INTEGER}, #{memId,jdbcType=DECIMAL}, #{memberId,jdbcType=VARCHAR}, 
       #{memberName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{contPhone,jdbcType=VARCHAR}, #{contAddress,jdbcType=VARCHAR}, 
       #{contPost,jdbcType=VARCHAR}, #{contEmail,jdbcType=VARCHAR}, #{setlCycle,jdbcType=VARCHAR}, 
@@ -252,7 +252,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="merchId != null">
-        #{merchId,jdbcType=DECIMAL},
+        #{merchId,jdbcType=INTEGER},
       </if>
       <if test="memId != null">
         #{memId,jdbcType=DECIMAL},
@@ -356,7 +356,7 @@
     update t_merch_deta
     <set>
       <if test="record.merchId != null">
-        MERCH_ID = #{record.merchId,jdbcType=DECIMAL},
+        MERCH_ID = #{record.merchId,jdbcType=INTEGER},
       </if>
       <if test="record.memId != null">
         MEM_ID = #{record.memId,jdbcType=DECIMAL},
@@ -455,7 +455,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update t_merch_deta
-    set MERCH_ID = #{record.merchId,jdbcType=DECIMAL},
+    set MERCH_ID = #{record.merchId,jdbcType=INTEGER},
       MEM_ID = #{record.memId,jdbcType=DECIMAL},
       MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
       MEMBER_NAME = #{record.memberName,jdbcType=VARCHAR},
@@ -584,7 +584,7 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where MERCH_ID = #{merchId,jdbcType=DECIMAL}
+    where MERCH_ID = #{merchId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.order.pojo.MerchDetaDO">
     update t_merch_deta
@@ -618,9 +618,9 @@
       CVLEXA_OPT = #{cvlexaOpt,jdbcType=VARCHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
       REMARKS = #{remarks,jdbcType=VARCHAR}
-    where MERCH_ID = #{merchId,jdbcType=DECIMAL}
+    where MERCH_ID = #{merchId,jdbcType=INTEGER}
   </update>
-   <select id="getByMerchNo" parameterType="java.lang.String" resultType="BaseResultMap">
+  <select id="getByMerchNo" parameterType="com.unionpay.withhold.trade.order.pojo.MerchDetaDO" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from t_merch_deta

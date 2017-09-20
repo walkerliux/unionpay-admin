@@ -116,52 +116,52 @@ public class MerchDetaDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdEqualTo(Long value) {
+        public Criteria andMerchIdEqualTo(Integer value) {
             addCriterion("MERCH_ID =", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotEqualTo(Long value) {
+        public Criteria andMerchIdNotEqualTo(Integer value) {
             addCriterion("MERCH_ID <>", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdGreaterThan(Long value) {
+        public Criteria andMerchIdGreaterThan(Integer value) {
             addCriterion("MERCH_ID >", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andMerchIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("MERCH_ID >=", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdLessThan(Long value) {
+        public Criteria andMerchIdLessThan(Integer value) {
             addCriterion("MERCH_ID <", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdLessThanOrEqualTo(Long value) {
+        public Criteria andMerchIdLessThanOrEqualTo(Integer value) {
             addCriterion("MERCH_ID <=", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdIn(List<Long> values) {
+        public Criteria andMerchIdIn(List<Integer> values) {
             addCriterion("MERCH_ID in", values, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotIn(List<Long> values) {
+        public Criteria andMerchIdNotIn(List<Integer> values) {
             addCriterion("MERCH_ID not in", values, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdBetween(Long value1, Long value2) {
+        public Criteria andMerchIdBetween(Integer value1, Integer value2) {
             addCriterion("MERCH_ID between", value1, value2, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotBetween(Long value1, Long value2) {
+        public Criteria andMerchIdNotBetween(Integer value1, Integer value2) {
             addCriterion("MERCH_ID not between", value1, value2, "merchId");
             return (Criteria) this;
         }

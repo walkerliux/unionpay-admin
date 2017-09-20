@@ -18,7 +18,7 @@ public class FEAPI {
 	 * @return
 	 */
 	public ResultBean realTimeCollect(String data) {
-		return template.getForObject(url+"/realtime/collect?data={data}", ResultBean.class, data);
+		return template.postForObject(url+"/realtime/collect?data={data}",null, ResultBean.class, data);
 	} 	
 	
 	/**

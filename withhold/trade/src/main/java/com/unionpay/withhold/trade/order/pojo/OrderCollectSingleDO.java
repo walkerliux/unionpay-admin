@@ -49,6 +49,14 @@ public class OrderCollectSingleDO {
 
     private String creditorname;
 
+    private String factorid;
+
+    private String phone;
+
+    private String idcard;
+
+    private String dktype;
+
     private String proprietary;
 
     private String summary;
@@ -265,6 +273,38 @@ public class OrderCollectSingleDO {
 
     public void setCreditorname(String creditorname) {
         this.creditorname = creditorname == null ? null : creditorname.trim();
+    }
+
+    public String getFactorid() {
+        return factorid;
+    }
+
+    public void setFactorid(String factorid) {
+        this.factorid = factorid == null ? null : factorid.trim();
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard == null ? null : idcard.trim();
+    }
+
+    public String getDktype() {
+        return dktype;
+    }
+
+    public void setDktype(String dktype) {
+        this.dktype = dktype == null ? null : dktype.trim();
     }
 
     public String getProprietary() {

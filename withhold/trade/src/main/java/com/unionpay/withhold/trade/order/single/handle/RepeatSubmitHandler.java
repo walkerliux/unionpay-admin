@@ -16,9 +16,12 @@ public class RepeatSubmitHandler implements EventHandler<SingleCollectBean>{
 	private OrderCollectSingleService orderCollectSingleService;
 	@Override
 	public void onEvent(SingleCollectBean singleCollectBean, long sequence, boolean endOfBatch) throws Exception {
-		if(singleCollectBean.getFinalResult().isResultBool()) {
-			return;
+		if(singleCollectBean.getFinalResult()!=null) {
+			if(singleCollectBean.getFinalResult().isResultBool()) {
+				return;
+			}
 		}
+		
 		ResultBean repeatSubmit = null;
 		OrderCollectSingleDO orderCollectSingleDO = orderCollectSingleService.getOrderinfoByOrderNoAndMerchNo(singleCollectBean.getMchntCd(), singleCollectBean.getOrderId());
 		if (orderCollectSingleDO != null) {
