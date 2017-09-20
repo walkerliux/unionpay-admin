@@ -26,8 +26,8 @@ public class TestMybatis {
 		criteria.andTidEqualTo("1");
 		List<TBank> list = tBankMapper.selectByExample(example);
 		System.out.println(list);
-//		TBank tBank = tBankMapper.selectByTid("1");
-//		System.out.println(tBank);
+		/*TBank tBank = tBankMapper.selectByTid("1");
+		System.out.println(tBank);*/
 	} 
 	
 }
