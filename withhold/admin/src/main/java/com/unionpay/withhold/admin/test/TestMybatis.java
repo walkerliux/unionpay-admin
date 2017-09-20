@@ -30,4 +30,5 @@ public class TestMybatis {
 		System.out.println(tBank);*/
 	} 
 	
+	
 }
