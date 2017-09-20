@@ -2,7 +2,7 @@ package com.unionpay.withhold.admin.Bean;
 
 public class PageBean {
 	private int total;
-	private Object data;
+	private Object rows;
 	public int getTotal() {
 		return total;
 	}
@@ -10,13 +10,13 @@ public class PageBean {
 		this.total = total;
 	}
 	public Object getData() {
-		return data;
+		return rows;
 	}
-	public void setData(Object data) {
-		this.data = data;
+	public void setData(Object rows) {
+		this.rows = rows;
 	}
-	public PageBean(int total, Object data){
+	public PageBean(int total, Object rows){
 		this.total = total;
-		this.data = data;
+		this.rows = rows;
 	}
 }
