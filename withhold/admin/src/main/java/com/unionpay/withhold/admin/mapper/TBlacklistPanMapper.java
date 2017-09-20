@@ -1,11 +1,5 @@
 package com.unionpay.withhold.admin.mapper;
 
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
-
 import com.unionpay.withhold.admin.pojo.TBlacklistPan;
 import com.unionpay.withhold.admin.pojo.TBlacklistPanExample;
 import java.util.List;
