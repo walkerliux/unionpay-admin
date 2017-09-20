@@ -80,6 +80,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    limit #{beginRow},#{pageSize}
   </select>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TBankExample" >
     delete from t_bank
