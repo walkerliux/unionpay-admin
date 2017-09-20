@@ -2,6 +2,7 @@ package com.unionpay.withhold.admin.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,12 @@ public class UserServiceImpl implements UserService {
 		user.setPwdValid(date);
 		tUserMapper.updateByPrimaryKey(user);
 		
+	}
+	@Override
+	public Map<String, Object> findUserByPage(Map<String, Object> variables,
+			int page, int rows) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
