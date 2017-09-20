@@ -18,7 +18,7 @@ public class TFunction {
     private Short levelId;
 
     private String leafnode;
-
+    
     private String sysFlag;
 
     private Short functType;
@@ -30,7 +30,8 @@ public class TFunction {
     private String notes;
 
     private String remarks;
-
+    
+    
     public Long getFunctId() {
         return functId;
     }

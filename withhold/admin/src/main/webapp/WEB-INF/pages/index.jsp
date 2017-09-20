@@ -156,7 +156,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 						$('#theForm').ajaxSubmit({
 							success: function(json) {
-// 								json = eval('(' + json + ')');
+								json = eval('(' + json + ')');
+
 								if (json.retcode == "succ") {
 									$.messager.alert('提示', json.retinfo);
 									if ($('#pwdFlag').val() > 0) {
@@ -276,7 +277,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<tr>
 				<td align="right" valign="bottom" width=""></td>
-				<td align="left" valign="bottom">&nbsp;&nbsp;&nbsp;${loginName}&nbsp;用户,欢迎您登录到本系统!&nbsp;&nbsp;&nbsp;&nbsp;<span
+				<td align="left" valign="bottom">&nbsp;&nbsp;&nbsp;${LOGIN_USER.userName}&nbsp;用户,欢迎您登录到本系统!&nbsp;&nbsp;&nbsp;&nbsp;<span
 					id="expiration" style="color: red"></span>
 				</td>
 				<td align="right" valign="bottom"><a id="passwordchange"
@@ -294,20 +295,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			<c:forEach var="function" items="${funlist}">
 
-				<c:if test="${function.LEAFNODE==0}">
-					<c:set var="myValue" value="${function.FUNCT_ID}"></c:set>
+				<c:if test="${function.leafnode==0}">
+					<c:set var="myValue" value="${function.functId}"></c:set>
 
-					<div title="${function.FUNCT_NAME }"
-						id="fun_menu_${function.FUNCT_ID}">
+					<div title="${function.functName }"
+						id="fun_menu_${function.functId}">
 						<ul id="tt1" class="easyui-tree" animate="true" dnd="true">
 							<c:forEach var="zilist" items="${funlist}" varStatus="status">
-								<c:if test="${zilist.PARENT_ID==myValue}">
+								<c:if test="${zilist.parentId==myValue}">
 
 									<li><a id=tabname${status.index}
-										src=${zilist.URL
+										src=${zilist.url
 										}
 										href="javascript:addTab('tabname${status.index }')">
-											${zilist.FUNCT_NAME}</a></li>
+											${zilist.functName}</a></li>
 								</c:if>
 
 							</c:forEach>
