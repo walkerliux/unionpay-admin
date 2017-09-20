@@ -26,7 +26,6 @@ public class SecondPayHandler implements EventHandler<SingleCollectBean>{
 			logger.info("订单金额:{};数据库订单金额:{}", singleCollectBean.getTransAt(),orderCollectSingleDO.getTxnamt());
 			
 		}
-		
 		if(!orderCollectSingleDO.getOrdercommitime().equals(singleCollectBean.getTransTm())){
 			logger.info("订单时间:{};数据库订单时间:{}", singleCollectBean.getTransTm(),orderCollectSingleDO.getOrdercommitime());
 			

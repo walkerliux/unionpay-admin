@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.alibaba.dubbo.rpc.Result;
 import com.unionpay.withhold.bean.ResultBean;
 
 public class SingleCollectBean implements Serializable {
@@ -77,6 +78,24 @@ public class SingleCollectBean implements Serializable {
 	 * 二次提交检查结果
 	 */
 	private ResultBean repeatSubmit;
+	
+	/**
+	 * 业务检查结果
+	 */
+	private ResultBean busiCheck;
+	/**
+	 * 商户检查结果
+	 */
+	public ResultBean merchCheck;
+	/**
+	 * 保存实时代扣订单结果
+	 */
+	public ResultBean saveOrder;
+	
+	/**
+	 * 保存交易流水结果
+	 */
+	public ResultBean saveTxnLog;
 	
 	/**
 	 * 最终结果
@@ -282,4 +301,37 @@ public class SingleCollectBean implements Serializable {
 		this.tn = tn;
 	}
 
+	public ResultBean getSaveOrder() {
+		return saveOrder;
+	}
+
+	public void setSaveOrder(ResultBean saveOrder) {
+		this.saveOrder = saveOrder;
+	}
+
+	public ResultBean getSaveTxnLog() {
+		return saveTxnLog;
+	}
+
+	public void setSaveTxnLog(ResultBean saveTxnLog) {
+		this.saveTxnLog = saveTxnLog;
+	}
+
+	public ResultBean getBusiCheck() {
+		return busiCheck;
+	}
+
+	public void setBusiCheck(ResultBean busiCheck) {
+		this.busiCheck = busiCheck;
+	}
+
+	public ResultBean getMerchCheck() {
+		return merchCheck;
+	}
+
+	public void setMerchCheck(ResultBean merchCheck) {
+		this.merchCheck = merchCheck;
+	}
+
+	
 }

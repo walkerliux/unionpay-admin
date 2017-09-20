@@ -22,7 +22,6 @@ public class OrderCollectSingleServiceImpl implements OrderCollectSingleService 
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
 	public void saveOrderCollectSingle(OrderCollectSingleDO orderCollectSingle) {
-		System.out.println(orderCollectSingleDAO);
 		orderCollectSingle.setTid(serialNumberService.generateTID(TableEnum.SINGLECOLLECTIONORDER));
 		orderCollectSingleDAO.insert(orderCollectSingle);
 	}

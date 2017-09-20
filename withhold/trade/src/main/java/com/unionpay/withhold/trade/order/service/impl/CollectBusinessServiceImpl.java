@@ -1,12 +1,18 @@
 package com.unionpay.withhold.trade.order.service.impl;
 
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.EventHandler;
@@ -21,6 +27,7 @@ import com.unionpay.withhold.trade.order.single.handle.MessageCheckHandler;
 @SuppressWarnings("unchecked")
 public class CollectBusinessServiceImpl implements CollectBusinessService {
 
+	private static final Logger  logger = LoggerFactory.getLogger(CollectBusinessServiceImpl.class);
 	@Autowired
 	private TaskExecutor taskExecutor;
 	@Autowired
@@ -29,6 +36,21 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 	@Autowired
 	@Qualifier("repeatSubmitHandler")
 	private EventHandler<SingleCollectBean> repeatSubmitHandler;
+	@Autowired
+	@Qualifier("saveOrderHandler")
+	private EventHandler<SingleCollectBean> saveOrderHandler;
+	@Autowired
+	@Qualifier("saveTxnlogHandler")
+	private EventHandler<SingleCollectBean> saveTxnlogHandler;
+	@Autowired
+	@Qualifier("busiCheckHandler")
+	private EventHandler<SingleCollectBean> busiCheckHandler;
+	@Autowired
+	@Qualifier("merchCheckHandler")
+	private EventHandler<SingleCollectBean> merchCheckHandler;
+	@Autowired
+	@Qualifier("finalEndSingleHandler")
+	private EventHandler<SingleCollectBean> finalEndSingleHandler;
 	@Override
 	public ResultBean createSingleCollectOrder(final SingleCollectBean singleCollectBean) {
 		/**
@@ -40,7 +62,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		 * 6.检查消费订单特殊性要求检查，如果没有可以为空
 		 * 7.保存订单信息
 		 */
-		
+		//ExecutorService executorService = Executors.newCachedThreadPool();
 		ResultBean resultBean = null;
         int bufferSize=2048;
         final Disruptor<SingleCollectBean> disruptor = new Disruptor<SingleCollectBean>(new EventFactory<SingleCollectBean>() {
@@ -52,6 +74,11 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
         MessageCheckHandler messageCheckHandler = new MessageCheckHandler();
         disruptor.handleEventsWith(secondPayHandler);
         disruptor.after(secondPayHandler).handleEventsWith(messageCheckHandler,repeatSubmitHandler);
+        disruptor.after(messageCheckHandler).handleEventsWith(busiCheckHandler);
+        disruptor.after(busiCheckHandler).handleEventsWith(merchCheckHandler);
+        disruptor.after(repeatSubmitHandler).handleEventsWith(saveOrderHandler);
+        disruptor.after(saveOrderHandler).handleEventsWith(saveTxnlogHandler);
+        disruptor.after(saveTxnlogHandler,merchCheckHandler).handleEventsWith(finalEndSingleHandler);
         disruptor.start();//启动  
         final CountDownLatch latch=new CountDownLatch(1); 
         //生产者准备 
@@ -63,7 +90,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 				disruptor.publishEvent(new EventTranslator<SingleCollectBean>() {
 					@Override
 					public void translateTo(SingleCollectBean singleCollectBean, long sequence) {
-						
+						//logger.info("EventTranslator");
 					}
 				});
 				latch.countDown();  
@@ -76,6 +103,12 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 			e.printStackTrace();
 		}//等待生产者完事. 
         disruptor.shutdown();
+        logger.info(JSON.toJSONString(singleCollectBean));
+        if(singleCollectBean.getFinalResult().isResultBool()) {
+        	resultBean = new ResultBean(singleCollectBean.getTn());
+        }else {
+        	resultBean = singleCollectBean.getFinalResult();
+        }
 		return resultBean;
 	}
 }

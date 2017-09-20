@@ -13,7 +13,9 @@ import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
+import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
+import com.unionpay.withhold.trade.order.service.CollectBusinessService;
 import com.unionpay.withhold.trade.order.service.OrderCollectSingleService;
 import com.unionpay.withhold.utils.DateUtil;
 import com.unionpay.withhold.utils.XMLUtils;
@@ -25,7 +27,7 @@ public class FrontEndController {
 	private static final Logger logger = LoggerFactory.getLogger(FrontEndController.class);
 	
 	@Autowired
-	private OrderCollectSingleService orderCollectSingleService;
+	private CollectBusinessService  collectBusinessService;
 	/**
 	 * 实时代扣
 	 * @param data
@@ -33,41 +35,13 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/realtime/collect",method=RequestMethod.POST)
 	public ResultBean realTimeCollect(String data) {
-		logger.info(data);
+		long currentTimeMillis = System.currentTimeMillis();
 		ResultBean resultBean = new ResultBean();
 		resultBean.setRespCode("0000");
 		resultBean.setRespMsg("成功");
-		MerchantResponse response = new MerchantResponse();
-		response.setSignature("1233456");
-		resultBean.setResultObj(response);
-		/*OrderCollectSingleDO orderCollectSingle = new OrderCollectSingleDO();
-		orderCollectSingle.setVersion("1.0");
-		orderCollectSingle.setEncoding("1");
-		orderCollectSingle.setTxntype("02");
-		orderCollectSingle.setTxnsubtype("00");
-		orderCollectSingle.setBiztype("000002");
-		orderCollectSingle.setBackurl("http://192.168.2.17:8180/notify/NotifyServlet");
-		orderCollectSingle.setMerid("200000000001588");
-		orderCollectSingle.setMerabbr("");
-		orderCollectSingle.setOrderid(System.currentTimeMillis()+"");
-		orderCollectSingle.setTxntime(DateUtil.getCurrentTime());
-		orderCollectSingle.setPaytimeout("20180202000000");
-		orderCollectSingle.setTxnamt(12L);
-		orderCollectSingle.setCurrencycode("156");
-		orderCollectSingle.setOrderdesc("集中代收实时测试");
-		orderCollectSingle.setDebtorbank("203121000010");
-		orderCollectSingle.setDebtoraccount("6228480018543668979");
-		orderCollectSingle.setDebtorname("测试账户1");
-		orderCollectSingle.setDebtorconsign("200000000001588000000000000062");
-		orderCollectSingle.setCreditorbank("203121000010");
-		orderCollectSingle.setCreditoraccount("6228480018543668970");
-		orderCollectSingle.setCreditorname("测试账户2");
-		orderCollectSingle.setProprietary("09001");
-		orderCollectSingle.setRelatetradetxn(System.currentTimeMillis()+"");
-		orderCollectSingle.setTn(System.currentTimeMillis()+"");
-		orderCollectSingleService.saveOrderCollectSingle(orderCollectSingle);*/
-		OrderCollectSingleDO collectSingle = orderCollectSingleService.getOrderinfoByOrderNoAndMerchNo("200000000001588", "1505800926000");
-		logger.info(JSON.toJSONString(collectSingle));
+		SingleCollectBean singleCollectBean = JSON.parseObject(data, SingleCollectBean.class);
+		resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	} 	
 	

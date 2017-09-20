@@ -26,6 +26,10 @@
     <result column="CREDITORBANK" jdbcType="VARCHAR" property="creditorbank" />
     <result column="CREDITORACCOUNT" jdbcType="VARCHAR" property="creditoraccount" />
     <result column="CREDITORNAME" jdbcType="VARCHAR" property="creditorname" />
+    <result column="FACTORID" jdbcType="VARCHAR" property="factorid" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="IDCARD" jdbcType="VARCHAR" property="idcard" />
+    <result column="DKTYPE" jdbcType="VARCHAR" property="dktype" />
     <result column="PROPRIETARY" jdbcType="VARCHAR" property="proprietary" />
     <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
     <result column="ORDERDESC" jdbcType="VARCHAR" property="orderdesc" />
@@ -102,8 +106,8 @@
     TID, ACCESSTYPE, COOPINSTIID, MERID, VERSION, ENCODING, TXNTYPE, TXNSUBTYPE, BIZTYPE, 
     BACKURL, MERNAME, MERABBR, ORDERID, TXNTIME, PAYTIMEOUT, TXNAMT, CURRENCYCODE, DEBTORBANK, 
     DEBTORACCOUNT, DEBTORNAME, DEBTORCONSIGN, CREDITORBANK, CREDITORACCOUNT, CREDITORNAME, 
-    PROPRIETARY, SUMMARY, ORDERDESC, RESERVED, RESPCODE, RESPMSG, TN, RELATETRADETXN, 
-    STATUS, ORDERCOMMITIME, SYNCNOTIFY, NOTES, REMARKS
+    FACTORID, PHONE, IDCARD, DKTYPE, PROPRIETARY, SUMMARY, ORDERDESC, RESERVED, RESPCODE, 
+    RESPMSG, TN, RELATETRADETXN, STATUS, ORDERCOMMITIME, SYNCNOTIFY, NOTES, REMARKS
   </sql>
   <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDOExample" resultMap="BaseResultMap">
     select
@@ -145,11 +149,12 @@
       TXNAMT, CURRENCYCODE, DEBTORBANK, 
       DEBTORACCOUNT, DEBTORNAME, DEBTORCONSIGN, 
       CREDITORBANK, CREDITORACCOUNT, CREDITORNAME, 
-      PROPRIETARY, SUMMARY, ORDERDESC, 
-      RESERVED, RESPCODE, RESPMSG, 
-      TN, RELATETRADETXN, STATUS, 
-      ORDERCOMMITIME, SYNCNOTIFY, NOTES, 
-      REMARKS)
+      FACTORID, PHONE, IDCARD, 
+      DKTYPE, PROPRIETARY, SUMMARY, 
+      ORDERDESC, RESERVED, RESPCODE, 
+      RESPMSG, TN, RELATETRADETXN, 
+      STATUS, ORDERCOMMITIME, SYNCNOTIFY, 
+      NOTES, REMARKS)
     values (#{tid,jdbcType=DECIMAL}, #{accesstype,jdbcType=VARCHAR}, #{coopinstiid,jdbcType=VARCHAR}, 
       #{merid,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{encoding,jdbcType=VARCHAR}, 
       #{txntype,jdbcType=VARCHAR}, #{txnsubtype,jdbcType=VARCHAR}, #{biztype,jdbcType=VARCHAR}, 
@@ -158,11 +163,12 @@
       #{txnamt,jdbcType=DECIMAL}, #{currencycode,jdbcType=VARCHAR}, #{debtorbank,jdbcType=VARCHAR}, 
       #{debtoraccount,jdbcType=VARCHAR}, #{debtorname,jdbcType=VARCHAR}, #{debtorconsign,jdbcType=VARCHAR}, 
       #{creditorbank,jdbcType=VARCHAR}, #{creditoraccount,jdbcType=VARCHAR}, #{creditorname,jdbcType=VARCHAR}, 
-      #{proprietary,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{orderdesc,jdbcType=VARCHAR}, 
-      #{reserved,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, 
-      #{tn,jdbcType=VARCHAR}, #{relatetradetxn,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
-      #{ordercommitime,jdbcType=VARCHAR}, #{syncnotify,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR})
+      #{factorid,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{dktype,jdbcType=VARCHAR}, #{proprietary,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
+      #{orderdesc,jdbcType=VARCHAR}, #{reserved,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, 
+      #{respmsg,jdbcType=VARCHAR}, #{tn,jdbcType=VARCHAR}, #{relatetradetxn,jdbcType=VARCHAR}, 
+      #{status,jdbcType=CHAR}, #{ordercommitime,jdbcType=VARCHAR}, #{syncnotify,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO">
     insert into t_order_collect_single
@@ -238,6 +244,18 @@
       </if>
       <if test="creditorname != null">
         CREDITORNAME,
+      </if>
+      <if test="factorid != null">
+        FACTORID,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="idcard != null">
+        IDCARD,
+      </if>
+      <if test="dktype != null">
+        DKTYPE,
       </if>
       <if test="proprietary != null">
         PROPRIETARY,
@@ -351,6 +369,18 @@
       </if>
       <if test="creditorname != null">
         #{creditorname,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="dktype != null">
+        #{dktype,jdbcType=VARCHAR},
       </if>
       <if test="proprietary != null">
         #{proprietary,jdbcType=VARCHAR},
@@ -474,6 +504,18 @@
       <if test="record.creditorname != null">
         CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
       </if>
+      <if test="record.factorid != null">
+        FACTORID = #{record.factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null">
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null">
+        IDCARD = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dktype != null">
+        DKTYPE = #{record.dktype,jdbcType=VARCHAR},
+      </if>
       <if test="record.proprietary != null">
         PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
       </if>
@@ -544,6 +586,10 @@
       CREDITORBANK = #{record.creditorbank,jdbcType=VARCHAR},
       CREDITORACCOUNT = #{record.creditoraccount,jdbcType=VARCHAR},
       CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
+      FACTORID = #{record.factorid,jdbcType=VARCHAR},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      IDCARD = #{record.idcard,jdbcType=VARCHAR},
+      DKTYPE = #{record.dktype,jdbcType=VARCHAR},
       PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
       SUMMARY = #{record.summary,jdbcType=VARCHAR},
       ORDERDESC = #{record.orderdesc,jdbcType=VARCHAR},
@@ -633,6 +679,18 @@
       <if test="creditorname != null">
         CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
       </if>
+      <if test="factorid != null">
+        FACTORID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        IDCARD = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="dktype != null">
+        DKTYPE = #{dktype,jdbcType=VARCHAR},
+      </if>
       <if test="proprietary != null">
         PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
       </if>
@@ -700,6 +758,10 @@
       CREDITORBANK = #{creditorbank,jdbcType=VARCHAR},
       CREDITORACCOUNT = #{creditoraccount,jdbcType=VARCHAR},
       CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
+      FACTORID = #{factorid,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      IDCARD = #{idcard,jdbcType=VARCHAR},
+      DKTYPE = #{dktype,jdbcType=VARCHAR},
       PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
       SUMMARY = #{summary,jdbcType=VARCHAR},
       ORDERDESC = #{orderdesc,jdbcType=VARCHAR},
@@ -715,9 +777,10 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
-  <select id="getCollctSingleOrder" resultMap="BaseResultMap"
-	parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO">
-	select * from t_order_collect_single 
-		where MERID = #{merid,jdbcType=VARCHAR} and ORDERID = #{orderid,jdbcType=VARCHAR}
-</select>
+  <select id="getCollctSingleOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_collect_single
+    where MERID = #{merid,jdbcType=VARCHAR} and ORDERID = #{orderid,jdbcType=VARCHAR}
+  </select>
 </mapper>
