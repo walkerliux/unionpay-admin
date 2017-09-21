@@ -9,4 +9,15 @@ public interface BatchOrderServcie {
 	 * @param orderCollectBatch
 	 */
 	public void saveBatchOrder(OrderCollectBatchDO orderCollectBatch);
+	
+	/**
+	 * 查询代收批次数据
+	 * @param merchNo
+	 * @param batchNo
+	 * @param txndate
+	 * @return
+	 */
+	public OrderCollectBatchDO getCollectBatchOrder(String merchNo,String batchNo,String txndate);
+	
+	
 }

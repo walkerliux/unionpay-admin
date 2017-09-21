@@ -8,14 +8,9 @@
     <result column="ORDERID" jdbcType="VARCHAR" property="orderid" />
     <result column="CURRENCYCODE" jdbcType="VARCHAR" property="currencycode" />
     <result column="AMT" jdbcType="VARCHAR" property="amt" />
-    <result column="DEBTORBANK" jdbcType="VARCHAR" property="debtorbank" />
-    <result column="DEBTORACCOUNT" jdbcType="VARCHAR" property="debtoraccount" />
-    <result column="DEBTORNAME" jdbcType="VARCHAR" property="debtorname" />
-    <result column="DEBTORCONSIGN" jdbcType="VARCHAR" property="debtorconsign" />
-    <result column="CREDITORBANK" jdbcType="VARCHAR" property="creditorbank" />
-    <result column="CREDITORACCOUNT" jdbcType="VARCHAR" property="creditoraccount" />
-    <result column="CREDITORNAME" jdbcType="VARCHAR" property="creditorname" />
-    <result column="PROPRIETARY" jdbcType="VARCHAR" property="proprietary" />
+    <result column="BANKCODE" jdbcType="VARCHAR" property="bankcode" />
+    <result column="CARDNO" jdbcType="VARCHAR" property="cardno" />
+    <result column="CUSTOMERNM" jdbcType="VARCHAR" property="customernm" />
     <result column="SUMMARY" jdbcType="VARCHAR" property="summary" />
     <result column="RESPCODE" jdbcType="VARCHAR" property="respcode" />
     <result column="RESPMSG" jdbcType="VARCHAR" property="respmsg" />
@@ -23,6 +18,12 @@
     <result column="STATUS" jdbcType="VARCHAR" property="status" />
     <result column="NOTES" jdbcType="VARCHAR" property="notes" />
     <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="CARDTYPE" jdbcType="VARCHAR" property="cardtype" />
+    <result column="CERTIFTP" jdbcType="VARCHAR" property="certiftp" />
+    <result column="CERTIFID" jdbcType="VARCHAR" property="certifid" />
+    <result column="PHONENO" jdbcType="VARCHAR" property="phoneno" />
+    <result column="CVN2" jdbcType="VARCHAR" property="cvn2" />
+    <result column="EXPIRED" jdbcType="VARCHAR" property="expired" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -83,9 +84,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    TID, BATCHTID, BATCHNO, ORDERID, CURRENCYCODE, AMT, DEBTORBANK, DEBTORACCOUNT, DEBTORNAME, 
-    DEBTORCONSIGN, CREDITORBANK, CREDITORACCOUNT, CREDITORNAME, PROPRIETARY, SUMMARY, 
-    RESPCODE, RESPMSG, RELATETRADETXN, STATUS, NOTES, REMARKS
+    TID, BATCHTID, BATCHNO, ORDERID, CURRENCYCODE, AMT, BANKCODE, CARDNO, CUSTOMERNM, 
+    SUMMARY, RESPCODE, RESPMSG, RELATETRADETXN, STATUS, NOTES, REMARKS, CARDTYPE, CERTIFTP, 
+    CERTIFID, PHONENO, CVN2, EXPIRED
   </sql>
   <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDOExample" resultMap="BaseResultMap">
     select
@@ -121,20 +122,20 @@
   <insert id="insert" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO">
     insert into t_order_collect_deta (TID, BATCHTID, BATCHNO, 
       ORDERID, CURRENCYCODE, AMT, 
-      DEBTORBANK, DEBTORACCOUNT, DEBTORNAME, 
-      DEBTORCONSIGN, CREDITORBANK, CREDITORACCOUNT, 
-      CREDITORNAME, PROPRIETARY, SUMMARY, 
-      RESPCODE, RESPMSG, RELATETRADETXN, 
-      STATUS, NOTES, REMARKS
-      )
+      BANKCODE, CARDNO, CUSTOMERNM, 
+      SUMMARY, RESPCODE, RESPMSG, 
+      RELATETRADETXN, STATUS, NOTES, 
+      REMARKS, CARDTYPE, CERTIFTP, 
+      CERTIFID, PHONENO, CVN2, 
+      EXPIRED)
     values (#{tid,jdbcType=DECIMAL}, #{batchtid,jdbcType=DECIMAL}, #{batchno,jdbcType=VARCHAR}, 
       #{orderid,jdbcType=VARCHAR}, #{currencycode,jdbcType=VARCHAR}, #{amt,jdbcType=VARCHAR}, 
-      #{debtorbank,jdbcType=VARCHAR}, #{debtoraccount,jdbcType=VARCHAR}, #{debtorname,jdbcType=VARCHAR}, 
-      #{debtorconsign,jdbcType=VARCHAR}, #{creditorbank,jdbcType=VARCHAR}, #{creditoraccount,jdbcType=VARCHAR}, 
-      #{creditorname,jdbcType=VARCHAR}, #{proprietary,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, 
-      #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, #{relatetradetxn,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
-      )
+      #{bankcode,jdbcType=VARCHAR}, #{cardno,jdbcType=VARCHAR}, #{customernm,jdbcType=VARCHAR}, 
+      #{summary,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, 
+      #{relatetradetxn,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{cardtype,jdbcType=VARCHAR}, #{certiftp,jdbcType=VARCHAR}, 
+      #{certifid,jdbcType=VARCHAR}, #{phoneno,jdbcType=VARCHAR}, #{cvn2,jdbcType=VARCHAR}, 
+      #{expired,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO">
     insert into t_order_collect_deta
@@ -157,29 +158,14 @@
       <if test="amt != null">
         AMT,
       </if>
-      <if test="debtorbank != null">
-        DEBTORBANK,
+      <if test="bankcode != null">
+        BANKCODE,
       </if>
-      <if test="debtoraccount != null">
-        DEBTORACCOUNT,
+      <if test="cardno != null">
+        CARDNO,
       </if>
-      <if test="debtorname != null">
-        DEBTORNAME,
-      </if>
-      <if test="debtorconsign != null">
-        DEBTORCONSIGN,
-      </if>
-      <if test="creditorbank != null">
-        CREDITORBANK,
-      </if>
-      <if test="creditoraccount != null">
-        CREDITORACCOUNT,
-      </if>
-      <if test="creditorname != null">
-        CREDITORNAME,
-      </if>
-      <if test="proprietary != null">
-        PROPRIETARY,
+      <if test="customernm != null">
+        CUSTOMERNM,
       </if>
       <if test="summary != null">
         SUMMARY,
@@ -202,6 +188,24 @@
       <if test="remarks != null">
         REMARKS,
       </if>
+      <if test="cardtype != null">
+        CARDTYPE,
+      </if>
+      <if test="certiftp != null">
+        CERTIFTP,
+      </if>
+      <if test="certifid != null">
+        CERTIFID,
+      </if>
+      <if test="phoneno != null">
+        PHONENO,
+      </if>
+      <if test="cvn2 != null">
+        CVN2,
+      </if>
+      <if test="expired != null">
+        EXPIRED,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tid != null">
@@ -222,29 +226,14 @@
       <if test="amt != null">
         #{amt,jdbcType=VARCHAR},
       </if>
-      <if test="debtorbank != null">
-        #{debtorbank,jdbcType=VARCHAR},
+      <if test="bankcode != null">
+        #{bankcode,jdbcType=VARCHAR},
       </if>
-      <if test="debtoraccount != null">
-        #{debtoraccount,jdbcType=VARCHAR},
+      <if test="cardno != null">
+        #{cardno,jdbcType=VARCHAR},
       </if>
-      <if test="debtorname != null">
-        #{debtorname,jdbcType=VARCHAR},
-      </if>
-      <if test="debtorconsign != null">
-        #{debtorconsign,jdbcType=VARCHAR},
-      </if>
-      <if test="creditorbank != null">
-        #{creditorbank,jdbcType=VARCHAR},
-      </if>
-      <if test="creditoraccount != null">
-        #{creditoraccount,jdbcType=VARCHAR},
-      </if>
-      <if test="creditorname != null">
-        #{creditorname,jdbcType=VARCHAR},
-      </if>
-      <if test="proprietary != null">
-        #{proprietary,jdbcType=VARCHAR},
+      <if test="customernm != null">
+        #{customernm,jdbcType=VARCHAR},
       </if>
       <if test="summary != null">
         #{summary,jdbcType=VARCHAR},
@@ -266,6 +255,24 @@
       </if>
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null">
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certiftp != null">
+        #{certiftp,jdbcType=VARCHAR},
+      </if>
+      <if test="certifid != null">
+        #{certifid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneno != null">
+        #{phoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="cvn2 != null">
+        #{cvn2,jdbcType=VARCHAR},
+      </if>
+      <if test="expired != null">
+        #{expired,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -296,29 +303,14 @@
       <if test="record.amt != null">
         AMT = #{record.amt,jdbcType=VARCHAR},
       </if>
-      <if test="record.debtorbank != null">
-        DEBTORBANK = #{record.debtorbank,jdbcType=VARCHAR},
+      <if test="record.bankcode != null">
+        BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
       </if>
-      <if test="record.debtoraccount != null">
-        DEBTORACCOUNT = #{record.debtoraccount,jdbcType=VARCHAR},
+      <if test="record.cardno != null">
+        CARDNO = #{record.cardno,jdbcType=VARCHAR},
       </if>
-      <if test="record.debtorname != null">
-        DEBTORNAME = #{record.debtorname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.debtorconsign != null">
-        DEBTORCONSIGN = #{record.debtorconsign,jdbcType=VARCHAR},
-      </if>
-      <if test="record.creditorbank != null">
-        CREDITORBANK = #{record.creditorbank,jdbcType=VARCHAR},
-      </if>
-      <if test="record.creditoraccount != null">
-        CREDITORACCOUNT = #{record.creditoraccount,jdbcType=VARCHAR},
-      </if>
-      <if test="record.creditorname != null">
-        CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.proprietary != null">
-        PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
+      <if test="record.customernm != null">
+        CUSTOMERNM = #{record.customernm,jdbcType=VARCHAR},
       </if>
       <if test="record.summary != null">
         SUMMARY = #{record.summary,jdbcType=VARCHAR},
@@ -341,6 +333,24 @@
       <if test="record.remarks != null">
         REMARKS = #{record.remarks,jdbcType=VARCHAR},
       </if>
+      <if test="record.cardtype != null">
+        CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certiftp != null">
+        CERTIFTP = #{record.certiftp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certifid != null">
+        CERTIFID = #{record.certifid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoneno != null">
+        PHONENO = #{record.phoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cvn2 != null">
+        CVN2 = #{record.cvn2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.expired != null">
+        EXPIRED = #{record.expired,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -354,21 +364,22 @@
       ORDERID = #{record.orderid,jdbcType=VARCHAR},
       CURRENCYCODE = #{record.currencycode,jdbcType=VARCHAR},
       AMT = #{record.amt,jdbcType=VARCHAR},
-      DEBTORBANK = #{record.debtorbank,jdbcType=VARCHAR},
-      DEBTORACCOUNT = #{record.debtoraccount,jdbcType=VARCHAR},
-      DEBTORNAME = #{record.debtorname,jdbcType=VARCHAR},
-      DEBTORCONSIGN = #{record.debtorconsign,jdbcType=VARCHAR},
-      CREDITORBANK = #{record.creditorbank,jdbcType=VARCHAR},
-      CREDITORACCOUNT = #{record.creditoraccount,jdbcType=VARCHAR},
-      CREDITORNAME = #{record.creditorname,jdbcType=VARCHAR},
-      PROPRIETARY = #{record.proprietary,jdbcType=VARCHAR},
+      BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      CARDNO = #{record.cardno,jdbcType=VARCHAR},
+      CUSTOMERNM = #{record.customernm,jdbcType=VARCHAR},
       SUMMARY = #{record.summary,jdbcType=VARCHAR},
       RESPCODE = #{record.respcode,jdbcType=VARCHAR},
       RESPMSG = #{record.respmsg,jdbcType=VARCHAR},
       RELATETRADETXN = #{record.relatetradetxn,jdbcType=VARCHAR},
       STATUS = #{record.status,jdbcType=VARCHAR},
       NOTES = #{record.notes,jdbcType=VARCHAR},
-      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      CERTIFTP = #{record.certiftp,jdbcType=VARCHAR},
+      CERTIFID = #{record.certifid,jdbcType=VARCHAR},
+      PHONENO = #{record.phoneno,jdbcType=VARCHAR},
+      CVN2 = #{record.cvn2,jdbcType=VARCHAR},
+      EXPIRED = #{record.expired,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -391,29 +402,14 @@
       <if test="amt != null">
         AMT = #{amt,jdbcType=VARCHAR},
       </if>
-      <if test="debtorbank != null">
-        DEBTORBANK = #{debtorbank,jdbcType=VARCHAR},
+      <if test="bankcode != null">
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
       </if>
-      <if test="debtoraccount != null">
-        DEBTORACCOUNT = #{debtoraccount,jdbcType=VARCHAR},
+      <if test="cardno != null">
+        CARDNO = #{cardno,jdbcType=VARCHAR},
       </if>
-      <if test="debtorname != null">
-        DEBTORNAME = #{debtorname,jdbcType=VARCHAR},
-      </if>
-      <if test="debtorconsign != null">
-        DEBTORCONSIGN = #{debtorconsign,jdbcType=VARCHAR},
-      </if>
-      <if test="creditorbank != null">
-        CREDITORBANK = #{creditorbank,jdbcType=VARCHAR},
-      </if>
-      <if test="creditoraccount != null">
-        CREDITORACCOUNT = #{creditoraccount,jdbcType=VARCHAR},
-      </if>
-      <if test="creditorname != null">
-        CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
-      </if>
-      <if test="proprietary != null">
-        PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
+      <if test="customernm != null">
+        CUSTOMERNM = #{customernm,jdbcType=VARCHAR},
       </if>
       <if test="summary != null">
         SUMMARY = #{summary,jdbcType=VARCHAR},
@@ -436,6 +432,24 @@
       <if test="remarks != null">
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="cardtype != null">
+        CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certiftp != null">
+        CERTIFTP = #{certiftp,jdbcType=VARCHAR},
+      </if>
+      <if test="certifid != null">
+        CERTIFID = #{certifid,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneno != null">
+        PHONENO = #{phoneno,jdbcType=VARCHAR},
+      </if>
+      <if test="cvn2 != null">
+        CVN2 = #{cvn2,jdbcType=VARCHAR},
+      </if>
+      <if test="expired != null">
+        EXPIRED = #{expired,jdbcType=VARCHAR},
+      </if>
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
@@ -446,21 +460,22 @@
       ORDERID = #{orderid,jdbcType=VARCHAR},
       CURRENCYCODE = #{currencycode,jdbcType=VARCHAR},
       AMT = #{amt,jdbcType=VARCHAR},
-      DEBTORBANK = #{debtorbank,jdbcType=VARCHAR},
-      DEBTORACCOUNT = #{debtoraccount,jdbcType=VARCHAR},
-      DEBTORNAME = #{debtorname,jdbcType=VARCHAR},
-      DEBTORCONSIGN = #{debtorconsign,jdbcType=VARCHAR},
-      CREDITORBANK = #{creditorbank,jdbcType=VARCHAR},
-      CREDITORACCOUNT = #{creditoraccount,jdbcType=VARCHAR},
-      CREDITORNAME = #{creditorname,jdbcType=VARCHAR},
-      PROPRIETARY = #{proprietary,jdbcType=VARCHAR},
+      BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      CARDNO = #{cardno,jdbcType=VARCHAR},
+      CUSTOMERNM = #{customernm,jdbcType=VARCHAR},
       SUMMARY = #{summary,jdbcType=VARCHAR},
       RESPCODE = #{respcode,jdbcType=VARCHAR},
       RESPMSG = #{respmsg,jdbcType=VARCHAR},
       RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=VARCHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
-      REMARKS = #{remarks,jdbcType=VARCHAR}
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      CERTIFTP = #{certiftp,jdbcType=VARCHAR},
+      CERTIFID = #{certifid,jdbcType=VARCHAR},
+      PHONENO = #{phoneno,jdbcType=VARCHAR},
+      CVN2 = #{cvn2,jdbcType=VARCHAR},
+      EXPIRED = #{expired,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
 </mapper>

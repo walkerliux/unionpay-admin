@@ -40,7 +40,7 @@ public class SaveTxnlogHandler implements EventHandler<SingleCollectBean>{
 				MerchDetaDO member = merchDetaService.getMerchByMemberId(singleCollectBean.getMchntCd());
 				txnsLog.setRiskver(member.getRiskVer());
 				txnsLog.setRoutver(member.getRoutVer());
-				txnsLog.setAccsettledate(DateUtil.getSettleDate(Integer.valueOf(member.getSetlCycle().toString())));
+				txnsLog.setAccsettledate(DateUtil.getSettleDate(1));
 				txnsLog.setTxndate(DateUtil.getCurrentDate());
 				txnsLog.setTxntime(DateUtil.getCurrentTime());
 				txnsLog.setBusicode(txncodeDef.getBusicode());
