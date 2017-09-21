@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
@@ -52,8 +53,11 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/batch/collect",method=RequestMethod.POST)
 	public ResultBean batchCollect(String data) {
+		long currentTimeMillis = System.currentTimeMillis();
 		ResultBean resultBean = new ResultBean("0000", "成功");
-		
+		BatchCollectBean batchCollectBean = JSON.parseObject(data.trim(), BatchCollectBean.class);
+		resultBean = collectBusinessService.createBatchCollectOrder(batchCollectBean);
+		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	}
 	

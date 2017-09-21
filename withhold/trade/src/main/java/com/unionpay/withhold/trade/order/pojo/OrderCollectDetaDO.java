@@ -13,21 +13,11 @@ public class OrderCollectDetaDO {
 
     private String amt;
 
-    private String debtorbank;
+    private String bankcode;
 
-    private String debtoraccount;
+    private String cardno;
 
-    private String debtorname;
-
-    private String debtorconsign;
-
-    private String creditorbank;
-
-    private String creditoraccount;
-
-    private String creditorname;
-
-    private String proprietary;
+    private String customernm;
 
     private String summary;
 
@@ -42,6 +32,18 @@ public class OrderCollectDetaDO {
     private String notes;
 
     private String remarks;
+
+    private String cardtype;
+
+    private String certiftp;
+
+    private String certifid;
+
+    private String phoneno;
+
+    private String cvn2;
+
+    private String expired;
 
     public Long getTid() {
         return tid;
@@ -91,68 +93,28 @@ public class OrderCollectDetaDO {
         this.amt = amt == null ? null : amt.trim();
     }
 
-    public String getDebtorbank() {
-        return debtorbank;
+    public String getBankcode() {
+        return bankcode;
     }
 
-    public void setDebtorbank(String debtorbank) {
-        this.debtorbank = debtorbank == null ? null : debtorbank.trim();
+    public void setBankcode(String bankcode) {
+        this.bankcode = bankcode == null ? null : bankcode.trim();
     }
 
-    public String getDebtoraccount() {
-        return debtoraccount;
+    public String getCardno() {
+        return cardno;
     }
 
-    public void setDebtoraccount(String debtoraccount) {
-        this.debtoraccount = debtoraccount == null ? null : debtoraccount.trim();
+    public void setCardno(String cardno) {
+        this.cardno = cardno == null ? null : cardno.trim();
     }
 
-    public String getDebtorname() {
-        return debtorname;
+    public String getCustomernm() {
+        return customernm;
     }
 
-    public void setDebtorname(String debtorname) {
-        this.debtorname = debtorname == null ? null : debtorname.trim();
-    }
-
-    public String getDebtorconsign() {
-        return debtorconsign;
-    }
-
-    public void setDebtorconsign(String debtorconsign) {
-        this.debtorconsign = debtorconsign == null ? null : debtorconsign.trim();
-    }
-
-    public String getCreditorbank() {
-        return creditorbank;
-    }
-
-    public void setCreditorbank(String creditorbank) {
-        this.creditorbank = creditorbank == null ? null : creditorbank.trim();
-    }
-
-    public String getCreditoraccount() {
-        return creditoraccount;
-    }
-
-    public void setCreditoraccount(String creditoraccount) {
-        this.creditoraccount = creditoraccount == null ? null : creditoraccount.trim();
-    }
-
-    public String getCreditorname() {
-        return creditorname;
-    }
-
-    public void setCreditorname(String creditorname) {
-        this.creditorname = creditorname == null ? null : creditorname.trim();
-    }
-
-    public String getProprietary() {
-        return proprietary;
-    }
-
-    public void setProprietary(String proprietary) {
-        this.proprietary = proprietary == null ? null : proprietary.trim();
+    public void setCustomernm(String customernm) {
+        this.customernm = customernm == null ? null : customernm.trim();
     }
 
     public String getSummary() {
@@ -209,5 +171,53 @@ public class OrderCollectDetaDO {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getCardtype() {
+        return cardtype;
+    }
+
+    public void setCardtype(String cardtype) {
+        this.cardtype = cardtype == null ? null : cardtype.trim();
+    }
+
+    public String getCertiftp() {
+        return certiftp;
+    }
+
+    public void setCertiftp(String certiftp) {
+        this.certiftp = certiftp == null ? null : certiftp.trim();
+    }
+
+    public String getCertifid() {
+        return certifid;
+    }
+
+    public void setCertifid(String certifid) {
+        this.certifid = certifid == null ? null : certifid.trim();
+    }
+
+    public String getPhoneno() {
+        return phoneno;
+    }
+
+    public void setPhoneno(String phoneno) {
+        this.phoneno = phoneno == null ? null : phoneno.trim();
+    }
+
+    public String getCvn2() {
+        return cvn2;
+    }
+
+    public void setCvn2(String cvn2) {
+        this.cvn2 = cvn2 == null ? null : cvn2.trim();
+    }
+
+    public String getExpired() {
+        return expired;
+    }
+
+    public void setExpired(String expired) {
+        this.expired = expired == null ? null : expired.trim();
     }
 }

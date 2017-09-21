@@ -3,15 +3,13 @@ package com.unionpay.withhold.trade.order.pojo;
 public class OrderCollectBatchDO {
     private Long tid;
 
-    private String accesstype;
-
-    private String coopinstiid;
-
     private String merid;
 
     private String version;
 
     private String encoding;
+
+    private String certid;
 
     private String txntype;
 
@@ -22,6 +20,8 @@ public class OrderCollectBatchDO {
     private String backurl;
 
     private String batchno;
+
+    private String factorid;
 
     private String txntime;
 
@@ -51,28 +51,16 @@ public class OrderCollectBatchDO {
 
     private String remarks;
 
+    private String accesstype;
+
+    private String coopinstiid;
+
     public Long getTid() {
         return tid;
     }
 
     public void setTid(Long tid) {
         this.tid = tid;
-    }
-
-    public String getAccesstype() {
-        return accesstype;
-    }
-
-    public void setAccesstype(String accesstype) {
-        this.accesstype = accesstype == null ? null : accesstype.trim();
-    }
-
-    public String getCoopinstiid() {
-        return coopinstiid;
-    }
-
-    public void setCoopinstiid(String coopinstiid) {
-        this.coopinstiid = coopinstiid == null ? null : coopinstiid.trim();
     }
 
     public String getMerid() {
@@ -97,6 +85,14 @@ public class OrderCollectBatchDO {
 
     public void setEncoding(String encoding) {
         this.encoding = encoding == null ? null : encoding.trim();
+    }
+
+    public String getCertid() {
+        return certid;
+    }
+
+    public void setCertid(String certid) {
+        this.certid = certid == null ? null : certid.trim();
     }
 
     public String getTxntype() {
@@ -137,6 +133,14 @@ public class OrderCollectBatchDO {
 
     public void setBatchno(String batchno) {
         this.batchno = batchno == null ? null : batchno.trim();
+    }
+
+    public String getFactorid() {
+        return factorid;
+    }
+
+    public void setFactorid(String factorid) {
+        this.factorid = factorid == null ? null : factorid.trim();
     }
 
     public String getTxntime() {
@@ -249,5 +253,21 @@ public class OrderCollectBatchDO {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getAccesstype() {
+        return accesstype;
+    }
+
+    public void setAccesstype(String accesstype) {
+        this.accesstype = accesstype == null ? null : accesstype.trim();
+    }
+
+    public String getCoopinstiid() {
+        return coopinstiid;
+    }
+
+    public void setCoopinstiid(String coopinstiid) {
+        this.coopinstiid = coopinstiid == null ? null : coopinstiid.trim();
     }
 }

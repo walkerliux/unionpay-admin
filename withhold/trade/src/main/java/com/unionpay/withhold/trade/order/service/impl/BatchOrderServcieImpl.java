@@ -16,14 +16,22 @@ public class BatchOrderServcieImpl implements BatchOrderServcie {
 
 	@Autowired
 	private OrderCollectBatchDAO orderCollectBatchDAO;
-	@Autowired
-	private SerialNumberService serialNumberService;
+	
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
 	public void saveBatchOrder(OrderCollectBatchDO orderCollectBatch) {
-		orderCollectBatch.setTid(serialNumberService.generateTID(TableEnum.BATCHCOLLECTIONORDER));
 		orderCollectBatchDAO.insert(orderCollectBatch);
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public OrderCollectBatchDO getCollectBatchOrder(String merchNo, String batchNo, String txndate) {
+		OrderCollectBatchDO record = new OrderCollectBatchDO();
+		record.setMerid(merchNo);
+		record.setBatchno(batchNo);
+		record.setTxndate(txndate);
+		return orderCollectBatchDAO.getCollectBatchOrder(record);
 	}
 
 }
