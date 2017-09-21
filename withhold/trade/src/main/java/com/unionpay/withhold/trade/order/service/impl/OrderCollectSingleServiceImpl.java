@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.dao.OrderCollectSingleDAO;
 import com.unionpay.withhold.trade.order.enums.TableEnum;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
@@ -32,6 +33,16 @@ public class OrderCollectSingleServiceImpl implements OrderCollectSingleService 
 		record.setMerid(merchNo);
 		record.setOrderid(orderNo);
 		return orderCollectSingleDAO.getCollctSingleOrder(record);
+	}
+	@Override
+	@Transactional(readOnly=true)
+	public OrderCollectSingleDO queryOrderinfo(SingleCollectQueryBean singleCollectQueryBean) {
+		OrderCollectSingleDO record = new OrderCollectSingleDO();
+		record.setMerid(singleCollectQueryBean.getMchntCd());
+		record.setOrderid(singleCollectQueryBean.getOrderId());
+		record.setTxntime(singleCollectQueryBean.getTransTm());
+		record.setTn(singleCollectQueryBean.getTransQueryId());
+		return orderCollectSingleDAO.queryCollctSingleOrder(record);
 	}
 	
 }

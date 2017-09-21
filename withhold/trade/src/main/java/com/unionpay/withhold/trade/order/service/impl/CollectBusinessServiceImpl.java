@@ -20,7 +20,10 @@ import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.order.batch.handle.BatchMessageCheckHandler;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
+import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
+import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.order.service.OrderCollectSingleService;
 import com.unionpay.withhold.trade.order.single.handle.MessageCheckHandler;
 @Service
 @SuppressWarnings("unchecked")
@@ -73,7 +76,8 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 	@Autowired
 	@Qualifier("finalEndBatchHandler")
 	private EventHandler<BatchCollectBean> finalEndBatchHandler;
-	
+	@Autowired
+	private OrderCollectSingleService orderCollectSingleService;
 	
 	@Override
 	public ResultBean createSingleCollectOrder(final SingleCollectBean singleCollectBean) {
@@ -125,7 +129,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}//等待生产者完事. 
+		}
         disruptor.shutdown();
         logger.info(JSON.toJSONString(singleCollectBean));
         if(singleCollectBean.getFinalResult().isResultBool()) {
@@ -174,7 +178,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}//等待生产者完事. 
+		}
         disruptor.shutdown();
         logger.info(JSON.toJSONString(batchCollectBean));
         if(batchCollectBean.getFinalResult().isResultBool()) {
@@ -182,6 +186,22 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
         }else {
         	resultBean = batchCollectBean.getFinalResult();
         }
+		return resultBean;
+	}
+	
+	@Override
+	public ResultBean querySingleCollectOrder(SingleCollectQueryBean singleCollectQueryBean) {
+		ResultBean resultBean = null;
+		try {
+			OrderCollectSingleDO orderinfo = orderCollectSingleService.queryOrderinfo(singleCollectQueryBean);
+			resultBean = new ResultBean("0000", "成功");
+			resultBean.setResultObj(orderinfo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("9001", "交易查询异常");
+			resultBean.setResultBool(false);
+		}
 		return resultBean;
 	}
 	

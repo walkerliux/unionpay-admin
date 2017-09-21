@@ -1,5 +1,6 @@
 package com.unionpay.withhold.trade.order.service;
 
+import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
 
 public interface OrderCollectSingleService {
@@ -17,4 +18,11 @@ public interface OrderCollectSingleService {
 	 * @return
 	 */
 	public OrderCollectSingleDO getOrderinfoByOrderNoAndMerchNo(String merchNo, String orderNo);
+	
+	/**
+	 * 查询实时代扣订单（商户接口）
+	 * @param singleCollectQueryBean
+	 * @return
+	 */
+	public OrderCollectSingleDO queryOrderinfo(SingleCollectQueryBean singleCollectQueryBean);
 }

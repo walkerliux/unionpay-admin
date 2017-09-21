@@ -29,4 +29,6 @@ public interface OrderCollectSingleDAO {
     int updateByPrimaryKey(OrderCollectSingleDO record);
     
     OrderCollectSingleDO getCollctSingleOrder(OrderCollectSingleDO record);
+    
+    OrderCollectSingleDO queryCollctSingleOrder(OrderCollectSingleDO record);;
 }
