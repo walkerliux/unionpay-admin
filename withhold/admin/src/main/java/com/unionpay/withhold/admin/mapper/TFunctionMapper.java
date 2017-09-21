@@ -15,7 +15,8 @@ public interface TFunctionMapper {
     int insert(TFunction record);
 
     int insertSelective(TFunction record);
-
+    
+    List<TFunction> selectAll();
     List<TFunction> selectByExample(TFunctionExample example);
 
     TFunction selectByPrimaryKey(Long functId);

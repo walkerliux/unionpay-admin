@@ -84,12 +84,12 @@
 					try{
 						window.parent.returnLogin()
 					}catch(err){ 
-						window.location.href="<%=basePath%>"+"member/logout?relogin=relogin";
+						window.location.href="<%=basePath%>"+"login/logout?relogin=relogin";
 					}
 						 
 					$("#info").html("操作超时,请重新登录");
 				} 
-				$('#rand_image').attr("src","<%=basePath%>member/validateCode?rand="+new Date().getTime());
+				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
 // 						$('#theForm').form('submit', {  
@@ -123,15 +123,15 @@
 						
 						$.ajax({
 							type:"post",
-							url:"<%=basePath%>member/validateUser?rand="+new Date().getTime(),
+							url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
 							data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
 							async: false,
 							success:function(data){
 								  if(data.ret=='success'){
-									window.location="<%=basePath%>member/loginSuccess";
+									window.location="<%=basePath%>login/loginSuccess";
 								}else{
 									$("#info").html(data.info);
-									$('#rand_image').attr("src","<%=basePath%>member/validateCode?rand="+new Date().getTime());
+									$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 								}
 							}
 						});
@@ -154,7 +154,7 @@
 		        var timenow = new Date().getTime();   
 		           //每次请求需要一个不同的参数，否则可能会返回同样的验证码   
 		        //这和浏览器的缓存机制有关系，也可以把页面设置为不缓存，这样就不用这个参数了。   
-		        obj.src="<%=basePath%>member/validateCode?rand="+timenow;   
+		        obj.src="<%=basePath%>login/validateCode?rand="+timenow;   
 		    }   
 
 			$("#reset_btn").click(function(){
@@ -193,14 +193,14 @@
         	
 			$('#login_btn').click(function(){
 				//直接跳转，实际开发时别忘了去除
-				window.location="<%=basePath%>member/loginSuccess";
+				<%-- window.location="<%=basePath%>login/loginSuccess"; --%>
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
 				var randcode = $('#randcode').val();
 				
 				$.ajax({
 	        		type:"post",
-	        		url:"<%=basePath%>member/validateUser?rand="+new Date().getTime(),
+	        		url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
 	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
 	        		async: false,
 	        		success:function(data){

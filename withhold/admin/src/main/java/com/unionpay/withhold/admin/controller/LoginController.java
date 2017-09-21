@@ -4,43 +4,225 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
-@RequestMapping("/member")
-public class LoginController {
+import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.service.FunctionService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.CookieUtils;
+import com.unionpay.withhold.admin.utils.MD5Util;
 
+@Controller
+@RequestMapping("/login")
+public class LoginController {
+	private List<?> funlist;
+    private String loginName;
+    private String randcode;
+    private HttpServletResponse response;
+    private HttpServletRequest request;
+    private Map<String, Object> session;
+    private int pwdFlag;// 密码有效期过期标示 1-过期 0-未过期
+    private int pwdDay;// 密码到期时间，5天时开始提示
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟  
 	
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private FunctionService functionService;
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView login(String userName,String pwd){
+	public ModelAndView login(TUser user,HttpServletRequest request,String randcode){
 	    
+		
 		return new ModelAndView("/index");
-	}
+	} 
 	
 	@RequestMapping(value = "/loginSuccess",method = RequestMethod.GET)
-    public ModelAndView loginSuccess() {
+    public ModelAndView loginSuccess(TUser user, HttpServletRequest request) throws ParseException {
         ModelAndView result=new ModelAndView("/index");
+        TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
+        if (loginUser==null) {
+			return new ModelAndView("/login");
+		}
+       if (loginUser.getLoginName().equals("admin")) {
+            funlist = functionService.findFunction();
+        } else {
+            funlist = functionService.findLoginFuntion(loginUser);
+        }
+        Integer pwdFlag = checkPWDDate(request);
+        pwdDay = calcExpirationDay(request);
+       
+        result.addObject("loginName",loginUser.getLoginName());
+        result.addObject("funlist",funlist);
+        
+        result.addObject("pwdDay",pwdDay);
+        result.addObject("pwdFlag",pwdFlag);
+      
         
         return result;
     }
+	/**
+	 * 验证用户登录信息
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/validateUser")
+	public Map<String, Object> validateUser(TUser user,HttpServletRequest request,String randcode) {
+		Map<String, Object> returnMap = new HashMap<String, Object>();
+		String rand = ""; 
+		HttpSession session = request.getSession(true);
+		if (session.getAttribute("randCheckCode") == null) {
+			rand = "";
+		} else {
+			rand = session.getAttribute("randCheckCode").toString();
+		}
+		if (!randcode.equals(rand)) {
+			returnMap.put("ret", "err_rand");
+			returnMap.put("info", "验证码错误！");
+			return returnMap;
+		}
+
+		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
+		passwordMark = passwordMark + user.getPwd();
+
+		TUser userBean = new TUser(); 
+		userBean.setLoginName(user.getLoginName());
+		userBean.setStatus("00");
+ 		userBean.setPwd(MD5Util.MD5(passwordMark));
+ 		TUser DbUser = userService.getLoginUser(userBean);
+		
+		boolean loginFlag = false;
+		if (DbUser != null) {
+			if (DbUser.getLoginName().equals(user.getLoginName())
+					&& DbUser.getPwd().equals(MD5Util.MD5(passwordMark))) {
+				returnMap.put("ret", "success");
+			} else {
+				loginFlag = true;
+			}
+		} else {
+			loginFlag = true;
+		}
+		if (loginFlag) {
+			returnMap.put("ret", "err_user");
+			returnMap.put("info", "用户名或密码错误！");
+		}else{
+			request.getSession().setAttribute("LOGIN_USER", DbUser);
+		}
+		return returnMap;
+	}
+	
+	 /**
+	  * 操作栏
+	  */
+	@ResponseBody
+	@RequestMapping("/querymenu")
+	public ModelAndView querymenu() throws Exception {
+		ModelAndView result=new ModelAndView("/index");
+		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
+		if (loginUser.getLoginName().equals("admin")) {
+	        funlist = functionService.findFunction();
+	    } else {
+	        funlist = functionService.findLoginFuntion(loginUser);
+	    }
+	    session.put("Authority", funlist);
+	    Integer pwdFlag = checkPWDDate(request);
+	    pwdDay = calcExpirationDay(request);
+	    
+	    result.addObject("loginName",loginUser.getLoginName());
+       result.addObject("funlist",funlist);
+       result.addObject("pwdDay",pwdDay);
+       result.addObject("pwdFlag",pwdFlag);
+       
+       return result;
+	}
+
+	/**
+    * 检查密码有效期
+	 * @throws ParseException 
+    */
+   private Integer checkPWDDate(HttpServletRequest request) throws ParseException {
+	   TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
+        pwdFlag=0;
+        String pwdTime = sdf.format(loginUser.getPwdValid());
+        if(isNull(pwdTime)){
+       	 pwdFlag=1;
+        }else{
+	         long time = loginUser.getPwdValid().getTime();//密码有效期
+	         long currentTime = new Date().getTime();//当前时间
+	         if(currentTime>time){
+	        	 pwdFlag = 1;
+	         }
+        }
+        return pwdFlag;
+   }
+
+	/**
+	 * 计算时间间隔
+	 * 
+	 * @return
+	 * @throws ParseException 
+	 */
+	private int calcExpirationDay(HttpServletRequest request) throws ParseException {
+		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
+       Calendar cal1 = Calendar.getInstance();
+       cal1.setTime(new Date());
+       Calendar cal2 = Calendar.getInstance();
+       if (isNull(loginUser.getPwdValid())) {
+           cal2.setTime(new Date());
+       } else {
+    	   cal2.setTime(loginUser.getPwdValid());
+           //cal2.setTime(sdf.parse(loginUser.getPwdValid()));
+       }
+       long l = cal2.getTimeInMillis() - cal1.getTimeInMillis();
+       int days = new Long(l / (1000 * 60 * 60 * 24)).intValue();
+       return days;
+   }
 	
 	
-	
-	
-	
-	
+	/**
+	 * 用户登出
+	 * @return
+	 */
+    @ResponseBody
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpServletRequest request) {
+		ModelAndView result=new ModelAndView("/login");
+		HttpSession session = request.getSession(true);
+
+        if (isNull(session.getAttribute("LOGIN_USER"))) {
+        	session.invalidate();
+        }
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("user.cookie")) {
+                cookie.setMaxAge(0);
+                response.addCookie(cookie);
+            }
+        }
+        return result;
+    }
 	
 	/**
 	 * 生成图片验证码
@@ -113,5 +295,57 @@ public class LoginController {
 		int g = fc + random.nextInt(bc - fc);
 		int b = fc + random.nextInt(bc - fc);
 		return new Color(r, g, b);
+	}
+	//判断value是否为空
+	public boolean isNull(Object value) {
+		if (value == null || value.toString().equals("")) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+	
+	// 得到cookie
+    public String getCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (CookieUtils.USER_COOKIE.equals(cookie.getName())) {
+                    String value = cookie.getValue();
+                    if (StringUtils.isNotBlank(value)) {
+                        String[] split = value.split(",");
+                        // String clientIp = split[0];
+                        String count = split[0];
+                        return count;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+	
+	public String getIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("x-forwarded-for");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("http_client_ip");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		// 如果是多级代理，那么取第一个ip为客户ip
+		if (ip != null && ip.indexOf(",") != -1) {
+			ip = ip.substring(ip.lastIndexOf(",") + 1, ip.length()).trim();
+		}
+		return ip;
 	}
 }
