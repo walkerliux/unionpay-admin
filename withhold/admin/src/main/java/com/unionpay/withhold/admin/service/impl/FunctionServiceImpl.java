@@ -3,6 +3,7 @@ package com.unionpay.withhold.admin.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,21 +41,30 @@ public class FunctionServiceImpl implements FunctionService {
 		
 		if(list!=null&&list.size()>0){
 			//中间表
+			//定义一个临时变量存放前一次循环所得的ParentId
+			String index=null;
 			for (TUserFunct tUserFunct : list) {
 				Long functId = tUserFunct.getFunctId();
 				//得到父TFunction
 				TFunction parent = tFunctionMapper.selectByPrimaryKey(functId);
-				result.add(parent);
+				if(StringUtils.isEmpty(parent.getParentId())){
+					result.add(parent);
+					continue;
+				}
+				if(parent.getParentId().equals(index)){
+					continue;
+				}
 			    //查子TFunction
 			    TFunctionExample tFunctionExample = new TFunctionExample();
 			    Criteria tFcriteria = tFunctionExample.createCriteria();
-			    tFcriteria.andParentIdEqualTo(functId.toString());
+			    tFcriteria.andParentIdEqualTo(parent.getParentId());
 			    //得到子TFunctions
 			    List<TFunction> sons = tFunctionMapper.selectByExample(tFunctionExample);			
 			    if(sons!=null&&sons.size()>0){
 				   for (TFunction son : sons) {
 					 result.add(son);
 				 }
+				   index=parent.getParentId();
 			 }
 		  }
 		}
