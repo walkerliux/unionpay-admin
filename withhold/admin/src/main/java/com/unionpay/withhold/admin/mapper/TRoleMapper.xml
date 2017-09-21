@@ -240,4 +240,7 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where ROLE_ID = #{roleId,jdbcType=DECIMAL}
   </update>
+   <select id="findAll" resultMap="BaseResultMap" >
+    select * from t_role
+  </select>
 </mapper>

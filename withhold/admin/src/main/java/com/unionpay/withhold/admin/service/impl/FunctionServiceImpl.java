@@ -71,4 +71,10 @@ public class FunctionServiceImpl implements FunctionService {
 		return result;
 	}
 
+	@Override
+	public List<TFunction> findAllFuntion(TUser user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
