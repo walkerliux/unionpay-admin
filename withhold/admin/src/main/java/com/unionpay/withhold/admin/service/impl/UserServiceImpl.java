@@ -1,12 +1,15 @@
 package com.unionpay.withhold.admin.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TUserMapper;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TUserExample;
@@ -38,10 +41,15 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	@Override
-	public Map<String, Object> findUserByPage(Map<String, Object> variables,
+	public PageBean findUserByPage(Map<String, Object> variables,
 			int page, int rows) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		TUserExample example = new TUserExample();
+		//example.setOrderByClause("created desc");
+		PageHelper.startPage(page, rows);
+		List<TUser> list = tUserMapper.selectByExample(example);
+		PageBean pageBean=new PageBean(list.size(),list);
+		return pageBean;
 	}
 	
 

@@ -43,8 +43,8 @@ table tr td select {
 						<td align="left" style="padding-left: 5px">
 						<input id="userCode" name="userModel.loginName" /></td>
 						<td align="right"></td>
-					</tr>
-					<tr>
+					<!-- </tr>
+				 	<tr>
 						<td align="right">所属机构</td>
 						<td align="left" style="padding-left: 5px"><select
 							id="userOrganId" name="user.organId" onchange="showDept(1)">
@@ -54,8 +54,8 @@ table tr td select {
 						<td align="left" style="padding-left: 5px">
 						<select id="userDeptId" name="user.deptId" onchange="showRole(1)">
 								<option value=''>--请选择所属部门--</option></select></td>
-					</tr>
-					<tr>
+					</tr> 
+					<tr> -->
 						<td align="right">用户角色</td>
 						<td align="left" style="padding-left: 5px">
 						<select id="userRoleId" name="user.notes">
@@ -241,11 +241,11 @@ table tr td select {
 				columns:[[
 					{field:'USER_CODE',title:'用户代码',align:'center',width:100},
 					{field:'USER_NAME',title:'用户名称',align:'center',width:100},
-					{field:'LOGIN_NAME',title:'登陆账号',width:120,align:'center'},
+					/* {field:'LOGIN_NAME',title:'登陆账号',width:120,align:'center'},
 					{field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
 					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'},
 					{field:'CREATOR',title:'创建者',width:100,align:'center'},
-					{field:'CREATE_DATE',title:'创建时间',width:130,align:'center'},
+					{field:'CREATE_DATE',title:'创建时间',width:130,align:'center'}, */
 					{field:'STATUS',title:'状态',width:120,align:'center',
 						formatter:function(value,rec){
 							if(value=="00"){

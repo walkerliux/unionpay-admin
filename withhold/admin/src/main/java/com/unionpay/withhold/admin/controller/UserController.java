@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MD5Util;
@@ -46,7 +47,7 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping("/query")
-	public Map<String, Object> query(TUser user,int page,int rows){
+	public PageBean query(TUser user,int page,int rows){
 		Map<String, Object> variables = new HashMap<String, Object>();
 		if (user != null) {
 			variables.put("userName", user.getUserName());
@@ -55,9 +56,9 @@ public class UserController {
 			//variables.put("deptId", user.getDeptId());
 			variables.put("roleId", user.getNotes());
 		}
-		Map<String, Object> userList = userService.findUserByPage(variables,page, rows);
+		PageBean resultBean = userService.findUserByPage(variables,page, rows);
 		
-		return new HashMap<String, Object>();
+		return resultBean;
 		//return userService.findUserByPage(variables,page, rows);
 	}
 	

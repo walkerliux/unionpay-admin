@@ -5,6 +5,7 @@ package com.unionpay.withhold.admin.service;
 import java.util.Date;
 import java.util.Map;
 
+import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TUser;
 
 public interface UserService {
@@ -14,7 +15,7 @@ public interface UserService {
 
 	public abstract void resetPwd(TUser user, Date date);
 
-	public abstract Map<String, Object> findUserByPage(
+	public abstract PageBean findUserByPage(
 			Map<String, Object> variables, int page, int rows);
 
 }
