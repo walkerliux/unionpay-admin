@@ -4,13 +4,22 @@ import javax.xml.bind.JAXBException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
+import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
+import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
+import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
+import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.order.service.OrderCollectSingleService;
+import com.unionpay.withhold.utils.DateUtil;
 import com.unionpay.withhold.utils.XMLUtils;
 
 @RestController
@@ -18,20 +27,23 @@ import com.unionpay.withhold.utils.XMLUtils;
 public class FrontEndController {
 
 	private static final Logger logger = LoggerFactory.getLogger(FrontEndController.class);
+	
+	@Autowired
+	private CollectBusinessService  collectBusinessService;
 	/**
 	 * 实时代扣
 	 * @param data
 	 * @return
 	 */
-	@RequestMapping(value="/realtime/collect",method=RequestMethod.GET)
+	@RequestMapping(value="/realtime/collect",method=RequestMethod.POST)
 	public ResultBean realTimeCollect(String data) {
-		logger.info(data);
+		long currentTimeMillis = System.currentTimeMillis();
 		ResultBean resultBean = new ResultBean();
 		resultBean.setRespCode("0000");
 		resultBean.setRespMsg("成功");
-		MerchantResponse response = new MerchantResponse();
-		response.setSignature("1233456");
-		resultBean.setResultObj(response);
+		SingleCollectBean singleCollectBean = JSON.parseObject(data, SingleCollectBean.class);
+		resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	} 	
 	
@@ -42,8 +54,12 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/batch/collect",method=RequestMethod.POST)
 	public ResultBean batchCollect(String data) {
-		
-		return null;
+		long currentTimeMillis = System.currentTimeMillis();
+		ResultBean resultBean = new ResultBean("0000", "成功");
+		BatchCollectBean batchCollectBean = JSON.parseObject(data.trim(), BatchCollectBean.class);
+		resultBean = collectBusinessService.createBatchCollectOrder(batchCollectBean);
+		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
+		return resultBean;
 	}
 	
 	/**
@@ -53,8 +69,10 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/realtime/query/collect",method=RequestMethod.POST)
 	public ResultBean queryRealTimeCollect(String data) {
-		
-		return null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
+		SingleCollectQueryBean singleCollectQueryBean = JSON.parseObject(data, SingleCollectQueryBean.class);
+		resultBean = collectBusinessService.querySingleCollectOrder(singleCollectQueryBean);
+		return resultBean;
 	}
 	/**
 	 * 批量代扣查询
@@ -63,8 +81,8 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/batch/query/collect",method=RequestMethod.POST)
 	public ResultBean queryBatchCollect(String data) {
-		
-		return null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
+		return resultBean;
 	}
 	
 	/**
@@ -74,7 +92,7 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/realtime/validateSignature",method=RequestMethod.POST)
 	public ResultBean validateSignature(String xml) {
-		ResultBean resultBean = null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
 		try {
 			MerchantRequest request = XMLUtils.converyToJavaBean(xml.trim(), MerchantRequest.class);
 		} catch (JAXBException e) {
@@ -91,7 +109,7 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/realtime/addSignature",method=RequestMethod.POST)
 	public ResultBean addSignature(String xml) {
-		ResultBean resultBean = null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
 		try {
 			MerchantResponse response = XMLUtils.converyToJavaBean(xml.trim(),MerchantResponse.class);
 		} catch (JAXBException e) {
@@ -109,8 +127,8 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/path/cp/batchnotify",method=RequestMethod.POST)
 	public ResultBean cpBatchTradeNotify(String data) {
-		
-		return null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
+		return resultBean;
 	}
 	
 	/**
@@ -120,7 +138,7 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/checkfile/download",method=RequestMethod.POST)
 	public ResultBean downloadCheckFile(String data) {
-		
-		return null;
+		ResultBean resultBean = new ResultBean("0000", "成功");
+		return resultBean;
 	}
 }

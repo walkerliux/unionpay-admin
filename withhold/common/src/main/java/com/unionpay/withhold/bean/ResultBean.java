@@ -20,7 +20,7 @@ public class ResultBean implements Serializable {
 	}
 	
 	public ResultBean(String respCode,String respMsg){
-		this.resultBool=false;
+		this.resultBool=true;
 		this.respCode=respCode;
 		this.respMsg=respMsg;
 	}

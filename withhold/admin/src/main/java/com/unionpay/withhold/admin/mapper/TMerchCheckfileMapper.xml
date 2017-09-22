@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TMerchCheckfileMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
+    <result column="TID" property="tid" jdbcType="CHAR" />
+    <result column="merchNo" property="merchno" jdbcType="CHAR" />
+    <result column="checkDate" property="checkdate" jdbcType="CHAR" />
+    <result column="intime" property="intime" jdbcType="CHAR" />
+    <result column="fileName" property="filename" jdbcType="CHAR" />
+    <result column="uri" property="uri" jdbcType="CHAR" />
+    <result column="requestTime" property="requesttime" jdbcType="CHAR" />
+    <result column="url" property="url" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, merchNo, checkDate, intime, fileName, uri, requestTime, url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_merch_checkfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" >
+    delete from t_merch_checkfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
+    insert into t_merch_checkfile (TID, merchNo, checkDate, 
+      intime, fileName, uri, requestTime, 
+      url)
+    values (#{tid,jdbcType=CHAR}, #{merchno,jdbcType=CHAR}, #{checkdate,jdbcType=CHAR}, 
+      #{intime,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, #{uri,jdbcType=CHAR}, #{requesttime,jdbcType=CHAR}, 
+      #{url,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfile" >
+    insert into t_merch_checkfile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="merchno != null" >
+        merchNo,
+      </if>
+      <if test="checkdate != null" >
+        checkDate,
+      </if>
+      <if test="intime != null" >
+        intime,
+      </if>
+      <if test="filename != null" >
+        fileName,
+      </if>
+      <if test="uri != null" >
+        uri,
+      </if>
+      <if test="requesttime != null" >
+        requestTime,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=CHAR},
+      </if>
+      <if test="merchno != null" >
+        #{merchno,jdbcType=CHAR},
+      </if>
+      <if test="checkdate != null" >
+        #{checkdate,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=CHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=CHAR},
+      </if>
+      <if test="uri != null" >
+        #{uri,jdbcType=CHAR},
+      </if>
+      <if test="requesttime != null" >
+        #{requesttime,jdbcType=CHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchCheckfileExample" resultType="java.lang.Integer" >
+    select count(*) from t_merch_checkfile
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_merch_checkfile
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=CHAR},
+      </if>
+      <if test="record.merchno != null" >
+        merchNo = #{record.merchno,jdbcType=CHAR},
+      </if>
+      <if test="record.checkdate != null" >
+        checkDate = #{record.checkdate,jdbcType=CHAR},
+      </if>
+      <if test="record.intime != null" >
+        intime = #{record.intime,jdbcType=CHAR},
+      </if>
+      <if test="record.filename != null" >
+        fileName = #{record.filename,jdbcType=CHAR},
+      </if>
+      <if test="record.uri != null" >
+        uri = #{record.uri,jdbcType=CHAR},
+      </if>
+      <if test="record.requesttime != null" >
+        requestTime = #{record.requesttime,jdbcType=CHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_merch_checkfile
+    set TID = #{record.tid,jdbcType=CHAR},
+      merchNo = #{record.merchno,jdbcType=CHAR},
+      checkDate = #{record.checkdate,jdbcType=CHAR},
+      intime = #{record.intime,jdbcType=CHAR},
+      fileName = #{record.filename,jdbcType=CHAR},
+      uri = #{record.uri,jdbcType=CHAR},
+      requestTime = #{record.requesttime,jdbcType=CHAR},
+      url = #{record.url,jdbcType=CHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
