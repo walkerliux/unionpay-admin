@@ -64,7 +64,7 @@
 	</bean>
 
     <!-- 对静态资源文件的访问 不支持访问WEB-INF目录 -->  
-    <mvc:default-servlet-handler/>  
+    <mvc:default-servlet-handler/>   
 
 	<!-- 对静态资源文件的访问 支持访问WEB-INF目录 -->
 <!-- 	<mvc:resources location="/resources/img/" mapping="/resources/img/**" /> -->

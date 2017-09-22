@@ -36,7 +36,7 @@
 		<context:include-filter type="annotation"
 			expression="org.springframework.web.bind.annotation.ControllerAdvice" />
 	</context:component-scan>
-	<mvc:default-servlet-handler />
+	<mvc:default-servlet-handler /> 
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="true">
 			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
