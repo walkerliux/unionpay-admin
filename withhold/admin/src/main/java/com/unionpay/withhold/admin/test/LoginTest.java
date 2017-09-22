@@ -2,9 +2,13 @@ package com.unionpay.withhold.admin.test;
 
 
 
-import org.junit.Test;
+import java.util.Date;
 
+import org.apache.ibatis.javassist.expr.NewArray;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+
+
 
 
 import com.unionpay.withhold.admin.mapper.TUserMapper;
@@ -24,9 +28,11 @@ public class LoginTest {
 		List<TUser> users = tUserMapper.selectByExample(example);
 		TUser tUser = users.get(0);
 		System.out.println(tUser.getPwd());*/
-		String md5 = MD5Util.MD5("123456");
-		System.out.println(md5);
-		
+		/*String md5 = MD5Util.MD5("123456");
+		System.out.println(md5);*/
+		System.out.println(new Date().getHours());
+		System.out.println(new Date().getMinutes());
+		System.out.println(new Date().getSeconds());
 	}
 
 }

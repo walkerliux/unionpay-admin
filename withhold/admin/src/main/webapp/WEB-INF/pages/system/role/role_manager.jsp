@@ -25,19 +25,19 @@ table tr td select {
 						<td align="right" width="15%">角色名称</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="roleName" id="roleName" /></td>
-						<td align="right" width="15%">所属机构</td>
+						<!-- <td align="right" width="15%">所属机构</td>
 						<td align="left" style="padding-left: 5px" width="25%"><select
 							id="roleOrganId" name="organId" onchange="showDept(1)">
 								<option value=''>--请选择所属机构--</option>
-						</select></td>
+						</select></td> 
 					</tr>
 					<tr>
 
-						<td align="right" width="15%">所属部门</td>
+						 <td align="right" width="15%">所属部门</td>
 						<td align="left" style="padding-left: 5px" width="25%"><select
 							id="roleDeptId" name="deptId">
 								<option value=''>--请选择所属部门--</option>
-						</select></td>
+						</select></td> -->
 						<td></td>
 						<td></td>
 						<td align="right">
@@ -66,14 +66,14 @@ table tr td select {
 							<td><input id="role_name" name="roleName"
 								missingMessage="请输入角色名称" required="true" type="text"
 								class="easyui-validatebox" maxlength="20" /></td>
-							<td>所属机构</td>
+							<!-- <td>所属机构</td>
 							<td><select id="role_organId" name="organId"
 								required="true" missingMessage="请选择所属机构" type="text"
 								class="easyui-validatebox" onchange="showDept()">
 									<option value="">--请选择所属机构--</option>
-							</select></td>
+							</select></td> -->
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>所属部门</td>
 							<td><select id="role_deptId" class="easyui-validatebox"
 								required="true" missingMessage="请选择所属部门" name="deptId"
@@ -82,7 +82,7 @@ table tr td select {
 							</select></td>
 							<td></td>
 							<td></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>备注</td>
 							<td colspan="3"><textarea rows="3" cols="60" id="role_notes"
@@ -124,7 +124,7 @@ table tr td select {
 <script>
   	var width = $("#continer").width();
 		$(function(){
-			showOrgan();
+			//showOrgan();
 			$('#test').datagrid({
 				title:'角色列表',
 				iconCls:'icon-save',
@@ -134,15 +134,24 @@ table tr td select {
 				url:'role/query',
 				singleSelect:true,
 				remoteSort: false,
-				idField:'ROLE_ID',
+				idField:'roleId',
 				columns:[
 				[
-					{field:'ROLE_NAME',title:'角色名称',width:120,align:'center'},
-					{field:'ORGAN_ID',title:'所属机构',width:150,align:'center'},
-					{field:'DEPT_ID',title:'所属部门',width:150,align:'center'},
-					{field:'CREAT_DATE',title:'创建时间',width:150,align:'center'},
-					{field:'CREATOR',title:'创建者',width:120,align:'center'},
-					{field:'STATUS',title:'状态',width:120,align:'center',
+					{field:'roleName',title:'角色名称',width:120,align:'center'},
+					/* {field:'ORGAN_ID',title:'所属机构',width:150,align:'center'},
+					{field:'DEPT_ID',title:'所属部门',width:150,align:'center'}, */
+					{field:'creatDate',title:'创建时间',width:150,align:'center',
+						formatter:function(value, row) { 
+							if(value!=null){
+								  var date = new Date(value); 
+								  return formatDate(date,"yyyy-mm-dd hh:nn:ss");
+								}else{ 
+								  return ""; 
+								} 
+							}
+					},
+					{field:'creator',title:'创建者',width:120,align:'center'},
+					{field:'status',title:'状态',width:120,align:'center',
 						formatter:function(value,rec){
 							if(value=="00"){
 								return "使用";
@@ -151,9 +160,9 @@ table tr td select {
 							}
 						}
 					},	
-					{field:'ROLE_ID',title:'操作',width:150,align:'center',
+					{field:'roleId',title:'操作',width:150,align:'center',
 						formatter:function(value,rec){
-							if(rec.STATUS=="00"){
+							if(rec.status=="00"){
 								return '<a href="javascript:ToshowRoleAuthority('+value+')" style="color:blue;margin-left:10px">赋权</a>&nbsp;<a href="javascript:showRole('+value+')" style="color:blue;margin-left:10px">修改</a>&nbsp;<a href="javascript:deleteRole('+value+')" style="color:blue;margin-left:10px">注销</a>';
 							}else{
 								return "";
@@ -219,8 +228,9 @@ table tr td select {
 			    },   
 			    success:function(data){   
 			    	 var json = eval('(' + data + ')')
+			    	 
 			    	$.each(json, function(key,value){
-			    		$.messager.alert('提示',value.INFO);   
+			    		$.messager.alert('提示',value);   
 			    		search();
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
@@ -242,7 +252,7 @@ table tr td select {
 				$("#role_name").val(json.roleName);
 				$("#role_organId").val(json.organId);
 				$("#role_notes").val(json.notes);
-				var html = '<option value="">--请选择所属部门--</option>';
+				 /* var html = '<option value="">--请选择所属部门--</option>';
 				$.ajax({
 					type: "GET",
 				  	url: "role/showDept",
@@ -256,9 +266,9 @@ table tr td select {
 						$("#role_deptId").html(html);
 				 	}
 				});
-				$("#role_deptId").val(json.deptId);
+				$("#role_deptId").val(json.deptId); */
 				
-			   }
+			   } 
 			});
 			$('#w').window({
 				title: '修改角色',
@@ -285,7 +295,7 @@ table tr td select {
 				   dataType:"json",
 				   success:function(json){
 						$.each(json, function(key,value){
-				    		$.messager.alert('提示',value.INFO);   
+				    		$.messager.alert('提示',value);   
 				    		search();
 				    		closeAdd();
 						}) 
@@ -294,7 +304,7 @@ table tr td select {
 			    }   
 			});  
 		}
-		function showDept(flag){
+		/* function showDept(flag){
 			var organId;
 			if(flag==1){
 				organId=$('#roleOrganId').val();
@@ -319,9 +329,9 @@ table tr td select {
 					
 			 	}
 			});
-		}
+		} */
 
-		function showOrgan(){
+		/* function showOrgan(){
 			var html = '<option value="">--请选择所属机构--</option>';
 			$.ajax({
 				type: "GET",
@@ -335,7 +345,7 @@ table tr td select {
 					$("#role_organId,#roleOrganId").html(html);
 			 	}
 			});
-		}
+		} */
 					
 		function ToshowRoleAuthority(roleId){
 			$("#roleId").val(roleId);
@@ -392,7 +402,7 @@ table tr td select {
 					if(data=='true'){
 						$('#w2').window('close');
 						$.messager.alert('提示',"保存成功");  
-					}else if(data=="flase"){
+					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					}
 			    }

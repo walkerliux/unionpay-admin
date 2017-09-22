@@ -29,4 +29,5 @@ public interface TRoleMapper {
     int updateByPrimaryKey(TRole record);
 
 	List<TRole> findAll();
+	List<TRole> selectByPageExample(TRoleExample example);
 }

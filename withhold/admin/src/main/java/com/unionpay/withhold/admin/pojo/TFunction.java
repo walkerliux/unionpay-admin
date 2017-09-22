@@ -1,5 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
+import java.util.List;
+
 public class TFunction {
     private Long functId;
 
@@ -151,4 +153,51 @@ public class TFunction {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+    
+    /***********添加*******************/
+    private List<TFunction> children;
+    private String state;
+    private String checked;
+    private String text;
+    private String id;
+    
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+	public List<TFunction> getChildren() {
+		return children;
+	}
+
+	public void setChildren(List<TFunction> children) {
+		this.children = children;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }

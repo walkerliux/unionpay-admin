@@ -8,4 +8,10 @@ public interface RoleFunctService {
 
 	List<TRoleFunct> findRoleFunctByRoleIds(List<Long> roleIdlist);
 
+	void deleteRoleFunction(Long roleId);
+
+	void save(List<TRoleFunct> functList);
+
+	List<TRoleFunct> findByProperty(Long roleId);
+
 }

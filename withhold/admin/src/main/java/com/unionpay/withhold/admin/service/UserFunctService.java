@@ -11,6 +11,6 @@ public interface UserFunctService {
 
 	void save(List<TUserFunct> functList);
 
-	List<TRoleFunct> findByProperty(Long userId);
+	List<TUserFunct> findByProperty(Long userId);
 
 }

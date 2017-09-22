@@ -32,6 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript" src="js/jquery.maxlength.js"></script>
 <script type="text/javascript" src="js/money.js"></script>
 <script type="text/javascript" src="js/attrchange.js"></script>
+
 <script type="text/javascript">
 	$().ready(function(){
 	 	$.messager.defaults={ok:"确定",cancel:"取消"};
