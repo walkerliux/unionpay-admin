@@ -8,14 +8,14 @@
 		<artifactId>withhold</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>trade</artifactId>
+	<artifactId>trade</artifactId> 
 	<name>trade</name>
 	<packaging>war</packaging>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-	<dependencies>
+	</properties>  
+	<dependencies> 
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>

@@ -43,4 +43,5 @@
 	</aop:config>
 
 	<import resource="spring-mybatis.xml" />
+	<import resource="SqlMapConfig.xml"/>
 </beans>
