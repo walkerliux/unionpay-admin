@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.mapper.TUserRoleMapper;
 import com.unionpay.withhold.admin.pojo.TUserRole;
@@ -12,6 +13,7 @@ import com.unionpay.withhold.admin.pojo.TUserRoleExample;
 import com.unionpay.withhold.admin.pojo.TUserRoleExample.Criteria;
 import com.unionpay.withhold.admin.service.UserRoleService;
 @Service
+@Transactional
 public class UserRoleServiceImpl implements UserRoleService {
 	@Autowired
 	private TUserRoleMapper tUserRoleMapper;

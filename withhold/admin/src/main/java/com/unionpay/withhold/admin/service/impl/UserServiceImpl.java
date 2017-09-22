@@ -9,6 +9,7 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.unionpay.withhold.admin.Bean.PageBean;
@@ -22,6 +23,7 @@ import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.pojo.TUserRoleExample;
 import com.unionpay.withhold.admin.service.UserService;
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private TUserMapper tUserMapper;

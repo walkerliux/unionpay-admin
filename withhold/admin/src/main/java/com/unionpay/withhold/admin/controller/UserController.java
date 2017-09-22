@@ -83,16 +83,17 @@ public class UserController {
     @RequestMapping("/update")
 	public List<?> update(HttpServletRequest request,TUser user) {
 		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		List resultList = new ArrayList();
-		Map<String, Object> returnMap = userService.updateUser(user);
 		user.setCreator(loginUser.getLoginName());
-		if(returnMap.get("RET").equals("succ")){
-	        Map<String, Object> map2 = new HashMap<String, Object>();
-	        map2.put("RET", "succ");
-	        map2.put("INFO", "注销成功!");
-	        resultList.add(map2);
-	    }
-		return resultList;
+		ArrayList<String> list = new ArrayList<String>();
+		try {
+			userService.updateUser(user);
+			list.add("更新成功");
+		} catch (Exception e) {
+			list.add("更新失败");
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 	
 	/**
@@ -128,6 +129,7 @@ public class UserController {
 	@ResponseBody
     @RequestMapping("/save")
 	public List<?> save(HttpServletRequest request,TUser user) {
+		ArrayList<String> list = new ArrayList<String>();
 		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
 		user.setCreator(loginUser.getLoginName());
 		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
@@ -136,12 +138,12 @@ public class UserController {
 		user.setCreateDate(new Date());
 		user.setPwdValid(new Date());
 		user.setStatus("00");
-		List list=new ArrayList<>();
+		
 		try {
 			userService.saveUser(user);
-			list.add(true);
+			list.add("保存成功");
 		} catch (Exception e) {
-			list.add(false);
+			list.add("保存失败");
 			e.printStackTrace();
 		}
 		
@@ -154,19 +156,20 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping("/delete")
-    public List delete(HttpServletRequest request,Long userId) {	    
+    public String delete(HttpServletRequest request,Long userId) {	    
 	    TUser user = userService.getSingleById(userId);
 	    user.setStatus("01");
-	    Map<String, Object> returnMap = userService.updateUser(user);
-	    List resultList = new ArrayList();
-	    if(returnMap.get("RET").equals("succ")){
-	        Map<String, Object> map2 = new HashMap<String, Object>();
-	        map2.put("RET", "succ");
-	        map2.put("INFO", "注销成功!");
-	        resultList.add(map2);
-	    }
+	    try {
+			userService.updateUser(user);
+			return "true";
+	    } catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    
 	   
-		return resultList;
+		return "false";
 	}
 
 	
@@ -255,14 +258,14 @@ public class UserController {
 		if(userFunc != null && !userFunc.equals("")){
 			String[] roleId = userFunc.split(",");
 			List<TUserRole> userRoleList = new ArrayList<TUserRole>();
-			Long num = 1L;
+			//Long num = 1L;
 			for (int i = 0; i < roleId.length; i++) {
 				TUserRole model = new TUserRole();
-				model.setUserRoleId(num);
+				//model.setUserRoleId(num);
 				model.setUserId(userId);
 				model.setRoleId(Long.valueOf(roleId[i]));
 				userRoleList.add(model);
-				num++;
+				//num++;
 			}
 			userRoleService.save(userRoleList);
 			return "true";
@@ -278,18 +281,26 @@ public class UserController {
 	@ResponseBody
    @RequestMapping("/queryFunction")
 	public Map<String, Object> queryFunction(HttpServletRequest request,Long userId) {
-		List<TRoleFunct> roleList = new ArrayList<TRoleFunct>();
+		
+		List<TRoleFunct> roleFucList = new ArrayList<TRoleFunct>();
 		TUser user = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		List<TFunction> list = (List<TFunction>) functionService.findAllFuntion(user);
-		List<TUserRole> allRoleList = (List<TUserRole>) userRoleService.findByProperty(userId);
+		//得到所有菜单
+		List<TFunction> list = (List<TFunction>) functionService.findFunction();
+
+		List<TUserRole> allRoleList =userRoleService.findByProperty(userId);
+		
+		//得到要操作的用户的所有角色的Id
 		List<Long> roleIdlist = new ArrayList<Long>();
 		for (TUserRole role : allRoleList) {
 			roleIdlist.add(role.getRoleId());
 		}
-		if (roleIdlist.size() > 0) {
-				roleList = (List<TRoleFunct>) roleFunctService.findRoleFunctByRoleIds(roleIdlist);
+		
+		if (roleIdlist!=null&&roleIdlist.size() > 0) {
+			//得到角色-菜单中间表
+				roleFucList = roleFunctService.findRoleFunctByRoleIds(roleIdlist);
 		}
-		List<TRoleFunct> userList = (List<TRoleFunct>) userFunctService.findByProperty(userId);
+		//得到要操作的用户的用户-菜单表
+		List<TUserFunct> userFunctList = userFunctService.findByProperty(userId);
 		List<TFunction> removeList = new ArrayList<TFunction>();
 		List<TFunction> children = new ArrayList<TFunction>();
 		for (TFunction function : list) {
@@ -297,34 +308,36 @@ public class UserController {
 				if (children != null) {
 					children = null;
 				}
-				/*function.setChildren(new ArrayList<TFunction>());
+				function.setChildren(new ArrayList<TFunction>());
 				children = function.getChildren();
-				function.setState("closed");*/
+				function.setState("closed");
 			} else {// 子节点
-				for (TRoleFunct roleFunct : roleList) {
+				for (TRoleFunct roleFunct : roleFucList) {
 					if (roleFunct.getFunctId().equals(function.getFunctId())) {
-						/*function.setChecked("true");
-						function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");*/
+						function.setChecked("true");
+						function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");
+						//function.setId(function.getFunctId().toString());
 					}
 				}
-				/*for (TUserFunct userFunct : userList) {
+				for (TUserFunct userFunct : userFunctList) {
 					if (userFunct.getFunctId().equals(function.getFunctId())) {
 						function.setChecked("true");
 					}
-				}*/
+				}
 				children.add(function);
 				removeList.add(function);
 			}
-			function.setFunctId(function.getFunctId());
-			/*if(function.getText() == null || function.getText().toString().equals("")){
+			function.setId(function.getFunctId().toString());
+			if(function.getText() == null || function.getText().toString().equals("")){
 				function.setText(function.getFunctName());
-			}*/
+				//function.setId(function.getFunctId().toString());
+			}
 		}
 		list.removeAll(removeList);// 移除全部的子节点数据
 
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("result", list);
-		result.put("roleFunction", roleList);
+		result.put("roleFunction", roleFucList);
 		return result;
 	}
 
@@ -337,13 +350,13 @@ public class UserController {
    @RequestMapping("/saveAuth")
 	public String saveAuth(String userFunc,Long userId) {
 		userFunctService.deleteOldFunc(userId);
-		if(userFunc != null || !userFunc.toString().equals("")){
+		if(userFunc != null &&!userFunc.equals("")){
 			String[] funcId = userFunc.split(",");
 			List<TUserFunct> functList = new ArrayList<TUserFunct>();
 			Long num = 1L;
 			for (int i = 0; i < funcId.length; i++) {
 				TUserFunct model = new TUserFunct();
-				model.setUserFunctId(num);
+				//model.setUserFunctId(num);
 				model.setUserId(userId);
 				model.setFunctId(Long.valueOf(funcId[i]));
 				functList.add(model);
