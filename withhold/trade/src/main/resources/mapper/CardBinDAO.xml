@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.withhold.trade.order.dao.CardBinDAO">
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    <id column="CARDBIN" jdbcType="VARCHAR" property="cardbin" />
+    <id column="CARDLEN" jdbcType="DECIMAL" property="cardlen" />
+    <result column="BINLEN" jdbcType="DECIMAL" property="binlen" />
+    <result column="CARDNAME" jdbcType="VARCHAR" property="cardname" />
+    <result column="BANKCODE" jdbcType="VARCHAR" property="bankcode" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+  </resultMap>
+  <resultMap id="CardResultMap" type="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    <id column="CARDBIN" jdbcType="VARCHAR" property="cardbin" />
+    <id column="CARDLEN" jdbcType="DECIMAL" property="cardlen" />
+    <result column="BINLEN" jdbcType="DECIMAL" property="binlen" />
+    <result column="CARDNAME" jdbcType="VARCHAR" property="cardname" />
+    <result column="BANKCODE" jdbcType="VARCHAR" property="bankcode" />
+    <result column="TYPE" jdbcType="DECIMAL" property="type" />
+    <result column="BANKNAME" jdbcType="VARCHAR" property="bankname" />
+    
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    CARDBIN, CARDLEN, BINLEN, CARDNAME, BANKCODE, TYPE
+  </sql>
+  <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_card_bin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_card_bin
+    where CARDBIN = #{cardbin,jdbcType=VARCHAR}
+      and CARDLEN = #{cardlen,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from t_card_bin
+    where CARDBIN = #{cardbin,jdbcType=VARCHAR}
+      and CARDLEN = #{cardlen,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDOExample">
+    delete from t_card_bin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    insert into t_card_bin (CARDBIN, CARDLEN, BINLEN, 
+      CARDNAME, BANKCODE, TYPE
+      )
+    values (#{cardbin,jdbcType=VARCHAR}, #{cardlen,jdbcType=DECIMAL}, #{binlen,jdbcType=DECIMAL}, 
+      #{cardname,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, #{type,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    insert into t_card_bin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="cardbin != null">
+        CARDBIN,
+      </if>
+      <if test="cardlen != null">
+        CARDLEN,
+      </if>
+      <if test="binlen != null">
+        BINLEN,
+      </if>
+      <if test="cardname != null">
+        CARDNAME,
+      </if>
+      <if test="bankcode != null">
+        BANKCODE,
+      </if>
+      <if test="type != null">
+        TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="cardbin != null">
+        #{cardbin,jdbcType=VARCHAR},
+      </if>
+      <if test="cardlen != null">
+        #{cardlen,jdbcType=DECIMAL},
+      </if>
+      <if test="binlen != null">
+        #{binlen,jdbcType=DECIMAL},
+      </if>
+      <if test="cardname != null">
+        #{cardname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null">
+        #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDOExample" resultType="java.lang.Long">
+    select count(*) from t_card_bin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_card_bin
+    <set>
+      <if test="record.cardbin != null">
+        CARDBIN = #{record.cardbin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardlen != null">
+        CARDLEN = #{record.cardlen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.binlen != null">
+        BINLEN = #{record.binlen,jdbcType=DECIMAL},
+      </if>
+      <if test="record.cardname != null">
+        CARDNAME = #{record.cardname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcode != null">
+        BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        TYPE = #{record.type,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_card_bin
+    set CARDBIN = #{record.cardbin,jdbcType=VARCHAR},
+      CARDLEN = #{record.cardlen,jdbcType=DECIMAL},
+      BINLEN = #{record.binlen,jdbcType=DECIMAL},
+      CARDNAME = #{record.cardname,jdbcType=VARCHAR},
+      BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      TYPE = #{record.type,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    update t_card_bin
+    <set>
+      <if test="binlen != null">
+        BINLEN = #{binlen,jdbcType=DECIMAL},
+      </if>
+      <if test="cardname != null">
+        CARDNAME = #{cardname,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null">
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        TYPE = #{type,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where CARDBIN = #{cardbin,jdbcType=VARCHAR}
+      and CARDLEN = #{cardlen,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.order.pojo.CardBinDO">
+    update t_card_bin
+    set BINLEN = #{binlen,jdbcType=DECIMAL},
+      CARDNAME = #{cardname,jdbcType=VARCHAR},
+      BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      TYPE = #{type,jdbcType=DECIMAL}
+    where CARDBIN = #{cardbin,jdbcType=VARCHAR}
+      and CARDLEN = #{cardlen,jdbcType=DECIMAL}
+  </update>
+  <select id="getCardInfo" parameterType="Map" resultMap="CardResultMap">
+    select
+    	t.*,b.BANKNAME
+    FROM 
+    	t_card_bin t, t_bank_insti b 
+    WHERE 
+    	t.bankcode = b.bankcode 
+      	AND  #{cardno} LIKE CONCAT(t.cardbin,'%')
+       	AND t.cardlen = #{cardlen}
+       	LIMIT 1
+  </select>
+ 
+</mapper>

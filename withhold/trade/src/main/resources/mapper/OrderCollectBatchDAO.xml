@@ -567,4 +567,25 @@
     and MERID = #{merid,jdbcType=VARCHAR}
     and TXNDATE = #{txndate,jdbcType=VARCHAR}
   </select>
+  <select id="queryCollectBatchOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	1=1 
+    	<if test="merid != null and merid != ''">
+        	AND MERID = #{merid,jdbcType=VARCHAR}
+     	</if>
+     	<if test="txndate != null and txndate != ''">
+	        AND TXNDATE = #{txndate,jdbcType=VARCHAR}
+	    </if>
+	    <if test="batchno != null and batchno != ''">
+        	AND BATCHNO = #{batchno,jdbcType=VARCHAR}
+     	</if>
+     	<if test="tn != null and tn != ''">
+	        AND TN = #{tn,jdbcType=VARCHAR}
+	     </if>
+  </select>
+  
 </mapper>

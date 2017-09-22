@@ -478,4 +478,10 @@
       EXPIRED = #{expired,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
+  <select id="queryCollectOrderDeta" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_collect_deta
+    where BATCHTID = #{batchtid,jdbcType=DECIMAL}
+  </select>
 </mapper>

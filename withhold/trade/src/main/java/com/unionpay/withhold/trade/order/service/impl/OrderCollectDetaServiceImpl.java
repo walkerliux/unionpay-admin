@@ -1,5 +1,7 @@
 package com.unionpay.withhold.trade.order.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,6 +26,12 @@ public class OrderCollectDetaServiceImpl implements OrderCollectDetaService{
 	public void saveOrderCollectDeta(OrderCollectDetaDO orderCollectDeta) {
 		orderCollectDeta.setTid(serialNumberService.generateTID(TableEnum.BATCHCOLLECTIONORDERDETA));
 		orderCollectDetaDAO.insert(orderCollectDeta);
+	}
+	
+	@Override
+	@Transactional(readOnly=true)
+	public List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId){
+		return orderCollectDetaDAO.queryCollectOrderDeta(batchId);
 	}
 
 	
