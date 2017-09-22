@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.withhold.trade.route.dao.RouteConfigDAO">
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.route.pojo.RouteConfigDO">
+    <id column="RID" jdbcType="INTEGER" property="rid" />
+    <result column="ROUTID" jdbcType="DECIMAL" property="routid" />
+    <result column="ROUTVER" jdbcType="VARCHAR" property="routver" />
+    <result column="STIME" jdbcType="VARCHAR" property="stime" />
+    <result column="ETIME" jdbcType="VARCHAR" property="etime" />
+    <result column="MINAMT" jdbcType="DECIMAL" property="minamt" />
+    <result column="MAXAMT" jdbcType="DECIMAL" property="maxamt" />
+    <result column="BANKCODE" jdbcType="VARCHAR" property="bankcode" />
+    <result column="BUSICODE" jdbcType="VARCHAR" property="busicode" />
+    <result column="CARDTYPE" jdbcType="VARCHAR" property="cardtype" />
+    <result column="CHNLCODE" jdbcType="VARCHAR" property="chnlcode" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="INTIME" jdbcType="TIMESTAMP" property="intime" />
+    <result column="INUSER" jdbcType="DECIMAL" property="inuser" />
+    <result column="UPTIME" jdbcType="TIMESTAMP" property="uptime" />
+    <result column="UPUSER" jdbcType="DECIMAL" property="upuser" />
+    <result column="ORDERS" jdbcType="DECIMAL" property="orders" />
+    <result column="ISDEF" jdbcType="VARCHAR" property="isdef" />
+    <result column="TRADEELE" jdbcType="VARCHAR" property="tradeele" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RID, ROUTID, ROUTVER, STIME, ETIME, MINAMT, MAXAMT, BANKCODE, BUSICODE, CARDTYPE, 
+    CHNLCODE, STATUS, INTIME, INUSER, UPTIME, UPUSER, ORDERS, ISDEF, TRADEELE, NOTES, 
+    REMARKS
+  </sql>
+  <select id="selectByExample" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_route_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_route_config
+    where RID = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_route_config
+    where RID = #{rid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDOExample">
+    delete from t_route_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDO">
+    insert into t_route_config (RID, ROUTID, ROUTVER, 
+      STIME, ETIME, MINAMT, 
+      MAXAMT, BANKCODE, BUSICODE, 
+      CARDTYPE, CHNLCODE, STATUS, 
+      INTIME, INUSER, UPTIME, 
+      UPUSER, ORDERS, ISDEF, 
+      TRADEELE, NOTES, REMARKS
+      )
+    values (#{rid,jdbcType=INTEGER}, #{routid,jdbcType=DECIMAL}, #{routver,jdbcType=VARCHAR}, 
+      #{stime,jdbcType=VARCHAR}, #{etime,jdbcType=VARCHAR}, #{minamt,jdbcType=DECIMAL}, 
+      #{maxamt,jdbcType=DECIMAL}, #{bankcode,jdbcType=VARCHAR}, #{busicode,jdbcType=VARCHAR}, 
+      #{cardtype,jdbcType=VARCHAR}, #{chnlcode,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, #{uptime,jdbcType=TIMESTAMP}, 
+      #{upuser,jdbcType=DECIMAL}, #{orders,jdbcType=DECIMAL}, #{isdef,jdbcType=VARCHAR}, 
+      #{tradeele,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDO">
+    insert into t_route_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        RID,
+      </if>
+      <if test="routid != null">
+        ROUTID,
+      </if>
+      <if test="routver != null">
+        ROUTVER,
+      </if>
+      <if test="stime != null">
+        STIME,
+      </if>
+      <if test="etime != null">
+        ETIME,
+      </if>
+      <if test="minamt != null">
+        MINAMT,
+      </if>
+      <if test="maxamt != null">
+        MAXAMT,
+      </if>
+      <if test="bankcode != null">
+        BANKCODE,
+      </if>
+      <if test="busicode != null">
+        BUSICODE,
+      </if>
+      <if test="cardtype != null">
+        CARDTYPE,
+      </if>
+      <if test="chnlcode != null">
+        CHNLCODE,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="intime != null">
+        INTIME,
+      </if>
+      <if test="inuser != null">
+        INUSER,
+      </if>
+      <if test="uptime != null">
+        UPTIME,
+      </if>
+      <if test="upuser != null">
+        UPUSER,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="isdef != null">
+        ISDEF,
+      </if>
+      <if test="tradeele != null">
+        TRADEELE,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="routid != null">
+        #{routid,jdbcType=DECIMAL},
+      </if>
+      <if test="routver != null">
+        #{routver,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="minamt != null">
+        #{minamt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxamt != null">
+        #{maxamt,jdbcType=DECIMAL},
+      </if>
+      <if test="bankcode != null">
+        #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null">
+        #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null">
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null">
+        #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null">
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null">
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null">
+        #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=DECIMAL},
+      </if>
+      <if test="isdef != null">
+        #{isdef,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeele != null">
+        #{tradeele,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDOExample" resultType="java.lang.Long">
+    select count(*) from t_route_config
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_route_config
+    <set>
+      <if test="record.rid != null">
+        RID = #{record.rid,jdbcType=INTEGER},
+      </if>
+      <if test="record.routid != null">
+        ROUTID = #{record.routid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.routver != null">
+        ROUTVER = #{record.routver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stime != null">
+        STIME = #{record.stime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.etime != null">
+        ETIME = #{record.etime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minamt != null">
+        MINAMT = #{record.minamt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxamt != null">
+        MAXAMT = #{record.maxamt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bankcode != null">
+        BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busicode != null">
+        BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardtype != null">
+        CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlcode != null">
+        CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null">
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inuser != null">
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.uptime != null">
+        UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.upuser != null">
+        UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.orders != null">
+        ORDERS = #{record.orders,jdbcType=DECIMAL},
+      </if>
+      <if test="record.isdef != null">
+        ISDEF = #{record.isdef,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeele != null">
+        TRADEELE = #{record.tradeele,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null">
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_route_config
+    set RID = #{record.rid,jdbcType=INTEGER},
+      ROUTID = #{record.routid,jdbcType=DECIMAL},
+      ROUTVER = #{record.routver,jdbcType=VARCHAR},
+      STIME = #{record.stime,jdbcType=VARCHAR},
+      ETIME = #{record.etime,jdbcType=VARCHAR},
+      MINAMT = #{record.minamt,jdbcType=DECIMAL},
+      MAXAMT = #{record.maxamt,jdbcType=DECIMAL},
+      BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{record.upuser,jdbcType=DECIMAL},
+      ORDERS = #{record.orders,jdbcType=DECIMAL},
+      ISDEF = #{record.isdef,jdbcType=VARCHAR},
+      TRADEELE = #{record.tradeele,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDO">
+    update t_route_config
+    <set>
+      <if test="routid != null">
+        ROUTID = #{routid,jdbcType=DECIMAL},
+      </if>
+      <if test="routver != null">
+        ROUTVER = #{routver,jdbcType=VARCHAR},
+      </if>
+      <if test="stime != null">
+        STIME = #{stime,jdbcType=VARCHAR},
+      </if>
+      <if test="etime != null">
+        ETIME = #{etime,jdbcType=VARCHAR},
+      </if>
+      <if test="minamt != null">
+        MINAMT = #{minamt,jdbcType=DECIMAL},
+      </if>
+      <if test="maxamt != null">
+        MAXAMT = #{maxamt,jdbcType=DECIMAL},
+      </if>
+      <if test="bankcode != null">
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null">
+        BUSICODE = #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null">
+        CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null">
+        CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null">
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null">
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="uptime != null">
+        UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="upuser != null">
+        UPUSER = #{upuser,jdbcType=DECIMAL},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=DECIMAL},
+      </if>
+      <if test="isdef != null">
+        ISDEF = #{isdef,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeele != null">
+        TRADEELE = #{tradeele,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.route.pojo.RouteConfigDO">
+    update t_route_config
+    set ROUTID = #{routid,jdbcType=DECIMAL},
+      ROUTVER = #{routver,jdbcType=VARCHAR},
+      STIME = #{stime,jdbcType=VARCHAR},
+      ETIME = #{etime,jdbcType=VARCHAR},
+      MINAMT = #{minamt,jdbcType=DECIMAL},
+      MAXAMT = #{maxamt,jdbcType=DECIMAL},
+      BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      BUSICODE = #{busicode,jdbcType=VARCHAR},
+      CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      UPUSER = #{upuser,jdbcType=DECIMAL},
+      ORDERS = #{orders,jdbcType=DECIMAL},
+      ISDEF = #{isdef,jdbcType=VARCHAR},
+      TRADEELE = #{tradeele,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+</mapper>

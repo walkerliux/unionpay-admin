@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop
 			http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 			http://www.springframework.org/schema/beans
@@ -9,13 +10,17 @@
 			http://www.springframework.org/schema/mvc
 			http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 			http://www.springframework.org/schema/tx
-			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
-
+			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+			http://cxf.apache.org/jaxws  
+            http://cxf.apache.org/schemas/jaxws.xsd"
+			>
 	<description> spring base</description>
 	<context:property-placeholder location="classpath:*.properties" />
-	<context:component-scan base-package="com.unionpay.withhold.api">
+	<context:component-scan base-package="com.unionpay">
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	
+<!-- 	<bean id="service" class="com.unionpay.dk.webservice.WSServerInitializingBean" /> -->
 	<bean id="logHelper" class="com.unionpay.withhold.utils.LogHelper"/>
 	 <aop:config>
 	    <aop:aspect ref="logHelper">
@@ -27,4 +32,16 @@
 	    </aop:aspect>
 	</aop:config> 
 	
+	<import resource="classpath:mybatis/applicationContext-*.xml" />
 </beans>
+
+
+
+
+
+
+
+
+
+
+

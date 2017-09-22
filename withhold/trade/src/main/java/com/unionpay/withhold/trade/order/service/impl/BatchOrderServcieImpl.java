@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO;
 import com.unionpay.withhold.trade.order.enums.TableEnum;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO;
@@ -33,5 +34,17 @@ public class BatchOrderServcieImpl implements BatchOrderServcie {
 		record.setTxndate(txndate);
 		return orderCollectBatchDAO.getCollectBatchOrder(record);
 	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public OrderCollectBatchDO queryCollectBatchOrder(BatchCollectQueryBean batchCollectQueryBean) {
+		OrderCollectBatchDO record = new OrderCollectBatchDO();
+		record.setTn(batchCollectQueryBean.getTn());
+		record.setTxndate(batchCollectQueryBean.getTxnDate());
+		record.setBatchno(batchCollectQueryBean.getBatchNo());
+		return orderCollectBatchDAO.queryCollectBatchOrder(record);
+	}
+	
+	
 
 }

@@ -14,6 +14,7 @@ public class ResultBean implements Serializable {
 	private Object resultObj;
 	private String respCode;
 	private String respMsg;
+	private Object secondObj;
 	
 	public ResultBean(){
 		this.resultBool=false;
@@ -79,6 +80,14 @@ public class ResultBean implements Serializable {
 
 	public void setRespMsg(String respMsg) {
 		this.respMsg = respMsg;
+	}
+
+	public Object getSecondObj() {
+		return secondObj;
+	}
+
+	public void setSecondObj(Object secondObj) {
+		this.secondObj = secondObj;
 	}
 	
 }

@@ -13,13 +13,12 @@ import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
+import com.unionpay.withhold.trade.fee.dao.FeeDAO;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
-import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
-import com.unionpay.withhold.trade.order.service.OrderCollectSingleService;
-import com.unionpay.withhold.utils.DateUtil;
 import com.unionpay.withhold.utils.XMLUtils;
 
 @RestController
@@ -30,6 +29,8 @@ public class FrontEndController {
 	
 	@Autowired
 	private CollectBusinessService  collectBusinessService;
+	@Autowired
+	private FeeDAO customDAO;
 	/**
 	 * 实时代扣
 	 * @param data
@@ -82,6 +83,8 @@ public class FrontEndController {
 	@RequestMapping(value="/batch/query/collect",method=RequestMethod.POST)
 	public ResultBean queryBatchCollect(String data) {
 		ResultBean resultBean = new ResultBean("0000", "成功");
+		BatchCollectQueryBean batchCollectQueryBean = JSON.parseObject(data, BatchCollectQueryBean.class);
+		resultBean = collectBusinessService.queryBatchCollectOrder(batchCollectQueryBean);
 		return resultBean;
 	}
 	

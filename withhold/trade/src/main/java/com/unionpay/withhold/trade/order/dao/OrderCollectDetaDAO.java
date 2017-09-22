@@ -27,4 +27,6 @@ public interface OrderCollectDetaDAO {
     int updateByPrimaryKeySelective(OrderCollectDetaDO record);
 
     int updateByPrimaryKey(OrderCollectDetaDO record);
+    
+    List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId);
 }

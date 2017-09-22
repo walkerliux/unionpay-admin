@@ -2,6 +2,7 @@ package com.unionpay.withhold.trade.order.service;
 
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 
@@ -27,4 +28,11 @@ public interface CollectBusinessService {
 	 * @return
 	 */
 	public ResultBean querySingleCollectOrder(SingleCollectQueryBean singleCollectQueryBean);
+	
+	/**
+	 * 批量代扣订单查询
+	 * @param batchCollectQueryBean
+	 * @return
+	 */
+	public ResultBean queryBatchCollectOrder(BatchCollectQueryBean batchCollectQueryBean);
 }

@@ -8,10 +8,10 @@
 		<artifactId>withhold</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>admin</artifactId>
+	<artifactId>admin</artifactId> 
 	<packaging>war</packaging>
 	<name>admin Maven Webapp</name>
-	<url>http://maven.apache.org</url>
+	<url>http://maven.apache.org</url> 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>

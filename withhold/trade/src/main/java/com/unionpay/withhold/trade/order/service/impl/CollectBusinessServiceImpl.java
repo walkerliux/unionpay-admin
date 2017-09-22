@@ -1,5 +1,6 @@
 package com.unionpay.withhold.trade.order.service.impl;
 
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 import org.slf4j.Logger;
@@ -19,17 +20,24 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.order.batch.handle.BatchMessageCheckHandler;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
+import com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO;
+import com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO;
+import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
+import com.unionpay.withhold.trade.order.service.BatchOrderServcie;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.order.service.OrderCollectDetaService;
 import com.unionpay.withhold.trade.order.service.OrderCollectSingleService;
 import com.unionpay.withhold.trade.order.single.handle.MessageCheckHandler;
+
 @Service
 @SuppressWarnings("unchecked")
 public class CollectBusinessServiceImpl implements CollectBusinessService {
 
-	private static final Logger  logger = LoggerFactory.getLogger(CollectBusinessServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(CollectBusinessServiceImpl.class);
 	@Autowired
 	private TaskExecutor taskExecutor;
 	@Autowired
@@ -53,8 +61,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 	@Autowired
 	@Qualifier("finalEndSingleHandler")
 	private EventHandler<SingleCollectBean> finalEndSingleHandler;
-	
-	
+
 	@Autowired
 	@Qualifier("batchRepeatSubmitHandler")
 	private EventHandler<BatchCollectBean> batchRepeatSubmitHandler;
@@ -76,119 +83,122 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 	@Autowired
 	@Qualifier("finalEndBatchHandler")
 	private EventHandler<BatchCollectBean> finalEndBatchHandler;
+
 	@Autowired
 	private OrderCollectSingleService orderCollectSingleService;
-	
+	@Autowired
+	private BatchOrderServcie batchOrderServcie;
+	@Autowired
+	private OrderCollectDetaService orderCollectDetaService;
 	@Override
 	public ResultBean createSingleCollectOrder(final SingleCollectBean singleCollectBean) {
 		/**
-		 * 1.检查订单是否为二次支付
-		 * 2.检查订单是否为二次提交
-		 * 3.检查订单业务有效性
-		 * 4.检查商户和合作机构有效性
-		 * 5.检查消费订单特殊性要求检查，如果没有可以为空
-		 * 6.检查消费订单特殊性要求检查，如果没有可以为空
-		 * 7.保存订单信息
+		 * 1.检查订单是否为二次支付 2.检查订单是否为二次提交 3.检查订单业务有效性 4.检查商户和合作机构有效性
+		 * 5.检查消费订单特殊性要求检查，如果没有可以为空 6.检查消费订单特殊性要求检查，如果没有可以为空 7.保存订单信息
 		 */
-		//ExecutorService executorService = Executors.newCachedThreadPool();
+		// ExecutorService executorService = Executors.newCachedThreadPool();
 		ResultBean resultBean = null;
-        int bufferSize=2048;
-        final Disruptor<SingleCollectBean> disruptor = new Disruptor<SingleCollectBean>(new EventFactory<SingleCollectBean>() {
-			@Override
-			public SingleCollectBean newInstance() {
-				return singleCollectBean;
-			}
-		}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
-        MessageCheckHandler messageCheckHandler = new MessageCheckHandler();
-        disruptor.handleEventsWith(secondPayHandler);
-        disruptor.after(secondPayHandler).handleEventsWith(messageCheckHandler,repeatSubmitHandler);
-        disruptor.after(messageCheckHandler).handleEventsWith(busiCheckHandler);
-        disruptor.after(busiCheckHandler).handleEventsWith(merchCheckHandler);
-        disruptor.after(repeatSubmitHandler).handleEventsWith(saveOrderHandler);
-        disruptor.after(saveOrderHandler).handleEventsWith(saveTxnlogHandler);
-        disruptor.after(saveTxnlogHandler,merchCheckHandler).handleEventsWith(finalEndSingleHandler);
-        disruptor.start();//启动  
-        final CountDownLatch latch=new CountDownLatch(1); 
-        //生产者准备 
-       
-        taskExecutor.execute(new Runnable() {
+		int bufferSize = 2048;
+		final Disruptor<SingleCollectBean> disruptor = new Disruptor<SingleCollectBean>(
+				new EventFactory<SingleCollectBean>() {
+					@Override
+					public SingleCollectBean newInstance() {
+						return singleCollectBean;
+					}
+				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
+		MessageCheckHandler messageCheckHandler = new MessageCheckHandler();
+		disruptor.handleEventsWith(secondPayHandler);
+		disruptor.after(secondPayHandler).handleEventsWith(messageCheckHandler, repeatSubmitHandler);
+		disruptor.after(messageCheckHandler).handleEventsWith(busiCheckHandler);
+		disruptor.after(busiCheckHandler).handleEventsWith(merchCheckHandler);
+		disruptor.after(repeatSubmitHandler).handleEventsWith(saveOrderHandler);
+		disruptor.after(saveOrderHandler).handleEventsWith(saveTxnlogHandler);
+		disruptor.after(saveTxnlogHandler, merchCheckHandler).handleEventsWith(finalEndSingleHandler);
+		disruptor.start();// 启动
+		final CountDownLatch latch = new CountDownLatch(1);
+		// 生产者准备
+
+		taskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				disruptor.publishEvent(new EventTranslator<SingleCollectBean>() {
 					@Override
 					public void translateTo(SingleCollectBean singleCollectBean, long sequence) {
-						//logger.info("EventTranslator");
+						// logger.info("EventTranslator");
 					}
 				});
-				latch.countDown();  
+				latch.countDown();
 			}
 		});
-        try {
+		try {
 			latch.await();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        disruptor.shutdown();
-        logger.info(JSON.toJSONString(singleCollectBean));
-        if(singleCollectBean.getFinalResult().isResultBool()) {
-        	resultBean = new ResultBean(singleCollectBean.getTn());
-        }else {
-        	resultBean = singleCollectBean.getFinalResult();
-        }
+		disruptor.shutdown();
+		//logger.info(JSON.toJSONString(singleCollectBean));
+		if (singleCollectBean.getFinalResult().isResultBool()) {
+			resultBean = new ResultBean(singleCollectBean.getTn());
+		} else {
+			resultBean = singleCollectBean.getFinalResult();
+		}
 		return resultBean;
 	}
+
 	@Override
 	public ResultBean createBatchCollectOrder(final BatchCollectBean batchCollectBean) {
 		ResultBean resultBean = null;
-        int bufferSize=2048;
-        final Disruptor<BatchCollectBean> disruptor = new Disruptor<BatchCollectBean>(new EventFactory<BatchCollectBean>() {
-			@Override
-			public BatchCollectBean newInstance() {
-				return batchCollectBean;
-			}
-		}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
-        BatchMessageCheckHandler messageCheckHandler = new BatchMessageCheckHandler();
-        disruptor.handleEventsWith(batchRepeatSubmitHandler);
-        disruptor.after(batchRepeatSubmitHandler).handleEventsWith(messageCheckHandler,saveBatchHandler);
-        disruptor.after(messageCheckHandler).handleEventsWith(batchBusinessCheckHandler);
-        disruptor.after(batchBusinessCheckHandler).handleEventsWith(batchMerchCheckHandler);
-        disruptor.after(saveBatchHandler).handleEventsWith(saveDetaHandler,saveDetaTxnlogHandler);
-        disruptor.after(saveDetaHandler,saveDetaTxnlogHandler,batchMerchCheckHandler).handleEventsWith(finalEndBatchHandler);
-        disruptor.start();//启动  
-        final CountDownLatch latch=new CountDownLatch(1); 
-        //生产者准备 
-       
-        taskExecutor.execute(new Runnable() {
+		int bufferSize = 2048;
+		final Disruptor<BatchCollectBean> disruptor = new Disruptor<BatchCollectBean>(
+				new EventFactory<BatchCollectBean>() {
+					@Override
+					public BatchCollectBean newInstance() {
+						return batchCollectBean;
+					}
+				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
+		BatchMessageCheckHandler messageCheckHandler = new BatchMessageCheckHandler();
+		disruptor.handleEventsWith(batchRepeatSubmitHandler);
+		disruptor.after(batchRepeatSubmitHandler).handleEventsWith(messageCheckHandler, saveBatchHandler);
+		disruptor.after(messageCheckHandler).handleEventsWith(batchBusinessCheckHandler);
+		disruptor.after(batchBusinessCheckHandler).handleEventsWith(batchMerchCheckHandler);
+		disruptor.after(saveBatchHandler).handleEventsWith(saveDetaHandler, saveDetaTxnlogHandler);
+		disruptor.after(saveDetaHandler, saveDetaTxnlogHandler, batchMerchCheckHandler)
+				.handleEventsWith(finalEndBatchHandler);
+		disruptor.start();// 启动
+		final CountDownLatch latch = new CountDownLatch(1);
+		// 生产者准备
+
+		taskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
 				disruptor.publishEvent(new EventTranslator<BatchCollectBean>() {
 					@Override
 					public void translateTo(BatchCollectBean batchCollectBean, long sequence) {
-						//logger.info("EventTranslator");
+						// logger.info("EventTranslator");
 					}
 				});
-				latch.countDown();  
+				latch.countDown();
 			}
 		});
-        try {
+		try {
 			latch.await();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        disruptor.shutdown();
-        logger.info(JSON.toJSONString(batchCollectBean));
-        if(batchCollectBean.getFinalResult().isResultBool()) {
-        	resultBean = new ResultBean(batchCollectBean.getTn());
-        }else {
-        	resultBean = batchCollectBean.getFinalResult();
-        }
+		disruptor.shutdown();
+		logger.info(JSON.toJSONString(batchCollectBean));
+		if (batchCollectBean.getFinalResult().isResultBool()) {
+			resultBean = new ResultBean(batchCollectBean.getTn());
+		} else {
+			resultBean = batchCollectBean.getFinalResult();
+		}
 		return resultBean;
 	}
-	
+
 	@Override
 	public ResultBean querySingleCollectOrder(SingleCollectQueryBean singleCollectQueryBean) {
 		ResultBean resultBean = null;
@@ -204,6 +214,26 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		}
 		return resultBean;
 	}
-	
-	
+
+	@Override
+	public ResultBean queryBatchCollectOrder(BatchCollectQueryBean batchCollectQueryBean) {
+		ResultBean resultBean = null;
+		try {
+			OrderCollectBatchDO collectBatchOrder = batchOrderServcie.queryCollectBatchOrder(batchCollectQueryBean);
+			List<OrderCollectDetaDO> collectOrderDeta = orderCollectDetaService.queryCollectOrderDeta(collectBatchOrder.getTid());
+			batchCollectQueryBean.setFactorId(collectBatchOrder.getFactorid());
+			batchCollectQueryBean.setTotalAmt(collectBatchOrder.getTotalamt().toString());
+			batchCollectQueryBean.setTotalQty(collectBatchOrder.getTotalqty().toString());
+			batchCollectQueryBean.setFileContent(collectOrderDeta);
+			resultBean = new ResultBean("0000", "成功");
+			resultBean.setResultObj(collectBatchOrder);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("9001", "交易查询异常");
+			resultBean.setResultBool(false);
+		}
+		return resultBean;
+	}
+
 }

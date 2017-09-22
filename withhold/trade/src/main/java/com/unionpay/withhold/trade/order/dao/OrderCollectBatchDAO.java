@@ -29,4 +29,6 @@ public interface OrderCollectBatchDAO {
     int updateByPrimaryKey(OrderCollectBatchDO record);
     
     OrderCollectBatchDO getCollectBatchOrder(OrderCollectBatchDO record);
+    
+    OrderCollectBatchDO queryCollectBatchOrder(OrderCollectBatchDO record);
 }

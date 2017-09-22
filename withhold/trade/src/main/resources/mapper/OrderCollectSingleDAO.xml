@@ -728,17 +728,17 @@
     from 
     	t_order_collect_single
     where 1=1
-	    <if test="merid != null">
-	       AND MERID = #{merid,jdbcType=VARCHAR},
+	    <if test="merid != null and merid != ''">
+	       AND MERID = #{merid,jdbcType=VARCHAR}
 	    </if>
-	    <if test="tn != null">
-	       AND TN = #{tn,jdbcType=VARCHAR},
+	    <if test="tn != null and tn != ''">
+	       AND TN = #{tn,jdbcType=VARCHAR}
 	    </if>
-	    <if test="txntime != null">
-	       AND TXNTIME = #{txntime,jdbcType=VARCHAR},
+	    <if test="txntime != null and txntime != ''">
+	       AND TXNTIME = #{txntime,jdbcType=VARCHAR}
 	    </if>
-	    <if test="orderid != null">
-	       AND ORDERID = #{orderid,jdbcType=VARCHAR},
+	    <if test="orderid != null and orderid != ''">
+	       AND ORDERID = #{orderid,jdbcType=VARCHAR}
 	    </if>
   </select>
 </mapper>
