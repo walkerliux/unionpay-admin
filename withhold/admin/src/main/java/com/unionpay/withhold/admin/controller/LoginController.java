@@ -22,20 +22,19 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import org.springframework.web.servlet.ModelAndView;
 
 import com.unionpay.withhold.admin.Bean.LoginUser;
-
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FunctionService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.CookieUtils;
 import com.unionpay.withhold.admin.utils.MD5Util;
@@ -52,7 +51,8 @@ public class LoginController {
 	private int pwdFlag;// 密码有效期过期标示 1-过期 0-未过期
 	private int pwdDay;// 密码到期时间，5天时开始提示
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");// 小写的mm表示的是分钟
-
+	@Autowired
+	private OperationLogService operationLogService;
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -88,7 +88,7 @@ public class LoginController {
 
 		result.addObject("pwdDay", pwdDay);
 		result.addObject("pwdFlag", pwdFlag);
-
+		operationLogService.addOperationLog(request, "登录成功");
 		return result;
 	}
 
@@ -286,6 +286,7 @@ public class LoginController {
 				response.addCookie(cookie);
 			}
 		}
+		operationLogService.addOperationLog(request, "用户退出");
 		return result;
 	}
 

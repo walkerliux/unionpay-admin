@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import org.springframework.web.servlet.ModelAndView;
 
+import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
@@ -33,6 +34,7 @@ import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TUserFunct;
 import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.service.FunctionService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RoleFunctService;
 import com.unionpay.withhold.admin.service.RoleService;
 import com.unionpay.withhold.admin.service.UserFunctService;
@@ -55,6 +57,8 @@ public class UserController {
 	private UserFunctService userFunctService;
 	@Autowired
 	private RoleFunctService roleFunctService;
+	@Autowired
+	private OperationLogService operationLogService;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
@@ -82,11 +86,12 @@ public class UserController {
 	@ResponseBody
     @RequestMapping("/update")
 	public List<?> update(HttpServletRequest request,TUser user) {
-		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		user.setCreator(loginUser.getLoginName());
+		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
+		user.setCreator(loginUser.getUser().getLoginName());
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			userService.updateUser(user);
+			operationLogService.addOperationLog(request, "更新用户"+user.getLoginName());
 			list.add("更新成功");
 		} catch (Exception e) {
 			list.add("更新失败");
@@ -130,8 +135,8 @@ public class UserController {
     @RequestMapping("/save")
 	public List<?> save(HttpServletRequest request,TUser user) {
 		ArrayList<String> list = new ArrayList<String>();
-		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		user.setCreator(loginUser.getLoginName());
+		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
+		user.setCreator(loginUser.getUser().getLoginName());
 		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
 		passwordMark = passwordMark + "123456";
 		user.setPwd(MD5Util.MD5(passwordMark));
@@ -141,6 +146,7 @@ public class UserController {
 		
 		try {
 			userService.saveUser(user);
+			operationLogService.addOperationLog(request, "新增用户"+user.getLoginName());
 			list.add("保存成功");
 		} catch (Exception e) {
 			list.add("保存失败");
@@ -161,6 +167,7 @@ public class UserController {
 	    user.setStatus("01");
 	    try {
 			userService.updateUser(user);
+			operationLogService.addOperationLog(request, "注销用户"+user.getLoginName());
 			return "true";
 	    } catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -181,9 +188,9 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping("/changePassword")
-	public String changePassword(HttpSession session,String newPwd) throws ParseException {
-		TUser sessionUser = (TUser) session.getAttribute("LOGIN_USER");
-		TUser dbUser = userService.getSingleById(sessionUser.getUserId());
+	public String changePassword(HttpSession session,HttpServletRequest request,String newPwd) throws ParseException {
+		LoginUser sessionUser = (LoginUser) session.getAttribute("LOGIN_USER");
+		TUser dbUser = userService.getSingleById(sessionUser.getUser().getUserId());
 		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
 		passwordMark = passwordMark + newPwd;
 		dbUser.setPwd(MD5Util.MD5(passwordMark));
@@ -197,6 +204,7 @@ public class UserController {
 		Map<String,String> jsonMap=new HashMap<>();
 		try {
 			userService.resetPwd(dbUser, date);
+			operationLogService.addOperationLog(request, "修改密码");
 			jsonMap.put("retcode", "succ");
 			jsonMap.put("retinfo", "修改成功");
 		} catch (Exception e) {
@@ -253,8 +261,9 @@ public class UserController {
 	 */
 	@ResponseBody
     @RequestMapping("/SaveUserRole")
-	public String SaveUserRole(String userFunc,Long userId) {
+	public String SaveUserRole(HttpServletRequest request,String userFunc,Long userId) {
 		userRoleService.deleteOldUserRole(userId);
+		TUser user = userService.getSingleById(userId);
 		if(userFunc != null && !userFunc.equals("")){
 			String[] roleId = userFunc.split(",");
 			List<TUserRole> userRoleList = new ArrayList<TUserRole>();
@@ -268,6 +277,7 @@ public class UserController {
 				//num++;
 			}
 			userRoleService.save(userRoleList);
+			operationLogService.addOperationLog(request, "绑定用户"+user.getLoginName()+"相关角色");
 			return "true";
 		}
 		return "false";
@@ -283,7 +293,7 @@ public class UserController {
 	public Map<String, Object> queryFunction(HttpServletRequest request,Long userId) {
 		
 		List<TRoleFunct> roleFucList = new ArrayList<TRoleFunct>();
-		TUser user = (TUser) request.getSession().getAttribute("LOGIN_USER");
+		
 		//得到所有菜单
 		List<TFunction> list = (List<TFunction>) functionService.findFunction();
 
@@ -348,8 +358,9 @@ public class UserController {
 	 */
 	@ResponseBody
    @RequestMapping("/saveAuth")
-	public String saveAuth(String userFunc,Long userId) {
+	public String saveAuth(HttpServletRequest request,String userFunc,Long userId) {
 		userFunctService.deleteOldFunc(userId);
+		TUser user = userService.getSingleById(userId);
 		if(userFunc != null &&!userFunc.equals("")){
 			String[] funcId = userFunc.split(",");
 			List<TUserFunct> functList = new ArrayList<TUserFunct>();
@@ -363,6 +374,7 @@ public class UserController {
 				num++;
 			}
 			userFunctService.save(functList);
+			operationLogService.addOperationLog(request, "赋予用户"+user.getLoginName()+"相关权限");
 			return "true";
 		}
 		return "false";

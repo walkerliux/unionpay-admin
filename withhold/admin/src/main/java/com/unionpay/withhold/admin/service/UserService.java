@@ -20,7 +20,7 @@ public interface UserService {
 
 	public abstract void saveUser(TUser user);
 
-	public abstract Map<String, Object> updateUser(TUser user);
+	public abstract void updateUser(TUser user);
 
 	public abstract TUser getSingleById(Long userId);
 

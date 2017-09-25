@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService {
 		
 		TUserExample tUserExample = new TUserExample();
 		Criteria criteria = tUserExample.createCriteria();
-		int total = tUserMapper.countByExample(tUserExample);
+		
 		if(user.getUserName()!=null&&!"".equals(user.getUserName())){
 			criteria.andUserNameEqualTo(user.getUserName());
 		}
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 		if (userIds!=null&&userIds.size()>0) {
 			criteria.andUserIdIn(userIds);
 		}
-		
+		int total = tUserMapper.countByExample(tUserExample);
 		tUserExample.setPageNum(page);
 		tUserExample.setPageSize(rows);
 		tUserExample.setOrderByClause("CREATE_DATE DESC");
@@ -97,22 +97,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	@Override
-	public Map<String, Object> updateUser(TUser user) {
-		Map<String, Object> hashMap = new HashMap<String, Object>();
-		TUserExample example = new TUserExample();
-		
-		
-		try {
-			int i = tUserMapper.updateByPrimaryKeySelective(user);
-			hashMap.put("RET", "succ");
-			
-			
-		} catch (Exception e) {
-			hashMap.put("RET", "fail");
-			e.printStackTrace();
-		}
-		
-		return hashMap;
+	public void updateUser(TUser user) {
+			 tUserMapper.updateByPrimaryKeySelective(user);
+
 	}
 	@Override
 	public TUser getSingleById(Long userId) {
