@@ -5,13 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
-<script language="JavaScript">
+<!-- <script language="JavaScript">
 	function myrefresh(){
 		window.location.reload();
 	}
 	setTimeout('myrefresh()',10000);
 	
-</script>
+</script> -->
 
 
 

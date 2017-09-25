@@ -37,10 +37,11 @@ public class RoleServiceImpl implements RoleService {
 	public PageBean findRoleByPage(TRole role, int page, int rows) {
 		TRoleExample tRoleExample = new TRoleExample();
 		Criteria criteria = tRoleExample.createCriteria();
-		int total = tRoleMapper.countByExample(tRoleExample);
+	
 		if (role.getRoleName()!=null&&!"".equals(role.getRoleName())) {
 			criteria.andRoleNameEqualTo(role.getRoleName());
 		}
+		int total = tRoleMapper.countByExample(tRoleExample);
 		tRoleExample.setPageNum(page);
 		tRoleExample.setPageSize(rows);
 		tRoleExample.setOrderByClause("CREAT_DATE DESC");

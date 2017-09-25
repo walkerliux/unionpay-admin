@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
 import com.unionpay.withhold.admin.pojo.TRoleFunct;
-import com.unionpay.withhold.admin.pojo.TRoleFunctExample;
-import com.unionpay.withhold.admin.pojo.TUser;
+
+
 import com.unionpay.withhold.admin.service.FunctionService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RoleFunctService;
 import com.unionpay.withhold.admin.service.RoleService;
-import com.unionpay.withhold.admin.service.UserFunctService;
-import com.unionpay.withhold.admin.service.UserRoleService;
-import com.unionpay.withhold.admin.service.UserService;
+
 
 @Controller
 @RequestMapping("/role")
@@ -41,6 +41,8 @@ public class RoleController {
 
 	@Autowired
 	private RoleFunctService roleFunctService;
+	@Autowired
+	private OperationLogService operationLogService;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
@@ -87,12 +89,13 @@ public class RoleController {
     @RequestMapping("/save")
 	public List<?> save(HttpServletRequest request,TRole role){
 		ArrayList<String> returnList = new ArrayList<String>();
-		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		role.setCreator(loginUser.getLoginName());
+		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
+		role.setCreator(loginUser.getUser().getLoginName());
 		role.setCreatDate(new Date());
 		role.setStatus("00");
 		try {
 			roleService.saveRole(role);
+			operationLogService.addOperationLog(request,"新增角色"+role.getRoleName());
 			returnList.add("保存成功");
 		} catch (Exception e) {
 			returnList.add("保存失败");
@@ -109,11 +112,12 @@ public class RoleController {
     @RequestMapping("/update")
 	public List<?> update(HttpServletRequest request,TRole role){
 		ArrayList<String> returnList = new ArrayList<String>();
-		TUser loginUser = (TUser) request.getSession().getAttribute("LOGIN_USER");
-		role.setCreator(loginUser.getLoginName());
+		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
+		role.setCreator(loginUser.getUser().getLoginName());
 		
 		try {
 			roleService.updateRole(role);
+			operationLogService.addOperationLog(request, "更新角色"+role.getRoleName());
 			returnList.add("更新成功");
 		} catch (Exception e) {
 			returnList.add("更新失败");
@@ -131,10 +135,12 @@ public class RoleController {
     public List<?> delete(HttpServletRequest request,TRole role){
 		
 		ArrayList<Object> list = new ArrayList<Object>();
-		//TRole role2 = roleService.getSingleById(role);
+		
+		TRole role2 = roleService.getSingleById(role.getRoleId());
 			role.setStatus("01");
 		    try {
 		    	roleService.updateRole(role);
+		    	operationLogService.addOperationLog(request, "注销角色"+role2.getRoleName());
 				list.add("注销成功");
 		    } catch (Exception e) {
 		    	list.add("注销失败");
@@ -155,7 +161,7 @@ public class RoleController {
     @RequestMapping("/queryFunction")
     public Map<String, Object> queryFunction(HttpServletRequest request,Long roleId) throws Exception {
 		
-		TUser user = (TUser) request.getSession().getAttribute("LOGIN_USER");
+
             List<TFunction> findFunction = (List<TFunction>) functionService.findFunction();
 			List<TRoleFunct> roleList =  (List<TRoleFunct>)roleFunctService.findByProperty(roleId);
 			List<TFunction> removeList = new ArrayList<TFunction>(); 
@@ -204,8 +210,9 @@ public class RoleController {
      */
 	@ResponseBody
     @RequestMapping("/saveFunction")
-    public String saveFunction(Long roleId,String userFunc){
+    public String saveFunction(HttpServletRequest request,Long roleId,String userFunc){
     	if(roleId!=null&&!roleId.equals("")){
+    		TRole role = roleService.getSingleById(roleId);
 			roleFunctService.deleteRoleFunction(roleId);
 			String[] funcId = userFunc.split(",");
 			if(userFunc == null || userFunc.equals("")){
@@ -222,6 +229,7 @@ public class RoleController {
 				num++;
 			}
 			roleFunctService.save(functList);
+			operationLogService.addOperationLog(request, "修改角色"+role.getRoleName()+"权限");
 			return "true";
     	}
 		return "flase";
