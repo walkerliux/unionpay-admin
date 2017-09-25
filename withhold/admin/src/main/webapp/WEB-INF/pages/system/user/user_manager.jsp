@@ -249,16 +249,15 @@ table tr td select {
 					/* {field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
 					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'}, */
 					{field:'creator',title:'创建者',width:180,align:'center'},
-					/* {field:'createDate',title:'创建时间',width:200,align:'center',editor: 'datetimebox',formatter: formatDateBoxFull}, */
 					{field:'createDate',title:'创建时间',width:200,align:'center',
 						formatter:function(value, row) { 
 						if(value!=null){
 							  var date = new Date(value); 
-							  return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();	
+							  return formatDate(date,"yyyy-mm-dd hh:nn:ss");
 							}else{ 
 							  return ""; 
 							} 
-						}
+						} 
 					}, 
 					{field:'status',title:'状态',width:160,align:'center',
 						formatter:function(value,rec){
@@ -297,7 +296,8 @@ table tr td select {
 						$("#user_code").removeAttr('readonly');
 						showAdd(0);
 						$("#saveForm").attr("action","user/save");
-					}
+					},   
+				    
 				}]
 			});
 			$.extend($.fn.validatebox.defaults.rules, {   
@@ -329,7 +329,7 @@ table tr td select {
 			   }
 			});
 		} 
-		function showDept(flag){
+		/* function showDept(flag){
 			var organId;
 			if(flag==1){//查询条件
 				organId=$("#userOrganId").val();
@@ -354,7 +354,7 @@ table tr td select {
 					}
 			 	}
 			});
-		}
+		} */
 
 	/* 	function showRole(flag){
 			var roleId;
@@ -421,15 +421,24 @@ table tr td select {
 				    }
 			        return false;   
 			    },   
-			    success:function(data){   
-		    		$('#w').window('close');
+			    success:function(data){ 
+			    	//alert(data)
+		    		/* $('#w').window('close');
 		    		 search();
 		    		$('#btn_submit').linkbutton('enable');
 		    		if(data=='true'){
 						$.messager.alert('提示',"保存成功");  
-					}else if(data=="flase"){
+					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
-					} 
+					} */ 
+			    	var json = eval('(' + data + ')')
+			    	 //alert(json)
+			    	$.each(json, function(key,value){
+			    		$.messager.alert('提示',value);   
+			    		search();
+			    		closeAdd();
+			    		$('#btn_submit').linkbutton('enable');	
+					}) 
 			    }   
 			});  
 		}
@@ -452,7 +461,7 @@ table tr td select {
 						$("#user_isadmin").val(json.isadmin);
 						$("#user_id").val(json.userId);
 						$("#user_notes").val(json.notes);
-						//读取职能部门信息
+						/* //读取职能部门信息
 						var html = '<option value="">--请选择所属部门--</option>';
 						$.ajax({
 							type: "GET",
@@ -470,7 +479,7 @@ table tr td select {
 						});
 						setTimeout(function(){ 
 							$("#user_deptId").val(json.deptId);
-						},1);
+						},1); */
 					
 			   }
 			});
@@ -504,9 +513,9 @@ table tr td select {
 				    		 search();
 				    		$('#btn_submit').linkbutton('enable');
 				    		if(data=='true'){
-								$.messager.alert('提示',"保存成功");  
-							}else if(data=="flase"){
-								$.messager.alert('提示',"保存失败");  
+								$.messager.alert('提示',"注销成功");  
+							}else if(data=="false"){
+								$.messager.alert('提示',"注销失败");  
 							} 
 					    } 
 				});
@@ -524,7 +533,7 @@ table tr td select {
 					 	success:function(data){
 					 		if(data=='true'){
 								$.messager.alert('提示',"保存成功");  
-							}else if(data=="flase"){
+							}else if(data=="false"){
 								$.messager.alert('提示',"保存失败");  
 							}
 					 	}
@@ -670,7 +679,10 @@ table tr td select {
 								
 							}
 						}
+						
+						
 					}
+					
 					node.text = '<span style="color:blue">'+node.text+'</span>';
 				},
 				onBeforeExpand:function(node){
@@ -680,6 +692,7 @@ table tr td select {
 					}
 				},
 				loadFilter: function(data){   
+					
 					if(flag){
 						roleFunction = data.roleFunction;
 						flag = false;
@@ -713,7 +726,7 @@ table tr td select {
 					if(data=='true'){
 						$('#userRoleW3').window('close');
 						$.messager.alert('提示',"保存成功");  
-					}else if(data=="flase"){
+					}else if(data=='false'){
 						$.messager.alert('提示',"保存失败");  
 					}
 			    }
