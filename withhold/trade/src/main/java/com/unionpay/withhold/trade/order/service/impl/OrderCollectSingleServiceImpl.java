@@ -44,5 +44,11 @@ public class OrderCollectSingleServiceImpl implements OrderCollectSingleService 
 		record.setTn(singleCollectQueryBean.getTransQueryId());
 		return orderCollectSingleDAO.queryCollctSingleOrder(record);
 	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
+	public void updateOrderCollectSingle(OrderCollectSingleDO orderCollectSingle) {
+		// TODO Auto-generated method stub
+		orderCollectSingleDAO.updateBySelective(orderCollectSingle);
+	}
 	
 }

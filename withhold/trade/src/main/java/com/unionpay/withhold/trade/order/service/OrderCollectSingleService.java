@@ -10,7 +10,12 @@ public interface OrderCollectSingleService {
 	 * @param orderCollectSingle
 	 */
 	public void saveOrderCollectSingle(OrderCollectSingleDO orderCollectSingle);
-
+	
+	/**
+	 * 更新实时代收订单（状态）
+	 * @param orderCollectSingle
+	 */
+	public void updateOrderCollectSingle(OrderCollectSingleDO orderCollectSingle);
 	/**
 	 * 查询商户实时代扣订单
 	 * @param merchNo

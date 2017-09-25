@@ -1,9 +1,11 @@
 package com.unionpay.withhold.trade.order.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDOExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface OrderCollectSingleDAO {
     long countByExample(OrderCollectSingleDOExample example);
@@ -30,5 +32,7 @@ public interface OrderCollectSingleDAO {
     
     OrderCollectSingleDO getCollctSingleOrder(OrderCollectSingleDO record);
     
-    OrderCollectSingleDO queryCollctSingleOrder(OrderCollectSingleDO record);;
+    OrderCollectSingleDO queryCollctSingleOrder(OrderCollectSingleDO record);
+    
+    void updateBySelective(OrderCollectSingleDO record);
 }

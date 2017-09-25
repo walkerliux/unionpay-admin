@@ -10,5 +10,5 @@ public interface TxnLogService {
 	 */
 	public void saveTxnLog(TxnLogDO txnLogDO);
 	
-	
+	public void updateTxnLog(TxnLogDO txnLogDO);
 }

@@ -20,5 +20,12 @@ public class TxnLogServiceImpl implements TxnLogService {
 	public void saveTxnLog(TxnLogDO txnLogDO) {
 		txnLogDAO.insert(txnLogDO);
 	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
+	public void updateTxnLog(TxnLogDO txnLogDO) {
+		// TODO Auto-generated method stub
+		txnLogDAO.updateByPrimaryKeySelective(txnLogDO);
+	}
 	
 }
