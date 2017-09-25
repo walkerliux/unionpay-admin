@@ -37,6 +37,8 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 			record = rspmsgPayService.getRspmsgPay(record);
 			txnLogPay.setAccordfintime(DateUtil.getCurrentDateTime());
 			txnLogPay.setRetdatetime(DateUtil.getCurrentDateTime());
+			txnLogPay.setAccretcode(record.getRetcode());
+			txnLogPay.setAccretinfo(record.getRspinfo());
 			txnLogPay.setRetcode(record.getRetcode());
 			txnLogPay.setRetinfo(record.getRspinfo());
 			txnLogPay.setTradestatflag(TradeStatFlagEnum.ACCFAILED.getStatus());
@@ -49,6 +51,15 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 		if(!tradeRisk.isResultBool()) {//计费系统异常
 			
 			return ;
+		}
+		
+		//校验全部通过
+		txnLogPay.setAccretcode("0000");
+		txnLogPay.setAccretinfo("受理成功");
+		txnLogPayService.updateTxnLogPay(txnLogPay);
+		
+		if("10000001".equals(tradeBean.getChnlCode())) {
+			
 		}
 	}
 

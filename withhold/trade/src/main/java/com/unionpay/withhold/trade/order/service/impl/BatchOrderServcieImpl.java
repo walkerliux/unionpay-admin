@@ -7,10 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO;
-import com.unionpay.withhold.trade.order.enums.TableEnum;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO;
 import com.unionpay.withhold.trade.order.service.BatchOrderServcie;
-import com.unionpay.withhold.trade.order.service.SerialNumberService;
 
 @Service//("batchOrderServcie")
 public class BatchOrderServcieImpl implements BatchOrderServcie {

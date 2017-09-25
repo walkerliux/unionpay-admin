@@ -23,7 +23,6 @@ import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
 import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
-import com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO;
