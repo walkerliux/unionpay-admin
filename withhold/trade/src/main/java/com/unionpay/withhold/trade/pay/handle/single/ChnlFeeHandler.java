@@ -26,7 +26,7 @@ public class ChnlFeeHandler  implements EventHandler<TradeBean>{
 		//会员号，
 		feeBean.setMerchNo(tradeBean.getChnlCode());
 		//原交易序列号，
-		feeBean.setTxnseqnoOg(null);
+		feeBean.setTxnseqnoOg(tradeBean.getTxnLogPayDO().getTxnseqnoOg());
 		//卡类型 
 		feeBean.setCardType(tradeBean.getTxnLogPayDO().getCardtype());
 		Long merchFee = feeService.getAisleFee(feeBean);

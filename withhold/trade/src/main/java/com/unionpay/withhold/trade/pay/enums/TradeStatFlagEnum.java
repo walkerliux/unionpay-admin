@@ -8,7 +8,7 @@
  * Copyright (c) 2016,zlebank.All rights reserved.
  * 
  */
-package com.unionpay.withhold.trade.order.enums;
+package com.unionpay.withhold.trade.pay.enums;
 
 
 /**

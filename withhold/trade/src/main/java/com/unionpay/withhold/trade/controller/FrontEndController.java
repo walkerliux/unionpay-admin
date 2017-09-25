@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
+import com.unionpay.withhold.api.bean.CPBackFileNotifyBean;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
@@ -124,13 +125,15 @@ public class FrontEndController {
 	}
 	
 	/**
-	 * ChinaPay批量代收异步通知
+	 * ChinaPay批量代收回盘异步通知
 	 * @param data
 	 * @return
 	 */
 	@RequestMapping(value="/path/cp/batchnotify",method=RequestMethod.POST)
 	public ResultBean cpBatchTradeNotify(String data) {
 		ResultBean resultBean = new ResultBean("0000", "成功");
+		CPBackFileNotifyBean fileNotifyBean = JSON.parseObject(data, CPBackFileNotifyBean.class);
+		
 		return resultBean;
 	}
 	

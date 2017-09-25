@@ -1,5 +1,6 @@
 package com.unionpay.withhold.trade.route.dao;
 
+import com.unionpay.withhold.trade.route.bean.TradeRouteBean;
 import com.unionpay.withhold.trade.route.pojo.RouteConfigDO;
 import com.unionpay.withhold.trade.route.pojo.RouteConfigDOExample;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface RouteConfigDAO {
     int updateByPrimaryKeySelective(RouteConfigDO record);
 
     int updateByPrimaryKey(RouteConfigDO record);
+    
+    List<RouteConfigDO> getTradeRoute(TradeRouteBean tradeRouteBean);
 }

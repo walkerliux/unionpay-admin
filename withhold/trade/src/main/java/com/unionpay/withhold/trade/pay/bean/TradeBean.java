@@ -2,6 +2,7 @@ package com.unionpay.withhold.trade.pay.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Queue;
 
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.pay.enums.BusinessEnum;
@@ -35,7 +36,7 @@ public class TradeBean implements Serializable{
 	/**
 	 * 交易通道集合
 	 */
-	private List<RouteConfigDO> tradeChnlList;
+	private Queue<RouteConfigDO> tradeChnlQueue;
 
 	/**
 	 * 通道代码（当前）
@@ -77,6 +78,11 @@ public class TradeBean implements Serializable{
 	 * 风控最终结果
 	 */
 	private ResultBean finalRisk;
+	/**
+	 * 交易最终结果
+	 */
+	private ResultBean finalTrade;
+	
 	public String getTxnseqno() {
 		return txnseqno;
 	}
@@ -117,12 +123,12 @@ public class TradeBean implements Serializable{
 		this.tradeCheck = tradeCheck;
 	}
 
-	public List<RouteConfigDO> getTradeChnlList() {
-		return tradeChnlList;
+	public Queue<RouteConfigDO> getTradeChnlQueue() {
+		return tradeChnlQueue;
 	}
 
-	public void setTradeChnlList(List<RouteConfigDO> tradeChnlList) {
-		this.tradeChnlList = tradeChnlList;
+	public void setTradeChnlQueue(Queue<RouteConfigDO> tradeChnlQueue) {
+		this.tradeChnlQueue = tradeChnlQueue;
 	}
 
 	public String getChnlCode() {
@@ -196,6 +202,14 @@ public class TradeBean implements Serializable{
 
 	public void setFinalRisk(ResultBean finalRisk) {
 		this.finalRisk = finalRisk;
+	}
+
+	public ResultBean getFinalTrade() {
+		return finalTrade;
+	}
+
+	public void setFinalTrade(ResultBean finalTrade) {
+		this.finalTrade = finalTrade;
 	}
 	
 	

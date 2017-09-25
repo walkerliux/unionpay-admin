@@ -22,11 +22,42 @@ public class CollectPayServiceImpl implements CollectPayService{
 
 	@Autowired
 	private TaskExecutor taskExecutor;
+	///////////////////////实时交易 start/////////////////////////////
 	@Autowired
 	@Qualifier("tradeCheckHandler")
 	private EventHandler<TradeBean> tradeCheckHandler;
+	@Autowired
+	@Qualifier("merchFeeHandler")
+	private EventHandler<TradeBean> merchFeeHandler;
+	@Autowired
+	@Qualifier("agentFeeHandler")
+	private EventHandler<TradeBean> agentFeeHandler;
+	@Autowired
+	@Qualifier("merchRiskHandler")
+	private EventHandler<TradeBean> merchRiskHandler;
+	@Autowired
+	@Qualifier("agentRiskHandler")
+	private EventHandler<TradeBean> agentRiskHandler;
+	@Autowired
+	@Qualifier("tradeRouteHandler")
+	private EventHandler<TradeBean> tradeRouteHandler;
+	@Autowired
+	@Qualifier("chnlFeeHandler")
+	private EventHandler<TradeBean> chnlFeeHandler;
+	@Autowired
+	@Qualifier("chnlRiskHandler")
+	private EventHandler<TradeBean> chnlRiskHandler;
+	@Autowired
+	@Qualifier("finalFeeHandler")
+	private EventHandler<TradeBean> finalFeeHandler;
+	@Autowired
+	@Qualifier("finalRiskHandler")
+	private EventHandler<TradeBean> finalRiskHandler;
+	@Autowired
+	@Qualifier("tradeChannelHandler")
+	private EventHandler<TradeBean> tradeChannelHandler;
 	
-	
+	///////////////////////实时交易 end/////////////////////////////
 	
 	@Override
 	public ResultBean singleCollectPay(String tn) {
@@ -49,18 +80,57 @@ public class CollectPayServiceImpl implements CollectPayService{
 					}
 				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
 		disruptor.handleEventsWith(tradeCheckHandler);
-		
-		/*
-		disruptor.after(secondPayHandler).handleEventsWith(messageCheckHandler, repeatSubmitHandler);
-		disruptor.after(messageCheckHandler).handleEventsWith(busiCheckHandler);
-		disruptor.after(busiCheckHandler).handleEventsWith(merchCheckHandler);
-		disruptor.after(repeatSubmitHandler).handleEventsWith(saveOrderHandler);
-		disruptor.after(saveOrderHandler).handleEventsWith(saveTxnlogHandler);
-		disruptor.after(saveTxnlogHandler, merchCheckHandler).handleEventsWith(finalEndSingleHandler);*/
+		disruptor.after(tradeCheckHandler).handleEventsWith(merchFeeHandler,agentFeeHandler,merchRiskHandler,agentRiskHandler,tradeRouteHandler);
+		disruptor.after(tradeRouteHandler).handleEventsWith(chnlFeeHandler,chnlRiskHandler);
+		disruptor.after(merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalFeeHandler);
+		disruptor.after(merchRiskHandler,agentRiskHandler,chnlRiskHandler).handleEventsWith(finalRiskHandler);
+		disruptor.after(finalFeeHandler,finalRiskHandler).handleEventsWith(tradeChannelHandler);
 		disruptor.start();// 启动
 		final CountDownLatch latch = new CountDownLatch(1);
 		// 生产者准备
-
+		taskExecutor.execute(new Runnable() {
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				disruptor.publishEvent(new EventTranslator<TradeBean>() {
+					@Override
+					public void translateTo(TradeBean tradeBean, long sequence) {
+						// logger.info("EventTranslator");
+					}
+				});
+				latch.countDown();
+			}
+		});
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		disruptor.shutdown();
+		//判断交易是否成功，如果成功则返回，失败从队列中取出下一个渠道代码，调用二次支付方法
+		
+		return resultBean;
+	}
+	
+	public ResultBean secondSingleCollectPay(final TradeBean tradeBean) {
+		ResultBean resultBean = null;
+		int bufferSize = 2048;
+		final Disruptor<TradeBean> disruptor = new Disruptor<TradeBean>(
+				new EventFactory<TradeBean>() {
+					@Override
+					public TradeBean newInstance() {
+						return tradeBean;
+					}
+				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
+		disruptor.handleEventsWith(tradeCheckHandler);
+		disruptor.after(tradeCheckHandler).handleEventsWith(chnlFeeHandler,chnlRiskHandler);
+		disruptor.after(chnlFeeHandler).handleEventsWith(finalFeeHandler);
+		disruptor.after(chnlRiskHandler).handleEventsWith(finalRiskHandler);
+		disruptor.after(finalFeeHandler,finalRiskHandler).handleEventsWith(tradeChannelHandler);
+		disruptor.start();// 启动
+		final CountDownLatch latch = new CountDownLatch(1);
+		// 生产者准备
 		taskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {

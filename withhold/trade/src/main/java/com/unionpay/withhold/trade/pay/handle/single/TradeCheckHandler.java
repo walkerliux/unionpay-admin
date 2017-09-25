@@ -6,26 +6,26 @@ import org.springframework.stereotype.Component;
 import com.lmax.disruptor.EventHandler;
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.pay.bean.TradeBean;
-import com.unionpay.withhold.trade.pay.dao.OrderCollectSinglePayDAO;
-import com.unionpay.withhold.trade.pay.dao.TxnLogPayDAO;
 import com.unionpay.withhold.trade.pay.enums.OrderStatusEnum;
 import com.unionpay.withhold.trade.pay.pojo.OrderCollectSinglePayDO;
 import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDO;
+import com.unionpay.withhold.trade.pay.service.OrderCollectSinglePayService;
+import com.unionpay.withhold.trade.pay.service.TxnLogPayService;
 
 @Component("tradeCheckHandler")
 public class TradeCheckHandler implements EventHandler<TradeBean> {
 
 	@Autowired
-	private OrderCollectSinglePayDAO collectSinglePayDAO;
+	private OrderCollectSinglePayService collectSinglePayService;
 	@Autowired
-	private TxnLogPayDAO txnLogPayDAO;
+	private TxnLogPayService TxnLogPayService;
 
 	@Override
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		OrderCollectSinglePayDO record = new OrderCollectSinglePayDO();
 		record.setTn(tradeBean.getTn());
-		OrderCollectSinglePayDO orderCollectSingle = collectSinglePayDAO.querySingleOrder(record);
+		OrderCollectSinglePayDO orderCollectSingle = collectSinglePayService.querySingleCollectOrder(record);
 		if(orderCollectSingle==null){//订单不存在
 			resultBean = new ResultBean("PC029", "订单不存在");
 		}else {
@@ -50,7 +50,7 @@ public class TradeCheckHandler implements EventHandler<TradeBean> {
 			}
 		}
 		if(resultBean == null) {
-			TxnLogPayDO txnLogPay = txnLogPayDAO.selectByPrimaryKey(tradeBean.getTxnseqno());
+			TxnLogPayDO txnLogPay = TxnLogPayService.queryTxnLog(tradeBean.getTxnseqno());
 			if(txnLogPay==null) {
 				resultBean = new ResultBean("PC008", "交易流水不存在");
 			}else {
