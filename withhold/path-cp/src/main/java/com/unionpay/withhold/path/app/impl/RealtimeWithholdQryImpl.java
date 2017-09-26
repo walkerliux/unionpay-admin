@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.unionpay.withhold.common.bean.ResultBean;
 import com.unionpay.withhold.path.services.RealtimeWithholdQrySrv;
-import com.unionpay.withhold.service.path.cp.app.RealtimeWithholdQry;
+import com.unionpay.withhold.service.path.cp.app.CPRealtimeWithholdQry;
 
 @Service("realtimeWithholdQry")
-public class RealtimeWithholdQryImpl implements RealtimeWithholdQry {
+public class RealtimeWithholdQryImpl implements CPRealtimeWithholdQry {
 
     private final static Logger logger = LoggerFactory.getLogger(RealtimeWithholdQryImpl.class);
     @Resource
