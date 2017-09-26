@@ -44,12 +44,8 @@ public class OperationLogController {
 			PageBean resultBean = operationLogService.findLogByPage( userId, userName, beginDate,endDate,page, rows);
 			return resultBean;
 		}
-		
-			
-		
-		
+
 		PageBean resultBean = operationLogService.findLogByPage( userId, userName, null,null,page, rows);
-		
 		return resultBean;
 		
 	}
