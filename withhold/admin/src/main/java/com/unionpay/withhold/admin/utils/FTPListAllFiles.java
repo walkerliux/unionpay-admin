@@ -15,7 +15,7 @@ import org.apache.commons.net.ftp.FTPReply;
 
 public class FTPListAllFiles {
 
-	private static FTPClient ftp =new FTPClient();
+	private static FTPClient ftp ;
 
 
 	/**
@@ -49,6 +49,7 @@ public class FTPListAllFiles {
 	 */
 	public static boolean login(String host, int port, String username, String password)
 			throws IOException {
+		ftp =new FTPClient();
 		ftp.connect(host, port);
 		if (FTPReply.isPositiveCompletion(ftp.getReplyCode())) {
 			if (ftp.login(username, password)) {
@@ -79,8 +80,9 @@ public class FTPListAllFiles {
 	 *            需要遍历的目录，必须以"/"开始和结束
 	 * @throws IOException
 	 */
-	public static java.util.List<String> ListDirectory(String pathName)
+	public static java.util.List<String> directoryList(String pathName)
 			throws IOException {
+		 
 		ArrayList<String> directoryList = new ArrayList<String>();
 		if (pathName.endsWith("/")) {
 			String directory = pathName;
@@ -89,9 +91,12 @@ public class FTPListAllFiles {
 			FTPFile[] files = ftp.listFiles();
 			for (FTPFile file : files) {
 				if (file.isDirectory()) {
-					directoryList.add(directory + file.getName());
+					directoryList.add(file.getName());
 				}
 			}
+		}
+		if (ftp.isConnected()) {
+			ftp.disconnect();
 		}
 		return directoryList;
 	}
@@ -105,56 +110,42 @@ public class FTPListAllFiles {
 	 *            文件的扩展名
 	 * @throws IOException
 	 */
-	public static java.util.List<String> List(String pathName, String ext)
+	public static java.util.List<String> filesList(String pathName, String ext)
 			throws IOException {
+		
 		ArrayList<String> fileList = new ArrayList<String>();
 		String directory = pathName;
 		// 更换目录到当前目录
-		ftp.changeWorkingDirectory(directory);
-
+		boolean b = ftp.changeWorkingDirectory(directory);
+		System.out.println(b);
 		FTPFile[] files = ftp.listFiles();
 
 		for (FTPFile file : files) {
 
 			if (file.isFile()) {
 				if (file.getName().endsWith(ext)) {
-					fileList.add(directory + file.getName());
+					fileList.add(file.getName());
 				}
 			}
 
+		}
+		if (ftp.isConnected()) {
+			ftp.disconnect();
 		}
 		return fileList;
 	}
 
 	public static void main(String[] args) throws IOException {
-		//FTPListAllFiles f = new FTPListAllFiles();
-		/*if (f.login("192.168.2.12", 21, "webftp", "webftp")) {
-			//
-			java.util.List<String> directorys = f.ListDirectory("contract/");
-
-			for (String string : directorys) {
-
-				System.out.println(string + "------");
-				java.util.List<String> files = f.List(string + "/", "jpg");
-
-				for (String string2 : files) {
-					System.out.println(string2);
-				}
-			}
-
-		}
-		f.disConnection();*/
+		
 		if(FTPListAllFiles.login("192.168.2.12", 21, "webftp", "webftp")){
-			java.util.List<String> listDirectory = FTPListAllFiles.ListDirectory("contract/");
+			java.util.List<String> listDirectory = FTPListAllFiles.directoryList("contract/");
 			for (String string : listDirectory) {
-				java.util.List<String> listFile = FTPListAllFiles.List(string + "/", "jpg");
+				//java.util.List<String> listFile = FTPListAllFiles.filesList(string + "/", "jpg");
 				System.out.println(string + "------");
-				for (String string2 : listFile) {
-					System.out.println(string2);
-				}
+				
 			}
 		
 		}
-		FTPListAllFiles.disConnection();
+		
 	}
 }
