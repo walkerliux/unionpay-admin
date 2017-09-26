@@ -33,6 +33,7 @@
 	</aop:config> 
 	
 	<import resource="classpath:mybatis/applicationContext-*.xml" />
+	<import resource="classpath:/spring-trade-api.xml"/>
 </beans>
 
 

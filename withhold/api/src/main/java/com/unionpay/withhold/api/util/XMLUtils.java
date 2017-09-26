@@ -18,6 +18,9 @@ import javax.xml.bind.Unmarshaller;
 
 import org.springframework.util.StringUtils;
 
+import com.unionpay.withhold.api.bean.DownloadRequest;
+import com.unionpay.withhold.api.bean.DownloadResponse;
+import com.unionpay.withhold.api.bean.DwnRspRoot;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.api.bean.QReqRoot;
@@ -424,6 +427,33 @@ public class XMLUtils {
 		response.getRoot().setRespMsg("");
 		response.getRoot().setRespCod("");
 		response.getRoot().setQueryId(request.getRoot().getTransQueryId());
+		return response;
+	}
+	
+	
+	/**
+	 * 将传入查询实体的信息装载到传出查询实体
+	 *
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
+	public static DownloadResponse convertToRes(DownloadRequest request) {
+		//TODO: 还需要对照
+		DownloadResponse response = new DownloadResponse();
+		DwnRspRoot root = new DwnRspRoot();
+		response.setRoot(root);
+		response.getRoot().setVersion(request.getRoot().getVersion());
+		response.getRoot().setEncoding(request.getRoot().getEncoding());
+		response.getRoot().setCertId(request.getRoot().getCertId());
+		response.getRoot().setSignMethod(request.getRoot().getSignMethod());
+		response.getRoot().setTransType(request.getRoot().getTransType());
+		response.getRoot().setMchntCd(request.getRoot().getMchntCd());
+		response.getRoot().setQueryId(request.getRoot().getQueryId());
+		response.getRoot().setQueryDt((request.getRoot().getQueryDt()));
+		response.getRoot().setTransDt((request.getRoot().getTransDt()));
+		response.getRoot().setRespMsg("");
+		response.getRoot().setRespCod("");
 		return response;
 	}
 

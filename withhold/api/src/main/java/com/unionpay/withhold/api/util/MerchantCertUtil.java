@@ -12,6 +12,10 @@ import java.security.cert.X509Certificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.unionpay.withhold.api.bean.DownloadRequest;
+import com.unionpay.withhold.api.bean.DownloadResponse;
+import com.unionpay.withhold.api.bean.DwnReqRoot;
+import com.unionpay.withhold.api.bean.DwnRspRoot;
 import com.unionpay.withhold.api.bean.MerchantRequest;
 import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.api.bean.QReqRoot;
@@ -20,12 +24,12 @@ import com.unionpay.withhold.api.bean.QueryRequest;
 import com.unionpay.withhold.api.bean.QueryResponse;
 import com.unionpay.withhold.api.bean.ReqRoot;
 import com.unionpay.withhold.api.bean.RspRoot;
-import com.unionpay.withhold.api.cache.helper.MechantCertCacheHelper;
-import com.unionpay.withhold.api.cache.helper.PlateformCertCacheHelper;
-import com.unionpay.withhold.api.cache.helper.PlateformCertInfo;
-import com.unionpay.withhold.api.common.util.acp.SecureUtil;
 import com.unionpay.withhold.api.exception.AbstractBusiException;
 import com.unionpay.withhold.api.exception.TransFlowException;
+import com.unionpay.withhold.api.helper.MechantCertCacheHelper;
+import com.unionpay.withhold.api.helper.PlateformCertCacheHelper;
+import com.unionpay.withhold.api.helper.PlateformCertInfo;
+import com.unionpay.withhold.api.signaturn.util.SecureUtil;
 
 
 /**
@@ -157,6 +161,39 @@ public class MerchantCertUtil {
 		root.setCertId(plateformCertInfo.getCertId());
 		response.setSignature(signature);
 	}
+	
+	/**
+	 * 添加signature到应答报文
+	 *
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public static void addSignatureDown(DownloadResponse response,String certPath,String dkPrivateKeyPwd) throws AbstractBusiException {
+		DwnRspRoot root = response.getRoot();
+		PlateformCertCacheHelper certHelper =(PlateformCertCacheHelper)ApplicationContextUtil.getBeanByClass(PlateformCertCacheHelper.class);
+		PlateformCertInfo plateformCertInfo =null;
+		String signature = null;
+		try {
+			plateformCertInfo=certHelper.getPlatFormCertInfo(certPath, dkPrivateKeyPwd);
+			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
+			signature = makeSignature(xmlString, root.getEncoding(),plateformCertInfo);
+		} 
+		catch(TransFlowException e) {
+			throw e;
+		}
+		catch (AbstractBusiException e) {
+			logger.error("生成返回签名数据失败" , e.getCause());
+		}
+		catch (Exception e) {
+			logger.error("生成返回签名数据失败" , e);
+		}
+		root.setCertId(plateformCertInfo.getCertId());
+		response.setSignature(signature);
+	}
+	
+	
+	
 
 	/**
 	 * 添加signature到应答报文
@@ -280,6 +317,23 @@ public class MerchantCertUtil {
 			return SecureUtil.sha1X16(data, encoding);
 		}
 		return data.getBytes();
+	}
+
+	public static boolean validateDown(DownloadRequest request, String certFilename) {
+		try {
+			DwnReqRoot root = request.getRoot();
+			String signature = request.getSignature().trim();
+			
+			String certId = root.getCertId();
+			String encoding = request.getRoot().getEncoding();
+			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
+			
+			return validateSignature(signature, xmlString, certFilename, encoding, certId);
+		} 
+		catch (Exception e) {
+			logger.error("validate signature failure! ", e);
+		}
+		return false;
 	}
 	
 
