@@ -42,3 +42,6 @@
 /trade-api/target/
 /trade-api/.classpath
 /trade-api/.project
+
+*/bin/*
+*/bin
