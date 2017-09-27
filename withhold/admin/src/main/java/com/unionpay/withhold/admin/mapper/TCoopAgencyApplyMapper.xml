@@ -26,6 +26,12 @@
 		<result column="CVLEXA_USER" property="cvlexaUser" jdbcType="DECIMAL" />
 		<result column="CVLEXA_TIME" property="cvlexaTime" jdbcType="TIMESTAMP" />
 		<result column="CVLEXA_OPT" property="cvlexaOpt" jdbcType="VARCHAR" />
+		<!-- 关联查询时的属性 -->
+		<result column="PROVINCE_NAME" property="provinceName"
+			jdbcType="VARCHAR" />
+		<result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+		<result column="SUPER_NAME" property="superName" jdbcType="VARCHAR" />
+
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -41,7 +47,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -73,7 +80,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -91,11 +99,14 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		SELF_ID, CAID, CACODE, CANAME, CAPROVINCE, CACITY, ADDRESS, CONTACT,
+		SELF_ID, CAID, CACODE, CANAME, CAPROVINCE, CACITY, ADDRESS,
+		CONTACT,
 		CONT_PHONE,
-		STATUS, CALEVEL, SUPERCODE, INUSER, INTIME, NOTES, REMARKS, RISKVER,
+		STATUS, CALEVEL, SUPERCODE, INUSER, INTIME, NOTES,
+		REMARKS, RISKVER,
 		STEXA_USER,
-		STEXA_TIME, STEXA_OPT, CVLEXA_USER, CVLEXA_TIME, CVLEXA_OPT
+		STEXA_TIME, STEXA_OPT, CVLEXA_USER,
+		CVLEXA_TIME, CVLEXA_OPT
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyApplyExample">
@@ -113,6 +124,88 @@
 		</if>
 		limit #{beginRow},#{pageSize}
 	</select>
+	
+	
+	
+	<!-- 关联查询 -->
+	<select id="selectWithCondition" resultMap="BaseResultMap">
+		select
+		caa.*,p.P_NAME as PROVINCE_NAME,C_NAME as CITY_NAME,ca.CANAME as
+		SUPER_NAME
+		from t_coop_agency_apply caa
+		LEFT JOIN t_province p ON
+		caa.CAPROVINCE = p.P_ID
+		LEFT JOIN t_city c ON
+		caa.CACITY = c.C_ID
+		LEFT
+		JOIN t_coop_agency ca ON caa.SUPERCODE = ca.CACODE AND
+		ca.`STATUS`='00'
+		<where>
+			<if test="coopAgencyApply.cacode != null and coopAgencyApply.cacode != ''">
+				AND caa.CACODE = #{coopAgencyApply.cacode}
+			</if>
+			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
+				AND caa.CANAME = #{coopAgencyApply.caname}
+			</if>
+			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
+				AND caa.SUPERCODE = #{coopAgencyApply.supercode}
+			</if>
+			<if test="statuses != null ">
+				And
+				<foreach collection="statuses" item="status" open="caa.STATUS IN("
+					close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by SELF_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		select
+		count(*)
+		from t_coop_agency_apply caa
+		<where>
+			<if test="coopAgencyApply.cacode != null and coopAgencyApply.cacode != ''">
+				AND caa.CACODE = #{coopAgencyApply.cacode}
+			</if>
+			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
+				AND caa.CANAME = #{coopAgencyApply.caname}
+			</if>
+			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
+				AND caa.SUPERCODE = #{coopAgencyApply.supercode}
+			</if>
+			<if test="statuses != null ">
+				And
+				<foreach collection="statuses" item="status" open="caa.STATUS IN("
+					close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectCoopAgencyDetailById" resultMap="BaseResultMap" resultType="java.lang.Long">
+		select
+		caa.*,p.P_NAME as PROVINCE_NAME,C_NAME as CITY_NAME,ca.CANAME as
+		SUPER_NAME
+		from t_coop_agency_apply caa
+		LEFT JOIN t_province p ON
+		caa.CAPROVINCE = p.P_ID
+		LEFT JOIN t_city c ON
+		caa.CACITY = c.C_ID
+		LEFT
+		JOIN t_coop_agency ca ON caa.SUPERCODE = ca.CACODE AND
+		ca.`STATUS`='00'
+		WHERE caa.SELF_ID =#{selfId} and caa.STATUS !='99'
+	</select>
+
+
+
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Long">
 		select
@@ -121,7 +214,8 @@
 		where SELF_ID = #{selfId,jdbcType=DECIMAL}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from t_coop_agency_apply
+		delete from
+		t_coop_agency_apply
 		where SELF_ID = #{selfId,jdbcType=DECIMAL}
 	</delete>
 	<delete id="deleteByExample"
@@ -132,26 +226,34 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyApply">
-		insert into t_coop_agency_apply (SELF_ID, CAID, CACODE,
+		insert into
+		t_coop_agency_apply (SELF_ID, CAID, CACODE,
 		CANAME, CAPROVINCE, CACITY,
 		ADDRESS, CONTACT, CONT_PHONE,
 		STATUS, CALEVEL, SUPERCODE,
-		INUSER, INTIME, NOTES,
+		INUSER,
+		INTIME, NOTES,
 		REMARKS, RISKVER, STEXA_USER,
-		STEXA_TIME, STEXA_OPT, CVLEXA_USER,
+		STEXA_TIME, STEXA_OPT,
+		CVLEXA_USER,
 		CVLEXA_TIME, CVLEXA_OPT)
-		values (#{selfId,jdbcType=DECIMAL}, #{caid,jdbcType=DECIMAL},
+		values
+		(#{selfId,jdbcType=DECIMAL}, #{caid,jdbcType=DECIMAL},
 		#{cacode,jdbcType=VARCHAR},
-		#{caname,jdbcType=VARCHAR}, #{caprovince,jdbcType=DECIMAL}, #{cacity,jdbcType=DECIMAL},
+		#{caname,jdbcType=VARCHAR},
+		#{caprovince,jdbcType=DECIMAL}, #{cacity,jdbcType=DECIMAL},
 		#{address,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR},
 		#{contPhone,jdbcType=VARCHAR},
-		#{status,jdbcType=VARCHAR}, #{calevel,jdbcType=DECIMAL}, #{supercode,jdbcType=VARCHAR},
+		#{status,jdbcType=VARCHAR},
+		#{calevel,jdbcType=DECIMAL}, #{supercode,jdbcType=VARCHAR},
 		#{inuser,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP},
 		#{notes,jdbcType=VARCHAR},
-		#{remarks,jdbcType=VARCHAR}, #{riskver,jdbcType=VARCHAR}, #{stexaUser,jdbcType=DECIMAL},
+		#{remarks,jdbcType=VARCHAR},
+		#{riskver,jdbcType=VARCHAR}, #{stexaUser,jdbcType=DECIMAL},
 		#{stexaTime,jdbcType=TIMESTAMP}, #{stexaOpt,jdbcType=VARCHAR},
 		#{cvlexaUser,jdbcType=DECIMAL},
-		#{cvlexaTime,jdbcType=TIMESTAMP}, #{cvlexaOpt,jdbcType=VARCHAR})
+		#{cvlexaTime,jdbcType=TIMESTAMP},
+		#{cvlexaOpt,jdbcType=VARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyApply">
 		insert into t_coop_agency_apply
@@ -385,29 +487,52 @@
 	</update>
 	<update id="updateByExample" parameterType="map">
 		update t_coop_agency_apply
-		set SELF_ID = #{record.selfId,jdbcType=DECIMAL},
-		CAID = #{record.caid,jdbcType=DECIMAL},
-		CACODE = #{record.cacode,jdbcType=VARCHAR},
-		CANAME = #{record.caname,jdbcType=VARCHAR},
-		CAPROVINCE = #{record.caprovince,jdbcType=DECIMAL},
-		CACITY = #{record.cacity,jdbcType=DECIMAL},
-		ADDRESS = #{record.address,jdbcType=VARCHAR},
-		CONTACT = #{record.contact,jdbcType=VARCHAR},
-		CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
-		STATUS = #{record.status,jdbcType=VARCHAR},
-		CALEVEL = #{record.calevel,jdbcType=DECIMAL},
-		SUPERCODE = #{record.supercode,jdbcType=VARCHAR},
-		INUSER = #{record.inuser,jdbcType=DECIMAL},
-		INTIME = #{record.intime,jdbcType=TIMESTAMP},
-		NOTES = #{record.notes,jdbcType=VARCHAR},
-		REMARKS = #{record.remarks,jdbcType=VARCHAR},
-		RISKVER = #{record.riskver,jdbcType=VARCHAR},
-		STEXA_USER = #{record.stexaUser,jdbcType=DECIMAL},
-		STEXA_TIME = #{record.stexaTime,jdbcType=TIMESTAMP},
-		STEXA_OPT = #{record.stexaOpt,jdbcType=VARCHAR},
-		CVLEXA_USER = #{record.cvlexaUser,jdbcType=DECIMAL},
-		CVLEXA_TIME = #{record.cvlexaTime,jdbcType=TIMESTAMP},
-		CVLEXA_OPT = #{record.cvlexaOpt,jdbcType=VARCHAR}
+		set SELF_ID =
+		#{record.selfId,jdbcType=DECIMAL},
+		CAID =
+		#{record.caid,jdbcType=DECIMAL},
+		CACODE =
+		#{record.cacode,jdbcType=VARCHAR},
+		CANAME =
+		#{record.caname,jdbcType=VARCHAR},
+		CAPROVINCE =
+		#{record.caprovince,jdbcType=DECIMAL},
+		CACITY =
+		#{record.cacity,jdbcType=DECIMAL},
+		ADDRESS =
+		#{record.address,jdbcType=VARCHAR},
+		CONTACT =
+		#{record.contact,jdbcType=VARCHAR},
+		CONT_PHONE =
+		#{record.contPhone,jdbcType=VARCHAR},
+		STATUS =
+		#{record.status,jdbcType=VARCHAR},
+		CALEVEL =
+		#{record.calevel,jdbcType=DECIMAL},
+		SUPERCODE =
+		#{record.supercode,jdbcType=VARCHAR},
+		INUSER =
+		#{record.inuser,jdbcType=DECIMAL},
+		INTIME =
+		#{record.intime,jdbcType=TIMESTAMP},
+		NOTES =
+		#{record.notes,jdbcType=VARCHAR},
+		REMARKS =
+		#{record.remarks,jdbcType=VARCHAR},
+		RISKVER =
+		#{record.riskver,jdbcType=VARCHAR},
+		STEXA_USER =
+		#{record.stexaUser,jdbcType=DECIMAL},
+		STEXA_TIME =
+		#{record.stexaTime,jdbcType=TIMESTAMP},
+		STEXA_OPT =
+		#{record.stexaOpt,jdbcType=VARCHAR},
+		CVLEXA_USER =
+		#{record.cvlexaUser,jdbcType=DECIMAL},
+		CVLEXA_TIME =
+		#{record.cvlexaTime,jdbcType=TIMESTAMP},
+		CVLEXA_OPT =
+		#{record.cvlexaOpt,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -485,29 +610,43 @@
 		where SELF_ID = #{selfId,jdbcType=DECIMAL}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCoopAgencyApply">
-		update t_coop_agency_apply
+		update
+		t_coop_agency_apply
 		set CAID = #{caid,jdbcType=DECIMAL},
-		CACODE = #{cacode,jdbcType=VARCHAR},
+		CACODE =
+		#{cacode,jdbcType=VARCHAR},
 		CANAME = #{caname,jdbcType=VARCHAR},
 		CAPROVINCE = #{caprovince,jdbcType=DECIMAL},
-		CACITY = #{cacity,jdbcType=DECIMAL},
+		CACITY =
+		#{cacity,jdbcType=DECIMAL},
 		ADDRESS = #{address,jdbcType=VARCHAR},
 		CONTACT = #{contact,jdbcType=VARCHAR},
-		CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
+		CONT_PHONE =
+		#{contPhone,jdbcType=VARCHAR},
 		STATUS = #{status,jdbcType=VARCHAR},
 		CALEVEL = #{calevel,jdbcType=DECIMAL},
-		SUPERCODE = #{supercode,jdbcType=VARCHAR},
+		SUPERCODE =
+		#{supercode,jdbcType=VARCHAR},
 		INUSER = #{inuser,jdbcType=DECIMAL},
 		INTIME = #{intime,jdbcType=TIMESTAMP},
-		NOTES = #{notes,jdbcType=VARCHAR},
+		NOTES =
+		#{notes,jdbcType=VARCHAR},
 		REMARKS = #{remarks,jdbcType=VARCHAR},
 		RISKVER = #{riskver,jdbcType=VARCHAR},
-		STEXA_USER = #{stexaUser,jdbcType=DECIMAL},
-		STEXA_TIME = #{stexaTime,jdbcType=TIMESTAMP},
-		STEXA_OPT = #{stexaOpt,jdbcType=VARCHAR},
-		CVLEXA_USER = #{cvlexaUser,jdbcType=DECIMAL},
-		CVLEXA_TIME = #{cvlexaTime,jdbcType=TIMESTAMP},
-		CVLEXA_OPT = #{cvlexaOpt,jdbcType=VARCHAR}
-		where SELF_ID = #{selfId,jdbcType=DECIMAL}
+		STEXA_USER =
+		#{stexaUser,jdbcType=DECIMAL},
+		STEXA_TIME =
+		#{stexaTime,jdbcType=TIMESTAMP},
+		STEXA_OPT =
+		#{stexaOpt,jdbcType=VARCHAR},
+		CVLEXA_USER =
+		#{cvlexaUser,jdbcType=DECIMAL},
+		CVLEXA_TIME =
+		#{cvlexaTime,jdbcType=TIMESTAMP},
+		CVLEXA_OPT =
+		#{cvlexaOpt,jdbcType=VARCHAR}
+		where SELF_ID =
+		#{selfId,jdbcType=DECIMAL}
 	</update>
+
 </mapper>
