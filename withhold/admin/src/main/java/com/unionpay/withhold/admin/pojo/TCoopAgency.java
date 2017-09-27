@@ -46,6 +46,11 @@ public class TCoopAgency {
     private String notes;
 
     private String remarks;
+    
+    /**关联查询时的属性**/ 
+    private String provinceName;
+    private String cityName;
+    private String superName;
 
     public Long getCaid() {
         return caid;
@@ -222,4 +227,29 @@ public class TCoopAgency {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getSuperName() {
+		return superName;
+	}
+
+	public void setSuperName(String superName) {
+		this.superName = superName;
+	}
+    
 }

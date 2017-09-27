@@ -1,5 +1,7 @@
 package com.unionpay.withhold.api.batch.bean;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -34,6 +36,19 @@ public class BatchCollectReqBean extends BaseBean {
 	@NotEmpty(message="[文件内容]不能为空")
 	private String fileContent;// 文件内容
 	private String reserved;// 保留域
+	
+	// 交易要素id
+	@NotEmpty(message="0002[交易要素id]为空")
+	@Pattern(regexp="^\\d*$",message="0004[交易要素id]格式有误")
+	private String factorId;
+
+	public String getFactorId() {
+		return factorId;
+	}
+
+	public void setFactorId(String factorId) {
+		this.factorId = factorId;
+	}
 
 	public String getMerId() {
 		return merId;

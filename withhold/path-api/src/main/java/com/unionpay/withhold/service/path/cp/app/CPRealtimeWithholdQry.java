@@ -5,7 +5,13 @@ import com.unionpay.withhold.common.bean.ResultBean;
 
 
 
-public interface RealtimeWithholdQry {
+/**
+ * 实时代扣业务查询类接口
+ * 
+ * @author AlanMa
+ *
+ */
+public interface CPRealtimeWithholdQry {
 
 	/**
 	 * 同步实时代扣交易状态

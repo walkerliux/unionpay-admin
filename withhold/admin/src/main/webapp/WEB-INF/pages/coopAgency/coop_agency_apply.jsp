@@ -59,26 +59,27 @@ table tr td select {
 					<tr>
 						<td align="right">渠道名称</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="" id="" maxlength="8" /></td>
+							name="caname" id="s_caname" maxlength="8" /></td>
 						<td align="right">渠道代码</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="" id="" maxlength="8" /></td>
+							name="cacode" id="s_cacode" maxlength="8" /></td>
 						<td class="add" align="right">上级代理</td>
 						<td class="add" align="left" style="padding-left: 5px">
-						<select id="" name="">
+						<select id="s_supercode" name="supercode">
 							<option value=''>--请选择上级代理--</option>
+							<option value='0'></option>
 						</select></td>
 					<tr>
 					</tr>
 						<td align="right">创建人</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="" id="" maxlength="8" /></td>
+							name="inuser" id="s_inuser" maxlength="8" /></td>
 						<td class="add" align="right">生效状态</td>
 						<td class="add" align="left" style="padding-left: 5px">
-						<select id="" name=""/>
+						<select id="s_status" name="status"/>
 								<option value=''>--请选择生效状态--</option>
-								<option value='00'>--在用--</option>
-								<option value='99'>--停用--</option>
+								<option value='10'>待审</option>
+								<option value='11'>审核未过</option>
 								</select></td>
 						<td class="add" align="right" colspan="3">
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
@@ -100,6 +101,7 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
+					<input type="hidden" id="selfId" name="selfId" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td class="update">渠道代码</td>
@@ -118,7 +120,7 @@ table tr td select {
 							<td class="update">所在省</td>
 							<td class="update" align="left">
 							<select id="caprovince" class="easyui-validatebox" required="true" name="caprovince" 
-							missingMessage="请选择所在省" onchange="showCity('province_ins')" /></select> <font color="red">*</font></td>
+							missingMessage="请选择所在省" onchange="showCity()" /></select> <font color="red">*</font></td>
 							<td class="update">所在市</td>
 							<td class="update" align="left">
 							<select id="cacity" class="easyui-validatebox" required="true" missingMessage="请选择所在市" name="cacity"/>
@@ -132,10 +134,10 @@ table tr td select {
 							<td class="update" align="left">
 							<input type="text" id="address" name="address" class="easyui-validatebox" required="true"
 								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
-							<td class="update">上级代理</td>
+							<td class="update">上级渠道</td>
 							<td class="update" align="left">
 							<select id="supercode" class="easyui-validatebox" required="true" missingMessage="请选择上级代理" name="supercode"/>
-								<option value=''>--请选择上级代理--</option>
+								<option value=''>--请选择上级渠道--</option>
 								<option value='0'></option></select>
 							</select><font color="red">*</font></td>
 						</tr>
@@ -145,11 +147,11 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">联系人</td>
 							<td class="update" align="left">
-							<input type="text" id="contact" name="contact"
+							<input type="text" id="contact" name="contact" class="easyui-validatebox" 
 							 maxlength="32" missingMessage="请输入联系人" required="true" /><font color="red">*</font></td>
 							<td class="update">联系电话</td>
 							<td class="update" align="left">
-							<input type="text" id="contPhone" name="contPhone"
+							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" 
 							 maxlength="11" missingMessage="请输入联系电话" required="true" /><font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -165,8 +167,8 @@ table tr td select {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -175,6 +177,9 @@ table tr td select {
 <script>
   	var width = $("#continer").width();
 		$(function(){
+			// 显示搜索条件中的上级渠道
+			showAllSuperCode("serch");
+			
 			$('#coopAgencyList').datagrid({
 				title:'渠道信息列表',
 				iconCls:'icon-save',
@@ -185,29 +190,29 @@ table tr td select {
 				url:'coopAgency/queryApply',
 				remoteSort: false,
 				columns:[[
-					{field:'cacode',title:'渠道代码',align:'center',width:130},
-					{field:'caname',title:'渠道名称',width:130,align:'center'},
-					{field:'caprovince',title:'所在省',align:'center',width:120},
-					{field:'cacity',title:'所在市',width:130,align:'center'},
-					{field:'address',title:'地址',align:'center',width:250},
-					{field:'contact',title:'联系人',align:'center',width:120},
-					{field:'contPhone',title:'联系电话',align:'center',width:120},
-					{field:'calevel',title:'代理商级别',align:'center',width:120},
-					{field:'supercode',title:'上级代理商',align:'center',width:120},
+					{field:'cacode',title:'渠道代码',align:'center',width:120},
+					{field:'caname',title:'渠道名称',width:150,align:'center'},
+					{field:'caprovince',title:'所在省',align:'center',width:80},
+					{field:'cacity',title:'所在市',width:80,align:'center'},
+					{field:'address',title:'地址',align:'center',width:200},
+					{field:'contact',title:'联系人',align:'center',width:80},
+					{field:'contPhone',title:'联系电话',align:'center',width:100},
+					{field:'calevel',title:'渠道级别',align:'center',width:60},
+					{field:'supercode',title:'上级渠道',align:'center',width:150},
 					{field:'notes',title:'备注',align:'center',width:120},
-					{field:'status',title:'状态',width:60,align:'center',
+					{field:'status',title:'状态',width:100,align:'center',
 						formatter:function(value,rec){
-							if(value=="00"){
-								return "正常";
-							}else{
-								return "停用";
+							if (value=="10") {
+								return "待审";
+							}else if (value=="11") {
+								return "审核未过";
 							}
 						}
 					},
 					{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-						if(rec.STATUS=="00"){
-							return '<a href="javascript:showChange('+value+')" style="color:blue;margin-left:10px">变更</a>'
+						if(rec.status=="10" || rec.status=="11"){
+							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
 						}else{
 							return '';
 						}
@@ -217,12 +222,12 @@ table tr td select {
 				rownumbers:true,
 				toolbar:[{
 					id:'btnadd',
-					text:'新增代理商信息',
+					text:'新增渠道信息',
 					iconCls:'icon-add',
 					handler:function(){
 						$("#cacode").removeAttr('readonly');
 						showAdd();
-						$("#saveForm").attr("action","coopAgency/save");
+						$("#saveForm").attr("action","coopAgency/addApply");
 					}
 				}]
 			});
@@ -233,17 +238,23 @@ table tr td select {
 		}
 
 		function search(){
-			var data={'caCode':$('#a_caCode').val(),'status':$("#a_status").val()};
-			$('#bankList').datagrid('load',data);
+			var data={
+				'cacode':$('#s_cacode').val(),
+				'caname':$("#s_caname").val(),
+				'supercode':$("#s_supercode").val(),
+				'inuser':$("#s_inuser").val(),
+				'status':$("#s_status").val()
+			};
+			$('#coopAgencyList').datagrid('load',data);
 		}
 		
 		function showAdd(){
-			showProvince();
-			//showProfitType();
-			$("#saveForm").attr("action","coopAgency/save");
+			$('#cacode').removeAttr("readonly");//取消只读的设置
+			showAllProvince();
+			//// 显示搜索条件中的上级渠道
+			showAllSuperCode("add");
+			$("#saveForm").attr("action","coopAgency/addApply");
 			$('#saveForm :input').val('');
-			//$('#bnkProvince_ins').html('');
-			//$('#b_profitType').val('');
 			$('#w').window({
 				title: '新增渠道信息',
 				top:100,
@@ -259,56 +270,188 @@ table tr td select {
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
-		function showProvince() {
+		
+		function showChange(selfId){
+			$('#saveForm :input').val('');
+			$('#cacode').attr("readonly","readonly");//设为只读
+			$("#saveForm").attr("action","coopAgency/updateApply");
+			$.ajax({
+			   type: "POST",
+			   url: "coopAgency/queryApplyById",
+			   data: "selfId="+selfId,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				    $("#cacode").val(json.cacode);
+					$("#caname").val(json.caname);
+					showProvince(json.caprovince);
+					showCityWithCid(json.caprovince,json.cacity);
+					showSuperCode(json.supercode);
+					$("#address").val(json.address);
+					$("#contact").val(json.contact);
+					$("#contPhone").val(json.contPhone);
+					$("#notes").val(json.notes);
+					$("#selfId").val(json.selfId);
+			    }
+			});
+			
+			$('#w').window({
+				title: '变更渠道信息',
+				top:100,
+				left:400,
+				width: 800,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 360
+			});
+		}
+		
+		function showProvince(caprovince) {
 			$.ajax({
 				type: "POST",
 				url: "province/getAll",
 				dataType: "json",
 				success: function(json) {
-					//var province = $("#bnkProvince_ins").val();
 					var html = "<option value=''>--请选择所在省--</option>";
 					$.each(json,function(key, value) {
-// 						if(value.P_ID==province){
-// 							html += '<option value="' + value.P_ID + '" selected="selected">' + value.P_NAME + '</option>';
-// 						}else{
+						if(value.pId==caprovince){
+							html += '<option value="' + value.pId + '" selected="selected">' + value.pName + '</option>';
+						}else{
 							html += '<option value="' + value.pId + '">' + value.pName + '</option>';
-// 						}
+						}
 					}) ;
 					$("#caprovince").html(html);
 				}
 			});
 		}
 		
-		function showCity(type) {
-			var pid;
-			if (type == 'province_ins') {
-				pid = $("#province_ins").val();
-			} else {
-				pid = $("#bnkProvince_ins").val();
-			}
+		function showAllProvince() {
 			$.ajax({
-				/* type: "POST",
-				url: "agency/queryCity",
-				data: "pid=" + pid,
+				type: "POST",
+				url: "province/getAll",
 				dataType: "json",
 				success: function(json) {
-					var province = $("#bnkCity_ins").val();
+					var html = "<option value=''>--请选择所在省--</option>";
+					$.each(json,function(key, value) {
+						html += '<option value="' + value.pId + '">' + value.pName + '</option>';
+					}) ;
+					$("#caprovince").html(html);
+				}
+			});
+		}
+		
+		function showCity() {
+			var pid = $("#caprovince").val();
+			$.ajax({
+				type: "POST",
+				url: "city/queryByProID",
+				data: "pId=" + pid,
+				dataType: "json",
+				success: function(json) {
 					var html = "<option value=''>--请选择所在市--</option>";
 					$.each(json,function(key, value) {
-						if(value.C_ID == province){
-							html += '<option value="' + value.C_ID + '" selected="selected">' + value.C_NAME + '</option>';
-						}else{
-							html += '<option value="' + value.C_ID + '">' + value.C_NAME + '</option>';
-						}
+						html += '<option value="' + value.cId + '">' + value.cName + '</option>';
 					});
-					if (type == 'province_ins') {
-						$("#city_ins").html(html);
-					} else {
-						$("#bnkCity_ins").html(html);
-					}
-				}*/
+					$("#cacity").html(html);
+				}
 			}); 
 		}
-			
+		
+		function showCityWithCid(pid,cid) {
+			$.ajax({
+				type: "POST",
+				url: "city/queryByProID",
+				data: "pId=" + pid,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择所在市--</option>";
+					$.each(json,function(key, value) {
+						if(value.cId == cid){
+							html += '<option value="' + value.cId + '" selected="selected">' + value.cName + '</option>';
+						}else{
+							html += '<option value="' + value.cId + '">' + value.cName + '</option>';
+						}
+					});
+					$("#cacity").html(html);
+				}
+			}); 
+		}
+		
+		function showSuperCode(supercode){
+			$.ajax({
+				type : "POST",
+				url: "coopAgency/queryAllSuperCode",
+				data:"supercode=" + supercode,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择上级代理--</option>";
+					if (supercode == 0) {
+						html += "<option value='0' selected='selected'></option>";
+					} else {
+						html += "<option value='0'></option>";
+					}
+					
+					$.each(json,function(key, value) {
+						if (value.supercode == supercode) {
+							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
+						} else {
+							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
+						}
+					});
+					$("#supercode").html(html);
+				}
+			});
+		}
+		
+		function showAllSuperCode(type){
+			$.ajax({
+				type : "POST",
+				url: "coopAgency/queryAllSuperCode",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择上级代理--</option>";
+					html += "<option value='0'></option>";
+					$.each(json,function(key, value) {
+							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
+					});
+					if (type == "serch") {
+						$("#s_supercode").html(html);
+					} else {
+						$("#supercode").html(html);
+					}
+				}
+			});
+		}
+		
+		function saveCoopAgencyApply(){
+			$('#saveForm').form('submit', {  
+			    onSubmit: function(){  
+			    	if($('#saveForm').form('validate')){
+			    		$('#btn_submit').linkbutton('disable');	
+			    		return true;   
+				    }
+			        return false;   
+			    }, 
+			    success: function(json) {
+		    		$('#btn_submit').linkbutton('enable');
+		    		//json = JSON.parse(json);
+		    		if(json.resultBool==true){
+						 $.messager.alert('提示',"操作成功！");
+						 $('#w').window('close');
+						 search();
+					}else{
+						 $.messager.alert('提示',json.errMsg);
+					}
+				}
+			}); 
+		}
+		
+		function closeAdd(){
+			$('#w').window('close');
+		}	
 	</script>
 </html>

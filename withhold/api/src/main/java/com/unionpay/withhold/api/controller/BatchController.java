@@ -1,8 +1,11 @@
 package com.unionpay.withhold.api.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.unionpay.withhold.api.batch.bean.BatchCollectNoticeReqBean;
 import com.unionpay.withhold.api.batch.bean.CallBackReqBean;
 import com.unionpay.withhold.api.batch.bean.ResponseBaseBean;
 import com.unionpay.withhold.api.common.bean.AdditBean;
@@ -20,9 +25,12 @@ import com.unionpay.withhold.api.service.BatchTradeService;
 import com.unionpay.withhold.api.service.MessageDecodeService;
 import com.unionpay.withhold.api.service.MessageEncryptService;
 import com.unionpay.withhold.api.signaturn.util.AESUtil;
+import com.unionpay.withhold.api.signaturn.util.HttpClient;
 import com.unionpay.withhold.api.util.ApplicationContextUtil;
 import com.unionpay.withhold.api.util.DateUtils;
+import com.unionpay.withhold.api.util.HttpUtils;
 import com.unionpay.withhold.api.util.RiskInfoUtils;
+import com.unionpay.withhold.utils.Constant;
 
 import net.sf.json.JSONObject;
 /**
@@ -109,10 +117,28 @@ public class BatchController {
 	}
 	
 	@ResponseBody
-	@RequestMapping("callback")
-	public String callback(CallBackReqBean callBackReqBean) {
-		//TODO:逻辑处理
-		
+	@RequestMapping(value ="callback",produces="text/html;charset=UTF-8")
+	public String callback(String data) {
+		log.info("回调访问参数====>{}",data);
+		CallBackReqBean callBackReqBean=(CallBackReqBean) JSONObject.toBean(JSONObject.fromObject(data), CallBackReqBean.class);
+		System.out.println(JSON.toJSONString(callBackReqBean));
+		//TODO:逻辑处理(透传)
 		return "ChinapayOk";
+	}
+	
+	@ResponseBody
+	@RequestMapping("notice")
+	public String notice(String data,String url) {
+		BatchCollectNoticeReqBean batchCollectNoticeReqBean=(BatchCollectNoticeReqBean) JSONObject.toBean(JSONObject.fromObject(data), BatchCollectNoticeReqBean.class);
+		batchCollectNoticeReqBean.prepareBasicData();
+		Map<String, String> paramMap = new HashMap<>();
+		paramMap.put("data", JSON.toJSONString(batchCollectNoticeReqBean));
+		String result="";
+		try {
+			result =HttpUtils.post(url, paramMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 }
