@@ -1,5 +1,7 @@
 package com.unionpay.withhold.trade.pay.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,12 @@ public class TxnLogPayServiceImpl implements TxnLogPayService {
 	@Transactional(readOnly=true)
 	public TxnLogPayDO queryTxnLog(String txnseqno) {
 		return txnLogPayDAO.selectByPrimaryKey(txnseqno);
+	}
+	@Override
+	@Transactional(readOnly=true)
+	public List<TxnLogPayDO> queryBatchDetaTxnLog(Long batchid) {
+		// TODO Auto-generated method stub
+		return txnLogPayDAO.queryBatchDetaTxnLog(batchid);
 	}
 
 }

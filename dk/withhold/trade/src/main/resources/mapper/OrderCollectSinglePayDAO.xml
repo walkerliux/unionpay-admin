@@ -727,4 +727,5 @@
         AND RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR}
       </if>
   </select>
+ 
 </mapper>

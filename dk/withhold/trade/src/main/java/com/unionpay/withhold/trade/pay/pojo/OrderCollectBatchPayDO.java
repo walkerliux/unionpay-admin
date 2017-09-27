@@ -1,5 +1,7 @@
 package com.unionpay.withhold.trade.pay.pojo;
 
+import java.util.List;
+
 public class OrderCollectBatchPayDO {
     private Long tid;
 
@@ -55,6 +57,8 @@ public class OrderCollectBatchPayDO {
 
     private String coopinstiid;
 
+    private List<OrderCollectDetaPayDO> detaList;
+    
     public Long getTid() {
         return tid;
     }
@@ -270,4 +274,14 @@ public class OrderCollectBatchPayDO {
     public void setCoopinstiid(String coopinstiid) {
         this.coopinstiid = coopinstiid == null ? null : coopinstiid.trim();
     }
+
+	public List<OrderCollectDetaPayDO> getDetaList() {
+		return detaList;
+	}
+
+	public void setDetaList(List<OrderCollectDetaPayDO> detaList) {
+		this.detaList = detaList;
+	}
+    
+    
 }

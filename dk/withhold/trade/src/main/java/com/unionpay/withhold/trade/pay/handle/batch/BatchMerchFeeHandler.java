@@ -1,53 +1,57 @@
-package com.unionpay.withhold.trade.pay.handle.single;
+package com.unionpay.withhold.trade.pay.handle.batch;
 
-import org.apache.commons.lang.StringUtils;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.Lists;
 import com.lmax.disruptor.EventHandler;
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.fee.bean.FeeBean;
 import com.unionpay.withhold.trade.fee.service.FeeService;
 import com.unionpay.withhold.trade.pay.bean.TradeBean;
+import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDO;
 
-@Component("chnlFeeHandler")
-public class ChnlFeeHandler  implements EventHandler<TradeBean>{
-	
+@Component("merchFeeHandler")
+public class BatchMerchFeeHandler implements EventHandler<TradeBean>{
+
 	@Autowired
 	private FeeService feeService;
 	@Override
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
-		ResultBean resultBean = null;
+		List<ResultBean> merchFeeList = Lists.newArrayList();
 		try {
-			if(StringUtils.isEmpty(tradeBean.getChnlCode())) {
-				resultBean = new ResultBean("PC010","无可用交易渠道");
-				resultBean.setResultBool(false);
-			}else {
+			for(TxnLogPayDO txnLogPay : tradeBean.getTxnLogList()) {
 				FeeBean feeBean = new FeeBean();
-				feeBean.setTxnseqno(tradeBean.getTxnseqno());
+				feeBean.setTxnseqno(txnLogPay.getTxnseqno());
 				//扣率版本，
 				feeBean.setFeeVer(null);
 				//业务类型，
 				feeBean.setBusiCode(tradeBean.getBusinessEnum().getCode());
 				//交易金额，
-				feeBean.setTxnAmt(tradeBean.getTxnLogPayDO().getAmount().toString());
+				feeBean.setTxnAmt(txnLogPay.getAmount().toString());
 				//会员号，
-				feeBean.setMerchNo(tradeBean.getChnlCode());
+				feeBean.setMerchNo(txnLogPay.getAccsecmerno());
 				//原交易序列号，
-				feeBean.setTxnseqnoOg(tradeBean.getTxnLogPayDO().getTxnseqnoOg());
+				feeBean.setTxnseqnoOg(null);
 				//卡类型 
 				feeBean.setCardType(tradeBean.getTxnLogPayDO().getCardtype());
-				Long merchFee = feeService.getAisleFee(feeBean);
-				tradeBean.getTxnLogPayDO().setChnlfee(merchFee.toString());
-				resultBean = new ResultBean("0000", "成功");
+				Long merchFee = feeService.getMerchFee(feeBean);
+				tradeBean.getTxnLogPayDO().setTxnfee(merchFee);
+				ResultBean resultBean = new ResultBean("0000","成功");
+				resultBean.setResultObj(txnLogPay.getTxnseqno());
+				merchFeeList.add(resultBean);
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			resultBean = new ResultBean("PC036","系统异常，手续费计算失败");
+			merchFeeList.clear();
+			ResultBean resultBean = new ResultBean("0099","手续费计算失败");
 			resultBean.setResultBool(false);
+			merchFeeList.add(resultBean);
 		}finally {
-			tradeBean.setChnlFee(resultBean);
+			tradeBean.setMerchFeeList(merchFeeList);
 		}
 		
 	}

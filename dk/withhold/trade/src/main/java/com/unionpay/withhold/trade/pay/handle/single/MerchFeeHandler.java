@@ -41,9 +41,10 @@ public class MerchFeeHandler implements EventHandler<TradeBean>{
 			e.printStackTrace();
 			resultBean = new ResultBean("0099","手续费计算失败");
 			resultBean.setResultBool(false);
-			
+		}finally {
+			tradeBean.setMerchFee(resultBean);
 		}
-		tradeBean.setMerchFee(resultBean);
+		
 	}
 
 }

@@ -12,6 +12,7 @@ import com.unionpay.withhold.trade.order.enums.TableEnum;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO;
 import com.unionpay.withhold.trade.order.service.OrderCollectDetaService;
 import com.unionpay.withhold.trade.order.service.SerialNumberService;
+import com.unionpay.withhold.trade.pay.pojo.OrderCollectDetaPayDO;
 
 @Service//("orderCollectDetaService")
 public class OrderCollectDetaServiceImpl implements OrderCollectDetaService{
@@ -33,6 +34,8 @@ public class OrderCollectDetaServiceImpl implements OrderCollectDetaService{
 	public List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId){
 		return orderCollectDetaDAO.queryCollectOrderDeta(batchId);
 	}
+
+	
 
 	
 }
