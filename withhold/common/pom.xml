@@ -18,7 +18,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
+			<version>${junit.version}</version>，
 			<scope>test</scope>
 		</dependency>
 
@@ -107,7 +107,7 @@
 		<dependency>
 			<groupId>cglib</groupId>
 			<artifactId>cglib</artifactId>
-			<version>2.2</version>
+			<version>3.2.3</version>
 		</dependency>
 		
 		<dependency>

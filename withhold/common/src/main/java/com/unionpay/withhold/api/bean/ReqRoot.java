@@ -2,10 +2,13 @@ package com.unionpay.withhold.api.bean;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "Root")
@@ -13,42 +16,68 @@ import javax.xml.bind.annotation.XmlType;
 public class ReqRoot implements Serializable {
 
 	private static final long serialVersionUID = -6765100196395847463L;
-
 	// 版本号
+	@Pattern(regexp="^(1.0.0)$",message="0035[版本号]有误")
 	private String version;
 	// 编码方式
-	private String encoding;
+	@Pattern(regexp="^(UTF-8|GBK|GB2312|GB18030)$",message="0036[编码方式]有误")
+	private String encoding="UTF-8";
 	// 证书ID
+	@NotEmpty(message="0037[证书ID]为空")
 	private String certId;
 	// 签名方式
+	@NotEmpty(message="0039[签名方式]为空")
+	@Pattern(regexp="^(01)$",message="0039[签名方式]有误")
 	private String signMethod;
 	// 加密证书ID
 	private String encryptCertId;
 	// 交易类型
+	@NotEmpty(message="0040[交易类型]为空")
+	@Pattern(regexp="^(00|11)$",message="0040[交易类型]有误")
 	private String transType;
 	// 系统订单号
+	@NotEmpty(message="0005[订单号]为空")
 	private String orderId;
 	// 系统商户号
+	@NotEmpty(message="0002[商户号]为空")
+	@Pattern(regexp="^\\d{15}$",message="0041[商户号]格式有误")
 	private String mchntCd;
 	// 交易要素id
+	@NotEmpty(message="0002[交易要素id]为空")
+	@Pattern(regexp="^\\d*$",message="0004[交易要素id]格式有误")
 	private String factorId;
 	// 卡号
+	@Pattern(regexp="^(\\d{16}|\\d{19}|\\d{18})$",message="0004[银行卡号]格式有误")
 	private String priAcctId;
 	// 姓名
+	@NotEmpty(message="0002[姓名]为空")
 	private String name;
 	// 手机号
+	@NotEmpty(message="0002[手机号]为空")
+	@Pattern(regexp="^1[3|4|5|7|8]\\d{9}$",message="0004[手机号]格式有误")
 	private String phone;
 	// 身份证号
+	@NotEmpty(message="0002[身份证号]为空")
+	@Pattern(regexp="(^\\d{15}$)|(^\\d{18}$)|(^\\d{17}(\\d|X|x)$)",message="0004[身份证号]格式有误")
 	private String idCard;
 	// 扣款类型
+	@NotEmpty(message="0001[扣款类型]为空")
+	@Pattern(regexp="^(1|2)$",message="0001[扣款类型]有误")
 	private String dkType;
 	// 交易金额
+	@NotEmpty(message="0003[交易金额]为空")
+	@Pattern(regexp="^([1-9][\\d]{0,60}|0)(\\.[\\d]{1,2})?$",message="0003[交易金额]有误")
 	private String transAt;
 	// 交易币种
+	@NotEmpty(message="0042[交易币种]为空")
+	@Pattern(regexp="^\\d{3}$",message="0042[交易币种]有误")
 	private String atType;
 	// 订单发送时间
+	@NotEmpty(message="0043[订单发送时间]为空")
 	private String transTm;
 	// 后台通知地址
+	@NotEmpty(message="0044[后台通知地址]为空")
+	@Pattern(regexp="^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]",message="0042[后台通知地址]有误")
 	private String backUrl;
 
 	public String getVersion() {

@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.mapper.TFunctionMapper;
 import com.unionpay.withhold.admin.mapper.TUserFunctMapper;
@@ -17,6 +18,7 @@ import com.unionpay.withhold.admin.pojo.TUserFunct;
 import com.unionpay.withhold.admin.pojo.TUserFunctExample;
 import com.unionpay.withhold.admin.service.FunctionService;
 @Service
+@Transactional
 public class FunctionServiceImpl implements FunctionService {
 	@Autowired
 	private TFunctionMapper tFunctionMapper;
@@ -47,7 +49,7 @@ public class FunctionServiceImpl implements FunctionService {
 				Long functId = tUserFunct.getFunctId();
 				//得到父TFunction
 				TFunction parent = tFunctionMapper.selectByPrimaryKey(functId);
-				if(StringUtils.isEmpty(parent.getParentId())){
+				if("0".equals(parent.getParentId())){
 					result.add(parent);
 					continue;
 				}
@@ -69,6 +71,12 @@ public class FunctionServiceImpl implements FunctionService {
 		  }
 		}
 		return result;
+	}
+
+	@Override
+	public List<TFunction> findAllFuntion(TUser user) {
+		
+		return null;
 	}
 
 }

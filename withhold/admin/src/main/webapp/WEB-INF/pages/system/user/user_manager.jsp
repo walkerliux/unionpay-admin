@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
 <jsp:include page="../../../top.jsp"></jsp:include>
 <style type="text/css">
 .left, .mid, .right {
@@ -43,8 +44,8 @@ table tr td select {
 						<td align="left" style="padding-left: 5px">
 						<input id="userCode" name="userModel.loginName" /></td>
 						<td align="right"></td>
-					</tr>
-					<tr>
+					<!-- </tr>
+				 	<tr>
 						<td align="right">所属机构</td>
 						<td align="left" style="padding-left: 5px"><select
 							id="userOrganId" name="user.organId" onchange="showDept(1)">
@@ -54,11 +55,11 @@ table tr td select {
 						<td align="left" style="padding-left: 5px">
 						<select id="userDeptId" name="user.deptId" onchange="showRole(1)">
 								<option value=''>--请选择所属部门--</option></select></td>
-					</tr>
-					<tr>
+					</tr> 
+					<tr> -->
 						<td align="right">用户角色</td>
 						<td align="left" style="padding-left: 5px">
-						<select id="userRoleId" name="user.notes">
+						<select id="userRoleId" name="roleId" onchange="showRole(1)">
 								<option value=''>--请选择用户角色--</option>
 						</select></td>
 						<td align="right" colspan="3">
@@ -98,20 +99,6 @@ table tr td select {
 							<td align="left"><input type="text" id="user_loginName"
 								name="loginName" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>所属机构</td>
-							<td align="left"><select id="user_organId"
-								class="easyui-validatebox" missingMessage="请选择所属机构"
-								required="true" name="organId" onchange="showDept()">
-									<option value=''>--请选择所属机构--</option>
-							</select></td>
-						</tr>
-						<tr style="height: 25px">
-							<td>所属部门</td>
-							<td align="left"><select id="user_deptId"
-								class="easyui-validatebox" missingMessage="请选择所属部门"
-								required="true" name="deptId" onchange="showRole()">
-									<option value=''>--请选择所属部门--</option>
-							</select></td>
 							<td>用户类型</td>
 							<td align="left"><select id="user_isadmin"
 								class="easyui-validatebox" required="true" name="isadmin"
@@ -120,7 +107,22 @@ table tr td select {
 									<option value='1'>管理员</option>
 									<option value='0'>普通用户</option>
 							</select></td>
+							
 						</tr>
+						<!-- <tr style="height: 25px">
+							<td>所属部门</td>
+							<td align="left"><select id="user_deptId"
+								class="easyui-validatebox" missingMessage="请选择所属部门"
+								required="true" name="deptId" onchange="showRole()">
+									<option value=''>--请选择所属部门--</option>
+							</select></td> 
+							<td>所属机构</td>
+							<td align="left"><select id="user_organId"
+								class="easyui-validatebox" missingMessage="请选择所属机构"
+								required="true" name="organId" onchange="showDept()">
+									<option value=''>--请选择所属机构--</option>
+							</select></td> 
+						</tr> -->
 						<tr style="height: 25px">
 							<td>备注</td>
 							<td colspan="3" align="left"><textarea rows="3" cols="81" id="user_notes"
@@ -225,8 +227,10 @@ table tr td select {
 	</div>
 </body>
 </body>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/easyuiExtension.js"></script> 
 <script>
   	var width = $("#continer").width();
+  
 		$(function(){
 			showOrgan();
 			$('#userList').datagrid({
@@ -239,14 +243,23 @@ table tr td select {
 				url:'user/query',
 				remoteSort: false,
 				columns:[[
-					{field:'USER_CODE',title:'用户代码',align:'center',width:100},
-					{field:'USER_NAME',title:'用户名称',align:'center',width:100},
-					{field:'LOGIN_NAME',title:'登陆账号',width:120,align:'center'},
-					{field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
-					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'},
-					{field:'CREATOR',title:'创建者',width:100,align:'center'},
-					{field:'CREATE_DATE',title:'创建时间',width:130,align:'center'},
-					{field:'STATUS',title:'状态',width:120,align:'center',
+					{field:'userCode',title:'用户代码',align:'center',width:150},
+					{field:'userName',title:'用户名称',align:'center',width:150},
+					{field:'loginName',title:'登陆账号',width:180,align:'center'},
+					/* {field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
+					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'}, */
+					{field:'creator',title:'创建者',width:180,align:'center'},
+					{field:'createDate',title:'创建时间',width:200,align:'center',
+						formatter:function(value, row) { 
+						if(value!=null){
+							  var date = new Date(value); 
+							  return formatDate(date,"yyyy-mm-dd hh:nn:ss");
+							}else{ 
+							  return ""; 
+							} 
+						} 
+					}, 
+					{field:'status',title:'状态',width:160,align:'center',
 						formatter:function(value,rec){
 							if(value=="00"){
 								return "已使用";
@@ -255,20 +268,24 @@ table tr td select {
 							}
 						}
 					},
-					{field:'USER_ID',title:'操作',align:'center',width:250,rowspan:2,
+					{field:'userId',title:'操作',align:'center',width:250,rowspan:2,
 						formatter:function(value,rec){
-							if(rec.STATUS=="00"){
+							if(rec.status=="00"){
 								return '<a href="javascript:showUser('+value+')" style="color:blue;margin-left:10px">修改</a>'+
-								'<a href="javascript:deleteUser('+value+')" style="color:blue;margin-left:10px">注销</a>'+
-								'<a href="javascript:UserPasswordReset('+value+')" style="color:blue;margin-left:10px">密码重置</a>'+
+								'<a href="javascript:ToUserAuthority('+value+')" style="color:blue;margin-left:10px">赋权</a>'+
+								
+								/* '<a href="javascript:UserPasswordReset('+value+')" style="color:blue;margin-left:10px">密码重置</a>'+ */
 								'<a href="javascript:ToSelectRole('+value+')" style="color:blue;margin-left:10px">绑定角色</a>'+
-								'<a href="javascript:ToUserAuthority('+value+')" style="color:blue;margin-left:10px">用户权限</a>';
+								'<a href="javascript:deleteUser('+value+')" style="color:blue;margin-left:10px">注销</a>'
+								;
 							}else{
 								return '';
 							}
 							
 					}}
 				]],
+				
+				
 				pagination:true,
 				rownumbers:true,
 				toolbar:[{
@@ -279,7 +296,8 @@ table tr td select {
 						$("#user_code").removeAttr('readonly');
 						showAdd(0);
 						$("#saveForm").attr("action","user/save");
-					}
+					},   
+				    
 				}]
 			});
 			$.extend($.fn.validatebox.defaults.rules, {   
@@ -296,22 +314,22 @@ table tr td select {
 			   
 			});  
 		});
-
+		
 		function showOrgan(){		
 			$.ajax({
 			   type: "POST",
-			   url: "user/showOrgan",
+			   url: "user/showRoles",
 			   dataType:"json",
 			   success: function(json){
-			   		var html ="<option value=''>--请选择所属机构--</option>";
+			   		var html ="<option value=''>--请选择用户角色--</option>";
 			   		$.each(json, function(key,value){
-			   			html += '<option value="'+value.organId+'">'+value.organName+'</option>';
+			   			html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
 					})
-					$("#userOrganId,#user_organId").html(html);
+					$("#userRoleId,#user_roleId").html(html);
 			   }
 			});
-		}
-		function showDept(flag){
+		} 
+		/* function showDept(flag){
 			var organId;
 			if(flag==1){//查询条件
 				organId=$("#userOrganId").val();
@@ -336,20 +354,20 @@ table tr td select {
 					}
 			 	}
 			});
-		}
+		} */
 
-		function showRole(flag){
-			var deptId;
+	/* 	function showRole(flag){
+			var roleId;
 			if(flag==1){//查询条件
-				deptId=$("#userDeptId").val();
+				roleId=$("#userRoleId").val();
 			}else{
-				deptId=$("#user_deptId").val();
-			}
+				roleId=$("#user_deptId").val();
+			} 
 			var html = '<option value="">--请选择用户角色--</option>';
 			$.ajax({
 				type: "GET",
 			  	url: "user/showRole",
-			  	data: "rand="+new Date().getTime()+"&deptId="+deptId,
+			  	//data: "rand="+new Date().getTime()+"&roleId="+roleId,
 			 	dataType: "json",
 			 	success:function(json){
 					$.each(json, function(key,value){
@@ -359,12 +377,12 @@ table tr td select {
 					if(flag==1){//查询条件
 						$("#userRoleId").html(html);
 					}else{
-						/* $("#user_roleId").html(html); */
+						/* $("#user_roleId").html(html); 
 					}
 			 	}
 			});
-		}
-		
+		}  
+		*/
 		function resize(){
 			$('#searchForm :input').val('');
 		}
@@ -391,7 +409,7 @@ table tr td select {
 			
 		}		
 		function search(){
-			var data={'userName':$('#userName').val(),'userCode':$('#userCode').val(),'deptId':$("#userDeptId").val(),'notes':$("#userRoleId").val(),'organId':$("#userOrganId").val()};
+			var data={'userName':$('#userName').val(),'userCode':$('#userCode').val(),'deptId':$("#userDeptId").val(),'roleId':$("#userRoleId").val(),'organId':$("#userOrganId").val()};
 			$('#userList').datagrid('load',data);
 		}
 		function saveUser(){
@@ -403,15 +421,24 @@ table tr td select {
 				    }
 			        return false;   
 			    },   
-			    success:function(data){   
-		    		$('#w').window('close');
+			    success:function(data){ 
+			    	//alert(data)
+		    		/* $('#w').window('close');
 		    		 search();
 		    		$('#btn_submit').linkbutton('enable');
 		    		if(data=='true'){
 						$.messager.alert('提示',"保存成功");  
-					}else if(data=="flase"){
+					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
-					} 
+					} */ 
+			    	var json = eval('(' + data + ')')
+			    	 //alert(json)
+			    	$.each(json, function(key,value){
+			    		$.messager.alert('提示',value);   
+			    		search();
+			    		closeAdd();
+			    		$('#btn_submit').linkbutton('enable');	
+					}) 
 			    }   
 			});  
 		}
@@ -434,7 +461,7 @@ table tr td select {
 						$("#user_isadmin").val(json.isadmin);
 						$("#user_id").val(json.userId);
 						$("#user_notes").val(json.notes);
-						//读取职能部门信息
+						/* //读取职能部门信息
 						var html = '<option value="">--请选择所属部门--</option>';
 						$.ajax({
 							type: "GET",
@@ -452,7 +479,7 @@ table tr td select {
 						});
 						setTimeout(function(){ 
 							$("#user_deptId").val(json.deptId);
-						},1);
+						},1); */
 					
 			   }
 			});
@@ -486,9 +513,9 @@ table tr td select {
 				    		 search();
 				    		$('#btn_submit').linkbutton('enable');
 				    		if(data=='true'){
-								$.messager.alert('提示',"保存成功");  
-							}else if(data=="flase"){
-								$.messager.alert('提示',"保存失败");  
+								$.messager.alert('提示',"注销成功");  
+							}else if(data=="false"){
+								$.messager.alert('提示',"注销失败");  
 							} 
 					    } 
 				});
@@ -506,7 +533,7 @@ table tr td select {
 					 	success:function(data){
 					 		if(data=='true'){
 								$.messager.alert('提示',"保存成功");  
-							}else if(data=="flase"){
+							}else if(data=="false"){
 								$.messager.alert('提示',"保存失败");  
 							}
 					 	}
@@ -652,7 +679,10 @@ table tr td select {
 								
 							}
 						}
+						
+						
 					}
+					
 					node.text = '<span style="color:blue">'+node.text+'</span>';
 				},
 				onBeforeExpand:function(node){
@@ -662,6 +692,7 @@ table tr td select {
 					}
 				},
 				loadFilter: function(data){   
+					
 					if(flag){
 						roleFunction = data.roleFunction;
 						flag = false;
@@ -695,7 +726,7 @@ table tr td select {
 					if(data=='true'){
 						$('#userRoleW3').window('close');
 						$.messager.alert('提示',"保存成功");  
-					}else if(data=="flase"){
+					}else if(data=='false'){
 						$.messager.alert('提示',"保存失败");  
 					}
 			    }
@@ -737,4 +768,9 @@ table tr td select {
 			return userFunction;
 		}
 	</script>
+	
+<!--
+
+//-->
+</script>
 </html>

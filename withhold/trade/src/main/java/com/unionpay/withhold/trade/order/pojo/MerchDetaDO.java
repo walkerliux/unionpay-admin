@@ -1,6 +1,5 @@
 package com.unionpay.withhold.trade.order.pojo;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class MerchDetaDO {
@@ -25,12 +24,6 @@ public class MerchDetaDO {
     private String contPost;
 
     private String contEmail;
-
-    private String setlCycle;
-
-    private BigDecimal charge;
-
-    private BigDecimal deposit;
 
     private String riskVer;
 
@@ -152,30 +145,6 @@ public class MerchDetaDO {
 
     public void setContEmail(String contEmail) {
         this.contEmail = contEmail == null ? null : contEmail.trim();
-    }
-
-    public String getSetlCycle() {
-        return setlCycle;
-    }
-
-    public void setSetlCycle(String setlCycle) {
-        this.setlCycle = setlCycle == null ? null : setlCycle.trim();
-    }
-
-    public BigDecimal getCharge() {
-        return charge;
-    }
-
-    public void setCharge(BigDecimal charge) {
-        this.charge = charge;
-    }
-
-    public BigDecimal getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(BigDecimal deposit) {
-        this.deposit = deposit;
     }
 
     public String getRiskVer() {

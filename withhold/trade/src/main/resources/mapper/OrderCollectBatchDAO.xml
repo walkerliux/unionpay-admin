@@ -3,16 +3,16 @@
 <mapper namespace="com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO">
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
     <id column="TID" jdbcType="DECIMAL" property="tid" />
-    <result column="ACCESSTYPE" jdbcType="VARCHAR" property="accesstype" />
-    <result column="COOPINSTIID" jdbcType="VARCHAR" property="coopinstiid" />
     <result column="MERID" jdbcType="VARCHAR" property="merid" />
     <result column="VERSION" jdbcType="VARCHAR" property="version" />
     <result column="ENCODING" jdbcType="VARCHAR" property="encoding" />
+    <result column="CERTID" jdbcType="VARCHAR" property="certid" />
     <result column="TXNTYPE" jdbcType="VARCHAR" property="txntype" />
     <result column="TXNSUBTYPE" jdbcType="VARCHAR" property="txnsubtype" />
     <result column="BIZTYPE" jdbcType="VARCHAR" property="biztype" />
     <result column="BACKURL" jdbcType="VARCHAR" property="backurl" />
     <result column="BATCHNO" jdbcType="VARCHAR" property="batchno" />
+    <result column="FACTORID" jdbcType="VARCHAR" property="factorid" />
     <result column="TXNTIME" jdbcType="VARCHAR" property="txntime" />
     <result column="TXNDATE" jdbcType="VARCHAR" property="txndate" />
     <result column="TOTALQTY" jdbcType="DECIMAL" property="totalqty" />
@@ -27,6 +27,8 @@
     <result column="TN" jdbcType="VARCHAR" property="tn" />
     <result column="NOTES" jdbcType="VARCHAR" property="notes" />
     <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="ACCESSTYPE" jdbcType="VARCHAR" property="accesstype" />
+    <result column="COOPINSTIID" jdbcType="VARCHAR" property="coopinstiid" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -87,9 +89,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    TID, ACCESSTYPE, COOPINSTIID, MERID, VERSION, ENCODING, TXNTYPE, TXNSUBTYPE, BIZTYPE, 
-    BACKURL, BATCHNO, TXNTIME, TXNDATE, TOTALQTY, TOTALAMT, RESERVED, RESPCODE, RESPMSG, 
-    STATUS, ORDERCOMMITIME, ORDERFINSHTIME, SYNCNOTIFY, TN, NOTES, REMARKS
+    TID, MERID, VERSION, ENCODING, CERTID, TXNTYPE, TXNSUBTYPE, BIZTYPE, BACKURL, BATCHNO, 
+    FACTORID, TXNTIME, TXNDATE, TOTALQTY, TOTALAMT, RESERVED, RESPCODE, RESPMSG, STATUS, 
+    ORDERCOMMITIME, ORDERFINSHTIME, SYNCNOTIFY, TN, NOTES, REMARKS, ACCESSTYPE, COOPINSTIID
   </sql>
   <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDOExample" resultMap="BaseResultMap">
     select
@@ -123,36 +125,32 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
-    insert into t_order_collect_batch (TID, ACCESSTYPE, COOPINSTIID, 
-      MERID, VERSION, ENCODING, 
-      TXNTYPE, TXNSUBTYPE, BIZTYPE, 
-      BACKURL, BATCHNO, TXNTIME, 
+    insert into t_order_collect_batch (TID, MERID, VERSION, 
+      ENCODING, CERTID, TXNTYPE, 
+      TXNSUBTYPE, BIZTYPE, BACKURL, 
+      BATCHNO, FACTORID, TXNTIME, 
       TXNDATE, TOTALQTY, TOTALAMT, 
       RESERVED, RESPCODE, RESPMSG, 
       STATUS, ORDERCOMMITIME, ORDERFINSHTIME, 
       SYNCNOTIFY, TN, NOTES, 
-      REMARKS)
-    values (#{tid,jdbcType=DECIMAL}, #{accesstype,jdbcType=VARCHAR}, #{coopinstiid,jdbcType=VARCHAR}, 
-      #{merid,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{encoding,jdbcType=VARCHAR}, 
-      #{txntype,jdbcType=VARCHAR}, #{txnsubtype,jdbcType=VARCHAR}, #{biztype,jdbcType=VARCHAR}, 
-      #{backurl,jdbcType=VARCHAR}, #{batchno,jdbcType=VARCHAR}, #{txntime,jdbcType=VARCHAR}, 
+      REMARKS, ACCESSTYPE, COOPINSTIID
+      )
+    values (#{tid,jdbcType=DECIMAL}, #{merid,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{encoding,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}, #{txntype,jdbcType=VARCHAR}, 
+      #{txnsubtype,jdbcType=VARCHAR}, #{biztype,jdbcType=VARCHAR}, #{backurl,jdbcType=VARCHAR}, 
+      #{batchno,jdbcType=VARCHAR}, #{factorid,jdbcType=VARCHAR}, #{txntime,jdbcType=VARCHAR}, 
       #{txndate,jdbcType=VARCHAR}, #{totalqty,jdbcType=DECIMAL}, #{totalamt,jdbcType=DECIMAL}, 
       #{reserved,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{ordercommitime,jdbcType=VARCHAR}, #{orderfinshtime,jdbcType=VARCHAR}, 
       #{syncnotify,jdbcType=VARCHAR}, #{tn,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR})
+      #{remarks,jdbcType=VARCHAR}, #{accesstype,jdbcType=VARCHAR}, #{coopinstiid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
     insert into t_order_collect_batch
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="tid != null">
         TID,
-      </if>
-      <if test="accesstype != null">
-        ACCESSTYPE,
-      </if>
-      <if test="coopinstiid != null">
-        COOPINSTIID,
       </if>
       <if test="merid != null">
         MERID,
@@ -162,6 +160,9 @@
       </if>
       <if test="encoding != null">
         ENCODING,
+      </if>
+      <if test="certid != null">
+        CERTID,
       </if>
       <if test="txntype != null">
         TXNTYPE,
@@ -177,6 +178,9 @@
       </if>
       <if test="batchno != null">
         BATCHNO,
+      </if>
+      <if test="factorid != null">
+        FACTORID,
       </if>
       <if test="txntime != null">
         TXNTIME,
@@ -220,16 +224,16 @@
       <if test="remarks != null">
         REMARKS,
       </if>
+      <if test="accesstype != null">
+        ACCESSTYPE,
+      </if>
+      <if test="coopinstiid != null">
+        COOPINSTIID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="tid != null">
         #{tid,jdbcType=DECIMAL},
-      </if>
-      <if test="accesstype != null">
-        #{accesstype,jdbcType=VARCHAR},
-      </if>
-      <if test="coopinstiid != null">
-        #{coopinstiid,jdbcType=VARCHAR},
       </if>
       <if test="merid != null">
         #{merid,jdbcType=VARCHAR},
@@ -239,6 +243,9 @@
       </if>
       <if test="encoding != null">
         #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null">
+        #{certid,jdbcType=VARCHAR},
       </if>
       <if test="txntype != null">
         #{txntype,jdbcType=VARCHAR},
@@ -254,6 +261,9 @@
       </if>
       <if test="batchno != null">
         #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
       </if>
       <if test="txntime != null">
         #{txntime,jdbcType=VARCHAR},
@@ -297,6 +307,12 @@
       <if test="remarks != null">
         #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="accesstype != null">
+        #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null">
+        #{coopinstiid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDOExample" resultType="java.lang.Long">
@@ -311,12 +327,6 @@
       <if test="record.tid != null">
         TID = #{record.tid,jdbcType=DECIMAL},
       </if>
-      <if test="record.accesstype != null">
-        ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.coopinstiid != null">
-        COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
-      </if>
       <if test="record.merid != null">
         MERID = #{record.merid,jdbcType=VARCHAR},
       </if>
@@ -325,6 +335,9 @@
       </if>
       <if test="record.encoding != null">
         ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certid != null">
+        CERTID = #{record.certid,jdbcType=VARCHAR},
       </if>
       <if test="record.txntype != null">
         TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
@@ -340,6 +353,9 @@
       </if>
       <if test="record.batchno != null">
         BATCHNO = #{record.batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factorid != null">
+        FACTORID = #{record.factorid,jdbcType=VARCHAR},
       </if>
       <if test="record.txntime != null">
         TXNTIME = #{record.txntime,jdbcType=VARCHAR},
@@ -383,6 +399,12 @@
       <if test="record.remarks != null">
         REMARKS = #{record.remarks,jdbcType=VARCHAR},
       </if>
+      <if test="record.accesstype != null">
+        ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coopinstiid != null">
+        COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -391,16 +413,16 @@
   <update id="updateByExample" parameterType="map">
     update t_order_collect_batch
     set TID = #{record.tid,jdbcType=DECIMAL},
-      ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
-      COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
       MERID = #{record.merid,jdbcType=VARCHAR},
       VERSION = #{record.version,jdbcType=VARCHAR},
       ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      CERTID = #{record.certid,jdbcType=VARCHAR},
       TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
       TXNSUBTYPE = #{record.txnsubtype,jdbcType=VARCHAR},
       BIZTYPE = #{record.biztype,jdbcType=VARCHAR},
       BACKURL = #{record.backurl,jdbcType=VARCHAR},
       BATCHNO = #{record.batchno,jdbcType=VARCHAR},
+      FACTORID = #{record.factorid,jdbcType=VARCHAR},
       TXNTIME = #{record.txntime,jdbcType=VARCHAR},
       TXNDATE = #{record.txndate,jdbcType=VARCHAR},
       TOTALQTY = #{record.totalqty,jdbcType=DECIMAL},
@@ -414,7 +436,9 @@
       SYNCNOTIFY = #{record.syncnotify,jdbcType=VARCHAR},
       TN = #{record.tn,jdbcType=VARCHAR},
       NOTES = #{record.notes,jdbcType=VARCHAR},
-      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -422,12 +446,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
     update t_order_collect_batch
     <set>
-      <if test="accesstype != null">
-        ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
-      </if>
-      <if test="coopinstiid != null">
-        COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
-      </if>
       <if test="merid != null">
         MERID = #{merid,jdbcType=VARCHAR},
       </if>
@@ -436,6 +454,9 @@
       </if>
       <if test="encoding != null">
         ENCODING = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null">
+        CERTID = #{certid,jdbcType=VARCHAR},
       </if>
       <if test="txntype != null">
         TXNTYPE = #{txntype,jdbcType=VARCHAR},
@@ -451,6 +472,9 @@
       </if>
       <if test="batchno != null">
         BATCHNO = #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        FACTORID = #{factorid,jdbcType=VARCHAR},
       </if>
       <if test="txntime != null">
         TXNTIME = #{txntime,jdbcType=VARCHAR},
@@ -494,21 +518,27 @@
       <if test="remarks != null">
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="accesstype != null">
+        ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null">
+        COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
+      </if>
     </set>
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
     update t_order_collect_batch
-    set ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
-      COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
-      MERID = #{merid,jdbcType=VARCHAR},
+    set MERID = #{merid,jdbcType=VARCHAR},
       VERSION = #{version,jdbcType=VARCHAR},
       ENCODING = #{encoding,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR},
       TXNTYPE = #{txntype,jdbcType=VARCHAR},
       TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
       BIZTYPE = #{biztype,jdbcType=VARCHAR},
       BACKURL = #{backurl,jdbcType=VARCHAR},
       BATCHNO = #{batchno,jdbcType=VARCHAR},
+      FACTORID = #{factorid,jdbcType=VARCHAR},
       TXNTIME = #{txntime,jdbcType=VARCHAR},
       TXNDATE = #{txndate,jdbcType=VARCHAR},
       TOTALQTY = #{totalqty,jdbcType=DECIMAL},
@@ -522,7 +552,40 @@
       SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
       TN = #{tn,jdbcType=VARCHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
-      REMARKS = #{remarks,jdbcType=VARCHAR}
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
+  <select id="getCollectBatchOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	BATCHNO = #{batchno,jdbcType=VARCHAR}
+    and MERID = #{merid,jdbcType=VARCHAR}
+    and TXNDATE = #{txndate,jdbcType=VARCHAR}
+  </select>
+  <select id="queryCollectBatchOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	1=1 
+    	<if test="merid != null and merid != ''">
+        	AND MERID = #{merid,jdbcType=VARCHAR}
+     	</if>
+     	<if test="txndate != null and txndate != ''">
+	        AND TXNDATE = #{txndate,jdbcType=VARCHAR}
+	    </if>
+	    <if test="batchno != null and batchno != ''">
+        	AND BATCHNO = #{batchno,jdbcType=VARCHAR}
+     	</if>
+     	<if test="tn != null and tn != ''">
+	        AND TN = #{tn,jdbcType=VARCHAR}
+	     </if>
+  </select>
+  
 </mapper>

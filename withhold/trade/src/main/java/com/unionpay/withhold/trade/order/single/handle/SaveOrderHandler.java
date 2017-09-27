@@ -33,6 +33,7 @@ public class SaveOrderHandler implements EventHandler<SingleCollectBean>{
 			OrderCollectSingleDO orderCollectSingle = new OrderCollectSingleDO();
 			orderCollectSingle.setVersion("1.0.0");
 			orderCollectSingle.setEncoding("UTF-8");
+			orderCollectSingle.setCertid(singleCollectBean.getCertId());
 			orderCollectSingle.setTxntype(singleCollectBean.getTransType());
 			orderCollectSingle.setTxnsubtype("00");
 			orderCollectSingle.setBiztype("000002");
@@ -44,9 +45,9 @@ public class SaveOrderHandler implements EventHandler<SingleCollectBean>{
 			orderCollectSingle.setPaytimeout(DateUtil.formatDateTime(DateUtil.DEFAULT_DATE_FROMAT, DateUtil.skipDateTime(new Date(), 1)));
 			orderCollectSingle.setTxnamt(Long.valueOf(singleCollectBean.getTransAt()));
 			orderCollectSingle.setCurrencycode(singleCollectBean.getAtType());
-			orderCollectSingle.setCreditorbank("203121000010");
-			orderCollectSingle.setCreditoraccount(singleCollectBean.getPriAcctId());
-			orderCollectSingle.setCreditorname(singleCollectBean.getName());
+			//orderCollectSingle.setCreditorbank("203121000010");
+			orderCollectSingle.setCardno(singleCollectBean.getPriAcctId());
+			orderCollectSingle.setCustomernm(singleCollectBean.getName());
 			orderCollectSingle.setIdcard(singleCollectBean.getIdCard());
 			orderCollectSingle.setPhone(orderCollectSingle.getPhone());
 			orderCollectSingle.setDktype(singleCollectBean.getDkType());

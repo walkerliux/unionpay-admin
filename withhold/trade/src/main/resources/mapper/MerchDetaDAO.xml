@@ -13,9 +13,6 @@
     <result column="CONT_ADDRESS" jdbcType="VARCHAR" property="contAddress" />
     <result column="CONT_POST" jdbcType="VARCHAR" property="contPost" />
     <result column="CONT_EMAIL" jdbcType="VARCHAR" property="contEmail" />
-    <result column="SETL_CYCLE" jdbcType="VARCHAR" property="setlCycle" />
-    <result column="CHARGE" jdbcType="DECIMAL" property="charge" />
-    <result column="DEPOSIT" jdbcType="DECIMAL" property="deposit" />
     <result column="RISK_VER" jdbcType="VARCHAR" property="riskVer" />
     <result column="ROUT_VER" jdbcType="VARCHAR" property="routVer" />
     <result column="CACODE" jdbcType="VARCHAR" property="cacode" />
@@ -94,9 +91,9 @@
   </sql>
   <sql id="Base_Column_List">
     MERCH_ID, MEM_ID, MEMBER_ID, MEMBER_NAME, ADDRESS, POST_CODE, CONTACT, CONT_PHONE, 
-    CONT_ADDRESS, CONT_POST, CONT_EMAIL, SETL_CYCLE, CHARGE, DEPOSIT, RISK_VER, ROUT_VER, 
-    CACODE, MCC, MCC_LIST, transfactors, STATUS, IN_USER, IN_TIME, STEXA_USER, STEXA_TIME, 
-    STEXA_OPT, CVLEXA_USER, CVLEXA_TIME, CVLEXA_OPT, NOTES, REMARKS
+    CONT_ADDRESS, CONT_POST, CONT_EMAIL, RISK_VER, ROUT_VER, CACODE, MCC, MCC_LIST, transfactors, 
+    STATUS, IN_USER, IN_TIME, STEXA_USER, STEXA_TIME, STEXA_OPT, CVLEXA_USER, CVLEXA_TIME, 
+    CVLEXA_OPT, NOTES, REMARKS
   </sql>
   <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.MerchDetaDOExample" resultMap="BaseResultMap">
     select
@@ -133,8 +130,7 @@
     insert into t_merch_deta (MERCH_ID, MEM_ID, MEMBER_ID, 
       MEMBER_NAME, ADDRESS, POST_CODE, 
       CONTACT, CONT_PHONE, CONT_ADDRESS, 
-      CONT_POST, CONT_EMAIL, SETL_CYCLE, 
-      CHARGE, DEPOSIT, RISK_VER, 
+      CONT_POST, CONT_EMAIL, RISK_VER, 
       ROUT_VER, CACODE, MCC, 
       MCC_LIST, transfactors, STATUS, 
       IN_USER, IN_TIME, STEXA_USER, 
@@ -144,8 +140,7 @@
     values (#{merchId,jdbcType=INTEGER}, #{memId,jdbcType=DECIMAL}, #{memberId,jdbcType=VARCHAR}, 
       #{memberName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{contPhone,jdbcType=VARCHAR}, #{contAddress,jdbcType=VARCHAR}, 
-      #{contPost,jdbcType=VARCHAR}, #{contEmail,jdbcType=VARCHAR}, #{setlCycle,jdbcType=VARCHAR}, 
-      #{charge,jdbcType=DECIMAL}, #{deposit,jdbcType=DECIMAL}, #{riskVer,jdbcType=VARCHAR}, 
+      #{contPost,jdbcType=VARCHAR}, #{contEmail,jdbcType=VARCHAR}, #{riskVer,jdbcType=VARCHAR}, 
       #{routVer,jdbcType=VARCHAR}, #{cacode,jdbcType=VARCHAR}, #{mcc,jdbcType=VARCHAR}, 
       #{mccList,jdbcType=VARCHAR}, #{transfactors,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{inUser,jdbcType=DECIMAL}, #{inTime,jdbcType=TIMESTAMP}, #{stexaUser,jdbcType=DECIMAL}, 
@@ -188,15 +183,6 @@
       </if>
       <if test="contEmail != null">
         CONT_EMAIL,
-      </if>
-      <if test="setlCycle != null">
-        SETL_CYCLE,
-      </if>
-      <if test="charge != null">
-        CHARGE,
-      </if>
-      <if test="deposit != null">
-        DEPOSIT,
       </if>
       <if test="riskVer != null">
         RISK_VER,
@@ -283,15 +269,6 @@
       </if>
       <if test="contEmail != null">
         #{contEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="setlCycle != null">
-        #{setlCycle,jdbcType=VARCHAR},
-      </if>
-      <if test="charge != null">
-        #{charge,jdbcType=DECIMAL},
-      </if>
-      <if test="deposit != null">
-        #{deposit,jdbcType=DECIMAL},
       </if>
       <if test="riskVer != null">
         #{riskVer,jdbcType=VARCHAR},
@@ -388,15 +365,6 @@
       <if test="record.contEmail != null">
         CONT_EMAIL = #{record.contEmail,jdbcType=VARCHAR},
       </if>
-      <if test="record.setlCycle != null">
-        SETL_CYCLE = #{record.setlCycle,jdbcType=VARCHAR},
-      </if>
-      <if test="record.charge != null">
-        CHARGE = #{record.charge,jdbcType=DECIMAL},
-      </if>
-      <if test="record.deposit != null">
-        DEPOSIT = #{record.deposit,jdbcType=DECIMAL},
-      </if>
       <if test="record.riskVer != null">
         RISK_VER = #{record.riskVer,jdbcType=VARCHAR},
       </if>
@@ -466,9 +434,6 @@
       CONT_ADDRESS = #{record.contAddress,jdbcType=VARCHAR},
       CONT_POST = #{record.contPost,jdbcType=VARCHAR},
       CONT_EMAIL = #{record.contEmail,jdbcType=VARCHAR},
-      SETL_CYCLE = #{record.setlCycle,jdbcType=VARCHAR},
-      CHARGE = #{record.charge,jdbcType=DECIMAL},
-      DEPOSIT = #{record.deposit,jdbcType=DECIMAL},
       RISK_VER = #{record.riskVer,jdbcType=VARCHAR},
       ROUT_VER = #{record.routVer,jdbcType=VARCHAR},
       CACODE = #{record.cacode,jdbcType=VARCHAR},
@@ -522,15 +487,6 @@
       </if>
       <if test="contEmail != null">
         CONT_EMAIL = #{contEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="setlCycle != null">
-        SETL_CYCLE = #{setlCycle,jdbcType=VARCHAR},
-      </if>
-      <if test="charge != null">
-        CHARGE = #{charge,jdbcType=DECIMAL},
-      </if>
-      <if test="deposit != null">
-        DEPOSIT = #{deposit,jdbcType=DECIMAL},
       </if>
       <if test="riskVer != null">
         RISK_VER = #{riskVer,jdbcType=VARCHAR},
@@ -598,9 +554,6 @@
       CONT_ADDRESS = #{contAddress,jdbcType=VARCHAR},
       CONT_POST = #{contPost,jdbcType=VARCHAR},
       CONT_EMAIL = #{contEmail,jdbcType=VARCHAR},
-      SETL_CYCLE = #{setlCycle,jdbcType=VARCHAR},
-      CHARGE = #{charge,jdbcType=DECIMAL},
-      DEPOSIT = #{deposit,jdbcType=DECIMAL},
       RISK_VER = #{riskVer,jdbcType=VARCHAR},
       ROUT_VER = #{routVer,jdbcType=VARCHAR},
       CACODE = #{cacode,jdbcType=VARCHAR},
