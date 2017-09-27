@@ -38,6 +38,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CollectBusinessServiceImpl.class);
 	@Autowired
+	@Qualifier("orderTaskExecutor")
 	private TaskExecutor taskExecutor;
 	@Autowired
 	@Qualifier("secondPayHandler")
@@ -137,7 +138,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 			e.printStackTrace();
 		}
 		disruptor.shutdown();
-		//logger.info(JSON.toJSONString(singleCollectBean));
+		logger.info(JSON.toJSONString(singleCollectBean));
 		if (singleCollectBean.getFinalResult().isResultBool()) {
 			resultBean = new ResultBean(singleCollectBean.getTn());
 		} else {

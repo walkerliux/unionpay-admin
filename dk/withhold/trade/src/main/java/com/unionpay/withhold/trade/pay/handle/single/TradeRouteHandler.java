@@ -22,10 +22,10 @@ public class TradeRouteHandler  implements EventHandler<TradeBean> {
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		TradeRouteBean tradeRoute = new TradeRouteBean();
 		tradeRoute.setTransTime(DateUtil.getCurrentTime());
-		tradeRoute.setBusiCode(tradeBean.getBusinessEnum().getCode());
+		tradeRoute.setBusicode(tradeBean.getBusinessEnum().getCode());
 		tradeRoute.setBankcode(tradeBean.getTxnLogPayDO().getCardinstino());
 		tradeRoute.setStatus("00");
-		tradeRoute.setCardType(tradeBean.getTxnLogPayDO().getCardtype());
+		tradeRoute.setCardtype(tradeBean.getTxnLogPayDO().getCardtype());
 		tradeRoute.setRoutver(tradeBean.getTxnLogPayDO().getRoutver());
 		tradeRoute.setTransAmt(tradeBean.getTxnLogPayDO().getAmount());
 		List<RouteConfigDO> tradRouteList = tradeRouteService.getTradRouteList(tradeRoute);

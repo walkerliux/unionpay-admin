@@ -12,6 +12,7 @@ public class FEAPI {
     private RestTemplate template;
 	
 	private final static String url="http://192.168.2.19:8080/trade/api/v1/fe";
+	//private final static String url="http://localhost:8080/trade/api/v1/fe";
 	/**
 	 * 实时代扣
 	 * @param data

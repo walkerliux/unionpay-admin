@@ -26,14 +26,15 @@ public class BusiCheckHandler implements EventHandler<SingleCollectBean>{
 		txncodeDef = txncodeDefService.getBusiCode(txncodeDef);
 		if(txncodeDef==null){
 			resultBean = new ResultBean("OD050", "交易类型不存在");
+        }else {
+        	BusiTypeEnum busiTypeEnum = BusiTypeEnum.fromValue(txncodeDef.getBusitype());
+    		if(busiTypeEnum!=BusiTypeEnum.CONSUME){//消费
+    			resultBean = new ResultBean("OD045", "交易类型错误");
+            }
+    		if(resultBean==null) {
+    			resultBean = new ResultBean("0000", "成功");
+    		}
         }
-		BusiTypeEnum busiTypeEnum = BusiTypeEnum.fromValue(txncodeDef.getBusitype());
-		if(busiTypeEnum!=BusiTypeEnum.CONSUME){//消费
-			resultBean = new ResultBean("OD045", "交易类型错误");
-        }
-		if(resultBean==null) {
-			resultBean = new ResultBean("0000", "成功");
-		}
 		singleCollectBean.setBusiCheck(resultBean);
 	}
 

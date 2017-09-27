@@ -20,6 +20,7 @@ import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.pay.service.CollectPayService;
 import com.unionpay.withhold.utils.XMLUtils;
 
 @RestController
@@ -31,7 +32,7 @@ public class FrontEndController {
 	@Autowired
 	private CollectBusinessService  collectBusinessService;
 	@Autowired
-	private FeeDAO customDAO;
+	private CollectPayService collectPayService;
 	/**
 	 * 实时代扣
 	 * @param data
@@ -45,6 +46,9 @@ public class FrontEndController {
 		resultBean.setRespMsg("成功");
 		SingleCollectBean singleCollectBean = JSON.parseObject(data, SingleCollectBean.class);
 		resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		if(resultBean.isResultBool()) {
+			resultBean = collectPayService.singleCollectPay(resultBean.getResultObj().toString());
+		}
 		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	} 	

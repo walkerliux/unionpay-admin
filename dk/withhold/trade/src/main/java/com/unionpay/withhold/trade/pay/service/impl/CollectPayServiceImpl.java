@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSON;
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
 import com.lmax.disruptor.EventHandler;
@@ -15,12 +16,14 @@ import com.lmax.disruptor.dsl.Disruptor;
 import com.lmax.disruptor.dsl.ProducerType;
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.pay.bean.TradeBean;
+import com.unionpay.withhold.trade.pay.enums.BusinessEnum;
 import com.unionpay.withhold.trade.pay.service.CollectPayService;
 @SuppressWarnings("unchecked")
 @Service
 public class CollectPayServiceImpl implements CollectPayService{
 
 	@Autowired
+	@Qualifier("payTaskExecutor")
 	private TaskExecutor taskExecutor;
 	///////////////////////实时交易 start/////////////////////////////
 	@Autowired
@@ -70,6 +73,8 @@ public class CollectPayServiceImpl implements CollectPayService{
 		 * 5。实例化交易渠道
 		 */
 		final TradeBean tradeBean = new TradeBean();
+		tradeBean.setBusinessEnum(BusinessEnum.SINGLECOLLECT);
+		tradeBean.setTn(tn);
 		ResultBean resultBean = null;
 		int bufferSize = 2048;
 		final Disruptor<TradeBean> disruptor = new Disruptor<TradeBean>(
@@ -80,10 +85,12 @@ public class CollectPayServiceImpl implements CollectPayService{
 					}
 				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
 		disruptor.handleEventsWith(tradeCheckHandler);
-		disruptor.after(tradeCheckHandler).handleEventsWith(merchFeeHandler,agentFeeHandler,merchRiskHandler,agentRiskHandler,tradeRouteHandler);
-		disruptor.after(tradeRouteHandler).handleEventsWith(chnlFeeHandler,chnlRiskHandler);
-		disruptor.after(merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalFeeHandler);
-		disruptor.after(merchRiskHandler,agentRiskHandler,chnlRiskHandler).handleEventsWith(finalRiskHandler);
+		disruptor.after(tradeCheckHandler).handleEventsWith(tradeRouteHandler);
+		disruptor.after(tradeRouteHandler).handleEventsWith(merchFeeHandler,agentFeeHandler,chnlFeeHandler,merchRiskHandler,agentRiskHandler,chnlRiskHandler);
+		//disruptor.after(tradeCheckHandler).handleEventsWith(merchFeeHandler,agentFeeHandler,merchRiskHandler,agentRiskHandler,tradeRouteHandler);
+		//disruptor.after(tradeRouteHandler).handleEventsWith(chnlFeeHandler,chnlRiskHandler);
+		//disruptor.after(merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalRiskHandler);
+		disruptor.after(merchRiskHandler,agentRiskHandler,chnlRiskHandler,merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalFeeHandler,finalRiskHandler);
 		disruptor.after(finalFeeHandler,finalRiskHandler).handleEventsWith(tradeChannelHandler);
 		disruptor.start();// 启动
 		final CountDownLatch latch = new CountDownLatch(1);
@@ -109,8 +116,8 @@ public class CollectPayServiceImpl implements CollectPayService{
 		}
 		disruptor.shutdown();
 		//判断交易是否成功，如果成功则返回，失败从队列中取出下一个渠道代码，调用二次支付方法
-		
-		return resultBean;
+		System.out.println(JSON.toJSONString(tradeBean));
+		return tradeBean.getFinalTrade();
 	}
 	
 	public ResultBean secondSingleCollectPay(final TradeBean tradeBean) {

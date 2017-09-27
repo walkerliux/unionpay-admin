@@ -47,8 +47,8 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 			return ;
 		}
 		//判断手续费是否计算正常
-		ResultBean tradeRisk = tradeBean.getFinalTrade();
-		if(!tradeRisk.isResultBool()) {//计费系统异常
+		ResultBean finalFee = tradeBean.getFinalFee();
+		if(!finalFee.isResultBool()) {//计费系统异常
 			
 			return ;
 		}
@@ -58,8 +58,9 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 		txnLogPay.setAccretinfo("受理成功");
 		txnLogPayService.updateTxnLogPay(txnLogPay);
 		
-		if("10000001".equals(tradeBean.getChnlCode())) {
-			
+		if("1000001".equals(tradeBean.getChnlCode())) {
+			finalRisk = new ResultBean("0000","交易已受理");
+			tradeBean.setFinalTrade(finalRisk);
 		}
 	}
 
