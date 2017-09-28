@@ -27,4 +27,8 @@ public interface TParaDicMapper {
     int updateByPrimaryKeySelective(TParaDic record);
 
     int updateByPrimaryKey(TParaDic record);
+
+	List<TParaDic> selectByParentIdExample(TParaDicExample tParaDicExample);
+
+	List<TParaDic> selectByLeftJoinExample(TParaDicExample tParaDicExample);
 }

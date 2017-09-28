@@ -27,6 +27,9 @@ public class RspMsgServiceImpl implements RspMsgService {
 		if (rspmsg.getApicode()!=null&&!"".equals(rspmsg.getApicode())) {
 			criteria.andApicodeEqualTo(rspmsg.getApicode());
 		}
+		if(rspmsg.getRetcode()!=null&&!"".equals(rspmsg.getRetcode())){
+			criteria.andRetcodeEqualTo(rspmsg.getRetcode());
+		}
 		if (rspmsg.getChnltype()!=null&&!"".equals(rspmsg.getChnltype())) {
 			criteria.andChnltypeEqualTo(rspmsg.getChnltype());
 		}
