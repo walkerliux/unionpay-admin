@@ -152,11 +152,4 @@ public class SingleController {
 			}
 		}
 	}
-	
-	public static void main(String[] args) {
-		StringBuilder sb = new StringBuilder(1024);
-		sb.append("123");
-		String a =sb.toString();
-		System.out.println(a);
-	}
 }

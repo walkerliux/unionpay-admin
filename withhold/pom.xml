@@ -298,7 +298,6 @@
 		<module>api</module>
 		<module>path-api</module>
 		<module>path-cp</module>
-    	<module>trade-api</module>
+<!--     	<module>trade-api</module> -->
 	</modules>
-
 </project>

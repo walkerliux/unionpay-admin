@@ -307,6 +307,7 @@ public class MerchantCertUtil {
 		}
 		return data.getBytes();
 	}
+
 	public static boolean validateDown(DownloadRequest request, String certFilename) {
 		try {
 			DwnReqRoot root = request.getRoot();

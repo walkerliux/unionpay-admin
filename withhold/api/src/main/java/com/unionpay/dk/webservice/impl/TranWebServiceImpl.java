@@ -233,8 +233,8 @@ public class TranWebServiceImpl implements TranWebService {
 			return XMLUtils.convertToXml(downloadResponse);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "error";
-		}
-	}
+			return "error";}}
+
+
 	
 }

@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TCheckfileMistakeMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
+    <id column="IID" property="iid" jdbcType="DECIMAL" />
+    <result column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
+    <result column="INSTIID" property="instiid" jdbcType="VARCHAR" />
+    <result column="PAYORDNO" property="payordno" jdbcType="VARCHAR" />
+    <result column="TXNDATETIME" property="txndatetime" jdbcType="VARCHAR" />
+    <result column="BUSICODE" property="busicode" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="MERCHNO" property="merchno" jdbcType="VARCHAR" />
+    <result column="SYSTRCNO" property="systrcno" jdbcType="CHAR" />
+    <result column="PAYTRCNO" property="paytrcno" jdbcType="VARCHAR" />
+    <result column="CFEE" property="cfee" jdbcType="DECIMAL" />
+    <result column="DFEE" property="dfee" jdbcType="DECIMAL" />
+    <result column="RETCODE" property="retcode" jdbcType="VARCHAR" />
+    <result column="ACQSETTLEDATE" property="acqsettledate" jdbcType="VARCHAR" />
+    <result column="PROID" property="proid" jdbcType="DECIMAL" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="MISTATUS" property="mistatus" jdbcType="VARCHAR" />
+    <result column="MISTAKE_TRADE_SOURCE" property="mistakeTradeSource" jdbcType="DECIMAL" />
+    <result column="DATASOURCE" property="datasource" jdbcType="VARCHAR" />
+    <result column="MISTAKEDESC" property="mistakedesc" jdbcType="VARCHAR" />
+    <result column="ACCEPTER_ID" property="accepterId" jdbcType="DECIMAL" />
+    <result column="ACCEPT_DATE" property="acceptDate" jdbcType="TIMESTAMP" />
+    <result column="ACCEPT_RESULT" property="acceptResult" jdbcType="DECIMAL" />
+    <result column="ACCEPT_OPINION" property="acceptOpinion" jdbcType="VARCHAR" />
+    <result column="DEAL_END_DATE" property="dealEndDate" jdbcType="TIMESTAMP" />
+    <result column="DEAL_OPERATOR_ID" property="dealOperatorId" jdbcType="DECIMAL" />
+    <result column="DEAL_DATE" property="dealDate" jdbcType="TIMESTAMP" />
+    <result column="DEAL_RESULT" property="dealResult" jdbcType="DECIMAL" />
+    <result column="DEAL_OPINION" property="dealOpinion" jdbcType="VARCHAR" />
+    <result column="VISIT_OPERATOR_ID" property="visitOperatorId" jdbcType="DECIMAL" />
+    <result column="VISIT_DATE" property="visitDate" jdbcType="TIMESTAMP" />
+    <result column="VISIT_RESULT" property="visitResult" jdbcType="DECIMAL" />
+    <result column="VISIT_OPINION" property="visitOpinion" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    IID, TID, TXNSEQNO, INSTIID, PAYORDNO, TXNDATETIME, BUSICODE, AMOUNT, PAN, MERCHNO, 
+    SYSTRCNO, PAYTRCNO, CFEE, DFEE, RETCODE, ACQSETTLEDATE, PROID, RESULT, MISTATUS, 
+    MISTAKE_TRADE_SOURCE, DATASOURCE, MISTAKEDESC, ACCEPTER_ID, ACCEPT_DATE, ACCEPT_RESULT, 
+    ACCEPT_OPINION, DEAL_END_DATE, DEAL_OPERATOR_ID, DEAL_DATE, DEAL_RESULT, DEAL_OPINION, 
+    VISIT_OPERATOR_ID, VISIT_DATE, VISIT_RESULT, VISIT_OPINION, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_checkfile_mistake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_checkfile_mistake
+    where IID = #{iid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_checkfile_mistake
+    where IID = #{iid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" >
+    delete from t_checkfile_mistake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
+    insert into t_checkfile_mistake (IID, TID, TXNSEQNO, 
+      INSTIID, PAYORDNO, TXNDATETIME, 
+      BUSICODE, AMOUNT, PAN, 
+      MERCHNO, SYSTRCNO, PAYTRCNO, 
+      CFEE, DFEE, RETCODE, 
+      ACQSETTLEDATE, PROID, RESULT, 
+      MISTATUS, MISTAKE_TRADE_SOURCE, DATASOURCE, 
+      MISTAKEDESC, ACCEPTER_ID, ACCEPT_DATE, 
+      ACCEPT_RESULT, ACCEPT_OPINION, DEAL_END_DATE, 
+      DEAL_OPERATOR_ID, DEAL_DATE, DEAL_RESULT, 
+      DEAL_OPINION, VISIT_OPERATOR_ID, VISIT_DATE, 
+      VISIT_RESULT, VISIT_OPINION, NOTES, 
+      REMARKS)
+    values (#{iid,jdbcType=DECIMAL}, #{tid,jdbcType=DECIMAL}, #{txnseqno,jdbcType=VARCHAR}, 
+      #{instiid,jdbcType=VARCHAR}, #{payordno,jdbcType=VARCHAR}, #{txndatetime,jdbcType=VARCHAR}, 
+      #{busicode,jdbcType=VARCHAR}, #{amount,jdbcType=DECIMAL}, #{pan,jdbcType=VARCHAR}, 
+      #{merchno,jdbcType=VARCHAR}, #{systrcno,jdbcType=CHAR}, #{paytrcno,jdbcType=VARCHAR}, 
+      #{cfee,jdbcType=DECIMAL}, #{dfee,jdbcType=DECIMAL}, #{retcode,jdbcType=VARCHAR}, 
+      #{acqsettledate,jdbcType=VARCHAR}, #{proid,jdbcType=DECIMAL}, #{result,jdbcType=VARCHAR}, 
+      #{mistatus,jdbcType=VARCHAR}, #{mistakeTradeSource,jdbcType=DECIMAL}, #{datasource,jdbcType=VARCHAR}, 
+      #{mistakedesc,jdbcType=VARCHAR}, #{accepterId,jdbcType=DECIMAL}, #{acceptDate,jdbcType=TIMESTAMP}, 
+      #{acceptResult,jdbcType=DECIMAL}, #{acceptOpinion,jdbcType=VARCHAR}, #{dealEndDate,jdbcType=TIMESTAMP}, 
+      #{dealOperatorId,jdbcType=DECIMAL}, #{dealDate,jdbcType=TIMESTAMP}, #{dealResult,jdbcType=DECIMAL}, 
+      #{dealOpinion,jdbcType=VARCHAR}, #{visitOperatorId,jdbcType=DECIMAL}, #{visitDate,jdbcType=TIMESTAMP}, 
+      #{visitResult,jdbcType=DECIMAL}, #{visitOpinion,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
+    insert into t_checkfile_mistake
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        IID,
+      </if>
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="instiid != null" >
+        INSTIID,
+      </if>
+      <if test="payordno != null" >
+        PAYORDNO,
+      </if>
+      <if test="txndatetime != null" >
+        TXNDATETIME,
+      </if>
+      <if test="busicode != null" >
+        BUSICODE,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="pan != null" >
+        PAN,
+      </if>
+      <if test="merchno != null" >
+        MERCHNO,
+      </if>
+      <if test="systrcno != null" >
+        SYSTRCNO,
+      </if>
+      <if test="paytrcno != null" >
+        PAYTRCNO,
+      </if>
+      <if test="cfee != null" >
+        CFEE,
+      </if>
+      <if test="dfee != null" >
+        DFEE,
+      </if>
+      <if test="retcode != null" >
+        RETCODE,
+      </if>
+      <if test="acqsettledate != null" >
+        ACQSETTLEDATE,
+      </if>
+      <if test="proid != null" >
+        PROID,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="mistatus != null" >
+        MISTATUS,
+      </if>
+      <if test="mistakeTradeSource != null" >
+        MISTAKE_TRADE_SOURCE,
+      </if>
+      <if test="datasource != null" >
+        DATASOURCE,
+      </if>
+      <if test="mistakedesc != null" >
+        MISTAKEDESC,
+      </if>
+      <if test="accepterId != null" >
+        ACCEPTER_ID,
+      </if>
+      <if test="acceptDate != null" >
+        ACCEPT_DATE,
+      </if>
+      <if test="acceptResult != null" >
+        ACCEPT_RESULT,
+      </if>
+      <if test="acceptOpinion != null" >
+        ACCEPT_OPINION,
+      </if>
+      <if test="dealEndDate != null" >
+        DEAL_END_DATE,
+      </if>
+      <if test="dealOperatorId != null" >
+        DEAL_OPERATOR_ID,
+      </if>
+      <if test="dealDate != null" >
+        DEAL_DATE,
+      </if>
+      <if test="dealResult != null" >
+        DEAL_RESULT,
+      </if>
+      <if test="dealOpinion != null" >
+        DEAL_OPINION,
+      </if>
+      <if test="visitOperatorId != null" >
+        VISIT_OPERATOR_ID,
+      </if>
+      <if test="visitDate != null" >
+        VISIT_DATE,
+      </if>
+      <if test="visitResult != null" >
+        VISIT_RESULT,
+      </if>
+      <if test="visitOpinion != null" >
+        VISIT_OPINION,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="iid != null" >
+        #{iid,jdbcType=DECIMAL},
+      </if>
+      <if test="tid != null" >
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="instiid != null" >
+        #{instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="payordno != null" >
+        #{payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="txndatetime != null" >
+        #{txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="pan != null" >
+        #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="systrcno != null" >
+        #{systrcno,jdbcType=CHAR},
+      </if>
+      <if test="paytrcno != null" >
+        #{paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="cfee != null" >
+        #{cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="dfee != null" >
+        #{dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="retcode != null" >
+        #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acqsettledate != null" >
+        #{acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="mistatus != null" >
+        #{mistatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeTradeSource != null" >
+        #{mistakeTradeSource,jdbcType=DECIMAL},
+      </if>
+      <if test="datasource != null" >
+        #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakedesc != null" >
+        #{mistakedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="accepterId != null" >
+        #{accepterId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptDate != null" >
+        #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptResult != null" >
+        #{acceptResult,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptOpinion != null" >
+        #{acceptOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="dealEndDate != null" >
+        #{dealEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealOperatorId != null" >
+        #{dealOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="dealDate != null" >
+        #{dealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealResult != null" >
+        #{dealResult,jdbcType=DECIMAL},
+      </if>
+      <if test="dealOpinion != null" >
+        #{dealOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="visitOperatorId != null" >
+        #{visitOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="visitDate != null" >
+        #{visitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitResult != null" >
+        #{visitResult,jdbcType=DECIMAL},
+      </if>
+      <if test="visitOpinion != null" >
+        #{visitOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample" resultType="java.lang.Integer" >
+    select count(*) from t_checkfile_mistake
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_checkfile_mistake
+    <set >
+      <if test="record.iid != null" >
+        IID = #{record.iid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.txnseqno != null" >
+        TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instiid != null" >
+        INSTIID = #{record.instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payordno != null" >
+        PAYORDNO = #{record.payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txndatetime != null" >
+        TXNDATETIME = #{record.txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busicode != null" >
+        BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pan != null" >
+        PAN = #{record.pan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchno != null" >
+        MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systrcno != null" >
+        SYSTRCNO = #{record.systrcno,jdbcType=CHAR},
+      </if>
+      <if test="record.paytrcno != null" >
+        PAYTRCNO = #{record.paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cfee != null" >
+        CFEE = #{record.cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dfee != null" >
+        DFEE = #{record.dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.retcode != null" >
+        RETCODE = #{record.retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acqsettledate != null" >
+        ACQSETTLEDATE = #{record.acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proid != null" >
+        PROID = #{record.proid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.result != null" >
+        RESULT = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mistatus != null" >
+        MISTATUS = #{record.mistatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mistakeTradeSource != null" >
+        MISTAKE_TRADE_SOURCE = #{record.mistakeTradeSource,jdbcType=DECIMAL},
+      </if>
+      <if test="record.datasource != null" >
+        DATASOURCE = #{record.datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mistakedesc != null" >
+        MISTAKEDESC = #{record.mistakedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accepterId != null" >
+        ACCEPTER_ID = #{record.accepterId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acceptDate != null" >
+        ACCEPT_DATE = #{record.acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.acceptResult != null" >
+        ACCEPT_RESULT = #{record.acceptResult,jdbcType=DECIMAL},
+      </if>
+      <if test="record.acceptOpinion != null" >
+        ACCEPT_OPINION = #{record.acceptOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dealEndDate != null" >
+        DEAL_END_DATE = #{record.dealEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealOperatorId != null" >
+        DEAL_OPERATOR_ID = #{record.dealOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dealDate != null" >
+        DEAL_DATE = #{record.dealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.dealResult != null" >
+        DEAL_RESULT = #{record.dealResult,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dealOpinion != null" >
+        DEAL_OPINION = #{record.dealOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visitOperatorId != null" >
+        VISIT_OPERATOR_ID = #{record.visitOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.visitDate != null" >
+        VISIT_DATE = #{record.visitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.visitResult != null" >
+        VISIT_RESULT = #{record.visitResult,jdbcType=DECIMAL},
+      </if>
+      <if test="record.visitOpinion != null" >
+        VISIT_OPINION = #{record.visitOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_checkfile_mistake
+    set IID = #{record.iid,jdbcType=DECIMAL},
+      TID = #{record.tid,jdbcType=DECIMAL},
+      TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      INSTIID = #{record.instiid,jdbcType=VARCHAR},
+      PAYORDNO = #{record.payordno,jdbcType=VARCHAR},
+      TXNDATETIME = #{record.txndatetime,jdbcType=VARCHAR},
+      BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      PAN = #{record.pan,jdbcType=VARCHAR},
+      MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      SYSTRCNO = #{record.systrcno,jdbcType=CHAR},
+      PAYTRCNO = #{record.paytrcno,jdbcType=VARCHAR},
+      CFEE = #{record.cfee,jdbcType=DECIMAL},
+      DFEE = #{record.dfee,jdbcType=DECIMAL},
+      RETCODE = #{record.retcode,jdbcType=VARCHAR},
+      ACQSETTLEDATE = #{record.acqsettledate,jdbcType=VARCHAR},
+      PROID = #{record.proid,jdbcType=DECIMAL},
+      RESULT = #{record.result,jdbcType=VARCHAR},
+      MISTATUS = #{record.mistatus,jdbcType=VARCHAR},
+      MISTAKE_TRADE_SOURCE = #{record.mistakeTradeSource,jdbcType=DECIMAL},
+      DATASOURCE = #{record.datasource,jdbcType=VARCHAR},
+      MISTAKEDESC = #{record.mistakedesc,jdbcType=VARCHAR},
+      ACCEPTER_ID = #{record.accepterId,jdbcType=DECIMAL},
+      ACCEPT_DATE = #{record.acceptDate,jdbcType=TIMESTAMP},
+      ACCEPT_RESULT = #{record.acceptResult,jdbcType=DECIMAL},
+      ACCEPT_OPINION = #{record.acceptOpinion,jdbcType=VARCHAR},
+      DEAL_END_DATE = #{record.dealEndDate,jdbcType=TIMESTAMP},
+      DEAL_OPERATOR_ID = #{record.dealOperatorId,jdbcType=DECIMAL},
+      DEAL_DATE = #{record.dealDate,jdbcType=TIMESTAMP},
+      DEAL_RESULT = #{record.dealResult,jdbcType=DECIMAL},
+      DEAL_OPINION = #{record.dealOpinion,jdbcType=VARCHAR},
+      VISIT_OPERATOR_ID = #{record.visitOperatorId,jdbcType=DECIMAL},
+      VISIT_DATE = #{record.visitDate,jdbcType=TIMESTAMP},
+      VISIT_RESULT = #{record.visitResult,jdbcType=DECIMAL},
+      VISIT_OPINION = #{record.visitOpinion,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
+    update t_checkfile_mistake
+    <set >
+      <if test="tid != null" >
+        TID = #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="instiid != null" >
+        INSTIID = #{instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="payordno != null" >
+        PAYORDNO = #{payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="txndatetime != null" >
+        TXNDATETIME = #{txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        BUSICODE = #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="pan != null" >
+        PAN = #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        MERCHNO = #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="systrcno != null" >
+        SYSTRCNO = #{systrcno,jdbcType=CHAR},
+      </if>
+      <if test="paytrcno != null" >
+        PAYTRCNO = #{paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="cfee != null" >
+        CFEE = #{cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="dfee != null" >
+        DFEE = #{dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="retcode != null" >
+        RETCODE = #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acqsettledate != null" >
+        ACQSETTLEDATE = #{acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        PROID = #{proid,jdbcType=DECIMAL},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="mistatus != null" >
+        MISTATUS = #{mistatus,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakeTradeSource != null" >
+        MISTAKE_TRADE_SOURCE = #{mistakeTradeSource,jdbcType=DECIMAL},
+      </if>
+      <if test="datasource != null" >
+        DATASOURCE = #{datasource,jdbcType=VARCHAR},
+      </if>
+      <if test="mistakedesc != null" >
+        MISTAKEDESC = #{mistakedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="accepterId != null" >
+        ACCEPTER_ID = #{accepterId,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptDate != null" >
+        ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="acceptResult != null" >
+        ACCEPT_RESULT = #{acceptResult,jdbcType=DECIMAL},
+      </if>
+      <if test="acceptOpinion != null" >
+        ACCEPT_OPINION = #{acceptOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="dealEndDate != null" >
+        DEAL_END_DATE = #{dealEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealOperatorId != null" >
+        DEAL_OPERATOR_ID = #{dealOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="dealDate != null" >
+        DEAL_DATE = #{dealDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="dealResult != null" >
+        DEAL_RESULT = #{dealResult,jdbcType=DECIMAL},
+      </if>
+      <if test="dealOpinion != null" >
+        DEAL_OPINION = #{dealOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="visitOperatorId != null" >
+        VISIT_OPERATOR_ID = #{visitOperatorId,jdbcType=DECIMAL},
+      </if>
+      <if test="visitDate != null" >
+        VISIT_DATE = #{visitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="visitResult != null" >
+        VISIT_RESULT = #{visitResult,jdbcType=DECIMAL},
+      </if>
+      <if test="visitOpinion != null" >
+        VISIT_OPINION = #{visitOpinion,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where IID = #{iid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCheckfileMistake" >
+    update t_checkfile_mistake
+    set TID = #{tid,jdbcType=DECIMAL},
+      TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      INSTIID = #{instiid,jdbcType=VARCHAR},
+      PAYORDNO = #{payordno,jdbcType=VARCHAR},
+      TXNDATETIME = #{txndatetime,jdbcType=VARCHAR},
+      BUSICODE = #{busicode,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      PAN = #{pan,jdbcType=VARCHAR},
+      MERCHNO = #{merchno,jdbcType=VARCHAR},
+      SYSTRCNO = #{systrcno,jdbcType=CHAR},
+      PAYTRCNO = #{paytrcno,jdbcType=VARCHAR},
+      CFEE = #{cfee,jdbcType=DECIMAL},
+      DFEE = #{dfee,jdbcType=DECIMAL},
+      RETCODE = #{retcode,jdbcType=VARCHAR},
+      ACQSETTLEDATE = #{acqsettledate,jdbcType=VARCHAR},
+      PROID = #{proid,jdbcType=DECIMAL},
+      RESULT = #{result,jdbcType=VARCHAR},
+      MISTATUS = #{mistatus,jdbcType=VARCHAR},
+      MISTAKE_TRADE_SOURCE = #{mistakeTradeSource,jdbcType=DECIMAL},
+      DATASOURCE = #{datasource,jdbcType=VARCHAR},
+      MISTAKEDESC = #{mistakedesc,jdbcType=VARCHAR},
+      ACCEPTER_ID = #{accepterId,jdbcType=DECIMAL},
+      ACCEPT_DATE = #{acceptDate,jdbcType=TIMESTAMP},
+      ACCEPT_RESULT = #{acceptResult,jdbcType=DECIMAL},
+      ACCEPT_OPINION = #{acceptOpinion,jdbcType=VARCHAR},
+      DEAL_END_DATE = #{dealEndDate,jdbcType=TIMESTAMP},
+      DEAL_OPERATOR_ID = #{dealOperatorId,jdbcType=DECIMAL},
+      DEAL_DATE = #{dealDate,jdbcType=TIMESTAMP},
+      DEAL_RESULT = #{dealResult,jdbcType=DECIMAL},
+      DEAL_OPINION = #{dealOpinion,jdbcType=VARCHAR},
+      VISIT_OPERATOR_ID = #{visitOperatorId,jdbcType=DECIMAL},
+      VISIT_DATE = #{visitDate,jdbcType=TIMESTAMP},
+      VISIT_RESULT = #{visitResult,jdbcType=DECIMAL},
+      VISIT_OPINION = #{visitOpinion,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where IID = #{iid,jdbcType=DECIMAL}
+  </update>
+</mapper>
