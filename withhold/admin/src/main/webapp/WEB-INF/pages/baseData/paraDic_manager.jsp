@@ -37,35 +37,32 @@ table tr td select {
 			<form id="searchForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right">API应答码</td>
+						<td align="right">参数代码</td>
 						<td align="left" style="padding-left: 5px">
-						<input id="api_code" name="apicode" /></td>
-						<td align="right">中心应答码</td>
+						<input id="paraCode" name="paraCode" /></td>
+						<td align="right">参数名称</td>
 						<td align="left" style="padding-left: 5px">
-						<input id="ret_code" name="retcode" /></td>
+						<input id="paraName" name="paraName" /></td>
 						<td align="right"></td>
-					 </tr>
-				 	<!--<tr>
+					<!-- </tr>
+				 	<tr>
 						<td align="right">所属机构</td>
 						<td align="left" style="padding-left: 5px"><select
-							id="userOrganId" name="user.organId" onchange="showDept(1)">
+							id="paraOrganId" name="para.organId" onchange="showDept(1)">
 								<option value=''>--请选择所属机构--</option>
 						</select></td>
 						<td align="right">所属部门</td>
 						<td align="left" style="padding-left: 5px">
-						<select id="userDeptId" name="user.deptId" onchange="showRole(1)">
+						<select id="paraDeptId" name="para.deptId" onchange="showRole(1)">
 								<option value=''>--请选择所属部门--</option></select></td>
-					</tr> -->
-					<tr> 
-						<td align="right">渠道应答码</td>
+					</tr> 
+					<tr> -->
+						<td align="right">父级名称</td>
 						<td align="left" style="padding-left: 5px">
-						<input id="chnlrsp_code" name="chnlrspcode" /></td>
-						
-						<td align="right">渠道类型</td>
-						<td align="left" style="padding-left: 5px">
-						<select id="chnl_type" name="chnltype" onchange="showRole(1)">
-								<option value=''>--请选择渠道类型--</option>
+						<select id="parentId" name="parentId" onchange="showRole(1)">
+								<option value=''>-请选择父级名称-</option>
 						</select></td>
+					
 						<td align="right" colspan="3">
 						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
 						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
@@ -74,7 +71,7 @@ table tr td select {
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-			<table id="userList">
+			<table id="paraList">
 			</table>
 		</div>
 	</div>
@@ -83,162 +80,76 @@ table tr td select {
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="saveForm" action="rsp/save"
+				<form id="saveForm" action="para/save"
 					method="post">
-					 <input type="hidden" id="rsp_id" name="rspid" /> 
+					<input type="hidden" id="para_id" name="tid" /> 
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>API应答码</td>
-							<td align="left"><input type="text" id="apicode"
-								name="apicode" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="API应答码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>API应答信息</td>
-							<td align="left"><input type="text" id="apiinfo"
-								name="apiinfo" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="API应答信息" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td>参数代码</td>
+							<td align="left"><input type="text" id="para_Code"
+								name="paraCode" class="easyui-validatebox" required="true"
+								maxlength="7" missingMessage="请输入参数代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td>参数名称</td>
+							<td align="left"><input type="text" id="para_Name"
+								name="paraName" class="easyui-validatebox" required="true"
+								maxlength="20" missingMessage="请输入参数名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
 						<tr style="height: 25px">
-							<td>中心应答码</td>
-							<td align="left"><input type="text" id="retcode"
-								name="retcode" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="中心应答码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>中心应答信息</td>
-							<td align="left"><input type="text" id="rspinfo"
-								name="rspinfo" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="中心应答信息" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-						</tr>
-						
-						<tr style="height: 25px">
-							<td>渠道类型</td>
-							<td align="left"><select id="chnltype"
-								class="easyui-validatebox" required="true" name="chnltype"
-								missingMessage="请选择渠道类型">
-									
+							
+							<td>父级参数</td>
+							<td align="left"><select id="parent_Id"
+								class="easyui-validatebox" required="true" name="parentId"
+								missingMessage="请选择父级参数">
+									<option value=''>--请选择父级参数--</option>
+									<option value='0'>--无父级--</option>
 							</select></td>
-							<td>渠道应答码</td>
-							<td align="left"><input type="text" id="chnlrspcode"
-								name="chnlrspcode" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td>参数类型</td>
+							<td align="left"><input type="text" id="para_Type"
+								name="paraType" class="easyui-validatebox" required="true"
+								maxlength="7" missingMessage="请输入参数类型" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							
 							
 						</tr>
-						<!-- <tr style="height: 25px">
-							<td>渠道类型</td>
-							<td align="left"><select id="user_deptId"
-								class="easyui-validatebox" missingMessage="请选择所属部门"
-								required="true" name="deptId" onchange="showRole()">
-									<option value=''>--请选择所属部门--</option>
-							</select></td> 
-							<td>渠道应答码</td>
-							<td align="left"><select id="user_organId"
-								class="easyui-validatebox" missingMessage="请选择所属机构"
-								required="true" name="organId" onchange="showDept()">
-									<option value=''>--请选择所属机构--</option>
-							</select></td> 
-						</tr>  -->
 						<tr style="height: 25px">
-							<td>发生原因</td>
-							<td colspan="3" align="left"><textarea rows="3" cols="81" id="reason"
-									maxlength="64" name="reason" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
-							
+							<td>是否可改</td>
+							<td align="left"><select id="has_Sub"
+								class="easyui-validatebox" required="true" name="hasSub"
+								missingMessage="请选择是否可改">
+									<option value=''>--请选择是否可改--</option>
+									<option value='1'>是</option>
+									<option value='0'>否</option>
+							<td>附加</td>
+							<td align="left"><input type="text" id="para_added"
+								name="added" class="easyui-validatebox" required="true"
+								maxlength="20" missingMessage="请输入参数名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>备注</td>
-							<td colspan="3" align="left"><textarea rows="3" cols="81" id="notes"
-									maxlength="64" name="notes" style="resize: none;"
+							<td colspan="3" align="left"><textarea rows="3" cols="81" id="para_remarks"
+									maxlength="64" name="remarks" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
-							
+
 						</tr>
 					</table>
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveUser()" id="btn_submit" onclick="">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:savepara()" id="btn_submit" onclick="">提交</a>
 				<a class="easyui-linkbutton" iconCls="icon-cancel" href="javascript:void(0)" onclick="closeAdd()">取消</a>
 			</div>
 		</div>
 	</div>
 
-	<div id="w2" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<input id="userId_addrole" name="userId" type="hidden" />
-				<form id="AddUserRoleForm" name="myForm" action="rsp/SaveUser" method="post">
-					<div>
-						<div class="left">
-							<p class="text">待选:</p>
-							<select class="form-control" id="scope" name="scope" size="25"
-								multiple="multiple" style="width: 120px">
-							</select>
-						</div>
-						<div class="mid">
-							<a href="javascript:addToSelect()" class="easyui-linkbutton"
-								iconCls="icon-add">增加</a> <a href="javascript:delSelect2()"
-								class="easyui-linkbutton" iconCls="icon-redo">删除</a>
-						</div>
-						<div class="right">
-							<p class="text">已选:</p>
-							<select class="form-control" id="selectScopes"
-								name="UserRoleList" size="25" multiple="multiple"
-								style="width: 120px">
-							</select>
-						</div>
-					</div>
-					<a href="javascript:AddUserRoleForm()" class="easyui-linkbutton"
-						iconCls="icon-ok">提交</a>
-			</div>
-		</div>
-	</div>
+
 	
-	<div id="w3" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 300px; height: 200px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<input id="userId_addrole" name="userId" type="hidden" />
-				<form action="" id="passwordRestForm" name="PasswordForm">
-				<table width="100%">
-					<tr height="4"></tr>
-					<tr>
-						<td align="right">新密码</td>
-						<td align="left" style="padding-left: 5px">
-						<input id="passwordone" name="passwordone" type="password"/></td>
-					</tr>
-					<tr height="4"></tr>
-					<tr>
-						<td align="right">确认密码</td>
-						<td align="left" style="padding-left: 5px">
-						<input id="passwordtwo" type="password" />
-					</tr>
-					<tr height="4"></tr>
-					<tr>
-						<td align="right"></td>
-						<td align="left" style="padding-left: 5px">
-						<a href="javascript:updatePassword()" class="easyui-linkbutton" iconCls="icon-search">确定</a></td>
-					</tr>
-					<tr height="4"></tr>
-					<tr align="right">
-						<td align="right"></td>
-						<td style="color: red" align="left" id="tishi"></td>
-						<td align="left" style="padding-left: 5px"></td>
-					</tr>
-				</table>
-			</form>
-				
-			</div>
-		</div>
-	</div>
-	
-	<div id="userRoleW3" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
+	<div id="paraRoleW3" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<div region="center" title="权限栏" id="authMenu" closed="true">
-					<input id="userId" name="userId" type="hidden" />
+					<input id="paraId" name="paraId" type="hidden" />
 					<div style="margin: 5px" id="menu_div">
 						<ul id="tt2" ></ul>
-						<a href="javascript:submitUserAuth()" class="easyui-linkbutton" iconCls="icon-ok">提交</a>
+						<a href="javascript:submitparaAuth()" class="easyui-linkbutton" iconCls="icon-ok">提交</a>
 					</div>
 				</div>
 			</div>
@@ -252,49 +163,45 @@ table tr td select {
   
 		$(function(){
 			showOrgan();
-			$('#userList').datagrid({
-				title:'应答码列表',
+			$('#paraList').datagrid({
+				title:'参数列表',
 				iconCls:'icon-save',
 				height:600,
 				nowrap: false,
 				striped: true,
 				singleSelect:true,
-				url:'rsp/query',
+				url:'para/query',
 				remoteSort: false,
 				columns:[[
-					{field:'apicode',title:'API应答码',align:'center',width:150},
-					{field:'apiinfo',title:'API应答信息',align:'center',width:150},
-					{field:'retcode',title:'中心应答码',align:'center',width:150},
-					{field:'rspinfo',title:'中心应答信息',align:'center',width:150},
-					{field:'chnltype',title:'渠道类型',width:100,align:'center',
+					{field:'paraCode',title:'参数代码',align:'center',width:150},
+					{field:'paraName',title:'参数名称',width:180,align:'center'},
+					{field:'parentName',title:'父级名称',align:'center',width:150},
+					{field:'paraType',title:'参数类型',width:180,align:'center'},
+					{field:'hasSub',title:'是否可改',width:100,align:'center',
 						formatter:function(value,rec){
-							if(value=="TC"){
-								return "交易核心";
-							}else if(value=="TO"){
-								return "交易订单";
-							}else if(value=="CP"){
-								return "ChinaPay";
-							}else if(value=="HYL"){
-								return "好易联";
-							}else if(value=="CJ"){
-								return "畅捷";
-							}else if(value=="99"){
-								return "未知";
+							if(value==1){
+								return "是";
+							}else{
+								return "否";
 							}
 						}
 					},
-					{field:'chnlrspcode',title:'渠道应答码',width:100,align:'center'}, 
-					{field:'reason',title:'发生原因',width:180,align:'center'},
-					{field:'notes',title:'备注',width:180,align:'center'},
-					{field:'rspid',title:'操作',align:'center',width:250,rowspan:2,
+					{field:'status',title:'状态',width:160,align:'center',
 						formatter:function(value,rec){
-							if(true){
-								return '<a href="javascript:showRsp('+value+')" style="color:blue;margin-left:10px">修改</a>'
-								/* '<a href="javascript:ToUserAuthority('+value+')" style="color:blue;margin-left:10px">赋权</a>'+
-								
-								 '<a href="javascript:UserPasswordReset('+value+')" style="color:blue;margin-left:10px">密码重置</a>'+ 
-								'<a href="javascript:ToSelectRole('+value+')" style="color:blue;margin-left:10px">绑定角色</a>'+
-								'<a href="javascript:deleteUser('+value+')" style="color:blue;margin-left:10px">注销</a>' */
+							if(value==0){
+								return "已使用";
+							}else{
+								return "已停用";
+							}
+						}
+					},
+					{field:'added',title:'附加',width:100,align:'center'},
+					{field:'tid',title:'操作',align:'center',width:250,rowspan:2,
+						formatter:function(value,rec){
+							if(rec.status=="00"){
+								return '<a href="javascript:showPara('+value+')" style="color:blue;margin-left:10px">修改</a>'+
+							
+								'<a href="javascript:deletePara('+value+')" style="color:blue;margin-left:10px">注销</a>'
 								;
 							}else{
 								return '';
@@ -308,12 +215,12 @@ table tr td select {
 				rownumbers:true,
 				toolbar:[{
 					id:'btnadd',
-					text:'新增应答码',
+					text:'新增参数',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#apicode").removeAttr('readonly');
+						$("#para_Code").removeAttr('readonly');
 						showAdd(0);
-						$("#saveForm").attr("action","rsp/save");
+						$("#saveForm").attr("action","para/save");
 					},   
 				    
 				}]
@@ -336,28 +243,29 @@ table tr td select {
 		function showOrgan(){		
 			$.ajax({
 			   type: "POST",
-			   url: "rsp/showTypes",
+			   url: "para/showParents",
 			   dataType:"json",
 			   success: function(json){
-			   		var html ="<option value=''>--请选择渠道类型--</option>";
+			   		var html ="<option value=''>--请选择父级参数--</option>";
+			   		html +="<option value='0'>无父级参数</option>";
 			   		$.each(json, function(key,value){
-			   			html += '<option value="'+value.code+'">'+value.name+'</option>';
+			   			html += '<option value="'+value.tid+'">'+value.paraName+'</option>';
 					})
-					$("#chnl_type,#chnltype").html(html);
+					$("#parentId,#parent_Id").html(html);
 			   }
 			});
 		} 
 		/* function showDept(flag){
 			var organId;
 			if(flag==1){//查询条件
-				organId=$("#userOrganId").val();
+				organId=$("#paraOrganId").val();
 			}else{
-				organId=$("#user_organId").val();
+				organId=$("#para_organId").val();
 			}
 			var html = '<option value="">--请选择所属部门--</option>';
 			$.ajax({
 				type: "GET",
-			  	url: "user/showDept",
+			  	url: "para/showDept",
 			  	data: "rand="+new Date().getTime()+"&organId="+organId,
 			 	dataType: "json",
 			 	success:function(json){
@@ -366,9 +274,9 @@ table tr td select {
 					})
 					
 					if(flag==1){//查询条件
-						$("#userDeptId").html(html);
+						$("#paraDeptId").html(html);
 					}else{
-						$("#user_deptId").html(html);
+						$("#para_deptId").html(html);
 					}
 			 	}
 			});
@@ -377,14 +285,14 @@ table tr td select {
 	/* 	function showRole(flag){
 			var roleId;
 			if(flag==1){//查询条件
-				roleId=$("#userRoleId").val();
+				roleId=$("#paraRoleId").val();
 			}else{
-				roleId=$("#user_deptId").val();
+				roleId=$("#para_deptId").val();
 			} 
 			var html = '<option value="">--请选择用户角色--</option>';
 			$.ajax({
 				type: "GET",
-			  	url: "user/showRole",
+			  	url: "para/showRole",
 			  	//data: "rand="+new Date().getTime()+"&roleId="+roleId,
 			 	dataType: "json",
 			 	success:function(json){
@@ -393,9 +301,9 @@ table tr td select {
 					})
 					
 					if(flag==1){//查询条件
-						$("#userRoleId").html(html);
+						$("#paraRoleId").html(html);
 					}else{
-						/* $("#user_roleId").html(html); 
+						/* $("#para_roleId").html(html); 
 					}
 			 	}
 			});
@@ -406,7 +314,7 @@ table tr td select {
 		}
 		
 		function showAdd(num){
-			$("#saveForm").attr("action","rsp/save");
+			$("#saveForm").attr("action","para/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
 				title: '新增用户信息',
@@ -427,10 +335,10 @@ table tr td select {
 			
 		}		
 		function search(){
-			var data={'apicode':$('#api_code').val(),'retcode':$('#ret_code').val(),'chnlrspcode':$('#chnlrsp_code').val(),'chnltype':$("#chnl_type").val()};
-			$('#userList').datagrid('load',data);
+			var data={'paraCode':$('#paraCode').val(),'paraName':$('#paraName').val(),'parentId':$("#parentId").val()};
+			$('#paraList').datagrid('load',data);
 		}
-		function saveUser(){
+		function savepara(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#saveForm').form('validate')){
@@ -461,53 +369,51 @@ table tr td select {
 			});  
 		}
 		
-		function showRsp(rspid){
+		function showPara(tid){
 			$.ajax({
 			   type: "POST",
-			   url: "rsp/getSingleById",
-			   data: "rspid="+rspid,
+			   url: "para/getSingleById",
+			   data: "tid="+tid,
 			   async: false,
 			   dataType:"json",
-			   success: function(json){	
-				   //alert(json.apicode);
-						$("#apicode").val(json.apicode);
-						$("#apicode").attr('readonly','readonly');
-						$("#apicode").css('background-color','#D2D2D2');
-						$("#apiinfo").val(json.apiinfo);
-						$("#retcode").val(json.retcode);
-						$("#rspinfo").val(json.rspinfo);
+			   success: function(json){					
+						$("#para_Code").val(json.paraCode);
+						$("#para_Code").attr('readonly','readonly');
+						$("#para_Code").css('background-color','#D2D2D2');
+						$("#para_Name").val(json.paraName);
+						$("#para_Type").val(json.paraType);
+						$("#para_added").val(json.added);						
 						
-						 //读取职能部门信息
-						var html = '<option value="">--请选择渠道类型--</option>';
+						$("#para_id").val(json.tid);
+						$("#para_remarks").val(json.remarks);
+						 //读取父级信息
+						var html = '<option value="">--请选择所属父类参数--</option>';
+						html +="<option value='0'>无父级参数</option>";
 						$.ajax({
 							type: "GET",
-						  	url: "rsp/showTypes",
+						  	url: "para/showParents",
 						  	//data: "rand="+new Date().getTime()+"&organId="+json.organId,
 						 	dataType: "json",
 						 	async: false,
 						 	success:function(json){
 								$.each(json, function(key,value){
-									//html += '<option value=>'+value.name+'</option>';
-									html += '<option value="'+value.code+'">'+value.name+'</option>';
+									
+										html += '<option value="'+value.tid+'">'+value.paraName+'</option>';
+									
 								})
-								$("#chnltype").html(html);
+								$("#parent_Id").html(html);
 								
 						 	}
 						});
 						setTimeout(function(){ 
-							$("#chnltype").val(json.chnltype);
+							$("#parent_Id").val(json.deptId);
 						},1); 
-						
-						$("#chnlrspcode").val(json.chnlrspcode);
-						$("#reason").val(json.reason);
-						$("#notes").val(json.notes);
-						$("#rsp_id").val(json.rspid);
-						
+					
 			   }
 			});
 			$('#w').window({
-				title: '修改通信应答码信息',
-				top:200,
+				title: '修改参数信息',
+				top:100,
 				width: 650,
 				modal: true,
 				minimizable:false,
@@ -517,17 +423,17 @@ table tr td select {
 				closed: false,
 				height: 220
 			});
-			$("#saveForm").attr("action","rsp/update");
+			$("#saveForm").attr("action","para/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
 
-		function deleteUser(userId){
+		function deletePara(tid){
 			$.messager.confirm('提示','您是否想要注销此用户?',function(r){   
 			   if (r){  
 				$.ajax({
 				   type: "POST",
-				   url: "user/delete",
-				   data: "userId="+userId,
+				   url: "para/delete",
+				   data: "tid="+tid,
 				   dataType:"json",
 				   success:function(data){
 // 					   success:function(data){   
@@ -544,8 +450,68 @@ table tr td select {
 			    }   
 			});  
 		}
-		
-		
+		function paraPasswordReset(paraId){
+			$.messager.confirm('提示','您是否想要重置此用户密码?',function(r){   
+			    if (r){  
+			    	$.ajax({
+						type: "GET",
+					  	url: "para/resetPwd",
+					  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
+					 	dataType: "text",
+					 	success:function(data){
+					 		if(data=='true'){
+								$.messager.alert('提示',"保存成功");  
+							}else if(data=="false"){
+								$.messager.alert('提示',"保存失败");  
+							}
+					 	}
+					});
+			    }   
+			}); 
+		}
+		/* 用户配置角色 */		
+		function ToSelectRole(paraId){ 
+			$("#paraId_addrole").val(paraId);
+			var html="";
+			$('#w2').window({
+				title: '用户配置角色',
+				top:10,
+				width: 500,
+				collapsible:false,
+				minimizable:false,
+				maximizable:false,
+				modal: true,
+				shadow: false,
+				closed: false,
+				height: 510
+			});
+			$.ajax({
+				type: "GET",
+			  	url: "para/queryRoleAllList",
+			  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
+			 	dataType: "json",
+			 	success:function(json){
+					$.each(json, function(key,value){
+						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
+					})
+					$("#scope").html(html);
+			 	}
+			});
+			var htmlscope="";
+			$.ajax({
+				type: "GET",
+			  	url: "para/queryRoleListhave",
+			  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
+			 	dataType: "json",
+			 	success:function(json){
+					$.each(json, function(key,value){
+						htmlscope += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
+					})
+				$("#selectScopes").html(htmlscope);
+			 	}
+			});
+			
+		}
 		function addToSelect(){ 
 	    	var selectScopes = document.myForm.selectScopes;
 	    	var str = "";
@@ -582,23 +548,23 @@ table tr td select {
 	    		}  
 	    	}
 	    } 
-	   function AddUserRoleForm(){//保存用户角色
-		   var userFunc = '';//定义数组
+	   function AddparaRoleForm(){//保存用户角色
+		   var paraFunc = '';//定义数组
 		    $(document).ready(function(){
 		        $("#selectScopes option").each(function(){ //遍历全部option
 		            var txt = $(this).val(); //获取option的内容		          
-		            	userFunc+=txt+",";; //添加到数组中
+		            	paraFunc+=txt+",";; //添加到数组中
 		        });
 		    });
-		   if(userFunc == ""){
+		   if(paraFunc == ""){
 			   $('#w2').window('close');
 			   $.messager.alert('提示',"用户为配置角色！");
 			   return false;
 		   }
 		    $.ajax({
 				type: "POST",
-			    url: "rsp/SaveUserRole",
-			    data: "userId="+$('#userId_addrole').val()+"&userFunc="+userFunc,
+			    url: "para/SaveparaRole",
+			    data: "paraId="+$('#paraId_addrole').val()+"&paraFunc="+paraFunc,
 			    dataType: "text",
 			    success: function(data){
 					$('#w2').window('close');
@@ -613,9 +579,9 @@ table tr td select {
 	    
 		/*用户权限  */	    
 	    var roleFunction = null;
-		function ToUserAuthority(userId){
-			$("#userId").val(userId);
-			$('#userRoleW3').window({
+		function ToparaAuthority(paraId){
+			$("#paraId").val(paraId);
+			$('#paraRoleW3').window({
 				title: '用户配置权限',
 				top:10,
 				width: 300,
@@ -631,7 +597,7 @@ table tr td select {
 			$('#tt2').tree({
 				checkbox: true,
 				animate:true,
-				url: 'user/queryFunction?userId='+userId,
+				url: 'para/queryFunction?paraId='+paraId,
 				onCheck:function(node, checked){
 					for(var i=0;i<roleFunction.length;i++){
 						if(node.id==roleFunction[i].functId){
@@ -673,20 +639,20 @@ table tr td select {
 // 			var w =$("#authMenu").width();
 // 			$("#menu_div").css("margin-left",w/2.5+"px");
 		}
-		 function invokeFunction(){
-			showRspFunction($('#userId').val())
-		} 
+		function invokeFunction(){
+			showParaFunction($('#paraId').val())
+		}
 
-		function submitUserAuth(){
+		function submitparaAuth(){
 			var fid = getChecked();
 			$.ajax({
 				type: "POST",
-			    url: "user/saveAuth",
-			    data: "userId="+$('#userId').val()+"&userFunc="+fid,
+			    url: "para/saveAuth",
+			    data: "paraId="+$('#paraId').val()+"&paraFunc="+fid,
 			    dataType: "text",
 			    success: function(data){
 					if(data=='true'){
-						$('#userRoleW3').window('close');
+						$('#paraRoleW3').window('close');
 						$.messager.alert('提示',"保存成功");  
 					}else if(data=='false'){
 						$.messager.alert('提示',"保存失败");  
@@ -713,7 +679,7 @@ table tr td select {
 			}
 			var idArray = (p+s).split('|');
 			var flag = false;
-			var userFunction = "";
+			var paraFunction = "";
 			for(var i=0;i<idArray.length;i++){
 				for(var j=0;j<roleFunction.length;j++){
 					if(idArray[i]==roleFunction[j].functId){
@@ -723,11 +689,11 @@ table tr td select {
 				if(flag){//角色权限的Func_id
 					flag = false;
 				}else{//用户的权限
-					if (userFunction != '') userFunction += ',';
-					userFunction+=idArray[i];
+					if (paraFunction != '') paraFunction += ',';
+					paraFunction+=idArray[i];
 				}
 			}
-			return userFunction;
+			return paraFunction;
 		}
 	</script>
 	

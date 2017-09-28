@@ -1,7 +1,17 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TParaDic {
-    private Long tid;
+	private String parentName;
+	
+    public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	private Long tid;
 
     private String paraCode;
 
