@@ -167,8 +167,9 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		disruptor.after(batchRepeatSubmitHandler).handleEventsWith(messageCheckHandler, saveBatchHandler);
 		disruptor.after(messageCheckHandler).handleEventsWith(batchBusinessCheckHandler);
 		disruptor.after(batchBusinessCheckHandler).handleEventsWith(batchMerchCheckHandler);
-		disruptor.after(saveBatchHandler).handleEventsWith(saveDetaHandler, saveDetaTxnlogHandler);
-		disruptor.after(saveDetaHandler, saveDetaTxnlogHandler, batchMerchCheckHandler)
+		disruptor.after(saveBatchHandler).handleEventsWith(saveDetaHandler);
+		disruptor.after(saveDetaHandler).handleEventsWith(saveDetaTxnlogHandler);
+		disruptor.after(saveDetaTxnlogHandler, batchMerchCheckHandler)
 				.handleEventsWith(finalEndBatchHandler);
 		disruptor.start();// 启动
 		final CountDownLatch latch = new CountDownLatch(1);

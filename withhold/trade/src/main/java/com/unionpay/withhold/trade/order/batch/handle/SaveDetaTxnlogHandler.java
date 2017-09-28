@@ -36,7 +36,7 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 	public void onEvent(BatchCollectBean batchCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
-			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()||batchCollectBean.getSaveDeta().isResultBool()) {
+			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()||!batchCollectBean.getSaveDeta().isResultBool()) {
 				
 			}else {
 				TxncodeDefDO txncodeDef = new TxncodeDefDO();
