@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.withhold.trade.pay.dao.RspmsgPayDAO">
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO">
+    <id column="RSPID" jdbcType="INTEGER" property="rspid" />
+    <result column="APICODE" jdbcType="VARCHAR" property="apicode" />
+    <result column="APIINFO" jdbcType="CHAR" property="apiinfo" />
+    <result column="RETCODE" jdbcType="VARCHAR" property="retcode" />
+    <result column="KIND" jdbcType="VARCHAR" property="kind" />
+    <result column="REASON" jdbcType="VARCHAR" property="reason" />
+    <result column="CHNLTYPE" jdbcType="VARCHAR" property="chnltype" />
+    <result column="CHNLRSPCODE" jdbcType="VARCHAR" property="chnlrspcode" />
+    <result column="RSPINFO" jdbcType="VARCHAR" property="rspinfo" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RSPID, APICODE, APIINFO, RETCODE, KIND, REASON, CHNLTYPE, CHNLRSPCODE, RSPINFO, NOTES
+  </sql>
+  <select id="selectByExample" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_rspmsg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_rspmsg
+    where RSPID = #{rspid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_rspmsg
+    where RSPID = #{rspid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO">
+    insert into t_rspmsg (RSPID, APICODE, APIINFO, 
+      RETCODE, KIND, REASON, 
+      CHNLTYPE, CHNLRSPCODE, RSPINFO, 
+      NOTES)
+    values (#{rspid,jdbcType=INTEGER}, #{apicode,jdbcType=VARCHAR}, #{apiinfo,jdbcType=CHAR}, 
+      #{retcode,jdbcType=VARCHAR}, #{kind,jdbcType=VARCHAR}, #{reason,jdbcType=VARCHAR}, 
+      #{chnltype,jdbcType=VARCHAR}, #{chnlrspcode,jdbcType=VARCHAR}, #{rspinfo,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO">
+    insert into t_rspmsg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rspid != null">
+        RSPID,
+      </if>
+      <if test="apicode != null">
+        APICODE,
+      </if>
+      <if test="apiinfo != null">
+        APIINFO,
+      </if>
+      <if test="retcode != null">
+        RETCODE,
+      </if>
+      <if test="kind != null">
+        KIND,
+      </if>
+      <if test="reason != null">
+        REASON,
+      </if>
+      <if test="chnltype != null">
+        CHNLTYPE,
+      </if>
+      <if test="chnlrspcode != null">
+        CHNLRSPCODE,
+      </if>
+      <if test="rspinfo != null">
+        RSPINFO,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rspid != null">
+        #{rspid,jdbcType=INTEGER},
+      </if>
+      <if test="apicode != null">
+        #{apicode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiinfo != null">
+        #{apiinfo,jdbcType=CHAR},
+      </if>
+      <if test="retcode != null">
+        #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null">
+        #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="chnltype != null">
+        #{chnltype,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlrspcode != null">
+        #{chnlrspcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rspinfo != null">
+        #{rspinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO">
+    update t_rspmsg
+    <set>
+      <if test="apicode != null">
+        APICODE = #{apicode,jdbcType=VARCHAR},
+      </if>
+      <if test="apiinfo != null">
+        APIINFO = #{apiinfo,jdbcType=CHAR},
+      </if>
+      <if test="retcode != null">
+        RETCODE = #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="kind != null">
+        KIND = #{kind,jdbcType=VARCHAR},
+      </if>
+      <if test="reason != null">
+        REASON = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="chnltype != null">
+        CHNLTYPE = #{chnltype,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlrspcode != null">
+        CHNLRSPCODE = #{chnlrspcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rspinfo != null">
+        RSPINFO = #{rspinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RSPID = #{rspid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO">
+    update t_rspmsg
+    set APICODE = #{apicode,jdbcType=VARCHAR},
+      APIINFO = #{apiinfo,jdbcType=CHAR},
+      RETCODE = #{retcode,jdbcType=VARCHAR},
+      KIND = #{kind,jdbcType=VARCHAR},
+      REASON = #{reason,jdbcType=VARCHAR},
+      CHNLTYPE = #{chnltype,jdbcType=VARCHAR},
+      CHNLRSPCODE = #{chnlrspcode,jdbcType=VARCHAR},
+      RSPINFO = #{rspinfo,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR}
+    where RSPID = #{rspid,jdbcType=INTEGER}
+  </update>
+   <select id="getTradeRsp" parameterType="com.unionpay.withhold.trade.pay.pojo.RspmsgPayDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_rspmsg
+    where CHNLTYPE = #{chnltype,jdbcType=VARCHAR} and CHNLRSPCODE = #{chnlrspcode,jdbcType=VARCHAR}
+  </select>
+</mapper>

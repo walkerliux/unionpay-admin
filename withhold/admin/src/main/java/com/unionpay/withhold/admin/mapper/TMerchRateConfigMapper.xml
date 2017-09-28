@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
+    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="TARGET" property="target" jdbcType="VARCHAR" />
+    <result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
+    <result column="BUSICODE" property="busicode" jdbcType="VARCHAR" />
+    <result column="SETLFLG" property="setlflg" jdbcType="DECIMAL" />
+    <result column="RATE_METHOD" property="rateMethod" jdbcType="DECIMAL" />
+    <result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="INUSER" property="inuser" jdbcType="DECIMAL" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TARGET, MEMBER_ID, BUSICODE, SETLFLG, RATE_METHOD, RATE_ID, INTIME, INUSER, 
+    NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_merch_rate_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merch_rate_config
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_merch_rate_config
+    where TID = #{tid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" >
+    delete from t_merch_rate_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
+    insert into t_merch_rate_config (TID, TARGET, MEMBER_ID, 
+      BUSICODE, SETLFLG, RATE_METHOD, 
+      RATE_ID, INTIME, INUSER, 
+      NOTES, REMARKS)
+    values (#{tid,jdbcType=DECIMAL}, #{target,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+      #{busicode,jdbcType=VARCHAR}, #{setlflg,jdbcType=DECIMAL}, #{rateMethod,jdbcType=DECIMAL}, 
+      #{rateId,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
+    insert into t_merch_rate_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="target != null" >
+        TARGET,
+      </if>
+      <if test="memberId != null" >
+        MEMBER_ID,
+      </if>
+      <if test="busicode != null" >
+        BUSICODE,
+      </if>
+      <if test="setlflg != null" >
+        SETLFLG,
+      </if>
+      <if test="rateMethod != null" >
+        RATE_METHOD,
+      </if>
+      <if test="rateId != null" >
+        RATE_ID,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="setlflg != null" >
+        #{setlflg,jdbcType=DECIMAL},
+      </if>
+      <if test="rateMethod != null" >
+        #{rateMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="rateId != null" >
+        #{rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" resultType="java.lang.Integer" >
+    select count(*) from t_merch_rate_config
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_merch_rate_config
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.target != null" >
+        TARGET = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberId != null" >
+        MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busicode != null" >
+        BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.setlflg != null" >
+        SETLFLG = #{record.setlflg,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rateMethod != null" >
+        RATE_METHOD = #{record.rateMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="record.rateId != null" >
+        RATE_ID = #{record.rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_merch_rate_config
+    set TID = #{record.tid,jdbcType=DECIMAL},
+      TARGET = #{record.target,jdbcType=VARCHAR},
+      MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
+      BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      SETLFLG = #{record.setlflg,jdbcType=DECIMAL},
+      RATE_METHOD = #{record.rateMethod,jdbcType=DECIMAL},
+      RATE_ID = #{record.rateId,jdbcType=DECIMAL},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
+    update t_merch_rate_config
+    <set >
+      <if test="target != null" >
+        TARGET = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="memberId != null" >
+        MEMBER_ID = #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        BUSICODE = #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="setlflg != null" >
+        SETLFLG = #{setlflg,jdbcType=DECIMAL},
+      </if>
+      <if test="rateMethod != null" >
+        RATE_METHOD = #{rateMethod,jdbcType=DECIMAL},
+      </if>
+      <if test="rateId != null" >
+        RATE_ID = #{rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
+    update t_merch_rate_config
+    set TARGET = #{target,jdbcType=VARCHAR},
+      MEMBER_ID = #{memberId,jdbcType=VARCHAR},
+      BUSICODE = #{busicode,jdbcType=VARCHAR},
+      SETLFLG = #{setlflg,jdbcType=DECIMAL},
+      RATE_METHOD = #{rateMethod,jdbcType=DECIMAL},
+      RATE_ID = #{rateId,jdbcType=DECIMAL},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+</mapper>

@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TSelfTxnMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSelfTxn" >
+    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="VARCHAR" />
+    <result column="INSTIID" property="instiid" jdbcType="VARCHAR" />
+    <result column="PAYORDNO" property="payordno" jdbcType="VARCHAR" />
+    <result column="TXNDATETIME" property="txndatetime" jdbcType="VARCHAR" />
+    <result column="BUSICODE" property="busicode" jdbcType="CHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="MERCHNO" property="merchno" jdbcType="VARCHAR" />
+    <result column="SYSTRCNO" property="systrcno" jdbcType="VARCHAR" />
+    <result column="PAYTRCNO" property="paytrcno" jdbcType="VARCHAR" />
+    <result column="CFEE" property="cfee" jdbcType="DECIMAL" />
+    <result column="DFEE" property="dfee" jdbcType="DECIMAL" />
+    <result column="RETCODE" property="retcode" jdbcType="VARCHAR" />
+    <result column="ACQSETTLEDATE" property="acqsettledate" jdbcType="VARCHAR" />
+    <result column="PROID" property="proid" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="RESULT" property="result" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CHECKING_ID" property="checkingId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TXNSEQNO, INSTIID, PAYORDNO, TXNDATETIME, BUSICODE, AMOUNT, PAN, MERCHNO, SYSTRCNO, 
+    PAYTRCNO, CFEE, DFEE, RETCODE, ACQSETTLEDATE, PROID, STATUS, RESULT, NOTES, REMARKS, 
+    CHECKING_ID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_self_txn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_self_txn
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_self_txn
+    where TID = #{tid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" >
+    delete from t_self_txn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
+    insert into t_self_txn (TID, TXNSEQNO, INSTIID, 
+      PAYORDNO, TXNDATETIME, BUSICODE, 
+      AMOUNT, PAN, MERCHNO, 
+      SYSTRCNO, PAYTRCNO, CFEE, 
+      DFEE, RETCODE, ACQSETTLEDATE, 
+      PROID, STATUS, RESULT, 
+      NOTES, REMARKS, CHECKING_ID
+      )
+    values (#{tid,jdbcType=DECIMAL}, #{txnseqno,jdbcType=VARCHAR}, #{instiid,jdbcType=VARCHAR}, 
+      #{payordno,jdbcType=VARCHAR}, #{txndatetime,jdbcType=VARCHAR}, #{busicode,jdbcType=CHAR}, 
+      #{amount,jdbcType=DECIMAL}, #{pan,jdbcType=VARCHAR}, #{merchno,jdbcType=VARCHAR}, 
+      #{systrcno,jdbcType=VARCHAR}, #{paytrcno,jdbcType=VARCHAR}, #{cfee,jdbcType=DECIMAL}, 
+      #{dfee,jdbcType=DECIMAL}, #{retcode,jdbcType=VARCHAR}, #{acqsettledate,jdbcType=VARCHAR}, 
+      #{proid,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{result,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{checkingId,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
+    insert into t_self_txn
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="instiid != null" >
+        INSTIID,
+      </if>
+      <if test="payordno != null" >
+        PAYORDNO,
+      </if>
+      <if test="txndatetime != null" >
+        TXNDATETIME,
+      </if>
+      <if test="busicode != null" >
+        BUSICODE,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="pan != null" >
+        PAN,
+      </if>
+      <if test="merchno != null" >
+        MERCHNO,
+      </if>
+      <if test="systrcno != null" >
+        SYSTRCNO,
+      </if>
+      <if test="paytrcno != null" >
+        PAYTRCNO,
+      </if>
+      <if test="cfee != null" >
+        CFEE,
+      </if>
+      <if test="dfee != null" >
+        DFEE,
+      </if>
+      <if test="retcode != null" >
+        RETCODE,
+      </if>
+      <if test="acqsettledate != null" >
+        ACQSETTLEDATE,
+      </if>
+      <if test="proid != null" >
+        PROID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="result != null" >
+        RESULT,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="checkingId != null" >
+        CHECKING_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="instiid != null" >
+        #{instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="payordno != null" >
+        #{payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="txndatetime != null" >
+        #{txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        #{busicode,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="pan != null" >
+        #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="systrcno != null" >
+        #{systrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="paytrcno != null" >
+        #{paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="cfee != null" >
+        #{cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="dfee != null" >
+        #{dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="retcode != null" >
+        #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acqsettledate != null" >
+        #{acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        #{proid,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="checkingId != null" >
+        #{checkingId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxnExample" resultType="java.lang.Integer" >
+    select count(*) from t_self_txn
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_self_txn
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.txnseqno != null" >
+        TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.instiid != null" >
+        INSTIID = #{record.instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payordno != null" >
+        PAYORDNO = #{record.payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txndatetime != null" >
+        TXNDATETIME = #{record.txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busicode != null" >
+        BUSICODE = #{record.busicode,jdbcType=CHAR},
+      </if>
+      <if test="record.amount != null" >
+        AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pan != null" >
+        PAN = #{record.pan,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchno != null" >
+        MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.systrcno != null" >
+        SYSTRCNO = #{record.systrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paytrcno != null" >
+        PAYTRCNO = #{record.paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cfee != null" >
+        CFEE = #{record.cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.dfee != null" >
+        DFEE = #{record.dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.retcode != null" >
+        RETCODE = #{record.retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acqsettledate != null" >
+        ACQSETTLEDATE = #{record.acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.proid != null" >
+        PROID = #{record.proid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.result != null" >
+        RESULT = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkingId != null" >
+        CHECKING_ID = #{record.checkingId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_self_txn
+    set TID = #{record.tid,jdbcType=DECIMAL},
+      TXNSEQNO = #{record.txnseqno,jdbcType=VARCHAR},
+      INSTIID = #{record.instiid,jdbcType=VARCHAR},
+      PAYORDNO = #{record.payordno,jdbcType=VARCHAR},
+      TXNDATETIME = #{record.txndatetime,jdbcType=VARCHAR},
+      BUSICODE = #{record.busicode,jdbcType=CHAR},
+      AMOUNT = #{record.amount,jdbcType=DECIMAL},
+      PAN = #{record.pan,jdbcType=VARCHAR},
+      MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      SYSTRCNO = #{record.systrcno,jdbcType=VARCHAR},
+      PAYTRCNO = #{record.paytrcno,jdbcType=VARCHAR},
+      CFEE = #{record.cfee,jdbcType=DECIMAL},
+      DFEE = #{record.dfee,jdbcType=DECIMAL},
+      RETCODE = #{record.retcode,jdbcType=VARCHAR},
+      ACQSETTLEDATE = #{record.acqsettledate,jdbcType=VARCHAR},
+      PROID = #{record.proid,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      RESULT = #{record.result,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      CHECKING_ID = #{record.checkingId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
+    update t_self_txn
+    <set >
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      </if>
+      <if test="instiid != null" >
+        INSTIID = #{instiid,jdbcType=VARCHAR},
+      </if>
+      <if test="payordno != null" >
+        PAYORDNO = #{payordno,jdbcType=VARCHAR},
+      </if>
+      <if test="txndatetime != null" >
+        TXNDATETIME = #{txndatetime,jdbcType=VARCHAR},
+      </if>
+      <if test="busicode != null" >
+        BUSICODE = #{busicode,jdbcType=CHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="pan != null" >
+        PAN = #{pan,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        MERCHNO = #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="systrcno != null" >
+        SYSTRCNO = #{systrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="paytrcno != null" >
+        PAYTRCNO = #{paytrcno,jdbcType=VARCHAR},
+      </if>
+      <if test="cfee != null" >
+        CFEE = #{cfee,jdbcType=DECIMAL},
+      </if>
+      <if test="dfee != null" >
+        DFEE = #{dfee,jdbcType=DECIMAL},
+      </if>
+      <if test="retcode != null" >
+        RETCODE = #{retcode,jdbcType=VARCHAR},
+      </if>
+      <if test="acqsettledate != null" >
+        ACQSETTLEDATE = #{acqsettledate,jdbcType=VARCHAR},
+      </if>
+      <if test="proid != null" >
+        PROID = #{proid,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null" >
+        RESULT = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="checkingId != null" >
+        CHECKING_ID = #{checkingId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TSelfTxn" >
+    update t_self_txn
+    set TXNSEQNO = #{txnseqno,jdbcType=VARCHAR},
+      INSTIID = #{instiid,jdbcType=VARCHAR},
+      PAYORDNO = #{payordno,jdbcType=VARCHAR},
+      TXNDATETIME = #{txndatetime,jdbcType=VARCHAR},
+      BUSICODE = #{busicode,jdbcType=CHAR},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      PAN = #{pan,jdbcType=VARCHAR},
+      MERCHNO = #{merchno,jdbcType=VARCHAR},
+      SYSTRCNO = #{systrcno,jdbcType=VARCHAR},
+      PAYTRCNO = #{paytrcno,jdbcType=VARCHAR},
+      CFEE = #{cfee,jdbcType=DECIMAL},
+      DFEE = #{dfee,jdbcType=DECIMAL},
+      RETCODE = #{retcode,jdbcType=VARCHAR},
+      ACQSETTLEDATE = #{acqsettledate,jdbcType=VARCHAR},
+      PROID = #{proid,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      RESULT = #{result,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CHECKING_ID = #{checkingId,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+</mapper>
