@@ -4,7 +4,35 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TRspmsgExample {
-    protected String orderByClause;
+	private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	
+    public int getBeginRow() {
+		return beginRow;
+	}
+
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	protected String orderByClause;
 
     protected boolean distinct;
 
@@ -114,62 +142,52 @@ public class TRspmsgExample {
             return (Criteria) this;
         }
 
-        public Criteria andRspidEqualTo(String value) {
+        public Criteria andRspidEqualTo(Integer value) {
             addCriterion("RSPID =", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidNotEqualTo(String value) {
+        public Criteria andRspidNotEqualTo(Integer value) {
             addCriterion("RSPID <>", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidGreaterThan(String value) {
+        public Criteria andRspidGreaterThan(Integer value) {
             addCriterion("RSPID >", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidGreaterThanOrEqualTo(String value) {
+        public Criteria andRspidGreaterThanOrEqualTo(Integer value) {
             addCriterion("RSPID >=", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidLessThan(String value) {
+        public Criteria andRspidLessThan(Integer value) {
             addCriterion("RSPID <", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidLessThanOrEqualTo(String value) {
+        public Criteria andRspidLessThanOrEqualTo(Integer value) {
             addCriterion("RSPID <=", value, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidLike(String value) {
-            addCriterion("RSPID like", value, "rspid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRspidNotLike(String value) {
-            addCriterion("RSPID not like", value, "rspid");
-            return (Criteria) this;
-        }
-
-        public Criteria andRspidIn(List<String> values) {
+        public Criteria andRspidIn(List<Integer> values) {
             addCriterion("RSPID in", values, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidNotIn(List<String> values) {
+        public Criteria andRspidNotIn(List<Integer> values) {
             addCriterion("RSPID not in", values, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidBetween(String value1, String value2) {
+        public Criteria andRspidBetween(Integer value1, Integer value2) {
             addCriterion("RSPID between", value1, value2, "rspid");
             return (Criteria) this;
         }
 
-        public Criteria andRspidNotBetween(String value1, String value2) {
+        public Criteria andRspidNotBetween(Integer value1, Integer value2) {
             addCriterion("RSPID not between", value1, value2, "rspid");
             return (Criteria) this;
         }
@@ -384,143 +402,73 @@ public class TRspmsgExample {
             return (Criteria) this;
         }
 
-        public Criteria andKindIsNull() {
-            addCriterion("KIND is null");
+        public Criteria andRspinfoIsNull() {
+            addCriterion("RSPINFO is null");
             return (Criteria) this;
         }
 
-        public Criteria andKindIsNotNull() {
-            addCriterion("KIND is not null");
+        public Criteria andRspinfoIsNotNull() {
+            addCriterion("RSPINFO is not null");
             return (Criteria) this;
         }
 
-        public Criteria andKindEqualTo(String value) {
-            addCriterion("KIND =", value, "kind");
+        public Criteria andRspinfoEqualTo(String value) {
+            addCriterion("RSPINFO =", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindNotEqualTo(String value) {
-            addCriterion("KIND <>", value, "kind");
+        public Criteria andRspinfoNotEqualTo(String value) {
+            addCriterion("RSPINFO <>", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindGreaterThan(String value) {
-            addCriterion("KIND >", value, "kind");
+        public Criteria andRspinfoGreaterThan(String value) {
+            addCriterion("RSPINFO >", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindGreaterThanOrEqualTo(String value) {
-            addCriterion("KIND >=", value, "kind");
+        public Criteria andRspinfoGreaterThanOrEqualTo(String value) {
+            addCriterion("RSPINFO >=", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindLessThan(String value) {
-            addCriterion("KIND <", value, "kind");
+        public Criteria andRspinfoLessThan(String value) {
+            addCriterion("RSPINFO <", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindLessThanOrEqualTo(String value) {
-            addCriterion("KIND <=", value, "kind");
+        public Criteria andRspinfoLessThanOrEqualTo(String value) {
+            addCriterion("RSPINFO <=", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindLike(String value) {
-            addCriterion("KIND like", value, "kind");
+        public Criteria andRspinfoLike(String value) {
+            addCriterion("RSPINFO like", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindNotLike(String value) {
-            addCriterion("KIND not like", value, "kind");
+        public Criteria andRspinfoNotLike(String value) {
+            addCriterion("RSPINFO not like", value, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindIn(List<String> values) {
-            addCriterion("KIND in", values, "kind");
+        public Criteria andRspinfoIn(List<String> values) {
+            addCriterion("RSPINFO in", values, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindNotIn(List<String> values) {
-            addCriterion("KIND not in", values, "kind");
+        public Criteria andRspinfoNotIn(List<String> values) {
+            addCriterion("RSPINFO not in", values, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindBetween(String value1, String value2) {
-            addCriterion("KIND between", value1, value2, "kind");
+        public Criteria andRspinfoBetween(String value1, String value2) {
+            addCriterion("RSPINFO between", value1, value2, "rspinfo");
             return (Criteria) this;
         }
 
-        public Criteria andKindNotBetween(String value1, String value2) {
-            addCriterion("KIND not between", value1, value2, "kind");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonIsNull() {
-            addCriterion("REASON is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonIsNotNull() {
-            addCriterion("REASON is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonEqualTo(String value) {
-            addCriterion("REASON =", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonNotEqualTo(String value) {
-            addCriterion("REASON <>", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonGreaterThan(String value) {
-            addCriterion("REASON >", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonGreaterThanOrEqualTo(String value) {
-            addCriterion("REASON >=", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonLessThan(String value) {
-            addCriterion("REASON <", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonLessThanOrEqualTo(String value) {
-            addCriterion("REASON <=", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonLike(String value) {
-            addCriterion("REASON like", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonNotLike(String value) {
-            addCriterion("REASON not like", value, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonIn(List<String> values) {
-            addCriterion("REASON in", values, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonNotIn(List<String> values) {
-            addCriterion("REASON not in", values, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonBetween(String value1, String value2) {
-            addCriterion("REASON between", value1, value2, "reason");
-            return (Criteria) this;
-        }
-
-        public Criteria andReasonNotBetween(String value1, String value2) {
-            addCriterion("REASON not between", value1, value2, "reason");
+        public Criteria andRspinfoNotBetween(String value1, String value2) {
+            addCriterion("RSPINFO not between", value1, value2, "rspinfo");
             return (Criteria) this;
         }
 
@@ -664,73 +612,73 @@ public class TRspmsgExample {
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoIsNull() {
-            addCriterion("RSPINFO is null");
+        public Criteria andReasonIsNull() {
+            addCriterion("REASON is null");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoIsNotNull() {
-            addCriterion("RSPINFO is not null");
+        public Criteria andReasonIsNotNull() {
+            addCriterion("REASON is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoEqualTo(String value) {
-            addCriterion("RSPINFO =", value, "rspinfo");
+        public Criteria andReasonEqualTo(String value) {
+            addCriterion("REASON =", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoNotEqualTo(String value) {
-            addCriterion("RSPINFO <>", value, "rspinfo");
+        public Criteria andReasonNotEqualTo(String value) {
+            addCriterion("REASON <>", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoGreaterThan(String value) {
-            addCriterion("RSPINFO >", value, "rspinfo");
+        public Criteria andReasonGreaterThan(String value) {
+            addCriterion("REASON >", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoGreaterThanOrEqualTo(String value) {
-            addCriterion("RSPINFO >=", value, "rspinfo");
+        public Criteria andReasonGreaterThanOrEqualTo(String value) {
+            addCriterion("REASON >=", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoLessThan(String value) {
-            addCriterion("RSPINFO <", value, "rspinfo");
+        public Criteria andReasonLessThan(String value) {
+            addCriterion("REASON <", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoLessThanOrEqualTo(String value) {
-            addCriterion("RSPINFO <=", value, "rspinfo");
+        public Criteria andReasonLessThanOrEqualTo(String value) {
+            addCriterion("REASON <=", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoLike(String value) {
-            addCriterion("RSPINFO like", value, "rspinfo");
+        public Criteria andReasonLike(String value) {
+            addCriterion("REASON like", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoNotLike(String value) {
-            addCriterion("RSPINFO not like", value, "rspinfo");
+        public Criteria andReasonNotLike(String value) {
+            addCriterion("REASON not like", value, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoIn(List<String> values) {
-            addCriterion("RSPINFO in", values, "rspinfo");
+        public Criteria andReasonIn(List<String> values) {
+            addCriterion("REASON in", values, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoNotIn(List<String> values) {
-            addCriterion("RSPINFO not in", values, "rspinfo");
+        public Criteria andReasonNotIn(List<String> values) {
+            addCriterion("REASON not in", values, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoBetween(String value1, String value2) {
-            addCriterion("RSPINFO between", value1, value2, "rspinfo");
+        public Criteria andReasonBetween(String value1, String value2) {
+            addCriterion("REASON between", value1, value2, "reason");
             return (Criteria) this;
         }
 
-        public Criteria andRspinfoNotBetween(String value1, String value2) {
-            addCriterion("RSPINFO not between", value1, value2, "rspinfo");
+        public Criteria andReasonNotBetween(String value1, String value2) {
+            addCriterion("REASON not between", value1, value2, "reason");
             return (Criteria) this;
         }
 
