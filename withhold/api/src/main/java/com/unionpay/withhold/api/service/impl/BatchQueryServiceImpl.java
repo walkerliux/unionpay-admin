@@ -72,6 +72,7 @@ public class BatchQueryServiceImpl implements BatchTradeService {
 			e.printStackTrace();
 			batchQueryResBean.setRespCode(e.getRespCode());
 			batchQueryResBean.setRespMsg(e.getRespMessage());
+			logger.error(e.getRespMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			batchQueryResBean.setRespCode(ResponseTypeEnum.fail.getCode());

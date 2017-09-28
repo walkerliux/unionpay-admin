@@ -9,7 +9,7 @@ public interface MerchMkMapper {
 
     int insertSelective(MerchMk record);
 
-    MerchMk selectByPrimaryKey(String memberid);
+    MerchMk selectByPrimaryKey(String certid);
 
     int updateByPrimaryKeySelective(MerchMk record);
 

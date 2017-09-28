@@ -1,9 +1,11 @@
 package com.unionpay.withhold.trade.pay.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.trade.pay.pojo.OrderCollectBatchPayDO;
 import com.unionpay.withhold.trade.pay.pojo.OrderCollectBatchPayDOExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface OrderCollectBatchPayDAO {
     long countByExample(OrderCollectBatchPayDOExample example);
@@ -27,4 +29,6 @@ public interface OrderCollectBatchPayDAO {
     int updateByPrimaryKeySelective(OrderCollectBatchPayDO record);
 
     int updateByPrimaryKey(OrderCollectBatchPayDO record);
+    
+    OrderCollectBatchPayDO getCollectBatchOrder(String tn);
 }

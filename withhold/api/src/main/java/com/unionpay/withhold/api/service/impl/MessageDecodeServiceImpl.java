@@ -28,7 +28,7 @@ public class MessageDecodeServiceImpl implements MessageDecodeService{
 		RSAHelper2048 rsa = null;
 		AdditBean additBean = JSON.parseObject(messageBean.getAddit(), AdditBean.class);
 		if ("1".equals(additBean.getAccessType())) {
-			MerchMk merchMk = merchMKService.selectByPrimaryKey((additBean.getMerId()));
+			MerchMk merchMk = merchMKService.selectByPrimaryKey((additBean.getCertId()));
 			rsa = new RSAHelper2048();
 			rsa.initKey(merchMk.getLocalprikey(), merchMk.getMemberpubkey(), 2048);
 		} else {

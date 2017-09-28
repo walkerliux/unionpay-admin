@@ -2,6 +2,7 @@ package com.unionpay.withhold.trade.order.service;
 
 import java.util.List;
 
+import com.unionpay.withhold.trade.order.bean.BatchCollectDetaBean;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO;
 
 public interface OrderCollectDetaService {
@@ -18,4 +19,13 @@ public interface OrderCollectDetaService {
 	 * @return
 	 */
 	public List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId);
+
+	/**
+	 * 批量保存代扣批次明细
+	 * @param detaList
+	 * @param batchNo
+	 */
+	public void batchSaveOrderCollectDeta(String batchNo,List<BatchCollectDetaBean> detaList);
+	
+	
 }

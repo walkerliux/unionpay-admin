@@ -1,9 +1,11 @@
 package com.unionpay.withhold.trade.pay.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.trade.pay.pojo.OrderCollectDetaPayDO;
 import com.unionpay.withhold.trade.pay.pojo.OrderCollectDetaPayDOExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface OrderCollectDetaPayDAO {
     long countByExample(OrderCollectDetaPayDOExample example);
@@ -27,4 +29,8 @@ public interface OrderCollectDetaPayDAO {
     int updateByPrimaryKeySelective(OrderCollectDetaPayDO record);
 
     int updateByPrimaryKey(OrderCollectDetaPayDO record);
+    
+    List<OrderCollectDetaPayDO> queryCollectOrderDeta(Long batchId);
+    
+    int updateOrderStatus(OrderCollectDetaPayDO record);
 }

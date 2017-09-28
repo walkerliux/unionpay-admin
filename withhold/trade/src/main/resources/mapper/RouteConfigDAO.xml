@@ -530,29 +530,29 @@
 		where
 			ISDEF = 1
 			AND STATUS = #{status,jdbcType=VARCHAR}
-		<if test="routver != '">
+		<if test="routver != '' and routver != null">
 			AND ROUTVER = #{routver,jdbcType=VARCHAR}
 		</if>
-		<if test="transTime != '">
+		<if test="transTime != '' and transTime != null">
 			AND STIME &lt;= #{transTime,jdbcType=VARCHAR}
 		</if>
-		<if test="transTime != '">
+		<if test="transTime != '' and transTime != null">
 			AND ETIME &gt;= #{transTime,jdbcType=VARCHAR}
 		</if>
-		<if test="transAmt != ''">
+		<if test="transAmt != '' and transAmt != null">
 			AND MINAMT &lt;= #{transAmt,jdbcType=DECIMAL}
 		</if>
-		<if test="transAmt != ''">
+		<if test="transAmt != '' and transAmt != null">
 			AND MAXAMT &gt;= #{transAmt,jdbcType=DECIMAL}
 		</if>
-		<if test="bankcode != ''">
+		<if test="bankcode != '' and bankcode != null">
 			AND BANKCODE like CONCAT('%',#{bankcode,jdbcType=VARCHAR},'%') 
 		</if>
-		<if test="busicode != ''">
+		<if test="busicode != '' and busicode != null">
 			AND BUSICODE like CONCAT('%',#{busicode,jdbcType=VARCHAR},'%') 
 		</if>
-		<if test="cardtype != ''">
-			AND CARDTYPE like CONCAT('%',#{cardtype,jdbcType=VARCHAR},%') 
+		<if test="cardtype != '' and cardtype != null">
+			AND CARDTYPE like CONCAT('%',#{cardtype,jdbcType=VARCHAR},'%') 
 		</if>
 		ORDER BY ORDERS
 	</select>

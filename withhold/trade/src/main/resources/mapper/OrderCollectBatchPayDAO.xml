@@ -557,4 +557,12 @@
       COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
+   <select id="getCollectBatchOrder" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	TN = #{tn,jdbcType=VARCHAR}
+  </select>
 </mapper>

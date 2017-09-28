@@ -9,15 +9,13 @@ public class RspmsgPayDO {
 
     private String retcode;
 
-    private String kind;
-
-    private String reason;
+    private String rspinfo;
 
     private String chnltype;
 
     private String chnlrspcode;
 
-    private String rspinfo;
+    private String reason;
 
     private String notes;
 
@@ -53,20 +51,12 @@ public class RspmsgPayDO {
         this.retcode = retcode == null ? null : retcode.trim();
     }
 
-    public String getKind() {
-        return kind;
+    public String getRspinfo() {
+        return rspinfo;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind == null ? null : kind.trim();
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
+    public void setRspinfo(String rspinfo) {
+        this.rspinfo = rspinfo == null ? null : rspinfo.trim();
     }
 
     public String getChnltype() {
@@ -85,12 +75,12 @@ public class RspmsgPayDO {
         this.chnlrspcode = chnlrspcode == null ? null : chnlrspcode.trim();
     }
 
-    public String getRspinfo() {
-        return rspinfo;
+    public String getReason() {
+        return reason;
     }
 
-    public void setRspinfo(String rspinfo) {
-        this.rspinfo = rspinfo == null ? null : rspinfo.trim();
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
     }
 
     public String getNotes() {

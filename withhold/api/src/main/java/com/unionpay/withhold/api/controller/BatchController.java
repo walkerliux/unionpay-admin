@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
-
-import org.apache.http.client.ClientProtocolException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +23,10 @@ import com.unionpay.withhold.api.service.BatchTradeService;
 import com.unionpay.withhold.api.service.MessageDecodeService;
 import com.unionpay.withhold.api.service.MessageEncryptService;
 import com.unionpay.withhold.api.signaturn.util.AESUtil;
-import com.unionpay.withhold.api.signaturn.util.HttpClient;
 import com.unionpay.withhold.api.util.ApplicationContextUtil;
 import com.unionpay.withhold.api.util.DateUtils;
 import com.unionpay.withhold.api.util.HttpUtils;
 import com.unionpay.withhold.api.util.RiskInfoUtils;
-import com.unionpay.withhold.utils.Constant;
 
 import net.sf.json.JSONObject;
 /**
@@ -69,8 +65,8 @@ public class BatchController {
 		MessageBean responseBean=null;
 		ResponseBaseBean responseBaseBean = new ResponseBaseBean();
 		//附加数据准备
-		AdditBean additBean=prepareAdditbean(((AdditBean) JSONObject.toBean(
-				JSONObject.fromObject(messageBean.getAddit()), AdditBean.class)).getMerId());
+		AdditBean requestAddit= (AdditBean) JSONObject.toBean(JSONObject.fromObject(messageBean.getAddit()), AdditBean.class);
+		AdditBean additBean=prepareAdditbean(requestAddit.getMerId(),requestAddit.getCertId());
 		try {
 			//验签,解密
 			requestBean=messageDecodeService.decodeAndVerify_2048(messageBean);
@@ -98,9 +94,10 @@ public class BatchController {
 		return responseBean;
 	}
 	//附加数据（风控信息）；
-	private AdditBean prepareAdditbean(String merid){
+	private AdditBean prepareAdditbean(String merid,String certid){
 		AdditBean additBean = new AdditBean();
 		try {
+			additBean.setCertId(certid);
 			additBean.setEncryKey(AESUtil.getAESKey());
 			additBean.setAccessType(accessType);
 			additBean.setMerId(merid);
@@ -128,17 +125,24 @@ public class BatchController {
 	
 	@ResponseBody
 	@RequestMapping("notice")
-	public String notice(String data,String url) {
+	public String notice(String data) {
 		BatchCollectNoticeReqBean batchCollectNoticeReqBean=(BatchCollectNoticeReqBean) JSONObject.toBean(JSONObject.fromObject(data), BatchCollectNoticeReqBean.class);
 		batchCollectNoticeReqBean.prepareBasicData();
 		Map<String, String> paramMap = new HashMap<>();
 		paramMap.put("data", JSON.toJSONString(batchCollectNoticeReqBean));
 		String result="";
 		try {
-			result =HttpUtils.post(url, paramMap);
+			result =HttpUtils.post(batchCollectNoticeReqBean.getBackUrl(), paramMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("noticetest")
+	public String noticetest(String data) {
+		log.info("批量代扣异步通知测试接收到的数据=====>"+data);
+		return "测试是成功的接受到的参数是==>"+data;
 	}
 }
