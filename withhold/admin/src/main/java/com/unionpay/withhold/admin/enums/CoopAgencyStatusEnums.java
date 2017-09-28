@@ -5,8 +5,8 @@ public enum CoopAgencyStatusEnums {
 	// 99注销
 	/**在用**/
 	NORMAL("00"), 
-	/**注册审核前被修改**/
-	UPDATEBEFORECHECKING("09"),
+	///**注册审核前被修改**/
+	//UPDATEBEFORECHECKING("09"),
 	/**注册待审**/
 	REGISTERCHECKING("10"),
 	/**注册审核拒绝**/

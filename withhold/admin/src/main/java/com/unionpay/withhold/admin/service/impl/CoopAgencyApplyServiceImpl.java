@@ -46,25 +46,22 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		TCoopAgencyApplyExample coopAgencyApplyExample = new TCoopAgencyApplyExample();
 		TCoopAgencyApplyExample.Criteria criteria = coopAgencyApplyExample.createCriteria();
 		criteria.andCacodeEqualTo(coopAgencyApply.getCacode());
-		criteria.andStatusNotEqualTo(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());
-
-		try {
-			count = coopAgencyApplyMapper.countByExample(coopAgencyApplyExample);
-			if (count > 0) {
-				return new ResultBean("", "渠道代码重复！");
-			}
-
-			count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);
-			if (count > 0) {
-				return new ResultBean("操作成功 ！");
-			} else {
-				return new ResultBean("", "添加失败！");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResultBean("", "服务异常，无法添加！");
+		// criteria.andStatusNotEqualTo(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());
+		count = coopAgencyApplyMapper.countByExample(coopAgencyApplyExample);
+		if (count > 0) {
+			return new ResultBean("", "此渠道代码被注册过！");
 		}
 
+		if (coopAgencyApply.getSupercode().equals("0")) {
+			coopAgencyApply.setCalevel((short) 1);
+		}
+		coopAgencyApply.setStatus(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());
+		count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);
+		if (count > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "添加失败！");
+		}
 	}
 
 	@Override
@@ -74,35 +71,63 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 
 	@Override
 	public ResultBean updateCoopAgencyApply(TCoopAgencyApply coopAgencyApply) {
-		try {
+
+		// 判断状态，非正常，禁止操作
+		TCoopAgencyApply agencyApplyBack = this.coopAgencyApplyMapper.selectByPrimaryKey(coopAgencyApply.getSelfId());
+		if (agencyApplyBack == null) {
+			return new ResultBean("", "信息有误，操作失败！");
+		} else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
+			return new ResultBean("", "状态信息有误，请确保是否有其他人在操作，或刷新一下数据再试试！");
+		} else if (agencyApplyBack.getCacode().equals(coopAgencyApply.getSupercode())) {
+			// 上级渠道不能为自己
+			return new ResultBean("", "上级渠道不能选择自己！");
+		} else {
+			CoopAgencyStatusEnums status = null;
+			
+			coopAgencyApply.setIntime(new Date());
+			if (coopAgencyApply.getSupercode().equals("0")) {
+				coopAgencyApply.setCalevel((short) 1);
+			}
+			// 根据状态判断是哪种操作，再进行状态变更
+			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {// 注册待审——不变
+				status = CoopAgencyStatusEnums.REGISTERCHECKING;
+			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode())) {// 注册被拒——待审
+				status = CoopAgencyStatusEnums.REGISTERCHECKING;
+			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode())) {// 变更被拒——待审
+				status = CoopAgencyStatusEnums.UPDATEAFTERCHECKED;
+			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode())) {// 注销被拒——待审
+				status = CoopAgencyStatusEnums.LOGOUTCHECKING;
+			} else {
+				return new ResultBean("", "信息有误，操作失败！");
+			}
+			coopAgencyApply.setStatus(status.getCode());
 			int count = coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 			if (count > 0) {
 				return new ResultBean("操作成功 ！");
 			} else {
 				return new ResultBean("", "修改失败！");
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResultBean("", "服务异常，无法修改！");
 		}
 	}
 
 	@Override
-	public PageBean selectWithCondition(TCoopAgencyApply coopAgencyApply, Integer page, Integer rows) {
+	public PageBean selectCheckWithCondition(TCoopAgencyApply coopAgencyApply, Integer page, Integer rows) {
 		// 查分页数据
-		Integer beginRow = (page -1) * rows; 
+		Integer beginRow = (page - 1) * rows;
 		List<String> statuses = new ArrayList<>();
 		if (StringUtils.isBlank(coopAgencyApply.getStatus())) {
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());// 注册待审
+			//statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());// 注册待审前修改
 			statuses.add(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode());// 变更待审
-			statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode());// 注销待审		
+			statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode());// 注销待审
 		} else {
 			statuses.add(coopAgencyApply.getStatus());
 		}
-		
-		List<TCoopAgencyApply> list = coopAgencyApplyMapper.selectWithCondition(coopAgencyApply, statuses, beginRow, rows);
+
+		List<TCoopAgencyApply> list = coopAgencyApplyMapper.selectWithCondition(coopAgencyApply, statuses, beginRow,
+				rows);
 		int count = coopAgencyApplyMapper.selectCountWithCondition(coopAgencyApply, statuses);
-		
+
 		return new PageBean(count, list);
 	}
 
@@ -114,13 +139,13 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 	@Override
 	public ResultBean refuseCheck(TCoopAgencyApply coopAgencyApply) {
 		CoopAgencyStatusEnums status = null;
-		// 判断状态，如果是已经非待审，禁止操作
+		// 判断状态，非正常状态，禁止操作
 		TCoopAgencyApply agencyApplyBack = this.coopAgencyApplyMapper.selectByPrimaryKey(coopAgencyApply.getSelfId());
 		if (agencyApplyBack == null) {
 			return new ResultBean("", "信息有误，操作失败！");
-		}else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
-			return new ResultBean("", "状态信息有误，请确保是有其他人在操作！");
-		}else {
+		} else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
+			return new ResultBean("", "状态信息有误，请确保是有其他人在操作，或刷新一下数据再试试！");
+		} else {
 			// 根据状态判断是哪种操作，再进行状态变更
 			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {// 注册待审
 				status = CoopAgencyStatusEnums.REGISTERCHECKREFUSED;
@@ -128,12 +153,14 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				status = CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED;
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode())) {// 注销待审
 				status = CoopAgencyStatusEnums.LOGOUTCHECKREFUSED;
+			} else {
+				return new ResultBean("", "信息有误，操作失败！");
 			}
 		}
 		coopAgencyApply.setStatus(status.getCode());
 		coopAgencyApply.setStexaTime(new Date());
-		
-		long count = this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);		
+
+		long count = this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 		if (count > 0) {
 			return new ResultBean("审核拒绝操作成功 ！");
 		} else {
@@ -143,27 +170,27 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 
 	@Override
 	public ResultBean passCheck(TCoopAgencyApply coopAgencyApply) {
-		// 判断状态，如果是已经非待审，禁止操作
+		// 判断状态，非正常状态，禁止操作
 		TCoopAgencyApply agencyApplyBack = this.coopAgencyApplyMapper.selectByPrimaryKey(coopAgencyApply.getSelfId());
 		if (agencyApplyBack == null) {
 			return new ResultBean("", "信息有误，操作失败！");
-		}else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
-			return new ResultBean("", "状态信息有误，请确保是有其他人在操作！");
-		}else {
+		} else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
+			return new ResultBean("", "状态信息有误，请确保是否有其他人在操作，或刷新一下数据再试试！");
+		} else {
 			// 根据状态判断是哪种操作
 			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {
 				// 注册待审：修改申请表的状态为“不在用”，并添加数据到在用的表中
 				coopAgencyApply.setStexaTime(new Date());
 				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 				this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
-				
+
 				TCoopAgency coopAgency = BeanCopyUtil.copyBean(TCoopAgency.class, agencyApplyBack);
 				coopAgency.setStatus(CoopAgencyStatusEnums.NORMAL.getCode());
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(coopAgencyApply.getStexaTime());
 				coopAgency.setCaid(null);
 				coopAgencyMapper.insertSelective(coopAgency);
-				
+
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode())) {
 				// 变更待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”，并添加新数据到在用的表中
 				TCoopAgency coopAgency = new TCoopAgency();
@@ -172,11 +199,11 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(new Date());
 				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
-				
+
 				coopAgencyApply.setStexaTime(coopAgency.getStexaTime());
 				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 				this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
-				
+
 				coopAgency = BeanCopyUtil.copyBean(TCoopAgency.class, agencyApplyBack);
 				coopAgency.setStatus(CoopAgencyStatusEnums.NORMAL.getCode());
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
@@ -200,14 +227,38 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 					coopAgency.setStexaTime(coopAgency.getStexaTime());
 					coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
-					
+
 					coopAgencyApply.setStexaTime(new Date());
 					coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 					this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 				}
+			} else {
+				return new ResultBean("", "信息有误，操作失败！");
 			}
 		}
-		
+
 		return new ResultBean("审核拒绝操作成功 ！");
+	}
+
+	@Override
+	public PageBean selectApplyWithCondition(TCoopAgencyApply coopAgencyApply, Integer page, Integer rows) {
+		// 查分页数据
+		Integer beginRow = (page - 1) * rows;
+		List<String> statuses = new ArrayList<>();
+		if (StringUtils.isBlank(coopAgencyApply.getStatus())) {
+			//statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());// 注册审核前被修改
+			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());// 注册待审
+			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());// 注册审核拒绝
+			statuses.add(CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode());// 变更被拒
+			statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode());// 注销被拒
+		} else {
+			statuses.add(coopAgencyApply.getStatus());
+		}
+
+		List<TCoopAgencyApply> list = coopAgencyApplyMapper.selectWithCondition(coopAgencyApply, statuses, beginRow,
+				rows);
+		int count = coopAgencyApplyMapper.selectCountWithCondition(coopAgencyApply, statuses);
+
+		return new PageBean(count, list);
 	}
 }

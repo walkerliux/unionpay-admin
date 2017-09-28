@@ -78,14 +78,14 @@ table tr td select {
 						<td align="right">创建人</td>
 						<td align="left" style="padding-left: 5px"><input
 							name="inuser" id="s_inuser" maxlength="8" /></td>
-						<td class="add" align="right">生效状态</td>
+						<!-- <td class="add" align="right">生效状态</td>
 						<td class="add" align="left" style="padding-left: 5px"><select
 							id="s_status" name="status" />
 							<option value=''>--请选择生效状态--</option>
 							<option value='10'>注册待审</option>
 							<option value='20'>变更待审</option>
-							<option value='30'>注销待审</option> </select></td>
-						<td class="add" align="right" colspan="3"><a
+							<option value='30'>注销待审</option> </select></td> -->
+						<td class="add" align="right" colspan="4"><a
 							href="javascript:search()" class="easyui-linkbutton"
 							iconCls="icon-search">查询</a> <a href="javascript:resize()"
 							class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
@@ -106,7 +106,8 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
-					<input type="hidden" id="selfId" name="selfId" />
+					<input type="hidden" id="caid" name="caid" />
+					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td class="update">渠道代码</td>
@@ -181,15 +182,9 @@ table tr td select {
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeCheck()">返回</a>
-				&nbsp;&nbsp; <a class="easyui-linkbutton checkca"
-					iconCls="icon-cancel" href="javascript:refuseCheck()"
-					id="btn_refuse">驳回</a> &nbsp;&nbsp; <a
-					class="easyui-linkbutton checkca" iconCls="icon-ok"
-					href="javascript:passCheck()" id="btn_pass">通过</a>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeChange()">返回</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:updateInUse()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -295,8 +290,8 @@ table tr td select {
 												return '<a href="javascript:showChange(\''
 														+ value
 														+ '\')" style="color:blue;margin-left:10px">变更</a>'
-														+ '<a href="javascript:showLogout(\''
-														+ value
+														+ '<a href="javascript:logout(\''
+														+ value + '\',\'' + rec.status
 														+ '\')" style="color:blue;margin-left:10px">注销</a>';
 											} else {
 												return '';
@@ -323,50 +318,11 @@ table tr td select {
 		$('#coopAgencyList').datagrid('load', data);
 	}
 
-	/* 		function showCheck(selfId){
-	 $('#saveForm :input').val('');
-	 $('#cacode').attr("readonly","readonly");//设为只读
-	 //$("#saveForm").attr("action","coopAgency/updateApply");
-	 $.ajax({
-	 type: "POST",
-	 url: "coopAgency/queryModifyById",
-	 data: "caid="+caid,
-	 async: false,
-	 dataType:"json",
-	 success: function(json){	
-	 $("#cacode").html(json.cacode);
-	 $("#caname").html(json.caname);
-	 $("#caprovince").html(json.provinceName);
-	 $("#cacity").html(json.cityName);
-	 $("#address").html(json.address);
-	 $("#cityName").html(json.cityName);
-	 $("#contact").html(json.contact);
-	 $("#contPhone").html(json.contPhone);
-	 $("#notes").val(json.notes);
-	 $("#selfId").val(json.selfId);
-	 $("#status").val(json.status);
-	 }
-	 });
-	
-	 $('#w').window({
-	 title: '变更渠道信息',
-	 top:100,
-	 left:400,
-	 width: 800,
-	 modal: true,
-	 minimizable:false,
-	 collapsible:false,
-	 maximizable:false,
-	 shadow: false,
-	 closed: false,
-	 height: 360
-	 });
-	 } */
 
 	function showChange(caid) {
 		$('#saveForm :input').val('');
 		$('#cacode').attr("readonly", "readonly");//设为只读
-		//$("#saveForm").attr("action","coopAgency/updateApply");
+		$("#saveForm").attr("action","coopAgency/updateInUse");
 		$.ajax({
 			type : "POST",
 			url : "coopAgency/queryModifyById",
@@ -374,59 +330,68 @@ table tr td select {
 			async : false,
 			dataType : "json",
 			success : function(json) {
-				$("#cacode").val(json.cacode);
-				$("#caname").val(json.caname);
-				showProvince(json.caprovince);
-				showCityWithCid(json.caprovince, json.cacity);
-				showSuperCode(json.supercode);
-				$("#address").val(json.address);
-				$("#contact").val(json.contact);
-				$("#contPhone").val(json.contPhone);
-				$("#notes").val(json.notes);
-				$("#caid").val(json.selfId);
+				if (json == null) {
+					$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
+				} else {
+					$("#cacode").val(json.cacode);
+					$("#caname").val(json.caname);
+					showProvince(json.caprovince);
+					showCityWithCid(json.caprovince, json.cacity);
+					showSuperCode(json.supercode);
+					$("#address").val(json.address);
+					$("#contact").val(json.contact);
+					$("#contPhone").val(json.contPhone);
+					$("#notes").val(json.notes);
+					$("#caid").val(json.caid);
+					$("#status").val(json.status);
+					
+					$('#w').window({
+						title : '变更渠道信息',
+						top : 100,
+						left : 400,
+						width : 800,
+						modal : true,
+						minimizable : false,
+						collapsible : false,
+						maximizable : false,
+						shadow : false,
+						closed : false,
+						height : 360
+					});
+				}
+			},
+			error : function(){
+				$.messager.alert('提示', '服务异常！');
 			}
 		});
 
-		$('#w').window({
-			title : '变更渠道信息',
-			top : 100,
-			left : 400,
-			width : 800,
-			modal : true,
-			minimizable : false,
-			collapsible : false,
-			maximizable : false,
-			shadow : false,
-			closed : false,
-			height : 360
-		});
+
 	}
+	 
 
 	function showProvince(caprovince) {
-		$
-				.ajax({
-					type : "POST",
-					url : "province/getAll",
-					dataType : "json",
-					success : function(json) {
-						var html = "<option value=''>--请选择所在省--</option>";
-						$
-								.each(
-										json,
-										function(key, value) {
-											if (value.pId == caprovince) {
-												html += '<option value="' + value.pId + '" selected="selected">'
-														+ value.pName
-														+ '</option>';
-											} else {
-												html += '<option value="' + value.pId + '">'
-														+ value.pName
-														+ '</option>';
-											}
-										});
-						$("#caprovince").html(html);
-					}
-				});
+		$.ajax({
+			type : "POST",
+			url : "province/getAll",
+			dataType : "json",
+			success : function(json) {
+				var html = "<option value=''>--请选择所在省--</option>";
+				$.each(
+					json,
+					function(key, value) {
+						if (value.pId == caprovince) {
+							html += '<option value="' + value.pId + '" selected="selected">'
+									+ value.pName
+									+ '</option>';
+						} else {
+							html += '<option value="' + value.pId + '">'
+									+ value.pName
+									+ '</option>';
+						}
+					});
+				$("#caprovince").html(html);
+			}
+		});
 	}
 
 	function showAllProvince() {
@@ -497,7 +462,7 @@ table tr td select {
 				}
 				
 				$.each(json,function(key, value) {
-					if (value.supercode == supercode) {
+					if (value.cacode == supercode) {
 						html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
 					} else {
 						html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
@@ -527,67 +492,59 @@ table tr td select {
 			}
 		});
 	}
-
-/* 	function refuseCheck() {
-		$('.checkca').linkbutton('disable');
-		var selfId = $("#selfId").val();
-		var status = $("#status").val();
-		$.ajax({
-			type : "POST",
-			url : "coopAgency/refuseCheck",
-			dataType : "json",
-			data : {
-				selfId : selfId,
-				status : status
-			},
-			success : function(json) {
-				$('.checkca').linkbutton('enable');
-				//json = JSON.parse(json);
-				if (json.resultBool == true) {
-					$.messager.alert('提示', "已成功驳回！");
-					$('#w').window('close');
-					search();
-				} else {
-					$.messager.alert('提示', json.errMsg);
+	
+	function updateInUse(){
+		$('#saveForm').form('submit', {  
+		    onSubmit: function(){  
+		    	if($('#saveForm').form('validate')){
+		    		$('#btn_submit').linkbutton('disable');	
+		    		return true;   
+			    }
+		        return false;   
+		    }, 
+		    success: function(json) {
+	    		$('#btn_submit').linkbutton('enable');
+	    		json = JSON.parse(json);
+	    		if(json.resultBool==true){
+					 $.messager.alert('提示',"操作成功！");
+					 $('#w').window('close');
+					 search();
+				}else{
+					 $.messager.alert('提示',json.errMsg);
 				}
-			},
-			error : function() {
-				$.messager.alert('提示', '服务异常！');
 			}
-		});
+		}); 
 	}
-
-	function passCheck() {
-		$('.checkca').linkbutton('disable');
-		var selfId = $("#selfId").val();
-		var status = $("#status").val();
-		$.ajax({
-			type : "POST",
-			url : "coopAgency/passCheck",
-			dataType : "json",
-			data : {
-				selfId : selfId,
-				status : status
-			},
-			success : function(json) {
-				$('.checkca').linkbutton('enable');
-				//json = JSON.parse(json);
-				if (json.resultBool == true) {
-					$.messager.alert('提示', "已审核通过！");
-					$('#w').window('close');
-					search();
-				} else {
-					$.messager.alert('提示', json.errMsg);
-				}
-			},
-			error : function() {
-				$.messager.alert('提示', '服务异常！');
-			}
-		});
-	}
-
-	function closeCheck() {
+	
+	function closeChange(){
 		$('#w').window('close');
-	} */
+	}	
+
+	
+	 function logout(caid,status){
+			$.ajax({
+				type : "POST",
+				url : "coopAgency/commitLogout",
+				dataType : "json",
+				data : {
+					"caid" : caid,
+					"status" : status
+				},
+				success : function(json) {
+					//json = JSON.parse(json);
+					if (json.resultBool == true) {
+						$.messager.alert('提示', "注销申请已成功提交！");
+						$('#w').window('close');
+						search();
+					} else {
+						$.messager.alert('提示', json.errMsg);
+					}
+				},
+				error : function() {
+					$.messager.alert('提示', '服务异常！');
+				}
+			});
+	 }
+	 
 </script>
 </html>

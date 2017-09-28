@@ -1,18 +1,9 @@
 package com.unionpay.withhold.admin.Bean;
 
-import java.io.Serializable;
-
-
-
-public class ResultBean implements Serializable {
-	
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = 8907255757029910430L;
+public class ResultBean{
 	private String errCode;
 	private String errMsg;
-	private boolean resultBool;
+	private Boolean resultBool;
 	private Object resultObj;
 	
 	public ResultBean(){
@@ -61,10 +52,10 @@ public class ResultBean implements Serializable {
 	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
 	}
-	public boolean isResultBool() {
+	public Boolean isResultBool() {
 		return resultBool;
 	}
-	public void setResultBool(boolean resultBool) {
+	public void setResultBool(Boolean resultBool) {
 		this.resultBool = resultBool;
 	}
 

@@ -525,7 +525,7 @@
 			<if test="coopAgency.caname != null and coopAgency.caname != ''">
 				AND caa.CANAME = #{coopAgency.caname}
 			</if>
-			<if test="coopAgency.caname != null and coopAgency.caname != ''">
+			<if test="coopAgency.supercode != null and coopAgency.supercode != ''">
 				AND caa.SUPERCODE = #{coopAgency.supercode}
 			</if>
 			<if test="statuses != null ">
@@ -553,7 +553,7 @@
 			<if test="coopAgency.caname != null and coopAgency.caname != ''">
 				AND caa.CANAME = #{coopAgency.caname}
 			</if>
-			<if test="coopAgency.caname != null and coopAgency.caname != ''">
+			<if test="coopAgency.supercode != null and coopAgency.supercode != ''">
 				AND caa.SUPERCODE = #{coopAgency.supercode}
 			</if>
 			<if test="statuses != null ">

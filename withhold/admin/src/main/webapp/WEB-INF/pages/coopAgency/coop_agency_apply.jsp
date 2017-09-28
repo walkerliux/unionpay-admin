@@ -78,8 +78,10 @@ table tr td select {
 						<td class="add" align="left" style="padding-left: 5px">
 						<select id="s_status" name="status"/>
 								<option value=''>--请选择生效状态--</option>
-								<option value='10'>待审</option>
-								<option value='11'>审核未过</option>
+								<option value='10'>注册待审</option>
+								<option value='11'>注册被拒</option>
+								<option value='21'>变更被拒</option>
+								<option value='31'>注销被拒</option>
 								</select></td>
 						<td class="add" align="right" colspan="3">
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
@@ -102,6 +104,7 @@ table tr td select {
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
 					<input type="hidden" id="selfId" name="selfId" />
+					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td class="update">渠道代码</td>
@@ -192,26 +195,30 @@ table tr td select {
 				columns:[[
 					{field:'cacode',title:'渠道代码',align:'center',width:120},
 					{field:'caname',title:'渠道名称',width:150,align:'center'},
-					{field:'caprovince',title:'所在省',align:'center',width:80},
-					{field:'cacity',title:'所在市',width:80,align:'center'},
+					{field:'provinceName',title:'所在省',align:'center',width:80},
+					{field:'cityName',title:'所在市',width:80,align:'center'},
 					{field:'address',title:'地址',align:'center',width:200},
 					{field:'contact',title:'联系人',align:'center',width:80},
 					{field:'contPhone',title:'联系电话',align:'center',width:100},
 					{field:'calevel',title:'渠道级别',align:'center',width:60},
-					{field:'supercode',title:'上级渠道',align:'center',width:150},
+					{field:'superName',title:'上级渠道',align:'center',width:150},
 					{field:'notes',title:'备注',align:'center',width:120},
 					{field:'status',title:'状态',width:100,align:'center',
 						formatter:function(value,rec){
-							if (value=="10") {
-								return "待审";
+							if (value=="09" || value=="10") {
+								return "注册待审";
 							}else if (value=="11") {
-								return "审核未过";
+								return "注册被拒";
+							}else if (value=="21") {
+								return "变更被拒";
+							}else if (value=="31") {
+								return "注销被拒";
 							}
 						}
 					},
 					{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-						if(rec.status=="10" || rec.status=="11"){
+						if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
 							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
 						}else{
 							return '';
@@ -282,31 +289,39 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				    $("#cacode").val(json.cacode);
-					$("#caname").val(json.caname);
-					showProvince(json.caprovince);
-					showCityWithCid(json.caprovince,json.cacity);
-					showSuperCode(json.supercode);
-					$("#address").val(json.address);
-					$("#contact").val(json.contact);
-					$("#contPhone").val(json.contPhone);
-					$("#notes").val(json.notes);
-					$("#selfId").val(json.selfId);
-			    }
-			});
-			
-			$('#w').window({
-				title: '变更渠道信息',
-				top:100,
-				left:400,
-				width: 800,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 360
+				   if (json == null) {
+						$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
+					} else {
+					    $("#cacode").val(json.cacode);
+						$("#caname").val(json.caname);
+						showProvince(json.caprovince);
+						showCityWithCid(json.caprovince,json.cacity);
+						showSuperCode(json.supercode);
+						$("#address").val(json.address);
+						$("#contact").val(json.contact);
+						$("#contPhone").val(json.contPhone);
+						$("#notes").val(json.notes);
+						$("#selfId").val(json.selfId);
+						$("#status").val(json.status);
+						
+						$('#w').window({
+							title: '变更渠道信息',
+							top:100,
+							left:400,
+							width: 800,
+							modal: true,
+							minimizable:false,
+							collapsible:false,
+							maximizable:false,
+							shadow: false,
+							closed: false,
+							height: 360
+						});
+					}
+			    },
+				error : function(){
+					$.messager.alert('提示', '服务异常！');
+				}
 			});
 		}
 		
@@ -396,7 +411,7 @@ table tr td select {
 					}
 					
 					$.each(json,function(key, value) {
-						if (value.supercode == supercode) {
+						if (value.cacode == supercode) {
 							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
 						} else {
 							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
@@ -438,7 +453,7 @@ table tr td select {
 			    }, 
 			    success: function(json) {
 		    		$('#btn_submit').linkbutton('enable');
-		    		//json = JSON.parse(json);
+		    		json = JSON.parse(json);
 		    		if(json.resultBool==true){
 						 $.messager.alert('提示',"操作成功！");
 						 $('#w').window('close');

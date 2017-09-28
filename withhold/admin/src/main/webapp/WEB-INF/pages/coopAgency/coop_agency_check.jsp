@@ -237,33 +237,41 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				    $("#cacode").html(json.cacode);
-					$("#caname").html(json.caname);
-					$("#caprovince").html(json.provinceName);
-					$("#cacity").html(json.cityName);
-					$("#address").html(json.address);
-					$("#cityName").html(json.cityName);
-					$("#contact").html(json.contact);
-					$("#contPhone").html(json.contPhone);
-					$("#notes").val(json.notes);
-					$("#selfId").val(json.selfId);
-					$("#status").val(json.status);
-			    }
+				   if (json == null) {
+						$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
+					} else {
+					    $("#cacode").html(json.cacode);
+						$("#caname").html(json.caname);
+						$("#caprovince").html(json.provinceName);
+						$("#cacity").html(json.cityName);
+						$("#address").html(json.address);
+						$("#cityName").html(json.cityName);
+						$("#contact").html(json.contact);
+						$("#contPhone").html(json.contPhone);
+						$("#notes").val(json.notes);
+						$("#selfId").val(json.selfId);
+						$("#status").val(json.status);
+						
+						$('#w').window({
+							title: '审核渠道信息',
+							top:100,
+							left:400,
+							width: 800,
+							modal: true,
+							minimizable:false,
+							collapsible:false,
+							maximizable:false,
+							shadow: false,
+							closed: false,
+							height: 360
+						});
+					}
+			    },
+				error : function(){
+					$.messager.alert('提示', '服务异常！');
+				}
 			});
 			
-			$('#w').window({
-				title: '审核渠道信息',
-				top:100,
-				left:400,
-				width: 800,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 360
-			});
 		}
 		
 		function showAllSuperCode(){
@@ -320,8 +328,8 @@ table tr td select {
 				url: "coopAgency/passCheck",
 				dataType: "json",
 				data:{
-					selfId:selfId,
-					status:status
+					"selfId":selfId,
+					"status":status
 				},
 				success: function(json) {
 					$('.checkca').linkbutton('enable');
