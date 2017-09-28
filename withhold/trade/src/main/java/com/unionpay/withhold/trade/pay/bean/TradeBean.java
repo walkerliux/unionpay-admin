@@ -6,6 +6,7 @@ import java.util.Queue;
 
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.pay.enums.BusinessEnum;
+import com.unionpay.withhold.trade.pay.pojo.OrderCollectBatchPayDO;
 import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDO;
 import com.unionpay.withhold.trade.route.pojo.RouteConfigDO;
 
@@ -29,9 +30,19 @@ public class TradeBean implements Serializable{
 	private String tn;
 	
 	/**
+	 * 批量代扣
+	 */
+	private OrderCollectBatchPayDO collectBatchOrder;
+	
+	/**
 	 * 交易流水（核心）
 	 */
 	private TxnLogPayDO txnLogPayDO;
+	
+	/**
+	 * 核心交易流水
+	 */
+	private List<TxnLogPayDO> txnLogList;
 	
 	/**
 	 * 交易通道集合
@@ -46,6 +57,10 @@ public class TradeBean implements Serializable{
 	 * 交易检查结果
 	 */
 	private ResultBean tradeCheck;
+	/**
+	 * 交易路由结果
+	 */
+	private ResultBean tradeRoute;
 	/**
 	 * 商户手续费结果
 	 */
@@ -82,6 +97,44 @@ public class TradeBean implements Serializable{
 	 * 交易最终结果
 	 */
 	private ResultBean finalTrade;
+	
+	
+	/**
+	 * 商户手续费结果
+	 */
+	private List<ResultBean> merchFeeList;
+	/**
+	 * 渠道（代理商）手续费结果
+	 */
+	private List<ResultBean> agentFeeList;
+	/**
+	 * 通道（交易渠道）手续费结果
+	 */
+	private List<ResultBean> chnlFeeList;
+	/**
+	 * 商户风控结果
+	 */
+	private List<ResultBean> merchRiskList;
+	/**
+	 * 手续费最终处理结果
+	 */
+	private List<ResultBean> finalFeeList;
+	/**
+	 * 渠道（代理商）风控
+	 */
+	private List<ResultBean> agentRiskList;
+	/**
+	 * 通道风控（交易渠道风控）
+	 */
+	private List<ResultBean> chnlRiskList;
+	/**
+	 * 风控最终结果
+	 */
+	private List<ResultBean> finalRiskList;
+	/**
+	 * 交易最终结果
+	 */
+	private List<ResultBean> finalTradeList;
 	
 	public String getTxnseqno() {
 		return txnseqno;
@@ -210,6 +263,102 @@ public class TradeBean implements Serializable{
 
 	public void setFinalTrade(ResultBean finalTrade) {
 		this.finalTrade = finalTrade;
+	}
+
+	public OrderCollectBatchPayDO getCollectBatchOrder() {
+		return collectBatchOrder;
+	}
+
+	public void setCollectBatchOrder(OrderCollectBatchPayDO collectBatchOrder) {
+		this.collectBatchOrder = collectBatchOrder;
+	}
+
+	public ResultBean getTradeRoute() {
+		return tradeRoute;
+	}
+
+	public void setTradeRoute(ResultBean tradeRoute) {
+		this.tradeRoute = tradeRoute;
+	}
+
+	public List<TxnLogPayDO> getTxnLogList() {
+		return txnLogList;
+	}
+
+	public void setTxnLogList(List<TxnLogPayDO> txnLogList) {
+		this.txnLogList = txnLogList;
+	}
+
+	public List<ResultBean> getMerchFeeList() {
+		return merchFeeList;
+	}
+
+	public void setMerchFeeList(List<ResultBean> merchFeeList) {
+		this.merchFeeList = merchFeeList;
+	}
+
+	public List<ResultBean> getAgentFeeList() {
+		return agentFeeList;
+	}
+
+	public void setAgentFeeList(List<ResultBean> agentFeeList) {
+		this.agentFeeList = agentFeeList;
+	}
+
+	public List<ResultBean> getChnlFeeList() {
+		return chnlFeeList;
+	}
+
+	public void setChnlFeeList(List<ResultBean> chnlFeeList) {
+		this.chnlFeeList = chnlFeeList;
+	}
+
+	public List<ResultBean> getMerchRiskList() {
+		return merchRiskList;
+	}
+
+	public void setMerchRiskList(List<ResultBean> merchRiskList) {
+		this.merchRiskList = merchRiskList;
+	}
+
+	public List<ResultBean> getFinalFeeList() {
+		return finalFeeList;
+	}
+
+	public void setFinalFeeList(List<ResultBean> finalFeeList) {
+		this.finalFeeList = finalFeeList;
+	}
+
+	public List<ResultBean> getAgentRiskList() {
+		return agentRiskList;
+	}
+
+	public void setAgentRiskList(List<ResultBean> agentRiskList) {
+		this.agentRiskList = agentRiskList;
+	}
+
+	public List<ResultBean> getChnlRiskList() {
+		return chnlRiskList;
+	}
+
+	public void setChnlRiskList(List<ResultBean> chnlRiskList) {
+		this.chnlRiskList = chnlRiskList;
+	}
+
+	public List<ResultBean> getFinalRiskList() {
+		return finalRiskList;
+	}
+
+	public void setFinalRiskList(List<ResultBean> finalRiskList) {
+		this.finalRiskList = finalRiskList;
+	}
+
+	public List<ResultBean> getFinalTradeList() {
+		return finalTradeList;
+	}
+
+	public void setFinalTradeList(List<ResultBean> finalTradeList) {
+		this.finalTradeList = finalTradeList;
 	}
 	
 	

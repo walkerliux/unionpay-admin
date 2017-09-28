@@ -38,7 +38,12 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CollectBusinessServiceImpl.class);
 	@Autowired
+	@Qualifier("orderTaskExecutor")
 	private TaskExecutor taskExecutor;
+	
+	@Autowired
+	@Qualifier("batchOrderTaskExecutor")
+	private TaskExecutor batchOrderTaskExecutor;
 	@Autowired
 	@Qualifier("secondPayHandler")
 	private EventHandler<SingleCollectBean> secondPayHandler;
@@ -137,7 +142,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 			e.printStackTrace();
 		}
 		disruptor.shutdown();
-		//logger.info(JSON.toJSONString(singleCollectBean));
+		logger.info(JSON.toJSONString(singleCollectBean));
 		if (singleCollectBean.getFinalResult().isResultBool()) {
 			resultBean = new ResultBean(singleCollectBean.getTn());
 		} else {
@@ -156,7 +161,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 					public BatchCollectBean newInstance() {
 						return batchCollectBean;
 					}
-				}, bufferSize, taskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
+				}, bufferSize, batchOrderTaskExecutor, ProducerType.SINGLE, new BusySpinWaitStrategy());
 		BatchMessageCheckHandler messageCheckHandler = new BatchMessageCheckHandler();
 		disruptor.handleEventsWith(batchRepeatSubmitHandler);
 		disruptor.after(batchRepeatSubmitHandler).handleEventsWith(messageCheckHandler, saveBatchHandler);
@@ -169,7 +174,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		final CountDownLatch latch = new CountDownLatch(1);
 		// 生产者准备
 
-		taskExecutor.execute(new Runnable() {
+		batchOrderTaskExecutor.execute(new Runnable() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -189,7 +194,6 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 			e.printStackTrace();
 		}
 		disruptor.shutdown();
-		logger.info(JSON.toJSONString(batchCollectBean));
 		if (batchCollectBean.getFinalResult().isResultBool()) {
 			resultBean = new ResultBean(batchCollectBean.getTn());
 		} else {

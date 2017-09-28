@@ -29,6 +29,7 @@ public class TradeCheckHandler implements EventHandler<TradeBean> {
 		if(orderCollectSingle==null){//订单不存在
 			resultBean = new ResultBean("PC029", "订单不存在");
 		}else {
+			tradeBean.setTxnseqno(orderCollectSingle.getRelatetradetxn());
 			OrderStatusEnum orderStatus = OrderStatusEnum.fromValue(orderCollectSingle.getStatus());
 			switch (orderStatus) {
 				case INITIAL:

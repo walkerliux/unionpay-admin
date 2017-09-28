@@ -1,11 +1,16 @@
 package com.unionpay.withhold.trade.order.batch.handle;
 
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.common.collect.Sets;
 import com.lmax.disruptor.EventHandler;
 import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
+import com.unionpay.withhold.trade.order.bean.BatchCollectDetaBean;
 import com.unionpay.withhold.trade.order.enums.OrderStatusEnum;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO;
 import com.unionpay.withhold.trade.order.service.BatchOrderServcie;
@@ -37,7 +42,17 @@ public class BatchRepeatSubmitHandler implements EventHandler<BatchCollectBean>{
 				resultBean = new ResultBean("OD055", "批次失效");
 			}
 		}else {
-			resultBean = new ResultBean("0000", "成功");
+			List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
+			Set<BatchCollectDetaBean> repeatSet = Sets.newHashSet();
+			repeatSet.addAll(detaList);
+			if(detaList.size() != repeatSet.size()) {
+				resultBean = new ResultBean("OD058", "批次明细订单号重复");
+				resultBean.setResultBool(false);
+			}else {
+				//检查批次明细内订单号是否重复
+				resultBean = new ResultBean("0000", "成功");
+			}
+			
 		}
 		batchCollectBean.setRepeatSubmitCheck(resultBean);
 	}

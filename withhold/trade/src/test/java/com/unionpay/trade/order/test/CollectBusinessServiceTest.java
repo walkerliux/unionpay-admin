@@ -16,23 +16,36 @@ import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.pay.pojo.OrderCollectSinglePayDO;
+import com.unionpay.withhold.trade.pay.service.CollectPayService;
+import com.unionpay.withhold.trade.pay.service.OrderCollectSinglePayService;
 import com.unionpay.withhold.utils.DateUtil;
 
 public class CollectBusinessServiceTest extends BaseTest{
 
 	@Autowired
 	private CollectBusinessService  collectBusinessService;
+	@Autowired
+	private CollectPayService collectPayService;
 	@Test
 	public void test() {
 		/*实时代扣*/
-		//test_realTimeCollect();
+		test_realTimeCollect();
 		/*批量代扣*/
 		//test_batchCollect();
 		/*实时代扣查询*/
 		//test_query_single_collect();
 		/*批量代扣查询*/
 		//test_query_batch_collect();
+		//temp_test();
 	}
+	
+	/*public void temp_test() {
+		OrderCollectSinglePayDO orderCollectSinglePay = new OrderCollectSinglePayDO();
+		//orderCollectSinglePay.setTn("170926158800003677");
+		orderCollectSinglePay.setRelatetradetxn("1709269900004712");
+		collectSinglePayService.querySingleCollectOrder(orderCollectSinglePay );
+	}*/
 	
 	public void test_realTimeCollect() {
 		SingleCollectBean singleCollectBean = new SingleCollectBean();
@@ -76,6 +89,7 @@ public class CollectBusinessServiceTest extends BaseTest{
 		//交易子类
 		singleCollectBean.setTxnSubType("00");
 		ResultBean resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		collectPayService.singleCollectPay(singleCollectBean.getFinalResult().getResultObj().toString());
 		System.out.println(JSON.toJSONString(resultBean));
 	}
 	public void test_query_batch_collect() {

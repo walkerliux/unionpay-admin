@@ -1,12 +1,18 @@
 package com.unionpay.withhold.trade.order.bean;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 public class BatchCollectDetaBean implements Serializable {
-	
+
 	private static final long serialVersionUID = 8355358102224241307L;
 	// 商户订单号
 	@NotEmpty(message = "param.empty.orderId")
@@ -48,89 +54,153 @@ public class BatchCollectDetaBean implements Serializable {
 	private String cvn2;
 	// 卡有效期
 	private String expired;
-	//批次ID
+	// 批次ID
 	private long batchId;
-	//交易序列号
+	// 交易序列号
 	private String txnseqno;
-	
-	
+
 	public String getOrderId() {
 		return orderId;
 	}
+
 	public void setOrderId(String orderId) {
 		this.orderId = orderId;
 	}
+
 	public String getCurrencyCode() {
 		return currencyCode;
 	}
+
 	public void setCurrencyCode(String currencyCode) {
 		this.currencyCode = currencyCode;
 	}
+
 	public String getAmt() {
 		return amt;
 	}
+
 	public void setAmt(String amt) {
 		this.amt = amt;
 	}
+
 	public String getCardNo() {
 		return cardNo;
 	}
+
 	public void setCardNo(String cardNo) {
 		this.cardNo = cardNo;
 	}
+
 	public String getCardType() {
 		return cardType;
 	}
+
 	public void setCardType(String cardType) {
 		this.cardType = cardType;
 	}
+
 	public String getCustomerNm() {
 		return customerNm;
 	}
+
 	public void setCustomerNm(String customerNm) {
 		this.customerNm = customerNm;
 	}
+
 	public String getCertifTp() {
 		return certifTp;
 	}
+
 	public void setCertifTp(String certifTp) {
 		this.certifTp = certifTp;
 	}
+
 	public String getCertifId() {
 		return certifId;
 	}
+
 	public void setCertifId(String certifId) {
 		this.certifId = certifId;
 	}
+
 	public String getPhoneNo() {
 		return phoneNo;
 	}
+
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
+
 	public String getCvn2() {
 		return cvn2;
 	}
+
 	public void setCvn2(String cvn2) {
 		this.cvn2 = cvn2;
 	}
+
 	public String getExpired() {
 		return expired;
 	}
+
 	public void setExpired(String expired) {
 		this.expired = expired;
 	}
+
 	public long getBatchId() {
 		return batchId;
 	}
+
 	public void setBatchId(long batchId) {
 		this.batchId = batchId;
 	}
+
 	public String getTxnseqno() {
 		return txnseqno;
 	}
+
 	public void setTxnseqno(String txnseqno) {
 		this.txnseqno = txnseqno;
 	}
 	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof BatchCollectDetaBean) {
+			BatchCollectDetaBean bean = (BatchCollectDetaBean) obj;
+			return this.orderId.equals(bean.getOrderId());
+		}
+		return super.equals(obj);
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		
+		return this.orderId.hashCode();
+	}
+
+	public static void main(String[] args) {
+		BatchCollectDetaBean detaBean1 = new BatchCollectDetaBean();
+		BatchCollectDetaBean detaBean2 = new BatchCollectDetaBean();
+		BatchCollectDetaBean detaBean3 = new BatchCollectDetaBean();
+		detaBean1.setOrderId("1");
+		detaBean1.setAmt(12344 + "");
+		detaBean2.setOrderId("1");
+		detaBean2.setBatchId(1235);
+		List<BatchCollectDetaBean> detaBeans = Lists.newArrayList();
+		detaBeans.add(detaBean1);
+		detaBeans.add(detaBean2);
+
+		detaBean3.setOrderId("1");
+		detaBeans.add(detaBean3);
+		// System.out.println(detaBean1.equals(detaBean2));
+		System.out.println(detaBeans.contains(detaBean3));
+
+		Set<BatchCollectDetaBean> setData =Sets.newHashSet();
+		setData.addAll(detaBeans);
+
+		 System.out.println("set- size----" + setData.size());  
+	     System.out.println("set-----" + setData.toString());  
+	}
 }

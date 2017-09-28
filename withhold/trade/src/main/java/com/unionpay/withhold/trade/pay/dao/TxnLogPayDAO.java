@@ -1,9 +1,11 @@
 package com.unionpay.withhold.trade.pay.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDO;
 import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDOExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TxnLogPayDAO {
     long countByExample(TxnLogPayDOExample example);
@@ -27,4 +29,6 @@ public interface TxnLogPayDAO {
     int updateByPrimaryKeySelective(TxnLogPayDO record);
 
     int updateByPrimaryKey(TxnLogPayDO record);
+    
+    List<TxnLogPayDO> queryBatchDetaTxnLog(Long batchid);
 }

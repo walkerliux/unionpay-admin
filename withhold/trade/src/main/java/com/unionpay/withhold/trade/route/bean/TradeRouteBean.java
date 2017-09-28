@@ -11,10 +11,10 @@ public class TradeRouteBean implements Serializable{
 	private String routver;
 	private String transTime;
 	private Long transAmt;
-	private String busiCode;
+	private String busicode;
 	private String status;
 	private String bankcode;
-	private String cardType;
+	private String cardtype;
 	
 	public String getRoutver() {
 		return routver;
@@ -34,12 +34,6 @@ public class TradeRouteBean implements Serializable{
 	public void setTransAmt(Long transAmt) {
 		this.transAmt = transAmt;
 	}
-	public String getBusiCode() {
-		return busiCode;
-	}
-	public void setBusiCode(String busiCode) {
-		this.busiCode = busiCode;
-	}
 	
 	public String getStatus() {
 		return status;
@@ -53,11 +47,17 @@ public class TradeRouteBean implements Serializable{
 	public void setBankcode(String bankcode) {
 		this.bankcode = bankcode;
 	}
-	public String getCardType() {
-		return cardType;
+	public String getBusicode() {
+		return busicode;
 	}
-	public void setCardType(String cardType) {
-		this.cardType = cardType;
+	public void setBusicode(String busicode) {
+		this.busicode = busicode;
+	}
+	public String getCardtype() {
+		return cardtype;
+	}
+	public void setCardtype(String cardtype) {
+		this.cardtype = cardtype;
 	}
 	
 	

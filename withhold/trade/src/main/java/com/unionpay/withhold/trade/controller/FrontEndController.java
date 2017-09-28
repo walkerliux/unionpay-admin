@@ -20,6 +20,7 @@ import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
+import com.unionpay.withhold.trade.pay.service.CollectPayService;
 import com.unionpay.withhold.utils.XMLUtils;
 
 @RestController
@@ -31,7 +32,7 @@ public class FrontEndController {
 	@Autowired
 	private CollectBusinessService  collectBusinessService;
 	@Autowired
-	private FeeDAO customDAO;
+	private CollectPayService collectPayService;
 	/**
 	 * 实时代扣
 	 * @param data
@@ -45,6 +46,11 @@ public class FrontEndController {
 		resultBean.setRespMsg("成功");
 		SingleCollectBean singleCollectBean = JSON.parseObject(data, SingleCollectBean.class);
 		resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		if(resultBean.isResultBool()) {
+			String tn = (String)resultBean.getResultObj();
+			resultBean = collectPayService.singleCollectPay(tn);
+			resultBean.setResultObj(tn);
+		}
 		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	} 	
@@ -60,6 +66,12 @@ public class FrontEndController {
 		ResultBean resultBean = new ResultBean("0000", "成功");
 		BatchCollectBean batchCollectBean = JSON.parseObject(data.trim(), BatchCollectBean.class);
 		resultBean = collectBusinessService.createBatchCollectOrder(batchCollectBean);
+		//logger.info(JSON.toJSONString(resultBean));
+		if(resultBean.isResultBool()) {
+			String tn = (String)resultBean.getResultObj();
+			resultBean = collectPayService.batchCollectPay(tn);
+			resultBean.setResultObj(tn);
+		}
 		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	}
@@ -86,41 +98,6 @@ public class FrontEndController {
 		ResultBean resultBean = new ResultBean("0000", "成功");
 		BatchCollectQueryBean batchCollectQueryBean = JSON.parseObject(data, BatchCollectQueryBean.class);
 		resultBean = collectBusinessService.queryBatchCollectOrder(batchCollectQueryBean);
-		return resultBean;
-	}
-	
-	/**
-	 * 验签报文
-	 * @param xml
-	 * @return
-	 */
-	@RequestMapping(value="/realtime/validateSignature",method=RequestMethod.POST)
-	public ResultBean validateSignature(String xml) {
-		ResultBean resultBean = new ResultBean("0000", "成功");
-		try {
-			MerchantRequest request = XMLUtils.converyToJavaBean(xml.trim(), MerchantRequest.class);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			resultBean = new ResultBean("", "非法的XML报文");
-		}
-		return resultBean;
-	}
-	/**
-	 * 加签报文
-	 * @param xml
-	 * @return
-	 */
-	@RequestMapping(value="/realtime/addSignature",method=RequestMethod.POST)
-	public ResultBean addSignature(String xml) {
-		ResultBean resultBean = new ResultBean("0000", "成功");
-		try {
-			MerchantResponse response = XMLUtils.converyToJavaBean(xml.trim(),MerchantResponse.class);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			resultBean = new ResultBean("", "非法的XML报文");
-		}
 		return resultBean;
 	}
 	

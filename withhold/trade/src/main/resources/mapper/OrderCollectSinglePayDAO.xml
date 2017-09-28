@@ -719,12 +719,13 @@
     select 
     <include refid="Base_Column_List" />
     from t_order_collect_single
-    where 
-	  <if test="tn != ''">
-        TN = #{tn,jdbcType=VARCHAR}
+    where 1=1 
+	  <if test="tn != '' and tn != null">
+        AND TN = #{tn,jdbcType=VARCHAR}
       </if>
-      <if test="relatetradetxn != ''">
-        RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR}
+      <if test="relatetradetxn != '' and relatetradetxn != null">
+        AND RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR}
       </if>
   </select>
+ 
 </mapper>
