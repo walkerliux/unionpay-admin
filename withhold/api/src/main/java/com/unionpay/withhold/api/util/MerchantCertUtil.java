@@ -12,6 +12,7 @@ import java.security.cert.X509Certificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.unionpay.withhold.api.bean.DownloadRequest;
 import com.unionpay.withhold.api.bean.DownloadResponse;
 import com.unionpay.withhold.api.bean.DwnReqRoot;
@@ -24,6 +25,8 @@ import com.unionpay.withhold.api.bean.QueryRequest;
 import com.unionpay.withhold.api.bean.QueryResponse;
 import com.unionpay.withhold.api.bean.ReqRoot;
 import com.unionpay.withhold.api.bean.RspRoot;
+import com.unionpay.withhold.api.bean.TRspRoot;
+import com.unionpay.withhold.api.bean.ThreadResponse;
 import com.unionpay.withhold.api.exception.AbstractBusiException;
 import com.unionpay.withhold.api.exception.TransFlowException;
 import com.unionpay.withhold.api.helper.MechantCertCacheHelper;
@@ -202,13 +205,15 @@ public class MerchantCertUtil {
 	 * @return
 	 * @throws Exception
 	 */
-/*	public static void addSignature(ThreadResponse response) throws AbstractBusiException {
+	public static void addSignature(ThreadResponse response,String path,String pwd) throws AbstractBusiException {
 		TRspRoot root = response.getRoot();
-		
-		String signature = null;
+		PlateformCertCacheHelper certHelper =(PlateformCertCacheHelper)ApplicationContextUtil.getBeanByClass(PlateformCertCacheHelper.class);
+		PlateformCertInfo plateformCertInfo =null;
+		String signature=null;
 		try {
+			plateformCertInfo=certHelper.getPlatFormCertInfo(path, pwd);
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			signature = makeSignature(xmlString, root.getEncoding());
+			signature = makeSignature(xmlString, root.getEncoding(),plateformCertInfo);
 		} 
 		catch(TransFlowException e) {
 			throw e;
@@ -219,9 +224,9 @@ public class MerchantCertUtil {
 		catch (Exception e) {
 			logger.error("生成返回签名数据失败" , e);
 		}
-		root.setCertId(PlateformCertCacheHelper.getInstance().getCertId());
+		root.setCertId(plateformCertInfo.getCertId());
 		response.setSignature(signature);
-	}*/
+	}
 	
 	/**
 	 * 使用平台私钥生成签名数据

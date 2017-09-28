@@ -77,8 +77,8 @@ public class BatchCollectServiceImpl implements BatchTradeService {
 				batchCollectResBean.setRespMsg(ResponseTypeEnum.success.getMessage());
 			}
 		} catch (DataErrorException e) {
-			batchCollectResBean.setRespCode(ResponseTypeEnum.dataError.getCode());
-			batchCollectResBean.setRespMsg(ResponseTypeEnum.dataError.getMessage());
+			batchCollectResBean.setRespCode(e.getRespCode());
+			batchCollectResBean.setRespMsg(e.getRespMessage());
 			logger.error(e.getRespMessage());
 		} catch (Exception e) {
 			batchCollectResBean.setRespCode(ResponseTypeEnum.fail.getCode());
