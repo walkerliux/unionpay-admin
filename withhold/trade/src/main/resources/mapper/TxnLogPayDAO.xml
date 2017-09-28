@@ -1222,4 +1222,12 @@
       PATHCODE = #{pathcode,jdbcType=CHAR}
     where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
   </update>
+  
+  <select id="queryBatchDetaTxnLog" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_txns_log
+    where 
+    	TXNSEQNO in (SELECT RELATETRADETXN from t_order_collect_deta where BATCHTID = #{batchtid,jdbcType=DECIMAL} and STATUS='01')
+  </select>
 </mapper>

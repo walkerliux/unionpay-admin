@@ -1,7 +1,7 @@
 package com.unionpay.withhold.trade.order.pojo;
 
 public class RspmsgDO {
-    private String rspid;
+    private Integer rspid;
 
     private String apicode;
 
@@ -9,24 +9,22 @@ public class RspmsgDO {
 
     private String retcode;
 
-    private String kind;
-
-    private String reason;
+    private String rspinfo;
 
     private String chnltype;
 
     private String chnlrspcode;
 
-    private String rspinfo;
+    private String reason;
 
     private String notes;
 
-    public String getRspid() {
+    public Integer getRspid() {
         return rspid;
     }
 
-    public void setRspid(String rspid) {
-        this.rspid = rspid == null ? null : rspid.trim();
+    public void setRspid(Integer rspid) {
+        this.rspid = rspid;
     }
 
     public String getApicode() {
@@ -53,20 +51,12 @@ public class RspmsgDO {
         this.retcode = retcode == null ? null : retcode.trim();
     }
 
-    public String getKind() {
-        return kind;
+    public String getRspinfo() {
+        return rspinfo;
     }
 
-    public void setKind(String kind) {
-        this.kind = kind == null ? null : kind.trim();
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason == null ? null : reason.trim();
+    public void setRspinfo(String rspinfo) {
+        this.rspinfo = rspinfo == null ? null : rspinfo.trim();
     }
 
     public String getChnltype() {
@@ -85,12 +75,12 @@ public class RspmsgDO {
         this.chnlrspcode = chnlrspcode == null ? null : chnlrspcode.trim();
     }
 
-    public String getRspinfo() {
-        return rspinfo;
+    public String getReason() {
+        return reason;
     }
 
-    public void setRspinfo(String rspinfo) {
-        this.rspinfo = rspinfo == null ? null : rspinfo.trim();
+    public void setReason(String reason) {
+        this.reason = reason == null ? null : reason.trim();
     }
 
     public String getNotes() {

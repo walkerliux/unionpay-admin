@@ -42,6 +42,15 @@ public class AdditBean implements Serializable{
 	@JSONField(ordinal=6)
 	private String riskInfo;
 	
+	@JSONField(ordinal=7)
+	private String certId;
+	
+	public String getCertId() {
+		return certId;
+	}
+	public void setCertId(String certId) {
+		this.certId = certId;
+	}
 	public String getAccessType() {
 		return accessType;
 	}

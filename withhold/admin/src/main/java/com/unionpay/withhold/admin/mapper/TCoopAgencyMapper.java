@@ -1,9 +1,11 @@
 package com.unionpay.withhold.admin.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TCoopAgencyMapper {
     int countByExample(TCoopAgencyExample example);
@@ -27,4 +29,12 @@ public interface TCoopAgencyMapper {
     int updateByPrimaryKeySelective(TCoopAgency record);
 
     int updateByPrimaryKey(TCoopAgency record);
+    
+    
+    List<TCoopAgency> selectAllSuperCode(@Param("supercode")String supercode);
+    
+    List<TCoopAgency> selectWithCondition(@Param("coopAgency")TCoopAgency coopAgency, @Param("statuses")List<String> statuses, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+    int selectCountWithCondition(@Param("coopAgency")TCoopAgency coopAgency, @Param("statuses")List<String> statuses);
+    
+    TCoopAgency selectCoopAgencyDetailById(Long caid);
 }

@@ -28,35 +28,40 @@ public class SaveBatchHandler implements EventHandler<BatchCollectBean>{
 	public void onEvent(BatchCollectBean batchCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
-			String tn = serialNumberService.generateTN(batchCollectBean.getMerId());
-			OrderCollectBatchDO orderCollectBatch = new OrderCollectBatchDO();
-			orderCollectBatch.setTid(serialNumberService.generateTID(TableEnum.BATCHCOLLECTIONORDER));
-			orderCollectBatch.setMerid(batchCollectBean.getMerId());
-			orderCollectBatch.setVersion(batchCollectBean.getVersion());
-			orderCollectBatch.setEncoding(batchCollectBean.getEncoding());
-			orderCollectBatch.setCertid(batchCollectBean.getCertId());
-			orderCollectBatch.setTxntype(batchCollectBean.getTxnType());
-			orderCollectBatch.setTxnsubtype(batchCollectBean.getTxnSubType());
-			orderCollectBatch.setBiztype(batchCollectBean.getBizType());
-			orderCollectBatch.setBackurl(batchCollectBean.getBackUrl());
-			orderCollectBatch.setBatchno(batchCollectBean.getBatchNo());
-			orderCollectBatch.setFactorid(batchCollectBean.getFactorId());
-			orderCollectBatch.setTxntime(batchCollectBean.getTxnTime().substring(8));
-			orderCollectBatch.setTxndate(batchCollectBean.getTxnTime().substring(0,8));
-			orderCollectBatch.setTotalqty(Long.valueOf(batchCollectBean.getTotalQty()));
-			orderCollectBatch.setTotalamt(Long.valueOf(batchCollectBean.getTotalAmt()));
-			orderCollectBatch.setReserved(batchCollectBean.getReserved());
-			orderCollectBatch.setStatus(OrderStatusEnum.INITIAL.getCode());
-			orderCollectBatch.setOrdercommitime(DateUtil.getCurrentDateTime());
-			orderCollectBatch.setTn(tn);
-			batchOrderServcie.saveBatchOrder(orderCollectBatch);
-			List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
-			for(BatchCollectDetaBean detaBean : detaList) {
-				detaBean.setTxnseqno(serialNumberService.generateTxnseqno());
-				detaBean.setBatchId(orderCollectBatch.getTid());
+			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()) {
+				
+			}else {
+				String tn = serialNumberService.generateTN(batchCollectBean.getMerId());
+				OrderCollectBatchDO orderCollectBatch = new OrderCollectBatchDO();
+				orderCollectBatch.setTid(serialNumberService.generateTID(TableEnum.BATCHCOLLECTIONORDER));
+				orderCollectBatch.setMerid(batchCollectBean.getMerId());
+				orderCollectBatch.setVersion(batchCollectBean.getVersion());
+				orderCollectBatch.setEncoding(batchCollectBean.getEncoding());
+				orderCollectBatch.setCertid(batchCollectBean.getCertId());
+				orderCollectBatch.setTxntype(batchCollectBean.getTxnType());
+				orderCollectBatch.setTxnsubtype(batchCollectBean.getTxnSubType());
+				orderCollectBatch.setBiztype(batchCollectBean.getBizType());
+				orderCollectBatch.setBackurl(batchCollectBean.getBackUrl());
+				orderCollectBatch.setBatchno(batchCollectBean.getBatchNo());
+				orderCollectBatch.setFactorid(batchCollectBean.getFactorId());
+				orderCollectBatch.setTxntime(batchCollectBean.getTxnTime().substring(8));
+				orderCollectBatch.setTxndate(batchCollectBean.getTxnTime().substring(0,8));
+				orderCollectBatch.setTotalqty(Long.valueOf(batchCollectBean.getTotalQty()));
+				orderCollectBatch.setTotalamt(Long.valueOf(batchCollectBean.getTotalAmt()));
+				orderCollectBatch.setReserved(batchCollectBean.getReserved());
+				orderCollectBatch.setStatus(OrderStatusEnum.INITIAL.getCode());
+				orderCollectBatch.setOrdercommitime(DateUtil.getCurrentDateTime());
+				orderCollectBatch.setTn(tn);
+				batchOrderServcie.saveBatchOrder(orderCollectBatch);
+				List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
+				for(BatchCollectDetaBean detaBean : detaList) {
+					detaBean.setTxnseqno(serialNumberService.generateTxnseqno());
+					detaBean.setBatchId(orderCollectBatch.getTid());
+				}
+				batchCollectBean.setTn(tn);
+				resultBean =  new ResultBean("0000", "成功");
 			}
-			batchCollectBean.setTn(tn);
-			resultBean =  new ResultBean("0000", "成功");
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
