@@ -12,7 +12,6 @@ import java.security.cert.X509Certificate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.fasterxml.jackson.core.io.SegmentedStringWriter;
 import com.unionpay.withhold.api.bean.DownloadRequest;
 import com.unionpay.withhold.api.bean.DownloadResponse;
 import com.unionpay.withhold.api.bean.DwnReqRoot;
@@ -56,11 +55,9 @@ public class MerchantCertUtil {
 		try {
 			ReqRoot root = merchantRequest.getRoot();
 			String signature = merchantRequest.getSignature().trim();
-			
 			String certId = root.getCertId();
 			String encoding = merchantRequest.getRoot().getEncoding();
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			
 			return validateSignature(signature, xmlString, mchntKeyPath, encoding, certId);
 		} 
 		catch (AbstractBusiException e) {
@@ -89,11 +86,9 @@ public class MerchantCertUtil {
 		try {
 			QReqRoot root = merchantRequest.getRoot();
 			String signature = merchantRequest.getSignature().trim();
-			
 			String certId = root.getCertId();
 			String encoding = merchantRequest.getRoot().getEncoding();
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			
 			return validateSignature(signature, xmlString, mchntKeyPath, encoding, certId);
 		} 
 		catch (AbstractBusiException e) {
@@ -194,10 +189,6 @@ public class MerchantCertUtil {
 		root.setCertId(plateformCertInfo.getCertId());
 		response.setSignature(signature);
 	}
-	
-	
-	
-
 	/**
 	 * 添加signature到应答报文
 	 *
@@ -272,22 +263,16 @@ public class MerchantCertUtil {
 	 */
 	private static boolean validateSignature(String signature, String data, String mchntKeyPath, String encoding, String verifyCertId) throws AbstractBusiException {
 		try {
-
 			X509Certificate pubCert =((MechantCertCacheHelper)ApplicationContextUtil.getBeanByClass(MechantCertCacheHelper.class)).getCertByFileName(mchntKeyPath);
-			
 			if(verifyCertId != null && !verifyCertId.equals(pubCert.getSerialNumber().toString())) {
 				throw new TransFlowException("0038", "商户请求报文证书id不正确");
 			}
 			Signature verify = Signature.getInstance(pubCert.getSigAlgName());
 			verify.initVerify(pubCert.getPublicKey());
-			
 			data = data.replaceAll("[\\r\\n\\t]", "").replaceAll(" ", "");
-			
 			byte[] lastData = convertByte(data, "sha1X16", encoding);
 			verify.update(lastData);
-			
 			byte[] result = SecureUtil.base64Decode(signature.getBytes(encoding));
-			
 			return verify.verify(result);
 		}
 		catch (AbstractBusiException e) {
@@ -300,7 +285,6 @@ public class MerchantCertUtil {
 	
 	/**
 	 * 对信息进行加密转换
-	 *
 	 * @param data
 	 * @param method
 	 * @param encoding
@@ -323,7 +307,6 @@ public class MerchantCertUtil {
 		}
 		return data.getBytes();
 	}
-
 	public static boolean validateDown(DownloadRequest request, String certFilename) {
 		try {
 			DwnReqRoot root = request.getRoot();

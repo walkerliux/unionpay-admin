@@ -66,8 +66,8 @@ public class BatchController {
 		MessageBean responseBean=null;
 		ResponseBaseBean responseBaseBean = new ResponseBaseBean();
 		//附加数据准备
-		AdditBean additBean=prepareAdditbean(((AdditBean) JSONObject.toBean(
-				JSONObject.fromObject(messageBean.getAddit()), AdditBean.class)).getMerId());
+		AdditBean requestAddit= (AdditBean) JSONObject.toBean(JSONObject.fromObject(messageBean.getAddit()), AdditBean.class);
+		AdditBean additBean=prepareAdditbean(requestAddit.getMerId(),requestAddit.getCertId());
 		try {
 			//验签,解密
 			requestBean=messageDecodeService.decodeAndVerify_2048(messageBean);
@@ -95,9 +95,10 @@ public class BatchController {
 		return responseBean;
 	}
 	//附加数据（风控信息）；
-	private AdditBean prepareAdditbean(String merid){
+	private AdditBean prepareAdditbean(String merid,String certid){
 		AdditBean additBean = new AdditBean();
 		try {
+			additBean.setCertId(certid);
 			additBean.setEncryKey(AESUtil.getAESKey());
 			additBean.setAccessType(accessType);
 			additBean.setMerId(merid);

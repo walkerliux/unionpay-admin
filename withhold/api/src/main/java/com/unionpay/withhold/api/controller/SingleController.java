@@ -1,5 +1,10 @@
 package com.unionpay.withhold.api.controller;
 
+import java.io.OutputStream;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +22,7 @@ import com.unionpay.withhold.api.service.MerchMkService;
 import com.unionpay.withhold.api.single.bean.TransFlow;
 import com.unionpay.withhold.api.util.HttpClient;
 import com.unionpay.withhold.api.util.MerchantCertUtil;
+import com.unionpay.withhold.api.util.StreamTool;
 import com.unionpay.withhold.utils.XMLUtils;
 
 /**
@@ -28,31 +34,42 @@ import com.unionpay.withhold.utils.XMLUtils;
 @Controller
 @RequestMapping("/single/")
 public class SingleController {
-
 	@Autowired
 	private MerchMkService merchMkService;
-	
 	private Logger log = LoggerFactory.getLogger(SingleController.class);
 	@ResponseBody
 	@RequestMapping("notice")
 	public String notice(String data) {
 		TransFlow transFlow =JSON.parseObject(data, TransFlow.class);
-		MerchMk merchMk=merchMkService.selectByPrimaryKey("");
+		MerchMk merchMk=merchMkService.selectByPrimaryKey(transFlow.getCertId());
+		int result=1;
 		try {
-			executeSave(transFlow,merchMk.getLocalpubkey(),merchMk.getPlatformpfxpwd());
+			result =executeSave(transFlow,merchMk.getLocalpubkey(),merchMk.getPlatformpfxpwd());
 		} catch (AbstractBusiException e) {
 			e.printStackTrace();
 		}
-		return "error";
+		return result==0?"成功":"失败";
 	}
-	
 	@ResponseBody
 	@RequestMapping("noticetest")
-	public String noticetest(String data) {
+	public void noticetest(HttpServletRequest request,HttpServletResponse response) {
+		String data="";
+		try {
+			data = StreamTool.getString(request.getInputStream());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		log.info("实时代扣异步通知测试接收到的数据=====>"+data);
-		return "测试是成功的接受到的参数是==>"+data;
+		OutputStream out=null;
+		try {
+			out =response.getOutputStream();
+			out.write("000000".getBytes("utf-8"));
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
 	}
-	
 	public int executeSave(TransFlow transFlow ,String path,String pwd) throws AbstractBusiException {
 		TransFlow savedTransFlow = new TransFlow();
 		savedTransFlow.setId(transFlow.getId());
@@ -65,22 +82,24 @@ public class SingleController {
 			try {
 				status = httpClient.send(requestBody, "UTF-8");
 				// 通知成功设置状态
-				if(200 == status && "000000".equals(httpClient.getResult())) {
+				String result =httpClient.getResult();
+				String flag ="000000";
+				if(200 == status && flag.equals(result)) {
 					log.info("推送成功通知...");
-					savedTransFlow.setInterfaceNotifyState("1");
+					return 0;
+					//savedTransFlow.setInterfaceNotifyState("1");
 				}
+				return 1;
 			}
 			catch(Exception e) {
 				e.printStackTrace();
+				return 1;
 			}
 		}
 		else {
 			// 通知失败，没有配置回调地址
-			savedTransFlow.setInterfaceNotifyState("3");
-			//transFlowService.updateByPrimaryKeySelective(savedTransFlow);
+			return 1;
 		}
-		
-		return 0;
 	}
 	
 	/**
@@ -134,7 +153,10 @@ public class SingleController {
 		}
 	}
 	
-	
-	
-	
+	public static void main(String[] args) {
+		StringBuilder sb = new StringBuilder(1024);
+		sb.append("123");
+		String a =sb.toString();
+		System.out.println(a);
+	}
 }

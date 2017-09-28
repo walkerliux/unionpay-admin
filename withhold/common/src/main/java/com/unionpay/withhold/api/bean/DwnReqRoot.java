@@ -28,7 +28,7 @@ public class DwnReqRoot implements Serializable {
 	@NotEmpty(message="0080[证书ID]为空")
 	private String certId;
 	// 加密证书ID
-	@NotEmpty(message="0080[加密证书ID]为空")
+	//@NotEmpty(message="0080[加密证书ID]为空")
 	private String encryptCertId;
 	// 签名方式
 	@Pattern(regexp="^(01)$",message="0039[签名方式]有误")

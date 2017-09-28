@@ -299,6 +299,6 @@
 		<module>path-api</module>
 		<module>path-cp</module>
     	<module>trade-api</module>
-  </modules>
+	</modules>
 
 </project>
