@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 
 
+import java.util.List;
+
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -74,7 +76,7 @@ public class FTPListAllFiles {
 	}
 
 	/**
-	 * 递归遍历出目录下面所有目录
+	 * 递归遍历出目录下面所有文件夹
 	 * 
 	 * @param pathName
 	 *            需要遍历的目录，必须以"/"开始和结束
@@ -145,6 +147,12 @@ public class FTPListAllFiles {
 				
 			}
 		
+		}
+		if (FTPListAllFiles.login("192.168.2.12", 21, "webftp", "webftp")) {
+			List<String> filesList = FTPListAllFiles.filesList("contract/200000000001588"+"/", "jpg");
+			for (String string2 : filesList) {
+				System.out.println(string2);
+			}
 		}
 		
 	}

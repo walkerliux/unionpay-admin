@@ -3,6 +3,7 @@ package com.unionpay.withhold.admin.Bean;
 public class FTPfiles {
 	private String fileName;
 	private String status;
+	private String folder;
 	public String getFileName() {
 		return fileName;
 	}
@@ -17,6 +18,14 @@ public class FTPfiles {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public String getFolder() {
+		return folder;
+	}
+
+	public void setFolder(String folder) {
+		this.folder = folder;
 	}
 	
 

@@ -10,7 +10,7 @@ public interface TRspmsgMapper {
 
     int deleteByExample(TRspmsgExample example);
 
-    int deleteByPrimaryKey(String rspid);
+    int deleteByPrimaryKey(Integer rspid);
 
     int insert(TRspmsg record);
 
@@ -18,7 +18,7 @@ public interface TRspmsgMapper {
 
     List<TRspmsg> selectByExample(TRspmsgExample example);
 
-    TRspmsg selectByPrimaryKey(String rspid);
+    TRspmsg selectByPrimaryKey(Integer rspid);
 
     int updateByExampleSelective(@Param("record") TRspmsg record, @Param("example") TRspmsgExample example);
 
