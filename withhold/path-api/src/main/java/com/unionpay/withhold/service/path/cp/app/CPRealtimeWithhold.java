@@ -1,7 +1,7 @@
 package com.unionpay.withhold.service.path.cp.app;
 
 import com.unionpay.withhold.common.bean.ResultBean;
-import com.unionpay.withhold.service.path.cp.dto.req.BTWithholdQryReqDto;
+import com.unionpay.withhold.service.path.cp.dto.req.RTWithholdAppReqDto;
 
 /**
  * 实时代扣交易类接口
@@ -17,6 +17,6 @@ public interface CPRealtimeWithhold {
      * @param rtWithholdAppReqDto
      * @return
      */
-    public ResultBean applyRealtimeWithhold(BTWithholdQryReqDto brWithholdQryReqDto);
+    public ResultBean applyRealtimeWithhold(RTWithholdAppReqDto rtWithholdAppReqDto);
 
 }

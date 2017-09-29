@@ -2,7 +2,7 @@ package com.unionpay.withhold.service.path.cp.app;
 
 import com.unionpay.withhold.common.bean.ResultBean;
 import com.unionpay.withhold.service.path.cp.dto.req.BTRespWithholdReqDto;
-import com.unionpay.withhold.service.path.cp.dto.req.RTWithholdAppReqDto;
+import com.unionpay.withhold.service.path.cp.dto.req.BTWithholdQryReqDto;
 
 /**
  * 批量代扣交易类接口
@@ -18,7 +18,7 @@ public interface CPBatchWithhold {
      * @param rtWithholdAppReqDto
      * @return
      */
-    public ResultBean applyBatchWithhold(RTWithholdAppReqDto rtWithholdAppReqDto);
+    public ResultBean applyBatchWithhold(BTWithholdQryReqDto btWithholdQryReqDto);
 
     /**
      * 接收回盘文件通知
