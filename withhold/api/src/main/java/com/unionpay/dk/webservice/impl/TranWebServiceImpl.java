@@ -31,9 +31,6 @@ import com.unionpay.withhold.trade.api.FEAPI;
 import com.unionpay.withhold.trade.api.bean.ResultBean;
 import com.unionpay.withhold.trade.api.bean.SingleCollectBean;
 import com.unionpay.withhold.utils.BeanCopyUtil;
-
-import net.sf.json.JSONObject;
-
 /**
  * 关于ws交易及查询的实现
  * 
@@ -43,11 +40,8 @@ import net.sf.json.JSONObject;
 @Service
 public class TranWebServiceImpl implements TranWebService {
 	private static Logger logger = Logger.getLogger(TranWebServiceImpl.class);
-
-	
 	@Autowired
 	private MerchMkService merchMkService;
-	
 	@Autowired
 	private FEAPI fe;
 	/**
@@ -66,8 +60,7 @@ public class TranWebServiceImpl implements TranWebService {
 			DkContext context = new DkContextImpl();
 			context.set("req", merchantRequest);
 			ReqRoot root = merchantRequest.getRoot();
-		    merchMk=merchMkService.selectByPrimaryKey(root.getMchntCd());
-			
+		    merchMk=merchMkService.selectByPrimaryKey(root.getCertId());
 				launchTranValidate(context,merchMk.getMemberpubkey(),merchantRequest);
 				SingleCollectBean singleCollectBean=BeanCopyUtil.copyBean(SingleCollectBean.class, root);
 				//TODO:暂时测试
@@ -118,7 +111,7 @@ public class TranWebServiceImpl implements TranWebService {
 			logger.info("查询服务初始化信息准备成功");
 			DkContext context = new DkContextImpl();
 			QReqRoot root = queryRequest.getRoot();
-		    merchMk=merchMkService.selectByPrimaryKey(root.getMchntCd());
+		    merchMk=merchMkService.selectByPrimaryKey(root.getCertId());
 			queryTranValidate(context,merchMk.getMemberpubkey(),queryRequest);
 			//TODO:调用业务逻辑
 			queryResponse.getRoot().setRespCod("00");
@@ -209,13 +202,14 @@ public class TranWebServiceImpl implements TranWebService {
 		DownloadRequest downloadRequest;
 		DownloadResponse downloadResponse = new DownloadResponse();
 		logger.info("查询服务开始");
+		MerchMk merchMk=new MerchMk();
 		try {
 			downloadRequest = XMLUtils.converyToJavaBean(message.trim(), DownloadRequest.class);
 			downloadResponse = XMLUtils.convertToRes(downloadRequest);
 			logger.info("查询服务初始化信息准备成功");
 			DkContext context = new DkContextImpl();
 			DwnReqRoot root = downloadRequest.getRoot();
-			MerchMk merchMk=merchMkService.selectByPrimaryKey(root.getMchntCd());
+		    merchMk=merchMkService.selectByPrimaryKey(root.getCertId());
 			downTranValidate(context,merchMk.getMemberpubkey(),downloadRequest);
 			//TODO:调用业务逻辑
 			String respCode = "00";
@@ -223,24 +217,24 @@ public class TranWebServiceImpl implements TranWebService {
 			downloadResponse.getRoot().setRespCod(respCode);
 			downloadResponse.getRoot().setRespMsg(respMsg);
 			logger.info("交易服务生成应答报文");
-			MerchantCertUtil.addSignatureDown(downloadResponse,merchMk.getLocalpubkey(),merchMk.getPlatformpfxpwd());
-			return XMLUtils.convertToXml(downloadResponse);
 			
 		} catch(DataErrorException e){
-			return "error";
+			logger.error("参数异常：【" + e.getRespCode()+ "】" + e.getRespMessage());
+			downloadResponse.getRoot().setRespCod(e.getRespCode());
+			downloadResponse.getRoot().setRespMsg(e.getRespMessage());
 		}
 		catch (Exception e) {
 			logger.error("交易服务异常处理出现异常" + e.getMessage(), e);
 			downloadResponse.getRoot().setRespCod("0025");
 			downloadResponse.getRoot().setRespMsg("交易服务异常处理出现异常");
-			try {
-				return XMLUtils.convertToXml(downloadResponse);
-			} 
-			catch (Exception e1) {
-				logger.info("生成异常交易返回报文出错：" + e1.getMessage(), e1);
-				return "error";
-			}
 		}
-	}
+		try {
+			MerchantCertUtil.addSignatureDown(downloadResponse,merchMk.getLocalpubkey(),merchMk.getPlatformpfxpwd());
+			return XMLUtils.convertToXml(downloadResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "error";}}
+
+
 	
 }

@@ -1,5 +1,7 @@
 package com.unionpay.withhold.trade.pay.pojo;
 
+import java.util.List;
+
 public class OrderCollectDetaPayDO {
     private Long tid;
 
@@ -44,6 +46,7 @@ public class OrderCollectDetaPayDO {
     private String cvn2;
 
     private String expired;
+    
 
     public Long getTid() {
         return tid;

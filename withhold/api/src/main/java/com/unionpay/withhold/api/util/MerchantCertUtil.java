@@ -24,6 +24,8 @@ import com.unionpay.withhold.api.bean.QueryRequest;
 import com.unionpay.withhold.api.bean.QueryResponse;
 import com.unionpay.withhold.api.bean.ReqRoot;
 import com.unionpay.withhold.api.bean.RspRoot;
+import com.unionpay.withhold.api.bean.TRspRoot;
+import com.unionpay.withhold.api.bean.ThreadResponse;
 import com.unionpay.withhold.api.exception.AbstractBusiException;
 import com.unionpay.withhold.api.exception.TransFlowException;
 import com.unionpay.withhold.api.helper.MechantCertCacheHelper;
@@ -53,11 +55,9 @@ public class MerchantCertUtil {
 		try {
 			ReqRoot root = merchantRequest.getRoot();
 			String signature = merchantRequest.getSignature().trim();
-			
 			String certId = root.getCertId();
 			String encoding = merchantRequest.getRoot().getEncoding();
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			
 			return validateSignature(signature, xmlString, mchntKeyPath, encoding, certId);
 		} 
 		catch (AbstractBusiException e) {
@@ -86,11 +86,9 @@ public class MerchantCertUtil {
 		try {
 			QReqRoot root = merchantRequest.getRoot();
 			String signature = merchantRequest.getSignature().trim();
-			
 			String certId = root.getCertId();
 			String encoding = merchantRequest.getRoot().getEncoding();
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			
 			return validateSignature(signature, xmlString, mchntKeyPath, encoding, certId);
 		} 
 		catch (AbstractBusiException e) {
@@ -191,10 +189,6 @@ public class MerchantCertUtil {
 		root.setCertId(plateformCertInfo.getCertId());
 		response.setSignature(signature);
 	}
-	
-	
-	
-
 	/**
 	 * 添加signature到应答报文
 	 *
@@ -202,13 +196,15 @@ public class MerchantCertUtil {
 	 * @return
 	 * @throws Exception
 	 */
-/*	public static void addSignature(ThreadResponse response) throws AbstractBusiException {
+	public static void addSignature(ThreadResponse response,String path,String pwd) throws AbstractBusiException {
 		TRspRoot root = response.getRoot();
-		
-		String signature = null;
+		PlateformCertCacheHelper certHelper =(PlateformCertCacheHelper)ApplicationContextUtil.getBeanByClass(PlateformCertCacheHelper.class);
+		PlateformCertInfo plateformCertInfo =null;
+		String signature=null;
 		try {
+			plateformCertInfo=certHelper.getPlatFormCertInfo(path, pwd);
 			String xmlString = XMLUtils.convertToXmlWithoutHead(root);
-			signature = makeSignature(xmlString, root.getEncoding());
+			signature = makeSignature(xmlString, root.getEncoding(),plateformCertInfo);
 		} 
 		catch(TransFlowException e) {
 			throw e;
@@ -219,9 +215,9 @@ public class MerchantCertUtil {
 		catch (Exception e) {
 			logger.error("生成返回签名数据失败" , e);
 		}
-		root.setCertId(PlateformCertCacheHelper.getInstance().getCertId());
+		root.setCertId(plateformCertInfo.getCertId());
 		response.setSignature(signature);
-	}*/
+	}
 	
 	/**
 	 * 使用平台私钥生成签名数据
@@ -267,22 +263,16 @@ public class MerchantCertUtil {
 	 */
 	private static boolean validateSignature(String signature, String data, String mchntKeyPath, String encoding, String verifyCertId) throws AbstractBusiException {
 		try {
-
 			X509Certificate pubCert =((MechantCertCacheHelper)ApplicationContextUtil.getBeanByClass(MechantCertCacheHelper.class)).getCertByFileName(mchntKeyPath);
-			
 			if(verifyCertId != null && !verifyCertId.equals(pubCert.getSerialNumber().toString())) {
 				throw new TransFlowException("0038", "商户请求报文证书id不正确");
 			}
 			Signature verify = Signature.getInstance(pubCert.getSigAlgName());
 			verify.initVerify(pubCert.getPublicKey());
-			
 			data = data.replaceAll("[\\r\\n\\t]", "").replaceAll(" ", "");
-			
 			byte[] lastData = convertByte(data, "sha1X16", encoding);
 			verify.update(lastData);
-			
 			byte[] result = SecureUtil.base64Decode(signature.getBytes(encoding));
-			
 			return verify.verify(result);
 		}
 		catch (AbstractBusiException e) {
@@ -295,7 +285,6 @@ public class MerchantCertUtil {
 	
 	/**
 	 * 对信息进行加密转换
-	 *
 	 * @param data
 	 * @param method
 	 * @param encoding

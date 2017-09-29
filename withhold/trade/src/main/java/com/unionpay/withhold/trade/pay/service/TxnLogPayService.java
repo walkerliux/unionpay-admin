@@ -1,5 +1,7 @@
 package com.unionpay.withhold.trade.pay.service;
 
+import java.util.List;
+
 import com.unionpay.withhold.trade.pay.pojo.TxnLogPayDO;
 
 public interface TxnLogPayService {
@@ -16,4 +18,11 @@ public interface TxnLogPayService {
 	 * @return
 	 */
 	public TxnLogPayDO queryTxnLog(String txnseqno);
+	
+	/**
+	 * 获取批量明细的交易流水集合
+	 * @param batchid
+	 * @return
+	 */
+	public List<TxnLogPayDO> queryBatchDetaTxnLog(Long batchid);
 }

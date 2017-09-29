@@ -11,7 +11,7 @@
 	<!--方式一、使用jdk的实现 -->
 	<bean id="ky.requestFactory"
 		class="org.springframework.http.client.SimpleClientHttpRequestFactory">
-		<property name="readTimeout" value="10000" />
+		<property name="readTimeout" value="60000" />
 		<property name="connectTimeout" value="5000" />
 	</bean>
 	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">

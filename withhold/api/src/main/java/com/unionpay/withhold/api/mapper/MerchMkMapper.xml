@@ -29,11 +29,11 @@
     select 
     <include refid="Base_Column_List" />
     from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.api.model.MerchMk" >
     insert into t_merch_mk (MEMBERID, SAFESEQ, SAFETYPE, 

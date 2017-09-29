@@ -64,17 +64,67 @@
 				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
 		</property>
 	</bean>
-	<!-- 异步线程池 -->
-	<bean id="taskExecutor"
+	
+	<bean id="orderTaskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
 		<!-- 核心线程数 -->
-		<property name="corePoolSize" value="10" />
+		<property name="corePoolSize" value="200" />
 		<!-- 最大线程数 -->
-		<property name="maxPoolSize" value="100" />
+		<property name="maxPoolSize" value="1000" />
 		<!-- 队列最大长度 >=mainExecutor.maxSize -->
-		<property name="queueCapacity" value="1000" />
+		<property name="queueCapacity" value="10000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+	<bean id="payTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="300" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="1000" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="10000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="60" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+	
+	<bean id="batchOrderTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="200" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="1000" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="10000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="60" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
+		<property name="rejectedExecutionHandler">
+			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
+		</property>
+	</bean>
+	<bean id="batchPayTaskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<!-- 核心线程数 -->
+		<property name="corePoolSize" value="300" />
+		<!-- 最大线程数 -->
+		<property name="maxPoolSize" value="1000" />
+		<!-- 队列最大长度 >=mainExecutor.maxSize -->
+		<property name="queueCapacity" value="10000" />
+		<!-- 线程池维护线程所允许的空闲时间 -->
+		<property name="keepAliveSeconds" value="60" />
+		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />

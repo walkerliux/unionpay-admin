@@ -48,6 +48,11 @@ public class TCoopAgencyApply {
     private Date cvlexaTime;
 
     private String cvlexaOpt;
+    
+    /**关联查询时的属性**/ 
+    private String provinceName;
+    private String cityName;
+    private String superName;
 
     public Long getSelfId() {
         return selfId;
@@ -232,4 +237,30 @@ public class TCoopAgencyApply {
     public void setCvlexaOpt(String cvlexaOpt) {
         this.cvlexaOpt = cvlexaOpt == null ? null : cvlexaOpt.trim();
     }
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getSuperName() {
+		return superName;
+	}
+
+	public void setSuperName(String superName) {
+		this.superName = superName;
+	}
+    
+    
 }

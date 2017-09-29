@@ -27,4 +27,9 @@ public interface TCoopAgencyApplyMapper {
     int updateByPrimaryKeySelective(TCoopAgencyApply record);
 
     int updateByPrimaryKey(TCoopAgencyApply record);
+    
+    List<TCoopAgencyApply> selectWithCondition(@Param("coopAgencyApply")TCoopAgencyApply coopAgencyApply, @Param("statuses")List<String> statuses, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+    int selectCountWithCondition(@Param("coopAgencyApply")TCoopAgencyApply coopAgencyApply, @Param("statuses")List<String> statuses);
+    
+    TCoopAgencyApply selectCoopAgencyDetailById(Long selfId);
 }
