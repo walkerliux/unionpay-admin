@@ -36,6 +36,11 @@ public class BTRespWithholdReqDto implements Serializable {
      *下载文件名
      */
     private String fileName;
+    
+    /**
+     * 签名密文
+     */
+    private String chkValue;
 
     
     public String getResponseCode() {
@@ -86,11 +91,19 @@ public class BTRespWithholdReqDto implements Serializable {
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
+    
+    public String getChkValue() {
+        return chkValue;
+    }
 
+    public void setChkValue(String chkValue) {
+        this.chkValue = chkValue;
+    }
 
     @Override
     public String toString() {
-        return "BTRespWithholdReqDto [responseCode=" + responseCode + ", message=" + message + ", merId=" + merId + ", orFileName=" + orFileName + ", fileName=" + fileName + "]";
+        return "BTRespWithholdReqDto [responseCode=" + responseCode + ", message=" + message + ", merId=" + merId + ", orFileName=" + orFileName + ", fileName=" + fileName + ", chkValue=" + chkValue
+                + "]";
     }
     
 }

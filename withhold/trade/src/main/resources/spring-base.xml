@@ -131,4 +131,6 @@
 		</property>
 	</bean>
 	<import resource="classpath*:applicationContext-dataSource.xml" />
+	<import resource="classpath*:spring-task.xml" />
+	
 </beans>
