@@ -1,4 +1,4 @@
-package com.unionpay.withhold.path.services.impl;
+package com.unionpay.withhold.path.services.rtwithhold.impl;
 
 import javax.annotation.Resource;
 
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.unionpay.withhold.common.bean.ResultBean;
-import com.unionpay.withhold.path.app.impl.RealtimeWithholdQryImpl;
+import com.unionpay.withhold.path.app.impl.CPRealtimeWithholdQryImpl;
 import com.unionpay.withhold.path.dao.TxnsLogMapper;
 import com.unionpay.withhold.path.model.TxnsLog;
-import com.unionpay.withhold.path.services.RealtimeWithholdQrySrv;
+import com.unionpay.withhold.path.services.rtwithhold.RealtimeWithholdQrySrv;
 
 @Service("realtimeWithholdQrySrv")
 public class RealtimeWithholdQrySrvImpl implements RealtimeWithholdQrySrv {
 
-    private final static Logger logger = LoggerFactory.getLogger(RealtimeWithholdQryImpl.class);
+    private final static Logger logger = LoggerFactory.getLogger(CPRealtimeWithholdQryImpl.class);
 
     @Resource
     private TxnsLogMapper txnsLogMapper;

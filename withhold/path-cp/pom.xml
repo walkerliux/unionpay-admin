@@ -16,6 +16,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.deploy>deploy</project.deploy>
 		<project.tomcat.version>8.0.0-RC5</project.tomcat.version>
+		<io.netty.ver>4.0.42.Final</io.netty.ver>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -126,6 +127,11 @@
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>${project.tomcat.version}</version>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${io.netty.ver}</version>
 		</dependency>
 	</dependencies>
 
