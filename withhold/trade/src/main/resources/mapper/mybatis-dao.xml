@@ -12,6 +12,6 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.unionpay.withhold.trade.order.dao,com.unionpay.withhold.trade.fee.dao,com.unionpay.withhold.trade.pay.dao,com.unionpay.withhold.trade.risk.dao,com.unionpay.withhold.trade.route.dao" />
+		<property name="basePackage" value="com.unionpay.withhold.trade.order.dao,com.unionpay.withhold.trade.fee.dao,com.unionpay.withhold.trade.pay.dao,com.unionpay.withhold.trade.risk.dao,com.unionpay.withhold.trade.route.dao,com.unionpay.withhold.trade.task.dao" />
 	</bean>
 </beans>

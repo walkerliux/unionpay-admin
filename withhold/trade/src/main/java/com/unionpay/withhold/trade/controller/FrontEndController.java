@@ -1,7 +1,5 @@
 package com.unionpay.withhold.trade.controller;
 
-import javax.xml.bind.JAXBException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,17 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.CPBackFileNotifyBean;
-import com.unionpay.withhold.api.bean.MerchantRequest;
-import com.unionpay.withhold.api.bean.MerchantResponse;
 import com.unionpay.withhold.bean.ResultBean;
-import com.unionpay.withhold.trade.fee.dao.FeeDAO;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
 import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
 import com.unionpay.withhold.trade.pay.service.CollectPayService;
-import com.unionpay.withhold.utils.XMLUtils;
 
 @RestController
 @RequestMapping(value="/api/v1/fe")

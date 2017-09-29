@@ -1,4 +1,4 @@
-package com.unionpay.withhold.trade.task;
+package com.unionpay.withhold.trade.task.scheduled;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
