@@ -18,4 +18,6 @@ public interface ParaDicDAO {
     int updateByPrimaryKeySelective(ParaDicDO record);
 
     int updateByPrimaryKey(ParaDicDO record);
+    
+    ParaDicDO queryPara(ParaDicDO record);
 }

@@ -15,37 +15,38 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 
-import com.alibaba.dubbo.config.annotation.Reference;
 import com.unionpay.withhold.service.path.cp.app.CPAccountCheck;
 import com.unionpay.withhold.service.path.cp.dto.req.BTAccChkReqDto;
 import com.unionpay.withhold.trade.task.pojo.MerchChnlDO;
 import com.unionpay.withhold.trade.task.service.MerchChnlService;
+import com.unionpay.withhold.trade.task.service.ParaDicService;
 import com.unionpay.withhold.utils.DateUtil;  
 
 //@Lazy(false)  
 //@Component  
 //@EnableScheduling 
-public class TradeChannelTask implements SchedulingConfigurer{
+public class CPChannelCheckFileTask implements SchedulingConfigurer{
 
-	private static final Logger logger = LoggerFactory.getLogger(TradeChannelTask.class);
+	private static final Logger logger = LoggerFactory.getLogger(CPChannelCheckFileTask.class);
 	@Autowired
 	private MerchChnlService merchChnlService;
-	@Reference(version="1.0")
+	//@Reference(version="1.0")
 	private CPAccountCheck cpAccountCheck;
-	
+	@Autowired
+	private ParaDicService paraDicService;
 	private static String cron;  
 	
-	 public TradeChannelTask() {  
+	 public CPChannelCheckFileTask() {  
 	        cron = "0/5 * * * * ?";  
 	          
 	        ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-	        scheduledExecutor.scheduleAtFixedRate(new Thread(new Runnable() {  
+	        scheduledExecutor.scheduleAtFixedRate(new Runnable() {  
 	            @Override  
 	            public void run() { 
-	                cron = "0 0 15 1/1 * ?";  
+	            	cron = paraDicService.queryCPPara().getParaCode();
 	                logger.info("cron change to: " + cron);  
 	            }  
-	        }), 0, 1, TimeUnit.HOURS);
+	        }, 0, 1, TimeUnit.HOURS);
 	    }  
 	
 	/**

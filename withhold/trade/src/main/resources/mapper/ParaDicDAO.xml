@@ -182,4 +182,14 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+   <select id="queryPara" parameterType="com.unionpay.withhold.trade.task.pojo.ParaDicDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_para_dic
+    where 
+    	PARA_TYPE = #{paraType,jdbcType=VARCHAR}
+    	<if test="status != null and status != ''">
+       		AND STATUS = #{status,jdbcType=DECIMAL}
+      	</if>
+  </select>
 </mapper>
