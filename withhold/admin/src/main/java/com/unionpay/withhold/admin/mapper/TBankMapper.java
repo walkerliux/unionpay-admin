@@ -10,13 +10,21 @@ public interface TBankMapper {
 
     int deleteByExample(TBankExample example);
 
+    int deleteByPrimaryKey(Integer tid);
+
     int insert(TBank record);
 
     int insertSelective(TBank record);
 
     List<TBank> selectByExample(TBankExample example);
 
+    TBank selectByPrimaryKey(Integer tid);
+
     int updateByExampleSelective(@Param("record") TBank record, @Param("example") TBankExample example);
 
     int updateByExample(@Param("record") TBank record, @Param("example") TBankExample example);
+
+    int updateByPrimaryKeySelective(TBank record);
+
+    int updateByPrimaryKey(TBank record);
 }

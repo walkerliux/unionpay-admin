@@ -32,4 +32,6 @@ public interface TUserMapper {
     int updateByPrimaryKey(TUser record);
 
 	List<TUser> selectByMap(Map<String, Object> variables);
+
+	TUser selectTUserByLoginName(TUserExample example);
 }

@@ -121,7 +121,7 @@ table tr td select {
 							<td>附加</td>
 							<td align="left"><input type="text" id="para_added"
 								name="added" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入参数名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入附加数值" onkeyup="money()"/><span id="ADDVALUE"></span></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>备注</td>
@@ -240,6 +240,27 @@ table tr td select {
 			});  
 		});
 		
+		// 充值金额校验
+		function money() {
+			var money = $("#para_added").val();
+			var masg;
+			var isok = true;
+			if (money != null && isMoney(money)) {
+
+				//masg = toChineseCash(money);
+				//$("#ADDVALUE").css("color", "black");
+				$("#ADDVALUE").html("");
+			} else {
+				masg = "请输入正确的数值";
+				$("#ADDVALUE").css("color", "red");
+
+				isok = false;
+				$("#ADDVALUE").html(masg);
+			}
+			
+			return isok;
+
+		}
 		function showOrgan(){		
 			$.ajax({
 			   type: "POST",
@@ -255,60 +276,7 @@ table tr td select {
 			   }
 			});
 		} 
-		/* function showDept(flag){
-			var organId;
-			if(flag==1){//查询条件
-				organId=$("#paraOrganId").val();
-			}else{
-				organId=$("#para_organId").val();
-			}
-			var html = '<option value="">--请选择所属部门--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "para/showDept",
-			  	data: "rand="+new Date().getTime()+"&organId="+organId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.deptId+'">'+value.deptName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#paraDeptId").html(html);
-					}else{
-						$("#para_deptId").html(html);
-					}
-			 	}
-			});
-		} */
-
-	/* 	function showRole(flag){
-			var roleId;
-			if(flag==1){//查询条件
-				roleId=$("#paraRoleId").val();
-			}else{
-				roleId=$("#para_deptId").val();
-			} 
-			var html = '<option value="">--请选择用户角色--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "para/showRole",
-			  	//data: "rand="+new Date().getTime()+"&roleId="+roleId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#paraRoleId").html(html);
-					}else{
-						/* $("#para_roleId").html(html); 
-					}
-			 	}
-			});
-		}  
-		*/
+		
 		function resize(){
 			$('#searchForm :input').val('');
 		}

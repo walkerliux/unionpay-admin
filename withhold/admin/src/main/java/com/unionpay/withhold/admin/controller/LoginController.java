@@ -286,7 +286,7 @@ public class LoginController {
 				response.addCookie(cookie);
 			}
 		}
-		operationLogService.addOperationLog(request, "用户退出");
+	
 		return result;
 	}
 

@@ -4,7 +4,42 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TCardBinExample {
-    protected String orderByClause;
+	private String cardbin;
+	public String getCardbin() {
+		return cardbin;
+	}
+	public void setCardbin(String cardbin) {
+		this.cardbin = cardbin;
+	}
+	private int pageNum;
+	private int pageSize;
+	private int beginRow;
+    public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
+
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
+
+	protected String orderByClause;
 
     protected boolean distinct;
 

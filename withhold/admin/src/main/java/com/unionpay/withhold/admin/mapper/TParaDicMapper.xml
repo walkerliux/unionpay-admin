@@ -176,10 +176,16 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" resultType="java.lang.Integer" >
-    select count(*) from t_para_dic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    select count(*) from t_para_dic where 1=1
+    <if test="parentId!=null">
+	and PARENT_ID=#{parentId}
+	</if>
+	<if test="paraCode!=null">
+	and PARA_CODE=#{paraCode}
+	</if>
+	<if test="paraName!=null">
+	and PARA_NAME=#{paraName}
+	</if> 
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update t_para_dic
@@ -306,7 +312,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    limit #{beginRow},#{pageSize}
+    limit #{pageNum},#{pageSize}
   </select>
   
 </mapper>

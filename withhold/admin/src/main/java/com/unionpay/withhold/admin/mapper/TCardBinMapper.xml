@@ -71,18 +71,23 @@
     CARDBIN, CARDLEN, BINLEN, CARDNAME, BANKCODE, TYPE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" >
-    select
+    SELECT
+	c.*, b.BANKNAME
     <if test="distinct" >
       distinct
     </if>
-    <include refid="Base_Column_List" />
-    from t_card_bin
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+    FROM
+    t_card_bin c
+	
+	LEFT JOIN t_bank_insti b ON b.BANKCODE = c.BANKCODE
+    where 1=1
+    <if test="cardbin!=null">
+    and CARDBIN=#{cardbin}
     </if>
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    limit #{beginRow},#{pageSize}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TCardBinKey" >
     select 
@@ -155,8 +160,8 @@
   </insert>
   <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" resultType="java.lang.Integer" >
     select count(*) from t_card_bin
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
+    <if test="cardbin!=null" >
+      where CARDBIN=#{cardbin}
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
@@ -225,4 +230,10 @@
     where CARDBIN = #{cardbin,jdbcType=VARCHAR}
       and CARDLEN = #{cardlen,jdbcType=DECIMAL}
   </update>
+  <select id="selectByCardBinNum" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" resultMap="BaseResultMap">
+  		SELECT * FROM t_card_bin
+	<if test="cardbin!=null">
+   		 where CARDBIN=#{cardbin}
+    </if>
+  </select>
 </mapper>
