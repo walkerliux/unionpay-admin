@@ -1,18 +1,20 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TBank {
-    private String tid;
+    private Integer tid;
 
     private String bankcode;
 
     private String bankname;
 
-    public String getTid() {
+    private String pbcBankcode;
+
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public String getBankcode() {
@@ -29,5 +31,13 @@ public class TBank {
 
     public void setBankname(String bankname) {
         this.bankname = bankname == null ? null : bankname.trim();
+    }
+
+    public String getPbcBankcode() {
+        return pbcBankcode;
+    }
+
+    public void setPbcBankcode(String pbcBankcode) {
+        this.pbcBankcode = pbcBankcode == null ? null : pbcBankcode.trim();
     }
 }

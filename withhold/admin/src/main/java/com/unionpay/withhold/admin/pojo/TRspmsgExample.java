@@ -8,8 +8,9 @@ public class TRspmsgExample {
 	private int pageSize;
 	private int beginRow;
 	
-    public int getBeginRow() {
-		return beginRow;
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
 	}
 
 	public void setBeginRow(int beginRow) {

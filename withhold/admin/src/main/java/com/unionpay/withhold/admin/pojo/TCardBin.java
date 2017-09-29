@@ -1,7 +1,17 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TCardBin extends TCardBinKey {
-    private Short binlen;
+	private String bankname;
+	
+    public String getBankname() {
+		return bankname;
+	}
+
+	public void setBankname(String bankname) {
+		this.bankname = bankname;
+	}
+
+	private Short binlen;
 
     private String cardname;
 
