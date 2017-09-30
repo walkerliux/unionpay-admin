@@ -15,7 +15,13 @@
 			http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
 	<description>spring base</description>
-	<context:property-placeholder location="classpath:*.properties" />
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
+        <property name="locations">  
+           <list>
+              <value>classpath:*.properties</value>  
+            </list>  
+        </property>  
+    </bean>
 	<context:component-scan base-package="com.unionpay.withhold.trade">
 		<context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Controller" />
@@ -32,38 +38,7 @@
 				pointcut-ref="pointcut" throwing="ex" />
 		</aop:aspect>
 	</aop:config>
-	<!-- redis配置 -->
-	<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
-		<property name="maxIdle" value="${redis.maxIdle}" />
-		<property name="maxTotal" value="${redis.maxActive}" />
-		<property name="maxWaitMillis" value="${redis.maxWait}" />
-		<property name="testOnBorrow" value="${redis.testOnBorrow}" />
-	</bean>
-
-	<bean id="connectionFactory"
-		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-		p:host-name="${redis.host}" p:port="${redis.port}" p:password="${redis.pass}"
-		p:pool-config-ref="poolConfig" />
-
-	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
-		<property name="connectionFactory" ref="connectionFactory" />
-		<property name="keySerializer">
-			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		</property>
-		<property name="valueSerializer">
-			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		</property>
-		<property name="hashKeySerializer">
-			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		</property>
-		<property name="hashValueSerializer">
-			<bean
-				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
-		</property>
-	</bean>
+	
 	
 	<bean id="orderTaskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
@@ -162,7 +137,7 @@
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
 		</property>
 	</bean>
-	<import resource="classpath*:applicationContext-dataSource.xml" />
-	<import resource="classpath*:spring-task.xml" />
+	<import resource="classpath:applicationContext-dataSource.xml" />
+	<import resource="classpath:spring-task.xml" />
 	
 </beans>

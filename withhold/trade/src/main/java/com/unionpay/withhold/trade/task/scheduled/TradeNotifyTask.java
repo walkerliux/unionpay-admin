@@ -54,7 +54,7 @@ public class TradeNotifyTask {
 	private EventHandler<TradeNotifyBean> batchPushQueueHandler;
 	
 	
-	@Scheduled(cron = "")
+	@Scheduled(cron = "0 0/1 * * * ?")
 	public void singleTradeNotify() {
 		int bufferSize = 2048;
 		final Disruptor<TradeNotifyBean> disruptor = new Disruptor<TradeNotifyBean>(
@@ -94,7 +94,7 @@ public class TradeNotifyTask {
 
 	}
 
-	@Scheduled(cron = "")
+	@Scheduled(cron = "0 0/1 * * * ?")
 	public void batchTradeNotify() {
 		int bufferSize = 2048;
 		final Disruptor<TradeNotifyBean> disruptor = new Disruptor<TradeNotifyBean>(
