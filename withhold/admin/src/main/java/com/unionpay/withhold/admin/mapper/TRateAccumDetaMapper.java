@@ -10,7 +10,7 @@ public interface TRateAccumDetaMapper {
 
     int deleteByExample(TRateAccumDetaExample example);
 
-    int deleteByPrimaryKey(Long tid);
+    int deleteByPrimaryKey(Integer tid);
 
     int insert(TRateAccumDeta record);
 
@@ -18,7 +18,7 @@ public interface TRateAccumDetaMapper {
 
     List<TRateAccumDeta> selectByExample(TRateAccumDetaExample example);
 
-    TRateAccumDeta selectByPrimaryKey(Long tid);
+    TRateAccumDeta selectByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TRateAccumDeta record, @Param("example") TRateAccumDetaExample example);
 

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
-    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TARGET" property="target" jdbcType="VARCHAR" />
     <result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
     <result column="BUSICODE" property="busicode" jdbcType="VARCHAR" />
@@ -90,15 +90,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_merch_rate_config
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_merch_rate_config
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfigExample" >
     delete from t_merch_rate_config
@@ -111,7 +111,7 @@
       BUSICODE, SETLFLG, RATE_METHOD, 
       RATE_ID, INTIME, INUSER, 
       NOTES, REMARKS)
-    values (#{tid,jdbcType=DECIMAL}, #{target,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
+    values (#{tid,jdbcType=INTEGER}, #{target,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, 
       #{busicode,jdbcType=VARCHAR}, #{setlflg,jdbcType=DECIMAL}, #{rateMethod,jdbcType=DECIMAL}, 
       #{rateId,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP}, #{inuser,jdbcType=DECIMAL}, 
       #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
@@ -155,7 +155,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
-        #{tid,jdbcType=DECIMAL},
+        #{tid,jdbcType=INTEGER},
       </if>
       <if test="target != null" >
         #{target,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
     update t_merch_rate_config
     <set >
       <if test="record.tid != null" >
-        TID = #{record.tid,jdbcType=DECIMAL},
+        TID = #{record.tid,jdbcType=INTEGER},
       </if>
       <if test="record.target != null" >
         TARGET = #{record.target,jdbcType=VARCHAR},
@@ -238,7 +238,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_merch_rate_config
-    set TID = #{record.tid,jdbcType=DECIMAL},
+    set TID = #{record.tid,jdbcType=INTEGER},
       TARGET = #{record.target,jdbcType=VARCHAR},
       MEMBER_ID = #{record.memberId,jdbcType=VARCHAR},
       BUSICODE = #{record.busicode,jdbcType=VARCHAR},
@@ -287,7 +287,7 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchRateConfig" >
     update t_merch_rate_config
@@ -301,6 +301,6 @@
       INUSER = #{inuser,jdbcType=DECIMAL},
       NOTES = #{notes,jdbcType=VARCHAR},
       REMARKS = #{remarks,jdbcType=VARCHAR}
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>
