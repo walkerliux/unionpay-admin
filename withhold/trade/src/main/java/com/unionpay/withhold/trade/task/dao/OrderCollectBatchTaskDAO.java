@@ -18,4 +18,6 @@ public interface OrderCollectBatchTaskDAO {
     int updateByPrimaryKeySelective(OrderCollectBatchTaskDO record);
 
     int updateByPrimaryKey(OrderCollectBatchTaskDO record);
+    
+    OrderCollectBatchTaskDO queryByTN(String tn);
 }

@@ -12,6 +12,8 @@ package com.unionpay.withhold.trade.task.bean;
 
 import java.io.Serializable;
 
+import com.unionpay.withhold.trade.task.pojo.TxnsNotifyTaskDO;
+
 /**
  * Class Description
  *
@@ -32,6 +34,10 @@ public class NotifyQueueBean implements Serializable{
 	 */
 	private String txnseqno;
 	/**
+	 * 受理批次号
+	 */
+	private String tn;
+	/**
 	 * 发送时间
 	 */
 	private String sendDateTime;
@@ -39,6 +45,9 @@ public class NotifyQueueBean implements Serializable{
 	 * 发送次数
 	 */
 	private int sendTimes;
+	
+	/**异步通知日志*/
+	private TxnsNotifyTaskDO txnsNotifyTask;
 	
 	/**
 	 * @return the txnseqno
@@ -75,6 +84,18 @@ public class NotifyQueueBean implements Serializable{
 	 */
 	public void setSendTimes(int sendTimes) {
 		this.sendTimes = sendTimes;
+	}
+	public TxnsNotifyTaskDO getTxnsNotifyTask() {
+		return txnsNotifyTask;
+	}
+	public void setTxnsNotifyTask(TxnsNotifyTaskDO txnsNotifyTask) {
+		this.txnsNotifyTask = txnsNotifyTask;
+	}
+	public String getTn() {
+		return tn;
+	}
+	public void setTn(String tn) {
+		this.tn = tn;
 	}
 	
 	

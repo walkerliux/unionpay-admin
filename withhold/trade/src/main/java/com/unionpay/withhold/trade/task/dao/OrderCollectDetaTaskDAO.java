@@ -18,4 +18,7 @@ public interface OrderCollectDetaTaskDAO {
     int updateByPrimaryKeySelective(OrderCollectDetaTaskDO record);
 
     int updateByPrimaryKey(OrderCollectDetaTaskDO record);
+    
+    List<OrderCollectDetaTaskDO> queryByBatchid(Long batchtid);
 }
+
