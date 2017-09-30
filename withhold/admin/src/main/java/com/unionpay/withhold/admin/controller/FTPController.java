@@ -23,7 +23,12 @@ import com.unionpay.withhold.admin.utils.FTPUtils;
 @Controller
 @RequestMapping("/ftp")
 public class FTPController {
-	
+	private static final String ROOTPATH="agency/";
+	private static final String USER="webftp";
+	private static final String PWD="webftp";
+	private static final String IPADDRESS="192.168.2.12";
+	private static final int PORTNUM=21;
+	private static final String DOWNLOADADDRESS="D:/temp";
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
@@ -41,11 +46,11 @@ public class FTPController {
     @RequestMapping("/query")
 	public PageBean queryDirectory() throws IOException {
 			List<FTPfiles> resultList = new ArrayList<FTPfiles>();
-		if(FTPListAllFiles.login("192.168.2.12", 21, "webftp", "webftp")){
-			  List<String> listDirectory = FTPListAllFiles.directoryList("agency/");
-			for (String string : listDirectory) {
+		if(FTPListAllFiles.login(IPADDRESS, PORTNUM, USER, PWD)){
+			  List<String> listDirectory = FTPListAllFiles.directoryList(ROOTPATH);
+			for (String folder : listDirectory) {
 				FTPfiles ftPfiles = new FTPfiles();
-				ftPfiles.setFileName(string);
+				ftPfiles.setFolder(folder);
 				ftPfiles.setStatus("00");
 				resultList.add(ftPfiles);
 			}
@@ -65,13 +70,13 @@ public class FTPController {
 	 */
 	@ResponseBody
     @RequestMapping("/getFiles")
-	public List<FTPfiles> queryFiles(String fileName) throws IOException {
+	public List<FTPfiles> queryFiles(String folder) throws IOException {
 			List<FTPfiles> resultList = new ArrayList<FTPfiles>();
-		if(FTPListAllFiles.login("192.168.2.12", 21, "webftp", "webftp")){
-			List<String> filesList = FTPListAllFiles.filesList(fileName + "/", "jpg");
-			  for (String string : filesList) {
+		if(FTPListAllFiles.login(IPADDRESS, PORTNUM, USER, PWD)){
+			List<String> filesList = FTPListAllFiles.filesList(ROOTPATH+folder + "/", "jpg");
+			  for (String fileName : filesList) {
 				  FTPfiles ftPfiles = new FTPfiles();
-				  ftPfiles.setFileName(string);
+				  ftPfiles.setFileName(fileName);
 				  resultList.add(ftPfiles);
 			}
 			 
@@ -92,8 +97,9 @@ public class FTPController {
     @RequestMapping("/downloadFile")
 	public Map<String, Object> downloadFile(String fileName){
 		Map<String, Object> hashMap = new HashMap<String, Object>();
+		String[] split = fileName.split("/");
 		 try {
-			boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","agency/200000000001588/",fileName , "D:/temp");
+			boolean flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/",split[1] , DOWNLOADADDRESS);
 			if (flag) {
 				hashMap.put("RET", "succ");
 			}

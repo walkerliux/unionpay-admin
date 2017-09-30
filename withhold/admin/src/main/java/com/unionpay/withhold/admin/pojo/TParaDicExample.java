@@ -4,7 +4,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TParaDicExample {
-    protected String orderByClause;
+	private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	private String parentId;
+	private String paraCode;
+	private String paraName;
+	
+    public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getParaCode() {
+		return paraCode;
+	}
+
+	public void setParaCode(String paraCode) {
+		this.paraCode = paraCode;
+	}
+
+	public String getParaName() {
+		return paraName;
+	}
+
+	public void setParaName(String paraName) {
+		this.paraName = paraName;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
+
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
+
+	protected String orderByClause;
 
     protected boolean distinct;
 

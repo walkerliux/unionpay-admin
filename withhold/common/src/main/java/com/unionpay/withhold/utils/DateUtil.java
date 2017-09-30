@@ -256,7 +256,7 @@ public class DateUtil {
 	 * 同skipDateTime,但是返回的字符串只有日期部分忽略掉时间的部分
 	 */
 	public static String skipDate(String dateStr, int skipDay) {
-		String pattern = "yyyy-MM-dd";
+		String pattern = "yyyyMMdd";
 		Date d = parse(pattern, dateStr);
 		Date date = skipDateTime(d, skipDay);
 		return formatDateTime(pattern, date);

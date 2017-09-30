@@ -11,86 +11,36 @@ import java.io.Serializable;
 public class BTWithholdAppReqDto implements Serializable {
 
     private static final long serialVersionUID = 7872926219133693883L;
-
+    
     /**
-	 * 商户号
-	 */
-	private String merId;
-
-    /**
-     * 批次号
+     * 受理批次号
      */
-    private String batchNo;
-
-    /**
-     * 总笔数
-     */
-    private String sumNum;
-
-    /**
-     *总金额（单位：分）
-     */
-    private String sumAmt;
+    private String tn;
     
-    /**
-     * 批量代扣明细信息（List<BTWithholdAppItem>转换后的Json字符串）
-     */
-    private String withholdItems;
-
     
-    public String getMerId() {
-        return merId;
+    public BTWithholdAppReqDto() {
+        super();
+    }
+    
+    public BTWithholdAppReqDto(String tn) {
+        super();
+        this.tn = tn;
+    }
+
+    public String getTn() {
+        return tn;
     }
 
     
-    public void setMerId(String merId) {
-        this.merId = merId;
-    }
-
-    
-    public String getBatchNo() {
-        return batchNo;
-    }
-
-    
-    public void setBatchNo(String batchNo) {
-        this.batchNo = batchNo;
-    }
-
-    
-    public String getSumNum() {
-        return sumNum;
-    }
-
-    
-    public void setSumNum(String sumNum) {
-        this.sumNum = sumNum;
-    }
-
-    
-    public String getSumAmt() {
-        return sumAmt;
-    }
-
-    
-    public void setSumAmt(String sumAmt) {
-        this.sumAmt = sumAmt;
-    }
-
-    
-    public String getWithholdItems() {
-        return withholdItems;
-    }
-
-    
-    public void setWithholdItems(String withholdItems) {
-        this.withholdItems = withholdItems;
+    public void setTn(String tn) {
+        this.tn = tn;
     }
 
 
     @Override
     public String toString() {
-        return "BTWithholdAppReqDto [merId=" + merId + ", batchNo=" + batchNo + ", sumNum=" + sumNum + ", sumAmt=" + sumAmt + ", withholdItems=" + withholdItems + "]";
+        return "BTWithholdAppReqDto [tn=" + tn + "]";
     }
+
     
 }

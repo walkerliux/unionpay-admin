@@ -44,7 +44,7 @@ public class TestController {
 	@ResponseBody
 	public ResultBean testAdd(String data){
 		TBank bank = new TBank();
-		bank.setTid("2");
+		//bank.setTid("2");
 		bank.setBankcode("622848");
 		bank.setBankname("农业银行");
 		return this.bankService.addBank(bank);

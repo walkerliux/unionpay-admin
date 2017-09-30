@@ -1,6 +1,10 @@
 package com.unionpay.withhold.common.constants;
 
 public class ComConst {
+    /**
+     * 编码集
+     */
+    public static final String CHARSET = "UTF-8";
 	/**
 	 * S-成功GATEWAY
 	 */

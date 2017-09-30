@@ -86,6 +86,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    limit #{beginRow},#{pageSize}
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -175,10 +176,16 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" resultType="java.lang.Integer" >
-    select count(*) from t_para_dic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
+    select count(*) from t_para_dic where 1=1
+    <if test="parentId!=null">
+	and PARENT_ID=#{parentId}
+	</if>
+	<if test="paraCode!=null">
+	and PARA_CODE=#{paraCode}
+	</if>
+	<if test="paraName!=null">
+	and PARA_NAME=#{paraName}
+	</if> 
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update t_para_dic
@@ -272,4 +279,40 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=DECIMAL}
   </update>
+  <select id="selectByParentIdExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_para_dic
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByLeftJoinExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TParaDicExample" >
+    select a.*,b.PARA_NAME parentName
+    <if test="distinct" >
+      distinct
+    </if>
+    from t_para_dic a LEFT JOIN t_para_dic b
+	on a.PARENT_ID=b.tid where 1=1
+	<if test="parentId!=null">
+	and a.PARENT_ID=#{parentId}
+	</if>
+	<if test="paraCode!=null">
+	and a.PARA_CODE=#{paraCode}
+	</if>
+	<if test="paraName!=null">
+	and a.PARA_NAME=#{paraName}
+	</if>  
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{pageNum},#{pageSize}
+  </select>
+  
 </mapper>

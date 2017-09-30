@@ -33,13 +33,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public TUser getLoginUser(TUser user) {
 		TUserExample example = new TUserExample();
-		example.setPageNum(1);
-		example.setPageSize(1);
-		Criteria criteria = example.createCriteria();
-		criteria.andLoginNameEqualTo(user.getLoginName());
-		List<TUser> users = tUserMapper.selectByExample(example);
-		TUser tUser = users.get(0);
-		return tUser;
+		if (user.getLoginName()!=null&&!"".equals(user.getLoginName())) {
+			example.setLoginName(user.getLoginName());
+		}
+
+		TUser users = tUserMapper.selectTUserByLoginName(example);
+		
+		return users;
 	}
 	@Override
 	public TUser getSingleById(Integer userId) {
@@ -86,7 +86,7 @@ public class UserServiceImpl implements UserService {
 		int total = tUserMapper.countByExample(tUserExample);
 		tUserExample.setPageNum(page);
 		tUserExample.setPageSize(rows);
-		tUserExample.setOrderByClause("CREATE_DATE DESC");
+		tUserExample.setOrderByClause("USER_ID");
 		List<TUser> list = tUserMapper.selectByExample(tUserExample);
 		
 		return new PageBean(total, list); 

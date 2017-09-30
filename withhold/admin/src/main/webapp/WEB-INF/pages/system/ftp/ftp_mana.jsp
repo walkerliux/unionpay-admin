@@ -432,14 +432,14 @@ table tr td select {
 				url:'ftp/query',
 				remoteSort: false,
 				columns:[[
-					{field:'fileName',title:'文件夹名称',align:'center',width:130},
+					{field:'folder',title:'文件夹名称',align:'center',width:130},
 					
 					
 					
 					{field:'status',title:'操作',align:'center',width:160,rowspan:2,
 						formatter:function(value,rec){
 							if(rec.status="00"){
-								return '<a href="javascript:findById('+rec.fileName+')" style="color:blue;margin-left:10px">详情</a>';
+								return '<a href="javascript:findById('+rec.folder+')" style="color:blue;margin-left:10px">详情</a>';
 							}else{
 								return "";
 							}
@@ -624,6 +624,7 @@ table tr td select {
 		
 		
 		function downfile(fileName){
+			//alert(fileName);
 			$.messager.confirm('提示', '您是否想要下载此文件', function(msg){
 				if(msg){
 					$.ajax({
@@ -647,21 +648,28 @@ table tr td select {
 				
             });
 		}
-		function findById(fileName){
+		function findById(folder){
+			$("#FILETABLE").html("");
 			 $("#b_cvlexaOpt").val('');
 			$.ajax({
 			   type: "POST",
 			   url: "ftp/getFiles",
-			   data: "fileName="+fileName,
+			   data: "folder="+folder,
 			   dataType:"json",
 			   success: function(data){
+				   //alert($("#FILETABLE").html());
+				  // $("#FILETABLE").html("");
+				   //var $table = $("#FILETABLE");
+				   var $tr = '';
 				   $.each(data,function(i,n){
-					   alert(n.fileName);
-		//'<a href="javascript:downfile('+n.fileName+')" style="color:blue;margin-left:10px">下载</a>';
-		               var $tr = $("<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:downfile('"+n.fileName+"') style=color:blue;margin-left:10px"+">下载</a>"+"</td>"+"</tr>");
-		               var $table = $("#FILETABLE");
-		               $table.append($tr);
+					   //alert(n.fileName);
+		//'<a href="javascript:downfile('+folder+n.fileName+')" style="color:blue;margin-left:10px">下载</a>';
+		               $tr+= "<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:downfile('"+folder+"/"+n.fileName+"') style=color:blue;margin-left:10px"+">下载</a>"+"</td>"+"</tr>";
+		              
+		              //$table.append($tr);
 				   })
+				   
+				   $("#FILETABLE").html($tr);
 				}
 			});
 			$('#w2').window({

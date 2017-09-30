@@ -13,39 +13,30 @@ public class BTWithholdQryReqDto implements Serializable {
     private static final long serialVersionUID = -4002178926596021756L;
 
     /**
-	 * 商户号
-	 */
-	private String merId;
-
-    /**
      * 受理批次号
      */
     private String tn;
 
-    
-    public String getMerId() {
-        return merId;
+    public BTWithholdQryReqDto() {
+        super();
     }
 
-    
-    public void setMerId(String merId) {
-        this.merId = merId;
+    public BTWithholdQryReqDto(String tn) {
+        super();
+        this.tn = tn;
     }
 
-    
     public String getTn() {
         return tn;
     }
 
-    
     public void setTn(String tn) {
         this.tn = tn;
     }
 
-
     @Override
     public String toString() {
-        return "BTWithholdQryReqDto [merId=" + merId + ", tn=" + tn + "]";
+        return "BTWithholdQryReqDto [tn=" + tn + "]";
     }
-    
+
 }

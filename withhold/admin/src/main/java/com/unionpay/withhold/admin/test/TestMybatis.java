@@ -26,7 +26,7 @@ public class TestMybatis {
 	public void testQueryBank(){
 		TBankExample example = new TBankExample();
 		TBankExample.Criteria criteria = example.createCriteria();
-		criteria.andTidEqualTo("1");
+		//criteria.andTidEqualTo("1");
 		List<TBank> list = tBankMapper.selectByExample(example);
 		System.out.println(list);
 		/*TBank tBank = tBankMapper.selectByTid("1");
