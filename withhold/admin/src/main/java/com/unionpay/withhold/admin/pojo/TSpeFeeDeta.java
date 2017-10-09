@@ -1,66 +1,70 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TSpeFeeDeta {
-    private String tid;
+    private Integer tid;
 
-    private String rateId;
+    private Long rateId;
 
-    private String minfee;
+    private Long minfee;
 
-    private String maxfee;
+    private Long maxfee;
 
-    private String fixfee;
+    private Long fixfee;
 
-    private String feerate;
+    private Long feerate;
 
     private String function;
 
-    public String getTid() {
+    private String notes;
+
+    private String remarks;
+
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
-    public String getRateId() {
+    public Long getRateId() {
         return rateId;
     }
 
-    public void setRateId(String rateId) {
-        this.rateId = rateId == null ? null : rateId.trim();
+    public void setRateId(Long rateId) {
+        this.rateId = rateId;
     }
 
-    public String getMinfee() {
+    public Long getMinfee() {
         return minfee;
     }
 
-    public void setMinfee(String minfee) {
-        this.minfee = minfee == null ? null : minfee.trim();
+    public void setMinfee(Long minfee) {
+        this.minfee = minfee;
     }
 
-    public String getMaxfee() {
+    public Long getMaxfee() {
         return maxfee;
     }
 
-    public void setMaxfee(String maxfee) {
-        this.maxfee = maxfee == null ? null : maxfee.trim();
+    public void setMaxfee(Long maxfee) {
+        this.maxfee = maxfee;
     }
 
-    public String getFixfee() {
+    public Long getFixfee() {
         return fixfee;
     }
 
-    public void setFixfee(String fixfee) {
-        this.fixfee = fixfee == null ? null : fixfee.trim();
+    public void setFixfee(Long fixfee) {
+        this.fixfee = fixfee;
     }
 
-    public String getFeerate() {
+    public Long getFeerate() {
         return feerate;
     }
 
-    public void setFeerate(String feerate) {
-        this.feerate = feerate == null ? null : feerate.trim();
+    public void setFeerate(Long feerate) {
+        this.feerate = feerate;
     }
 
     public String getFunction() {
@@ -69,5 +73,21 @@ public class TSpeFeeDeta {
 
     public void setFunction(String function) {
         this.function = function == null ? null : function.trim();
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes == null ? null : notes.trim();
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 }

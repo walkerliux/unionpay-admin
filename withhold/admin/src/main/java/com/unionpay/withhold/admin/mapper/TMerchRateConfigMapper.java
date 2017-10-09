@@ -10,7 +10,7 @@ public interface TMerchRateConfigMapper {
 
     int deleteByExample(TMerchRateConfigExample example);
 
-    int deleteByPrimaryKey(Long tid);
+    int deleteByPrimaryKey(Integer tid);
 
     int insert(TMerchRateConfig record);
 
@@ -18,7 +18,7 @@ public interface TMerchRateConfigMapper {
 
     List<TMerchRateConfig> selectByExample(TMerchRateConfigExample example);
 
-    TMerchRateConfig selectByPrimaryKey(Long tid);
+    TMerchRateConfig selectByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TMerchRateConfig record, @Param("example") TMerchRateConfigExample example);
 

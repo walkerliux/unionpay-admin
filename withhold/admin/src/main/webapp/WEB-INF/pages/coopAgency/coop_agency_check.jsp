@@ -105,47 +105,62 @@ table tr td select {
 					<input type="hidden" id="selfId" name="selfId" />
 					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
+						<tr>
+							<td colspan="4" class="head-title">渠道信息</td>
+						</tr>
 						<tr style="height: 25px">
 							<td class="update" width="15%">渠道代码</td>
 							<td class="update" id="cacode" name="cacode" align="left"></td>
 							<td class="update" width="15%">渠道名称 </td>
 							<td class="update" id="caname" name="caname" align="left"></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
+						</tr>						
 						<tr style="height: 25px">
 							<td class="update">所在省</td>
 							<td class="update" id="caprovince" align="left">
 							<td class="update">所在市</td>
 							<td class="update" id="cacity" align="left">
 						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td colspan="4" class="head-title"></td> -->
+<!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">地址</td>
 							<td class="update" id="address" align="left">
 							<td class="update">上级渠道</td>
 							<td class="update" id="supercode" align="left">
 						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td colspan="4" class="head-title"></td> -->
+<!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">联系人</td>
 							<td class="update" id="contact" align="left">
 							<td class="update">联系电话</td>
 							<td class="update" id="contPhone" align="left">
 						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td colspan="4" class="head-title"></td> -->
+<!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">备注</td>
 							<td class="update" align="left" colspan="3">
 							<textarea rows="3" cols="81" id="notes" maxlength="128" style="resize: none;"
 									readonly="readonly"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title">手续费及风控配置</td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">收费代码</td>
+							<td class="update" align="left"><select id="rateId"
+								class="easyui-validatebox" required="true" name="rateId"
+								missingMessage="--请选择收费代码--"/>
+								<option value=''>--请选择收费代码--</option></select><font color="red">*</font></td>
+							<td class="update">风控版本</td>
+							<td class="update" align="left"><select id="riskver"
+								class="easyui-validatebox" required="true"
+								missingMessage="请选择风控版本" name="riskver" />
+								<option value=''>--请选择风控版本--</option></select><font color="red">*</font></td>
 						</tr>
 					</table>
 				</form>
@@ -251,6 +266,8 @@ table tr td select {
 						$("#notes").val(json.notes);
 						$("#selfId").val(json.selfId);
 						$("#status").val(json.status);
+// 						showRisk(json.riskver);
+// 						showRate(json.rateId);
 						
 						$('#w').window({
 							title: '审核渠道信息',
@@ -320,16 +337,30 @@ table tr td select {
 		}
 		
 		function passCheck(){
+			if ($("#rateId").val() == "") {
+				$.messager.alert('提示',"请配置收费代码！");
+				$("#rateId").focus();
+				return false;
+			}
+			if ($("#riskver").val() == "") {
+				$.messager.alert('提示',"请配置风控版本！");
+				$("#riskver").focus();
+				return false;
+			}
 			$('.checkca').linkbutton('disable');
 			var selfId = $("#selfId").val();
 			var status = $("#status").val();
+			var rateId = $("#rateId").val();
+			var riskver = $("#riskver").val();
 			$.ajax({
 				type : "POST",
 				url: "coopAgency/passCheck",
 				dataType: "json",
 				data:{
 					"selfId":selfId,
-					"status":status
+					"status":status,
+					"rateId":rateId,
+					"riskver":riskver
 				},
 				success: function(json) {
 					$('.checkca').linkbutton('enable');
@@ -351,5 +382,43 @@ table tr td select {
 		function closeCheck(){
 			$('#w').window('close');
 		}	
+		
+		function showRisk(riskver) {
+			$.ajax({
+				type: "POST",
+				url: "risk/getAllRiskList",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择风控版本--</option>";
+					$.each(json,function(key, value) {
+						if(value.riskver==riskver){
+							html += '<option value="' + value.riskver + '" selected="selected">' + value.riskname + '</option>';
+						}else{
+							html += '<option value="' + value.riskver + '">' + value.riskname + '</option>';
+						}
+					}) ;
+					$("#riskver").html(html);
+				}
+			});
+		}
+		function showRate(rateId) {
+			$.ajax({
+				type: "POST",
+				url: "rateAccum/getAllRateList",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择收费代码--</option>";
+					$.each(json,function(key, value) {
+						if(value.rateId==rateId){
+							html += '<option value="' + value.rateId + '" selected="selected">' + value.rateDesc + '</option>';
+						}else{
+							html += '<option value="' + value.rateId + '">' + value.rateDesc + '</option>';
+						}
+					}) ;
+					$("#rateId").html(html);
+				}
+			});
+		}
+		
 	</script>
 </html>

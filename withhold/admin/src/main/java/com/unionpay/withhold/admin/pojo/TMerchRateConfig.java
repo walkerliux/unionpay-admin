@@ -3,7 +3,7 @@ package com.unionpay.withhold.admin.pojo;
 import java.util.Date;
 
 public class TMerchRateConfig {
-    private Long tid;
+    private Integer tid;
 
     private String target;
 
@@ -25,11 +25,11 @@ public class TMerchRateConfig {
 
     private String remarks;
 
-    public Long getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(Long tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 

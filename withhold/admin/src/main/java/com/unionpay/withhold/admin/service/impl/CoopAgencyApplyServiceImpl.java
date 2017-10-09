@@ -12,12 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.CoopAgencyStatusEnums;
+import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyApplyMapper;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
+import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApplyExample;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyExample;
+import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
+import com.unionpay.withhold.admin.pojo.TMerchRateConfigExample;
 import com.unionpay.withhold.admin.service.CoopAgencyApplyService;
 import com.unionpay.withhold.utils.BeanCopyUtil;
 
@@ -28,6 +32,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 	private TCoopAgencyApplyMapper coopAgencyApplyMapper;
 	@Autowired
 	private TCoopAgencyMapper coopAgencyMapper;
+	@Autowired
+	private TMerchRateConfigMapper merchRateConfigMapper;
 
 	@Override
 	public PageBean queryByPage(TCoopAgencyApplyExample coopAgencyApplyExample) {
@@ -83,7 +89,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			return new ResultBean("", "上级渠道不能选择自己！");
 		} else {
 			CoopAgencyStatusEnums status = null;
-			
+
 			coopAgencyApply.setIntime(new Date());
 			if (coopAgencyApply.getSupercode().equals("0")) {
 				coopAgencyApply.setCalevel((short) 1);
@@ -117,7 +123,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		List<String> statuses = new ArrayList<>();
 		if (StringUtils.isBlank(coopAgencyApply.getStatus())) {
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());// 注册待审
-			//statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());// 注册待审前修改
+			// statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());//
+			// 注册待审前修改
 			statuses.add(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode());// 变更待审
 			statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode());// 注销待审
 		} else {
@@ -176,11 +183,15 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			return new ResultBean("", "信息有误，操作失败！");
 		} else if (!agencyApplyBack.getStatus().equals(coopAgencyApply.getStatus())) {
 			return new ResultBean("", "状态信息有误，请确保是否有其他人在操作，或刷新一下数据再试试！");
+		} else if (StringUtils.isBlank(coopAgencyApply.getRateId())
+				|| StringUtils.isBlank(coopAgencyApply.getRiskver())) {
+			return new ResultBean("", "您还未配置完收费代码或风控版本，不能通过审核！");
 		} else {
 			// 根据状态判断是哪种操作
 			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {
 				// 注册待审：修改申请表的状态为“不在用”，并添加数据到在用的表中
-				coopAgencyApply.setStexaTime(new Date());
+				Date now = new Date();
+				coopAgencyApply.setStexaTime(now);
 				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 				this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 
@@ -189,15 +200,39 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(coopAgencyApply.getStexaTime());
 				coopAgency.setCaid(null);
+				coopAgency.setRiskver(coopAgencyApply.getRiskver());
 				coopAgencyMapper.insertSelective(coopAgency);
+
+				// 判断扣率配置是否有变更，有的话，更新配置
+				/*TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
+				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
+				criteria.andMemberIdEqualTo(agencyApplyBack.getCacode());
+				List<TMerchRateConfig> merchRateConfigList = merchRateConfigMapper.selectByExample(merchRateConfigExample);
+				if (merchRateConfigList.size() > 0) {// 已存在
+					merchRateConfig = merchRateConfigList.get(0);
+					if (!String.valueOf(merchRateConfig.getRateId()).equals(coopAgencyApply.getRateId())) {// 不相等，说明已发生变更
+						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));;
+						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
+					}
+				} else {
+					// 添加
+					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
+					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
+					merchRateConfig.setRateId(coopAgencyApply.getCaid());
+					merchRateConfig.setIntime(now);
+					merchRateConfig.setInuser(coopAgencyApply.getInuser());
+					merchRateConfigMapper.insertSelective(merchRateConfig);
+				}*/
 
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode())) {
 				// 变更待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”，并添加新数据到在用的表中
+				Date now = new Date();
 				TCoopAgency coopAgency = new TCoopAgency();
 				coopAgency.setCaid(agencyApplyBack.getCaid());
 				coopAgency.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
-				coopAgency.setStexaTime(new Date());
+				coopAgency.setStexaTime(now);
 				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
 
 				coopAgencyApply.setStexaTime(coopAgency.getStexaTime());
@@ -209,7 +244,30 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(coopAgencyApply.getStexaTime());
 				coopAgency.setCaid(null);
+				coopAgency.setRiskver(coopAgencyApply.getRiskver());
 				coopAgencyMapper.insertSelective(coopAgency);
+
+				// 判断扣率配置是否有变更，有的话，更新配置
+				/*TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
+				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
+				criteria.andMemberIdEqualTo(agencyApplyBack.getCacode());
+				List<TMerchRateConfig> merchRateConfigList = merchRateConfigMapper.selectByExample(merchRateConfigExample);
+				if (merchRateConfigList.size() > 0) {// 已存在
+					merchRateConfig = merchRateConfigList.get(0);
+					if (!String.valueOf(merchRateConfig.getRateId()).equals(coopAgencyApply.getRateId())) {// 不相等，说明已发生变更
+						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));;
+						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
+					}
+				} else {
+					// 添加
+					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
+					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
+					merchRateConfig.setRateId(coopAgencyApply.getCaid());
+					merchRateConfig.setIntime(now);
+					merchRateConfig.setInuser(coopAgencyApply.getInuser());
+					merchRateConfigMapper.insertSelective(merchRateConfig);
+				}*/
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode())) {
 				// 注销待审：先判断是否有下级渠道
 				TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();
@@ -246,7 +304,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		Integer beginRow = (page - 1) * rows;
 		List<String> statuses = new ArrayList<>();
 		if (StringUtils.isBlank(coopAgencyApply.getStatus())) {
-			//statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());// 注册审核前被修改
+			// statuses.add(CoopAgencyStatusEnums.UPDATEBEFORECHECKING.getCode());//
+			// 注册审核前被修改
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());// 注册待审
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());// 注册审核拒绝
 			statuses.add(CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode());// 变更被拒

@@ -10,7 +10,7 @@ public interface TRateAccumMapper {
 
     int deleteByExample(TRateAccumExample example);
 
-    int deleteByPrimaryKey(Long tid);
+    int deleteByPrimaryKey(Integer rateId);
 
     int insert(TRateAccum record);
 
@@ -18,7 +18,7 @@ public interface TRateAccumMapper {
 
     List<TRateAccum> selectByExample(TRateAccumExample example);
 
-    TRateAccum selectByPrimaryKey(Long tid);
+    TRateAccum selectByPrimaryKey(Integer rateId);
 
     int updateByExampleSelective(@Param("record") TRateAccum record, @Param("example") TRateAccumExample example);
 
@@ -27,4 +27,6 @@ public interface TRateAccumMapper {
     int updateByPrimaryKeySelective(TRateAccum record);
 
     int updateByPrimaryKey(TRateAccum record);
+
+	List<TRateAccum> getAllRateList();
 }

@@ -114,62 +114,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andTidEqualTo(String value) {
+        public Criteria andTidEqualTo(Integer value) {
             addCriterion("TID =", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotEqualTo(String value) {
+        public Criteria andTidNotEqualTo(Integer value) {
             addCriterion("TID <>", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThan(String value) {
+        public Criteria andTidGreaterThan(Integer value) {
             addCriterion("TID >", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThanOrEqualTo(String value) {
+        public Criteria andTidGreaterThanOrEqualTo(Integer value) {
             addCriterion("TID >=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThan(String value) {
+        public Criteria andTidLessThan(Integer value) {
             addCriterion("TID <", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThanOrEqualTo(String value) {
+        public Criteria andTidLessThanOrEqualTo(Integer value) {
             addCriterion("TID <=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLike(String value) {
-            addCriterion("TID like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotLike(String value) {
-            addCriterion("TID not like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidIn(List<String> values) {
+        public Criteria andTidIn(List<Integer> values) {
             addCriterion("TID in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotIn(List<String> values) {
+        public Criteria andTidNotIn(List<Integer> values) {
             addCriterion("TID not in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidBetween(String value1, String value2) {
+        public Criteria andTidBetween(Integer value1, Integer value2) {
             addCriterion("TID between", value1, value2, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotBetween(String value1, String value2) {
+        public Criteria andTidNotBetween(Integer value1, Integer value2) {
             addCriterion("TID not between", value1, value2, "tid");
             return (Criteria) this;
         }
@@ -184,62 +174,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andRateIdEqualTo(String value) {
+        public Criteria andRateIdEqualTo(Long value) {
             addCriterion("RATE_ID =", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotEqualTo(String value) {
+        public Criteria andRateIdNotEqualTo(Long value) {
             addCriterion("RATE_ID <>", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThan(String value) {
+        public Criteria andRateIdGreaterThan(Long value) {
             addCriterion("RATE_ID >", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThanOrEqualTo(String value) {
+        public Criteria andRateIdGreaterThanOrEqualTo(Long value) {
             addCriterion("RATE_ID >=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThan(String value) {
+        public Criteria andRateIdLessThan(Long value) {
             addCriterion("RATE_ID <", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThanOrEqualTo(String value) {
+        public Criteria andRateIdLessThanOrEqualTo(Long value) {
             addCriterion("RATE_ID <=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLike(String value) {
-            addCriterion("RATE_ID like", value, "rateId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateIdNotLike(String value) {
-            addCriterion("RATE_ID not like", value, "rateId");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateIdIn(List<String> values) {
+        public Criteria andRateIdIn(List<Long> values) {
             addCriterion("RATE_ID in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotIn(List<String> values) {
+        public Criteria andRateIdNotIn(List<Long> values) {
             addCriterion("RATE_ID not in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdBetween(String value1, String value2) {
+        public Criteria andRateIdBetween(Long value1, Long value2) {
             addCriterion("RATE_ID between", value1, value2, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotBetween(String value1, String value2) {
+        public Criteria andRateIdNotBetween(Long value1, Long value2) {
             addCriterion("RATE_ID not between", value1, value2, "rateId");
             return (Criteria) this;
         }
@@ -254,62 +234,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeEqualTo(String value) {
+        public Criteria andMinfeeEqualTo(Long value) {
             addCriterion("MINFEE =", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeNotEqualTo(String value) {
+        public Criteria andMinfeeNotEqualTo(Long value) {
             addCriterion("MINFEE <>", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeGreaterThan(String value) {
+        public Criteria andMinfeeGreaterThan(Long value) {
             addCriterion("MINFEE >", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeGreaterThanOrEqualTo(String value) {
+        public Criteria andMinfeeGreaterThanOrEqualTo(Long value) {
             addCriterion("MINFEE >=", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeLessThan(String value) {
+        public Criteria andMinfeeLessThan(Long value) {
             addCriterion("MINFEE <", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeLessThanOrEqualTo(String value) {
+        public Criteria andMinfeeLessThanOrEqualTo(Long value) {
             addCriterion("MINFEE <=", value, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeLike(String value) {
-            addCriterion("MINFEE like", value, "minfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinfeeNotLike(String value) {
-            addCriterion("MINFEE not like", value, "minfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andMinfeeIn(List<String> values) {
+        public Criteria andMinfeeIn(List<Long> values) {
             addCriterion("MINFEE in", values, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeNotIn(List<String> values) {
+        public Criteria andMinfeeNotIn(List<Long> values) {
             addCriterion("MINFEE not in", values, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeBetween(String value1, String value2) {
+        public Criteria andMinfeeBetween(Long value1, Long value2) {
             addCriterion("MINFEE between", value1, value2, "minfee");
             return (Criteria) this;
         }
 
-        public Criteria andMinfeeNotBetween(String value1, String value2) {
+        public Criteria andMinfeeNotBetween(Long value1, Long value2) {
             addCriterion("MINFEE not between", value1, value2, "minfee");
             return (Criteria) this;
         }
@@ -324,62 +294,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeEqualTo(String value) {
+        public Criteria andMaxfeeEqualTo(Long value) {
             addCriterion("MAXFEE =", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeNotEqualTo(String value) {
+        public Criteria andMaxfeeNotEqualTo(Long value) {
             addCriterion("MAXFEE <>", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeGreaterThan(String value) {
+        public Criteria andMaxfeeGreaterThan(Long value) {
             addCriterion("MAXFEE >", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeGreaterThanOrEqualTo(String value) {
+        public Criteria andMaxfeeGreaterThanOrEqualTo(Long value) {
             addCriterion("MAXFEE >=", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeLessThan(String value) {
+        public Criteria andMaxfeeLessThan(Long value) {
             addCriterion("MAXFEE <", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeLessThanOrEqualTo(String value) {
+        public Criteria andMaxfeeLessThanOrEqualTo(Long value) {
             addCriterion("MAXFEE <=", value, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeLike(String value) {
-            addCriterion("MAXFEE like", value, "maxfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxfeeNotLike(String value) {
-            addCriterion("MAXFEE not like", value, "maxfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andMaxfeeIn(List<String> values) {
+        public Criteria andMaxfeeIn(List<Long> values) {
             addCriterion("MAXFEE in", values, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeNotIn(List<String> values) {
+        public Criteria andMaxfeeNotIn(List<Long> values) {
             addCriterion("MAXFEE not in", values, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeBetween(String value1, String value2) {
+        public Criteria andMaxfeeBetween(Long value1, Long value2) {
             addCriterion("MAXFEE between", value1, value2, "maxfee");
             return (Criteria) this;
         }
 
-        public Criteria andMaxfeeNotBetween(String value1, String value2) {
+        public Criteria andMaxfeeNotBetween(Long value1, Long value2) {
             addCriterion("MAXFEE not between", value1, value2, "maxfee");
             return (Criteria) this;
         }
@@ -394,62 +354,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeEqualTo(String value) {
+        public Criteria andFixfeeEqualTo(Long value) {
             addCriterion("FIXFEE =", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeNotEqualTo(String value) {
+        public Criteria andFixfeeNotEqualTo(Long value) {
             addCriterion("FIXFEE <>", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeGreaterThan(String value) {
+        public Criteria andFixfeeGreaterThan(Long value) {
             addCriterion("FIXFEE >", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeGreaterThanOrEqualTo(String value) {
+        public Criteria andFixfeeGreaterThanOrEqualTo(Long value) {
             addCriterion("FIXFEE >=", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeLessThan(String value) {
+        public Criteria andFixfeeLessThan(Long value) {
             addCriterion("FIXFEE <", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeLessThanOrEqualTo(String value) {
+        public Criteria andFixfeeLessThanOrEqualTo(Long value) {
             addCriterion("FIXFEE <=", value, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeLike(String value) {
-            addCriterion("FIXFEE like", value, "fixfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andFixfeeNotLike(String value) {
-            addCriterion("FIXFEE not like", value, "fixfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andFixfeeIn(List<String> values) {
+        public Criteria andFixfeeIn(List<Long> values) {
             addCriterion("FIXFEE in", values, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeNotIn(List<String> values) {
+        public Criteria andFixfeeNotIn(List<Long> values) {
             addCriterion("FIXFEE not in", values, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeBetween(String value1, String value2) {
+        public Criteria andFixfeeBetween(Long value1, Long value2) {
             addCriterion("FIXFEE between", value1, value2, "fixfee");
             return (Criteria) this;
         }
 
-        public Criteria andFixfeeNotBetween(String value1, String value2) {
+        public Criteria andFixfeeNotBetween(Long value1, Long value2) {
             addCriterion("FIXFEE not between", value1, value2, "fixfee");
             return (Criteria) this;
         }
@@ -464,62 +414,52 @@ public class TSpeFeeDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andFeerateEqualTo(String value) {
+        public Criteria andFeerateEqualTo(Long value) {
             addCriterion("FEERATE =", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateNotEqualTo(String value) {
+        public Criteria andFeerateNotEqualTo(Long value) {
             addCriterion("FEERATE <>", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateGreaterThan(String value) {
+        public Criteria andFeerateGreaterThan(Long value) {
             addCriterion("FEERATE >", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateGreaterThanOrEqualTo(String value) {
+        public Criteria andFeerateGreaterThanOrEqualTo(Long value) {
             addCriterion("FEERATE >=", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateLessThan(String value) {
+        public Criteria andFeerateLessThan(Long value) {
             addCriterion("FEERATE <", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateLessThanOrEqualTo(String value) {
+        public Criteria andFeerateLessThanOrEqualTo(Long value) {
             addCriterion("FEERATE <=", value, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateLike(String value) {
-            addCriterion("FEERATE like", value, "feerate");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeerateNotLike(String value) {
-            addCriterion("FEERATE not like", value, "feerate");
-            return (Criteria) this;
-        }
-
-        public Criteria andFeerateIn(List<String> values) {
+        public Criteria andFeerateIn(List<Long> values) {
             addCriterion("FEERATE in", values, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateNotIn(List<String> values) {
+        public Criteria andFeerateNotIn(List<Long> values) {
             addCriterion("FEERATE not in", values, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateBetween(String value1, String value2) {
+        public Criteria andFeerateBetween(Long value1, Long value2) {
             addCriterion("FEERATE between", value1, value2, "feerate");
             return (Criteria) this;
         }
 
-        public Criteria andFeerateNotBetween(String value1, String value2) {
+        public Criteria andFeerateNotBetween(Long value1, Long value2) {
             addCriterion("FEERATE not between", value1, value2, "feerate");
             return (Criteria) this;
         }
@@ -591,6 +531,146 @@ public class TSpeFeeDetaExample {
 
         public Criteria andFunctionNotBetween(String value1, String value2) {
             addCriterion("FUNCTION not between", value1, value2, "function");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesIsNull() {
+            addCriterion("notes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesIsNotNull() {
+            addCriterion("notes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesEqualTo(String value) {
+            addCriterion("notes =", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesNotEqualTo(String value) {
+            addCriterion("notes <>", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesGreaterThan(String value) {
+            addCriterion("notes >", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesGreaterThanOrEqualTo(String value) {
+            addCriterion("notes >=", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesLessThan(String value) {
+            addCriterion("notes <", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesLessThanOrEqualTo(String value) {
+            addCriterion("notes <=", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesLike(String value) {
+            addCriterion("notes like", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesNotLike(String value) {
+            addCriterion("notes not like", value, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesIn(List<String> values) {
+            addCriterion("notes in", values, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesNotIn(List<String> values) {
+            addCriterion("notes not in", values, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesBetween(String value1, String value2) {
+            addCriterion("notes between", value1, value2, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andNotesNotBetween(String value1, String value2) {
+            addCriterion("notes not between", value1, value2, "notes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksIsNull() {
+            addCriterion("remarks is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksIsNotNull() {
+            addCriterion("remarks is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksEqualTo(String value) {
+            addCriterion("remarks =", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksNotEqualTo(String value) {
+            addCriterion("remarks <>", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksGreaterThan(String value) {
+            addCriterion("remarks >", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksGreaterThanOrEqualTo(String value) {
+            addCriterion("remarks >=", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksLessThan(String value) {
+            addCriterion("remarks <", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksLessThanOrEqualTo(String value) {
+            addCriterion("remarks <=", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksLike(String value) {
+            addCriterion("remarks like", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksNotLike(String value) {
+            addCriterion("remarks not like", value, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksIn(List<String> values) {
+            addCriterion("remarks in", values, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksNotIn(List<String> values) {
+            addCriterion("remarks not in", values, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksBetween(String value1, String value2) {
+            addCriterion("remarks between", value1, value2, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarksNotBetween(String value1, String value2) {
+            addCriterion("remarks not between", value1, value2, "remarks");
             return (Criteria) this;
         }
     }

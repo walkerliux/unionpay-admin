@@ -3,7 +3,7 @@ package com.unionpay.withhold.admin.pojo;
 import java.util.Date;
 
 public class TRateAccumDeta {
-    private Long tid;
+    private Integer tid;
 
     private Long rateId;
 
@@ -27,11 +27,11 @@ public class TRateAccumDeta {
 
     private String remarks;
 
-    public Long getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(Long tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 
