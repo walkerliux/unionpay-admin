@@ -29,7 +29,7 @@ public class SaveBatchHandler implements EventHandler<BatchCollectBean>{
 		ResultBean resultBean = null;
 		try {
 			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()) {
-				
+				resultBean = batchCollectBean.getRepeatSubmitCheck();
 			}else {
 				String tn = serialNumberService.generateTN(batchCollectBean.getMerId());
 				OrderCollectBatchDO orderCollectBatch = new OrderCollectBatchDO();
@@ -67,8 +67,10 @@ public class SaveBatchHandler implements EventHandler<BatchCollectBean>{
 			e.printStackTrace();
 			resultBean =  new ResultBean("OD061", "保存批信息细异常");
 			resultBean.setResultBool(false);
+		}finally {
+			batchCollectBean.setSaveBatch(resultBean);
 		}
-		batchCollectBean.setSaveBatch(resultBean);
+		
 		
 	}
 

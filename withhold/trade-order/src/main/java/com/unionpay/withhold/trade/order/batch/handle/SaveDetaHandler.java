@@ -21,7 +21,7 @@ public class SaveDetaHandler implements EventHandler<BatchCollectBean> {
 		ResultBean resultBean = null;
 		try {
 			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()) {
-				
+				resultBean = batchCollectBean.getRepeatSubmitCheck();
 			}else {
 				List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
 				orderCollectDetaService.batchSaveOrderCollectDeta(batchCollectBean.getBatchNo(), detaList);
@@ -32,8 +32,10 @@ public class SaveDetaHandler implements EventHandler<BatchCollectBean> {
 			e.printStackTrace();
 			resultBean =  new ResultBean("OD057", "保存批次明细异常");
 			resultBean.setResultBool(false);
+		}finally {
+			batchCollectBean.setSaveDeta(resultBean);
 		}
-		batchCollectBean.setSaveDeta(resultBean);
+		
 	}
 
 }

@@ -36,4 +36,12 @@ public class TxnLogServiceImpl implements TxnLogService {
 			txnLogDAO.insert(txnLogDO);
 		}
 	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
+	public void batchUpdateTxnLog(List<TxnLogDO> txnLogList) {
+		for(TxnLogDO txnLogDO : txnLogList) {
+			txnLogDAO.updateByPrimaryKeySelective(txnLogDO);
+		}
+	}
 }

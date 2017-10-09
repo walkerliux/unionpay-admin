@@ -35,8 +35,8 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 	public void onEvent(BatchCollectBean batchCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
-			if(!batchCollectBean.getRepeatSubmitCheck().isResultBool()||!batchCollectBean.getSaveDeta().isResultBool()) {
-				
+			if(!batchCollectBean.getSaveDeta().isResultBool()) {
+				resultBean = batchCollectBean.getSaveDeta();
 			}else {
 				TxncodeDefDO txncodeDef = new TxncodeDefDO();
 				txncodeDef.setTxntype(batchCollectBean.getTxnType());
@@ -45,6 +45,7 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 				txncodeDef = txncodeDefService.getBusiCode(txncodeDef);
 				if(txncodeDef==null){
 					resultBean = new ResultBean("OD050", "交易类型不存在");
+					resultBean.setResultBool(false);
 		        }else {
 		        	List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
 		        	List<TxnLogDO> txnLogList = Lists.newArrayList();
@@ -72,6 +73,7 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 						CardBinDO cardBin = cardBinService.getCardBin(detaBean.getCardNo());
 						if(cardBin==null) {
 							resultBean = new ResultBean("OD050", "交易类型不存在");
+							resultBean.setResultBool(false);
 						}else {
 							txnsLog.setPan(detaBean.getCardNo());
 							txnsLog.setCardtype(cardBin.getType().toString());
@@ -81,6 +83,7 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 						txnLogList.add(txnsLog);
 					}
 					txnLogService.batchSaveTxnLog(txnLogList);
+					resultBean = new ResultBean("0000", "成功");
 		        }
 			}
 			
@@ -89,9 +92,10 @@ public class SaveDetaTxnlogHandler implements EventHandler<BatchCollectBean>{
 			e.printStackTrace();
 			resultBean = new ResultBean("OD062", "保存交易流水失败");
 			batchCollectBean.setSaveDetaTxnlog(resultBean);
-			return ;
+		}finally {
+			batchCollectBean.setSaveDetaTxnlog(resultBean);
 		}
-		resultBean = new ResultBean("0000", "成功");
-		batchCollectBean.setSaveDetaTxnlog(resultBean);
+		
+		
 	}
 }

@@ -727,5 +727,115 @@
         AND RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR}
       </if>
   </select>
- 
+ <update id="updateBySelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectSingleDO">
+    update t_order_collect_single
+    <set>
+      <if test="accesstype != null">
+        ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null">
+        COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
+      </if>
+      <if test="merid != null">
+        MERID = #{merid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null">
+        ENCODING = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null">
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null">
+        TXNTYPE = #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="txnsubtype != null">
+        TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="biztype != null">
+        BIZTYPE = #{biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="backurl != null">
+        BACKURL = #{backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mername != null">
+        MERNAME = #{mername,jdbcType=VARCHAR},
+      </if>
+      <if test="merabbr != null">
+        MERABBR = #{merabbr,jdbcType=VARCHAR},
+      </if>
+      <if test="orderid != null">
+        ORDERID = #{orderid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntime != null">
+        TXNTIME = #{txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="paytimeout != null">
+        PAYTIMEOUT = #{paytimeout,jdbcType=VARCHAR},
+      </if>
+      <if test="txnamt != null">
+        TXNAMT = #{txnamt,jdbcType=DECIMAL},
+      </if>
+      <if test="currencycode != null">
+        CURRENCYCODE = #{currencycode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null">
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardno != null">
+        CARDNO = #{cardno,jdbcType=VARCHAR},
+      </if>
+      <if test="customernm != null">
+        CUSTOMERNM = #{customernm,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        FACTORID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        IDCARD = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="dktype != null">
+        DKTYPE = #{dktype,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        SUMMARY = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="orderdesc != null">
+        ORDERDESC = #{orderdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="reserved != null">
+        RESERVED = #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null">
+        RESPCODE = #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respmsg != null">
+        RESPMSG = #{respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="relatetradetxn != null">
+        RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="ordercommitime != null">
+        ORDERCOMMITIME = #{ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="syncnotify != null">
+        SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TN = #{tn,jdbcType=VARCHAR}
+  </update>
 </mapper>

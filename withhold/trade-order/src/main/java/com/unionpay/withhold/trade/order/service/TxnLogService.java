@@ -22,5 +22,10 @@ public interface TxnLogService {
 	 * 批量保存核心交易流水信息
 	 * @param txnLogList
 	 */
-	void batchSaveTxnLog(List<TxnLogDO> txnLogList);
+	public void batchSaveTxnLog(List<TxnLogDO> txnLogList);
+	/**
+	 * 批量更新核心交易流水数据
+	 * @param txnLogList
+	 */
+	public void batchUpdateTxnLog(List<TxnLogDO> txnLogList);
 }

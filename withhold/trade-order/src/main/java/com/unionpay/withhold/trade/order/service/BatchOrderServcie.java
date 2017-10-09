@@ -26,4 +26,10 @@ public interface BatchOrderServcie {
 	 * @return
 	 */
 	public OrderCollectBatchDO queryCollectBatchOrder(BatchCollectQueryBean batchCollectQueryBean);
+	
+	/**
+	 * 更新代扣批次数据
+	 * @param batchCollectQueryBean
+	 */
+	public void updateOrderCollectBatch(OrderCollectBatchDO orderCollectBatch);
 }

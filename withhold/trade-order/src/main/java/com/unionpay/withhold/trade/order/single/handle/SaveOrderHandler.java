@@ -25,14 +25,14 @@ public class SaveOrderHandler implements EventHandler<SingleCollectBean>{
 	@Override
 	public void onEvent(SingleCollectBean singleCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
-		String tn = serialNumberService.generateTN(singleCollectBean.getMchntCd());
-		String txnseqno = serialNumberService.generateTxnseqno();
-		singleCollectBean.setTn(tn);
-		singleCollectBean.setTxnseqno(txnseqno);
 		try {
+			String tn = serialNumberService.generateTN(singleCollectBean.getMchntCd());
+			String txnseqno = serialNumberService.generateTxnseqno();
+			singleCollectBean.setTn(tn);
+			singleCollectBean.setTxnseqno(txnseqno);
 			OrderCollectSingleDO orderCollectSingle = new OrderCollectSingleDO();
-			orderCollectSingle.setVersion("1.0.0");
-			orderCollectSingle.setEncoding("UTF-8");
+			orderCollectSingle.setVersion(singleCollectBean.getVersion());
+			orderCollectSingle.setEncoding(singleCollectBean.getEncoding());
 			orderCollectSingle.setCertid(singleCollectBean.getCertId());
 			orderCollectSingle.setTxntype(singleCollectBean.getTransType());
 			orderCollectSingle.setTxnsubtype("00");
@@ -57,15 +57,18 @@ public class SaveOrderHandler implements EventHandler<SingleCollectBean>{
 			orderCollectSingle.setStatus(OrderStatusEnum.INITIAL.getCode());
 			orderCollectSingle.setOrdercommitime(DateUtil.getCurrentDateTime());
 			orderCollectSingleService.saveOrderCollectSingle(orderCollectSingle);
+			resultBean = new ResultBean("0000", "成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			resultBean = new ResultBean("", "保存实时代扣订单失败");
+			resultBean = new ResultBean("OD064", "保存实时代扣订单失败");
 			singleCollectBean.setSaveOrder(resultBean);
 			return ;
+		}finally {
+			singleCollectBean.setSaveOrder(resultBean);
 		}
-		resultBean = new ResultBean("0000", "成功");
-		singleCollectBean.setSaveOrder(resultBean);
+		
+		
 		
 	}
 

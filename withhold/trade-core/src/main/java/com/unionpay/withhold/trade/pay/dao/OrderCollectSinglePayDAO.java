@@ -31,4 +31,6 @@ public interface OrderCollectSinglePayDAO {
     int updateByPrimaryKey(OrderCollectSinglePayDO record);
     
     OrderCollectSinglePayDO querySingleOrder(OrderCollectSinglePayDO record);
+    
+    int updateBySelective(OrderCollectSinglePayDO record);
 }

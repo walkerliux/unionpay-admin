@@ -3,6 +3,8 @@ package com.unionpay.withhold.trade.order.dao;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDO;
 import com.unionpay.withhold.trade.order.pojo.OrderCollectDetaDOExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrderCollectDetaDAO {
@@ -29,4 +31,6 @@ public interface OrderCollectDetaDAO {
     int updateByPrimaryKey(OrderCollectDetaDO record);
     
     List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId);
+    
+    int updateByTN(Map<String, String> map);
 }

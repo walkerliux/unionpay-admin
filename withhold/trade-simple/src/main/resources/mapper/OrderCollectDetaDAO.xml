@@ -484,4 +484,10 @@
     from t_order_collect_deta
     where BATCHTID = #{batchtid,jdbcType=DECIMAL}
   </select>
+  <update id="updateByTN" parameterType="map">
+    update t_order_collect_deta
+    set 
+      STATUS = #{status,jdbcType=VARCHAR}
+    where BATCHTID = (SELECT TID FROM t_order_collect_batch where tn = #{tn,jdbcType=VARCHAR})
+  </update>
 </mapper>

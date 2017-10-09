@@ -831,9 +831,7 @@
       <if test="respmsg != null">
         RESPMSG = #{respmsg,jdbcType=VARCHAR},
       </if>
-      <if test="relatetradetxn != null">
-        RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR},
-      </if>
+     
       <if test="status != null">
         STATUS = #{status,jdbcType=CHAR},
       </if>
@@ -850,6 +848,9 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where TN = #{tn,jdbcType=VARCHAR}
+    where 
+     <if test="relatetradetxn != '' and relatetradetxn != null">
+        RELATETRADETXN = #{relatetradetxn,jdbcType=VARCHAR}
+      </if>
   </update>
 </mapper>

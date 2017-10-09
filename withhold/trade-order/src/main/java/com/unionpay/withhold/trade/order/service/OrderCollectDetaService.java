@@ -27,5 +27,9 @@ public interface OrderCollectDetaService {
 	 */
 	public void batchSaveOrderCollectDeta(String batchNo,List<BatchCollectDetaBean> detaList);
 	
-	
+	/**
+	 * 更新批次明细状态
+	 * @param tn
+	 */
+	public void updateCollectOrderDeta(String tn);
 }

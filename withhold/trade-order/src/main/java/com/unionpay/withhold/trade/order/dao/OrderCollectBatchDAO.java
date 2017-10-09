@@ -31,4 +31,6 @@ public interface OrderCollectBatchDAO {
     OrderCollectBatchDO getCollectBatchOrder(OrderCollectBatchDO record);
     
     OrderCollectBatchDO queryCollectBatchOrder(OrderCollectBatchDO record);
+    
+    int updateByTN(OrderCollectBatchDO record);
 }

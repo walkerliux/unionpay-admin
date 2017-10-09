@@ -13,34 +13,43 @@ public class BatchMessageCheckHandler implements EventHandler<BatchCollectBean>{
 
 	@Override
 	public void onEvent(BatchCollectBean batchCollectBean, long sequence, boolean endOfBatch) throws Exception {
-		ResultBean resultBean = ValidateLocator.validateBeans(batchCollectBean);
-		if(resultBean.isResultBool()) {
-			resultBean = null;
-			List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
-			if(detaList.size()==0) {
-				resultBean = new ResultBean("OD056", "批次明细不能为空");
-				resultBean.setResultBool(false);
-			}else {
-				List<ResultBean> resultBeans = Lists.newArrayList();
-				for(BatchCollectDetaBean detaBean : detaList) {
-					resultBean = ValidateLocator.validateBeans(detaBean);
-					if(!resultBean.isResultBool()) {
-						resultBean.setResultObj(detaBean.getOrderId());
-						resultBeans.add(resultBean);
+		ResultBean resultBean = null;
+		try {
+			resultBean = ValidateLocator.validateBeans(batchCollectBean);
+			if(resultBean.isResultBool()) {
+				resultBean = null;
+				List<BatchCollectDetaBean> detaList = batchCollectBean.getDetaList();
+				if(detaList.size()==0) {
+					resultBean = new ResultBean("OD056", "批次明细不能为空");
+					resultBean.setResultBool(false);
+				}else {
+					List<ResultBean> resultBeans = Lists.newArrayList();
+					for(BatchCollectDetaBean detaBean : detaList) {
+						resultBean = ValidateLocator.validateBeans(detaBean);
+						if(!resultBean.isResultBool()) {
+							resultBean.setResultObj(detaBean.getOrderId());
+							resultBeans.add(resultBean);
+						}
+					}
+					if(resultBeans.size()>0) {
+						resultBean = new ResultBean("OD052", "批量报文校验错误");
+						resultBean.setResultBool(false);
+						resultBean.setResultObj(resultBeans);
+					}
+					if(resultBean==null) {
+						resultBean = new ResultBean("0000", "成功");
 					}
 				}
-				if(resultBeans.size()>0) {
-					resultBean = new ResultBean("OD052", "批量报文校验错误");
-					resultBean.setResultBool(false);
-					resultBean.setResultObj(resultBeans);
-				}
-				if(resultBean==null) {
-					resultBean = new ResultBean("0000", "成功");
-				}
 			}
-			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("OD046", "系统内部错误");
+			resultBean.setResultBool(false);
+		}finally {
+			batchCollectBean.setBatchMessageCheck(resultBean);
 		}
-		batchCollectBean.setBatchMessageCheck(resultBean);
+		
 	}
 
 }

@@ -38,6 +38,7 @@ public class SaveTxnlogHandler implements EventHandler<SingleCollectBean>{
 			txncodeDef = txncodeDefService.getBusiCode(txncodeDef);
 			if(txncodeDef==null){
 				resultBean = new ResultBean("OD050", "交易类型不存在");
+				resultBean.setResultBool(false);
 	        }else {
 	        	TxnLogDO txnsLog = new TxnLogDO();
 				txnsLog.setTxnseqno(singleCollectBean.getTxnseqno());
@@ -62,6 +63,7 @@ public class SaveTxnlogHandler implements EventHandler<SingleCollectBean>{
 				CardBinDO cardBin = cardBinService.getCardBin(singleCollectBean.getPriAcctId());
 				if(cardBin==null) {
 					resultBean = new ResultBean("OD050", "交易类型不存在");
+					resultBean.setResultBool(false);
 				}else {
 					txnsLog.setPan(singleCollectBean.getPriAcctId());
 					txnsLog.setCardtype(cardBin.getType().toString());
@@ -69,16 +71,16 @@ public class SaveTxnlogHandler implements EventHandler<SingleCollectBean>{
 					txnsLog.setPanName(singleCollectBean.getName());
 				}
 				txnLogService.saveTxnLog(txnsLog);
+				resultBean = new ResultBean("0000", "成功");
 	        }
-			
 		} catch (Exception e) {
 			e.printStackTrace();
-			resultBean = new ResultBean("", "保存实时代扣订单失败");
+			resultBean = new ResultBean("OD062", "保存交易流水失败");
 			singleCollectBean.setSaveOrder(resultBean);
 			return ;
+		}finally {
+			singleCollectBean.setSaveTxnLog(resultBean);
 		}
-		resultBean = new ResultBean("0000", "成功");
-		singleCollectBean.setSaveTxnLog(resultBean);
 	}
 
 }

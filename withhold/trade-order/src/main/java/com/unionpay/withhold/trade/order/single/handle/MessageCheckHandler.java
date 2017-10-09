@@ -14,13 +14,22 @@ public class MessageCheckHandler implements EventHandler<SingleCollectBean>{
 
 	@Override
 	public void onEvent(SingleCollectBean singleCollectBean, long sequence, boolean endOfBatch) throws Exception {
-		if(singleCollectBean.getFinalResult()!=null) {
-			if(singleCollectBean.getFinalResult().isResultBool()) {
+		ResultBean resultBean = null;
+		try {
+			if(!singleCollectBean.getFinalResult().isResultBool()) {
+				resultBean = singleCollectBean.getFinalResult();
 				return;
 			}
+			resultBean = ValidateLocator.validateBeans(singleCollectBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("OD046", "系统内部错误");
+			resultBean.setResultBool(false);
+		}finally {
+			singleCollectBean.setMessageCheck(resultBean);
 		}
-		ResultBean resultBean = ValidateLocator.validateBeans(singleCollectBean);
-		singleCollectBean.setMessageCheck(resultBean);
+		
 	}
 	
 }

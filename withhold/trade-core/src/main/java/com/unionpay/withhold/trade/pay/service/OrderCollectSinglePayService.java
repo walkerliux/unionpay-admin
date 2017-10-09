@@ -10,4 +10,10 @@ public interface OrderCollectSinglePayService {
 	 * @return
 	 */
 	public OrderCollectSinglePayDO querySingleCollectOrder(OrderCollectSinglePayDO orderCollectSinglePay);
+	
+	/**
+	 * 更新实时代扣订单
+	 * @param orderCollectSinglePay
+	 */
+	public void updateSingleCollectOrder(OrderCollectSinglePayDO orderCollectSinglePay);
 }

@@ -19,6 +19,10 @@ public class ChnlFeeHandler  implements EventHandler<TradeBean>{
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
+			if(!tradeBean.getFinalTrade().isResultBool()) {
+				resultBean = tradeBean.getFinalTrade();
+				return;
+			}
 			if(StringUtils.isEmpty(tradeBean.getChnlCode())) {
 				resultBean = new ResultBean("PC010","无可用交易渠道");
 				resultBean.setResultBool(false);

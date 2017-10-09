@@ -32,7 +32,7 @@
 			</fileNamePattern>
 			<!-- 可选节点，控制保留的归档文件的最大数量，超出数量就删除旧文件。假设设置每天滚动， 且maxHistory是365，则只保存最近365天的文件，删除之前的旧文件。注意，删除旧文件是， 
 				那些为了归档而创建的目录也会被删除。 -->
-			<MaxHistory>365</MaxHistory>
+			<MaxHistory>30</MaxHistory>
 			<!-- 当日志文件超过maxFileSize指定的大小是，根据上面提到的%i进行日志文件滚动 注意此处配置SizeBasedTriggeringPolicy是无法实现按文件大小进行滚动的，必须配置timeBasedFileNamingAndTriggeringPolicy -->
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">

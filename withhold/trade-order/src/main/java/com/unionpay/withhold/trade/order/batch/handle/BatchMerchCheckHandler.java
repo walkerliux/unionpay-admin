@@ -20,23 +20,35 @@ public class BatchMerchCheckHandler implements EventHandler<BatchCollectBean> {
 	@Override
 	public void onEvent(BatchCollectBean batchCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
-		if (StringUtils.isEmpty(batchCollectBean.getMerId())) {
-			resultBean = new ResultBean("OD004", "商户号为空");
-		} else {
-			MerchDetaDO member = merchDetaService.getMerchByMemberId(batchCollectBean.getMerId());
-			if (member == null) {
-				resultBean = new ResultBean("OD009", "商户不存在");
+		try {
+			if (StringUtils.isEmpty(batchCollectBean.getMerId())) {
+				resultBean = new ResultBean("OD004", "商户号为空");
+				resultBean.setResultBool(false);
 			} else {
-				MerchStatusEnum merchStatus = MerchStatusEnum.fromValue(member.getStatus());
-				if (merchStatus != MerchStatusEnum.NORMAL) {
-					resultBean = new ResultBean("OD051", "商户状态异常");
+				MerchDetaDO member = merchDetaService.getMerchByMemberId(batchCollectBean.getMerId());
+				if (member == null) {
+					resultBean = new ResultBean("OD009", "商户不存在");
+					resultBean.setResultBool(false);
+				} else {
+					MerchStatusEnum merchStatus = MerchStatusEnum.fromValue(member.getStatus());
+					if (merchStatus != MerchStatusEnum.NORMAL) {
+						resultBean = new ResultBean("OD051", "商户状态异常");
+						resultBean.setResultBool(false);
+					}
 				}
 			}
+			if (resultBean == null) {
+				resultBean = new ResultBean("0000", "成功");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("OD046", "系统内部错误");
+			resultBean.setResultBool(false);
+		} finally {
+			batchCollectBean.setMerchCheck(resultBean);
 		}
-		if (resultBean == null) {
-			resultBean = new ResultBean("0000", "成功");
-		}
-		batchCollectBean.setMerchCheck(resultBean);
+		
 	}
 
 }

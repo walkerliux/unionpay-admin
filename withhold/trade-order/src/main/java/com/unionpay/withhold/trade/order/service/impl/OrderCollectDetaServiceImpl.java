@@ -1,12 +1,14 @@
 package com.unionpay.withhold.trade.order.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.google.common.collect.Maps;
 import com.unionpay.withhold.trade.order.bean.BatchCollectDetaBean;
 import com.unionpay.withhold.trade.order.dao.OrderCollectDetaDAO;
 import com.unionpay.withhold.trade.order.enums.OrderStatusEnum;
@@ -61,6 +63,15 @@ public class OrderCollectDetaServiceImpl implements OrderCollectDetaService{
 	@Transactional(readOnly=true)
 	public List<OrderCollectDetaDO> queryCollectOrderDeta(Long batchId){
 		return orderCollectDetaDAO.queryCollectOrderDeta(batchId);
+	}
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,rollbackFor=Throwable.class)
+	public void updateCollectOrderDeta(String tn) {
+		// TODO Auto-generated method stub
+		Map<String, String> paraMap = Maps.newHashMap();
+		paraMap.put("tn", tn);
+		paraMap.put("status", OrderStatusEnum.FAILED.getCode());
+		orderCollectDetaDAO.updateByTN(paraMap);
 	}
 
 	

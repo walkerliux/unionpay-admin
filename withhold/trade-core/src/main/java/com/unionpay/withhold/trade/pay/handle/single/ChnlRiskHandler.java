@@ -16,6 +16,10 @@ public class ChnlRiskHandler implements EventHandler<TradeBean>{
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
+			if(!tradeBean.getFinalTrade().isResultBool()) {
+				resultBean = tradeBean.getFinalTrade();
+				return;
+			}
 			RiskBean riskBean = new RiskBean();
 			riskBean.setTxnseqno(tradeBean.getTxnseqno());
 			/**合作机构号*/

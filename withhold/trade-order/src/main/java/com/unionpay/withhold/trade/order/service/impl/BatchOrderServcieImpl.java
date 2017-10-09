@@ -42,6 +42,12 @@ public class BatchOrderServcieImpl implements BatchOrderServcie {
 		record.setBatchno(batchCollectQueryBean.getBatchNo());
 		return orderCollectBatchDAO.queryCollectBatchOrder(record);
 	}
+
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Throwable.class)
+	public void updateOrderCollectBatch(OrderCollectBatchDO orderCollectBatch) {
+		orderCollectBatchDAO.updateByTN(orderCollectBatch);
+	}
 	
 	
 

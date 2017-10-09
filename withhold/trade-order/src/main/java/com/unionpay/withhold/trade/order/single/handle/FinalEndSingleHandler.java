@@ -30,39 +30,77 @@ public class FinalEndSingleHandler implements EventHandler<SingleCollectBean>{
 	@Override
 	public void onEvent(SingleCollectBean singleCollectBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
-		TxnLogDO txnLog = new TxnLogDO();
-		txnLog.setTxnseqno(singleCollectBean.getTxnseqno());
-		if(singleCollectBean.getFinalResult()==null) {
-			String rspCode = null;
-			//非空校验结果
-			if(!singleCollectBean.getMessageCheck().isResultBool()) {
-				rspCode = singleCollectBean.getMessageCheck().getRespCode();
-			}
-			//业务校验结果
-			if(!singleCollectBean.getBusiCheck().isResultBool()) {
-				rspCode = singleCollectBean.getBusiCheck().getRespCode();
-			}
-			//商户校验结果
-			if(!singleCollectBean.getMerchCheck().isResultBool()) {
-				rspCode = singleCollectBean.getMerchCheck().getRespCode();
-			}
-			//二次提交校验结果
-			if(!singleCollectBean.getRepeatSubmit().isResultBool()) {
-				rspCode = singleCollectBean.getRepeatSubmit().getRespCode();
-			}
-			//保存实时订单结果
-			if(!singleCollectBean.getSaveOrder().isResultBool()) {
-				rspCode = singleCollectBean.getSaveOrder().getRespCode();
-			}
-			//保存核心流水结果
-			if(!singleCollectBean.getSaveTxnLog().isResultBool()) {
-				rspCode = singleCollectBean.getSaveTxnLog().getRespCode();
-			}
-			if(StringUtils.isNotEmpty(rspCode)) {
+		try {
+			TxnLogDO txnLog = new TxnLogDO();
+			txnLog.setTxnseqno(singleCollectBean.getTxnseqno());
+			if(singleCollectBean.getFinalResult().isResultBool()) {
+				String rspCode = null;
+				//非空校验结果
+				if(!singleCollectBean.getMessageCheck().isResultBool()) {
+					rspCode = singleCollectBean.getMessageCheck().getRespCode();
+				}
+				//业务校验结果
+				if(!singleCollectBean.getBusiCheck().isResultBool()) {
+					rspCode = singleCollectBean.getBusiCheck().getRespCode();
+				}
+				//商户校验结果
+				if(!singleCollectBean.getMerchCheck().isResultBool()) {
+					rspCode = singleCollectBean.getMerchCheck().getRespCode();
+				}
+				//二次提交校验结果
+				if(!singleCollectBean.getRepeatSubmit().isResultBool()) {
+					rspCode = singleCollectBean.getRepeatSubmit().getRespCode();
+				}
+				//保存实时订单结果
+				if(!singleCollectBean.getSaveOrder().isResultBool()) {
+					rspCode = singleCollectBean.getSaveOrder().getRespCode();
+				}
+				//保存核心流水结果
+				if(!singleCollectBean.getSaveTxnLog().isResultBool()) {
+					rspCode = singleCollectBean.getSaveTxnLog().getRespCode();
+				}
+				if(StringUtils.isNotEmpty(rspCode)) {
+					RspmsgDO rspmsg = new RspmsgDO();
+					rspmsg.setChnltype(ChnlTypeEnum.TRADEORDER.getCode());
+					rspmsg.setChnlrspcode(rspCode);
+					rspmsg = rspmsgService.getRspmsg(rspmsg);
+					if(rspmsg==null) {
+						rspmsg = new RspmsgDO();
+						rspmsg.setRetcode("3999");
+						rspmsg.setRspinfo("交易失败");
+						rspmsg.setApicode("3999");
+						rspmsg.setApiinfo("交易失败");
+					}
+					txnLog.setAccretcode(rspmsg.getRetcode());
+					txnLog.setAccretinfo(rspmsg.getRspinfo());
+					txnLog.setRetcode(rspmsg.getRetcode());
+					txnLog.setRetinfo(rspmsg.getRspinfo());
+					txnLog.setAccordfintime(DateUtil.getCurrentDateTime());
+					txnLog.setRetdatetime(DateUtil.getCurrentDateTime());
+					txnLog.setTradestatflag(TradeStatFlagEnum.ACCFAILED.getStatus());
+					txnLogService.updateTxnLog(txnLog);
+					OrderCollectSingleDO orderCollectSingle = new OrderCollectSingleDO();
+					orderCollectSingle.setTn(singleCollectBean.getTn());
+					orderCollectSingle.setStatus(OrderStatusEnum.FAILED.getCode());
+					orderCollectSingleService.updateOrderCollectSingle(orderCollectSingle);
+					resultBean = new ResultBean(rspmsg.getApicode(), rspmsg.getApiinfo());
+					resultBean.setResultBool(false);
+				}else {
+					resultBean = new ResultBean("0000", "成功");
+				}
+			}else {
 				RspmsgDO rspmsg = new RspmsgDO();
 				rspmsg.setChnltype(ChnlTypeEnum.TRADEORDER.getCode());
-				rspmsg.setChnlrspcode(rspCode);
+				rspmsg.setChnlrspcode(singleCollectBean.getFinalResult().getRespCode());
 				rspmsg = rspmsgService.getRspmsg(rspmsg);
+				if(rspmsg==null) {
+					rspmsg = new RspmsgDO();
+					rspmsg.setRetcode("3999");
+					rspmsg.setRspinfo("交易失败");
+					rspmsg.setApicode("3999");
+					rspmsg.setApiinfo("交易失败");
+					
+				}
 				txnLog.setAccretcode(rspmsg.getRetcode());
 				txnLog.setAccretinfo(rspmsg.getRspinfo());
 				txnLog.setRetcode(rspmsg.getRetcode());
@@ -75,27 +113,17 @@ public class FinalEndSingleHandler implements EventHandler<SingleCollectBean>{
 				orderCollectSingle.setTn(singleCollectBean.getTn());
 				orderCollectSingle.setStatus(OrderStatusEnum.FAILED.getCode());
 				orderCollectSingleService.updateOrderCollectSingle(orderCollectSingle);
-			}else {
-				resultBean = new ResultBean("0000", "成功");
-				singleCollectBean.setFinalResult(resultBean);
+				resultBean = singleCollectBean.getFinalResult();
+				resultBean = new ResultBean(rspmsg.getApicode(), rspmsg.getApiinfo());
+				resultBean.setResultBool(false);
 			}
-		}else {
-			RspmsgDO rspmsg = new RspmsgDO();
-			rspmsg.setChnltype(ChnlTypeEnum.TRADEORDER.getCode());
-			rspmsg.setChnlrspcode(singleCollectBean.getFinalResult().getRespCode());
-			rspmsg = rspmsgService.getRspmsg(rspmsg);
-			txnLog.setAccretcode(rspmsg.getRetcode());
-			txnLog.setAccretinfo(rspmsg.getRspinfo());
-			txnLog.setRetcode(rspmsg.getRetcode());
-			txnLog.setRetinfo(rspmsg.getRspinfo());
-			txnLog.setAccordfintime(DateUtil.getCurrentDateTime());
-			txnLog.setRetdatetime(DateUtil.getCurrentDateTime());
-			txnLog.setTradestatflag(TradeStatFlagEnum.ACCFAILED.getStatus());
-			txnLogService.updateTxnLog(txnLog);
-			OrderCollectSingleDO orderCollectSingle = new OrderCollectSingleDO();
-			orderCollectSingle.setTn(singleCollectBean.getTn());
-			orderCollectSingle.setStatus(OrderStatusEnum.FAILED.getCode());
-			orderCollectSingleService.updateOrderCollectSingle(orderCollectSingle);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("3999", "交易失败");
+			resultBean.setResultBool(false);
+		} finally {
+			singleCollectBean.setFinalResult(resultBean);
 		}
 		
 	}
