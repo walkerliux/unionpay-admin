@@ -114,7 +114,7 @@ public class TradeController {
 	 * 
 	 * @version v1.0
 	 */
-	@RequestMapping("/getBatchOrderByPage")
+	@RequestMapping("/getSingleOrderByPage")
 	public PageBean getSingleOrderByPage(TOrderCollectSingle orderSingle,String stime,String etime,int page,int rows) {
 		PageBean resultBean =tradeService.getSingleOrderByPage(orderSingle,stime,etime,page,rows);
 	    return resultBean;
@@ -127,7 +127,7 @@ public class TradeController {
 	 * 
 	 * @version v1.0
 	 */
-	@RequestMapping("/getBatchOrderByPage")
+	@RequestMapping("/getChnCollectBatchLogByPage")
 	public PageBean getChnCollectBatchLogByPage(TChnlCpdkBatch tChnlCpdkBatch,String stime,String etime,int page,int rows) {
 		PageBean resultBean =tradeService.getChnCollectBatchLogByPage(tChnlCpdkBatch,stime,etime,page,rows);
 	    return resultBean;
@@ -140,7 +140,7 @@ public class TradeController {
 	 * 
 	 * @version v1.0
 	 */
-	@RequestMapping("/getBatchOrderByPage")
+	@RequestMapping("/getChnCollectSingleLogByPage")
 	public PageBean getChnCollectSingleLogByPage(TChnlCpdkLog tChnlCpdkLog,String stime,String etime,int page,int rows) {
 		PageBean resultBean =tradeService.getChnCollectSingleLogByPage(tChnlCpdkLog,stime,etime,page,rows);
 	    return resultBean;
