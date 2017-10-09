@@ -18,7 +18,6 @@ import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
 import com.unionpay.withhold.trade.pay.service.ChannelNotifyService;
 import com.unionpay.withhold.trade.pay.service.CollectPayService;
-import com.unionpay.withhold.trade.pay.service.MerchCheckFileService;
 import com.unionpay.withhold.trade.pay.service.OrderDownloadCheckFileService;
 
 @RestController
