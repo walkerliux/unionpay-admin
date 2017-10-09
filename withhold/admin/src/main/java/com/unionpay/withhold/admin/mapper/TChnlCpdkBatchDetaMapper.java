@@ -10,7 +10,7 @@ public interface TChnlCpdkBatchDetaMapper {
 
     int deleteByExample(TChnlCpdkBatchDetaExample example);
 
-    int deleteByPrimaryKey(String tid);
+    int deleteByPrimaryKey(Integer tid);
 
     int insert(TChnlCpdkBatchDeta record);
 
@@ -18,7 +18,7 @@ public interface TChnlCpdkBatchDetaMapper {
 
     List<TChnlCpdkBatchDeta> selectByExample(TChnlCpdkBatchDetaExample example);
 
-    TChnlCpdkBatchDeta selectByPrimaryKey(String tid);
+    TChnlCpdkBatchDeta selectByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TChnlCpdkBatchDeta record, @Param("example") TChnlCpdkBatchDetaExample example);
 

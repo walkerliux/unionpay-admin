@@ -94,9 +94,6 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-  	select * from t_function
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
@@ -370,4 +367,7 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where FUNCT_ID = #{functId,jdbcType=DECIMAL}
   </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from t_function ORDER BY FUNCT_ORDER
+  </select>
 </mapper>

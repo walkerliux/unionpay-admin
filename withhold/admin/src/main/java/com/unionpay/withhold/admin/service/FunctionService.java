@@ -7,9 +7,9 @@ import com.unionpay.withhold.admin.pojo.TUser;
 
 public interface FunctionService {
 
-	List<?> findFunction();
+	List<TFunction> findFunction();
 
-	List<?> findLoginFuntion(TUser loginUser);
+	List<TFunction> findLoginFuntion(TUser loginUser);
 
 	List<TFunction> findAllFuntion(TUser user);
 

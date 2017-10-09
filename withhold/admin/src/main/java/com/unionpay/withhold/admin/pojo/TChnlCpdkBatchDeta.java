@@ -1,7 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TChnlCpdkBatchDeta {
-    private String tid;
+    private Integer tid;
 
     private String txnseqno;
 
@@ -41,12 +41,12 @@ public class TChnlCpdkBatchDeta {
 
     private String extfield;
 
-    public String getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public String getTxnseqno() {

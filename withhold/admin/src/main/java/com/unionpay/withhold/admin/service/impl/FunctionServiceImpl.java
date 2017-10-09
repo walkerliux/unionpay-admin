@@ -26,6 +26,7 @@ public class FunctionServiceImpl implements FunctionService {
 	private TUserFunctMapper tUserFunctMapper;
 	@Override
 	public List<TFunction> findFunction() {
+		
 		List<TFunction> all = tFunctionMapper.selectAll();
 		return all;
 	}

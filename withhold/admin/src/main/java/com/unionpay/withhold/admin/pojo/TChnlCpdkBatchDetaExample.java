@@ -114,62 +114,52 @@ public class TChnlCpdkBatchDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andTidEqualTo(String value) {
+        public Criteria andTidEqualTo(Integer value) {
             addCriterion("TID =", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotEqualTo(String value) {
+        public Criteria andTidNotEqualTo(Integer value) {
             addCriterion("TID <>", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThan(String value) {
+        public Criteria andTidGreaterThan(Integer value) {
             addCriterion("TID >", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThanOrEqualTo(String value) {
+        public Criteria andTidGreaterThanOrEqualTo(Integer value) {
             addCriterion("TID >=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThan(String value) {
+        public Criteria andTidLessThan(Integer value) {
             addCriterion("TID <", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThanOrEqualTo(String value) {
+        public Criteria andTidLessThanOrEqualTo(Integer value) {
             addCriterion("TID <=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLike(String value) {
-            addCriterion("TID like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotLike(String value) {
-            addCriterion("TID not like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidIn(List<String> values) {
+        public Criteria andTidIn(List<Integer> values) {
             addCriterion("TID in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotIn(List<String> values) {
+        public Criteria andTidNotIn(List<Integer> values) {
             addCriterion("TID not in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidBetween(String value1, String value2) {
+        public Criteria andTidBetween(Integer value1, Integer value2) {
             addCriterion("TID between", value1, value2, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotBetween(String value1, String value2) {
+        public Criteria andTidNotBetween(Integer value1, Integer value2) {
             addCriterion("TID not between", value1, value2, "tid");
             return (Criteria) this;
         }

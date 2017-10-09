@@ -164,146 +164,6 @@ public class TOrderCollectBatchExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccesstypeIsNull() {
-            addCriterion("ACCESSTYPE is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeIsNotNull() {
-            addCriterion("ACCESSTYPE is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeEqualTo(String value) {
-            addCriterion("ACCESSTYPE =", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeNotEqualTo(String value) {
-            addCriterion("ACCESSTYPE <>", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeGreaterThan(String value) {
-            addCriterion("ACCESSTYPE >", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeGreaterThanOrEqualTo(String value) {
-            addCriterion("ACCESSTYPE >=", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeLessThan(String value) {
-            addCriterion("ACCESSTYPE <", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeLessThanOrEqualTo(String value) {
-            addCriterion("ACCESSTYPE <=", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeLike(String value) {
-            addCriterion("ACCESSTYPE like", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeNotLike(String value) {
-            addCriterion("ACCESSTYPE not like", value, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeIn(List<String> values) {
-            addCriterion("ACCESSTYPE in", values, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeNotIn(List<String> values) {
-            addCriterion("ACCESSTYPE not in", values, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeBetween(String value1, String value2) {
-            addCriterion("ACCESSTYPE between", value1, value2, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccesstypeNotBetween(String value1, String value2) {
-            addCriterion("ACCESSTYPE not between", value1, value2, "accesstype");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidIsNull() {
-            addCriterion("COOPINSTIID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidIsNotNull() {
-            addCriterion("COOPINSTIID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidEqualTo(String value) {
-            addCriterion("COOPINSTIID =", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidNotEqualTo(String value) {
-            addCriterion("COOPINSTIID <>", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidGreaterThan(String value) {
-            addCriterion("COOPINSTIID >", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidGreaterThanOrEqualTo(String value) {
-            addCriterion("COOPINSTIID >=", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidLessThan(String value) {
-            addCriterion("COOPINSTIID <", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidLessThanOrEqualTo(String value) {
-            addCriterion("COOPINSTIID <=", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidLike(String value) {
-            addCriterion("COOPINSTIID like", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidNotLike(String value) {
-            addCriterion("COOPINSTIID not like", value, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidIn(List<String> values) {
-            addCriterion("COOPINSTIID in", values, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidNotIn(List<String> values) {
-            addCriterion("COOPINSTIID not in", values, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidBetween(String value1, String value2) {
-            addCriterion("COOPINSTIID between", value1, value2, "coopinstiid");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopinstiidNotBetween(String value1, String value2) {
-            addCriterion("COOPINSTIID not between", value1, value2, "coopinstiid");
-            return (Criteria) this;
-        }
-
         public Criteria andMeridIsNull() {
             addCriterion("MERID is null");
             return (Criteria) this;
@@ -511,6 +371,76 @@ public class TOrderCollectBatchExample {
 
         public Criteria andEncodingNotBetween(String value1, String value2) {
             addCriterion("ENCODING not between", value1, value2, "encoding");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidIsNull() {
+            addCriterion("CERTID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidIsNotNull() {
+            addCriterion("CERTID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidEqualTo(String value) {
+            addCriterion("CERTID =", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotEqualTo(String value) {
+            addCriterion("CERTID <>", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidGreaterThan(String value) {
+            addCriterion("CERTID >", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidGreaterThanOrEqualTo(String value) {
+            addCriterion("CERTID >=", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLessThan(String value) {
+            addCriterion("CERTID <", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLessThanOrEqualTo(String value) {
+            addCriterion("CERTID <=", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLike(String value) {
+            addCriterion("CERTID like", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotLike(String value) {
+            addCriterion("CERTID not like", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidIn(List<String> values) {
+            addCriterion("CERTID in", values, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotIn(List<String> values) {
+            addCriterion("CERTID not in", values, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidBetween(String value1, String value2) {
+            addCriterion("CERTID between", value1, value2, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotBetween(String value1, String value2) {
+            addCriterion("CERTID not between", value1, value2, "certid");
             return (Criteria) this;
         }
 
@@ -861,6 +791,76 @@ public class TOrderCollectBatchExample {
 
         public Criteria andBatchnoNotBetween(String value1, String value2) {
             addCriterion("BATCHNO not between", value1, value2, "batchno");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridIsNull() {
+            addCriterion("FACTORID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridIsNotNull() {
+            addCriterion("FACTORID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridEqualTo(String value) {
+            addCriterion("FACTORID =", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridNotEqualTo(String value) {
+            addCriterion("FACTORID <>", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridGreaterThan(String value) {
+            addCriterion("FACTORID >", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridGreaterThanOrEqualTo(String value) {
+            addCriterion("FACTORID >=", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridLessThan(String value) {
+            addCriterion("FACTORID <", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridLessThanOrEqualTo(String value) {
+            addCriterion("FACTORID <=", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridLike(String value) {
+            addCriterion("FACTORID like", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridNotLike(String value) {
+            addCriterion("FACTORID not like", value, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridIn(List<String> values) {
+            addCriterion("FACTORID in", values, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridNotIn(List<String> values) {
+            addCriterion("FACTORID not in", values, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridBetween(String value1, String value2) {
+            addCriterion("FACTORID between", value1, value2, "factorid");
+            return (Criteria) this;
+        }
+
+        public Criteria andFactoridNotBetween(String value1, String value2) {
+            addCriterion("FACTORID not between", value1, value2, "factorid");
             return (Criteria) this;
         }
 
@@ -1821,6 +1821,146 @@ public class TOrderCollectBatchExample {
 
         public Criteria andRemarksNotBetween(String value1, String value2) {
             addCriterion("REMARKS not between", value1, value2, "remarks");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeIsNull() {
+            addCriterion("ACCESSTYPE is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeIsNotNull() {
+            addCriterion("ACCESSTYPE is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeEqualTo(String value) {
+            addCriterion("ACCESSTYPE =", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeNotEqualTo(String value) {
+            addCriterion("ACCESSTYPE <>", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeGreaterThan(String value) {
+            addCriterion("ACCESSTYPE >", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeGreaterThanOrEqualTo(String value) {
+            addCriterion("ACCESSTYPE >=", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeLessThan(String value) {
+            addCriterion("ACCESSTYPE <", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeLessThanOrEqualTo(String value) {
+            addCriterion("ACCESSTYPE <=", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeLike(String value) {
+            addCriterion("ACCESSTYPE like", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeNotLike(String value) {
+            addCriterion("ACCESSTYPE not like", value, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeIn(List<String> values) {
+            addCriterion("ACCESSTYPE in", values, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeNotIn(List<String> values) {
+            addCriterion("ACCESSTYPE not in", values, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeBetween(String value1, String value2) {
+            addCriterion("ACCESSTYPE between", value1, value2, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andAccesstypeNotBetween(String value1, String value2) {
+            addCriterion("ACCESSTYPE not between", value1, value2, "accesstype");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidIsNull() {
+            addCriterion("COOPINSTIID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidIsNotNull() {
+            addCriterion("COOPINSTIID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidEqualTo(String value) {
+            addCriterion("COOPINSTIID =", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidNotEqualTo(String value) {
+            addCriterion("COOPINSTIID <>", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidGreaterThan(String value) {
+            addCriterion("COOPINSTIID >", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidGreaterThanOrEqualTo(String value) {
+            addCriterion("COOPINSTIID >=", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidLessThan(String value) {
+            addCriterion("COOPINSTIID <", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidLessThanOrEqualTo(String value) {
+            addCriterion("COOPINSTIID <=", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidLike(String value) {
+            addCriterion("COOPINSTIID like", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidNotLike(String value) {
+            addCriterion("COOPINSTIID not like", value, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidIn(List<String> values) {
+            addCriterion("COOPINSTIID in", values, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidNotIn(List<String> values) {
+            addCriterion("COOPINSTIID not in", values, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidBetween(String value1, String value2) {
+            addCriterion("COOPINSTIID between", value1, value2, "coopinstiid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoopinstiidNotBetween(String value1, String value2) {
+            addCriterion("COOPINSTIID not between", value1, value2, "coopinstiid");
             return (Criteria) this;
         }
     }

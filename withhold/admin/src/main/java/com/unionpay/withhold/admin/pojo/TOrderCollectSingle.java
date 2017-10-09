@@ -13,6 +13,8 @@ public class TOrderCollectSingle {
 
     private String encoding;
 
+    private String certid;
+
     private String txntype;
 
     private String txnsubtype;
@@ -35,21 +37,19 @@ public class TOrderCollectSingle {
 
     private String currencycode;
 
-    private String debtorbank;
+    private String bankcode;
 
-    private String debtoraccount;
+    private String cardno;
 
-    private String debtorname;
+    private String customernm;
 
-    private String debtorconsign;
+    private String factorid;
 
-    private String creditorbank;
+    private String phone;
 
-    private String creditoraccount;
+    private String idcard;
 
-    private String creditorname;
-
-    private String proprietary;
+    private String dktype;
 
     private String summary;
 
@@ -121,6 +121,14 @@ public class TOrderCollectSingle {
 
     public void setEncoding(String encoding) {
         this.encoding = encoding == null ? null : encoding.trim();
+    }
+
+    public String getCertid() {
+        return certid;
+    }
+
+    public void setCertid(String certid) {
+        this.certid = certid == null ? null : certid.trim();
     }
 
     public String getTxntype() {
@@ -211,68 +219,60 @@ public class TOrderCollectSingle {
         this.currencycode = currencycode == null ? null : currencycode.trim();
     }
 
-    public String getDebtorbank() {
-        return debtorbank;
+    public String getBankcode() {
+        return bankcode;
     }
 
-    public void setDebtorbank(String debtorbank) {
-        this.debtorbank = debtorbank == null ? null : debtorbank.trim();
+    public void setBankcode(String bankcode) {
+        this.bankcode = bankcode == null ? null : bankcode.trim();
     }
 
-    public String getDebtoraccount() {
-        return debtoraccount;
+    public String getCardno() {
+        return cardno;
     }
 
-    public void setDebtoraccount(String debtoraccount) {
-        this.debtoraccount = debtoraccount == null ? null : debtoraccount.trim();
+    public void setCardno(String cardno) {
+        this.cardno = cardno == null ? null : cardno.trim();
     }
 
-    public String getDebtorname() {
-        return debtorname;
+    public String getCustomernm() {
+        return customernm;
     }
 
-    public void setDebtorname(String debtorname) {
-        this.debtorname = debtorname == null ? null : debtorname.trim();
+    public void setCustomernm(String customernm) {
+        this.customernm = customernm == null ? null : customernm.trim();
     }
 
-    public String getDebtorconsign() {
-        return debtorconsign;
+    public String getFactorid() {
+        return factorid;
     }
 
-    public void setDebtorconsign(String debtorconsign) {
-        this.debtorconsign = debtorconsign == null ? null : debtorconsign.trim();
+    public void setFactorid(String factorid) {
+        this.factorid = factorid == null ? null : factorid.trim();
     }
 
-    public String getCreditorbank() {
-        return creditorbank;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setCreditorbank(String creditorbank) {
-        this.creditorbank = creditorbank == null ? null : creditorbank.trim();
+    public void setPhone(String phone) {
+        this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getCreditoraccount() {
-        return creditoraccount;
+    public String getIdcard() {
+        return idcard;
     }
 
-    public void setCreditoraccount(String creditoraccount) {
-        this.creditoraccount = creditoraccount == null ? null : creditoraccount.trim();
+    public void setIdcard(String idcard) {
+        this.idcard = idcard == null ? null : idcard.trim();
     }
 
-    public String getCreditorname() {
-        return creditorname;
+    public String getDktype() {
+        return dktype;
     }
 
-    public void setCreditorname(String creditorname) {
-        this.creditorname = creditorname == null ? null : creditorname.trim();
-    }
-
-    public String getProprietary() {
-        return proprietary;
-    }
-
-    public void setProprietary(String proprietary) {
-        this.proprietary = proprietary == null ? null : proprietary.trim();
+    public void setDktype(String dktype) {
+        this.dktype = dktype == null ? null : dktype.trim();
     }
 
     public String getSummary() {

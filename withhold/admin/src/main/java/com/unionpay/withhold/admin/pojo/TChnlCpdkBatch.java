@@ -1,7 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TChnlCpdkBatch {
-    private String tid;
+    private Integer tid;
 
     private String tn;
 
@@ -41,12 +41,12 @@ public class TChnlCpdkBatch {
 
     private String hprespmessage;
 
-    public String getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public String getTn() {

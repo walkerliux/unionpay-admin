@@ -256,7 +256,7 @@ public class UserController {
 	}
 	/**
 	 * 保存用户角色
-	 * 
+	 * 将角色的权限分配给user
 	 * @return
 	 */
 	@ResponseBody
@@ -264,19 +264,39 @@ public class UserController {
 	public String SaveUserRole(HttpServletRequest request,String userFunc,Long userId) {
 		userRoleService.deleteOldUserRole(userId);
 		TUser user = userService.getSingleById(userId);
-		if(userFunc != null && !userFunc.equals("")){
+		if(userFunc != null && !"".equals(userFunc)){
 			String[] roleId = userFunc.split(",");
 			List<TUserRole> userRoleList = new ArrayList<TUserRole>();
-			//Long num = 1L;
+			ArrayList<Long> functIds = new ArrayList<Long>();
 			for (int i = 0; i < roleId.length; i++) {
 				TUserRole model = new TUserRole();
-				//model.setUserRoleId(num);
 				model.setUserId(userId);
 				model.setRoleId(Long.valueOf(roleId[i]));
 				userRoleList.add(model);
-				//num++;
+				//得到role-function
+				
+				List<TRoleFunct> findByProperty = roleFunctService.findByProperty(Long.parseLong(roleId[i]));
+				for (TRoleFunct tRoleFunct : findByProperty) {
+					Long functId = tRoleFunct.getFunctId();
+					if (!functIds.contains(functId)) {
+						functIds.add(functId);
+					}
+					
+				}
 			}
+			//建立user-role表关系
 			userRoleService.save(userRoleList);
+			//把role的权限赋值给User
+			ArrayList<TUserFunct> tUserFunctList = new ArrayList<TUserFunct>();
+			
+			for (Long long1 : functIds) {
+				TUserFunct tUserFunct = new TUserFunct();
+				tUserFunct.setFunctId(long1);
+				tUserFunct.setUserId(userId);
+				tUserFunctList.add(tUserFunct);
+			}
+			userFunctService.deleteOldFunc(userId);
+			userFunctService.save(tUserFunctList);
 			operationLogService.addOperationLog(request, "绑定用户"+user.getLoginName()+"相关角色");
 			return "true";
 		}
@@ -295,7 +315,7 @@ public class UserController {
 		List<TRoleFunct> roleFucList = new ArrayList<TRoleFunct>();
 		
 		//得到所有菜单
-		List<TFunction> list = (List<TFunction>) functionService.findFunction();
+		List<TFunction> list = functionService.findFunction();
 
 		List<TUserRole> allRoleList =userRoleService.findByProperty(userId);
 		
@@ -321,13 +341,17 @@ public class UserController {
 				function.setChildren(new ArrayList<TFunction>());
 				children = function.getChildren();
 				function.setState("closed");
+				
 			} else {// 子节点
 				for (TRoleFunct roleFunct : roleFucList) {
-					if (roleFunct.getFunctId().equals(function.getFunctId())) {
-						function.setChecked("true");
-						function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");
-						//function.setId(function.getFunctId().toString());
+					for (TUserFunct userFunct : userFunctList) {
+						if (roleFunct.getFunctId().equals(function.getFunctId())&&roleFunct.getFunctId().equals(userFunct.getFunctId())) {
+							function.setChecked("true");
+							function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");
+							
+						}
 					}
+					
 				}
 				for (TUserFunct userFunct : userFunctList) {
 					if (userFunct.getFunctId().equals(function.getFunctId())) {
@@ -340,9 +364,11 @@ public class UserController {
 			function.setId(function.getFunctId().toString());
 			if(function.getText() == null || function.getText().toString().equals("")){
 				function.setText(function.getFunctName());
-				//function.setId(function.getFunctId().toString());
+				
 			}
+			
 		}
+		
 		list.removeAll(removeList);// 移除全部的子节点数据
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -361,17 +387,17 @@ public class UserController {
 	public String saveAuth(HttpServletRequest request,String userFunc,Long userId) {
 		userFunctService.deleteOldFunc(userId);
 		TUser user = userService.getSingleById(userId);
-		if(userFunc != null &&!userFunc.equals("")){
+		if(userFunc != null &&!"".equals(userFunc)){
 			String[] funcId = userFunc.split(",");
 			List<TUserFunct> functList = new ArrayList<TUserFunct>();
-			Long num = 1L;
+			
 			for (int i = 0; i < funcId.length; i++) {
 				TUserFunct model = new TUserFunct();
-				//model.setUserFunctId(num);
+				
 				model.setUserId(userId);
 				model.setFunctId(Long.valueOf(funcId[i]));
 				functList.add(model);
-				num++;
+				
 			}
 			userFunctService.save(functList);
 			operationLogService.addOperationLog(request, "赋予用户"+user.getLoginName()+"相关权限");

@@ -221,7 +221,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'trade/getRealTimeCollectOrderByPage',
+							url : 'trade/getSingleOrderByPage',
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [

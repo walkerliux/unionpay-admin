@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkBatchDetaMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
-    <id column="TID" property="tid" jdbcType="CHAR" />
+    <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
     <result column="batchNo" property="batchno" jdbcType="CHAR" />
     <result column="transDate" property="transdate" jdbcType="CHAR" />
@@ -100,15 +100,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_chnl_cpdk_batch_deta
-    where TID = #{tid,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_chnl_cpdk_batch_deta
-    where TID = #{tid,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
     delete from t_chnl_cpdk_batch_deta
@@ -123,7 +123,7 @@
       certId, curyId, transAmt, purpose, 
       priv1, responseCode, message, 
       inTime, upTime, extField)
-    values (#{tid,jdbcType=CHAR}, #{txnseqno,jdbcType=CHAR}, #{batchno,jdbcType=CHAR}, 
+    values (#{tid,jdbcType=INTEGER}, #{txnseqno,jdbcType=CHAR}, #{batchno,jdbcType=CHAR}, 
       #{transdate,jdbcType=CHAR}, #{orderno,jdbcType=CHAR}, #{openbankid,jdbcType=CHAR}, 
       #{cardtype,jdbcType=CHAR}, #{cardno,jdbcType=CHAR}, #{usrname,jdbcType=CHAR}, #{certtype,jdbcType=CHAR}, 
       #{certid,jdbcType=CHAR}, #{curyid,jdbcType=CHAR}, #{transamt,jdbcType=CHAR}, #{purpose,jdbcType=CHAR}, 
@@ -196,7 +196,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
-        #{tid,jdbcType=CHAR},
+        #{tid,jdbcType=INTEGER},
       </if>
       <if test="txnseqno != null" >
         #{txnseqno,jdbcType=CHAR},
@@ -267,7 +267,7 @@
     update t_chnl_cpdk_batch_deta
     <set >
       <if test="record.tid != null" >
-        TID = #{record.tid,jdbcType=CHAR},
+        TID = #{record.tid,jdbcType=INTEGER},
       </if>
       <if test="record.txnseqno != null" >
         TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
@@ -333,7 +333,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_chnl_cpdk_batch_deta
-    set TID = #{record.tid,jdbcType=CHAR},
+    set TID = #{record.tid,jdbcType=INTEGER},
       TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
       batchNo = #{record.batchno,jdbcType=CHAR},
       transDate = #{record.transdate,jdbcType=CHAR},
@@ -418,7 +418,7 @@
         extField = #{extfield,jdbcType=CHAR},
       </if>
     </set>
-    where TID = #{tid,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     update t_chnl_cpdk_batch_deta
@@ -441,6 +441,6 @@
       inTime = #{intime,jdbcType=CHAR},
       upTime = #{uptime,jdbcType=CHAR},
       extField = #{extfield,jdbcType=CHAR}
-    where TID = #{tid,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>

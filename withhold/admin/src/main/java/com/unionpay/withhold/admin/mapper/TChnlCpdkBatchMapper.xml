@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkBatchMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
-    <result column="TID" property="tid" jdbcType="CHAR" />
+    <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TN" property="tn" jdbcType="CHAR" />
     <result column="fileName" property="filename" jdbcType="CHAR" />
     <result column="hpFileName" property="hpfilename" jdbcType="CHAR" />
@@ -100,6 +100,16 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_batch
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chnl_cpdk_batch
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample" >
     delete from t_chnl_cpdk_batch
     <if test="_parameter != null" >
@@ -107,18 +117,20 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
-    insert into t_chnl_cpdk_batch (TID, TN, fileName, hpFileName, 
-      merId, batchNo, totalNum, totalAmt, 
-      succNum, failNum, succAmt, failAmt, 
-      inTime, uploadRespTime, noticeTime, 
-      finishTime, uploadRespCode, uploadRespMessage, 
-      hpRespCode, hpRespMessage)
-    values (#{tid,jdbcType=CHAR}, #{tn,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, #{hpfilename,jdbcType=CHAR}, 
-      #{merid,jdbcType=CHAR}, #{batchno,jdbcType=CHAR}, #{totalnum,jdbcType=CHAR}, #{totalamt,jdbcType=CHAR}, 
-      #{succnum,jdbcType=CHAR}, #{failnum,jdbcType=CHAR}, #{succamt,jdbcType=CHAR}, #{failamt,jdbcType=CHAR}, 
-      #{intime,jdbcType=CHAR}, #{uploadresptime,jdbcType=CHAR}, #{noticetime,jdbcType=CHAR}, 
-      #{finishtime,jdbcType=CHAR}, #{uploadrespcode,jdbcType=CHAR}, #{uploadrespmessage,jdbcType=CHAR}, 
-      #{hprespcode,jdbcType=CHAR}, #{hprespmessage,jdbcType=CHAR})
+    insert into t_chnl_cpdk_batch (TID, TN, fileName, 
+      hpFileName, merId, batchNo, 
+      totalNum, totalAmt, succNum, 
+      failNum, succAmt, failAmt, inTime, 
+      uploadRespTime, noticeTime, finishTime, 
+      uploadRespCode, uploadRespMessage, hpRespCode, 
+      hpRespMessage)
+    values (#{tid,jdbcType=INTEGER}, #{tn,jdbcType=CHAR}, #{filename,jdbcType=CHAR}, 
+      #{hpfilename,jdbcType=CHAR}, #{merid,jdbcType=CHAR}, #{batchno,jdbcType=CHAR}, 
+      #{totalnum,jdbcType=CHAR}, #{totalamt,jdbcType=CHAR}, #{succnum,jdbcType=CHAR}, 
+      #{failnum,jdbcType=CHAR}, #{succamt,jdbcType=CHAR}, #{failamt,jdbcType=CHAR}, #{intime,jdbcType=CHAR}, 
+      #{uploadresptime,jdbcType=CHAR}, #{noticetime,jdbcType=CHAR}, #{finishtime,jdbcType=CHAR}, 
+      #{uploadrespcode,jdbcType=CHAR}, #{uploadrespmessage,jdbcType=CHAR}, #{hprespcode,jdbcType=CHAR}, 
+      #{hprespmessage,jdbcType=CHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
     insert into t_chnl_cpdk_batch
@@ -186,7 +198,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
-        #{tid,jdbcType=CHAR},
+        #{tid,jdbcType=INTEGER},
       </if>
       <if test="tn != null" >
         #{tn,jdbcType=CHAR},
@@ -257,7 +269,7 @@
     update t_chnl_cpdk_batch
     <set >
       <if test="record.tid != null" >
-        TID = #{record.tid,jdbcType=CHAR},
+        TID = #{record.tid,jdbcType=INTEGER},
       </if>
       <if test="record.tn != null" >
         TN = #{record.tn,jdbcType=CHAR},
@@ -323,7 +335,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_chnl_cpdk_batch
-    set TID = #{record.tid,jdbcType=CHAR},
+    set TID = #{record.tid,jdbcType=INTEGER},
       TN = #{record.tn,jdbcType=CHAR},
       fileName = #{record.filename,jdbcType=CHAR},
       hpFileName = #{record.hpfilename,jdbcType=CHAR},
@@ -346,5 +358,91 @@
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
+    update t_chnl_cpdk_batch
+    <set >
+      <if test="tn != null" >
+        TN = #{tn,jdbcType=CHAR},
+      </if>
+      <if test="filename != null" >
+        fileName = #{filename,jdbcType=CHAR},
+      </if>
+      <if test="hpfilename != null" >
+        hpFileName = #{hpfilename,jdbcType=CHAR},
+      </if>
+      <if test="merid != null" >
+        merId = #{merid,jdbcType=CHAR},
+      </if>
+      <if test="batchno != null" >
+        batchNo = #{batchno,jdbcType=CHAR},
+      </if>
+      <if test="totalnum != null" >
+        totalNum = #{totalnum,jdbcType=CHAR},
+      </if>
+      <if test="totalamt != null" >
+        totalAmt = #{totalamt,jdbcType=CHAR},
+      </if>
+      <if test="succnum != null" >
+        succNum = #{succnum,jdbcType=CHAR},
+      </if>
+      <if test="failnum != null" >
+        failNum = #{failnum,jdbcType=CHAR},
+      </if>
+      <if test="succamt != null" >
+        succAmt = #{succamt,jdbcType=CHAR},
+      </if>
+      <if test="failamt != null" >
+        failAmt = #{failamt,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        inTime = #{intime,jdbcType=CHAR},
+      </if>
+      <if test="uploadresptime != null" >
+        uploadRespTime = #{uploadresptime,jdbcType=CHAR},
+      </if>
+      <if test="noticetime != null" >
+        noticeTime = #{noticetime,jdbcType=CHAR},
+      </if>
+      <if test="finishtime != null" >
+        finishTime = #{finishtime,jdbcType=CHAR},
+      </if>
+      <if test="uploadrespcode != null" >
+        uploadRespCode = #{uploadrespcode,jdbcType=CHAR},
+      </if>
+      <if test="uploadrespmessage != null" >
+        uploadRespMessage = #{uploadrespmessage,jdbcType=CHAR},
+      </if>
+      <if test="hprespcode != null" >
+        hpRespCode = #{hprespcode,jdbcType=CHAR},
+      </if>
+      <if test="hprespmessage != null" >
+        hpRespMessage = #{hprespmessage,jdbcType=CHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
+    update t_chnl_cpdk_batch
+    set TN = #{tn,jdbcType=CHAR},
+      fileName = #{filename,jdbcType=CHAR},
+      hpFileName = #{hpfilename,jdbcType=CHAR},
+      merId = #{merid,jdbcType=CHAR},
+      batchNo = #{batchno,jdbcType=CHAR},
+      totalNum = #{totalnum,jdbcType=CHAR},
+      totalAmt = #{totalamt,jdbcType=CHAR},
+      succNum = #{succnum,jdbcType=CHAR},
+      failNum = #{failnum,jdbcType=CHAR},
+      succAmt = #{succamt,jdbcType=CHAR},
+      failAmt = #{failamt,jdbcType=CHAR},
+      inTime = #{intime,jdbcType=CHAR},
+      uploadRespTime = #{uploadresptime,jdbcType=CHAR},
+      noticeTime = #{noticetime,jdbcType=CHAR},
+      finishTime = #{finishtime,jdbcType=CHAR},
+      uploadRespCode = #{uploadrespcode,jdbcType=CHAR},
+      uploadRespMessage = #{uploadrespmessage,jdbcType=CHAR},
+      hpRespCode = #{hprespcode,jdbcType=CHAR},
+      hpRespMessage = #{hprespmessage,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>

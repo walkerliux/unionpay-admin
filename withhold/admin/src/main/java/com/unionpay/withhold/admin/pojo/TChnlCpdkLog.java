@@ -1,7 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TChnlCpdkLog {
-    private String tid;
+    private Integer tid;
 
     private String txnseqno;
 
@@ -83,12 +83,12 @@ public class TChnlCpdkLog {
 
     private String chnlfee;
 
-    public String getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public String getTxnseqno() {

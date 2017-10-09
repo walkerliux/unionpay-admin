@@ -10,7 +10,7 @@ public interface TChnlCpdkLogMapper {
 
     int deleteByExample(TChnlCpdkLogExample example);
 
-    int deleteByPrimaryKey(String tid);
+    int deleteByPrimaryKey(Integer tid);
 
     int insert(TChnlCpdkLog record);
 
@@ -18,7 +18,7 @@ public interface TChnlCpdkLogMapper {
 
     List<TChnlCpdkLog> selectByExample(TChnlCpdkLogExample example);
 
-    TChnlCpdkLog selectByPrimaryKey(String tid);
+    TChnlCpdkLog selectByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TChnlCpdkLog record, @Param("example") TChnlCpdkLogExample example);
 
