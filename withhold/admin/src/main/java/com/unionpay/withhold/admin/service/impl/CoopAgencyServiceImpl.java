@@ -85,6 +85,7 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 			TCoopAgencyApply coopAgencyApply = BeanCopyUtil.copyBean(TCoopAgencyApply.class, coopAgency);
 			coopAgencyApply.setIntime(new Date());
 			coopAgencyApply.setInuser(coopAgency.getInuser());
+			coopAgencyApply.setRiskver(agencyBack.getRiskver());
 			if (coopAgency.getSupercode().equals("0")) {
 				coopAgencyApply.setCalevel((short) 1);
 			}
@@ -124,6 +125,7 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 			coopAgencyApply.setStexaTime(null);
 			coopAgencyApply.setStexaUser(null);
 			coopAgencyApply.setStatus(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode());
+			coopAgencyApply.setRiskver(agencyBack.getRiskver());
 			int count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);
 			return count == 0 ? new ResultBean("", "注销申请提交失败，请稍后再试 ！") : new ResultBean("注销申请已提交成功 ！");
 		}

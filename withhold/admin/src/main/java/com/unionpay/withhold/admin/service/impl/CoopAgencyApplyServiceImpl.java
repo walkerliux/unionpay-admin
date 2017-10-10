@@ -204,7 +204,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgencyMapper.insertSelective(coopAgency);
 
 				// 判断扣率配置是否有变更，有的话，更新配置
-				/*TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
 				criteria.andMemberIdEqualTo(agencyApplyBack.getCacode());
@@ -219,11 +219,11 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					// 添加
 					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
-					merchRateConfig.setRateId(coopAgencyApply.getCaid());
+					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(coopAgencyApply.getInuser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
-				}*/
+				}
 
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode())) {
 				// 变更待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”，并添加新数据到在用的表中
@@ -248,7 +248,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgencyMapper.insertSelective(coopAgency);
 
 				// 判断扣率配置是否有变更，有的话，更新配置
-				/*TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
 				criteria.andMemberIdEqualTo(agencyApplyBack.getCacode());
@@ -263,11 +263,11 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					// 添加
 					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
-					merchRateConfig.setRateId(coopAgencyApply.getCaid());
+					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(coopAgencyApply.getInuser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
-				}*/
+				}
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode())) {
 				// 注销待审：先判断是否有下级渠道
 				TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();

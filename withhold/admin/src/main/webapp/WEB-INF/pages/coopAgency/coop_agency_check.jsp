@@ -244,7 +244,7 @@ table tr td select {
 		function showCheck(selfId){
 			$('#saveForm :input').val('');
 			$('#cacode').attr("readonly","readonly");//设为只读
-			//$("#saveForm").attr("action","coopAgency/updateApply");
+// 			$("#saveForm").attr("action","coopAgency/updateApply");
 			$.ajax({
 			   type: "POST",
 			   url: "coopAgency/queryCheckById",
@@ -266,8 +266,8 @@ table tr td select {
 						$("#notes").val(json.notes);
 						$("#selfId").val(json.selfId);
 						$("#status").val(json.status);
-// 						showRisk(json.riskver);
-// 						showRate(json.rateId);
+						showRisk(json.riskver);
+						showRate(json.rateId);
 						
 						$('#w').window({
 							title: '审核渠道信息',

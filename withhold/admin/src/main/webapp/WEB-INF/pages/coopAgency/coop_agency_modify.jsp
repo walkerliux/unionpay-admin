@@ -451,7 +451,7 @@ table tr td select {
 		$.ajax({
 			type : "POST",
 			url: "coopAgency/queryAllSuperCode",
-			data:"supercode=" + supercode,
+// 			data:"supercode=" + supercode,
 			dataType: "json",
 			success: function(json) {
 				var html = "<option value=''>--请选择上级代理--</option>";
