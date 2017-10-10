@@ -1,19 +1,33 @@
 package com.unionpay.withhold.admin.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.ibatis.javassist.expr.NewArray;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper;
+import com.unionpay.withhold.admin.mapper.TOrderCollectSingleMapper;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
+import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample;
+import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
 import com.unionpay.withhold.admin.service.TradeService;
+import com.unionpay.withhold.admin.utils.DateTimeReplaceUtil;
 @Service
 @Transactional
 public class TradeServiceImpl implements TradeService {
 	
+	@Autowired
+	private TOrderCollectBatchMapper tOrderCollectBatchMapper;
+	@Autowired
+	private TOrderCollectSingleMapper tOrderCollectSingleMapper;
 	@Override
 	public PageBean getTxnsLogByPage(TTxnsLog tTxnsLog, String stime,
 			String etime, int page, int rows) {
@@ -57,32 +71,43 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getSingleOrderByPage(TOrderCollectSingle orderSingle,
 			String stime, String etime, int page, int rows) {
+		
+		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
+		Criteria criteria = singleExample.createCriteria();
 		//商户号
 		if (orderSingle.getMerid()!=null&&!"".equals(orderSingle.getMerid())) {
-			
+			criteria.andMeridEqualTo(orderSingle.getMerid());
 		}
 		//交易卡号
 		if (orderSingle.getCardno()!=null&&!"".equals(orderSingle.getCardno())) {
-			
+			criteria.andCardnoEqualTo(orderSingle.getCardno());
 		}
 		//受理订单号
 		if (orderSingle.getTn()!=null&&!"".equals(orderSingle.getTn())) {
-			
+			criteria.andTnEqualTo(orderSingle.getTn());
 		}
 		//交易状态
 		if (orderSingle.getStatus()!=null&&!"".equals(orderSingle.getStatus())) {
-			
+			criteria.andStatusEqualTo(orderSingle.getStatus());
 		}
 		//商户订单号
 		if (orderSingle.getOrderid()!=null&&!"".equals(orderSingle.getOrderid())) {
-			
+			criteria.andOrderidEqualTo(orderSingle.getOrderid());
 		}
 		
 		//起止时间
-		if (stime!=null&&etime!=null) {
-					
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			String st = DateTimeReplaceUtil.replace(stime);
+			String et = DateTimeReplaceUtil.replace(etime);
+			criteria.andOrdercommitimeBetween(st, et);	
 		}
-		return null;
+		int tatol = tOrderCollectSingleMapper.countByExample(singleExample);
+		singleExample.setPageNum(page);
+		singleExample.setPageSize(rows);
+		singleExample.setOrderByClause("TID");
+		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectByExample(singleExample);
+		
+		return new PageBean(tatol, selectByExample);
 	}
 
 	@Override
@@ -102,7 +127,8 @@ public class TradeServiceImpl implements TradeService {
 		}
 		//起止时间
 		if (stime!=null&&etime!=null) {
-							
+			String st = DateTimeReplaceUtil.replace(stime);
+			String et = DateTimeReplaceUtil.replace(etime);			
 		}
 		return null;
 	}
@@ -128,8 +154,32 @@ public class TradeServiceImpl implements TradeService {
 		}
 		//起止时间
 		if (stime!=null&&etime!=null) {
-									
+			String st = DateTimeReplaceUtil.replace(stime);
+			String et = DateTimeReplaceUtil.replace(etime);					
 		}
+		return null;
+	}
+
+	@Override
+	public PageBean getMerchantDaySettlement(TTxnsLog tTxnsLog, String stime,
+			String etime, int page, int rows) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public TOrderCollectSingle getSingleById(String tid) {
+		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
+		Criteria criteria = singleExample.createCriteria();
+		criteria.andTidEqualTo(Long.parseLong(tid));
+		singleExample.setPageNum(1);
+		singleExample.setPageSize(1);
+		List<TOrderCollectSingle> list= tOrderCollectSingleMapper.selectByExample(singleExample);
+		if (list!=null&&list.size()>0) {
+			TOrderCollectSingle tOrderCollectSingle = list.get(0);
+			return tOrderCollectSingle;
+		}
+		
 		return null;
 	}
 

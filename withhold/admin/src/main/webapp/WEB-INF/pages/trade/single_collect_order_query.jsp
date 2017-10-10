@@ -44,27 +44,28 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">委托机构代码</td>
+						<td align="right" width="10%">商户号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="merid" id="merids"  /></td>
-						<td align="right" width="10%">委托机构名称</td>
+						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="mername" id="mernames"  /></td>
-						<td align="right" width="10%">订单号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input
-							name="orderid" id="orderids"  /></td>
+							name="cardno" id="cardnos"  /></td>
+						
 					</tr>
 					<tr>
-						<td align="right" width="10%">受理订单号</td>
+						<td align="right" width="10%">商户订单号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="tn" id="tns"  /></td>
-						<td align="right" width="10%">付款人账号</td>
+							name="orderid" id="orderids"  /></td>
+						<td align="right" width="10%">受理订单号</td>
+						<td align="left" style="padding-left: 5px" width="25%"><input
+							name="tn" id="tns"  /></td>	
+						<!-- <td align="right" width="10%">付款人账号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="debtoraccount" id="debtoraccounts"  /></td>
 							
 						<td align="right" width="10%">收款人账号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="creditoraccount" id="creditoraccounts"  /></td>
+							name="creditoraccount" id="creditoraccounts"  /></td> -->
 					</tr>
 					<tr>
 						<td align="right" width="10%">订单状态</td>
@@ -84,11 +85,9 @@ table tr td select {
 							id=etime type="text" style="width: 120PX"
 							class="easyui-datetimebox" data-options="showSeconds:true"
 							name="etime"></input></td>
-						<td align="right" ><a href="javascript:search()"
-							class="easyui-linkbutton" iconCls="icon-search">查询</a>
-							<a
-							href="javascript:resize()" class="easyui-linkbutton"
-							iconCls="icon-redo">清空</a></td></td>
+						<td align="right" >
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td></td>
 					</tr>
 				</table>
 			</form>
@@ -135,6 +134,10 @@ table tr td select {
 						<td>委托机构名称</td><td id="mername"></td>
 					</tr>
 					<tr>
+						<td>商户简称</td><td id="merabbr"></td>
+						<td>订单描述</td><td id="orderdesc"></td>
+					</tr>
+					<tr>
 						<td>金额(元)</td><td id="txnamt"></td>
 						<td>交易币种</td><td id="currencycode"></td>
 					</tr>
@@ -143,32 +146,33 @@ table tr td select {
 						<td>通知地址</td><td id="backurl"></td>
 					</tr>
 					<tr>
-						<td>订单描述</td><td id="orderdesc"></td>
+						<td>接入类型</td><td id="accesstype"></td>
+						<td>合作机构号</td><td id="coopinstiid"></td>
 					</tr>
 					
 					
 					<tr>
-						<td colspan="4" class="head-title">收付款方信息</td>
+						<td colspan="4" class="head-title">付款方信息</td>
 					</tr>
 					<tr>
-						<td>合同号</td><td id="debtorconsign" colspan="3"></td>
+						<td>交易要素</td><td id="factorid" colspan="3"></td>
 					</tr>
 					<tr>
-						<td>付款账号</td><td id="debtoraccount"></td>
-						<td>收款账号</td><td id="creditoraccount"></td>
+						<td>付款人银行号</td><td id="bankcode"></td>
+						<td>银行卡号</td><td id="cardno"></td>
 					</tr>
 					<tr>
 						
-						<td>付款账户名称</td><td id="debtorname"></td>
-						<td>收款账户名称</td><td id="creditorname"></td>
+						<td>持卡人姓名</td><td id="customernm"></td>
+						<td>手机号</td><td id="phone"></td>
 					</tr>
 					<tr>
-						<td>付款银行号</td><td id="debtorbank"></td>
-						<td>收款银行号</td><td id="creditorbank"></td>
+						<td>身份证号</td><td id="idcard"></td>
+						<td>扣款类型</td><td id="dktype"></td>
 					</tr>
 					<tr>
-						<td>摘要</td><td id="summary" colspan="3"></td>
-						<!-- <td>保留域</td><td id="reserved"></td> -->
+						<td>摘要</td><td id="summary" ></td>
+						 <td>保留域</td><td id="reserved"></td> 
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">订单处理信息</td>
@@ -184,6 +188,10 @@ table tr td select {
 					<tr>
 						<td>订单提交时间</td><td id="ordercommitime"></td>
 						<td>异步通知结果</td><td id="syncnotify"></td>
+					</tr>
+					<tr>
+						<td>备注</td><td id="notes"></td>
+						<td>标记</td><td id="remarks"></td>
 					</tr>
 				</table>
 			</div>
@@ -212,7 +220,6 @@ table tr td select {
 	
 	var width = $("#continer").width();
 	$(function() {
-
 		$('#test')
 				.datagrid(
 						{
@@ -223,94 +230,45 @@ table tr td select {
 							striped : true,
 							url : 'trade/getSingleOrderByPage',
 							remoteSort : false,
-							idField : 'ORGAN_ID',
+							idField : 'tid',
 							columns : [ [
-									{field:'MERID',title:'委托机构号',width:123,align:'center'},
-									{field:'MERNAME',title:'委托机构名称',width:150,align:'center',
-										formatter:function(value,rec){
-											if(value==""||value==null){
-												return rec.ENTERPRISE_NAME
-											}
-											return value;
-										}
-									},
-// 									{field:'VERSION',title:'版本',width:42,align:'center'},
-// 									{field:'ENCODING',title:'编码方式',width:58,align:'center',
-// 										formatter : function(value, rec) {
-// 											if (rec.ENCODING == "1") {
-// 												return "UTF-8";
-// 											} 
-// 										}	
-// 									},
-// 									{field:'PAYTIMEOUT',title:'订单超时时间',width:86,align:'center',
-// 										formatter : function(value, rec) {
-// 											return changeDate(rec.PAYTIMEOUT);
-// 										}
-// 									},
-									{field:'TXNTIME',title:'订单交易时间',width:130,align:'center',
+									{field:'relatetradetxn',title:'交易序列号',width:123,align:'center'},
+									{field:'merid',title:'商户号',width:150,align:'center'},
+									{field:'txntime',title:'订单发送时间',width:130,align:'center',
 										formatter : function(value, rec) {
-											return changeDate(rec.TXNTIME);
+											return changeDate(rec.txntime);
 										}	
 									},
-									{field:'ORDERID',title:'订单号',width:150,align:'center'},
-									/* {field:'CURRENCYCODE',title:'交易币种',width:80,align:'center',
+									{field:'orderid',title:'商户订单号',width:150,align:'center'},
+									{field:'cardno',title:'交易卡号',width:100,align:'center'},									
+									{field:'customernm',title:'姓名',width:150,align:'center'},
+									{field:'txnamt',title:'交易金额',width:130,align:'center'},
+									{field:'tn',title:'受理订单号',width:100,align:'center'},
+									
+									{field:'status',title:'交易状态',width:148,align:'center',
 										formatter : function(value, rec) {
-											if (rec.CURRENCYCODE == "156") {
-												return "人民币";
-											} 
-										}
-									}, */
-									{field:'TXNAMT',title:'金额(元)',width:100,align:'center',
-										formatter:function(value,rec){
-											return fenToYuan(rec.TXNAMT);
-										}
-									},
-									{field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'},
-									/* {field:'DEBTORBANK',title:'付款银行号',width:110,align:'center'}, */
-									{field:'DEBTORACCOUNT',title:'付款账号',width:130,align:'center'},
-									{field:'DEBTORNAME',title:'付款账户名称',width:100,align:'center'},
-									/* {field:'CREDITORBANK',title:'收款银行号',width:110,align:'center'}, */
-									{field:'CREDITORACCOUNT',title:'收款账号',width:130,align:'center'},
-									{field:'CREDITORNAME',title:'收款账户名称',width:100,align:'center'},
-									/* {field:'PROPRIETARY',title:'业务种类编码',width:91,align:'center'}, */
-									{field:'RESPCODE',title:'应答码',width:74,align:'center'},
-									{field:'RESPMSG',title:'应答信息',width:85,align:'center'},
-									{field:'TN',title:'受理订单号',width:146,align:'center'},
-									{field:'RELATETRADETXN',title:'交易序列号',width:97,align:'center'},
-									{field:'STATUS',title:'订单状态',width:148,align:'center',
-										formatter : function(value, rec) {
-											if (rec.STATUS == "00") {
+											if (rec.status == "00") {
 												return "支付成功";
 											} 
-											if (rec.STATUS == "01") {
+											if (rec.status == "01") {
 												return "订单提交成功,但未支付";
 											} 
-											if (rec.STATUS == "02") {
+											if (rec.status == "02") {
 												return "支付中";
 											} 
-											if (rec.STATUS == "03") {
+											if (rec.status == "03") {
 												return "支付失败";
 											} 
-											if (rec.STATUS == "04") {
+											if (rec.status == "04") {
 												return "订单失效";
 											} 
 										}
 									},
-									/* {field:'ORDERCOMMITIME',title:'订单提交时间',width:130,align:'center',
+									{field : 'ID',title : '操作',width : 100,lign : 'center',
 										formatter : function(value, rec) {
-											return changeDate(rec.ORDERCOMMITIME);
-										}
-									}, */
-									{field:'SYNCNOTIFY',title:'异步通知结果',width:120,align:'center'},
-									{
-										field : 'ID',
-										title : '操作',
-										width : 100,
-										align : 'center',
-										formatter : function(value, rec) {
-											if (rec.TID != null) {
-												return '<a href="javascript:queryTxnsLog(\''
-														+ rec.TID
+											if (rec.tid!= null) {
+												return '<a href="javascript:queryOrderSingle(\''
+														+ rec.tid
 														+ '\')" style="color:blue;margin-left:10px">详细信息</a>';
 											} else {
 												return '';
@@ -327,12 +285,10 @@ table tr td select {
 	function search() {
 		var data = {
 			"merid" : $('#merids').val(),
-			"mername" : $('#mernames').val(),
+			"cardno" : $('#cardnos').val(),
 			"orderid" : $('#orderids').val(),
-			"creditoraccount" : $('#creditoraccounts').val(),
 			"tn" : $('#tns').val(),
 			"status" : $('#statuss').val(),
-			"debtoraccount" : $('#debtoraccounts').val(),
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')
 		}
@@ -345,8 +301,8 @@ table tr td select {
 	function closeAdd(){
 		$('#w').window('close');
 	}	
-	function queryTxnsLog(txnseqno) {
-		$("#tid").html("");
+	function queryOrderSingle(tid) {
+		/* $("#tid").html("");
 		$("#accesstype").html("");
 		$("#coopinstiid").html("");
 		$("#merid").html("");
@@ -381,8 +337,62 @@ table tr td select {
 		$("#relatetradetxn").html("");
 		$("#status").html("");
 		$("#ordercommitime").html("");
-		$("#syncnotify").html("");
-
+		$("#syncnotify").html(""); */
+		$.ajax({
+			   type: "POST",
+			   url: "trade/getSingleById",
+			   data: "tid="+tid,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				   		
+						$("#tid").html(json.tid);
+						/* $("#user_code").attr('readonly','readonly');
+						$("#user_code").css('background-color','#D2D2D2'); */
+						$("#accesstype").html(json.accesstype);
+						$("#coopinstiid").html(json.coopinstiid);
+						$("#merid").html(json.merid);
+						$("#version").html(json.version);
+						$("#encoding").html(json.encoding);
+						$("#certid").html(json.certid);
+						$("#txntype").html(json.txntype);
+						
+						$("#txnsubtype").html(json.txnsubtype);
+						$("#biztype").html(json.biztype);
+						$("#backurl").html(json.backurl);
+						$("#mername").html(json.mername);
+						$("#merabbr").html(json.merabbr);
+						$("#orderid").html(json.orderid);
+						$("#certid").html(json.certid);
+						$("#txntime").html(changeDate(json.txntime));
+						$("#paytimeout").html(changeDate(json.paytimeout));
+						$("#txnamt").html(json.txnamt);
+						if (json.currencycode == "156") {
+							$("#currencycode").html("人民币");
+						}
+						
+						$("#bankcode").html(json.bankcode);
+						$("#cardno").html(json.cardno);
+						$("#customernm").html(json.customernm);
+						
+						$("#factorid").html(json.factorid);
+						$("#phone").html(json.phone);
+						$("#idcard").html(json.idcard);
+						$("#dktype").html(json.dktype);
+						$("#orderdesc").html(json.orderdesc);
+						$("#reserved").html(json.reserved);
+						$("#respcode").html(json.respcode);
+						$("#respmsg").html(json.respmsg);
+						$("#tn").html(json.tn);
+						$("#relatetradetxn").html(json.relatetradetxn);
+						$("#status").html(getStatus(json.status));
+						$("#ordercommitime").html(json.ordercommitime);
+						$("#syncnotify").html(json.syncnotify);
+						$("#notes").html(json.notes);
+						$("#remarks").html(json.remarks);
+			   }
+			});
+		
 		$('#w').window({
 			title : '实时代收订单详细信息',
 			top : 30,
@@ -415,7 +425,7 @@ table tr td select {
 			} 
 		}
 		
-		var rows = $('#test').datagrid('getSelected');
+		/* var rows = $('#test').datagrid('getSelected');
 		
 		$("#tid").html(rows["TID"]);
 		$("#accesstype").html(rows["ACCESSTYPE"]);
@@ -460,7 +470,7 @@ table tr td select {
 		}else{
 			$("#mername").html(rows["MERNAME"]);
 		}
-		$("#orderdesc").html(rows["ORDERDESC"])
+		$("#orderdesc").html(rows["ORDERDESC"]) */
 		
 	}
 	function fenToYuan(value){

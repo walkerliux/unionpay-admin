@@ -24,4 +24,9 @@ public interface TradeService {
 	PageBean getChnCollectSingleLogByPage(TChnlCpdkLog tChnlCpdkLog, String stime,
 			String etime, int page, int rows);
 
+	PageBean getMerchantDaySettlement(TTxnsLog tTxnsLog, String stime,
+			String etime, int page, int rows);
+
+	Object getSingleById(String tid);
+
 }

@@ -43,42 +43,37 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">付款人名称</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="debtorname" id="debtornames" /></td>
-						<td align="right" width="10%">付款人账号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="debtoraccountno" id="debtoraccountnos" /></td>
-						<td align="right" width="10%">付款行行号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="debtorbranchcode" id="debtorbranchcodes" /></td>
+						<td align="right" width="10%">商户号</td>
+						<td align="left" style="padding-left: 5px" width="25%"><input name="accsecmerno" id="accsecmerno" /></td>
+						
+					
+					
+						<td align="right" width="10%">交易状态</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input name="apporderstatus" id="apporderstatus" /></td>
+						
 					</tr>
-					<tr>
-						<td align="right" width="10%">收款人名称</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditorname" id="creditornames" /></td>
-						<td align="right" width="10%">收款人账号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditoraccountno" id="creditoraccountnos" /></td>
-
-						<td align="right" width="10%">收款行行号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditorbranchcode" id="creditorbranchcodes" /></td>
-					</tr>
-					<tr>
-						<td align="right" width="10%">合同（协议）号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="endtoendidentification" id="endtoendidentifications" /></td>
-						<td align="right" width="10%">发起方代码</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="transmitleg" id="transmitlegs" /></td>
-
-						<td align="right" width="10%">应答状态</td>
-						<td style="padding-left: 5px"><select name="rspstatus" id="rspstatuss" style="width: 150px">
-								<option value="">--请选择应答状态--</option>
-								<option value="PR05">已成功</option>
-								<option value="PR09">已拒绝</option>
-								<option value="PR32">逾期退回</option>
-						</select></td>
-					</tr>
-					<tr>
-						<td align="right" width="10%">交易起止时间</td>
-						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="stime"></input> 至<input id=etime type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="etime"></input></td>
+				
+					<tr> 
+						 <td align="right" width="15%">开始时间</td>
+						<td align="left" style="padding-left: 5px" width="25%">
+							<input id="beginTime" name="beginTime" type="text"
+							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+						</td> 
+						 <td align="right" width="15%">截止时间</td>
+						 <td align="left" style="padding-left: 5px" width="25%">
+						 	<input id="endTime" name="endTime" type="text"
+							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+						<td></td>
 						<td align="right" width="10%"></td>
-						<td align="left" style="padding-left: 5px" width="15%"></td>
-						<td align="left"><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> <a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
+						<!-- <td align="left" style="padding-left: 5px" width="15%"></td> -->
+						<!-- <td align="left">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td> -->
+						<td align="right">
+						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
+						
+						
 						</td>
 					</tr>
 				</table>
@@ -196,12 +191,7 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									/* {
-										field : 'MSGID',
-										title : '报文标识号',
-										width : 120,
-										align : 'center'
-									}, */
+								
 									{
 										field : 'accsecmerno',
 										title : '商户号',
@@ -209,17 +199,17 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'TRANSMITLEG',
-										title : '发起方代码',
+										field : 'memberName',
+										title : '商户名称',
 										width : 110,
 										align : 'center'
 									},
-									/* {
+									{
 										field : 'RECEIVER',
-										title : '接收方代码',
+										title : '交易笔数',
 										width : 120,
 										align : 'center'
-									}, */
+									}, 
 									{
 										field : 'amount',
 										title : '交易金额',
@@ -227,8 +217,8 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'TRANSDATE',
-										title : '本地日期 ',
+										field : 'txnfee',
+										title : '商户手续费 ',
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
@@ -237,7 +227,7 @@ table tr td select {
 									},
 									{
 										field : 'TRANSTIME',
-										title : '本地时间',
+										title : '渠道收益',
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
@@ -246,145 +236,17 @@ table tr td select {
 									},
 									{
 										field : 'ENDTOENDIDENTIFICATION',
-										title : '合同（协议）号',
+										title : '通道收益',
 										width : 200,
 										align : 'center'
 									},
 									{
 										field : 'DEBTORACCOUNTNO',
-										title : '付款账号',
+										title : '银联收益',
 										width : 140,
 										align : 'center'
 									},
-									{
-										field : 'DEBTORNAME',
-										title : '付款账户名称',
-										width : 220,
-										align : 'center'
-									},
-									
-									/* {
-										field : 'DEBTORBRANCHCODE',
-										title : '付款行行号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'CREDITORBRANCHCODE',
-										title : '收款行行号',
-										width : 120,
-										align : 'center'
-									}, */
-									{
-										field : 'CREDITORACCOUNTNO',
-										title : '收款账号',
-										width : 140,
-										align : 'center'
-									},
-									{
-										field : 'CREDITORNAME',
-										title : '收款账户名称',
-										width : 220,
-										align : 'center'
-									},
-									
-									{
-										field : 'AMOUNT',
-										title : '金额（元）',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return fenToYuan(rec.AMOUNT);
-										}
-									},
-									{
-										field : 'PURPOSEPROPRIETARY',
-										title : '业务种类编码',
-										width : 100,
-										align : 'center'
-									},
-									
-									{
-										field : 'RSPSTATUS',
-										title : '应答信息',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return analysisStatus(rec.RSPSTATUS);
-										}
-									},
-									{
-										field : 'RSPREJECTCODE',
-										title : '应答码',
-										width : 120,
-										align : 'center'
-									},
-									/* {
-										field : 'RSPREJECTINFORMATION',
-										title : '业务拒绝信息',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'RSPDATE',
-										title : '业务应答时间',
-										width : 123,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDateTime(rec.RSPDATE);
-										}
-									},
-									{
-										field : 'NETTINGDATE',
-										title : '轧差日期',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDate(rec.NETTINGDATE);
-										}
-									},
-									{
-										field : 'COMMSGID',
-										title : '通用处理报文标识号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'COMSTATUS',
-										title : '通用处理应答状态',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return analysisStatus(rec.COMSTATUS);
-										}
-									},
-									{
-										field : 'COMREJECTCODE',
-										title : '通用处理应答码',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'COMREJECTINFORMATION',
-										title : '通用处理业务拒绝信息',
-										width : 130,
-										align : 'center'
-									},
-									{
-										field : 'COMDATE',
-										title : '通用处理业务应答时间',
-										width : 130,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDateTime(rec.COMDATE);
-										}
-									}, */
-									{
-										field : 'TXNSEQNO',
-										title : '交易序列号',
-										width : 120,
-										align : 'center'
-									},
+								
 									{
 										field : 'id',
 										title : '操作',
