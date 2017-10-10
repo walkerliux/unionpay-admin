@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TMccListMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMccList" >
+    <result column="MCCLIST" property="mcclist" jdbcType="VARCHAR" />
+    <result column="MCCCONT" property="mcccont" jdbcType="VARCHAR" />
+    <result column="MCCTYPE" property="mcctype" jdbcType="VARCHAR" />
+    <result column="MCCTRADE" property="mcctrade" jdbcType="VARCHAR" />
+    <result column="INDUSTRY" property="industry" jdbcType="VARCHAR" />
+    <result column="MCCCLASS" property="mccclass" jdbcType="VARCHAR" />
+    <result column="MCC" property="mcc" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    MCCLIST, MCCCONT, MCCTYPE, MCCTRADE, INDUSTRY, MCCCLASS, MCC, STATUS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMccListExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_mcc_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMccListExample" >
+    delete from t_mcc_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMccList" >
+    insert into t_mcc_list (MCCLIST, MCCCONT, MCCTYPE, 
+      MCCTRADE, INDUSTRY, MCCCLASS, 
+      MCC, STATUS)
+    values (#{mcclist,jdbcType=VARCHAR}, #{mcccont,jdbcType=VARCHAR}, #{mcctype,jdbcType=VARCHAR}, 
+      #{mcctrade,jdbcType=VARCHAR}, #{industry,jdbcType=VARCHAR}, #{mccclass,jdbcType=VARCHAR}, 
+      #{mcc,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMccList" >
+    insert into t_mcc_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mcclist != null" >
+        MCCLIST,
+      </if>
+      <if test="mcccont != null" >
+        MCCCONT,
+      </if>
+      <if test="mcctype != null" >
+        MCCTYPE,
+      </if>
+      <if test="mcctrade != null" >
+        MCCTRADE,
+      </if>
+      <if test="industry != null" >
+        INDUSTRY,
+      </if>
+      <if test="mccclass != null" >
+        MCCCLASS,
+      </if>
+      <if test="mcc != null" >
+        MCC,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mcclist != null" >
+        #{mcclist,jdbcType=VARCHAR},
+      </if>
+      <if test="mcccont != null" >
+        #{mcccont,jdbcType=VARCHAR},
+      </if>
+      <if test="mcctype != null" >
+        #{mcctype,jdbcType=VARCHAR},
+      </if>
+      <if test="mcctrade != null" >
+        #{mcctrade,jdbcType=VARCHAR},
+      </if>
+      <if test="industry != null" >
+        #{industry,jdbcType=VARCHAR},
+      </if>
+      <if test="mccclass != null" >
+        #{mccclass,jdbcType=VARCHAR},
+      </if>
+      <if test="mcc != null" >
+        #{mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMccListExample" resultType="java.lang.Integer" >
+    select count(*) from t_mcc_list
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_mcc_list
+    <set >
+      <if test="record.mcclist != null" >
+        MCCLIST = #{record.mcclist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcccont != null" >
+        MCCCONT = #{record.mcccont,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcctype != null" >
+        MCCTYPE = #{record.mcctype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcctrade != null" >
+        MCCTRADE = #{record.mcctrade,jdbcType=VARCHAR},
+      </if>
+      <if test="record.industry != null" >
+        INDUSTRY = #{record.industry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mccclass != null" >
+        MCCCLASS = #{record.mccclass,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mcc != null" >
+        MCC = #{record.mcc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_mcc_list
+    set MCCLIST = #{record.mcclist,jdbcType=VARCHAR},
+      MCCCONT = #{record.mcccont,jdbcType=VARCHAR},
+      MCCTYPE = #{record.mcctype,jdbcType=VARCHAR},
+      MCCTRADE = #{record.mcctrade,jdbcType=VARCHAR},
+      INDUSTRY = #{record.industry,jdbcType=VARCHAR},
+      MCCCLASS = #{record.mccclass,jdbcType=VARCHAR},
+      MCC = #{record.mcc,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
