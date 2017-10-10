@@ -88,10 +88,7 @@ public class BatchFinalRiskHandler implements EventHandler<TradeBean>{
 				tradeRiskService.saveRiskTradeLog(tradeLog);
 				
 				//
-				OrderCollectDetaPayDO orderCollectDetaPay = new  OrderCollectDetaPayDO();
-				orderCollectDetaPay.setStatus(OrderStatusEnum.FAILED.getCode());
-				orderCollectDetaPay.setRelatetradetxn(txnLogPay.getTxnseqno());
-				orderCollectDetaPayService.updateOrderStatus(orderCollectDetaPay);
+				
 				ResultBean resultBean = null;
 				if (riskLevel == RiskLevelEnum.REFUSE) {
 					RspmsgPayDO record = new RspmsgPayDO();
@@ -107,6 +104,11 @@ public class BatchFinalRiskHandler implements EventHandler<TradeBean>{
 					txnLogPay.setTradestatflag(TradeStatFlagEnum.ACCFAILED.getStatus());
 					txnLogPay.setTradetxnflag(TradeTxnFlagEnum.REALTIME_COLLECT_ACCFAILED.getCode());
 					txnLogPayService.updateTxnLogPay(txnLogPay);
+					//被拒交易需更新为交易失败
+					OrderCollectDetaPayDO orderCollectDetaPay = new  OrderCollectDetaPayDO();
+					orderCollectDetaPay.setStatus(OrderStatusEnum.FAILED.getCode());
+					orderCollectDetaPay.setRelatetradetxn(txnLogPay.getTxnseqno());
+					orderCollectDetaPayService.updateOrderStatus(orderCollectDetaPay);
 					resultBean = new ResultBean("9999", "交易失败，被风控系统拒绝");
 					resultBean.setResultBool(false);
 					removeList.add(txnLogPay);

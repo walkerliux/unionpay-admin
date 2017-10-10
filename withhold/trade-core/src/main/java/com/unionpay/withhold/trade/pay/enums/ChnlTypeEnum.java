@@ -11,8 +11,7 @@ public enum ChnlTypeEnum {
 	
     private String code;
     private String name;
-	private static ChnlTypeEnum fromValue;
-    
+	
     private ChnlTypeEnum(String code,String name){
         this.code = code;
         this.name = name;

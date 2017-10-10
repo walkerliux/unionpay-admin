@@ -22,4 +22,11 @@ public class TradeQueueServiceImpl implements TradeQueueService {
 		boundListOps.leftPush(JSON.toJSONString(tradeQueueBean));
 	}
 
+	@Override
+	public void addBatchTradeQueue(TradeQueueBean tradeQueueBean) {
+		// TODO Auto-generated method stub
+		BoundListOperations<String, String> boundListOps = redisTemplate.boundListOps(TradeQueueEnum.CPBATCHTRADE.name());
+		boundListOps.leftPush(JSON.toJSONString(tradeQueueBean));
+	}
+
 }

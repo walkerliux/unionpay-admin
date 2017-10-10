@@ -9,8 +9,8 @@ import com.google.common.collect.Lists;
 import com.lmax.disruptor.EventHandler;
 import com.unionpay.withhold.api.bean.TRspRoot;
 import com.unionpay.withhold.bean.ResultBean;
-import com.unionpay.withhold.trade.task.bean.ChannelEnum;
 import com.unionpay.withhold.trade.task.bean.NotifyQueueBean;
+import com.unionpay.withhold.trade.task.bean.TradeChannelEnum;
 import com.unionpay.withhold.trade.task.bean.TradeNotifyBean;
 import com.unionpay.withhold.trade.task.dao.OrderCollectSingleTaskDAO;
 import com.unionpay.withhold.trade.task.dao.RspmsgTaskDAO;
@@ -74,7 +74,7 @@ public class TradeNotifyHandler implements EventHandler<TradeNotifyBean>{
 		rspRoot.setQueryId(orderCollectSingle.getTn());
 		
 		RspmsgTaskDO record = new RspmsgTaskDO();
-		record.setChnltype(ChannelEnum.fromValue(txnLog.getPayinst()).getChnlType());
+		record.setChnltype(TradeChannelEnum.fromValue(txnLog.getPayinst()).getType());
 		record.setChnlrspcode(txnLog.getPayretcode());
 		record.setRetcode(txnLog.getRetcode());
 		RspmsgTaskDO rspmsg = rspmsgTaskDAO.queryRspmsg(record);
@@ -95,7 +95,7 @@ public class TradeNotifyHandler implements EventHandler<TradeNotifyBean>{
 		rspRoot.setExchangeRate("");
 		String notifyURL = orderCollectSingle.getBackurl();
 		//暂无发送方法
-		
+		System.out.println(notifyURL);
 		ResultBean resultBean = new ResultBean("0000", "成功");
 		return resultBean;
 	}

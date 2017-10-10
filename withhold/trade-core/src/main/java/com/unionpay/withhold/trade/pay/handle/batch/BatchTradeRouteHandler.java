@@ -2,12 +2,13 @@ package com.unionpay.withhold.trade.pay.handle.batch;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.collect.Queues;
 import com.lmax.disruptor.EventHandler;
+import com.unionpay.withhold.bean.ResultBean;
 import com.unionpay.withhold.trade.pay.bean.TradeBean;
 import com.unionpay.withhold.trade.route.bean.TradeRouteBean;
 import com.unionpay.withhold.trade.route.pojo.RouteConfigDO;
@@ -21,29 +22,35 @@ public class BatchTradeRouteHandler implements EventHandler<TradeBean>{
 	
 	@Override
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
+		ResultBean resultBean = null;
 		try {
+			if(!tradeBean.getFinalTrade().isResultBool()) {
+				resultBean = tradeBean.getFinalTrade();
+				return;
+			}
 			TradeRouteBean tradeRoute = new TradeRouteBean();
 			tradeRoute.setTransTime(DateUtil.getCurrentTime());
 			tradeRoute.setBusicode(tradeBean.getBusinessEnum().getCode());
-			//tradeRoute.setBankcode(tradeBean.getTxnLogPayDO().getCardinstino());
+			tradeRoute.setBankcode(tradeBean.getTxnLogPayDO().getCardinstino());
 			tradeRoute.setStatus("00");
-			//tradeRoute.setCardtype(tradeBean.getTxnLogPayDO().getCardtype());
-			tradeRoute.setRoutver(tradeBean.getTxnLogList().get(0).getRoutver());
-			tradeRoute.setTransAmt(tradeBean.getCollectBatchOrder().getTotalamt());
+			tradeRoute.setCardtype(tradeBean.getTxnLogPayDO().getCardtype());
+			tradeRoute.setRoutver(tradeBean.getTxnLogPayDO().getRoutver());
+			tradeRoute.setTransAmt(tradeBean.getTxnLogPayDO().getAmount());
 			List<RouteConfigDO> tradRouteList = tradeRouteService.getTradRouteList(tradeRoute);
-			if(tradRouteList.size()>0) {
-				Queue<RouteConfigDO> tradeChnlQueue = Queues.newConcurrentLinkedQueue();
-				tradeChnlQueue.addAll(tradRouteList);
-				tradeBean.setChnlCode(tradeChnlQueue.poll().getChnlcode());
-				tradeBean.setTradeChnlQueue(tradeChnlQueue);
-			}
-			
+			Queue<RouteConfigDO> tradeChnlQueue = new ConcurrentLinkedQueue<>();
+			tradeChnlQueue.addAll(tradRouteList);
+			tradeBean.setChnlCode(tradeChnlQueue.poll().getChnlcode());
+			tradeBean.setTradeChnlQueue(tradeChnlQueue);
+			resultBean = new ResultBean("0000", "成功");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			tradeBean.setChnlCode("");
+			e.printStackTrace();
+			resultBean = new ResultBean("PC035", "交易失败，系统异常");
+			resultBean.setResultBool(false);
 		}finally {
-			
+			tradeBean.setTradeRoute(resultBean);
 		}
 		
 	}

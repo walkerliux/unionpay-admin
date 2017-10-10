@@ -70,7 +70,6 @@ public class TradeCheckHandler implements EventHandler<TradeBean> {
 			e.printStackTrace();
 		}finally {
 			tradeBean.setTradeCheck(resultBean);
-			tradeBean.setFinalTrade(resultBean);
 		}
 	}
 

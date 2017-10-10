@@ -151,6 +151,7 @@ public class CollectBusinessServiceImpl implements CollectBusinessService {
 		return resultBean;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public ResultBean createBatchCollectOrder(final BatchCollectBean batchCollectBean) {
 		ResultBean resultBean = null;

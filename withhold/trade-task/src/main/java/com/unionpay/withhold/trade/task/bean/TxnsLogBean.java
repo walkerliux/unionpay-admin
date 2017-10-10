@@ -3,6 +3,11 @@ package com.unionpay.withhold.trade.task.bean;
 import java.io.Serializable;
 
 public class TxnsLogBean implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8515834625100035263L;
+
 	private String txnseqno;
 
 	private String txndate;

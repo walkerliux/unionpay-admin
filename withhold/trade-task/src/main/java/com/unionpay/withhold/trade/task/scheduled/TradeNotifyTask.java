@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import com.lmax.disruptor.BusySpinWaitStrategy;
 import com.lmax.disruptor.EventFactory;
@@ -54,6 +53,7 @@ public class TradeNotifyTask {
 	private EventHandler<TradeNotifyBean> batchPushQueueHandler;
 	
 	
+	@SuppressWarnings("deprecation")
 	@Scheduled(cron = "0 0/1 * * * ?")
 	public void singleTradeNotify() {
 		int bufferSize = 2048;
@@ -93,7 +93,7 @@ public class TradeNotifyTask {
 		}
 
 	}
-
+	@SuppressWarnings("deprecation")
 	@Scheduled(cron = "0 0/1 * * * ?")
 	public void batchTradeNotify() {
 		int bufferSize = 2048;

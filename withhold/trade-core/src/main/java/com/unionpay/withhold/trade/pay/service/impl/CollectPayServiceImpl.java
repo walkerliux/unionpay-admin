@@ -61,6 +61,9 @@ public class CollectPayServiceImpl implements CollectPayService{
 	@Qualifier("finalRiskHandler")
 	private EventHandler<TradeBean> finalRiskHandler;
 	@Autowired
+	@Qualifier("tradeDateHandler")
+	private EventHandler<TradeBean> tradeDateHandler;
+	@Autowired
 	@Qualifier("tradeChannelHandler")
 	private EventHandler<TradeBean> tradeChannelHandler;
 	
@@ -132,7 +135,8 @@ public class CollectPayServiceImpl implements CollectPayService{
 		//disruptor.after(tradeRouteHandler).handleEventsWith(chnlFeeHandler,chnlRiskHandler);
 		//disruptor.after(merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalRiskHandler);
 		disruptor.after(merchRiskHandler,agentRiskHandler,chnlRiskHandler,merchFeeHandler,agentFeeHandler,chnlFeeHandler).handleEventsWith(finalFeeHandler,finalRiskHandler);
-		disruptor.after(finalFeeHandler,finalRiskHandler).handleEventsWith(tradeChannelHandler);
+		disruptor.after(finalFeeHandler,finalRiskHandler).handleEventsWith(tradeDateHandler);
+		disruptor.after(tradeDateHandler).handleEventsWith(tradeChannelHandler);
 		disruptor.start();// 启动
 		final CountDownLatch latch = new CountDownLatch(1);
 		// 生产者准备
@@ -157,7 +161,7 @@ public class CollectPayServiceImpl implements CollectPayService{
 		}
 		disruptor.shutdown();
 		//判断交易是否成功，如果成功则返回，失败从队列中取出下一个渠道代码，调用二次支付方法
-		System.out.println(JSON.toJSONString(tradeBean));
+		//System.out.println(JSON.toJSONString(tradeBean));
 		return tradeBean.getFinalTrade();
 	}
 	

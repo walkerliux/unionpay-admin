@@ -50,7 +50,10 @@ public class FrontEndController {
 		if(resultBean.isResultBool()) {
 			String tn = (String)resultBean.getResultObj();
 			resultBean = collectPayService.singleCollectPay(tn);
-			resultBean.setResultObj(tn);
+			if(resultBean!=null) {
+				resultBean.setResultObj(tn);
+			}
+
 		}
 		System.out.println((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;

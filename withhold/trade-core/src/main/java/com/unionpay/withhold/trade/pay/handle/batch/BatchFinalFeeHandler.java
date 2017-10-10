@@ -73,8 +73,9 @@ public class BatchFinalFeeHandler implements EventHandler<TradeBean>{
 					orderCollectDetaPay.setStatus(OrderStatusEnum.FAILED.getCode());
 					orderCollectDetaPay.setRelatetradetxn(txnLogPay.getTxnseqno());
 					orderCollectDetaPayService.updateOrderStatus(orderCollectDetaPay);
+					txnLogPayService.updateTxnLogPay(txnLogPay);
 				}
-				txnLogPayService.updateTxnLogPay(txnLogPay);
+				
 			}
 			finalFeeResultBean = new ResultBean("0000", "成功");
 		} catch (Exception e) {

@@ -55,7 +55,7 @@ public class BatchTradeCheckHandler implements EventHandler<TradeBean> {
 
 				List<OrderCollectDetaPayDO> orderDetaList = orderCollectDetaPayService.queryCollectOrderDeta(collectBatchOrder.getTid());
 				List<OrderCollectDetaPayDO> removeList = Lists.newArrayList();
-				List<OrderCollectDetaPayDO> txnsLogList = Lists.newArrayList();
+				//List<OrderCollectDetaPayDO> txnsLogList = Lists.newArrayList();
 				for (OrderCollectDetaPayDO orderCollectDetaPay : orderDetaList) {
 					if (OrderStatusEnum.INITIAL == OrderStatusEnum.fromValue(orderCollectDetaPay.getStatus())) {
 						continue;
@@ -68,11 +68,11 @@ public class BatchTradeCheckHandler implements EventHandler<TradeBean> {
 				tradeBean.setTxnLogList(txnLogPayService.queryBatchDetaTxnLog(collectBatchOrder.getTid()));
 			} 
 		} catch (Exception e) {
-			resultBean = new ResultBean("PC030", "实时代收订单正在交易中");
+			e.printStackTrace();
+			resultBean = new ResultBean("PC035", "交易失败，系统异常");
 			resultBean.setResultBool(false);
 		}finally {
 			tradeBean.setTradeCheck(resultBean);
 		}
 	}
-
 }

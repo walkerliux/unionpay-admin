@@ -15,7 +15,6 @@ import com.unionpay.withhold.trade.task.bean.NotifyQueueBean;
 import com.unionpay.withhold.trade.task.bean.TradeNotifyBean;
 import com.unionpay.withhold.trade.task.dao.OrderCollectBatchTaskDAO;
 import com.unionpay.withhold.trade.task.dao.OrderCollectDetaTaskDAO;
-import com.unionpay.withhold.trade.task.dao.RspmsgTaskDAO;
 import com.unionpay.withhold.trade.task.pojo.OrderCollectBatchTaskDO;
 import com.unionpay.withhold.trade.task.pojo.OrderCollectDetaTaskDO;
 
