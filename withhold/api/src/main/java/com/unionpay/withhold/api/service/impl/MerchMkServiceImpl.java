@@ -13,7 +13,7 @@ public class MerchMkServiceImpl implements MerchMkService {
 	private MerchMkMapper merchMkMapper;
 
 	@Override
-	public MerchMk selectByPrimaryKey(String key) {
-		return merchMkMapper.selectByPrimaryKey(key);
+	public MerchMk selectByCertId(String key) {
+		return merchMkMapper.selectByCertId(key);
 	}
 }

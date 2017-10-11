@@ -32,7 +32,7 @@ public class MessageEncryptServiceImpl implements MessageEncryptService{
 		String key = AESUtil.getAESKey();
 		RSAHelper2048 rsa = null;
 		if ("1".equals(additBean.getAccessType())){
-			MerchMk merchMk = merchMKService.selectByPrimaryKey((additBean.getCertId()));
+			MerchMk merchMk = merchMKService.selectByCertId((additBean.getCertId()));
 			rsa = new RSAHelper2048();
 			rsa.initKey(merchMk.getLocalprikey(), merchMk.getMemberpubkey(), 2048);
 		}else {

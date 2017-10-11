@@ -41,7 +41,7 @@ public class SingleController {
 	@RequestMapping("notice")
 	public String notice(String data) {
 		TransFlow transFlow =JSON.parseObject(data, TransFlow.class);
-		MerchMk merchMk=merchMkService.selectByPrimaryKey(transFlow.getCertId());
+		MerchMk merchMk=merchMkService.selectByCertId(transFlow.getCertId());
 		int result=1;
 		try {
 			result =executeSave(transFlow,merchMk.getLocalpubkey(),merchMk.getPlatformpfxpwd());
