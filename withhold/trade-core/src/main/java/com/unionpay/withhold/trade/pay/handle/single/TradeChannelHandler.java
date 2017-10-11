@@ -45,7 +45,7 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 					
 					break;
 				case CHANPAY_SINGLE:
-					
+
 					break;
 				default:
 					resultBean = new ResultBean("PC010", "交易失败，无可用交易渠道");

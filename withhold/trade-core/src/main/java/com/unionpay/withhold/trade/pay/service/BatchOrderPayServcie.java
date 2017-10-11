@@ -10,4 +10,10 @@ public interface BatchOrderPayServcie {
 	 * @return
 	 */
 	public OrderCollectBatchPayDO getCollectBatchOrder(String tn);
+	
+	/**
+	 * 更新代收批次数据
+	 * @param tn
+	 */
+	public void updateCollectBatchOrder(OrderCollectBatchPayDO record);
 }

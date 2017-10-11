@@ -31,4 +31,6 @@ public interface OrderCollectBatchPayDAO {
     int updateByPrimaryKey(OrderCollectBatchPayDO record);
     
     OrderCollectBatchPayDO getCollectBatchOrder(String tn);
+    
+    int updateByTN(OrderCollectBatchPayDO record);
 }

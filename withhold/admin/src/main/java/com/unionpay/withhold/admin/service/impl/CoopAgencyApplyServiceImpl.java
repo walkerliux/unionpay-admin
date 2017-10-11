@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.CoopAgencyStatusEnums;
+import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyApplyMapper;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;

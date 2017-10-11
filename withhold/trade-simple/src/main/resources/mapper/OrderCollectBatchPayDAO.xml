@@ -565,4 +565,12 @@
     where 
     	TN = #{tn,jdbcType=VARCHAR}
   </select>
+  <update id="updateByTN" parameterType="com.unionpay.withhold.trade.pay.pojo.OrderCollectBatchPayDO">
+    update t_order_collect_batch
+    set 
+      STATUS = #{status,jdbcType=VARCHAR},
+      ORDERFINSHTIME = #{orderfinshtime,jdbcType=VARCHAR}
+    where TN = #{tn,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>
