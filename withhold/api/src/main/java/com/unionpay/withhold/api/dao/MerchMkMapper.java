@@ -3,13 +3,13 @@ package com.unionpay.withhold.api.dao;
 import com.unionpay.withhold.api.model.MerchMk;
 
 public interface MerchMkMapper {
-    int deleteByPrimaryKey(String memberid);
+    int deleteByPrimaryKey(Integer safeseq);
 
     int insert(MerchMk record);
 
     int insertSelective(MerchMk record);
 
-    MerchMk selectByPrimaryKey(String certid);
+    MerchMk selectByCertId(String certid);
 
     int updateByPrimaryKeySelective(MerchMk record);
 
