@@ -50,8 +50,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		int count;
 		// 验重
 		TCoopAgencyApplyExample coopAgencyApplyExample = new TCoopAgencyApplyExample();
-		TCoopAgencyApplyExample.Criteria criteria = coopAgencyApplyExample.createCriteria();
-		criteria.andCacodeEqualTo(coopAgencyApply.getCacode());
+		TCoopAgencyApplyExample.Criteria criteriaApply = coopAgencyApplyExample.createCriteria();
+		criteriaApply.andCacodeEqualTo(coopAgencyApply.getCacode());
 		// criteria.andStatusNotEqualTo(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());
 		count = coopAgencyApplyMapper.countByExample(coopAgencyApplyExample);
 		if (count > 0) {
@@ -60,6 +60,16 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 
 		if (coopAgencyApply.getSupercode().equals("0")) {
 			coopAgencyApply.setCalevel((short) 1);
+		} else {
+			TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();
+			TCoopAgencyExample.Criteria criteria = coopAgencyExample.createCriteria();
+			criteria.andCacodeEqualTo(coopAgencyApply.getSupercode());
+			criteria.andStatusEqualTo(CoopAgencyStatusEnums.NORMAL.getCode());
+			List<TCoopAgency> coopAgencyList = coopAgencyMapper.selectByExample(coopAgencyExample);
+			if (coopAgencyList.size() == 0) {
+				return new ResultBean("", "上级渠道不存在！");
+			}
+			coopAgencyApply.setCalevel((short) (coopAgencyList.get(0).getCalevel() + 1));
 		}
 		coopAgencyApply.setStatus(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());
 		count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);

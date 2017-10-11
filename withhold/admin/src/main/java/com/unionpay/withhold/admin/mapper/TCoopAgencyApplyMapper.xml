@@ -125,9 +125,9 @@
 		</if>
 		limit #{beginRow},#{pageSize}
 	</select>
-	
-	
-	
+
+
+
 	<!-- 关联查询 -->
 	<select id="selectWithCondition" resultMap="BaseResultMap">
 		select
@@ -148,7 +148,8 @@
 			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
 				AND caa.CANAME = #{coopAgencyApply.caname}
 			</if>
-			<if test="coopAgencyApply.supercode != null and coopAgencyApply.supercode != ''">
+			<if
+				test="coopAgencyApply.supercode != null and coopAgencyApply.supercode != ''">
 				AND caa.SUPERCODE = #{coopAgencyApply.supercode}
 			</if>
 			<if test="statuses != null ">
@@ -169,6 +170,9 @@
 		select
 		count(*)
 		from t_coop_agency_apply caa
+		LEFT JOIN t_coop_agency ca ON
+		caa.SUPERCODE = ca.CACODE AND
+		ca.`STATUS`='00'
 		<where>
 			<if test="coopAgencyApply.cacode != null and coopAgencyApply.cacode != ''">
 				AND caa.CACODE = #{coopAgencyApply.cacode}
@@ -176,7 +180,8 @@
 			<if test="coopAgencyApply.caname != null and coopAgencyApply.caname != ''">
 				AND caa.CANAME = #{coopAgencyApply.caname}
 			</if>
-			<if test="coopAgencyApply.supercode != null and coopAgencyApply.supercode != ''">
+			<if
+				test="coopAgencyApply.supercode != null and coopAgencyApply.supercode != ''">
 				AND caa.SUPERCODE = #{coopAgencyApply.supercode}
 			</if>
 			<if test="statuses != null ">
@@ -189,20 +194,24 @@
 		</where>
 	</select>
 
-	<select id="selectCoopAgencyDetailById" resultMap="BaseResultMap" resultType="java.lang.Long">
+	<select id="selectCoopAgencyDetailById" resultMap="BaseResultMap"
+		resultType="java.lang.Long">
 		SELECT
-			caa.*, p.P_NAME AS PROVINCE_NAME,
-			C_NAME AS CITY_NAME,
-			ca.CANAME AS SUPER_NAME,
-			mr.RATE_ID AS RATE_ID
+		caa.*, p.P_NAME AS PROVINCE_NAME,
+		C_NAME AS CITY_NAME,
+		ca.CANAME AS SUPER_NAME,
+		mr.RATE_ID AS RATE_ID
 		FROM
-			t_coop_agency_apply caa
+		t_coop_agency_apply caa
 		LEFT JOIN t_province p ON caa.CAPROVINCE = p.P_ID
-		LEFT JOIN t_city c ON caa.CACITY = c.C_ID
-		LEFT JOIN t_coop_agency ca ON caa.SUPERCODE = ca.CACODE AND ca.`STATUS` = '00'
-		LEFT JOIN t_merch_rate_config mr ON caa.CACODE = mr.MEMBER_ID
+		LEFT JOIN t_city
+		c ON caa.CACITY = c.C_ID
+		LEFT JOIN t_coop_agency ca ON caa.SUPERCODE =
+		ca.CACODE AND ca.`STATUS` = '00'
+		LEFT JOIN t_merch_rate_config mr ON
+		caa.CACODE = mr.MEMBER_ID
 		WHERE
-			caa.SELF_ID = #{selfId} AND caa. STATUS != '99'
+		caa.SELF_ID = #{selfId} AND caa. STATUS != '99'
 	</select>
 
 

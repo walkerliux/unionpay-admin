@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TMerchChnlMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchChnl" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="MERCHNO" property="merchno" jdbcType="VARCHAR" />
+    <result column="CHNLCODE" property="chnlcode" jdbcType="VARCHAR" />
+    <result column="CHNLMERCNO" property="chnlmercno" jdbcType="VARCHAR" />
+    <result column="SAFETYPE" property="safetype" jdbcType="VARCHAR" />
+    <result column="STORGETYPE" property="storgetype" jdbcType="VARCHAR" />
+    <result column="PRIKEYPWD" property="prikeypwd" jdbcType="CHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="INUSER" property="inuser" jdbcType="INTEGER" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" extends="BaseResultMap" >
+    <result column="PUBKEY" property="pubkey" jdbcType="LONGVARCHAR" />
+    <result column="PRIKEY" property="prikey" jdbcType="LONGVARCHAR" />
+    <result column="CHNLPUBKEY" property="chnlpubkey" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, MERCHNO, CHNLCODE, CHNLMERCNO, SAFETYPE, STORGETYPE, PRIKEYPWD, STATUS, INTIME, 
+    INUSER, NOTES, REMARKS
+  </sql>
+  <sql id="Blob_Column_List" >
+    PUBKEY, PRIKEY, CHNLPUBKEY
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_merch_chnl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_merch_chnl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_merch_chnl
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_merch_chnl
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlExample" >
+    delete from t_merch_chnl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" >
+    insert into t_merch_chnl (TID, MERCHNO, CHNLCODE, 
+      CHNLMERCNO, SAFETYPE, STORGETYPE, 
+      PRIKEYPWD, STATUS, INTIME, 
+      INUSER, NOTES, REMARKS, 
+      PUBKEY, PRIKEY, CHNLPUBKEY
+      )
+    values (#{tid,jdbcType=INTEGER}, #{merchno,jdbcType=VARCHAR}, #{chnlcode,jdbcType=VARCHAR}, 
+      #{chnlmercno,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, #{storgetype,jdbcType=VARCHAR}, 
+      #{prikeypwd,jdbcType=CHAR}, #{status,jdbcType=VARCHAR}, #{intime,jdbcType=TIMESTAMP}, 
+      #{inuser,jdbcType=INTEGER}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{pubkey,jdbcType=LONGVARCHAR}, #{prikey,jdbcType=LONGVARCHAR}, #{chnlpubkey,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" >
+    insert into t_merch_chnl
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="merchno != null" >
+        MERCHNO,
+      </if>
+      <if test="chnlcode != null" >
+        CHNLCODE,
+      </if>
+      <if test="chnlmercno != null" >
+        CHNLMERCNO,
+      </if>
+      <if test="safetype != null" >
+        SAFETYPE,
+      </if>
+      <if test="storgetype != null" >
+        STORGETYPE,
+      </if>
+      <if test="prikeypwd != null" >
+        PRIKEYPWD,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="pubkey != null" >
+        PUBKEY,
+      </if>
+      <if test="prikey != null" >
+        PRIKEY,
+      </if>
+      <if test="chnlpubkey != null" >
+        CHNLPUBKEY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="merchno != null" >
+        #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null" >
+        #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlmercno != null" >
+        #{chnlmercno,jdbcType=VARCHAR},
+      </if>
+      <if test="safetype != null" >
+        #{safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="storgetype != null" >
+        #{storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="prikeypwd != null" >
+        #{prikeypwd,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkey != null" >
+        #{pubkey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="prikey != null" >
+        #{prikey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chnlpubkey != null" >
+        #{chnlpubkey,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlExample" resultType="java.lang.Integer" >
+    select count(*) from t_merch_chnl
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_merch_chnl
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.merchno != null" >
+        MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlcode != null" >
+        CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlmercno != null" >
+        CHNLMERCNO = #{record.chnlmercno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safetype != null" >
+        SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storgetype != null" >
+        STORGETYPE = #{record.storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prikeypwd != null" >
+        PRIKEYPWD = #{record.prikeypwd,jdbcType=CHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=INTEGER},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pubkey != null" >
+        PUBKEY = #{record.pubkey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.prikey != null" >
+        PRIKEY = #{record.prikey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.chnlpubkey != null" >
+        CHNLPUBKEY = #{record.chnlpubkey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_merch_chnl
+    set TID = #{record.tid,jdbcType=INTEGER},
+      MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      CHNLMERCNO = #{record.chnlmercno,jdbcType=VARCHAR},
+      SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
+      STORGETYPE = #{record.storgetype,jdbcType=VARCHAR},
+      PRIKEYPWD = #{record.prikeypwd,jdbcType=CHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=INTEGER},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      PUBKEY = #{record.pubkey,jdbcType=LONGVARCHAR},
+      PRIKEY = #{record.prikey,jdbcType=LONGVARCHAR},
+      CHNLPUBKEY = #{record.chnlpubkey,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_merch_chnl
+    set TID = #{record.tid,jdbcType=INTEGER},
+      MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      CHNLMERCNO = #{record.chnlmercno,jdbcType=VARCHAR},
+      SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
+      STORGETYPE = #{record.storgetype,jdbcType=VARCHAR},
+      PRIKEYPWD = #{record.prikeypwd,jdbcType=CHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      INUSER = #{record.inuser,jdbcType=INTEGER},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" >
+    update t_merch_chnl
+    <set >
+      <if test="merchno != null" >
+        MERCHNO = #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null" >
+        CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlmercno != null" >
+        CHNLMERCNO = #{chnlmercno,jdbcType=VARCHAR},
+      </if>
+      <if test="safetype != null" >
+        SAFETYPE = #{safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="storgetype != null" >
+        STORGETYPE = #{storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="prikeypwd != null" >
+        PRIKEYPWD = #{prikeypwd,jdbcType=CHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=INTEGER},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkey != null" >
+        PUBKEY = #{pubkey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="prikey != null" >
+        PRIKEY = #{prikey,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="chnlpubkey != null" >
+        CHNLPUBKEY = #{chnlpubkey,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" >
+    update t_merch_chnl
+    set MERCHNO = #{merchno,jdbcType=VARCHAR},
+      CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      CHNLMERCNO = #{chnlmercno,jdbcType=VARCHAR},
+      SAFETYPE = #{safetype,jdbcType=VARCHAR},
+      STORGETYPE = #{storgetype,jdbcType=VARCHAR},
+      PRIKEYPWD = #{prikeypwd,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=INTEGER},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      PUBKEY = #{pubkey,jdbcType=LONGVARCHAR},
+      PRIKEY = #{prikey,jdbcType=LONGVARCHAR},
+      CHNLPUBKEY = #{chnlpubkey,jdbcType=LONGVARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnl" >
+    update t_merch_chnl
+    set MERCHNO = #{merchno,jdbcType=VARCHAR},
+      CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      CHNLMERCNO = #{chnlmercno,jdbcType=VARCHAR},
+      SAFETYPE = #{safetype,jdbcType=VARCHAR},
+      STORGETYPE = #{storgetype,jdbcType=VARCHAR},
+      PRIKEYPWD = #{prikeypwd,jdbcType=CHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      INUSER = #{inuser,jdbcType=INTEGER},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

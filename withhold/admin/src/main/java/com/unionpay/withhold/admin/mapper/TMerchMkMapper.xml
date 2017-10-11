@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TMerchMkMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchMk" >
+    <id column="SAFESEQ" property="safeseq" jdbcType="INTEGER" />
+    <result column="MEMBERID" property="memberid" jdbcType="VARCHAR" />
+    <result column="SAFETYPE" property="safetype" jdbcType="VARCHAR" />
+    <result column="MEMBERPUBKEY" property="memberpubkey" jdbcType="VARCHAR" />
+    <result column="MEMBERPRIKEY" property="memberprikey" jdbcType="VARCHAR" />
+    <result column="LOCALPUBKEY" property="localpubkey" jdbcType="VARCHAR" />
+    <result column="LOCALPRIKEY" property="localprikey" jdbcType="VARCHAR" />
+    <result column="PLATFORMPFXPWD" property="platformpfxpwd" jdbcType="VARCHAR" />
+    <result column="BMK" property="bmk" jdbcType="VARCHAR" />
+    <result column="PIN" property="pin" jdbcType="VARCHAR" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+    <result column="DATA" property="data" jdbcType="VARCHAR" />
+    <result column="MD5" property="md5" jdbcType="VARCHAR" />
+    <result column="STORGETYPE" property="storgetype" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="KEYFLAG" property="keyflag" jdbcType="CHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    SAFESEQ, MEMBERID, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
+    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_merch_mk
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_merch_mk
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_merch_mk
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" >
+    delete from t_merch_mk
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
+    insert into t_merch_mk (SAFESEQ, MEMBERID, SAFETYPE, 
+      MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, 
+      LOCALPRIKEY, PLATFORMPFXPWD, BMK, 
+      PIN, MAC, DATA, MD5, 
+      STORGETYPE, STATUS, KEYFLAG, 
+      NOTES, REMARKS)
+    values (#{safeseq,jdbcType=INTEGER}, #{memberid,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
+      #{memberpubkey,jdbcType=VARCHAR}, #{memberprikey,jdbcType=VARCHAR}, #{localpubkey,jdbcType=VARCHAR}, 
+      #{localprikey,jdbcType=VARCHAR}, #{platformpfxpwd,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, 
+      #{pin,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, 
+      #{storgetype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{keyflag,jdbcType=CHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
+    insert into t_merch_mk
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="safeseq != null" >
+        SAFESEQ,
+      </if>
+      <if test="memberid != null" >
+        MEMBERID,
+      </if>
+      <if test="safetype != null" >
+        SAFETYPE,
+      </if>
+      <if test="memberpubkey != null" >
+        MEMBERPUBKEY,
+      </if>
+      <if test="memberprikey != null" >
+        MEMBERPRIKEY,
+      </if>
+      <if test="localpubkey != null" >
+        LOCALPUBKEY,
+      </if>
+      <if test="localprikey != null" >
+        LOCALPRIKEY,
+      </if>
+      <if test="platformpfxpwd != null" >
+        PLATFORMPFXPWD,
+      </if>
+      <if test="bmk != null" >
+        BMK,
+      </if>
+      <if test="pin != null" >
+        PIN,
+      </if>
+      <if test="mac != null" >
+        MAC,
+      </if>
+      <if test="data != null" >
+        DATA,
+      </if>
+      <if test="md5 != null" >
+        MD5,
+      </if>
+      <if test="storgetype != null" >
+        STORGETYPE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="keyflag != null" >
+        KEYFLAG,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="safeseq != null" >
+        #{safeseq,jdbcType=INTEGER},
+      </if>
+      <if test="memberid != null" >
+        #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="safetype != null" >
+        #{safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="memberpubkey != null" >
+        #{memberpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="memberprikey != null" >
+        #{memberprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="localpubkey != null" >
+        #{localpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="localprikey != null" >
+        #{localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformpfxpwd != null" >
+        #{platformpfxpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="bmk != null" >
+        #{bmk,jdbcType=VARCHAR},
+      </if>
+      <if test="pin != null" >
+        #{pin,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="storgetype != null" >
+        #{storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="keyflag != null" >
+        #{keyflag,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" resultType="java.lang.Integer" >
+    select count(*) from t_merch_mk
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_merch_mk
+    <set >
+      <if test="record.safeseq != null" >
+        SAFESEQ = #{record.safeseq,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberid != null" >
+        MEMBERID = #{record.memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.safetype != null" >
+        SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberpubkey != null" >
+        MEMBERPUBKEY = #{record.memberpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberprikey != null" >
+        MEMBERPRIKEY = #{record.memberprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localpubkey != null" >
+        LOCALPUBKEY = #{record.localpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.localprikey != null" >
+        LOCALPRIKEY = #{record.localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platformpfxpwd != null" >
+        PLATFORMPFXPWD = #{record.platformpfxpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bmk != null" >
+        BMK = #{record.bmk,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pin != null" >
+        PIN = #{record.pin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mac != null" >
+        MAC = #{record.mac,jdbcType=VARCHAR},
+      </if>
+      <if test="record.data != null" >
+        DATA = #{record.data,jdbcType=VARCHAR},
+      </if>
+      <if test="record.md5 != null" >
+        MD5 = #{record.md5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.storgetype != null" >
+        STORGETYPE = #{record.storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.keyflag != null" >
+        KEYFLAG = #{record.keyflag,jdbcType=CHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_merch_mk
+    set SAFESEQ = #{record.safeseq,jdbcType=INTEGER},
+      MEMBERID = #{record.memberid,jdbcType=VARCHAR},
+      SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
+      MEMBERPUBKEY = #{record.memberpubkey,jdbcType=VARCHAR},
+      MEMBERPRIKEY = #{record.memberprikey,jdbcType=VARCHAR},
+      LOCALPUBKEY = #{record.localpubkey,jdbcType=VARCHAR},
+      LOCALPRIKEY = #{record.localprikey,jdbcType=VARCHAR},
+      PLATFORMPFXPWD = #{record.platformpfxpwd,jdbcType=VARCHAR},
+      BMK = #{record.bmk,jdbcType=VARCHAR},
+      PIN = #{record.pin,jdbcType=VARCHAR},
+      MAC = #{record.mac,jdbcType=VARCHAR},
+      DATA = #{record.data,jdbcType=VARCHAR},
+      MD5 = #{record.md5,jdbcType=VARCHAR},
+      STORGETYPE = #{record.storgetype,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      KEYFLAG = #{record.keyflag,jdbcType=CHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
+    update t_merch_mk
+    <set >
+      <if test="memberid != null" >
+        MEMBERID = #{memberid,jdbcType=VARCHAR},
+      </if>
+      <if test="safetype != null" >
+        SAFETYPE = #{safetype,jdbcType=VARCHAR},
+      </if>
+      <if test="memberpubkey != null" >
+        MEMBERPUBKEY = #{memberpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="memberprikey != null" >
+        MEMBERPRIKEY = #{memberprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="localpubkey != null" >
+        LOCALPUBKEY = #{localpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="localprikey != null" >
+        LOCALPRIKEY = #{localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformpfxpwd != null" >
+        PLATFORMPFXPWD = #{platformpfxpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="bmk != null" >
+        BMK = #{bmk,jdbcType=VARCHAR},
+      </if>
+      <if test="pin != null" >
+        PIN = #{pin,jdbcType=VARCHAR},
+      </if>
+      <if test="mac != null" >
+        MAC = #{mac,jdbcType=VARCHAR},
+      </if>
+      <if test="data != null" >
+        DATA = #{data,jdbcType=VARCHAR},
+      </if>
+      <if test="md5 != null" >
+        MD5 = #{md5,jdbcType=VARCHAR},
+      </if>
+      <if test="storgetype != null" >
+        STORGETYPE = #{storgetype,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="keyflag != null" >
+        KEYFLAG = #{keyflag,jdbcType=CHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
+    update t_merch_mk
+    set MEMBERID = #{memberid,jdbcType=VARCHAR},
+      SAFETYPE = #{safetype,jdbcType=VARCHAR},
+      MEMBERPUBKEY = #{memberpubkey,jdbcType=VARCHAR},
+      MEMBERPRIKEY = #{memberprikey,jdbcType=VARCHAR},
+      LOCALPUBKEY = #{localpubkey,jdbcType=VARCHAR},
+      LOCALPRIKEY = #{localprikey,jdbcType=VARCHAR},
+      PLATFORMPFXPWD = #{platformpfxpwd,jdbcType=VARCHAR},
+      BMK = #{bmk,jdbcType=VARCHAR},
+      PIN = #{pin,jdbcType=VARCHAR},
+      MAC = #{mac,jdbcType=VARCHAR},
+      DATA = #{data,jdbcType=VARCHAR},
+      MD5 = #{md5,jdbcType=VARCHAR},
+      STORGETYPE = #{storgetype,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      KEYFLAG = #{keyflag,jdbcType=CHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
+  </update>
+</mapper>
