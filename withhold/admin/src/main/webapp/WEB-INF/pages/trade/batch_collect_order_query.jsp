@@ -161,7 +161,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							 
+							url : 'trade/getBatchOrderByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [

@@ -312,7 +312,7 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    limit #{pageNum},#{pageSize}
+    limit #{beginRow},#{pageSize}
   </select>
   
 </mapper>

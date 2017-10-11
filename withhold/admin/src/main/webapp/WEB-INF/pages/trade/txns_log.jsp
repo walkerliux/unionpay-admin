@@ -44,71 +44,34 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">交易序列号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="txnseqno" id="txnseqno" maxlength="32" /></td>
-
-						<td align="right" width="10%">交易类型</td>
-						<td colspan="1" style="padding-left: 5px"><select name="busicode"
-							class="easyui-validatebox validatebox-text" id="busicode" style="width:150px">
-								<option value="">--请选择交易类型--</option>
-								<c:forEach items="${bus}" var="bus">
-									<c:if test="${bus.BUSICODE!='10000003'&&bus.BUSICODE!='10000004'&&bus.BUSICODE!='30000002'&&bus.BUSICODE!='30000003'}">
-										<option value=${bus.BUSICODE }>${bus.BUSINAME}</option>
-									</c:if>
-								</c:forEach> 
-						</select></td>
-
-						<td align="right" width="10%">转出帐号或卡号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="pan" id="pan" maxlength="32" /></td>
-
-						<td align="right" width="10%">受理订单号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="accordno" id="accordno" maxlength="32" /></td>
-					</tr>
-					<tr>
-<!-- 						<td align="left" style="padding-left: 5px" width="15%"><input -->
-<!-- 							name="accfirmerno" id="accfirmerno" maxlength="32" /></td> -->
-						<td align="right" width="10%">委托机构号</td>
+						<td align="right" width="10%">商户号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
-						<td align="right" width="10%">支付方交易流水号</td>
+						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="payrettsnseqno" id="payrettsnseqno" maxlength="32" /></td>
-
-
-						<td align="right" width="10%">中心应答码</td>
-						<td colspan="1" style="padding-left: 5px"><select name="retcode" id="retcode" style="width:150px">
-								<option value="">--请选择中心应答码--</option>
-								<option value="00">成功</option>
-								<option value="01">失败</option>
-						</select></td>
-						<td align="right" width="10%">受理清算日期</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							id="accsettledate" type="text" class="easyui-datebox"
-							name="accsettledate"></input></td>
+							name="pan" id="pan" maxlength="32" /></td>
 					</tr>
 					<tr>
-						<td align="right" width="10%">支付订单号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="payordno" id="payordno" maxlength="32" /></td>
-
+						<td align="right" width="10%">交易状态</td>
+						<td style="padding-left: 5px"><select name="apporderstatus"
+							id="apporderstatus" style="width: 150px">
+								<option value="">--请选择订单状态--</option>
+								<option value="00">支付成功</option>
+								<option value="01">订单提交成功,但未支付</option>
+								<option value="02">支付中</option>
+								<option value="03">支付失败</option>
+								<option value="04">订单失效</option>
+						</select></td>
 						<td align="right" width="10%">交易渠道
-						<td colspan="1" style="padding-left: 5px"><select name="payinst" id="payinst" style="width:150px">
-								<option value="">--请选择交易渠道--</option>
-								<c:forEach items="${channel}" var="channel">
+						<td colspan="1" style="padding-left: 5px"><select name="pathcode" id="pathcode" style="width:150px">
+								 <option value="">--请选择交易渠道--</option>
+								<%--<c:forEach items="${channel}" var="channel">
 									<option value=${channel.CHNLCODE }>${channel.CHNLNAME}</option>
-								</c:forEach>
+								</c:forEach> --%>
 						</select></td>
 					</tr>
 					<tr>
-
-						<td align="right" width="10%">受理委托机构号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="accmemberid" id="accmemberid" maxlength="32" /></td>
-
-						<td align="right" width="10%">受理订单提交时间</td>
+						<td align="right" width="10%">起止时间</td>
 						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox"
 							data-options="showSeconds:true" name="stime"></input>
@@ -155,12 +118,7 @@ table tr td select {
 						<td>交易时间</td>
 						<td id="ttxntime"></td>
 					</tr>
-					<!-- <tr>
-						<td>业务类型</td>
-						<td id="tbusitype"></td>
-						<td>交易类型</td>
-						<td id="tbusicode"></td>
-					</tr> -->
+					
 					<tr>
 						<td>交易金额[合计](元)</td>
 						<td id="tamount"></td>
@@ -182,23 +140,23 @@ table tr td select {
 					</tr> -->
 					
 					<tr>
-						<td>转出帐号</td>
+						<td>交易卡号</td>
 						<td id="tpan"></td>
-						<td>转出帐号类型</td>
+						<td>交易卡号类型</td>
 						<td id="tcardtype"></td>
 					</tr>
 					<tr>
-						<td>转出帐号所属银行</td>
+						<td>交易卡号所属银行</td>
 						<td id="tcardinstino"></td>
-						<td>转入帐号</td>
-						<td id="tinpan"></td>
+						<!-- <td>转入帐号</td>
+						<td id="tinpan"></td> -->
 						
-					</tr>
+					<!-- </tr>
 					<tr>
 						<td>转入帐号类型</td>
 						<td id="tincardtype"></td>
 						<td>转入帐号所属银行</td>
-						<td id="tincardinstino"></td>
+						<td id="tincardinstino"></td> -->
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">受理方信息</td>
@@ -319,6 +277,7 @@ table tr td select {
 </body>
 
 <script>
+	
 	function changeDate(value){
 		var dateString = value;
 		if(dateString==null || dateString== 0){
@@ -357,7 +316,7 @@ table tr td select {
 	}
   	var width = $("#continer").width();
 		$(function(){
-			
+			showOrgan();
 			$('#test').datagrid({
 				title:'交易信息列表',
 				iconCls:'icon-save',
@@ -370,50 +329,45 @@ table tr td select {
 				idField:'ORGAN_ID',
 				columns:[
 				[
-					{field:'TXNSEQNO',title:'交易序列号',width:120,align:'center'},
-					{field:'TXNDATE',title:'交易时间',width:150,align:'center',
+					{field:'txnseqno',title:'交易序列号',width:120,align:'center'},
+					{field:'pathcode',title:'渠道号',width:150,align:'center'},
+					{field:'accsecmerno',title:'商户号',width:150,align:'center'},
+					{field:'memberName',title:'商户名称',width:120,align:'center'},
+					{field:'pan',title:'交易卡号',width:120,align:'center'},
+					{field:'panName',title:'姓名',width:150,align:'center'},
+					{field:'amount',title:'交易金额(元)',width:120,align:'center'
+						/* formatter:function(value,rec){
+							return fenToYuan(rec.amount);
+						} */
+					},
+					{field:'time',title:'交易时间',width:150,align:'center',
 						formatter : function(value, rec) {
-							return changeDate(rec.TXNDATE+rec.TXNTIME);
+							return changeDate(rec.txndate+rec.txntime);
 						}
 					},
-					{field:'BUSINAME',title:'交易类型',width:120,align:'center'},
-					{field:'AMOUNT',title:'交易金额(元)',width:120,align:'center',
-						formatter:function(value,rec){
-							return fenToYuan(rec.AMOUNT);
+					{field:'apporderstatus',title:'交易状态',width:120,align:'center',
+						formatter : function(value, rec) {
+							if (rec.apporderstatus == "00") {
+								return "支付成功";
+							} 
+							if (rec.apporderstatus == "01") {
+								return "订单提交成功,但未支付";
+							} 
+							if (rec.apporderstatus == "02") {
+								return "支付中";
+							} 
+							if (rec.apporderstatus == "03") {
+								return "支付失败";
+							} 
+							if (rec.apporderstatus == "04") {
+								return "订单失效";
+							} 
 						}
 					},
-					{field:'TXNFEE',title:'交易手续费(元)',width:120,align:'center',
-						formatter:function(value,rec){
-							return fenToYuan(rec.TXNFEE);
-						}
-					},
-					
-					{field:'PAN',title:'转出帐号',width:150,align:'center'},
-					{field:'INPAN',title:'转入帐号',width:150,align:'center'},
-					{field:'ACCSECMERNO',title:'委托机构号',width:150,align:'center'},
-					{field:'RETINFO',title:'中心应答信息',width:120,align:'center'},
-					{field:'ACCORDNO',title:'订单号',width:150,align:'center'},
-					{field:'PAYORDNO',title:'渠道订单号',width:150,align:'center'},
-					{field:'ACCORDCOMMITIME',title:'受理订单提交时间',width:150,align:'center',
-						formatter : function(value, rec) {
-							return changeDate(value);
-						}
-					},
-					{field:'ACCORDFINTIME',title:'受理订单完成时间',width:150,align:'center',
-						formatter : function(value, rec) {
-							return changeDate(rec.ACCORDFINTIME);
-						}	
-					},
-					{field:'ACCSETTLEDATE',title:'受理清算日期',width:120,align:'center',
-						formatter : function(value, rec) {
-							return b_changeDate(rec.ACCSETTLEDATE);
-						}		
-					},
-					{field:'CHNLNAME',title:'交易渠道',width:120,align:'center'},
 					{field:'TXNSEQNO_OG',title:'操作',width:100,align:'center',
 					formatter:function(value,rec){
-						if(rec.TXNSEQNO!=null){
-							return '<a href="javascript:queryTxnsLog(\''+rec.TXNSEQNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
+						if(rec.txnseqno!=null){
+							return '<a href="javascript:queryTxnsLog(\''+rec.txnseqno+'\')" style="color:blue;margin-left:10px">详细信息</a>';
 						}else {
 							return '';
 						}
@@ -427,23 +381,47 @@ table tr td select {
 			});
 	
 		});
+		function showOrgan(){		
+			$.ajax({
+			   type: "POST",
+			   url: "trade/showCoop",
+			   dataType:"json",
+			   success: function(json){
+			   		var html ="<option value=''>--请选择交易渠道--</option>";
+			   		$.each(json, function(key,value){
+			   			html += '<option value="'+value.cacode+'">'+value.caname+'</option>';
+					})
+					$("#pathcode").html(html);
+			   }
+			});
+		} 
+		function getStatus(value){
+			if (value == "00") {
+				return "支付成功";
+			} 
+			if (value == "01") {
+				return "订单提交成功,但未支付";
+			} 
+			if (value == "02") {
+				return "支付中";
+			} 
+			if (value == "03") {
+				return "支付失败";
+			} 
+			if (value == "04") {
+				return "订单失效";
+			} 
+		}
 		
 		function search(){
-			var data={"txnseqno":$('#txnseqno').val(),
-			"busicode":$('#busicode').val(),
+			var data={
+			"pathcode":$('#pathcode').val(),
 			"pan":$('#pan').val(),
-			"accordno":$('#accordno').val(),
 			"accsecmerno":$('#accsecmerno').val(),
-			"accfirmerno":$('#accfirmerno').val(),
- 			"accsettledate":$('#accsettledate').datebox('getValue'),
+ 			"apporderstatus":$('#apporderstatus').val(),
 			"stime":$('#stime').datebox('getValue'),
 			"etime":$('#etime').datebox('getValue'), 
-			"payType":$('#paytype').val(),
-			"payrettsnseqno":$('#payrettsnseqno').val(),
-			"retcode":$('#retcode').val(),
-			"payordno":$('#payordno').val(),
-			"payinst":$('#payinst').val(),
-			"accmemberid":$('#accmemberid').val()
+			
 		}
 			$('#test').datagrid('load',data);
 		}
@@ -531,79 +509,80 @@ table tr td select {
 				   url: "trade/getTxnsLogByTxnseqno",
 				   data: "txnseqno="+txnseqno,
 				   dataType:"json",
-				   success:function(date){
-					   if(date.messg!=null){
+				   success:function(json){
+					   /* if(date.messg!=null){
 						   
-					   }else{
-						   json=date.json;		   
-					   $("#ttxnseqno").html(json.TXNSEQNO);
-					   $("#ttxndate").html(b_changeDate(json.TXNDATE+json.TXNTIME));
-					   $("#ttxntime").html(c_changeDate(json.TXNDATE+json.TXNTIME));
-					   $("#tapptype").html(json.APPTYPE);
-					   $("#tbusitype").html(json.BUSITYPE);
-					   $("#tbusicode").html(json.BUSINAME);
-					   $("#tamount").html(fenToYuan(json.AMOUNT));
-					   $("#ttradcomm").html(fenToYuan(json.TRADCOMM));
-					   $("#ttxnfee").html(fenToYuan(json.TXNFEE));
-					   $("#triskver").html(json.RISKNAME);
-					   $("#tsplitver").html(json.SPLITVER);
-					   $("#tfeever").html(json.FEENAME);
-					   $("#tprdtver").html(json.PRDTNAME);
+					   }else{ */
+						   //json=date.json;
+					   
+					   $("#ttxnseqno").html(json.txnseqno);
+					   $("#ttxndate").html(b_changeDate(json.txndate));
+					   $("#ttxntime").html(c_changeDate(json.txntime));
+					   $("#tapptype").html(json.apptype);
+					   $("#tbusitype").html(json.busitype);
+					   $("#tbusicode").html(json.busicode);
+					   $("#tamount").html(json.amount);
+					   $("#ttradcomm").html(json.tradcomm);
+					   $("#ttxnfee").html(json.txnfee);
+					   $("#triskver").html(json.riskver);
+					   $("#tsplitver").html(json.splitver);
+					   $("#tfeever").html(json.feever);
+					   $("#tprdtver").html(json.prdtver);
 					   $("#tcheckstandver").html(json.CASHNAME);
-					   $("#troutver").html(json.ROUTNAME);
-					   $("#tpan").html(json.PAN);
-					   if(json.CARDTYPE=="1"){
+					   $("#troutver").html(json.routver);
+					   $("#tpan").html(json.pan);
+					   if(json.cardtype=="1"){
 						   $("#tcardtype").html("借记卡");
 					   }
-					   if(json.CARDTYPE=="2"){
+					   if(json.cardtype=="2"){
 						   $("#tcardtype").html("信用卡");
 					   }
-					   $("#tcardinstino").html(json.CARDINSTINO);
-					   $("#tinpan").html(json.INPAN);
+					   $("#tcardinstino").html(json.cardinstino);
+					  /*  $("#tinpan").html(json.INPAN);
 					   if(json.INCARDTYPE=="1"){
 						   $("#tincardtype").html("借记卡");
 					   }
 					   if(json.tincardtype=="2"){
 						   $("#tincardtype").html("信用卡");
-					   }
-					   $("#tincardinstino").html(json.INCARDINSTINO);
-					   $("#taccordno").html(json.ACCORDNO);
-					   $("#taccordinst").html(json.ACCORDINST);
-					   $("#taccsecmerno").html(json.ACCSECMERNO);
-					   $("#taccfirmerno").html(json.ACCFIRMERNO);
-					   $("#taccsettledate").html(changeDate(json.ACCSETTLEDATE).substring(0,10));
-					   $("#taccordcommitime").html(changeDate(json.ACCORDCOMMITIME));
+					   } 
+					   $("#tincardinstino").html(json.INCARDINSTINO);*/
+					   $("#taccordno").html(json.accordno);
+					   $("#taccordinst").html(json.accordinst);
+					   $("#taccsecmerno").html(json.accsecmerno);
+					   $("#taccfirmerno").html(json.accfirmerno);
+					   $("#taccsettledate").html(changeDate(json.accsettledate).substring(0,10));
+					   $("#taccordcommitime").html(changeDate(json.accordcommitime));
 					   //$("#taccordfintime").html(json.ACCORDFINTIME);
-					   $("#tpaytype").html(json.PAYTYPE);
-					   $("#tpayordno").html(json.PAYORDNO);
+					   $("#tpaytype").html(json.paytype);
+					   $("#tpayordno").html(json.payordno);
                        $("#tpayinst").html(json.CHNLNAME);
-					   $("#tpayfirmerno").html(json.PAYFIRMERNO);
-					   $("#tpaysecmerno").html(json.PAYSECMERNO);
-					   $("#tpayordcomtime").html(changeDate(json.PAYORDCOMTIME));
-					   $("#tpayordfintime").html(changeDate(json.PAYORDFINTIME));
-					   $("#tpayrettsnseqno").html(json.PAYRETTSNSEQNO);
-					   $("#tpayretcode").html(json.PAYRETCODE);
-					   $("#tpayretinfo").html(json.PAYRETINFO);
-					   $("#tappordno").html(json.APPORDNO);
-					   $("#tappinst").html(json.APPINST);
-					   $("#tappordcommitime").html(changeDate(json.APPORDCOMMITIME));
-					   $("#tappordfintime").html(changeDate(json.APPORDFINTIME));
-					   $("#ttradeseltxn").html(json.TRADESELTXN);
-					   $("#tretcode").html(json.RETCODE);
-					   $("#tretinfo").html(json.RETINFO);
-					   $("#ttradestatflag").html(json.TRADESTATFLAG);
-					   $("#ttradetxnflag").html(json.TRADETXNFLAG);
-					   $("#ttxncode").html(json.TXNCODE);
-					   $("#tcashcode").html(json.CASHCODE);
-					   $("#trelate").html(json.RELATE);
-					   $("#tretdatetime").html(changeDate(json.RETDATETIME));
-					   $("#ttxnseqno_og").html(json.TXNSEQNO_OG);
-					   $("#tnotes").html(json.NOTES);
-					   $("#tremarks").html(json.REMARKS);
-					   $("#taccmemberid").html(json.ACCMEMBERID);
-					   $("#tapporderstatus").html(json.APPORDERSTATUS);
-					   $("#tapporderinfo").html(json.APPORDERINFO);
-					   }
+					   $("#tpayfirmerno").html(json.payfirmerno);
+					   $("#tpaysecmerno").html(json.paysecmerno);
+					   $("#tpayordcomtime").html(changeDate(json.payordcomtime));
+					   $("#tpayordfintime").html(changeDate(json.payordfintime));
+					   $("#tpayrettsnseqno").html(json.payrettsnseqno);
+					   $("#tpayretcode").html(json.payretcode);
+					   $("#tpayretinfo").html(json.payretinfo);
+					   $("#tappordno").html(json.appordno);
+					   $("#tappinst").html(json.appinst);
+					   $("#tappordcommitime").html(changeDate(json.appordcommitime));
+					   $("#tappordfintime").html(changeDate(json.appordfintime));
+					   $("#ttradeseltxn").html(json.tradeseltxn);
+					   $("#tretcode").html(json.retcode);
+					   $("#tretinfo").html(json.retinfo);
+					   $("#ttradestatflag").html(json.tradestatflag);
+					   $("#ttradetxnflag").html(json.tradetxnflag);
+					   $("#ttxncode").html(json.txncode);
+					   $("#tcashcode").html(json.cashcode);
+					   $("#trelate").html(json.relate);
+					   $("#tretdatetime").html(changeDate(json.retdatetime));
+					   $("#ttxnseqno_og").html(json.txnseqno_og);
+					   $("#tnotes").html(json.notes);
+					   $("#tremarks").html(json.remarks);
+					   $("#taccmemberid").html(json.accmemberid);
+					   $("#tapporderstatus").html(getStatus(json.apporderstatus));
+					   $("#tapporderinfo").html(json.apporderinfo);
+					  
 				 	}
 				});
 		}

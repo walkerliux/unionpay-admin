@@ -151,7 +151,7 @@ table tr td select {
 					{field:'card',title:'操作',align:'center',width:250,rowspan:2,
 						formatter:function(value,rec){
 							if(true){
-								return '<a href="javascript:showbin('+rec.cardbin+')" style="color:blue;margin-left:10px">修改</a>'
+								return '<a href="javascript:showbin(\''+rec.cardbin+'\')" style="color:blue;margin-left:10px">修改</a>'
 								
 								;
 							}else{
@@ -267,6 +267,7 @@ table tr td select {
 		}
 		
 		function showbin(cardbin){
+			alert(cardbin)
 			$.ajax({
 			   type: "POST",
 			   url: "bin/getSingleById",
