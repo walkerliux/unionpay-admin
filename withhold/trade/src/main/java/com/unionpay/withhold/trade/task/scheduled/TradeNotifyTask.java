@@ -17,7 +17,7 @@ import com.lmax.disruptor.dsl.ProducerType;
 import com.unionpay.withhold.trade.task.bean.TradeNotifyBean;
 
 @SuppressWarnings("unchecked")
-@Component
+//@Component
 public class TradeNotifyTask {
 	@Autowired
 	@Qualifier("singleNotifyTaskExecutor")
