@@ -27,4 +27,10 @@ public interface TTxnsLogMapper {
     int updateByPrimaryKeySelective(TTxnsLog record);
 
     int updateByPrimaryKey(TTxnsLog record);
+
+	List<TTxnsLog> selectByPageExample(TTxnsLogExample tTxnsLogExample);
+
+	int countByMyExample(TTxnsLogExample tTxnsLogExample);
+
+	
 }

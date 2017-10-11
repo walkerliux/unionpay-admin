@@ -386,7 +386,7 @@ table tr td select {
 						$("#tn").html(json.tn);
 						$("#relatetradetxn").html(json.relatetradetxn);
 						$("#status").html(getStatus(json.status));
-						$("#ordercommitime").html(json.ordercommitime);
+						$("#ordercommitime").html(changeDate(json.ordercommitime));
 						$("#syncnotify").html(json.syncnotify);
 						$("#notes").html(json.notes);
 						$("#remarks").html(json.remarks);

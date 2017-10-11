@@ -29,4 +29,8 @@ public interface TradeService {
 
 	Object getSingleById(String tid);
 
+	Object getshowCoop();
+
+	TTxnsLog getTxnsLogByTxnseqno(String txnseqno);
+
 }

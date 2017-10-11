@@ -1,16 +1,16 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectSingleMapper;
+import com.unionpay.withhold.admin.mapper.TTxnsLogMapper;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
@@ -18,12 +18,16 @@ import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
+import com.unionpay.withhold.admin.pojo.TTxnsLogExample;
 import com.unionpay.withhold.admin.service.TradeService;
 import com.unionpay.withhold.admin.utils.DateTimeReplaceUtil;
 @Service
 @Transactional
 public class TradeServiceImpl implements TradeService {
-	
+	@Autowired
+	private TCoopAgencyMapper tCoopAgencyMapper;
+	@Autowired
+	private TTxnsLogMapper tTxnsLogMapper;
 	@Autowired
 	private TOrderCollectBatchMapper tOrderCollectBatchMapper;
 	@Autowired
@@ -31,18 +35,44 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getTxnsLogByPage(TTxnsLog tTxnsLog, String stime,
 			String etime, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		
 		if (tTxnsLog.getAccsecmerno()!=null&&!"".equals(tTxnsLog.getAccsecmerno())) {
 			
+			tTxnsLogExample.setAccsecmerno(tTxnsLog.getAccsecmerno());
 		}
-		if (tTxnsLog.getApporderstatus()!=null) {
+		if (tTxnsLog.getApporderstatus()!=null&&!"".equals(tTxnsLog.getApporderstatus())) {
 			
+			tTxnsLogExample.setApporderstatus(tTxnsLog.getApporderstatus());
 		}
-		
-		if (stime!=null&&etime!=null) {
+		if (tTxnsLog.getPan()!=null&&!"".equals(tTxnsLog.getPan())) {
 			
+			tTxnsLogExample.setPan(tTxnsLog.getPan());
 		}
-		
-		return null;
+		if (tTxnsLog.getPathcode()!=null&&!"".equals(tTxnsLog.getPathcode())) {
+			
+			tTxnsLogExample.setPathcode(tTxnsLog.getPathcode());
+		}
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			String[] start = stime.split(" ");
+			String[] end = etime.split(" ");
+			String sDate = DateTimeReplaceUtil.replace(start[0]);
+			String sTime = DateTimeReplaceUtil.replace(start[1]);
+			String eDate = DateTimeReplaceUtil.replace(end[0]);
+			String eTime = DateTimeReplaceUtil.replace(end[1]);
+			
+			
+			tTxnsLogExample.setStartdate(sDate);
+			tTxnsLogExample.setEnddate(eDate);
+			tTxnsLogExample.setStarttime(sTime);
+			tTxnsLogExample.setEndtime(eTime);;
+		}
+		int total = tTxnsLogMapper.countByMyExample(tTxnsLogExample);
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		tTxnsLogExample.setOrderByClause("TXNSEQNO");
+		List<TTxnsLog> retureList = tTxnsLogMapper.selectByPageExample(tTxnsLogExample);
+		return new PageBean(total, retureList);
 	}
 
 	@Override
@@ -61,7 +91,7 @@ public class TradeServiceImpl implements TradeService {
 			
 		}
 		//起止时间
-		if (stime!=null&&etime!=null) {
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
 			
 		}
 		
@@ -181,6 +211,19 @@ public class TradeServiceImpl implements TradeService {
 		}
 		
 		return null;
+	}
+
+	@Override
+	public Object getshowCoop() {
+		// TODO Auto-generated method stub
+		
+		return null;
+	}
+
+	@Override
+	public TTxnsLog getTxnsLogByTxnseqno(String txnseqno) {
+		TTxnsLog tTxnsLog = tTxnsLogMapper.selectByPrimaryKey(txnseqno);
+		return tTxnsLog;
 	}
 
 	

@@ -166,7 +166,7 @@ public class TradeController {
 	    return resultBean;
 	}
 	/**
-	 * 获取单条信息详情
+	 * 获取单条实时订单信息详情
 	 * @param tid
 	 * @return
 	 */
@@ -175,6 +175,31 @@ public class TradeController {
 	public Object getgetSingleById(String tid) {
 		
 	    return tradeService.getSingleById(tid);
+	}
+	
+	
+	/**
+	 * 获取渠道名
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping("/showCoop")
+	@ResponseBody
+	public Object getShowCoop() {
+		
+	    return tradeService.getshowCoop();
+	}
+	//getTxnsLogByTxnseqno
+	/**
+	 * 获取单条实时订单信息详情
+	 * @param tid
+	 * @return
+	 */
+	@RequestMapping("/getTxnsLogByTxnseqno")
+	@ResponseBody
+	public TTxnsLog getTxnsLogByTxnseqno(String txnseqno) {
+		TTxnsLog txnsLog =tradeService.getTxnsLogByTxnseqno(txnseqno);
+	    return txnsLog;
 	}
 	
 }

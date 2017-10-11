@@ -1221,4 +1221,73 @@
       PATHCODE = #{pathcode,jdbcType=CHAR}
     where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
   </update>
+  <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_txns_log a where 1=1
+    <if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="pathcode!=null">
+	and a.PATHCODE=#{pathcode}
+	</if>
+	
+	<if test="startdate!=null">
+	and a.TXNDATE &gt;#{startdate}
+	</if>
+	<if test="enddate!=null">
+	and a.TXNDATE &lt;#{enddate}
+	</if>
+	<if test="starttime!=null">
+	and a.TXNTIME &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.TXNTIME &lt;#{endtime}
+	</if>
+  </select>
+  
+  <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+    select a.*, b.MEMBER_NAME memberName
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	 t_txns_log a
+	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
+	 where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="pathcode!=null">
+	and a.PATHCODE=#{pathcode}
+	</if>
+	<if test="startdate!=null">
+	 and a.TXNDATE &gt;= #{startdate} 
+	</if>
+	<if test="enddate!=null">
+	 and a.TXNDATE &lt;= #{enddate} 
+	</if>
+	<if test="starttime!=null">
+	 and a.TXNTIME &gt;= #{starttime} 
+	</if>
+	<if test="endtime!=null">
+	 and a.TXNTIME &lt;= #{endtime} 
+	</if>
+	
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+   	limit #{beginRow},#{pageSize}
+  </select>
+
 </mapper>

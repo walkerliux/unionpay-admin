@@ -690,4 +690,15 @@ public class TTxnsLog {
     public void setPathcode(String pathcode) {
         this.pathcode = pathcode == null ? null : pathcode.trim();
     }
+    
+    private String memberName;
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+    
 }

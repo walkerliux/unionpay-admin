@@ -4,6 +4,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TTxnsLogExample {
+	private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	
+    public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
+
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
     protected String orderByClause;
 
     protected boolean distinct;
@@ -4997,4 +5025,80 @@ public class TTxnsLogExample {
             this(condition, value, secondValue, null);
         }
     }
+    /*条件添加*/
+    private String accsecmerno;
+    private String apporderstatus;
+    private String pan;
+    private String pathcode;
+    private String startdate;
+    private String enddate;
+    private String starttime;
+    private String endtime;
+
+	public String getAccsecmerno() {
+		return accsecmerno;
+	}
+
+	public void setAccsecmerno(String accsecmerno) {
+		this.accsecmerno = accsecmerno;
+	}
+
+	public String getApporderstatus() {
+		return apporderstatus;
+	}
+
+	public void setApporderstatus(String apporderstatus) {
+		this.apporderstatus = apporderstatus;
+	}
+
+	public String getPan() {
+		return pan;
+	}
+
+	public void setPan(String pan) {
+		this.pan = pan;
+	}
+
+	public String getPathcode() {
+		return pathcode;
+	}
+
+	public void setPathcode(String pathcode) {
+		this.pathcode = pathcode;
+	}
+
+	public String getStartdate() {
+		return startdate;
+	}
+
+	public void setStartdate(String startdate) {
+		this.startdate = startdate;
+	}
+
+	public String getEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(String enddate) {
+		this.enddate = enddate;
+	}
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+
+	
+    
 }
