@@ -50,7 +50,7 @@
 		<property name="queueCapacity" value="20000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
@@ -66,7 +66,7 @@
 		<property name="queueCapacity" value="20000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
@@ -83,7 +83,7 @@
 		<property name="queueCapacity" value="10000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
@@ -99,7 +99,7 @@
 		<property name="queueCapacity" value="10000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
@@ -115,7 +115,7 @@
 		<property name="queueCapacity" value="1000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />
@@ -131,7 +131,7 @@
 		<property name="queueCapacity" value="1000" />
 		<!-- 线程池维护线程所允许的空闲时间 -->
 		<property name="keepAliveSeconds" value="60" />
-		<property name="WaitForTasksToCompleteOnShutdown" value="true" />  
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />  
 		<!-- 线程池对拒绝任务(无线程可用)的处理策略 -->
 		<property name="rejectedExecutionHandler">
 			<bean class="java.util.concurrent.ThreadPoolExecutor$CallerRunsPolicy" />

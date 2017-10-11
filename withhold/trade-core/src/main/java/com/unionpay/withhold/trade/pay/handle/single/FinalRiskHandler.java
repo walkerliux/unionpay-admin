@@ -21,9 +21,11 @@ public class FinalRiskHandler implements EventHandler<TradeBean>{
 		RiskLevelEnum finalRiskLevel = null;
 		ResultBean resultBean = null;
 		try {
-			if(!tradeBean.getFinalTrade().isResultBool()) {
-				resultBean = tradeBean.getFinalTrade();
-				return;
+			if(tradeBean.getFinalTrade()!=null) {
+				if(!tradeBean.getFinalTrade().isResultBool()) {
+					resultBean = tradeBean.getFinalTrade();
+					return;
+				}
 			}
 			if(!tradeBean.getMerchRisk().isResultBool()) {
 				RiskTradeLogDO tradeLog = new RiskTradeLogDO();

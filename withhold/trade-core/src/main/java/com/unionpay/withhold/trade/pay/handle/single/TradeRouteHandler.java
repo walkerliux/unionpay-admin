@@ -23,9 +23,11 @@ public class TradeRouteHandler  implements EventHandler<TradeBean> {
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
-			if(!tradeBean.getFinalTrade().isResultBool()) {
-				resultBean = tradeBean.getFinalTrade();
-				return;
+			if(tradeBean.getFinalTrade()!=null) {
+				if(!tradeBean.getFinalTrade().isResultBool()) {
+					resultBean = tradeBean.getFinalTrade();
+					return;
+				}
 			}
 			TradeRouteBean tradeRoute = new TradeRouteBean();
 			tradeRoute.setTransTime(DateUtil.getCurrentTime());

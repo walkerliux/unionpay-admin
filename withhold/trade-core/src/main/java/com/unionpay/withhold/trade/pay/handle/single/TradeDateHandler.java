@@ -37,9 +37,12 @@ public class TradeDateHandler implements EventHandler<TradeBean> {
 		String rspCode = null;
 		ResultBean resultBean = null;
 		try {
-			if(!tradeBean.getFinalTrade().isResultBool()) {
-				rspCode = tradeBean.getFinalTrade().getRespCode();
+			if(tradeBean.getFinalTrade()!=null) {
+				if(!tradeBean.getFinalTrade().isResultBool()) {
+					rspCode = tradeBean.getFinalTrade().getRespCode();
+				}
 			}
+			
 			if(!tradeBean.getFinalRisk().isResultBool()) {
 				rspCode = tradeBean.getFinalRisk().getRespCode();
 			}

@@ -21,7 +21,7 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 	
 	@Autowired
 	private RspmsgPayService rspmsgPayService;
-	//@Autowired
+	@Autowired
 	private CPRealtimeWithhold cpRealtimeWithhold;
 	@Override
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
@@ -37,7 +37,7 @@ public class TradeChannelHandler implements EventHandler<TradeBean>{
 					resultBean = BeanCopyUtil.copyBean(ResultBean.class, cpResultBean);
 					RspmsgPayDO rspmsgPay = new RspmsgPayDO();
 					rspmsgPay.setChnltype(ChnlTypeEnum.CHINAPAY.getCode());
-					rspmsgPay.setChnlrspcode(resultBean.getRespCode());
+					rspmsgPay.setChnlrspcode(cpResultBean.getErrCode());
 					rspmsgPay = rspmsgPayService.getRspmsgPay(rspmsgPay);
 					resultBean = new ResultBean(rspmsgPay.getApicode(), rspmsgPay.getApiinfo());
 					break;

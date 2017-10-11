@@ -84,7 +84,7 @@ public class BatchTradeChannelHandler implements EventHandler<TradeBean>{
 						finalTrade = BeanCopyUtil.copyBean(ResultBean.class, resultBean);
 						RspmsgPayDO rspmsgPay = new RspmsgPayDO();
 						rspmsgPay.setChnltype(ChnlTypeEnum.CHINAPAY.getCode());
-						rspmsgPay.setChnlrspcode(finalTrade.getRespCode());
+						rspmsgPay.setChnlrspcode(resultBean.getErrCode());
 						rspmsgPay = rspmsgPayService.getRspmsgPay(rspmsgPay);
 						finalTrade = new ResultBean(rspmsgPay.getApicode(), rspmsgPay.getApiinfo());
 						break;

@@ -9,11 +9,14 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.TriggerContext;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.stereotype.Component;
 
 import com.unionpay.withhold.service.path.cp.app.CPAccountCheck;
 import com.unionpay.withhold.service.path.cp.dto.req.BTAccChkReqDto;
@@ -22,22 +25,22 @@ import com.unionpay.withhold.trade.task.service.MerchChnlService;
 import com.unionpay.withhold.trade.task.service.ParaDicService;
 import com.unionpay.withhold.utils.DateUtil;  
 
-//@Lazy(false)  
-//@Component  
-//@EnableScheduling 
+@Lazy(false)  
+@Component  
+@EnableScheduling 
 public class CPChannelCheckFileTask implements SchedulingConfigurer{
 
 	private static final Logger logger = LoggerFactory.getLogger(CPChannelCheckFileTask.class);
 	@Autowired
 	private MerchChnlService merchChnlService;
-	//@Reference(version="1.0")
+	@Autowired
 	private CPAccountCheck cpAccountCheck;
 	@Autowired
 	private ParaDicService paraDicService;
 	private static String cron;  
 	
 	 public CPChannelCheckFileTask() {  
-	        cron = "0/5 * * * * ?";  
+	        cron = "0 0 15 * * ?";  //默认每天下午15:00，只能使用6位cron表达式，7位会抛异常
 	          
 	        ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
 	        scheduledExecutor.scheduleAtFixedRate(new Runnable() {  

@@ -17,9 +17,11 @@ public class AgentFeeHandler implements EventHandler<TradeBean>{
 	public void onEvent(TradeBean tradeBean, long sequence, boolean endOfBatch) throws Exception {
 		ResultBean resultBean = null;
 		try {
-			if(!tradeBean.getFinalTrade().isResultBool()) {
-				resultBean = tradeBean.getFinalTrade();
-				return;
+			if(tradeBean.getFinalTrade()!=null) {
+				if(!tradeBean.getFinalTrade().isResultBool()) {
+					resultBean = tradeBean.getFinalTrade();
+					return;
+				}
 			}
 			FeeBean feeBean = new FeeBean();
 			feeBean.setTxnseqno(tradeBean.getTxnseqno());

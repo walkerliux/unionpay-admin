@@ -50,7 +50,9 @@ public class BatchFinalFeeHandler implements EventHandler<TradeBean>{
 			}
 			for(ResultBean resultBean : tradeBean.getChnlFeeList()) {
 				if(!resultBean.isResultBool()) {
-					errorMap.put(resultBean.getResultObj().toString(), resultBean);
+					if(StringUtils.isNotEmpty(tradeBean.getChnlCode())) {
+						errorMap.put(resultBean.getResultObj().toString(), resultBean);
+					}
 				}
 			}
 			

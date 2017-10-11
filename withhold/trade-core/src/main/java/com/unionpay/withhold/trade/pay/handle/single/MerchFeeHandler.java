@@ -19,9 +19,11 @@ public class MerchFeeHandler implements EventHandler<TradeBean>{
 		ResultBean resultBean = null;
 		Long merchFee;
 		try {
-			if(!tradeBean.getFinalTrade().isResultBool()) {
-				resultBean = tradeBean.getFinalTrade();
-				return;
+			if(tradeBean.getFinalTrade()!=null) {
+				if(!tradeBean.getFinalTrade().isResultBool()) {
+					resultBean = tradeBean.getFinalTrade();
+					return;
+				}
 			}
 			FeeBean feeBean = new FeeBean();
 			feeBean.setTxnseqno(tradeBean.getTxnseqno());

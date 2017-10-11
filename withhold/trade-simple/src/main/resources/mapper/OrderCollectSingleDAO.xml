@@ -735,7 +735,7 @@
 	       AND TN = #{tn,jdbcType=VARCHAR}
 	    </if>
 	    <if test="txntime != null and txntime != ''">
-	       AND TXNTIME = #{txntime,jdbcType=VARCHAR}
+	       AND left(TXNTIME,8) = #{txntime,jdbcType=VARCHAR}
 	    </if>
 	    <if test="orderid != null and orderid != ''">
 	       AND ORDERID = #{orderid,jdbcType=VARCHAR}
