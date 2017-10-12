@@ -44,17 +44,20 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
+						<td align="right" width="10%">商户号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="transmitleg" id="transmitlegs"  /></td>
 						<td align="right" width="10%">批次号</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="batchno" id="batchnos"  /></td>
-						<td align="right" width="10%">发起方代码</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input
-							name="transmitleg" id="transmitlegs"  /></td>
-							<td align="right" width="10%"></td>
 						<td align="left" style="padding-left: 5px" width="15%"></td>
 					</tr>
 					<tr>
-						<td align="right" width="10%">交易起止时间</td>
+						<td align="right">受理批次号</td>
+						<td align="left" style="padding-left: 5px"><input
+							id="tns" /></td>
+							
+						<td align="right" width="10%">起止时间</td>
 						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox"
 							data-options="showSeconds:true" name="stime"></input> 至<input
@@ -62,7 +65,7 @@ table tr td select {
 							class="easyui-datetimebox" data-options="showSeconds:true"
 							name="etime"></input></td>
 						<td align="right" width="10%"></td>
-						<td align="left" style="padding-left: 5px" width="15%"></td>
+						<td  style="padding-left: 5px" ></td>
 						<td align="left" ><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a
@@ -227,43 +230,38 @@ table tr td select {
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
-								{field:'BATCHNO',title:'批次号',width:130,align:'center'},
-								{field:'TRANSMITLEG',title:'发起方代码',width:90,align:'center'},
-								{field:'MSGTYPE',title:'报文类型',width:90,align:'center'},
-								{field:'SERVICETYPE',title:'服务类型',width:90,align:'center'},
-								{
-									field : 'TRANSDATE',
-									title : '本地日期 ',
-									width : 90,
-									align : 'center',
+								{field:'tn',title:'受理批次号',width:130,align:'center'},
+								{field:'merid',title:'商户号',width:90,align:'center'},
+								{field:'filename',title:'文件名',width:90,align:'center'},
+								{field:'hpfilename',title:'回盘文件名',width:90,align:'center'},
+								{field:'batchno',title:'批次号',width:130,align:'center'},
+								{field:'totalnum',title:'总笔数',width:120,align:'center'},
+								{field:'totalamt',title:'总金额（元）',width:120,align:'center',
 									formatter : function(value, rec) {
-										return changeDate(rec.TRANSDATE);
+										return fenToYuan(rec.totalamt);
 									}
 								},
-								{
-									field : 'TRANSTIME',
-									title : '本地时间',
-									width : 90,
-									align : 'center',
+								{field:'succnum',title:'成功笔数',width:120,align:'center'},
+								{field:'succamt',title:'成功金额（元）',width:120,align:'center',
 									formatter : function(value, rec) {
-										return changeTime(rec.TRANSTIME);
+										return fenToYuan(rec.succamt);
 									}
 								},
-								{field:'TOTALQTY',title:'总笔数',width:120,align:'center'},
-								{field:'TOTALAMT',title:'总金额（元）',width:120,align:'center',
+								{field:'failnum',title:'失败笔数',width:120,align:'center'},
+								{field:'failamt',title:'失败金额（元）',width:120,align:'center',
 									formatter : function(value, rec) {
-										return fenToYuan(rec.TOTALAMT);
+										return fenToYuan(rec.failamt);
 									}
 								},
-								{field:'RSPDATE',title:'批次完成时间',width:120,align:'center',
+								{field:'finishtime',title:'交易时间',width:120,align:'center',
 									formatter : function(value, rec) {
-										return changeDateTime(rec.RSPDATE);
+										return changeDateTime(rec.finishtime);
 									}
 									
 								},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
-										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
+										return '<a href="javascript:queryDetail(\''+rec.batchno+'\')" style="color:blue;margin-left:10px">详细信息</a>';
 									}
 								}
 							] ],
@@ -373,15 +371,15 @@ table tr td select {
 		});
 	
 		var rows = $('#test').datagrid('getSelected');
-		$("#batchno").html(rows["BATCHNO"]);
-		$("#msgtype").html(rows["MSGTYPE"]);
-		$("#servicetype").html(rows["SERVICETYPE"]);
-		$("#transmitleg").html(rows["TRANSMITLEG"]);
-		$("#receiver").html(rows["RECEIVER"]);
-		$("#transdate").html(changeDate(rows["TRANSDATE"]));
-		$("#transtime").html(changeTime(rows["TRANSTIME"]));
-		$("#totalqty").html(rows["TOTALQTY"]);
-		$("#totalamt").html(fenToYuan(rows["TOTALAMT"]));
+		$("#batchno").html(rows["batchno"]);
+		$("#msgtype").html(rows["msgtype"]);
+		$("#servicetype").html(rows["servicetype"]);
+		$("#transmitleg").html(rows["transmitleg"]);
+		$("#receiver").html(rows["receiver"]);
+		$("#transdate").html(changeDate(rows["transdate"]));
+		$("#transtime").html(changeTime(rows["transtime"]));
+		$("#totalqty").html(rows["totalnum"]);
+		$("#totalamt").html(fenToYuan(rows["totalamt"]));
 		$("#rspcode").html(rows["RSPCODE"]);
 		$("#respmsg").html(rows["RESPMSG"]);
 		$("#rspdate").html(changeDateTime(rows["RSPDATE"]));

@@ -43,42 +43,35 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">付款人名称</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="debtorname" id="debtornames" /></td>
-						<td align="right" width="10%">付款人账号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="debtoraccountno" id="debtoraccountnos" /></td>
-						<td align="right" width="10%">付款行行号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="debtorbranchcode" id="debtorbranchcodes" /></td>
+						<td align="right" width="10%">商户号</td>
+						<td align="left" style="padding-left: 5px" width="25%"><input name="merid" id="merid" /></td>
+						<td align="right" width="10%">交易卡号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input name="cardno" id="cardno" /></td>
 					</tr>
+					
 					<tr>
-						<td align="right" width="10%">收款人名称</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditorname" id="creditornames" /></td>
-						<td align="right" width="10%">收款人账号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditoraccountno" id="creditoraccountnos" /></td>
-
-						<td align="right" width="10%">收款行行号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="creditorbranchcode" id="creditorbranchcodes" /></td>
-					</tr>
-					<tr>
-						<td align="right" width="10%">合同（协议）号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="endtoendidentification" id="endtoendidentifications" /></td>
-						<td align="right" width="10%">发起方代码</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="transmitleg" id="transmitlegs" /></td>
-
-						<td align="right" width="10%">应答状态</td>
-						<td style="padding-left: 5px"><select name="rspstatus" id="rspstatuss" style="width: 150px">
+						<td align="right" width="10%">定单号</td>
+						<td align="left" style="padding-left: 5px" width="25%">
+						<input name="orderno" id="orderno" /></td>
+						<td align="right" width="10%">交易状态</td>
+						<td style="padding-left: 5px">
+						<select name="transstat" id="transstat" style="width: 150px">
 								<option value="">--请选择应答状态--</option>
 								<option value="PR05">已成功</option>
 								<option value="PR09">已拒绝</option>
 								<option value="PR32">逾期退回</option>
-						</select></td>
+						</select></td> 
 					</tr>
 					<tr>
-						<td align="right" width="10%">交易起止时间</td>
-						<td colspan="2" style="padding-left: 5px"><input id="stime" type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="stime"></input> 至<input id=etime type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="etime"></input></td>
+					
+						<td align="right" width="10%">起止时间</td>
+						<td colspan="2" style="padding-left: 5px">
+						<input id="stime" type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="stime"></input> 
+						至<input id=etime type="text" style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="etime"></input></td>
 						<td align="right" width="10%"></td>
 						<td align="left" style="padding-left: 5px" width="15%"></td>
-						<td align="left"><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> <a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
+						<td align="left"><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
+						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 						</td>
 					</tr>
 				</table>
@@ -92,86 +85,113 @@ table tr td select {
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center" id="continer">
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo" border="1">
+					
 					<tr>
-						<td colspan="4" class="head-title">报文头信息</td>
+						<td colspan="4" class="head-title">接口参数</td>
 					</tr>
-					<tr>					
-						<td width="15%">报文标识号</td><td width="35%" id="msgid"></td>
-						<td width="15%">交易类型 </td><td width="35%" id="tradetype"></td>
+					<tr>
+						<td>版本</td><td id="version"></td>
+						<td>网关号</td><td id="gateid"></td>
+					</tr>
+					<tr>
+						<td>私有域</td><td id="priv1"></td>
+						<td>交易手机串号IMEI</td><td id="imei"></td>
+					</tr>
+					<tr>
+						<td>PC 硬盘序列号</td><td id="disksn"></td>
+						<td>PC mac地址</td><td id="mac"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="head-title">基本信息</td>
+					</tr>
+					 <tr>
+						<td width="15%">订单号</td><td width="35%" id="orderno"></td>
+						<td width="15%">交易序列号</td><td width="35%" id="txnseqno"></td>
+					</tr> 
+					<tr>
+						<td>商户编号</td><td id="merid"></td>
+						<td>商户日期</td><td id="transdate"></td>
+					</tr>
+					
+					<tr>
+						<td>金额(元)</td><td id="transamt"></td>
+						<td>交易币种</td><td id="curyid"></td>
+					</tr>
+					<tr>
+						<td>状态</td><td id="transstat"></td>
+						<td>通道手续费</td><td id="chnlfee"></td>
+					</tr>
+					<tr>
+						<td>订单描述</td><td id="orderdesc"></td>
+						<td>交易模式</td><td id="paymode"></td>
+					</tr>
+					<tr>
+						<td colspan="4" class="head-title">用户信息</td>
+					</tr>
+					
+						<td>证件类型</td><td id="certtype"></td>
+						<td>用户ID</td><td id="userid"></td>
+					</tr>
+					<tr>
+						<td>用户注册邮箱</td><td id="usermail"></td>
+						<td>用户注册时间</td><td id="userregistertime"></td>
+					</tr>
+					<tr>
+						<td>用户注册手机号</td><td id="usermobile"></td>
+						<td>用户IP地址</td><td id="ip"></td>
+					</tr>
+					
+					<tr>
+						<td>短信验证码输入操作特征</td><td id="codeinputtype"></td>
+						<td>手机所在基站序列号</td><td id="basestationsn"></td>
+					</tr>
+					
+					<tr>
+						<td colspan="4" class="head-title">交易信息</td>
+					</tr>
+					<tr>
+						<td>交易要素</td><td id="factorid" colspan="3"></td>
+					</tr>
+					<tr>
+						<td>开户行号</td><td id="openbankid"></td>
+						<td>卡号/折号</td><td id=tcardno></td>
+					</tr>
+					<tr>
+						<td>持卡人姓名</td><td id="usrname"></td>
+						<td>卡折标志</td><td id="cardtype"></td>
+					</tr>
+					
+					<tr>
+						
+						<td>签名值</td><td id="chkvalue"></td>
+						<td>预留手机号</td><td id="mobileforbank"></td>
+					</tr>
+					<tr>
+						<td>证件号</td><td id=certid></td>
 						
 					</tr>
-					<tr>	
-						<td>发起方代码</td><td id="transmitleg"></td>
-						<td>接收方代码</td><td id="receiver"></td>
+					
+					<tr>
+						<td colspan="4" class="head-title">订单处理信息</td>
 					</tr>
 					<tr>
-						<td>本地日期 </td><td id="transdate"></td>
-						<td>本地时间</td><td id="transtime"></td>
+						<td>描述</td><td id="message"></td>
+						<td>应答信息</td><td id="responsecode"></td>
 					</tr>
 					<tr>
-						<td colspan="4" class="head-title">业务报文信息</td>
+						<td>渠道类型</td><td id="termtype"></td>
+						<td>渠道返回日期</td><td id="chnlretdate"></td>
 					</tr>
 					<tr>
-						<td>明细标识号</td><td id="txid"></td>
-						<td>金额（元）</td><td id="amount"></td>
+						<td>受理订单号</td><td id="tn"></td>
+					<td>用途</td><td id="purpose" ></td>
 					</tr>
+					
 					<tr>
-						<td>合同（协议）号</td><td id="endtoendidentification" colspan="3"></td>
+						<td>提交时间</td><td id="intime"></td>
+						<td>更新时间</td><td id="uptime"></td>
 					</tr>
-					<tr>
-						<td>付款账号</td><td id="debtoraccountno"></td>
-						<td>收款账号</td><td id="creditoraccountno"></td>
-					</tr>
-					<tr>
-						
-						<td>付款账户名称</td><td id="debtorname"></td>
-						<td>收款账户名称</td><td id="creditorname"></td>
-					</tr>
-					<tr>
-						<td>付款行行号</td><td id="debtorbranchcode"></td>
-						<td>收款行行号</td><td id="creditorbranchcode"></td>
-					</tr>
-					<tr>
-						<td>业务种类编码</td><td id="purposeproprietary"></td>
-						<td>票据号码</td><td id="billnumber"></td>
-					</tr>
-					<tr>
-						<td>摘要</td><td id="summary" colspan="3"></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="head-title">通用处理信息</td>
-					</tr>
-					<tr>
-						<td>通用处理报文标识号</td><td id="commsgid"></td>
-						<td>通用处理应答状态</td><td id="comstatus"></td>
-					</tr>
-					<tr>
-						<td>通用处理应答码</td><td id="comrejectcode"></td>
-						<td>通用处理拒绝信息</td><td id="comrejectinformation"></td>
-					</tr>
-					<tr>
-						<td>通用处理应答时间</td><td id="comdate"></td>
-						<td></td><td></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="head-title">业务应答信息</td>
-					</tr>
-					<tr>
-						<td>应答报文标识号</td><td id="rspmsgid"></td>
-						<td>应答状态</td><td id="rspstatus"></td>
-					</tr>
-					<tr>
-						<td>应答码</td><td id="rsprejectcode"></td>
-						<td>业务拒绝信息</td><td id="rsprejectinformation"></td>
-					</tr>
-					<tr>
-						<td>业务应答时间</td><td id="rspdate"></td>
-						<td>轧差日期</td><td id="nettingdate"></td>
-					</tr>
-					<tr>
-						<td>交易流水号</td><td id="txnseqno"></td>
-						<td></td><td></td>
-					</tr>
+					
 				</table>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
@@ -196,194 +216,78 @@ table tr td select {
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
-									/* {
-										field : 'MSGID',
-										title : '报文标识号',
-										width : 120,
-										align : 'center'
-									}, */
-									{
-										field : 'TXID',
-										title : '明细标识号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'TRANSMITLEG',
-										title : '发起方代码',
-										width : 110,
-										align : 'center'
-									},
-									/* {
-										field : 'RECEIVER',
-										title : '接收方代码',
-										width : 120,
-										align : 'center'
-									}, */
-									{
-										field : 'TRADETYPE',
-										title : '交易类型',
-										width : 80,
-										align : 'center'
-									},
-									{
-										field : 'TRANSDATE',
-										title : '本地日期 ',
-										width : 90,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDate(rec.TRANSDATE);
-										}
-									},
-									{
-										field : 'TRANSTIME',
-										title : '本地时间',
-										width : 90,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeTime(rec.TRANSTIME);
-										}
-									},
-									{
-										field : 'ENDTOENDIDENTIFICATION',
-										title : '合同（协议）号',
-										width : 200,
-										align : 'center'
-									},
-									{
-										field : 'DEBTORACCOUNTNO',
-										title : '付款账号',
-										width : 140,
-										align : 'center'
-									},
-									{
-										field : 'DEBTORNAME',
-										title : '付款账户名称',
-										width : 220,
-										align : 'center'
-									},
-									
-									/* {
-										field : 'DEBTORBRANCHCODE',
-										title : '付款行行号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'CREDITORBRANCHCODE',
-										title : '收款行行号',
-										width : 120,
-										align : 'center'
-									}, */
-									{
-										field : 'CREDITORACCOUNTNO',
-										title : '收款账号',
-										width : 140,
-										align : 'center'
-									},
-									{
-										field : 'CREDITORNAME',
-										title : '收款账户名称',
-										width : 220,
-										align : 'center'
-									},
-									
-									{
-										field : 'AMOUNT',
-										title : '金额（元）',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return fenToYuan(rec.AMOUNT);
-										}
-									},
-									{
-										field : 'PURPOSEPROPRIETARY',
-										title : '业务种类编码',
-										width : 100,
-										align : 'center'
-									},
-									
-									{
-										field : 'RSPSTATUS',
-										title : '应答信息',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return analysisStatus(rec.RSPSTATUS);
-										}
-									},
-									{
-										field : 'RSPREJECTCODE',
-										title : '应答码',
-										width : 120,
-										align : 'center'
-									},
-									/* {
-										field : 'RSPREJECTINFORMATION',
-										title : '业务拒绝信息',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'RSPDATE',
-										title : '业务应答时间',
-										width : 123,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDateTime(rec.RSPDATE);
-										}
-									},
-									{
-										field : 'NETTINGDATE',
-										title : '轧差日期',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDate(rec.NETTINGDATE);
-										}
-									},
-									{
-										field : 'COMMSGID',
-										title : '通用处理报文标识号',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'COMSTATUS',
-										title : '通用处理应答状态',
-										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											return analysisStatus(rec.COMSTATUS);
-										}
-									},
-									{
-										field : 'COMREJECTCODE',
-										title : '通用处理应答码',
-										width : 120,
-										align : 'center'
-									},
-									{
-										field : 'COMREJECTINFORMATION',
-										title : '通用处理业务拒绝信息',
-										width : 130,
-										align : 'center'
-									},
-									{
-										field : 'COMDATE',
-										title : '通用处理业务应答时间',
-										width : 130,
-										align : 'center',
-										formatter : function(value, rec) {
-											return changeDateTime(rec.COMDATE);
-										}
-									}, */
-									{
-										field : 'TXNSEQNO',
+
+	  								{
+										field : 'txnseqno',
 										title : '交易序列号',
 										width : 120,
 										align : 'center'
+									},
+									{
+										field : 'merid',
+										title : '商户号',
+										width : 150,
+										align : 'center'
+									},
+									{
+										field : 'transdate',
+										title : '商户日期',
+										width : 150,
+										align : 'center'
+									},
+									{
+										field : 'orderno',
+										title : '订单号',
+										width : 120,
+										align : 'center'
+									},
+									{
+										field : 'cardno',
+										title : '交易卡号',
+										width : 120,
+										align : 'center'
+									},
+									{
+										field : 'usrname',
+										title : '姓名',
+										width : 150,
+										align : 'center'
+									},
+									{
+										field : 'transamt',
+										title : '交易金额(元)',
+										width : 120,
+										align : 'center',
+									 formatter:function(value,rec){
+										return fenToYuan(rec.transamt);
+									} 
+									},
+									{
+										field : 'time',
+										title : '交易时间',
+										width : 150,
+										align : 'center',
+										formatter : function(value, rec) {
+											return changeDate(rec.chnlretdate);
+										}
+									},
+									{
+										field : 'transstat',
+										title : '交易状态',
+										width : 120,
+										align : 'center',
+										formatter : function(value, rec) {
+											if (rec.transstat == "PR05") {
+												return "已成功";
+											}
+											if (rec.transstat == "PR09") {
+												return "已拒绝";
+											}
+											if (rec.transstat == "PR32") {
+												return "逾期退回";
+											}
+											
+										}
 									},
 									{
 										field : 'ID',
@@ -391,9 +295,9 @@ table tr td select {
 										width : 100,
 										align : 'center',
 										formatter : function(value, rec) {
-											if (rec.TID != null) {
+											if (rec.tid!= null) {
 												return '<a href="javascript:queryDetail(\''
-														+ rec.TID
+														+ rec.tid
 														+ '\')" style="color:blue;margin-left:10px">详细信息</a>';
 											} else {
 												return '';
@@ -409,15 +313,10 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"debtorname" : $('#debtornames').val(),
-			"debtoraccountno" : $('#debtoraccountnos').val(),
-			"debtorbranchcode" : $('#debtorbranchcodes').val(),
-			"creditorname" : $('#creditornames').val(),
-			"creditoraccountno" : $('#creditoraccountnos').val(),
-			"creditorbranchcode" : $('#creditorbranchcodes').val(),
-			"endtoendidentification" : $('#endtoendidentifications').val(),
-			"transmitleg" : $('#transmitlegs').val(),
-			"rspstatus" : $('#rspstatuss').val(),
+			"merid" : $('#merid').val(),
+			"cardno" : $('#cardno').val(),
+			"orderno" : $('#orderno').val(),
+			"transstat" : $('#transstat').val(),
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')
 		}
@@ -429,38 +328,49 @@ table tr td select {
 	}
 
 	function queryDetail(logseqno) {
-		$("#msgid").html("");
-		$("#txid").html("");
-		$("#transmitleg").html("");
-		$("#receiver").html("");
-		$("#transdate").html("");
-		$("#transtime").html("");
-		$("#debtorname").html("");
-		$("#debtoraccountno").html("");
-		$("#debtorbranchcode").html("");
-		$("#creditorbranchcode").html("");
-		$("#creditorname").html("");
-		$("#creditoraccountno").html("");
-		$("#amount").html("");
-		$("#purposeproprietary").html("");
-		$("#endtoendidentification").html("");
-		$("#summary").html("");
-		$("#billnumber").html("");
-		$("#rspmsgid").html("");
-		$("#rspstatus").html("");
-		$("#rsprejectcode").html("");
-		$("#rsprejectinformation").html("");
-		$("#rspdate").html("");
-		$("#nettingdate").html("");
-		$("#commsgid").html("");
-		$("#comstatus").html("");
-		$("#comrejectcode").html("");
-		$("#comrejectinformation").html("");
-		$("#comdate").html("");
+		$("#merid").html("");
+		$("#tid").html("");
 		$("#txnseqno").html("");
-		$("#notes").html("");
-		$("#remarks").html("");
+		$("#transdate").html("");
+		$("#orderno").html("");
+		$("#transtype").html("");
+		$("#openbankid").html("");
+		$("#cardtype").html("");
+		$("#cardno").html("");
+		$("#usrname").html("");
+		$("#certtype").html("");
+		$("#certid").html("");
+		$("#amount").html("");
+		$("#curyid").html("");
+		$("#transamt").html("");
+		$("#purpose").html("");
+		$("#priv1").html("");
+		$("#version").html("");
+		$("#gateid").html("");
+		$("#termtype").html("");
+		$("#paymode").html("");
+		$("#userid").html("");
+		$("#userregistertime").html("");
+		$("#usermail").html("");
+		$("#usermobile").html("");
+		$("#disksn").html("");
+		$("#mac").html("");
+		$("#imei").html("");
+		$("#ip").html("");
+		$("#coordinates").html("");
+		$("#basestationsn").html("");
 
+		$("#codeinputtype").html("");
+		$("#mobileforbank").html("");
+		$("#responsecode").html("");
+		$("#transstat").html("");
+		$("#chnlretdate").html("");
+		$("#message").html("");
+		$("#intime").html("");
+		$("#uptime").html("");
+		$("#chnlfee").html("");
+		
+		
 		$('#w').window({
 			title : '实时代收渠道交易流水详细信息',
 			top : 90,
@@ -475,100 +385,157 @@ table tr td select {
 			height : 660
 		});
 		var rows = $('#test').datagrid('getSelected');
-		$("#msgid").html(rows["MSGID"]);
-		$("#txid").html(rows["TXID"]);
-		$("#transmitleg").html(rows["TRANSMITLEG"]);
-		$("#receiver").html(rows["RECEIVER"]);
-		$("#tradetype").html(rows["TRADETYPE"]);
-		$("#transdate").html(changeDate(rows["TRANSDATE"]));
-		$("#transtime").html(changeTime(rows["TRANSTIME"]));
-		$("#debtorname").html(rows["DEBTORNAME"]);
-		$("#debtoraccountno").html(rows["DEBTORACCOUNTNO"]);
-		$("#debtorbranchcode").html(rows["DEBTORBRANCHCODE"]);
-		$("#creditorbranchcode").html(rows["CREDITORBRANCHCODE"]);
-		$("#creditorname").html(rows["CREDITORNAME"]);
-		$("#creditoraccountno").html(rows["CREDITORACCOUNTNO"]);
-		$("#amount").html(fenToYuan(rows["AMOUNT"]));
-		$("#purposeproprietary").html(rows["PURPOSEPROPRIETARY"]);
-		$("#endtoendidentification").html(rows["ENDTOENDIDENTIFICATION"]);
-		$("#summary").html(rows["SUMMARY"]);
-		$("#billnumber").html(rows["BILLNUMBER"]);
-		$("#rspmsgid").html(rows["RSPMSGID"]);
-		$("#rspstatus").html(analysisStatus(rows["RSPSTATUS"]));
-		$("#rsprejectcode").html(rows["RSPREJECTCODE"]);
-		$("#rsprejectinformation").html(rows["RSPREJECTINFORMATION"]);
-		$("#rspdate").html(changeDateTime(rows["RSPDATE"]));
-		$("#nettingdate").html(changeDate(rows["NETTINGDATE"]));
-		$("#commsgid").html(rows["COMMSGID"]);
-		$("#comstatus").html(analysisStatus(rows["COMSTATUS"]));
-		$("#comrejectcode").html(rows["COMREJECTCODE"]);
-		$("#comrejectinformation").html(rows["COMREJECTINFORMATION"]);
-		$("#comdate").html(changeDateTime(rows["COMDATE"]));
-		$("#txnseqno").html(rows["TXNSEQNO"]);
-		$("#notes").html(rows["NOTES"]);
-		$("#remarks").html(rows["REMARKS"]);
+		$("#merid").html(rows["merid"]);
+		$("#tid").html(rows["tid"]);
+		$("#txnseqno").html(rows["txnseqno"]);
+		$("#transdate").html(changeDate(rows["transdate"]));
+		$("#orderno").html(rows["orderno"]);
+		$("#transtype").html(rows["transtype"]);
+		$("#openbankid").html(rows["openbankid"]);
+		$("#cardtype").html(cardType(rows["cardtype"]));
+		$("#tcardno").html(rows["cardno"]);
+		$("#usrname").html(rows["usrname"]);
+		$("#certtype").html(certType(rows["certtype"]));
+		$("#certid").html(rows["certid"]);
+		if (rows["curyid"] == "156") {
+			$("#curyid").html("人民币");
+		};
+		/* $("#curyid").html(rows["curyid"]); */
+		$("#transamt").html(fenToYuan(rows["transamt"]));
+		$("#purpose").html(rows["purpose"]);
+		$("#priv1").html(rows["priv1"]);
+		$("#version").html(rows["version"]);
+		$("#gateid").html(rows["gateid"]);
+		$("#termtype").html(rows["termtype"]);
+		$("#paymode").html(payMode(rows["paymode"]));
+		$("#userid").html(rows["userid"]);
+		$("#userregistertime").html(changeDateTime(rows["userregistertime"]));
+		$("#usermail").html(rows["usermail"]);
+		$("#usermobile").html(rows["usermobile"]);
+		$("#disksn").html(rows["disksn"]);
+		$("#mac").html(rows["mac"]);
+		$("#imei").html(rows["imei"]);
+		$("#ip").html(rows["ip"]);
+		$("#coordinates").html(rows["coordinates"]);
+		$("#basestationsn").html(rows["basestationsn"]);
+		$("#codeinputtype").html(rows["codeinputtype"]);
+		$("#mobileforbank").html(rows["mobileforbank"]);
+		$("#orderdesc").html(rows["orderdesc"]);
+		
+		$("#chkvalue").html(rows["chkvalue"]);
+		$("#responsecode").html(rows["responsecode"]);
+		$("#message").html(rows["message"]);
+		$("#transstat").html(analysisStatus(rows["transstat"]));
+		$("#chnlretdate").html(changeDate(rows["chnlretdate"]));
+		$("#intime").html(rows["intime"]);
+		$("#uptime").html(rows["uptime"]);
+		$("#chnlfee").html(fenToYuan(rows["chnlfee"]));
 	}
-	
+
 	// 格式化日期时间
-	function changeDateTime(value){
+	function changeDateTime(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			year=dateString.substring(0,4);//0123
-			month=dateString.substring(4,6);//45
-			day=dateString.substring(6,8);//67
-			hour=dateString.substring(8,10);//89
-			minte=dateString.substring(10,12);//10 11
-			s=dateString.substring(12,14);// 11 12
-			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		} else {
+			year = dateString.substring(0, 4);//0123
+			month = dateString.substring(4, 6);//45
+			day = dateString.substring(6, 8);//67
+			hour = dateString.substring(8, 10);//89
+			minte = dateString.substring(10, 12);//10 11
+			s = dateString.substring(12, 14);// 11 12
+			return year + "-" + month + "-" + day + " " + hour + ":" + minte
+					+ ":" + s;
 		}
 	}
 	// 格式化日期
-	function changeDate(value){
+	function changeDate(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			year=dateString.substring(0,4);//0123
-			month=dateString.substring(4,6);//45
-			day=dateString.substring(6,8);//67
-			return year+"-"+month+"-"+day;
+		} else {
+			year = dateString.substring(0, 4);//0123
+			month = dateString.substring(4, 6);//45
+			day = dateString.substring(6, 8);//67
+			return year + "-" + month + "-" + day;
 		}
 	}
 	// 格式化时间
-	function changeTime(value){
+	function changeTime(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			hour=dateString.substring(0,2);
-			minte=dateString.substring(2,4);
-			s=dateString.substring(4,6);
-			return hour +":"+minte+":"+s;
+		} else {
+			hour = dateString.substring(0, 2);
+			minte = dateString.substring(2, 4);
+			s = dateString.substring(4, 6);
+			return hour + ":" + minte + ":" + s;
 		}
 	}
 	// 解析状态
-	function analysisStatus(value){
+	function analysisStatus(value) {
 		if (value == "PR05") {
 			return "已成功";
-		} 
+		}
 		if (value == "PR09") {
 			return "已拒绝";
-		} 
+		}
 		if (value == "PR32") {
 			return "逾期退回";
-		} 
+		}
 	}
 	// 转换金额格式：分-->元
-	function fenToYuan(value){
-			var str = (value/100).toFixed(2) + '';
-			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
-			var dot = str.substring(str.length,str.indexOf("."))
-			var ret = intSum + dot;
-			return ret;
+	function fenToYuan(value) {
+		var str = (value / 100).toFixed(2) + '';
+		var intSum = str.substring(0, str.indexOf(".")).replace(
+				/\B(?=(?:\d{3})+$)/g, ',');
+		var dot = str.substring(str.length, str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
+	}
+	// 解析证件类型
+	function certType(value) {
+		if (value == "01") {
+			return "身份证";
 		}
-	function closeAdd(){
+		if (value == "02") {
+			return "军官证";
+		}
+		if (value == "03") {
+			return "护照";
+		}
+		if (value == "04") {
+			return "户口簿";
+		}
+		if (value == "05") {
+			return "回乡证";
+		}
+		if (value == "06") {
+			return "其他";
+		}
+	}
+	// 解析卡折标志
+	function cardType(value) {
+		if (value == "0") {
+			return "卡";
+		}
+		if (value == "1") {
+			return "折";
+		}
+		
+	}
+	// 解析交易模式
+	function payMode(value) {
+		if (value == "0") {
+			return "被动发起代扣";
+		}
+		if (value == "1") {
+			return "主动发起代扣";
+		}
+		
+	}
+	
+	function closeAdd() {
 		$('#w').window('close');
 	}
 </script>

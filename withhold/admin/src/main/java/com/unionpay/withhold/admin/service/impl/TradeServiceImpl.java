@@ -7,13 +7,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.mapper.TChnlCpdkBatchDetaMapper;
+import com.unionpay.withhold.admin.mapper.TChnlCpdkBatchMapper;
+import com.unionpay.withhold.admin.mapper.TChnlCpdkLogMapper;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper;
+import com.unionpay.withhold.admin.mapper.TOrderCollectDetaMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectSingleMapper;
 import com.unionpay.withhold.admin.mapper.TTxnsLogMapper;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
+import com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
+import com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
+import com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample;
+import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
+import com.unionpay.withhold.admin.pojo.TOrderCollectDetaExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample.Criteria;
@@ -30,6 +39,14 @@ public class TradeServiceImpl implements TradeService {
 	private TTxnsLogMapper tTxnsLogMapper;
 	@Autowired
 	private TOrderCollectBatchMapper tOrderCollectBatchMapper;
+	@Autowired
+	private TOrderCollectDetaMapper tOrderCollectDetaMapper;
+	@Autowired
+	private TChnlCpdkLogMapper tChnlCpdkLogMapper;
+	@Autowired
+	private TChnlCpdkBatchMapper tChnlCpdkBatchMapper;
+	@Autowired
+	private TChnlCpdkBatchDetaMapper tChnlCpdkBatchDetaMapper;
 	@Autowired
 	private TOrderCollectSingleMapper tOrderCollectSingleMapper;
 	@Override
@@ -78,24 +95,37 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getBatchOrderByPage(TOrderCollectBatch orderBatch,
 			String stime, String etime, int page, int rows) {
+		TOrderCollectBatchExample tOrderCollectBatchExample = new TOrderCollectBatchExample();
+		com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample.Criteria criteria = tOrderCollectBatchExample.createCriteria();
 		//商户号
 		if (orderBatch.getMerid()!=null&&!"".equals(orderBatch.getMerid())) {
-			
+			criteria.andMeridEqualTo(orderBatch.getMerid());
 		}
 		//批次号
 		if (orderBatch.getBatchno()!=null&&!"".equals(orderBatch.getBatchno())) {
-			
+			criteria.andBatchnoEqualTo(orderBatch.getBatchno());
 		}
 		//受理批次号
 		if (orderBatch.getTn()!=null&&!"".equals(orderBatch.getTn())) {
-			
+			criteria.andTnEqualTo(orderBatch.getTn());
 		}
 		//起止时间
 		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
-			
+			String[] start = stime.split(" ");
+			String[] end = etime.split(" ");
+			String sDate = DateTimeReplaceUtil.replace(start[0]);
+			String sTime = DateTimeReplaceUtil.replace(start[1]);
+			String eDate = DateTimeReplaceUtil.replace(end[0]);
+			String eTime = DateTimeReplaceUtil.replace(end[1]);
+			criteria.andTxndateBetween(sDate, eDate);
+			criteria.andTxntimeBetween(sTime, eTime);
 		}
-		
-		return null;
+		int total = tOrderCollectBatchMapper.countByExample(tOrderCollectBatchExample);
+		tOrderCollectBatchExample.setPageNum(page);
+		tOrderCollectBatchExample.setPageSize(rows);
+		tOrderCollectBatchExample.setOrderByClause("TID");
+		List<TOrderCollectBatch> returnList = tOrderCollectBatchMapper.selectByExample(tOrderCollectBatchExample);
+		return new PageBean(total, returnList);
 	}
 
 	@Override
@@ -143,51 +173,69 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getChnCollectBatchLogByPage(TChnlCpdkBatch tChnlCpdkBatch,
 			String stime, String etime, int page, int rows) {
+		//tChnlCpdkBatchMapper
+		TChnlCpdkBatchExample tChnlCpdkBatchExample = new TChnlCpdkBatchExample();
+		com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample.Criteria createCriteria = tChnlCpdkBatchExample.createCriteria();
 		//商户号
 		if (tChnlCpdkBatch.getMerid()!=null&&!"".equals(tChnlCpdkBatch.getMerid())) {
-			
+			createCriteria.andMeridEqualTo(tChnlCpdkBatch.getMerid());
 		}
 		//批次号
 		if (tChnlCpdkBatch.getBatchno()!=null&&!"".equals(tChnlCpdkBatch.getBatchno())) {
-			
+			createCriteria.andBatchnoEqualTo(tChnlCpdkBatch.getBatchno());
 		}
 		//受理批次号
 		if (tChnlCpdkBatch.getTn()!=null&&!"".equals(tChnlCpdkBatch.getTn())) {
-			
+			createCriteria.andTnEqualTo(tChnlCpdkBatch.getTn());
 		}
 		//起止时间
 		if (stime!=null&&etime!=null) {
-			String st = DateTimeReplaceUtil.replace(stime);
-			String et = DateTimeReplaceUtil.replace(etime);			
+			//String st = DateTimeReplaceUtil.replace(stime);
+			//String et = DateTimeReplaceUtil.replace(etime);	
+			createCriteria.andIntimeBetween(stime, etime);
+			
 		}
-		return null;
+		int total = tChnlCpdkBatchMapper.countByExample(tChnlCpdkBatchExample);
+		tChnlCpdkBatchExample.setPageNum(page);
+		tChnlCpdkBatchExample.setPageSize(rows);
+		tChnlCpdkBatchExample.setOrderByClause("TID");
+		List<TChnlCpdkBatch> result = tChnlCpdkBatchMapper.selectByExample(tChnlCpdkBatchExample);
+		return new PageBean(total, result);
 	}
 
 	@Override
 	public PageBean getChnCollectSingleLogByPage(TChnlCpdkLog tChnlCpdkLog,
 			String stime, String etime, int page, int rows) {
+		TChnlCpdkLogExample tChnlCpdkLogExample = new TChnlCpdkLogExample();
+		com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample.Criteria criteria = tChnlCpdkLogExample.createCriteria();
 		// 商户号
 		if (tChnlCpdkLog.getMerid()!=null&&!"".equals(tChnlCpdkLog.getMerid())) {
-			
+			criteria.andMeridEqualTo(tChnlCpdkLog.getMerid());
 		}
 		//交易卡号
 		if (tChnlCpdkLog.getCardno()!=null&&!"".equals(tChnlCpdkLog.getCardno())) {
-			
+			criteria.andCardnoEqualTo(tChnlCpdkLog.getCardno());
 		}
 		//交易状态
-		if (tChnlCpdkLog.getResponsecode()!=null&&!"".equals(tChnlCpdkLog.getResponsecode())) {
-			
+		if (tChnlCpdkLog.getTransstat()!=null&&!"".equals(tChnlCpdkLog.getTransstat())) {
+			criteria.andTransstatEqualTo(tChnlCpdkLog.getTransstat());
 		}
 		//订单号
 		if (tChnlCpdkLog.getOrderno()!=null&&!"".equals(tChnlCpdkLog.getOrderno())) {
-			
+			criteria.andOrdernoEqualTo(tChnlCpdkLog.getOrderno());
 		}
 		//起止时间
 		if (stime!=null&&etime!=null) {
 			String st = DateTimeReplaceUtil.replace(stime);
-			String et = DateTimeReplaceUtil.replace(etime);					
+			String et = DateTimeReplaceUtil.replace(etime);	
+			criteria.andChnlretdateBetween(st, et);
 		}
-		return null;
+		int total = tChnlCpdkLogMapper.countByExample(tChnlCpdkLogExample);
+		tChnlCpdkLogExample.setPageNum(page);
+		tChnlCpdkLogExample.setPageSize(rows);
+		tChnlCpdkLogExample.setOrderByClause("TID");
+		List<TChnlCpdkLog> result = tChnlCpdkLogMapper.selectByExample(tChnlCpdkLogExample);
+		return new PageBean(total, result);
 	}
 
 	@Override
@@ -224,6 +272,23 @@ public class TradeServiceImpl implements TradeService {
 	public TTxnsLog getTxnsLogByTxnseqno(String txnseqno) {
 		TTxnsLog tTxnsLog = tTxnsLogMapper.selectByPrimaryKey(txnseqno);
 		return tTxnsLog;
+	}
+
+	@Override
+	public PageBean getCollectOrderDetaByBatchNo(String batchno,
+			int page, int rows) {
+		//tOrderCollectDetaMapper
+		TOrderCollectDetaExample tOrderCollectDetaExample = new TOrderCollectDetaExample();
+		com.unionpay.withhold.admin.pojo.TOrderCollectDetaExample.Criteria criteria = tOrderCollectDetaExample.createCriteria();
+		if (batchno!=null&& !"".equals(batchno)) {
+			criteria.andBatchnoEqualTo(batchno);
+		}
+		int total = tOrderCollectDetaMapper.countByExample(tOrderCollectDetaExample);
+		tOrderCollectDetaExample.setPageNum(page);
+		tOrderCollectDetaExample.setPageSize(rows);
+		tOrderCollectDetaExample.setOrderByClause("TID");
+		List<TOrderCollectDeta> result = tOrderCollectDetaMapper.selectByExample(tOrderCollectDetaExample);
+		return new PageBean(total, result);
 	}
 
 	

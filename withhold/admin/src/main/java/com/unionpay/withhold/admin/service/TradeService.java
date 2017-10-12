@@ -1,9 +1,12 @@
 package com.unionpay.withhold.admin.service;
 
+import java.util.List;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
+import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
 
@@ -32,5 +35,8 @@ public interface TradeService {
 	Object getshowCoop();
 
 	TTxnsLog getTxnsLogByTxnseqno(String txnseqno);
+
+	PageBean getCollectOrderDetaByBatchNo(String batchno,
+			int page, int rows);
 
 }
