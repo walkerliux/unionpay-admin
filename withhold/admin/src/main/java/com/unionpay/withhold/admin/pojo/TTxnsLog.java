@@ -1,143 +1,143 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TTxnsLog {
-    private String txnseqno;
+    private String txnseqno;//交易序列号
 
-    private String txndate;
+    private String txndate;//交易日期
 
-    private String txntime;
+    private String txntime;//交易时间
 
-    private String apptype;
+    private String apptype;//应用类型
 
-    private String busitype;
+    private String busitype;//业务类型
 
-    private String busicode;
+    private String busicode;//业务代码
 
-    private Long amount;
+    private Long amount;//交易金额[合计]
 
-    private Long tradcomm;
+    private Long tradcomm;//交易佣金
 
-    private String chnlfee;
+    private String chnlfee;//通道成本
 
-    private String coopfee;
+    private String coopfee;//代理商手续费
 
-    private Long txnfee;
+    private Long txnfee;//交易手续费(商户手续费)
 
-    private String riskver;
+    private String riskver;//分控版本[商户角色]
 
-    private String splitver;
+    private String splitver;//分润版本[商户角色]
 
-    private String feever;
+    private String feever;//扣率版本[商户角色]
 
-    private String prdtver;
+    private String prdtver;//产品版本[商户角色]
 
-    private String checkstandver;
+    private String checkstandver;//收银台版本[商户角色]
 
-    private String routver;
+    private String routver;//路由版本[客户角色]
 
-    private String pan;
+    private String pan;//转出帐号或卡号或付款账号
 
-    private String cardtype;
+    private String cardtype;//转出帐号类型
 
-    private String cardinstino;
+    private String cardinstino;//转出帐号或卡号所属机构
 
-    private String inpan;
+    private String inpan;//转入帐号或卡号或收款账号
 
-    private String incardtype;
+    private String incardtype;//转入帐号或卡号类型
 
-    private String incardinstino;
+    private String incardinstino;//转入帐号或卡号机构代码
 
-    private String accordno;
+    private String accordno;//受理订单号
 
-    private String accordinst;
+    private String accordinst;//受理订单所属机构
 
-    private String accsecmerno;
+    private String accsecmerno;//受理二级商户号
 
-    private String accfirmerno;
+    private String accfirmerno;//受理一级商户号
 
-    private String accsettledate;
+    private String accsettledate;//受理清算日期
 
-    private String accordcommitime;
+    private String accordcommitime;//受理定提交时间
 
-    private String accordfintime;
+    private String accordfintime;//受理定单完成时间
 
-    private String accretcode;
+    private String accretcode;//受理应答码
 
-    private String accretinfo;
+    private String accretinfo;//受理应答信息
 
-    private String paytype;
+    private String paytype;//支付类型（01：快捷，02：网银，03：账户,04:代付）
 
-    private String payordno;
+    private String payordno;//支付定单号
 
-    private String payinst;
+    private String payinst;//通道代码
 
-    private String payfirmerno;
+    private String payfirmerno;//支付一级商户号(渠道号)
 
-    private String paysecmerno;
+    private String paysecmerno;//支付二级商户号(商户号)
 
-    private String payordcomtime;
+    private String payordcomtime;//支付定单提交时间
 
-    private String payordfintime;
+    private String payordfintime;//支付定单完成时间
 
-    private String payrettsnseqno;
+    private String payrettsnseqno;//支付方交易流水号
 
-    private String payretcode;
+    private String payretcode;//支付方应答码
 
-    private String payretinfo;
+    private String payretinfo;//支付方应答信息
 
-    private String appordno;
+    private String appordno;//应用定单号
 
-    private String appinst;
+    private String appinst;//应用所属机构
 
-    private String appordcommitime;
+    private String appordcommitime;//应用定单提交时间
 
-    private String appordfintime;
+    private String appordfintime;//应用定单完成时间
 
-    private String tradeseltxn;
+    private String tradeseltxn;//交易查询流水[证联金融返给客户端流水 vs 交易序列号]
 
-    private String retcode;
+    private String retcode;//中心应答码
 
-    private String retinfo;
+    private String retinfo;//中心应答信息
 
-    private String tradestatflag;
+    private String tradestatflag;//交易状态标志位
 
-    private String tradetxnflag;
+    private String tradetxnflag;//交易所涉流水表标志位
 
-    private String txncode;
+    private String txncode;//路由层次[当前交易号]
 
-    private String cashcode;
+    private String cashcode;//收银代码
 
-    private String relate;
+    private String relate;//涉及流水表标志
 
-    private String retdatetime;
+    private String retdatetime;//中心应答时间
 
-    private String txnseqnoOg;
+    private String txnseqnoOg;//原交易序列号
 
-    private String notes;
+    private String notes;//备注
 
-    private String remarks;
+    private String remarks;//
 
-    private String accmemberid;
+    private String accmemberid;//受理会员号
 
-    private String apporderstatus;
+    private String apporderstatus;//应用定单状态
 
-    private String apporderinfo;
+    private String apporderinfo;//应用订单应答信息
 
-    private String accbusicode;
+    private String accbusicode;//账务业务代码
 
-    private String acccoopinstino;
+    private String acccoopinstino;//受理合作机构号
 
-    private String panName;
+    private String panName;//转出帐户名/付款账户名称
 
-    private String productcode;
+    private String productcode;//产品代码
 
-    private String groupcode;
+    private String groupcode;//行业群组号
 
-    private String inpanName;
+    private String inpanName;//收款账户名称
 
-    private String feepaymodel;
+    private String feepaymodel;//手续费付款方式 01预付费 02后付费
 
-    private String pathcode;
+    private String pathcode;//渠道标记位
 
     public String getTxnseqno() {
         return txnseqno;
