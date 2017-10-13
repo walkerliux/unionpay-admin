@@ -391,13 +391,8 @@ table tr td select {
 				dataType: "json",
 				success: function(json) {
 					var html = "<option value=''>--请选择渠道--</option>";
-					
 					$.each(json,function(key, value) {
-						if (value.cacode == supercode) {
-							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
-						} else {
-							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
-						}
+						html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
 					});
 					$("#pathcode").html(html);
 				}
