@@ -1,35 +1,21 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TRateAccum {
-    private Long tid;
-
-    private Long rateId;
+    private Integer rateId;
 
     private String rateDesc;
 
-    private Short accmode;
-
-    private String accobj;
-
-    private Long servicefee;
+    private String rateMethod;
 
     private String notes;
 
     private String remarks;
 
-    public Long getTid() {
-        return tid;
-    }
-
-    public void setTid(Long tid) {
-        this.tid = tid;
-    }
-
-    public Long getRateId() {
+    public Integer getRateId() {
         return rateId;
     }
 
-    public void setRateId(Long rateId) {
+    public void setRateId(Integer rateId) {
         this.rateId = rateId;
     }
 
@@ -41,28 +27,12 @@ public class TRateAccum {
         this.rateDesc = rateDesc == null ? null : rateDesc.trim();
     }
 
-    public Short getAccmode() {
-        return accmode;
+    public String getRateMethod() {
+        return rateMethod;
     }
 
-    public void setAccmode(Short accmode) {
-        this.accmode = accmode;
-    }
-
-    public String getAccobj() {
-        return accobj;
-    }
-
-    public void setAccobj(String accobj) {
-        this.accobj = accobj == null ? null : accobj.trim();
-    }
-
-    public Long getServicefee() {
-        return servicefee;
-    }
-
-    public void setServicefee(Long servicefee) {
-        this.servicefee = servicefee;
+    public void setRateMethod(String rateMethod) {
+        this.rateMethod = rateMethod == null ? null : rateMethod.trim();
     }
 
     public String getNotes() {

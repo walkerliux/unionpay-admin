@@ -287,4 +287,15 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where RISKID = #{riskid,jdbcType=DECIMAL}
   </update>
+  
+  
+  
+  
+  
+  <select id="getAllRiskList" resultMap="BaseResultMap">
+    select 
+    	RISKVER,RISKNAME
+    from t_risk
+    where STATUS = '00'
+  </select>
 </mapper>

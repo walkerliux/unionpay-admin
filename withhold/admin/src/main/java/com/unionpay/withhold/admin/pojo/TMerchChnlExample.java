@@ -1,6 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class TMerchChnlExample {
@@ -114,62 +115,52 @@ public class TMerchChnlExample {
             return (Criteria) this;
         }
 
-        public Criteria andTidEqualTo(String value) {
+        public Criteria andTidEqualTo(Integer value) {
             addCriterion("TID =", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotEqualTo(String value) {
+        public Criteria andTidNotEqualTo(Integer value) {
             addCriterion("TID <>", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThan(String value) {
+        public Criteria andTidGreaterThan(Integer value) {
             addCriterion("TID >", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidGreaterThanOrEqualTo(String value) {
+        public Criteria andTidGreaterThanOrEqualTo(Integer value) {
             addCriterion("TID >=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThan(String value) {
+        public Criteria andTidLessThan(Integer value) {
             addCriterion("TID <", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLessThanOrEqualTo(String value) {
+        public Criteria andTidLessThanOrEqualTo(Integer value) {
             addCriterion("TID <=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidLike(String value) {
-            addCriterion("TID like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotLike(String value) {
-            addCriterion("TID not like", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidIn(List<String> values) {
+        public Criteria andTidIn(List<Integer> values) {
             addCriterion("TID in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotIn(List<String> values) {
+        public Criteria andTidNotIn(List<Integer> values) {
             addCriterion("TID not in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidBetween(String value1, String value2) {
+        public Criteria andTidBetween(Integer value1, Integer value2) {
             addCriterion("TID between", value1, value2, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andTidNotBetween(String value1, String value2) {
+        public Criteria andTidNotBetween(Integer value1, Integer value2) {
             addCriterion("TID not between", value1, value2, "tid");
             return (Criteria) this;
         }
@@ -524,146 +515,6 @@ public class TMerchChnlExample {
             return (Criteria) this;
         }
 
-        public Criteria andPubkeyIsNull() {
-            addCriterion("PUBKEY is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyIsNotNull() {
-            addCriterion("PUBKEY is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyEqualTo(String value) {
-            addCriterion("PUBKEY =", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyNotEqualTo(String value) {
-            addCriterion("PUBKEY <>", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyGreaterThan(String value) {
-            addCriterion("PUBKEY >", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyGreaterThanOrEqualTo(String value) {
-            addCriterion("PUBKEY >=", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyLessThan(String value) {
-            addCriterion("PUBKEY <", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyLessThanOrEqualTo(String value) {
-            addCriterion("PUBKEY <=", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyLike(String value) {
-            addCriterion("PUBKEY like", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyNotLike(String value) {
-            addCriterion("PUBKEY not like", value, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyIn(List<String> values) {
-            addCriterion("PUBKEY in", values, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyNotIn(List<String> values) {
-            addCriterion("PUBKEY not in", values, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyBetween(String value1, String value2) {
-            addCriterion("PUBKEY between", value1, value2, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPubkeyNotBetween(String value1, String value2) {
-            addCriterion("PUBKEY not between", value1, value2, "pubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyIsNull() {
-            addCriterion("PRIKEY is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyIsNotNull() {
-            addCriterion("PRIKEY is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyEqualTo(String value) {
-            addCriterion("PRIKEY =", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyNotEqualTo(String value) {
-            addCriterion("PRIKEY <>", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyGreaterThan(String value) {
-            addCriterion("PRIKEY >", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyGreaterThanOrEqualTo(String value) {
-            addCriterion("PRIKEY >=", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyLessThan(String value) {
-            addCriterion("PRIKEY <", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyLessThanOrEqualTo(String value) {
-            addCriterion("PRIKEY <=", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyLike(String value) {
-            addCriterion("PRIKEY like", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyNotLike(String value) {
-            addCriterion("PRIKEY not like", value, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyIn(List<String> values) {
-            addCriterion("PRIKEY in", values, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyNotIn(List<String> values) {
-            addCriterion("PRIKEY not in", values, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyBetween(String value1, String value2) {
-            addCriterion("PRIKEY between", value1, value2, "prikey");
-            return (Criteria) this;
-        }
-
-        public Criteria andPrikeyNotBetween(String value1, String value2) {
-            addCriterion("PRIKEY not between", value1, value2, "prikey");
-            return (Criteria) this;
-        }
-
         public Criteria andPrikeypwdIsNull() {
             addCriterion("PRIKEYPWD is null");
             return (Criteria) this;
@@ -731,76 +582,6 @@ public class TMerchChnlExample {
 
         public Criteria andPrikeypwdNotBetween(String value1, String value2) {
             addCriterion("PRIKEYPWD not between", value1, value2, "prikeypwd");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyIsNull() {
-            addCriterion("CHNLPUBKEY is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyIsNotNull() {
-            addCriterion("CHNLPUBKEY is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyEqualTo(String value) {
-            addCriterion("CHNLPUBKEY =", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyNotEqualTo(String value) {
-            addCriterion("CHNLPUBKEY <>", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyGreaterThan(String value) {
-            addCriterion("CHNLPUBKEY >", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyGreaterThanOrEqualTo(String value) {
-            addCriterion("CHNLPUBKEY >=", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyLessThan(String value) {
-            addCriterion("CHNLPUBKEY <", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyLessThanOrEqualTo(String value) {
-            addCriterion("CHNLPUBKEY <=", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyLike(String value) {
-            addCriterion("CHNLPUBKEY like", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyNotLike(String value) {
-            addCriterion("CHNLPUBKEY not like", value, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyIn(List<String> values) {
-            addCriterion("CHNLPUBKEY in", values, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyNotIn(List<String> values) {
-            addCriterion("CHNLPUBKEY not in", values, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyBetween(String value1, String value2) {
-            addCriterion("CHNLPUBKEY between", value1, value2, "chnlpubkey");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlpubkeyNotBetween(String value1, String value2) {
-            addCriterion("CHNLPUBKEY not between", value1, value2, "chnlpubkey");
             return (Criteria) this;
         }
 
@@ -884,62 +665,52 @@ public class TMerchChnlExample {
             return (Criteria) this;
         }
 
-        public Criteria andIntimeEqualTo(String value) {
+        public Criteria andIntimeEqualTo(Date value) {
             addCriterion("INTIME =", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeNotEqualTo(String value) {
+        public Criteria andIntimeNotEqualTo(Date value) {
             addCriterion("INTIME <>", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeGreaterThan(String value) {
+        public Criteria andIntimeGreaterThan(Date value) {
             addCriterion("INTIME >", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeGreaterThanOrEqualTo(String value) {
+        public Criteria andIntimeGreaterThanOrEqualTo(Date value) {
             addCriterion("INTIME >=", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeLessThan(String value) {
+        public Criteria andIntimeLessThan(Date value) {
             addCriterion("INTIME <", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeLessThanOrEqualTo(String value) {
+        public Criteria andIntimeLessThanOrEqualTo(Date value) {
             addCriterion("INTIME <=", value, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeLike(String value) {
-            addCriterion("INTIME like", value, "intime");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntimeNotLike(String value) {
-            addCriterion("INTIME not like", value, "intime");
-            return (Criteria) this;
-        }
-
-        public Criteria andIntimeIn(List<String> values) {
+        public Criteria andIntimeIn(List<Date> values) {
             addCriterion("INTIME in", values, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeNotIn(List<String> values) {
+        public Criteria andIntimeNotIn(List<Date> values) {
             addCriterion("INTIME not in", values, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeBetween(String value1, String value2) {
+        public Criteria andIntimeBetween(Date value1, Date value2) {
             addCriterion("INTIME between", value1, value2, "intime");
             return (Criteria) this;
         }
 
-        public Criteria andIntimeNotBetween(String value1, String value2) {
+        public Criteria andIntimeNotBetween(Date value1, Date value2) {
             addCriterion("INTIME not between", value1, value2, "intime");
             return (Criteria) this;
         }
@@ -954,62 +725,52 @@ public class TMerchChnlExample {
             return (Criteria) this;
         }
 
-        public Criteria andInuserEqualTo(String value) {
+        public Criteria andInuserEqualTo(Integer value) {
             addCriterion("INUSER =", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserNotEqualTo(String value) {
+        public Criteria andInuserNotEqualTo(Integer value) {
             addCriterion("INUSER <>", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserGreaterThan(String value) {
+        public Criteria andInuserGreaterThan(Integer value) {
             addCriterion("INUSER >", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserGreaterThanOrEqualTo(String value) {
+        public Criteria andInuserGreaterThanOrEqualTo(Integer value) {
             addCriterion("INUSER >=", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserLessThan(String value) {
+        public Criteria andInuserLessThan(Integer value) {
             addCriterion("INUSER <", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserLessThanOrEqualTo(String value) {
+        public Criteria andInuserLessThanOrEqualTo(Integer value) {
             addCriterion("INUSER <=", value, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserLike(String value) {
-            addCriterion("INUSER like", value, "inuser");
-            return (Criteria) this;
-        }
-
-        public Criteria andInuserNotLike(String value) {
-            addCriterion("INUSER not like", value, "inuser");
-            return (Criteria) this;
-        }
-
-        public Criteria andInuserIn(List<String> values) {
+        public Criteria andInuserIn(List<Integer> values) {
             addCriterion("INUSER in", values, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserNotIn(List<String> values) {
+        public Criteria andInuserNotIn(List<Integer> values) {
             addCriterion("INUSER not in", values, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserBetween(String value1, String value2) {
+        public Criteria andInuserBetween(Integer value1, Integer value2) {
             addCriterion("INUSER between", value1, value2, "inuser");
             return (Criteria) this;
         }
 
-        public Criteria andInuserNotBetween(String value1, String value2) {
+        public Criteria andInuserNotBetween(Integer value1, Integer value2) {
             addCriterion("INUSER not between", value1, value2, "inuser");
             return (Criteria) this;
         }

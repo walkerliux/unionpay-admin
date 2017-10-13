@@ -1,9 +1,9 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TMerchMk {
-    private String memberid;
+    private Integer safeseq;
 
-    private String safeseq;
+    private String memberid;
 
     private String safetype;
 
@@ -14,6 +14,8 @@ public class TMerchMk {
     private String localpubkey;
 
     private String localprikey;
+
+    private String platformpfxpwd;
 
     private String bmk;
 
@@ -35,20 +37,20 @@ public class TMerchMk {
 
     private String remarks;
 
+    public Integer getSafeseq() {
+        return safeseq;
+    }
+
+    public void setSafeseq(Integer safeseq) {
+        this.safeseq = safeseq;
+    }
+
     public String getMemberid() {
         return memberid;
     }
 
     public void setMemberid(String memberid) {
         this.memberid = memberid == null ? null : memberid.trim();
-    }
-
-    public String getSafeseq() {
-        return safeseq;
-    }
-
-    public void setSafeseq(String safeseq) {
-        this.safeseq = safeseq == null ? null : safeseq.trim();
     }
 
     public String getSafetype() {
@@ -89,6 +91,14 @@ public class TMerchMk {
 
     public void setLocalprikey(String localprikey) {
         this.localprikey = localprikey == null ? null : localprikey.trim();
+    }
+
+    public String getPlatformpfxpwd() {
+        return platformpfxpwd;
+    }
+
+    public void setPlatformpfxpwd(String platformpfxpwd) {
+        this.platformpfxpwd = platformpfxpwd == null ? null : platformpfxpwd.trim();
     }
 
     public String getBmk() {

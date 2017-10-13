@@ -10,7 +10,7 @@ public interface TMerchMkMapper {
 
     int deleteByExample(TMerchMkExample example);
 
-    int deleteByPrimaryKey(String memberid);
+    int deleteByPrimaryKey(Integer safeseq);
 
     int insert(TMerchMk record);
 
@@ -18,7 +18,7 @@ public interface TMerchMkMapper {
 
     List<TMerchMk> selectByExample(TMerchMkExample example);
 
-    TMerchMk selectByPrimaryKey(String memberid);
+    TMerchMk selectByPrimaryKey(Integer safeseq);
 
     int updateByExampleSelective(@Param("record") TMerchMk record, @Param("example") TMerchMkExample example);
 

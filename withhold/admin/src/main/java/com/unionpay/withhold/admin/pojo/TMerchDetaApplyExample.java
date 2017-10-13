@@ -116,52 +116,52 @@ public class TMerchDetaApplyExample {
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdEqualTo(Long value) {
+        public Criteria andSelfIdEqualTo(Integer value) {
             addCriterion("SELF_ID =", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdNotEqualTo(Long value) {
+        public Criteria andSelfIdNotEqualTo(Integer value) {
             addCriterion("SELF_ID <>", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdGreaterThan(Long value) {
+        public Criteria andSelfIdGreaterThan(Integer value) {
             addCriterion("SELF_ID >", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andSelfIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("SELF_ID >=", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdLessThan(Long value) {
+        public Criteria andSelfIdLessThan(Integer value) {
             addCriterion("SELF_ID <", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdLessThanOrEqualTo(Long value) {
+        public Criteria andSelfIdLessThanOrEqualTo(Integer value) {
             addCriterion("SELF_ID <=", value, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdIn(List<Long> values) {
+        public Criteria andSelfIdIn(List<Integer> values) {
             addCriterion("SELF_ID in", values, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdNotIn(List<Long> values) {
+        public Criteria andSelfIdNotIn(List<Integer> values) {
             addCriterion("SELF_ID not in", values, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdBetween(Long value1, Long value2) {
+        public Criteria andSelfIdBetween(Integer value1, Integer value2) {
             addCriterion("SELF_ID between", value1, value2, "selfId");
             return (Criteria) this;
         }
 
-        public Criteria andSelfIdNotBetween(Long value1, Long value2) {
+        public Criteria andSelfIdNotBetween(Integer value1, Integer value2) {
             addCriterion("SELF_ID not between", value1, value2, "selfId");
             return (Criteria) this;
         }
@@ -1457,72 +1457,72 @@ public class TMerchDetaApplyExample {
         }
 
         public Criteria andTransfactorsIsNull() {
-            addCriterion("transfactors is null");
+            addCriterion("TRANSFACTORS is null");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsIsNotNull() {
-            addCriterion("transfactors is not null");
+            addCriterion("TRANSFACTORS is not null");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsEqualTo(String value) {
-            addCriterion("transfactors =", value, "transfactors");
+            addCriterion("TRANSFACTORS =", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotEqualTo(String value) {
-            addCriterion("transfactors <>", value, "transfactors");
+            addCriterion("TRANSFACTORS <>", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsGreaterThan(String value) {
-            addCriterion("transfactors >", value, "transfactors");
+            addCriterion("TRANSFACTORS >", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsGreaterThanOrEqualTo(String value) {
-            addCriterion("transfactors >=", value, "transfactors");
+            addCriterion("TRANSFACTORS >=", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLessThan(String value) {
-            addCriterion("transfactors <", value, "transfactors");
+            addCriterion("TRANSFACTORS <", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLessThanOrEqualTo(String value) {
-            addCriterion("transfactors <=", value, "transfactors");
+            addCriterion("TRANSFACTORS <=", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLike(String value) {
-            addCriterion("transfactors like", value, "transfactors");
+            addCriterion("TRANSFACTORS like", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotLike(String value) {
-            addCriterion("transfactors not like", value, "transfactors");
+            addCriterion("TRANSFACTORS not like", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsIn(List<String> values) {
-            addCriterion("transfactors in", values, "transfactors");
+            addCriterion("TRANSFACTORS in", values, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotIn(List<String> values) {
-            addCriterion("transfactors not in", values, "transfactors");
+            addCriterion("TRANSFACTORS not in", values, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsBetween(String value1, String value2) {
-            addCriterion("transfactors between", value1, value2, "transfactors");
+            addCriterion("TRANSFACTORS between", value1, value2, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotBetween(String value1, String value2) {
-            addCriterion("transfactors not between", value1, value2, "transfactors");
+            addCriterion("TRANSFACTORS not between", value1, value2, "transfactors");
             return (Criteria) this;
         }
 

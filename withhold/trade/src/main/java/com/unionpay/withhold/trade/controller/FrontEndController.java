@@ -1,7 +1,5 @@
 package com.unionpay.withhold.trade.controller;
 
-import javax.xml.bind.JAXBException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,16 +9,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.api.bean.CPBackFileNotifyBean;
-import com.unionpay.withhold.api.bean.MerchantRequest;
-import com.unionpay.withhold.api.bean.MerchantResponse;
+import com.unionpay.withhold.api.bean.MerchCheckFileBean;
 import com.unionpay.withhold.bean.ResultBean;
-import com.unionpay.withhold.trade.fee.dao.FeeDAO;
 import com.unionpay.withhold.trade.order.bean.BatchCollectBean;
 import com.unionpay.withhold.trade.order.bean.BatchCollectQueryBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectBean;
 import com.unionpay.withhold.trade.order.bean.SingleCollectQueryBean;
 import com.unionpay.withhold.trade.order.service.CollectBusinessService;
-import com.unionpay.withhold.utils.XMLUtils;
+import com.unionpay.withhold.trade.pay.service.ChannelNotifyService;
+import com.unionpay.withhold.trade.pay.service.CollectPayService;
+import com.unionpay.withhold.trade.pay.service.OrderDownloadCheckFileService;
 
 @RestController
 @RequestMapping(value="/api/v1/fe")
@@ -31,7 +29,11 @@ public class FrontEndController {
 	@Autowired
 	private CollectBusinessService  collectBusinessService;
 	@Autowired
-	private FeeDAO customDAO;
+	private CollectPayService collectPayService;
+	@Autowired
+	private ChannelNotifyService channelNotifyService;
+	@Autowired
+	private OrderDownloadCheckFileService orderDownloadCheckFileService;
 	/**
 	 * 实时代扣
 	 * @param data
@@ -45,6 +47,11 @@ public class FrontEndController {
 		resultBean.setRespMsg("成功");
 		SingleCollectBean singleCollectBean = JSON.parseObject(data, SingleCollectBean.class);
 		resultBean = collectBusinessService.createSingleCollectOrder(singleCollectBean);
+		if(resultBean.isResultBool()) {
+			String tn = (String)resultBean.getResultObj();
+			resultBean = collectPayService.singleCollectPay(tn);
+			resultBean.setResultObj(tn);
+		}
 		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	} 	
@@ -60,6 +67,12 @@ public class FrontEndController {
 		ResultBean resultBean = new ResultBean("0000", "成功");
 		BatchCollectBean batchCollectBean = JSON.parseObject(data.trim(), BatchCollectBean.class);
 		resultBean = collectBusinessService.createBatchCollectOrder(batchCollectBean);
+		//logger.info(JSON.toJSONString(resultBean));
+		if(resultBean.isResultBool()) {
+			String tn = (String)resultBean.getResultObj();
+			resultBean = collectPayService.batchCollectPay(tn);
+			resultBean.setResultObj(tn);
+		}
 		logger.info((System.currentTimeMillis()-currentTimeMillis)+"");
 		return resultBean;
 	}
@@ -90,41 +103,6 @@ public class FrontEndController {
 	}
 	
 	/**
-	 * 验签报文
-	 * @param xml
-	 * @return
-	 */
-	@RequestMapping(value="/realtime/validateSignature",method=RequestMethod.POST)
-	public ResultBean validateSignature(String xml) {
-		ResultBean resultBean = new ResultBean("0000", "成功");
-		try {
-			MerchantRequest request = XMLUtils.converyToJavaBean(xml.trim(), MerchantRequest.class);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			resultBean = new ResultBean("", "非法的XML报文");
-		}
-		return resultBean;
-	}
-	/**
-	 * 加签报文
-	 * @param xml
-	 * @return
-	 */
-	@RequestMapping(value="/realtime/addSignature",method=RequestMethod.POST)
-	public ResultBean addSignature(String xml) {
-		ResultBean resultBean = new ResultBean("0000", "成功");
-		try {
-			MerchantResponse response = XMLUtils.converyToJavaBean(xml.trim(),MerchantResponse.class);
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			resultBean = new ResultBean("", "非法的XML报文");
-		}
-		return resultBean;
-	}
-	
-	/**
 	 * ChinaPay批量代收回盘异步通知
 	 * @param data
 	 * @return
@@ -132,8 +110,15 @@ public class FrontEndController {
 	@RequestMapping(value="/path/cp/batchnotify",method=RequestMethod.POST)
 	public ResultBean cpBatchTradeNotify(String data) {
 		ResultBean resultBean = new ResultBean("0000", "成功");
-		CPBackFileNotifyBean fileNotifyBean = JSON.parseObject(data, CPBackFileNotifyBean.class);
-		
+		try {
+			CPBackFileNotifyBean fileNotifyBean = JSON.parseObject(data, CPBackFileNotifyBean.class);
+			channelNotifyService.chinaPayNotify(fileNotifyBean);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resultBean = new ResultBean("OD046", "系统内部错误");
+			resultBean.setResultBool(false);
+		}
 		return resultBean;
 	}
 	
@@ -144,7 +129,8 @@ public class FrontEndController {
 	 */
 	@RequestMapping(value="/checkfile/download",method=RequestMethod.POST)
 	public ResultBean downloadCheckFile(String data) {
-		ResultBean resultBean = new ResultBean("0000", "成功");
+		MerchCheckFileBean merchCheckFileBean = JSON.parseObject(data, MerchCheckFileBean.class);
+		ResultBean resultBean = orderDownloadCheckFileService.downloadCheckFile(merchCheckFileBean);
 		return resultBean;
 	}
 }

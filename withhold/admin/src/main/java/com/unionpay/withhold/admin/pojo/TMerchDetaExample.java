@@ -1,6 +1,5 @@
 package com.unionpay.withhold.admin.pojo;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -116,52 +115,52 @@ public class TMerchDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdEqualTo(Long value) {
+        public Criteria andMerchIdEqualTo(Integer value) {
             addCriterion("MERCH_ID =", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotEqualTo(Long value) {
+        public Criteria andMerchIdNotEqualTo(Integer value) {
             addCriterion("MERCH_ID <>", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdGreaterThan(Long value) {
+        public Criteria andMerchIdGreaterThan(Integer value) {
             addCriterion("MERCH_ID >", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andMerchIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("MERCH_ID >=", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdLessThan(Long value) {
+        public Criteria andMerchIdLessThan(Integer value) {
             addCriterion("MERCH_ID <", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdLessThanOrEqualTo(Long value) {
+        public Criteria andMerchIdLessThanOrEqualTo(Integer value) {
             addCriterion("MERCH_ID <=", value, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdIn(List<Long> values) {
+        public Criteria andMerchIdIn(List<Integer> values) {
             addCriterion("MERCH_ID in", values, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotIn(List<Long> values) {
+        public Criteria andMerchIdNotIn(List<Integer> values) {
             addCriterion("MERCH_ID not in", values, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdBetween(Long value1, Long value2) {
+        public Criteria andMerchIdBetween(Integer value1, Integer value2) {
             addCriterion("MERCH_ID between", value1, value2, "merchId");
             return (Criteria) this;
         }
 
-        public Criteria andMerchIdNotBetween(Long value1, Long value2) {
+        public Criteria andMerchIdNotBetween(Integer value1, Integer value2) {
             addCriterion("MERCH_ID not between", value1, value2, "merchId");
             return (Criteria) this;
         }
@@ -856,196 +855,6 @@ public class TMerchDetaExample {
             return (Criteria) this;
         }
 
-        public Criteria andSetlCycleIsNull() {
-            addCriterion("SETL_CYCLE is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleIsNotNull() {
-            addCriterion("SETL_CYCLE is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleEqualTo(String value) {
-            addCriterion("SETL_CYCLE =", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleNotEqualTo(String value) {
-            addCriterion("SETL_CYCLE <>", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleGreaterThan(String value) {
-            addCriterion("SETL_CYCLE >", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleGreaterThanOrEqualTo(String value) {
-            addCriterion("SETL_CYCLE >=", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleLessThan(String value) {
-            addCriterion("SETL_CYCLE <", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleLessThanOrEqualTo(String value) {
-            addCriterion("SETL_CYCLE <=", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleLike(String value) {
-            addCriterion("SETL_CYCLE like", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleNotLike(String value) {
-            addCriterion("SETL_CYCLE not like", value, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleIn(List<String> values) {
-            addCriterion("SETL_CYCLE in", values, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleNotIn(List<String> values) {
-            addCriterion("SETL_CYCLE not in", values, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleBetween(String value1, String value2) {
-            addCriterion("SETL_CYCLE between", value1, value2, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andSetlCycleNotBetween(String value1, String value2) {
-            addCriterion("SETL_CYCLE not between", value1, value2, "setlCycle");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeIsNull() {
-            addCriterion("CHARGE is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeIsNotNull() {
-            addCriterion("CHARGE is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeEqualTo(BigDecimal value) {
-            addCriterion("CHARGE =", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeNotEqualTo(BigDecimal value) {
-            addCriterion("CHARGE <>", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeGreaterThan(BigDecimal value) {
-            addCriterion("CHARGE >", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("CHARGE >=", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeLessThan(BigDecimal value) {
-            addCriterion("CHARGE <", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("CHARGE <=", value, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeIn(List<BigDecimal> values) {
-            addCriterion("CHARGE in", values, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeNotIn(List<BigDecimal> values) {
-            addCriterion("CHARGE not in", values, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("CHARGE between", value1, value2, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andChargeNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("CHARGE not between", value1, value2, "charge");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositIsNull() {
-            addCriterion("DEPOSIT is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositIsNotNull() {
-            addCriterion("DEPOSIT is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositEqualTo(BigDecimal value) {
-            addCriterion("DEPOSIT =", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositNotEqualTo(BigDecimal value) {
-            addCriterion("DEPOSIT <>", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositGreaterThan(BigDecimal value) {
-            addCriterion("DEPOSIT >", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositGreaterThanOrEqualTo(BigDecimal value) {
-            addCriterion("DEPOSIT >=", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositLessThan(BigDecimal value) {
-            addCriterion("DEPOSIT <", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositLessThanOrEqualTo(BigDecimal value) {
-            addCriterion("DEPOSIT <=", value, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositIn(List<BigDecimal> values) {
-            addCriterion("DEPOSIT in", values, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositNotIn(List<BigDecimal> values) {
-            addCriterion("DEPOSIT not in", values, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("DEPOSIT between", value1, value2, "deposit");
-            return (Criteria) this;
-        }
-
-        public Criteria andDepositNotBetween(BigDecimal value1, BigDecimal value2) {
-            addCriterion("DEPOSIT not between", value1, value2, "deposit");
-            return (Criteria) this;
-        }
-
         public Criteria andRiskVerIsNull() {
             addCriterion("RISK_VER is null");
             return (Criteria) this;
@@ -1397,72 +1206,72 @@ public class TMerchDetaExample {
         }
 
         public Criteria andTransfactorsIsNull() {
-            addCriterion("transfactors is null");
+            addCriterion("TRANSFACTORS is null");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsIsNotNull() {
-            addCriterion("transfactors is not null");
+            addCriterion("TRANSFACTORS is not null");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsEqualTo(String value) {
-            addCriterion("transfactors =", value, "transfactors");
+            addCriterion("TRANSFACTORS =", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotEqualTo(String value) {
-            addCriterion("transfactors <>", value, "transfactors");
+            addCriterion("TRANSFACTORS <>", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsGreaterThan(String value) {
-            addCriterion("transfactors >", value, "transfactors");
+            addCriterion("TRANSFACTORS >", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsGreaterThanOrEqualTo(String value) {
-            addCriterion("transfactors >=", value, "transfactors");
+            addCriterion("TRANSFACTORS >=", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLessThan(String value) {
-            addCriterion("transfactors <", value, "transfactors");
+            addCriterion("TRANSFACTORS <", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLessThanOrEqualTo(String value) {
-            addCriterion("transfactors <=", value, "transfactors");
+            addCriterion("TRANSFACTORS <=", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsLike(String value) {
-            addCriterion("transfactors like", value, "transfactors");
+            addCriterion("TRANSFACTORS like", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotLike(String value) {
-            addCriterion("transfactors not like", value, "transfactors");
+            addCriterion("TRANSFACTORS not like", value, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsIn(List<String> values) {
-            addCriterion("transfactors in", values, "transfactors");
+            addCriterion("TRANSFACTORS in", values, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotIn(List<String> values) {
-            addCriterion("transfactors not in", values, "transfactors");
+            addCriterion("TRANSFACTORS not in", values, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsBetween(String value1, String value2) {
-            addCriterion("transfactors between", value1, value2, "transfactors");
+            addCriterion("TRANSFACTORS between", value1, value2, "transfactors");
             return (Criteria) this;
         }
 
         public Criteria andTransfactorsNotBetween(String value1, String value2) {
-            addCriterion("transfactors not between", value1, value2, "transfactors");
+            addCriterion("TRANSFACTORS not between", value1, value2, "transfactors");
             return (Criteria) this;
         }
 

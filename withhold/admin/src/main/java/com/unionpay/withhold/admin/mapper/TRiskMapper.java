@@ -27,4 +27,6 @@ public interface TRiskMapper {
     int updateByPrimaryKeySelective(TRisk record);
 
     int updateByPrimaryKey(TRisk record);
+    
+    List<TRisk> getAllRiskList();
 }

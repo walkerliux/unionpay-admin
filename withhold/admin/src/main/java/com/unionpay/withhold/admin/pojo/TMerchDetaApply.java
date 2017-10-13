@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class TMerchDetaApply {
-    private Long selfId;
+    private Integer selfId;
 
     private Long merchId;
 
@@ -67,12 +67,15 @@ public class TMerchDetaApply {
     private String notes;
 
     private String remarks;
+    
+    // 关联属性
+    private String caname;
 
-    public Long getSelfId() {
+    public Integer getSelfId() {
         return selfId;
     }
 
-    public void setSelfId(Long selfId) {
+    public void setSelfId(Integer selfId) {
         this.selfId = selfId;
     }
 
@@ -322,5 +325,13 @@ public class TMerchDetaApply {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
-    }
+	}
+
+	public String getCaname() {
+		return caname;
+	}
+
+	public void setCaname(String caname) {
+		this.caname = caname;
+	}
 }

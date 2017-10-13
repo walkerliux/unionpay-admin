@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TRateAccumDetaMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TRateAccumDeta" >
-    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
     <result column="STARTRANGE" property="startrange" jdbcType="DECIMAL" />
     <result column="ENDRANGE" property="endrange" jdbcType="DECIMAL" />
@@ -91,15 +91,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_rate_accum_deta
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_rate_accum_deta
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumDetaExample" >
     delete from t_rate_accum_deta
@@ -113,7 +113,7 @@
       MIN_FEE, MAX_FEE, INUSER, 
       INTIME, NOTES, REMARKS
       )
-    values (#{tid,jdbcType=DECIMAL}, #{rateId,jdbcType=DECIMAL}, #{startrange,jdbcType=DECIMAL}, 
+    values (#{tid,jdbcType=INTEGER}, #{rateId,jdbcType=DECIMAL}, #{startrange,jdbcType=DECIMAL}, 
       #{endrange,jdbcType=DECIMAL}, #{rateType,jdbcType=VARCHAR}, #{feeRate,jdbcType=DECIMAL}, 
       #{minFee,jdbcType=DECIMAL}, #{maxFee,jdbcType=DECIMAL}, #{inuser,jdbcType=DECIMAL}, 
       #{intime,jdbcType=TIMESTAMP}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
@@ -161,7 +161,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
-        #{tid,jdbcType=DECIMAL},
+        #{tid,jdbcType=INTEGER},
       </if>
       <if test="rateId != null" >
         #{rateId,jdbcType=DECIMAL},
@@ -208,7 +208,7 @@
     update t_rate_accum_deta
     <set >
       <if test="record.tid != null" >
-        TID = #{record.tid,jdbcType=DECIMAL},
+        TID = #{record.tid,jdbcType=INTEGER},
       </if>
       <if test="record.rateId != null" >
         RATE_ID = #{record.rateId,jdbcType=DECIMAL},
@@ -250,7 +250,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_rate_accum_deta
-    set TID = #{record.tid,jdbcType=DECIMAL},
+    set TID = #{record.tid,jdbcType=INTEGER},
       RATE_ID = #{record.rateId,jdbcType=DECIMAL},
       STARTRANGE = #{record.startrange,jdbcType=DECIMAL},
       ENDRANGE = #{record.endrange,jdbcType=DECIMAL},
@@ -303,7 +303,7 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumDeta" >
     update t_rate_accum_deta
@@ -318,6 +318,6 @@
       INTIME = #{intime,jdbcType=TIMESTAMP},
       NOTES = #{notes,jdbcType=VARCHAR},
       REMARKS = #{remarks,jdbcType=VARCHAR}
-    where TID = #{tid,jdbcType=DECIMAL}
+    where TID = #{tid,jdbcType=INTEGER}
   </update>
 </mapper>

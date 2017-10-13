@@ -293,12 +293,18 @@
 	</distributionManagement> -->
 	<modules>
 		<module>common</module>
-		<module>trade</module>
+		<!-- <module>trade</module>
 		<module>admin</module>
-		<module>api</module>
+		<module>api</module> -->
 		<module>path-api</module>
-		<module>path-cp</module>
-    	<module>trade-api</module>
+		<!-- <module>path-cp</module> -->
+<!--     	<module>trade-api</module> -->
+    <module>trade-fee</module>
+    <module>trade-order</module>
+    <module>trade-risk</module>
+    <module>trade-route</module>
+    <module>trade-task</module>
+    <module>trade-core</module>
+    <module>trade-simple</module>
   </modules>
-
 </project>

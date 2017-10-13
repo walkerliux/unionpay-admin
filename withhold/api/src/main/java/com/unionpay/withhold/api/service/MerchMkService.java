@@ -4,7 +4,7 @@ import com.unionpay.withhold.api.model.MerchMk;
 
 public interface MerchMkService {
 	
-	public MerchMk selectByPrimaryKey(String key);
+	public MerchMk selectByCertId(String key);
 	
 
 }

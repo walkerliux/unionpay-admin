@@ -1,7 +1,9 @@
 package com.unionpay.withhold.admin.pojo;
 
+import java.util.Date;
+
 public class TMerchChnl {
-    private String tid;
+    private Integer tid;
 
     private String merchno;
 
@@ -13,30 +15,24 @@ public class TMerchChnl {
 
     private String storgetype;
 
-    private String pubkey;
-
-    private String prikey;
-
     private String prikeypwd;
-
-    private String chnlpubkey;
 
     private String status;
 
-    private String intime;
+    private Date intime;
 
-    private String inuser;
+    private Integer inuser;
 
     private String notes;
 
     private String remarks;
 
-    public String getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(String tid) {
-        this.tid = tid == null ? null : tid.trim();
+    public void setTid(Integer tid) {
+        this.tid = tid;
     }
 
     public String getMerchno() {
@@ -79,36 +75,12 @@ public class TMerchChnl {
         this.storgetype = storgetype == null ? null : storgetype.trim();
     }
 
-    public String getPubkey() {
-        return pubkey;
-    }
-
-    public void setPubkey(String pubkey) {
-        this.pubkey = pubkey == null ? null : pubkey.trim();
-    }
-
-    public String getPrikey() {
-        return prikey;
-    }
-
-    public void setPrikey(String prikey) {
-        this.prikey = prikey == null ? null : prikey.trim();
-    }
-
     public String getPrikeypwd() {
         return prikeypwd;
     }
 
     public void setPrikeypwd(String prikeypwd) {
         this.prikeypwd = prikeypwd == null ? null : prikeypwd.trim();
-    }
-
-    public String getChnlpubkey() {
-        return chnlpubkey;
-    }
-
-    public void setChnlpubkey(String chnlpubkey) {
-        this.chnlpubkey = chnlpubkey == null ? null : chnlpubkey.trim();
     }
 
     public String getStatus() {
@@ -119,20 +91,20 @@ public class TMerchChnl {
         this.status = status == null ? null : status.trim();
     }
 
-    public String getIntime() {
+    public Date getIntime() {
         return intime;
     }
 
-    public void setIntime(String intime) {
-        this.intime = intime == null ? null : intime.trim();
+    public void setIntime(Date intime) {
+        this.intime = intime;
     }
 
-    public String getInuser() {
+    public Integer getInuser() {
         return inuser;
     }
 
-    public void setInuser(String inuser) {
-        this.inuser = inuser == null ? null : inuser.trim();
+    public void setInuser(Integer inuser) {
+        this.inuser = inuser;
     }
 
     public String getNotes() {

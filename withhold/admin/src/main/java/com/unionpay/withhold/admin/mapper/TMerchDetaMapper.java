@@ -10,7 +10,7 @@ public interface TMerchDetaMapper {
 
     int deleteByExample(TMerchDetaExample example);
 
-    int deleteByPrimaryKey(Long merchId);
+    int deleteByPrimaryKey(Integer merchId);
 
     int insert(TMerchDeta record);
 
@@ -18,7 +18,7 @@ public interface TMerchDetaMapper {
 
     List<TMerchDeta> selectByExample(TMerchDetaExample example);
 
-    TMerchDeta selectByPrimaryKey(Long merchId);
+    TMerchDeta selectByPrimaryKey(Integer merchId);
 
     int updateByExampleSelective(@Param("record") TMerchDeta record, @Param("example") TMerchDetaExample example);
 

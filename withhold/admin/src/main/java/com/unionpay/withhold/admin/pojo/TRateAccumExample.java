@@ -104,66 +104,6 @@ public class TRateAccumExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andTidIsNull() {
-            addCriterion("TID is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidIsNotNull() {
-            addCriterion("TID is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidEqualTo(Long value) {
-            addCriterion("TID =", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotEqualTo(Long value) {
-            addCriterion("TID <>", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidGreaterThan(Long value) {
-            addCriterion("TID >", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidGreaterThanOrEqualTo(Long value) {
-            addCriterion("TID >=", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidLessThan(Long value) {
-            addCriterion("TID <", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidLessThanOrEqualTo(Long value) {
-            addCriterion("TID <=", value, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidIn(List<Long> values) {
-            addCriterion("TID in", values, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotIn(List<Long> values) {
-            addCriterion("TID not in", values, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidBetween(Long value1, Long value2) {
-            addCriterion("TID between", value1, value2, "tid");
-            return (Criteria) this;
-        }
-
-        public Criteria andTidNotBetween(Long value1, Long value2) {
-            addCriterion("TID not between", value1, value2, "tid");
-            return (Criteria) this;
-        }
-
         public Criteria andRateIdIsNull() {
             addCriterion("RATE_ID is null");
             return (Criteria) this;
@@ -174,52 +114,52 @@ public class TRateAccumExample {
             return (Criteria) this;
         }
 
-        public Criteria andRateIdEqualTo(Long value) {
+        public Criteria andRateIdEqualTo(Integer value) {
             addCriterion("RATE_ID =", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotEqualTo(Long value) {
+        public Criteria andRateIdNotEqualTo(Integer value) {
             addCriterion("RATE_ID <>", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThan(Long value) {
+        public Criteria andRateIdGreaterThan(Integer value) {
             addCriterion("RATE_ID >", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThanOrEqualTo(Long value) {
+        public Criteria andRateIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("RATE_ID >=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThan(Long value) {
+        public Criteria andRateIdLessThan(Integer value) {
             addCriterion("RATE_ID <", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThanOrEqualTo(Long value) {
+        public Criteria andRateIdLessThanOrEqualTo(Integer value) {
             addCriterion("RATE_ID <=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdIn(List<Long> values) {
+        public Criteria andRateIdIn(List<Integer> values) {
             addCriterion("RATE_ID in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotIn(List<Long> values) {
+        public Criteria andRateIdNotIn(List<Integer> values) {
             addCriterion("RATE_ID not in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdBetween(Long value1, Long value2) {
+        public Criteria andRateIdBetween(Integer value1, Integer value2) {
             addCriterion("RATE_ID between", value1, value2, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotBetween(Long value1, Long value2) {
+        public Criteria andRateIdNotBetween(Integer value1, Integer value2) {
             addCriterion("RATE_ID not between", value1, value2, "rateId");
             return (Criteria) this;
         }
@@ -294,193 +234,73 @@ public class TRateAccumExample {
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeIsNull() {
-            addCriterion("ACCMODE is null");
+        public Criteria andRateMethodIsNull() {
+            addCriterion("RATE_METHOD is null");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeIsNotNull() {
-            addCriterion("ACCMODE is not null");
+        public Criteria andRateMethodIsNotNull() {
+            addCriterion("RATE_METHOD is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeEqualTo(Short value) {
-            addCriterion("ACCMODE =", value, "accmode");
+        public Criteria andRateMethodEqualTo(String value) {
+            addCriterion("RATE_METHOD =", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeNotEqualTo(Short value) {
-            addCriterion("ACCMODE <>", value, "accmode");
+        public Criteria andRateMethodNotEqualTo(String value) {
+            addCriterion("RATE_METHOD <>", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeGreaterThan(Short value) {
-            addCriterion("ACCMODE >", value, "accmode");
+        public Criteria andRateMethodGreaterThan(String value) {
+            addCriterion("RATE_METHOD >", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeGreaterThanOrEqualTo(Short value) {
-            addCriterion("ACCMODE >=", value, "accmode");
+        public Criteria andRateMethodGreaterThanOrEqualTo(String value) {
+            addCriterion("RATE_METHOD >=", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeLessThan(Short value) {
-            addCriterion("ACCMODE <", value, "accmode");
+        public Criteria andRateMethodLessThan(String value) {
+            addCriterion("RATE_METHOD <", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeLessThanOrEqualTo(Short value) {
-            addCriterion("ACCMODE <=", value, "accmode");
+        public Criteria andRateMethodLessThanOrEqualTo(String value) {
+            addCriterion("RATE_METHOD <=", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeIn(List<Short> values) {
-            addCriterion("ACCMODE in", values, "accmode");
+        public Criteria andRateMethodLike(String value) {
+            addCriterion("RATE_METHOD like", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeNotIn(List<Short> values) {
-            addCriterion("ACCMODE not in", values, "accmode");
+        public Criteria andRateMethodNotLike(String value) {
+            addCriterion("RATE_METHOD not like", value, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeBetween(Short value1, Short value2) {
-            addCriterion("ACCMODE between", value1, value2, "accmode");
+        public Criteria andRateMethodIn(List<String> values) {
+            addCriterion("RATE_METHOD in", values, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccmodeNotBetween(Short value1, Short value2) {
-            addCriterion("ACCMODE not between", value1, value2, "accmode");
+        public Criteria andRateMethodNotIn(List<String> values) {
+            addCriterion("RATE_METHOD not in", values, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccobjIsNull() {
-            addCriterion("ACCOBJ is null");
+        public Criteria andRateMethodBetween(String value1, String value2) {
+            addCriterion("RATE_METHOD between", value1, value2, "rateMethod");
             return (Criteria) this;
         }
 
-        public Criteria andAccobjIsNotNull() {
-            addCriterion("ACCOBJ is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjEqualTo(String value) {
-            addCriterion("ACCOBJ =", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjNotEqualTo(String value) {
-            addCriterion("ACCOBJ <>", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjGreaterThan(String value) {
-            addCriterion("ACCOBJ >", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjGreaterThanOrEqualTo(String value) {
-            addCriterion("ACCOBJ >=", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjLessThan(String value) {
-            addCriterion("ACCOBJ <", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjLessThanOrEqualTo(String value) {
-            addCriterion("ACCOBJ <=", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjLike(String value) {
-            addCriterion("ACCOBJ like", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjNotLike(String value) {
-            addCriterion("ACCOBJ not like", value, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjIn(List<String> values) {
-            addCriterion("ACCOBJ in", values, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjNotIn(List<String> values) {
-            addCriterion("ACCOBJ not in", values, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjBetween(String value1, String value2) {
-            addCriterion("ACCOBJ between", value1, value2, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andAccobjNotBetween(String value1, String value2) {
-            addCriterion("ACCOBJ not between", value1, value2, "accobj");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeIsNull() {
-            addCriterion("SERVICEFEE is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeIsNotNull() {
-            addCriterion("SERVICEFEE is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeEqualTo(Long value) {
-            addCriterion("SERVICEFEE =", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeNotEqualTo(Long value) {
-            addCriterion("SERVICEFEE <>", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeGreaterThan(Long value) {
-            addCriterion("SERVICEFEE >", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeGreaterThanOrEqualTo(Long value) {
-            addCriterion("SERVICEFEE >=", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeLessThan(Long value) {
-            addCriterion("SERVICEFEE <", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeLessThanOrEqualTo(Long value) {
-            addCriterion("SERVICEFEE <=", value, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeIn(List<Long> values) {
-            addCriterion("SERVICEFEE in", values, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeNotIn(List<Long> values) {
-            addCriterion("SERVICEFEE not in", values, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeBetween(Long value1, Long value2) {
-            addCriterion("SERVICEFEE between", value1, value2, "servicefee");
-            return (Criteria) this;
-        }
-
-        public Criteria andServicefeeNotBetween(Long value1, Long value2) {
-            addCriterion("SERVICEFEE not between", value1, value2, "servicefee");
+        public Criteria andRateMethodNotBetween(String value1, String value2) {
+            addCriterion("RATE_METHOD not between", value1, value2, "rateMethod");
             return (Criteria) this;
         }
 

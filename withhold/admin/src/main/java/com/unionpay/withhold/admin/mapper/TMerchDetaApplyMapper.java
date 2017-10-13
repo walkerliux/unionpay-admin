@@ -1,16 +1,18 @@
 package com.unionpay.withhold.admin.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TMerchDetaApplyMapper {
     int countByExample(TMerchDetaApplyExample example);
 
     int deleteByExample(TMerchDetaApplyExample example);
 
-    int deleteByPrimaryKey(Long selfId);
+    int deleteByPrimaryKey(Integer selfId);
 
     int insert(TMerchDetaApply record);
 
@@ -18,7 +20,7 @@ public interface TMerchDetaApplyMapper {
 
     List<TMerchDetaApply> selectByExample(TMerchDetaApplyExample example);
 
-    TMerchDetaApply selectByPrimaryKey(Long selfId);
+    TMerchDetaApply selectByPrimaryKey(Integer selfId);
 
     int updateByExampleSelective(@Param("record") TMerchDetaApply record, @Param("example") TMerchDetaApplyExample example);
 
@@ -27,4 +29,8 @@ public interface TMerchDetaApplyMapper {
     int updateByPrimaryKeySelective(TMerchDetaApply record);
 
     int updateByPrimaryKey(TMerchDetaApply record);
+    
+    List<TMerchDetaApply> selectApplyWithCondition(@Param("merchDetaApply")TMerchDetaApply merchDetaApply, @Param("statuses")List<String> statuses, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+    int selectCountWithCondition(@Param("merchDetaApply")TMerchDetaApply merchDetaApply, @Param("statuses")List<String> statuses);
+    
 }

@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.path.dao.ChnlCpdkLogMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.path.model.ChnlCpdkLog" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
+    <result column="merId" property="merid" jdbcType="CHAR" />
+    <result column="transDate" property="transdate" jdbcType="CHAR" />
+    <result column="orderNo" property="orderno" jdbcType="CHAR" />
+    <result column="transType" property="transtype" jdbcType="CHAR" />
+    <result column="openBankId" property="openbankid" jdbcType="CHAR" />
+    <result column="cardType" property="cardtype" jdbcType="CHAR" />
+    <result column="cardNo" property="cardno" jdbcType="CHAR" />
+    <result column="usrName" property="usrname" jdbcType="CHAR" />
+    <result column="certType" property="certtype" jdbcType="CHAR" />
+    <result column="certId" property="certid" jdbcType="CHAR" />
+    <result column="curyId" property="curyid" jdbcType="CHAR" />
+    <result column="transAmt" property="transamt" jdbcType="CHAR" />
+    <result column="purpose" property="purpose" jdbcType="CHAR" />
+    <result column="priv1" property="priv1" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="CHAR" />
+    <result column="gateId" property="gateid" jdbcType="CHAR" />
+    <result column="termType" property="termtype" jdbcType="CHAR" />
+    <result column="payMode" property="paymode" jdbcType="CHAR" />
+    <result column="userId" property="userid" jdbcType="CHAR" />
+    <result column="userRegisterTime" property="userregistertime" jdbcType="CHAR" />
+    <result column="userMail" property="usermail" jdbcType="CHAR" />
+    <result column="userMobile" property="usermobile" jdbcType="CHAR" />
+    <result column="diskSn" property="disksn" jdbcType="CHAR" />
+    <result column="mac" property="mac" jdbcType="CHAR" />
+    <result column="imei" property="imei" jdbcType="CHAR" />
+    <result column="ip" property="ip" jdbcType="CHAR" />
+    <result column="coordinates" property="coordinates" jdbcType="CHAR" />
+    <result column="baseStationSn" property="basestationsn" jdbcType="CHAR" />
+    <result column="codeInputType" property="codeinputtype" jdbcType="CHAR" />
+    <result column="mobileForBank" property="mobileforbank" jdbcType="CHAR" />
+    <result column="orderdesc" property="orderdesc" jdbcType="CHAR" />
+    <result column="chkValue" property="chkvalue" jdbcType="CHAR" />
+    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
+    <result column="transStat" property="transstat" jdbcType="CHAR" />
+    <result column="message" property="message" jdbcType="CHAR" />
+    <result column="chnlRetDate" property="chnlretdate" jdbcType="CHAR" />
+    <result column="inTime" property="intime" jdbcType="CHAR" />
+    <result column="upTime" property="uptime" jdbcType="CHAR" />
+    <result column="chnlFee" property="chnlfee" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    TID, TXNSEQNO, merId, transDate, orderNo, transType, openBankId, cardType, cardNo, 
+    usrName, certType, certId, curyId, transAmt, purpose, priv1, version, gateId, termType, 
+    payMode, userId, userRegisterTime, userMail, userMobile, diskSn, mac, imei, ip, coordinates, 
+    baseStationSn, codeInputType, mobileForBank, orderdesc, chkValue, responseCode, transStat, 
+    message, chnlRetDate, inTime, upTime, chnlFee
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_log
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chnl_cpdk_log
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.path.model.ChnlCpdkLog" >
+    insert into t_chnl_cpdk_log (TID, TXNSEQNO, merId, 
+      transDate, orderNo, transType, 
+      openBankId, cardType, cardNo, 
+      usrName, certType, certId, curyId, 
+      transAmt, purpose, priv1, version, 
+      gateId, termType, payMode, userId, 
+      userRegisterTime, userMail, userMobile, 
+      diskSn, mac, imei, ip, 
+      coordinates, baseStationSn, codeInputType, 
+      mobileForBank, orderdesc, chkValue, 
+      responseCode, transStat, message, 
+      chnlRetDate, inTime, upTime, 
+      chnlFee)
+    values (#{tid,jdbcType=INTEGER}, #{txnseqno,jdbcType=CHAR}, #{merid,jdbcType=CHAR}, 
+      #{transdate,jdbcType=CHAR}, #{orderno,jdbcType=CHAR}, #{transtype,jdbcType=CHAR}, 
+      #{openbankid,jdbcType=CHAR}, #{cardtype,jdbcType=CHAR}, #{cardno,jdbcType=CHAR}, 
+      #{usrname,jdbcType=CHAR}, #{certtype,jdbcType=CHAR}, #{certid,jdbcType=CHAR}, #{curyid,jdbcType=CHAR}, 
+      #{transamt,jdbcType=CHAR}, #{purpose,jdbcType=CHAR}, #{priv1,jdbcType=CHAR}, #{version,jdbcType=CHAR}, 
+      #{gateid,jdbcType=CHAR}, #{termtype,jdbcType=CHAR}, #{paymode,jdbcType=CHAR}, #{userid,jdbcType=CHAR}, 
+      #{userregistertime,jdbcType=CHAR}, #{usermail,jdbcType=CHAR}, #{usermobile,jdbcType=CHAR}, 
+      #{disksn,jdbcType=CHAR}, #{mac,jdbcType=CHAR}, #{imei,jdbcType=CHAR}, #{ip,jdbcType=CHAR}, 
+      #{coordinates,jdbcType=CHAR}, #{basestationsn,jdbcType=CHAR}, #{codeinputtype,jdbcType=CHAR}, 
+      #{mobileforbank,jdbcType=CHAR}, #{orderdesc,jdbcType=CHAR}, #{chkvalue,jdbcType=CHAR}, 
+      #{responsecode,jdbcType=CHAR}, #{transstat,jdbcType=CHAR}, #{message,jdbcType=CHAR}, 
+      #{chnlretdate,jdbcType=CHAR}, #{intime,jdbcType=CHAR}, #{uptime,jdbcType=CHAR}, 
+      #{chnlfee,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.path.model.ChnlCpdkLog" >
+    insert into t_chnl_cpdk_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="merid != null" >
+        merId,
+      </if>
+      <if test="transdate != null" >
+        transDate,
+      </if>
+      <if test="orderno != null" >
+        orderNo,
+      </if>
+      <if test="transtype != null" >
+        transType,
+      </if>
+      <if test="openbankid != null" >
+        openBankId,
+      </if>
+      <if test="cardtype != null" >
+        cardType,
+      </if>
+      <if test="cardno != null" >
+        cardNo,
+      </if>
+      <if test="usrname != null" >
+        usrName,
+      </if>
+      <if test="certtype != null" >
+        certType,
+      </if>
+      <if test="certid != null" >
+        certId,
+      </if>
+      <if test="curyid != null" >
+        curyId,
+      </if>
+      <if test="transamt != null" >
+        transAmt,
+      </if>
+      <if test="purpose != null" >
+        purpose,
+      </if>
+      <if test="priv1 != null" >
+        priv1,
+      </if>
+      <if test="version != null" >
+        version,
+      </if>
+      <if test="gateid != null" >
+        gateId,
+      </if>
+      <if test="termtype != null" >
+        termType,
+      </if>
+      <if test="paymode != null" >
+        payMode,
+      </if>
+      <if test="userid != null" >
+        userId,
+      </if>
+      <if test="userregistertime != null" >
+        userRegisterTime,
+      </if>
+      <if test="usermail != null" >
+        userMail,
+      </if>
+      <if test="usermobile != null" >
+        userMobile,
+      </if>
+      <if test="disksn != null" >
+        diskSn,
+      </if>
+      <if test="mac != null" >
+        mac,
+      </if>
+      <if test="imei != null" >
+        imei,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="coordinates != null" >
+        coordinates,
+      </if>
+      <if test="basestationsn != null" >
+        baseStationSn,
+      </if>
+      <if test="codeinputtype != null" >
+        codeInputType,
+      </if>
+      <if test="mobileforbank != null" >
+        mobileForBank,
+      </if>
+      <if test="orderdesc != null" >
+        orderdesc,
+      </if>
+      <if test="chkvalue != null" >
+        chkValue,
+      </if>
+      <if test="responsecode != null" >
+        responseCode,
+      </if>
+      <if test="transstat != null" >
+        transStat,
+      </if>
+      <if test="message != null" >
+        message,
+      </if>
+      <if test="chnlretdate != null" >
+        chnlRetDate,
+      </if>
+      <if test="intime != null" >
+        inTime,
+      </if>
+      <if test="uptime != null" >
+        upTime,
+      </if>
+      <if test="chnlfee != null" >
+        chnlFee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="merid != null" >
+        #{merid,jdbcType=CHAR},
+      </if>
+      <if test="transdate != null" >
+        #{transdate,jdbcType=CHAR},
+      </if>
+      <if test="orderno != null" >
+        #{orderno,jdbcType=CHAR},
+      </if>
+      <if test="transtype != null" >
+        #{transtype,jdbcType=CHAR},
+      </if>
+      <if test="openbankid != null" >
+        #{openbankid,jdbcType=CHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=CHAR},
+      </if>
+      <if test="cardno != null" >
+        #{cardno,jdbcType=CHAR},
+      </if>
+      <if test="usrname != null" >
+        #{usrname,jdbcType=CHAR},
+      </if>
+      <if test="certtype != null" >
+        #{certtype,jdbcType=CHAR},
+      </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=CHAR},
+      </if>
+      <if test="curyid != null" >
+        #{curyid,jdbcType=CHAR},
+      </if>
+      <if test="transamt != null" >
+        #{transamt,jdbcType=CHAR},
+      </if>
+      <if test="purpose != null" >
+        #{purpose,jdbcType=CHAR},
+      </if>
+      <if test="priv1 != null" >
+        #{priv1,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=CHAR},
+      </if>
+      <if test="gateid != null" >
+        #{gateid,jdbcType=CHAR},
+      </if>
+      <if test="termtype != null" >
+        #{termtype,jdbcType=CHAR},
+      </if>
+      <if test="paymode != null" >
+        #{paymode,jdbcType=CHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=CHAR},
+      </if>
+      <if test="userregistertime != null" >
+        #{userregistertime,jdbcType=CHAR},
+      </if>
+      <if test="usermail != null" >
+        #{usermail,jdbcType=CHAR},
+      </if>
+      <if test="usermobile != null" >
+        #{usermobile,jdbcType=CHAR},
+      </if>
+      <if test="disksn != null" >
+        #{disksn,jdbcType=CHAR},
+      </if>
+      <if test="mac != null" >
+        #{mac,jdbcType=CHAR},
+      </if>
+      <if test="imei != null" >
+        #{imei,jdbcType=CHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=CHAR},
+      </if>
+      <if test="coordinates != null" >
+        #{coordinates,jdbcType=CHAR},
+      </if>
+      <if test="basestationsn != null" >
+        #{basestationsn,jdbcType=CHAR},
+      </if>
+      <if test="codeinputtype != null" >
+        #{codeinputtype,jdbcType=CHAR},
+      </if>
+      <if test="mobileforbank != null" >
+        #{mobileforbank,jdbcType=CHAR},
+      </if>
+      <if test="orderdesc != null" >
+        #{orderdesc,jdbcType=CHAR},
+      </if>
+      <if test="chkvalue != null" >
+        #{chkvalue,jdbcType=CHAR},
+      </if>
+      <if test="responsecode != null" >
+        #{responsecode,jdbcType=CHAR},
+      </if>
+      <if test="transstat != null" >
+        #{transstat,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        #{message,jdbcType=CHAR},
+      </if>
+      <if test="chnlretdate != null" >
+        #{chnlretdate,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=CHAR},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=CHAR},
+      </if>
+      <if test="chnlfee != null" >
+        #{chnlfee,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.path.model.ChnlCpdkLog" >
+    update t_chnl_cpdk_log
+    <set >
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="merid != null" >
+        merId = #{merid,jdbcType=CHAR},
+      </if>
+      <if test="transdate != null" >
+        transDate = #{transdate,jdbcType=CHAR},
+      </if>
+      <if test="orderno != null" >
+        orderNo = #{orderno,jdbcType=CHAR},
+      </if>
+      <if test="transtype != null" >
+        transType = #{transtype,jdbcType=CHAR},
+      </if>
+      <if test="openbankid != null" >
+        openBankId = #{openbankid,jdbcType=CHAR},
+      </if>
+      <if test="cardtype != null" >
+        cardType = #{cardtype,jdbcType=CHAR},
+      </if>
+      <if test="cardno != null" >
+        cardNo = #{cardno,jdbcType=CHAR},
+      </if>
+      <if test="usrname != null" >
+        usrName = #{usrname,jdbcType=CHAR},
+      </if>
+      <if test="certtype != null" >
+        certType = #{certtype,jdbcType=CHAR},
+      </if>
+      <if test="certid != null" >
+        certId = #{certid,jdbcType=CHAR},
+      </if>
+      <if test="curyid != null" >
+        curyId = #{curyid,jdbcType=CHAR},
+      </if>
+      <if test="transamt != null" >
+        transAmt = #{transamt,jdbcType=CHAR},
+      </if>
+      <if test="purpose != null" >
+        purpose = #{purpose,jdbcType=CHAR},
+      </if>
+      <if test="priv1 != null" >
+        priv1 = #{priv1,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=CHAR},
+      </if>
+      <if test="gateid != null" >
+        gateId = #{gateid,jdbcType=CHAR},
+      </if>
+      <if test="termtype != null" >
+        termType = #{termtype,jdbcType=CHAR},
+      </if>
+      <if test="paymode != null" >
+        payMode = #{paymode,jdbcType=CHAR},
+      </if>
+      <if test="userid != null" >
+        userId = #{userid,jdbcType=CHAR},
+      </if>
+      <if test="userregistertime != null" >
+        userRegisterTime = #{userregistertime,jdbcType=CHAR},
+      </if>
+      <if test="usermail != null" >
+        userMail = #{usermail,jdbcType=CHAR},
+      </if>
+      <if test="usermobile != null" >
+        userMobile = #{usermobile,jdbcType=CHAR},
+      </if>
+      <if test="disksn != null" >
+        diskSn = #{disksn,jdbcType=CHAR},
+      </if>
+      <if test="mac != null" >
+        mac = #{mac,jdbcType=CHAR},
+      </if>
+      <if test="imei != null" >
+        imei = #{imei,jdbcType=CHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=CHAR},
+      </if>
+      <if test="coordinates != null" >
+        coordinates = #{coordinates,jdbcType=CHAR},
+      </if>
+      <if test="basestationsn != null" >
+        baseStationSn = #{basestationsn,jdbcType=CHAR},
+      </if>
+      <if test="codeinputtype != null" >
+        codeInputType = #{codeinputtype,jdbcType=CHAR},
+      </if>
+      <if test="mobileforbank != null" >
+        mobileForBank = #{mobileforbank,jdbcType=CHAR},
+      </if>
+      <if test="orderdesc != null" >
+        orderdesc = #{orderdesc,jdbcType=CHAR},
+      </if>
+      <if test="chkvalue != null" >
+        chkValue = #{chkvalue,jdbcType=CHAR},
+      </if>
+      <if test="responsecode != null" >
+        responseCode = #{responsecode,jdbcType=CHAR},
+      </if>
+      <if test="transstat != null" >
+        transStat = #{transstat,jdbcType=CHAR},
+      </if>
+      <if test="message != null" >
+        message = #{message,jdbcType=CHAR},
+      </if>
+      <if test="chnlretdate != null" >
+        chnlRetDate = #{chnlretdate,jdbcType=CHAR},
+      </if>
+      <if test="intime != null" >
+        inTime = #{intime,jdbcType=CHAR},
+      </if>
+      <if test="uptime != null" >
+        upTime = #{uptime,jdbcType=CHAR},
+      </if>
+      <if test="chnlfee != null" >
+        chnlFee = #{chnlfee,jdbcType=CHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.path.model.ChnlCpdkLog" >
+    update t_chnl_cpdk_log
+    set TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      merId = #{merid,jdbcType=CHAR},
+      transDate = #{transdate,jdbcType=CHAR},
+      orderNo = #{orderno,jdbcType=CHAR},
+      transType = #{transtype,jdbcType=CHAR},
+      openBankId = #{openbankid,jdbcType=CHAR},
+      cardType = #{cardtype,jdbcType=CHAR},
+      cardNo = #{cardno,jdbcType=CHAR},
+      usrName = #{usrname,jdbcType=CHAR},
+      certType = #{certtype,jdbcType=CHAR},
+      certId = #{certid,jdbcType=CHAR},
+      curyId = #{curyid,jdbcType=CHAR},
+      transAmt = #{transamt,jdbcType=CHAR},
+      purpose = #{purpose,jdbcType=CHAR},
+      priv1 = #{priv1,jdbcType=CHAR},
+      version = #{version,jdbcType=CHAR},
+      gateId = #{gateid,jdbcType=CHAR},
+      termType = #{termtype,jdbcType=CHAR},
+      payMode = #{paymode,jdbcType=CHAR},
+      userId = #{userid,jdbcType=CHAR},
+      userRegisterTime = #{userregistertime,jdbcType=CHAR},
+      userMail = #{usermail,jdbcType=CHAR},
+      userMobile = #{usermobile,jdbcType=CHAR},
+      diskSn = #{disksn,jdbcType=CHAR},
+      mac = #{mac,jdbcType=CHAR},
+      imei = #{imei,jdbcType=CHAR},
+      ip = #{ip,jdbcType=CHAR},
+      coordinates = #{coordinates,jdbcType=CHAR},
+      baseStationSn = #{basestationsn,jdbcType=CHAR},
+      codeInputType = #{codeinputtype,jdbcType=CHAR},
+      mobileForBank = #{mobileforbank,jdbcType=CHAR},
+      orderdesc = #{orderdesc,jdbcType=CHAR},
+      chkValue = #{chkvalue,jdbcType=CHAR},
+      responseCode = #{responsecode,jdbcType=CHAR},
+      transStat = #{transstat,jdbcType=CHAR},
+      message = #{message,jdbcType=CHAR},
+      chnlRetDate = #{chnlretdate,jdbcType=CHAR},
+      inTime = #{intime,jdbcType=CHAR},
+      upTime = #{uptime,jdbcType=CHAR},
+      chnlFee = #{chnlfee,jdbcType=CHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

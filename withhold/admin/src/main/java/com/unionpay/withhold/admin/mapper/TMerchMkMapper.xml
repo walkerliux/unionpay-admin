@@ -2,13 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TMerchMkMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TMerchMk" >
-    <id column="MEMBERID" property="memberid" jdbcType="VARCHAR" />
-    <result column="SAFESEQ" property="safeseq" jdbcType="VARCHAR" />
+    <id column="SAFESEQ" property="safeseq" jdbcType="INTEGER" />
+    <result column="MEMBERID" property="memberid" jdbcType="VARCHAR" />
     <result column="SAFETYPE" property="safetype" jdbcType="VARCHAR" />
     <result column="MEMBERPUBKEY" property="memberpubkey" jdbcType="VARCHAR" />
     <result column="MEMBERPRIKEY" property="memberprikey" jdbcType="VARCHAR" />
     <result column="LOCALPUBKEY" property="localpubkey" jdbcType="VARCHAR" />
     <result column="LOCALPRIKEY" property="localprikey" jdbcType="VARCHAR" />
+    <result column="PLATFORMPFXPWD" property="platformpfxpwd" jdbcType="VARCHAR" />
     <result column="BMK" property="bmk" jdbcType="VARCHAR" />
     <result column="PIN" property="pin" jdbcType="VARCHAR" />
     <result column="MAC" property="mac" jdbcType="VARCHAR" />
@@ -79,8 +80,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    MEMBERID, SAFESEQ, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
-    BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS
+    SAFESEQ, MEMBERID, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
+    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" >
     select
@@ -96,15 +97,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" >
     delete from t_merch_mk
@@ -113,27 +114,27 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
-    insert into t_merch_mk (MEMBERID, SAFESEQ, SAFETYPE, 
+    insert into t_merch_mk (SAFESEQ, MEMBERID, SAFETYPE, 
       MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, 
-      LOCALPRIKEY, BMK, PIN, 
-      MAC, DATA, MD5, STORGETYPE, 
-      STATUS, KEYFLAG, NOTES, 
-      REMARKS)
-    values (#{memberid,jdbcType=VARCHAR}, #{safeseq,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
+      LOCALPRIKEY, PLATFORMPFXPWD, BMK, 
+      PIN, MAC, DATA, MD5, 
+      STORGETYPE, STATUS, KEYFLAG, 
+      NOTES, REMARKS)
+    values (#{safeseq,jdbcType=INTEGER}, #{memberid,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
       #{memberpubkey,jdbcType=VARCHAR}, #{memberprikey,jdbcType=VARCHAR}, #{localpubkey,jdbcType=VARCHAR}, 
-      #{localprikey,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, #{pin,jdbcType=VARCHAR}, 
-      #{mac,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, #{storgetype,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{keyflag,jdbcType=CHAR}, #{notes,jdbcType=VARCHAR}, 
-      #{remarks,jdbcType=VARCHAR})
+      #{localprikey,jdbcType=VARCHAR}, #{platformpfxpwd,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, 
+      #{pin,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, 
+      #{storgetype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{keyflag,jdbcType=CHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
     insert into t_merch_mk
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="memberid != null" >
-        MEMBERID,
-      </if>
       <if test="safeseq != null" >
         SAFESEQ,
+      </if>
+      <if test="memberid != null" >
+        MEMBERID,
       </if>
       <if test="safetype != null" >
         SAFETYPE,
@@ -149,6 +150,9 @@
       </if>
       <if test="localprikey != null" >
         LOCALPRIKEY,
+      </if>
+      <if test="platformpfxpwd != null" >
+        PLATFORMPFXPWD,
       </if>
       <if test="bmk != null" >
         BMK,
@@ -182,11 +186,11 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="safeseq != null" >
+        #{safeseq,jdbcType=INTEGER},
+      </if>
       <if test="memberid != null" >
         #{memberid,jdbcType=VARCHAR},
-      </if>
-      <if test="safeseq != null" >
-        #{safeseq,jdbcType=VARCHAR},
       </if>
       <if test="safetype != null" >
         #{safetype,jdbcType=VARCHAR},
@@ -202,6 +206,9 @@
       </if>
       <if test="localprikey != null" >
         #{localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformpfxpwd != null" >
+        #{platformpfxpwd,jdbcType=VARCHAR},
       </if>
       <if test="bmk != null" >
         #{bmk,jdbcType=VARCHAR},
@@ -244,11 +251,11 @@
   <update id="updateByExampleSelective" parameterType="map" >
     update t_merch_mk
     <set >
+      <if test="record.safeseq != null" >
+        SAFESEQ = #{record.safeseq,jdbcType=INTEGER},
+      </if>
       <if test="record.memberid != null" >
         MEMBERID = #{record.memberid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.safeseq != null" >
-        SAFESEQ = #{record.safeseq,jdbcType=VARCHAR},
       </if>
       <if test="record.safetype != null" >
         SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
@@ -264,6 +271,9 @@
       </if>
       <if test="record.localprikey != null" >
         LOCALPRIKEY = #{record.localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platformpfxpwd != null" >
+        PLATFORMPFXPWD = #{record.platformpfxpwd,jdbcType=VARCHAR},
       </if>
       <if test="record.bmk != null" >
         BMK = #{record.bmk,jdbcType=VARCHAR},
@@ -302,13 +312,14 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update t_merch_mk
-    set MEMBERID = #{record.memberid,jdbcType=VARCHAR},
-      SAFESEQ = #{record.safeseq,jdbcType=VARCHAR},
+    set SAFESEQ = #{record.safeseq,jdbcType=INTEGER},
+      MEMBERID = #{record.memberid,jdbcType=VARCHAR},
       SAFETYPE = #{record.safetype,jdbcType=VARCHAR},
       MEMBERPUBKEY = #{record.memberpubkey,jdbcType=VARCHAR},
       MEMBERPRIKEY = #{record.memberprikey,jdbcType=VARCHAR},
       LOCALPUBKEY = #{record.localpubkey,jdbcType=VARCHAR},
       LOCALPRIKEY = #{record.localprikey,jdbcType=VARCHAR},
+      PLATFORMPFXPWD = #{record.platformpfxpwd,jdbcType=VARCHAR},
       BMK = #{record.bmk,jdbcType=VARCHAR},
       PIN = #{record.pin,jdbcType=VARCHAR},
       MAC = #{record.mac,jdbcType=VARCHAR},
@@ -326,8 +337,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
     update t_merch_mk
     <set >
-      <if test="safeseq != null" >
-        SAFESEQ = #{safeseq,jdbcType=VARCHAR},
+      <if test="memberid != null" >
+        MEMBERID = #{memberid,jdbcType=VARCHAR},
       </if>
       <if test="safetype != null" >
         SAFETYPE = #{safetype,jdbcType=VARCHAR},
@@ -343,6 +354,9 @@
       </if>
       <if test="localprikey != null" >
         LOCALPRIKEY = #{localprikey,jdbcType=VARCHAR},
+      </if>
+      <if test="platformpfxpwd != null" >
+        PLATFORMPFXPWD = #{platformpfxpwd,jdbcType=VARCHAR},
       </if>
       <if test="bmk != null" >
         BMK = #{bmk,jdbcType=VARCHAR},
@@ -375,16 +389,17 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
     update t_merch_mk
-    set SAFESEQ = #{safeseq,jdbcType=VARCHAR},
+    set MEMBERID = #{memberid,jdbcType=VARCHAR},
       SAFETYPE = #{safetype,jdbcType=VARCHAR},
       MEMBERPUBKEY = #{memberpubkey,jdbcType=VARCHAR},
       MEMBERPRIKEY = #{memberprikey,jdbcType=VARCHAR},
       LOCALPUBKEY = #{localpubkey,jdbcType=VARCHAR},
       LOCALPRIKEY = #{localprikey,jdbcType=VARCHAR},
+      PLATFORMPFXPWD = #{platformpfxpwd,jdbcType=VARCHAR},
       BMK = #{bmk,jdbcType=VARCHAR},
       PIN = #{pin,jdbcType=VARCHAR},
       MAC = #{mac,jdbcType=VARCHAR},
@@ -395,6 +410,6 @@
       KEYFLAG = #{keyflag,jdbcType=CHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
       REMARKS = #{remarks,jdbcType=VARCHAR}
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,0 +1,598 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.withhold.trade.order.dao.OrderCollectBatchDAO">
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    <id column="TID" jdbcType="DECIMAL" property="tid" />
+    <result column="MERID" jdbcType="VARCHAR" property="merid" />
+    <result column="VERSION" jdbcType="VARCHAR" property="version" />
+    <result column="ENCODING" jdbcType="VARCHAR" property="encoding" />
+    <result column="CERTID" jdbcType="VARCHAR" property="certid" />
+    <result column="TXNTYPE" jdbcType="VARCHAR" property="txntype" />
+    <result column="TXNSUBTYPE" jdbcType="VARCHAR" property="txnsubtype" />
+    <result column="BIZTYPE" jdbcType="VARCHAR" property="biztype" />
+    <result column="BACKURL" jdbcType="VARCHAR" property="backurl" />
+    <result column="BATCHNO" jdbcType="VARCHAR" property="batchno" />
+    <result column="FACTORID" jdbcType="VARCHAR" property="factorid" />
+    <result column="TXNTIME" jdbcType="VARCHAR" property="txntime" />
+    <result column="TXNDATE" jdbcType="VARCHAR" property="txndate" />
+    <result column="TOTALQTY" jdbcType="DECIMAL" property="totalqty" />
+    <result column="TOTALAMT" jdbcType="DECIMAL" property="totalamt" />
+    <result column="RESERVED" jdbcType="VARCHAR" property="reserved" />
+    <result column="RESPCODE" jdbcType="VARCHAR" property="respcode" />
+    <result column="RESPMSG" jdbcType="VARCHAR" property="respmsg" />
+    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    <result column="ORDERCOMMITIME" jdbcType="VARCHAR" property="ordercommitime" />
+    <result column="ORDERFINSHTIME" jdbcType="VARCHAR" property="orderfinshtime" />
+    <result column="SYNCNOTIFY" jdbcType="VARCHAR" property="syncnotify" />
+    <result column="TN" jdbcType="VARCHAR" property="tn" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="ACCESSTYPE" jdbcType="VARCHAR" property="accesstype" />
+    <result column="COOPINSTIID" jdbcType="VARCHAR" property="coopinstiid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TID, MERID, VERSION, ENCODING, CERTID, TXNTYPE, TXNSUBTYPE, BIZTYPE, BACKURL, BATCHNO, 
+    FACTORID, TXNTIME, TXNDATE, TOTALQTY, TOTALAMT, RESERVED, RESPCODE, RESPMSG, STATUS, 
+    ORDERCOMMITIME, ORDERFINSHTIME, SYNCNOTIFY, TN, NOTES, REMARKS, ACCESSTYPE, COOPINSTIID
+  </sql>
+  <select id="selectByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_order_collect_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_collect_batch
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_order_collect_batch
+    where TID = #{tid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDOExample">
+    delete from t_order_collect_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    insert into t_order_collect_batch (TID, MERID, VERSION, 
+      ENCODING, CERTID, TXNTYPE, 
+      TXNSUBTYPE, BIZTYPE, BACKURL, 
+      BATCHNO, FACTORID, TXNTIME, 
+      TXNDATE, TOTALQTY, TOTALAMT, 
+      RESERVED, RESPCODE, RESPMSG, 
+      STATUS, ORDERCOMMITIME, ORDERFINSHTIME, 
+      SYNCNOTIFY, TN, NOTES, 
+      REMARKS, ACCESSTYPE, COOPINSTIID
+      )
+    values (#{tid,jdbcType=DECIMAL}, #{merid,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, 
+      #{encoding,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}, #{txntype,jdbcType=VARCHAR}, 
+      #{txnsubtype,jdbcType=VARCHAR}, #{biztype,jdbcType=VARCHAR}, #{backurl,jdbcType=VARCHAR}, 
+      #{batchno,jdbcType=VARCHAR}, #{factorid,jdbcType=VARCHAR}, #{txntime,jdbcType=VARCHAR}, 
+      #{txndate,jdbcType=VARCHAR}, #{totalqty,jdbcType=DECIMAL}, #{totalamt,jdbcType=DECIMAL}, 
+      #{reserved,jdbcType=VARCHAR}, #{respcode,jdbcType=VARCHAR}, #{respmsg,jdbcType=VARCHAR}, 
+      #{status,jdbcType=VARCHAR}, #{ordercommitime,jdbcType=VARCHAR}, #{orderfinshtime,jdbcType=VARCHAR}, 
+      #{syncnotify,jdbcType=VARCHAR}, #{tn,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR}, #{accesstype,jdbcType=VARCHAR}, #{coopinstiid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    insert into t_order_collect_batch
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        TID,
+      </if>
+      <if test="merid != null">
+        MERID,
+      </if>
+      <if test="version != null">
+        VERSION,
+      </if>
+      <if test="encoding != null">
+        ENCODING,
+      </if>
+      <if test="certid != null">
+        CERTID,
+      </if>
+      <if test="txntype != null">
+        TXNTYPE,
+      </if>
+      <if test="txnsubtype != null">
+        TXNSUBTYPE,
+      </if>
+      <if test="biztype != null">
+        BIZTYPE,
+      </if>
+      <if test="backurl != null">
+        BACKURL,
+      </if>
+      <if test="batchno != null">
+        BATCHNO,
+      </if>
+      <if test="factorid != null">
+        FACTORID,
+      </if>
+      <if test="txntime != null">
+        TXNTIME,
+      </if>
+      <if test="txndate != null">
+        TXNDATE,
+      </if>
+      <if test="totalqty != null">
+        TOTALQTY,
+      </if>
+      <if test="totalamt != null">
+        TOTALAMT,
+      </if>
+      <if test="reserved != null">
+        RESERVED,
+      </if>
+      <if test="respcode != null">
+        RESPCODE,
+      </if>
+      <if test="respmsg != null">
+        RESPMSG,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="ordercommitime != null">
+        ORDERCOMMITIME,
+      </if>
+      <if test="orderfinshtime != null">
+        ORDERFINSHTIME,
+      </if>
+      <if test="syncnotify != null">
+        SYNCNOTIFY,
+      </if>
+      <if test="tn != null">
+        TN,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="accesstype != null">
+        ACCESSTYPE,
+      </if>
+      <if test="coopinstiid != null">
+        COOPINSTIID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tid != null">
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="merid != null">
+        #{merid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null">
+        #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null">
+        #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null">
+        #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="txnsubtype != null">
+        #{txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="biztype != null">
+        #{biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="backurl != null">
+        #{backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="batchno != null">
+        #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntime != null">
+        #{txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="txndate != null">
+        #{txndate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalqty != null">
+        #{totalqty,jdbcType=DECIMAL},
+      </if>
+      <if test="totalamt != null">
+        #{totalamt,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved != null">
+        #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null">
+        #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respmsg != null">
+        #{respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercommitime != null">
+        #{ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderfinshtime != null">
+        #{orderfinshtime,jdbcType=VARCHAR},
+      </if>
+      <if test="syncnotify != null">
+        #{syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null">
+        #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="accesstype != null">
+        #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null">
+        #{coopinstiid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDOExample" resultType="java.lang.Long">
+    select count(*) from t_order_collect_batch
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_order_collect_batch
+    <set>
+      <if test="record.tid != null">
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.merid != null">
+        MERID = #{record.merid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null">
+        VERSION = #{record.version,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encoding != null">
+        ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="record.certid != null">
+        CERTID = #{record.certid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txntype != null">
+        TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txnsubtype != null">
+        TXNSUBTYPE = #{record.txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.biztype != null">
+        BIZTYPE = #{record.biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.backurl != null">
+        BACKURL = #{record.backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.batchno != null">
+        BATCHNO = #{record.batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.factorid != null">
+        FACTORID = #{record.factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txntime != null">
+        TXNTIME = #{record.txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.txndate != null">
+        TXNDATE = #{record.txndate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalqty != null">
+        TOTALQTY = #{record.totalqty,jdbcType=DECIMAL},
+      </if>
+      <if test="record.totalamt != null">
+        TOTALAMT = #{record.totalamt,jdbcType=DECIMAL},
+      </if>
+      <if test="record.reserved != null">
+        RESERVED = #{record.reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respcode != null">
+        RESPCODE = #{record.respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.respmsg != null">
+        RESPMSG = #{record.respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ordercommitime != null">
+        ORDERCOMMITIME = #{record.ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderfinshtime != null">
+        ORDERFINSHTIME = #{record.orderfinshtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.syncnotify != null">
+        SYNCNOTIFY = #{record.syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tn != null">
+        TN = #{record.tn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null">
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null">
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accesstype != null">
+        ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coopinstiid != null">
+        COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_order_collect_batch
+    set TID = #{record.tid,jdbcType=DECIMAL},
+      MERID = #{record.merid,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=VARCHAR},
+      ENCODING = #{record.encoding,jdbcType=VARCHAR},
+      CERTID = #{record.certid,jdbcType=VARCHAR},
+      TXNTYPE = #{record.txntype,jdbcType=VARCHAR},
+      TXNSUBTYPE = #{record.txnsubtype,jdbcType=VARCHAR},
+      BIZTYPE = #{record.biztype,jdbcType=VARCHAR},
+      BACKURL = #{record.backurl,jdbcType=VARCHAR},
+      BATCHNO = #{record.batchno,jdbcType=VARCHAR},
+      FACTORID = #{record.factorid,jdbcType=VARCHAR},
+      TXNTIME = #{record.txntime,jdbcType=VARCHAR},
+      TXNDATE = #{record.txndate,jdbcType=VARCHAR},
+      TOTALQTY = #{record.totalqty,jdbcType=DECIMAL},
+      TOTALAMT = #{record.totalamt,jdbcType=DECIMAL},
+      RESERVED = #{record.reserved,jdbcType=VARCHAR},
+      RESPCODE = #{record.respcode,jdbcType=VARCHAR},
+      RESPMSG = #{record.respmsg,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      ORDERCOMMITIME = #{record.ordercommitime,jdbcType=VARCHAR},
+      ORDERFINSHTIME = #{record.orderfinshtime,jdbcType=VARCHAR},
+      SYNCNOTIFY = #{record.syncnotify,jdbcType=VARCHAR},
+      TN = #{record.tn,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      ACCESSTYPE = #{record.accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{record.coopinstiid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    update t_order_collect_batch
+    <set>
+      <if test="merid != null">
+        MERID = #{merid,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        VERSION = #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="encoding != null">
+        ENCODING = #{encoding,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null">
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntype != null">
+        TXNTYPE = #{txntype,jdbcType=VARCHAR},
+      </if>
+      <if test="txnsubtype != null">
+        TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="biztype != null">
+        BIZTYPE = #{biztype,jdbcType=VARCHAR},
+      </if>
+      <if test="backurl != null">
+        BACKURL = #{backurl,jdbcType=VARCHAR},
+      </if>
+      <if test="batchno != null">
+        BATCHNO = #{batchno,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        FACTORID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="txntime != null">
+        TXNTIME = #{txntime,jdbcType=VARCHAR},
+      </if>
+      <if test="txndate != null">
+        TXNDATE = #{txndate,jdbcType=VARCHAR},
+      </if>
+      <if test="totalqty != null">
+        TOTALQTY = #{totalqty,jdbcType=DECIMAL},
+      </if>
+      <if test="totalamt != null">
+        TOTALAMT = #{totalamt,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved != null">
+        RESERVED = #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="respcode != null">
+        RESPCODE = #{respcode,jdbcType=VARCHAR},
+      </if>
+      <if test="respmsg != null">
+        RESPMSG = #{respmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="ordercommitime != null">
+        ORDERCOMMITIME = #{ordercommitime,jdbcType=VARCHAR},
+      </if>
+      <if test="orderfinshtime != null">
+        ORDERFINSHTIME = #{orderfinshtime,jdbcType=VARCHAR},
+      </if>
+      <if test="syncnotify != null">
+        SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
+      </if>
+      <if test="tn != null">
+        TN = #{tn,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="accesstype != null">
+        ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      </if>
+      <if test="coopinstiid != null">
+        COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    update t_order_collect_batch
+    set MERID = #{merid,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=VARCHAR},
+      ENCODING = #{encoding,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR},
+      TXNTYPE = #{txntype,jdbcType=VARCHAR},
+      TXNSUBTYPE = #{txnsubtype,jdbcType=VARCHAR},
+      BIZTYPE = #{biztype,jdbcType=VARCHAR},
+      BACKURL = #{backurl,jdbcType=VARCHAR},
+      BATCHNO = #{batchno,jdbcType=VARCHAR},
+      FACTORID = #{factorid,jdbcType=VARCHAR},
+      TXNTIME = #{txntime,jdbcType=VARCHAR},
+      TXNDATE = #{txndate,jdbcType=VARCHAR},
+      TOTALQTY = #{totalqty,jdbcType=DECIMAL},
+      TOTALAMT = #{totalamt,jdbcType=DECIMAL},
+      RESERVED = #{reserved,jdbcType=VARCHAR},
+      RESPCODE = #{respcode,jdbcType=VARCHAR},
+      RESPMSG = #{respmsg,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      ORDERCOMMITIME = #{ordercommitime,jdbcType=VARCHAR},
+      ORDERFINSHTIME = #{orderfinshtime,jdbcType=VARCHAR},
+      SYNCNOTIFY = #{syncnotify,jdbcType=VARCHAR},
+      TN = #{tn,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      ACCESSTYPE = #{accesstype,jdbcType=VARCHAR},
+      COOPINSTIID = #{coopinstiid,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <select id="getCollectBatchOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	BATCHNO = #{batchno,jdbcType=VARCHAR}
+    and MERID = #{merid,jdbcType=VARCHAR}
+    and TXNDATE = #{txndate,jdbcType=VARCHAR}
+  </select>
+  <select id="queryCollectBatchOrder" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from 
+    	t_order_collect_batch
+    where 
+    	1=1 
+    	<if test="merid != null and merid != ''">
+        	AND MERID = #{merid,jdbcType=VARCHAR}
+     	</if>
+     	<if test="txndate != null and txndate != ''">
+	        AND TXNDATE = #{txndate,jdbcType=VARCHAR}
+	    </if>
+	    <if test="batchno != null and batchno != ''">
+        	AND BATCHNO = #{batchno,jdbcType=VARCHAR}
+     	</if>
+     	<if test="tn != null and tn != ''">
+	        AND TN = #{tn,jdbcType=VARCHAR}
+	     </if>
+  </select>
+  <update id="updateByTN" parameterType="com.unionpay.withhold.trade.order.pojo.OrderCollectBatchDO">
+    update t_order_collect_batch
+    set
+      STATUS = #{status,jdbcType=VARCHAR},
+      ORDERFINSHTIME = #{orderfinshtime,jdbcType=VARCHAR}
+    where 
+    	TN = #{tn,jdbcType=VARCHAR}
+  </update>
+</mapper>

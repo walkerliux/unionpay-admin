@@ -1,9 +1,9 @@
 package com.unionpay.withhold.api.model;
 
 public class MerchMk {
-    private String memberid;
+    private Integer safeseq;
 
-    private String safeseq;
+    private String memberid;
 
     private String safetype;
 
@@ -37,20 +37,22 @@ public class MerchMk {
 
     private String remarks;
 
+    private String certid;
+
+    public Integer getSafeseq() {
+        return safeseq;
+    }
+
+    public void setSafeseq(Integer safeseq) {
+        this.safeseq = safeseq;
+    }
+
     public String getMemberid() {
         return memberid;
     }
 
     public void setMemberid(String memberid) {
         this.memberid = memberid == null ? null : memberid.trim();
-    }
-
-    public String getSafeseq() {
-        return safeseq;
-    }
-
-    public void setSafeseq(String safeseq) {
-        this.safeseq = safeseq == null ? null : safeseq.trim();
     }
 
     public String getSafetype() {
@@ -179,5 +181,13 @@ public class MerchMk {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getCertid() {
+        return certid;
+    }
+
+    public void setCertid(String certid) {
+        this.certid = certid == null ? null : certid.trim();
     }
 }

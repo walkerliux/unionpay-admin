@@ -2,6 +2,7 @@ package com.unionpay.withhold.admin.mapper;
 
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
 import com.unionpay.withhold.admin.pojo.TMerchChnlExample;
+import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,21 +11,27 @@ public interface TMerchChnlMapper {
 
     int deleteByExample(TMerchChnlExample example);
 
-    int deleteByPrimaryKey(String tid);
+    int deleteByPrimaryKey(Integer tid);
 
-    int insert(TMerchChnl record);
+    int insert(TMerchChnlWithBLOBs record);
 
-    int insertSelective(TMerchChnl record);
+    int insertSelective(TMerchChnlWithBLOBs record);
+
+    List<TMerchChnlWithBLOBs> selectByExampleWithBLOBs(TMerchChnlExample example);
 
     List<TMerchChnl> selectByExample(TMerchChnlExample example);
 
-    TMerchChnl selectByPrimaryKey(String tid);
+    TMerchChnlWithBLOBs selectByPrimaryKey(Integer tid);
 
-    int updateByExampleSelective(@Param("record") TMerchChnl record, @Param("example") TMerchChnlExample example);
+    int updateByExampleSelective(@Param("record") TMerchChnlWithBLOBs record, @Param("example") TMerchChnlExample example);
+
+    int updateByExampleWithBLOBs(@Param("record") TMerchChnlWithBLOBs record, @Param("example") TMerchChnlExample example);
 
     int updateByExample(@Param("record") TMerchChnl record, @Param("example") TMerchChnlExample example);
 
-    int updateByPrimaryKeySelective(TMerchChnl record);
+    int updateByPrimaryKeySelective(TMerchChnlWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(TMerchChnlWithBLOBs record);
 
     int updateByPrimaryKey(TMerchChnl record);
 }

@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.api.dao.MerchMkMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.api.model.MerchMk" >
-    <id column="MEMBERID" property="memberid" jdbcType="VARCHAR" />
-    <result column="SAFESEQ" property="safeseq" jdbcType="VARCHAR" />
+    <id column="SAFESEQ" property="safeseq" jdbcType="INTEGER" />
+    <result column="MEMBERID" property="memberid" jdbcType="VARCHAR" />
     <result column="SAFETYPE" property="safetype" jdbcType="VARCHAR" />
     <result column="MEMBERPUBKEY" property="memberpubkey" jdbcType="VARCHAR" />
     <result column="MEMBERPRIKEY" property="memberprikey" jdbcType="VARCHAR" />
@@ -20,43 +20,47 @@
     <result column="KEYFLAG" property="keyflag" jdbcType="CHAR" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    MEMBERID, SAFESEQ, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
-    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS
+    SAFESEQ, MEMBERID, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
+    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS, 
+    CERTID
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByCertId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where CERTID = #{certid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_merch_mk
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.api.model.MerchMk" >
-    insert into t_merch_mk (MEMBERID, SAFESEQ, SAFETYPE, 
+    insert into t_merch_mk (SAFESEQ, MEMBERID, SAFETYPE, 
       MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, 
       LOCALPRIKEY, PLATFORMPFXPWD, BMK, 
       PIN, MAC, DATA, MD5, 
       STORGETYPE, STATUS, KEYFLAG, 
-      NOTES, REMARKS)
-    values (#{memberid,jdbcType=VARCHAR}, #{safeseq,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
+      NOTES, REMARKS, CERTID
+      )
+    values (#{safeseq,jdbcType=INTEGER}, #{memberid,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
       #{memberpubkey,jdbcType=VARCHAR}, #{memberprikey,jdbcType=VARCHAR}, #{localpubkey,jdbcType=VARCHAR}, 
       #{localprikey,jdbcType=VARCHAR}, #{platformpfxpwd,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, 
       #{pin,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, 
       #{storgetype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{keyflag,jdbcType=CHAR}, 
-      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.api.model.MerchMk" >
     insert into t_merch_mk
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="memberid != null" >
-        MEMBERID,
-      </if>
       <if test="safeseq != null" >
         SAFESEQ,
+      </if>
+      <if test="memberid != null" >
+        MEMBERID,
       </if>
       <if test="safetype != null" >
         SAFETYPE,
@@ -106,13 +110,16 @@
       <if test="remarks != null" >
         REMARKS,
       </if>
+      <if test="certid != null" >
+        CERTID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="safeseq != null" >
+        #{safeseq,jdbcType=INTEGER},
+      </if>
       <if test="memberid != null" >
         #{memberid,jdbcType=VARCHAR},
-      </if>
-      <if test="safeseq != null" >
-        #{safeseq,jdbcType=VARCHAR},
       </if>
       <if test="safetype != null" >
         #{safetype,jdbcType=VARCHAR},
@@ -162,13 +169,16 @@
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.api.model.MerchMk" >
     update t_merch_mk
     <set >
-      <if test="safeseq != null" >
-        SAFESEQ = #{safeseq,jdbcType=VARCHAR},
+      <if test="memberid != null" >
+        MEMBERID = #{memberid,jdbcType=VARCHAR},
       </if>
       <if test="safetype != null" >
         SAFETYPE = #{safetype,jdbcType=VARCHAR},
@@ -218,12 +228,15 @@
       <if test="remarks != null" >
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="certid != null" >
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
     </set>
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.api.model.MerchMk" >
     update t_merch_mk
-    set SAFESEQ = #{safeseq,jdbcType=VARCHAR},
+    set MEMBERID = #{memberid,jdbcType=VARCHAR},
       SAFETYPE = #{safetype,jdbcType=VARCHAR},
       MEMBERPUBKEY = #{memberpubkey,jdbcType=VARCHAR},
       MEMBERPRIKEY = #{memberprikey,jdbcType=VARCHAR},
@@ -239,7 +252,8 @@
       STATUS = #{status,jdbcType=VARCHAR},
       KEYFLAG = #{keyflag,jdbcType=CHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
-      REMARKS = #{remarks,jdbcType=VARCHAR}
-    where MEMBERID = #{memberid,jdbcType=VARCHAR}
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR}
+    where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
 </mapper>

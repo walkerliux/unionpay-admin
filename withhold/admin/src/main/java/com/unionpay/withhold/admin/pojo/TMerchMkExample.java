@@ -104,6 +104,66 @@ public class TMerchMkExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andSafeseqIsNull() {
+            addCriterion("SAFESEQ is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqIsNotNull() {
+            addCriterion("SAFESEQ is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqEqualTo(Integer value) {
+            addCriterion("SAFESEQ =", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqNotEqualTo(Integer value) {
+            addCriterion("SAFESEQ <>", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqGreaterThan(Integer value) {
+            addCriterion("SAFESEQ >", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqGreaterThanOrEqualTo(Integer value) {
+            addCriterion("SAFESEQ >=", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqLessThan(Integer value) {
+            addCriterion("SAFESEQ <", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqLessThanOrEqualTo(Integer value) {
+            addCriterion("SAFESEQ <=", value, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqIn(List<Integer> values) {
+            addCriterion("SAFESEQ in", values, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqNotIn(List<Integer> values) {
+            addCriterion("SAFESEQ not in", values, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqBetween(Integer value1, Integer value2) {
+            addCriterion("SAFESEQ between", value1, value2, "safeseq");
+            return (Criteria) this;
+        }
+
+        public Criteria andSafeseqNotBetween(Integer value1, Integer value2) {
+            addCriterion("SAFESEQ not between", value1, value2, "safeseq");
+            return (Criteria) this;
+        }
+
         public Criteria andMemberidIsNull() {
             addCriterion("MEMBERID is null");
             return (Criteria) this;
@@ -171,76 +231,6 @@ public class TMerchMkExample {
 
         public Criteria andMemberidNotBetween(String value1, String value2) {
             addCriterion("MEMBERID not between", value1, value2, "memberid");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqIsNull() {
-            addCriterion("SAFESEQ is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqIsNotNull() {
-            addCriterion("SAFESEQ is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqEqualTo(String value) {
-            addCriterion("SAFESEQ =", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqNotEqualTo(String value) {
-            addCriterion("SAFESEQ <>", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqGreaterThan(String value) {
-            addCriterion("SAFESEQ >", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqGreaterThanOrEqualTo(String value) {
-            addCriterion("SAFESEQ >=", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqLessThan(String value) {
-            addCriterion("SAFESEQ <", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqLessThanOrEqualTo(String value) {
-            addCriterion("SAFESEQ <=", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqLike(String value) {
-            addCriterion("SAFESEQ like", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqNotLike(String value) {
-            addCriterion("SAFESEQ not like", value, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqIn(List<String> values) {
-            addCriterion("SAFESEQ in", values, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqNotIn(List<String> values) {
-            addCriterion("SAFESEQ not in", values, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqBetween(String value1, String value2) {
-            addCriterion("SAFESEQ between", value1, value2, "safeseq");
-            return (Criteria) this;
-        }
-
-        public Criteria andSafeseqNotBetween(String value1, String value2) {
-            addCriterion("SAFESEQ not between", value1, value2, "safeseq");
             return (Criteria) this;
         }
 
@@ -591,6 +581,76 @@ public class TMerchMkExample {
 
         public Criteria andLocalprikeyNotBetween(String value1, String value2) {
             addCriterion("LOCALPRIKEY not between", value1, value2, "localprikey");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdIsNull() {
+            addCriterion("PLATFORMPFXPWD is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdIsNotNull() {
+            addCriterion("PLATFORMPFXPWD is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdEqualTo(String value) {
+            addCriterion("PLATFORMPFXPWD =", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdNotEqualTo(String value) {
+            addCriterion("PLATFORMPFXPWD <>", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdGreaterThan(String value) {
+            addCriterion("PLATFORMPFXPWD >", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdGreaterThanOrEqualTo(String value) {
+            addCriterion("PLATFORMPFXPWD >=", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdLessThan(String value) {
+            addCriterion("PLATFORMPFXPWD <", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdLessThanOrEqualTo(String value) {
+            addCriterion("PLATFORMPFXPWD <=", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdLike(String value) {
+            addCriterion("PLATFORMPFXPWD like", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdNotLike(String value) {
+            addCriterion("PLATFORMPFXPWD not like", value, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdIn(List<String> values) {
+            addCriterion("PLATFORMPFXPWD in", values, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdNotIn(List<String> values) {
+            addCriterion("PLATFORMPFXPWD not in", values, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdBetween(String value1, String value2) {
+            addCriterion("PLATFORMPFXPWD between", value1, value2, "platformpfxpwd");
+            return (Criteria) this;
+        }
+
+        public Criteria andPlatformpfxpwdNotBetween(String value1, String value2) {
+            addCriterion("PLATFORMPFXPWD not between", value1, value2, "platformpfxpwd");
             return (Criteria) this;
         }
 
