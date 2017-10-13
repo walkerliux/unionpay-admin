@@ -79,7 +79,7 @@ table tr td select {
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-			<table id="coopAgencyList">
+			<table id="merchDetaList">
 			</table>
 		</div>
 	</div>
@@ -94,42 +94,24 @@ table tr td select {
 					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="update">渠道代码</td>
+							<td class="update">商户号</td>
 							<td class="update" align="left">
-							<input type="text" id="cacode" name="cacode" class="easyui-validatebox" required="true"
-								maxlength="11" missingMessage="请输入渠道代码"/><font color="red">*</font></td>
-							<td class="update" width="15%">渠道名称 </td>
+							<input type="text" id="memberId" name="memberId" class="easyui-validatebox" required="true"
+								maxlength="15" missingMessage="请输入商户号"/><font color="red">*</font></td>
+							<td class="update" width="15%">商户名称 </td>
 							<td class="update" align="left">
-							<input type="text" id="caname" name="caname" class="easyui-validatebox" required="true"
-								maxlength="64" missingMessage="请输入渠道名称 " /><font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
+							<input type="text" id="memberName" name="memberName" class="easyui-validatebox" required="true"
+								maxlength="64" missingMessage="请输入商户名称 " /><font color="red">*</font></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">所在省</td>
-							<td class="update" align="left">
-							<select id="caprovince" class="easyui-validatebox" required="true" name="caprovince" 
-							missingMessage="请选择所在省" onchange="showCity()" /></select> <font color="red">*</font></td>
-							<td class="update">所在市</td>
-							<td class="update" align="left">
-							<select id="cacity" class="easyui-validatebox" required="true" missingMessage="请选择所在市" name="cacity"/>
-							<option value=''>--请选择所在市--</option></select><font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">地址</td>
+							<td class="update">营业地址</td>
 							<td class="update" align="left">
 							<input type="text" id="address" name="address" class="easyui-validatebox" required="true"
-								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
-							<td class="update">上级渠道</td>
+								maxlength="256" missingMessage="请输入营业地址"/><font color="red">*</font></td>
+							<td class="update" width="15%">邮编 </td>
 							<td class="update" align="left">
-							<select id="supercode" class="easyui-validatebox" required="true" missingMessage="请选择上级代理" name="supercode"/>
-								<option value=''>--请选择上级渠道--</option>
-								<option value='0'></option></select>
-							</select><font color="red">*</font></td>
+							<input type="text" id="postCode" name="postCode" class="easyui-validatebox" required="true"
+								maxlength="6" missingMessage="请输入邮编 " /><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -137,12 +119,54 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">联系人</td>
 							<td class="update" align="left">
-							<input type="text" id="contact" name="contact" class="easyui-validatebox" 
-							 maxlength="32" missingMessage="请输入联系人" required="true" /><font color="red">*</font></td>
-							<td class="update">联系电话</td>
+							<input type="text" id="contact" name="contact" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入联系人名称"/><font color="red">*</font></td>
+							<td class="update" width="15%">联系人电话 </td>
 							<td class="update" align="left">
-							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" 
-							 maxlength="11" missingMessage="请输入联系电话" required="true" /><font color="red">*</font></td>
+							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" required="true"
+								maxlength="11" missingMessage="请输入联系人电话 " /><font color="red">*</font></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">联系人地址</td>
+							<td class="update" align="left">
+							<input type="text" id="contAddress" name="contAddress" class="easyui-validatebox" required="true"
+								maxlength="256" missingMessage="请输入联系人 地址"/><font color="red">*</font></td>
+							<td class="update" width="15%">联系人邮编 </td>
+							<td class="update" align="left">
+							<input type="text" id="contPost" name="contPost" class="easyui-validatebox" required="true"
+								maxlength="6" missingMessage="请输入联系人邮编 " /><font color="red">*</font></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">联系人邮箱</td>
+							<td class="update" align="left" colspan="3">
+							<input type="text" id="contEmail" name="contEmail" class="easyui-validatebox" required="true"
+								maxlength="32" missingMessage="请输入联系人 邮箱"/><font color="red">*</font></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">渠道</td>
+							<td class="update" align="left">
+							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
+								<option value=''>--请选择渠道--</option></select>
+							</select><font color="red">*</font></td>
+							<td class="update">所属行业</td>
+							<td class="update" align="left">
+								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc"/>
+									<option value=''>--请选择MCC大类--</option></select>
+								</select><font color="red">*</font>
+								<select id="mccList" class="easyui-validatebox" required="true" missingMessage="请选择MCC小类" name="mccList"/>
+									<option value=''>--请选择MCC小类--</option></select>
+								</select><font color="red">*</font>
+							</td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">交易要素</td>
+							<td class="update" align="left" colspan="3">
+							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
+								<option value=''>--请选择交易要素--</option></select>
+							</select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -218,9 +242,7 @@ table tr td select {
 					text:'新增商户信息',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#cacode").removeAttr('readonly');
 						showAdd();
-						$("#saveForm").attr("action","merchDeta/addApply");
 					}
 				}]
 			});
@@ -240,11 +262,11 @@ table tr td select {
 		}
 		
 		function showAdd(){
-			$('#cacode').removeAttr("readonly");//取消只读的设置
-			showAllProvince();
+			$('#memberId').removeAttr("readonly");//取消只读的设置
 			//// 显示搜索条件中的上级渠道
-			showAllSuperCode("add");
-			$("#saveForm").attr("action","coopAgency/addApply");
+			showAllCacode("add");
+			showMCC();
+			$("#saveForm").attr("action","merchDeta/addApply");
 			$('#saveForm :input').val('');
 			$('#w').window({
 				title: '新增渠道信息',
@@ -257,7 +279,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 360
+				height: 409
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
@@ -310,13 +332,13 @@ table tr td select {
 		}
 		
 		
-		function showcCaCode(supercode){
+		function showCacode(supercode){
 			$.ajax({
 				type : "POST",
 				url: "coopAgency/queryAllSuperCode",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择上级代理--</option>";
+					var html = "<option value=''>--请选择渠道--</option>";
 					
 					$.each(json,function(key, value) {
 						if (value.cacode == supercode) {
@@ -336,7 +358,7 @@ table tr td select {
 				url: "coopAgency/queryAllSuperCode",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择上级代理--</option>";
+					var html = "<option value=''>--请选择渠道--</option>";
 					$.each(json,function(key, value) {
 							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
 					});
@@ -345,6 +367,26 @@ table tr td select {
 					} else {
 						$("#cacode").html(html);
 					}
+				}
+			});
+		}
+		
+		function showMCC(mcc){
+			$.ajax({
+				type : "POST",
+				url: "mcc/getAllMCC",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择MCC大类--</option>";
+					
+					$.each(json,function(key, value) {
+						if (value.mcc == mcc) {
+							html += '<option value="' + value.mcc + '" selected="selected">' + value.mccname + '</option>';
+						} else {
+							html += '<option value="' + value.mcc + '">' + value.mccname + '</option>';
+						}
+					});
+					$("#mcc").html(html);
 				}
 			});
 		}

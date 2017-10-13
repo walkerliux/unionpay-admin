@@ -83,7 +83,7 @@ public class MerchDetaController {
 	}
 	
 	/**
-	 * 查询渠道申请信息
+	 * 查询商户申请信息
 	 * 
 	 * @param merchDetaApply
 	 * @param page
