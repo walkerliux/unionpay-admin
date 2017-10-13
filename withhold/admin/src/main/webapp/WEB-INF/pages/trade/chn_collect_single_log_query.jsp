@@ -263,13 +263,13 @@ table tr td select {
 									} 
 									},
 									{
-										field : 'time',
+										field : 'intime',
 										title : '交易时间',
 										width : 150,
-										align : 'center',
-										formatter : function(value, rec) {
+										align : 'center'
+										/* formatter : function(value, rec) {
 											return changeDate(rec.chnlretdate);
-										}
+										} */
 									},
 									{
 										field : 'transstat',

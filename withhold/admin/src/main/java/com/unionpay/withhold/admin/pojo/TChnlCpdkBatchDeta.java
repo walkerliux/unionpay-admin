@@ -5,41 +5,41 @@ public class TChnlCpdkBatchDeta {
 
     private String txnseqno;
 
-    private String batchno;
+    private String batchno;//批次号
 
-    private String transdate;
+    private String transdate;//商户日期
 
-    private String orderno;
+    private String orderno;//订单号
 
-    private String openbankid;
+    private String openbankid;//开户行号
 
-    private String cardtype;
+    private String cardtype;//卡折标志
 
-    private String cardno;
+    private String cardno;//卡号/折号
 
-    private String usrname;
+    private String usrname;//持卡人姓名
 
-    private String certtype;
+    private String certtype;//证件类型
 
-    private String certid;
+    private String certid;//证件号
 
-    private String curyid;
+    private String curyid;//币种
 
-    private String transamt;
+    private String transamt;//金额
 
     private String purpose;
 
-    private String priv1;
+    private String priv1;//私有域
 
-    private String responsecode;
+    private String responsecode;//应答信息
 
-    private String message;
+    private String message;//描述
 
     private String intime;
 
     private String uptime;
 
-    private String extfield;
+    private String extfield;//
 
     public Integer getTid() {
         return tid;

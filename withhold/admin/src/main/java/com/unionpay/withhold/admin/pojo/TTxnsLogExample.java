@@ -5030,8 +5030,7 @@ public class TTxnsLogExample {
     private String apporderstatus;
     private String pan;
     private String pathcode;
-    private String startdate;
-    private String enddate;
+    
     private String starttime;
     private String endtime;
 
@@ -5067,22 +5066,7 @@ public class TTxnsLogExample {
 		this.pathcode = pathcode;
 	}
 
-	public String getStartdate() {
-		return startdate;
-	}
-
-	public void setStartdate(String startdate) {
-		this.startdate = startdate;
-	}
-
-	public String getEnddate() {
-		return enddate;
-	}
-
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
-	}
-
+	
 	public String getStarttime() {
 		return starttime;
 	}

@@ -3,43 +3,43 @@ package com.unionpay.withhold.admin.pojo;
 public class TChnlCpdkBatch {
     private Integer tid;
 
-    private String tn;
+    private String tn;//受理批次号（平台内部使用）
 
-    private String filename;
+    private String filename;//文件名
 
-    private String hpfilename;
+    private String hpfilename;//回盘文件名
 
-    private String merid;
+    private String merid;//商户号
 
-    private String batchno;
+    private String batchno;//批次号
 
-    private String totalnum;
+    private String totalnum;//总笔数
 
-    private String totalamt;
+    private String totalamt;//总金额
 
-    private String succnum;
+    private String succnum;//成功笔数
 
-    private String failnum;
+    private String failnum;//失败笔数
 
-    private String succamt;
+    private String succamt;//成功金额
 
-    private String failamt;
+    private String failamt;//失败金额
 
-    private String intime;
+    private String intime;//插入时间
 
-    private String uploadresptime;
+    private String uploadresptime;//上传应答时间
 
-    private String noticetime;
+    private String noticetime;//回盘通知时间
 
-    private String finishtime;
+    private String finishtime;//交易完成时间
 
-    private String uploadrespcode;
+    private String uploadrespcode;//上传文件错误码
 
-    private String uploadrespmessage;
+    private String uploadrespmessage;//上传文件错误信息
 
-    private String hprespcode;
+    private String hprespcode;//回盘文件错误码
 
-    private String hprespmessage;
+    private String hprespmessage;//回盘文件错误信息
 
     public Integer getTid() {
         return tid;

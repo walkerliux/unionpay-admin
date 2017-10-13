@@ -32,11 +32,13 @@ public interface TradeService {
 
 	Object getSingleById(String tid);
 
-	Object getshowCoop();
+
 
 	TTxnsLog getTxnsLogByTxnseqno(String txnseqno);
 
 	PageBean getCollectOrderDetaByBatchNo(String batchno,
 			int page, int rows);
+
+	PageBean getChnCollectDetaByBatchNo(String batchno, int page, int rows);
 
 }

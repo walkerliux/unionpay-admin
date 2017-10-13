@@ -181,19 +181,6 @@ public class TradeController {
 	    return tradeService.getSingleById(tid);
 	}
 	
-	
-	/**
-	 * 获取渠道名
-	 * @param 
-	 * @return
-	 */
-	@RequestMapping("/showCoop")
-	@ResponseBody
-	public Object getShowCoop() {
-		
-	    return tradeService.getshowCoop();
-	}
-	//getTxnsLogByTxnseqno
 	/**
 	 * 获取单条实时订单信息详情
 	 * @param txnseqno
@@ -216,6 +203,18 @@ public class TradeController {
 	@ResponseBody
 	public PageBean getCollectOrderDetaByBatchNo(String batchno,int page,int rows) {
 		PageBean result =tradeService.getCollectOrderDetaByBatchNo(batchno,page,rows);
+	    return result;
+	}
+	//getChnCollectDetaByBatchNo
+	/**
+	 * 获取批量渠道明细
+	 * @param batchno
+	 * @return
+	 */
+	@RequestMapping("/getChnCollectDetaByBatchNo")
+	@ResponseBody
+	public PageBean getChnCollectDetaByBatchNo(String batchno,int page,int rows) {
+		PageBean result =tradeService.getChnCollectDetaByBatchNo(batchno,page,rows);
 	    return result;
 	}
 	

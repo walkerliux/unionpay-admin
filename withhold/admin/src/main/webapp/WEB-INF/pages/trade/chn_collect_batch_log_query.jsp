@@ -90,41 +90,44 @@ table tr td select {
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo"
 					border="1">
 					<tr>
-						<td colspan="4" class="head-title">报文头信息</td>
+						<td colspan="4" class="head-title">详细信息</td>
 					</tr>
 					<tr>
-						<td width="15%">报文类型</td><td width="35%" id="msgtype"></td>					
-						<td width="15%">服务类型</td><td width="35%" id="servicetype"></td>
+						<td width="15%">受理批次号</td><td width="35%" id="tn"></td>					
+						<td width="15%">批次号</td><td width="35%" id="batchno"></td>
 					</tr>
 					<tr>						
-						<td>发起方代码</td><td id="transmitleg"></td>
-						<td>接收方代码</td><td id="receiver"></td>
+						<td>总笔数</td><td id="totalnum"></td>
+						<td>总金额</td><td id="totalamt"></td>
 					</tr>
 					<tr>
-						<td>本地日期</td><td id="transdate"></td>
-						<td>本地时间</td><td id="transtime"></td>
+						<td>成功笔数</td><td id="succnum"></td>
+						<td>成功金额</td><td id="succamt"></td>
 					</tr>
 					<tr>						
-						<td>操作员代码</td><td id="operatorcode"></td>
-						<td>原始批次号</td><td id="origbatchno"></td>
+						<td>失败笔数</td><td id="failnum"></td>
+						<td>失败金额</td><td id="failamt"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td colspan="4" class="head-title">批次信息</td>
-					</tr>
+					</tr> -->
 					<tr>
-						<td>批次号</td><td id="batchno"></td>
-						<td>总笔数</td><td id="totalqty"></td>
+						<td>插入时间</td><td id="intime"></td>
+						<td>上传应答时间</td><td id="uploadresptime"></td>
 					</tr>
 					<tr>						
-						<td>总金额（元）</td><td id="totalamt"></td>
-						<td>批次完成时间</td><td id="rspdate"></td>
+						<td>回盘通知时间</td><td id="noticetime"></td>
+						<td>交易完成时间</td><td id="finishtime"></td>
 						
 					</tr>
 					<tr>
-						<td>应答码</td><td id="rspcode"></td>					
-						<td>应答信息</td><td id="respmsg"></td>
+						<td>上传文件错误码</td><td id="uploadrespcode"></td>					
+						<td>上传文件错误信息</td><td id="uploadrespmessage"></td>
 					</tr>
-					
+					<tr>
+						<td>回盘文件错误码</td><td id="hprespcode"></td>					
+						<td>回盘文件错误信息</td><td id="hprespmessage"></td>
+					</tr>
 				</table>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
@@ -140,54 +143,51 @@ table tr td select {
 				<table width="100%" cellpadding="2" cellspacing="2" id="detailinfo"
 					border="1">
 					<tr>
-						<td colspan="4" class="head-title">业务报文信息</td>
+						<td colspan="4" class="head-title">详细信息</td>
 					</tr>
 					<tr>
-						<td width="15%">批次号</td><td width="35%"><span id="BATCHNO"></span></td>					
-						<td width="15%">明细标识号</td><td width="35%"><span id="TXID"></span></td>
+						<td width="15%">批次号</td><td width="35%"><span id="tbatchno"></span></td>					
+						<td width="15%">订单号</td><td width="35%"><span id="orderno"></span></td>
 					</tr>
 					<tr>						
-						<td>收费单位代码</td><td><span id="CHARGINGUNIT"></span></td>
-						<td>提交日期</td><td><span id="TRANSDATE"></span></td>
+						<td>开户行号</td><td><span id="openbankid"></span></td>
+						<td>卡折标志</td><td><span id="cardtype"></span></td>
 					</tr>
 					
 					<tr>
-						<td>付款人账号</td><td><span id="DEBTORACCOUNTNO"></span></td>
-						<td>付款人名称</td><td><span id="DEBTORNAME"></span></td>
+						<td>卡号/折号</td><td><span id="cardno"></span></td>
+						<td>持卡人姓名</td><td><span id="usrname"></span></td>
 					</tr>
 					<tr>						
-						<td>收款人账号</td><td><span id="CREDITORACCOUNTNO"></span></td>
-						<td>收款行行号</td><td><span id="CREDITORBRANCHCODE"></span></td>
+						<td>证件类型</td><td><span id="certtype"></span></td>
+						<td>证件号</td><td><span id="certid"></span></td>
 					</tr>
 					<tr>
-						<td>付款行行号</td><td><span id="DEBTORBRANCHCODE"></span></td>
-						<td>货币</td><td><span id="CURRENCYSYMBOL"></span></td>
+						<td>币种</td><td><span id="curyid"></span></td>
+						<td>金额</td><td><span id="transamt"></span></td>
 					</tr>
 					<tr>
-						<td>支付工具类型</td><td><span id="PAYMENTTOOLTYPE"></span></td>	
-						<td>金额</td><td><span id="AMOUNT"></span></td>
+						<td>用途</td><td><span id="purpose"></span></td>	
+						<td>应答信息</td><td><span id="responsecode"></span></td>
 					</tr>
 					<tr>						
-						<td>计量对象号码</td><td><span id="METEROBJNUMBER"></span></td>
-						<td>授权号</td><td><span id="AUTHNUMBER"></span></td>
+						<td>私有域</td><td><span id="priv1"></span></td>
+						<td>额外域</td><td><span id="extfield"></span></td>
 						
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>附言</td><td colspan="3"><span id="POSTSCRIPT"></span></td>
-					</tr>
+					</tr> -->
 					<tr>
-						<td>凭证号码</td><td><span id="VOUCHERNUMBER"></span></td>				
-						<td>附加域子类</td><td><span id="ADDITIONAL"></span></td>
-					</tr>
-					<tr>
-						<td>附加域长度</td><td><span id="ADDITIONALLEN"></span></td>					
-						<td>消息鉴别码</td><td><span id="MSGAUTHCODE"></span></td>
-					</tr>
-					<tr>
-						<td>附加域内容</td><td colspan="3"><span id="ADDINFO"></span></td>					
+						<td>描述</td><td><span id="message"></span></td>				
 						
 					</tr>
 					<tr>
+						<td>更新时间</td><td><span id="uptime"></span></td>					
+						<td>插入时间</td><td><span id="intimes"></span></td>
+					</tr>
+					
+					<!-- <tr>
 						<td colspan="4" class="head-title">应答报文信息</td>
 					</tr>
 					<tr>
@@ -205,7 +205,7 @@ table tr td select {
 					<tr>
 						<td>交易流水号</td><td><span id="TXNSEQNO"></span></td>
 						<td></td><td></td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
@@ -253,11 +253,11 @@ table tr td select {
 										return fenToYuan(rec.failamt);
 									}
 								},
-								{field:'finishtime',title:'交易时间',width:120,align:'center',
-									formatter : function(value, rec) {
+								{field:'intime',title:'交易时间',width:120,align:'center'
+									/* formatter : function(value, rec) {
 										return changeDateTime(rec.finishtime);
 									}
-									
+									 */
 								},
 								{field:'ID',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
@@ -268,48 +268,47 @@ table tr td select {
 							pagination : true,
 							rownumbers : true,
 							onClickRow: function (index, row) { 
-								var batchNo= row["BATCHNO"];
+								var batchno= row["batchno"];
 								$('#detailInfo').datagrid({
 									title:'批量代收渠道批次明细列表',
 									height:400,
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/getChnCollectDetaByBatchNo?batchno='+batchNo,	
+									url:'trade/getChnCollectDetaByBatchNo?batchno='+batchno,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[
 									[
-										{field:'BATCHNO',title:'批次号',width:130,align:'center'},
-										{field:'TXID',title:'明细标识号',width:90,align:'center'},
-										{field:'CHARGINGUNIT',title:'收费单位代码',width:90,align:'center'},
-										{field:'TRANSDATE',title:'提交日期',width:90,align:'center',
+										{field:'batchno',title:'批次号',width:130,align:'center'},
+										{field:'txnseqno',title:'交易流水号',width:90,align:'center'},
+										{field:'orderno',title:'订单号',width:90,align:'center'},
+										{field:'transdate',title:'提交日期',width:90,align:'center',
 											formatter : function(value, rec) {
-												return changeDate(rec.TRANSDATE);
+												return changeDate(rec.transdate);
 											}	
 										},
-										{field:'DEBTORACCOUNTNO',title:'付款账号',width:140,align:'center'},
-										{field:'DEBTORNAME',title:'付款账户名称',width:120,align:'center'},
-										{field:'CREDITORACCOUNTNO',title:'收款账号',width:140,align:'center'},
-										{field:'AMOUNT',title:'金额（元）',width:120,align:'center',
+										{field:'cardno',title:'付款账号',width:140,align:'center'},
+										{field:'usrname',title:'付款账户名称',width:120,align:'center'},
+										{field:'certid',title:'证件号',width:140,align:'center'},
+										{field:'transamt',title:'金额（元）',width:120,align:'center',
 											formatter : function(value, rec) {
-												return fenToYuan(rec.AMOUNT);
+												return fenToYuan(rec.transamt);
 											}
 										},
-										{field:'RSPDATE',title:'批次完成时间',width:125,align:'center',
-											formatter : function(value, rec) {
-												return changeDateTime(rec.RSPDATE);
-											}
+										/* {field:'intime',title:'插入时间',width:125,align:'center'
+											
 										},
-										{field:'NETTINGDATE',title:'轧差日期',width:120,align:'center',
-											formatter : function(value, rec) {
-												return changeDate(rec.NETTINGDATE);
-											}
+										{field:'uptime',title:'更新时间',width:120,align:'center'
+												
+											
 										},
-										{field:'TXNSEQNO',title:'交易流水号',width:130,align:'center'},
+										{field:'priv1',title:'私有域',width:130,align:'center'},
+										{field:'extfield',title:'额外域',width:130,align:'center'},
+										{field:'responsecode',title:'应答信息',width:130,align:'center'}, */
 										{field:'ID',title:'操作',width:120,align:'center',
 											formatter:function(value,rec){
-												return '<a href="javascript:showBatchDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
+												return '<a href="javascript:showBatchDetail(\''+rec.batchno+'\')" style="color:blue;margin-left:10px">详细信息</a>';
 											}
 										}
 									]],
@@ -330,7 +329,7 @@ table tr td select {
 				"stime" : $('#stime').datebox('getValue'),
 				"etime" : $('#etime').datebox('getValue')
 		}
-		alert( $('#stime').datebox('getValue'));
+		//alert( $('#stime').datebox('getValue'));
 		$('#test').datagrid('load', data);
 	}
 	
@@ -339,23 +338,26 @@ table tr td select {
 	}
 	
 	function queryDetail(batchNo){
+		$("#tn").html("");
+		$("#filename").html("");
+		$("#hpfilename").html("");
+		$("#merid").html("");
 		$("#batchno").html("");
-		$("#msgtype").html("");
-		$("#servicetype").html("");
-		$("#transmitleg").html("");
-		$("#receiver").html("");
-		$("#transdate").html("");
-		$("#transtime").html("");
-		$("#totalqty").html("");
+		$("#totalnum").html("");
 		$("#totalamt").html("");
-		$("#rspcode").html("");
-		$("#respmsg").html("");
-		$("#rspdate").html("");
-		$("#operatorcode").html("");
-		$("#origbatchno").html("");
-		$("#notes").html("");
-		$("#remarks").html("");
-		   
+		$("#succnum").html("");
+		$("#failnum").html("");
+		$("#succamt").html("");
+		$("#failamt").html("");
+		$("#intime").html("");
+		$("#uploadresptime").html("");
+		$("#noticetime").html("");
+		$("#finishtime").html("");
+		$("#uploadrespcode").html("");
+		$("#uploadresptime").html("");
+		$("#uploadrespmessage").html("");
+		$("#hprespcode").html("");
+		$("#hprespmessage").html("");  
 		$('#w').window({
 			title: '批次详细信息',
 			top:90,
@@ -371,22 +373,27 @@ table tr td select {
 		});
 	
 		var rows = $('#test').datagrid('getSelected');
+		$("#tid").html(rows["tid"]);
+		$("#tn").html(rows["tn"]);
+		$("#filename").html(rows["filename"]);
+		$("#hpfilename").html(rows["hpfilename"]);
+		$("#merid").html(rows["merid"]);
 		$("#batchno").html(rows["batchno"]);
-		$("#msgtype").html(rows["msgtype"]);
-		$("#servicetype").html(rows["servicetype"]);
-		$("#transmitleg").html(rows["transmitleg"]);
-		$("#receiver").html(rows["receiver"]);
-		$("#transdate").html(changeDate(rows["transdate"]));
-		$("#transtime").html(changeTime(rows["transtime"]));
-		$("#totalqty").html(rows["totalnum"]);
+		$("#totalnum").html(rows["totalnum"]);
 		$("#totalamt").html(fenToYuan(rows["totalamt"]));
-		$("#rspcode").html(rows["RSPCODE"]);
-		$("#respmsg").html(rows["RESPMSG"]);
-		$("#rspdate").html(changeDateTime(rows["RSPDATE"]));
-		$("#operatorcode").html(rows["OPERATORCODE"]);
-		$("#origbatchno").html(rows["ORIGBATCHNO"]);
-		$("#notes").html(rows["NOTES"]);
-		$("#remarks").html(rows["REMARKS"]);
+		$("#succnum").html(rows["succnum"]);
+		$("#failnum").html(rows["failnum"]);
+		$("#succamt").html(fenToYuan(rows["succamt"]));
+		$("#failamt").html(fenToYuan(rows["failamt"]));
+		$("#intime").html(rows["intime"]);
+		$("#uploadresptime").html(rows["uploadresptime"]);
+		$("#noticetime").html(rows["noticetime"]);
+		$("#finishtime").html(rows["finishtime"]);
+		$("#uploadrespcode").html(rows["intime"]);
+		$("#uploadrespmessage").html(rows["uploadresptime"]);
+		$("#hprespcode").html(rows["noticetime"]);
+		$("#hprespmessage").html(rows["finishtime"]);
+	
 	}
 	
 	// 格式化日期时间
@@ -468,39 +475,62 @@ table tr td select {
 		});
 		$("#detailinfo span").html("");
 		var rows = $('#detailInfo').datagrid('getSelected');
-		$("#BATCHNO").html(rows["BATCHNO"]);	
-		$("#CHARGINGUNIT").html(rows["CHARGINGUNIT"]);	
-		$("#TRANSDATE").html(changeDate(rows["TRANSDATE"]));	
-		$("#TXID").html(rows["TXID"]);	
-		$("#DEBTORNAME").html(rows["DEBTORNAME"]);	
-		$("#DEBTORACCOUNTNO").html(rows["DEBTORACCOUNTNO"]);	
-		$("#DEBTORBRANCHCODE").html(rows["DEBTORBRANCHCODE"]);	
-		$("#CREDITORBRANCHCODE").html(rows["CREDITORBRANCHCODE"]);	
-		$("#CREDITORACCOUNTNO").html(rows["CREDITORACCOUNTNO"]);	
-		//$("#CURRENCYSYMBOL").html(rows["CURRENCYSYMBOL"]);	
-		$("#CURRENCYSYMBOL").html("人民币");	
-		$("#AMOUNT").html(fenToYuan(rows["AMOUNT"]));	
-		$("#METEROBJNUMBER").html(rows["METEROBJNUMBER"]);	
-		$("#AUTHNUMBER").html(rows["AUTHNUMBER"]);	
-		//$("#PAYMENTTOOLTYPE").html(rows["PAYMENTTOOLTYPE"]);	
-		$("#PAYMENTTOOLTYPE").html("借记卡");
+		$("#tbatchno").html(rows["batchno"]);	
+		$("#txnseqno").html(rows["txnseqno"]);	
+		$("#transdate").html(changeDate(rows["transdate"]));	
+		$("#orderno").html(rows["orderno"]);	
+		$("#openbankid").html(rows["openbankid"]);	
+		$("#cardtype").html(cardType(rows["cardtype"]));	
+		$("#cardno").html(rows["cardno"]);	
+		$("#usrname").html(rows["usrname"]);	
+		$("#certtype").html(certType(rows["certtype"]));	
+		if (rows["curyid"] == "156") {
+			$("#curyid").html("人民币");
+		};
+		$("#certid").html(rows["certid"]);	
+		/* $("#curyid").html(rows["curyid"]); */	
+		$("#transamt").html(fenToYuan(rows["transamt"]));	
+		$("#purpose").html(rows["purpose"]);	
+			
+		$("#priv1").html(rows["priv1"]);
 		
-		$("#VOUCHERNUMBER").html(rows["VOUCHERNUMBER"]);	
-		$("#POSTSCRIPT").html(rows["POSTSCRIPT"]);	
-		$("#ADDITIONAL").html(rows["ADDITIONAL"]);	
-		$("#ADDITIONALLEN").html(rows["ADDITIONALLEN"]);	
-		$("#MSGAUTHCODE").html(rows["MSGAUTHCODE"]);	
-		$("#ADDINFO").html(rows["ADDINFO"]);	
-		$("#RSPMSGID").html(rows["RSPMSGID"]);	
-		$("#RSPSTATUS").html(rows["RSPSTATUS"]);	
-		$("#RSPREJECTCODE").html(rows["RSPREJECTCODE"]);	
-		$("#RSPREJECTINFORMATION").html(rows["RSPREJECTINFORMATION"]);	
-		$("#RSPDATE").html(rows["RSPDATE"]);	
-		$("#NETTINGDATE").html(rows["NETTINGDATE"]);	
-		$("#TXNSEQNO").html(rows["TXNSEQNO"]);	
-
-
-
+		$("#responsecode").html(rows["responsecode"]);	
+		$("#message").html(rows["message"]);	
+		$("#intimes").html(rows["intime"]);	
+		$("#uptime").html(rows["uptime"]);	
+		$("#extfield").html(rows["extfield"]);	
+		
+	}
+	// 解析证件类型
+	function certType(value) {
+		if (value == "01") {
+			return "身份证";
+		}
+		if (value == "02") {
+			return "军官证";
+		}
+		if (value == "03") {
+			return "护照";
+		}
+		if (value == "04") {
+			return "户口簿";
+		}
+		if (value == "05") {
+			return "回乡证";
+		}
+		if (value == "06") {
+			return "其他";
+		}
+	}
+	// 解析卡折标志
+	function cardType(value) {
+		if (value == "0") {
+			return "卡";
+		}
+		if (value == "1") {
+			return "折";
+		}
+		
 	}
 </script>
 </html>

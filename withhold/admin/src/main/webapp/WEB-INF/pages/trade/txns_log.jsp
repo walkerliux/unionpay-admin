@@ -319,7 +319,7 @@ table tr td select {
 	}
   	var width = $("#continer").width();
 		$(function(){
-			showOrgan();
+			showCacode();
 			$('#test').datagrid({
 				title:'交易信息列表',
 				iconCls:'icon-save',
@@ -384,20 +384,27 @@ table tr td select {
 			});
 	
 		});
-		function showOrgan(){		
+		function showCacode(){		
 			$.ajax({
-			   type: "POST",
-			   url: "trade/showCoop",
-			   dataType:"json",
-			   success: function(json){
-			   		var html ="<option value=''>--请选择交易渠道--</option>";
-			   		$.each(json, function(key,value){
-			   			html += '<option value="'+value.cacode+'">'+value.caname+'</option>';
-					})
+				type : "POST",
+				url: "coopAgency/queryAllSuperCode",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择渠道--</option>";
+					
+					$.each(json,function(key, value) {
+						if (value.cacode == supercode) {
+							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
+						} else {
+							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
+						}
+					});
 					$("#pathcode").html(html);
-			   }
+				}
 			});
-		} 
+		}
+
+	
 		function getStatus(value){
 			if (value == "00") {
 				return "支付成功";

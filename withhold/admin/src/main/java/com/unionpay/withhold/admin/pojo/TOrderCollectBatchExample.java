@@ -2080,4 +2080,41 @@ public class TOrderCollectBatchExample {
             this(condition, value, secondValue, null);
         }
     }
+    private String merid;
+    private String batch;
+    private String tn;
+    private String starttime;
+    private String endtime;
+
+	public String getMerid() {
+		return merid;
+	}
+	public void setMerid(String merid) {
+		this.merid = merid;
+	}
+	public String getBatch() {
+		return batch;
+	}
+	public void setBatch(String batch) {
+		this.batch = batch;
+	}
+	public String getTn() {
+		return tn;
+	}
+	public void setTn(String tn) {
+		this.tn = tn;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+    
 }
