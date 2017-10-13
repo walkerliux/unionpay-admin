@@ -18,19 +18,19 @@ public class StatisticController {
 	@Autowired
 	private TTxnsLogService tTxnsLogService;
 	/**
-	 * 通道统计页面
+	 * 渠道统计页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
 	 * @version v1.0
 	 */
-	@RequestMapping("/showPassageway")
+	@RequestMapping("/showCoop")
 	public ModelAndView showPassageway() {
-		 ModelAndView result=new ModelAndView("/trade/statistic/passageway_manager");
+		 ModelAndView result=new ModelAndView("/trade/statistic/coop_manager");
 	     return result;
 	}
 	/**
-	 * 渠道统计页面
+	 *  通道统计页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
