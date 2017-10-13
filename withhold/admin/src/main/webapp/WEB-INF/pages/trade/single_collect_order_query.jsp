@@ -242,7 +242,11 @@ table tr td select {
 									{field:'orderid',title:'商户订单号',width:150,align:'center'},
 									{field:'cardno',title:'交易卡号',width:100,align:'center'},									
 									{field:'customernm',title:'姓名',width:150,align:'center'},
-									{field:'txnamt',title:'交易金额',width:130,align:'center'},
+									{field:'txnamt',title:'交易金额(元)',width:130,align:'center',
+										formatter:function(value,rec){
+											return fenToYuan(rec.txnamt);
+										}
+									},
 									{field:'tn',title:'受理订单号',width:100,align:'center'},
 									
 									{field:'status',title:'交易状态',width:148,align:'center',
@@ -302,7 +306,7 @@ table tr td select {
 		$('#w').window('close');
 	}	
 	function queryOrderSingle(tid) {
-		/* $("#tid").html("");
+		/*  $("#tid").html("");
 		$("#accesstype").html("");
 		$("#coopinstiid").html("");
 		$("#merid").html("");
@@ -337,7 +341,7 @@ table tr td select {
 		$("#relatetradetxn").html("");
 		$("#status").html("");
 		$("#ordercommitime").html("");
-		$("#syncnotify").html(""); */
+		$("#syncnotify").html("");  */
 		$.ajax({
 			   type: "POST",
 			   url: "trade/getSingleById",
@@ -366,7 +370,7 @@ table tr td select {
 						$("#certid").html(json.certid);
 						$("#txntime").html(changeDate(json.txntime));
 						$("#paytimeout").html(changeDate(json.paytimeout));
-						$("#txnamt").html(json.txnamt);
+						$("#txnamt").html(fenToYuan(json.txnamt));
 						if (json.currencycode == "156") {
 							$("#currencycode").html("人民币");
 						}

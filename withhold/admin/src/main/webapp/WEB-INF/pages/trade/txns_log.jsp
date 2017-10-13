@@ -308,15 +308,18 @@ table tr td select {
 		if(dateString==null || dateString== 0){
 			return "";
 		}else{
-			hour=dateString.substring(8,10);//89
+			/* hour=dateString.substring(8,10);//89
 			minte=dateString.substring(10,12);//10 11
-			s=dateString.substring(12,14);// 11 12
+			s=dateString.substring(12,14);// 11 12 */
+			hour = dateString.substring(0, 2);
+			minte = dateString.substring(2, 4);
+			s = dateString.substring(4, 6);
 			return hour +":"+minte+":"+s;
 		}
 	}
   	var width = $("#continer").width();
 		$(function(){
-			showOrgan();
+			showCacode();
 			$('#test').datagrid({
 				title:'交易信息列表',
 				iconCls:'icon-save',
@@ -335,10 +338,10 @@ table tr td select {
 					{field:'memberName',title:'商户名称',width:120,align:'center'},
 					{field:'pan',title:'交易卡号',width:120,align:'center'},
 					{field:'panName',title:'姓名',width:150,align:'center'},
-					{field:'amount',title:'交易金额(元)',width:120,align:'center'
-						/* formatter:function(value,rec){
+					{field:'amount',title:'交易金额(元)',width:120,align:'center',
+						 formatter:function(value,rec){
 							return fenToYuan(rec.amount);
-						} */
+						} 
 					},
 					{field:'time',title:'交易时间',width:150,align:'center',
 						formatter : function(value, rec) {
@@ -381,20 +384,27 @@ table tr td select {
 			});
 	
 		});
-		function showOrgan(){		
+		function showCacode(){		
 			$.ajax({
-			   type: "POST",
-			   url: "trade/showCoop",
-			   dataType:"json",
-			   success: function(json){
-			   		var html ="<option value=''>--请选择交易渠道--</option>";
-			   		$.each(json, function(key,value){
-			   			html += '<option value="'+value.cacode+'">'+value.caname+'</option>';
-					})
+				type : "POST",
+				url: "coopAgency/queryAllSuperCode",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择渠道--</option>";
+					
+					$.each(json,function(key, value) {
+						if (value.cacode == supercode) {
+							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
+						} else {
+							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
+						}
+					});
 					$("#pathcode").html(html);
-			   }
+				}
 			});
-		} 
+		}
+
+	
 		function getStatus(value){
 			if (value == "00") {
 				return "支付成功";
@@ -521,7 +531,7 @@ table tr td select {
 					   $("#tapptype").html(json.apptype);
 					   $("#tbusitype").html(json.busitype);
 					   $("#tbusicode").html(json.busicode);
-					   $("#tamount").html(json.amount);
+					   $("#tamount").html(fenToYuan(json.amount));
 					   $("#ttradcomm").html(json.tradcomm);
 					   $("#ttxnfee").html(json.txnfee);
 					   $("#triskver").html(json.riskver);

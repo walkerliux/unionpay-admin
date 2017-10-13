@@ -43,14 +43,17 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
+						<td align="right">商户号</td>
+						<td align="left" style="padding-left: 5px"><input
+							id="merids" /></td>
 						<td align="right">批次号</td>
 						<td align="left" style="padding-left: 5px"><input
 							id="batchnos"  /></td>
-						<td align="right">委托机构号</td>
-						<td align="left" style="padding-left: 5px"><input
-							id="merids" /></td>
 					</tr>
 					<tr>
+						<td align="right">受理批次号</td>
+						<td align="left" style="padding-left: 5px"><input
+							id="tns" /></td>
 						<td align="right" width="10%">起止时间</td>
 						<td colspan = "2" style="padding-left: 5px"><input id="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" name="stime"></input> 
@@ -165,60 +168,52 @@ table tr td select {
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
-								{field:'MERID',title:'委托机构号',width:123,align:'center'},
-								{field:'ENTERPRISE_NAME',title:'委托机构名称',width:150,align:'center'},
-								/* {field:'VERSION',title:'版本',width:124,align:'center'},
-								{field:'ENCODING',title:'编码方式',width:125,align:'center',
-									formatter : function(value, rec) {
-										if (rec.ENCODING == "1") {
-											return "UTF-8";
-										} 
-									}	
-								}, */
-								{field:'BATCHNO',title:'批次号',width:180,align:'center'},
-								
-								{field:'TXNTIME',title:'批次交易时间',width:150,align:'center',
-									formatter : function(value, rec) {
-										return changeDate(rec.ORDERFINSHTIME);
-									}	
-								},
-								{field:'TOTALQTY',title:'总笔数',width:132,align:'center'},
-								{field:'TOTALAMT ',title:'总金额 (元)',width:133,align:'center',
+								{field:'tn',title:'受理批次号',width:180,align:'center'},    
+								{field:'merid',title:'商户号',width:123,align:'center'},
+								{field:'batchno',title:'批次号',width:180,align:'center'},
+								{field:'totalqty',title:'总笔数',width:132,align:'center'},
+								{field:'totalamt ',title:'总金额 (元)',width:133,align:'center',
 									formatter:function(value,rec){
-										return fenToYuan(rec.TOTALAMT);
+										return fenToYuan(rec.totalamt);
 									}
 								},
-								{field:'STATUS',title:'状态',width:137,align:'center',
+								{field:'time',title:'交易时间',width:150,align:'center',
 									formatter : function(value, rec) {
-										if (rec.STATUS == "00") {
+										return changeDate(rec.txndate+rec.txntime);
+									}	
+								},
+								{field:'status',title:'状态',width:137,align:'center',
+									formatter : function(value, rec) {
+										if (rec.status == "00") {
 											return "交易完成";
 										} 
-										if (rec.STATUS == "01") {
+										if (rec.status == "01") {
 											return "批次提交成功";
 										} 
-										if (rec.STATUS == "02") {
+										if (rec.status == "02") {
 											return "交易中";
 										} 
-										if (rec.STATUS == "03") {
+										if (rec.status == "03") {
 											return "交易失败";
 										} 
-										if (rec.STATUS == "04") {
+										if (rec.status == "04") {
 											return "批次失效";
 										} 
 									}		
 								},
-								{field:'TN',title:'受理批次号',width:180,align:'center'},
-								{field:'SYNCNOTIFY',title:'异步通知结果',width:139,align:'center'},
-								{field:'ID',title:'操作',width:120,align:'center',
+								
+								/* {field:'SYNCNOTIFY',title:'异步通知结果',width:139,align:'center'}, */
+								{field:'id',title:'操作',width:120,align:'center',
 									formatter:function(value,rec){
-										return '<a href="javascript:queryDetail(\''+rec.BATCHNO+'\')" style="color:blue;margin-left:10px">详细信息</a>';
+										return '<a href="javascript:queryDetail(\''+rec.batchno+'\')" style="color:blue;margin-left:10px">详细信息</a>';
 									}
 								}
 							] ],
 							pagination : true,
 							rownumbers : true,
+							
 							onClickRow: function (index, row) { 
-								var batchNo= row["BATCHNO"];
+								var batchno= row["batchno"];
 								$('#detailInfo').datagrid({
 									title:'批量代收明细表',
 									
@@ -226,51 +221,57 @@ table tr td select {
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/getCollectOrderDetaByBatchNo?batchno='+batchNo,	
+									url:'trade/getCollectOrderDetaByBatchNo?batchno='+batchno,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[
 									[
-										{field:'BATCHNO',title:'批次号',width:180,align:'center'},
-										{field:'ORDERID',title:'订单号',width:144,align:'center'},
-										
-										{field:'AMT',title:'单笔金额(元)',width:146,align:'center',
+										{field:'batchno',title:'批次号',width:180,align:'center'},
+										{field:'orderid',title:'订单号',width:144,align:'center'},
+										{field:'amt',title:'单笔金额(元)',width:146,align:'center',
 											formatter:function(value,rec){
-												return fenToYuan(rec.AMT);
+												return fenToYuan(rec.amt);
 											}
 										},
-										{field:'CURRENCYCODE',title:'交易币种',width:90,align:'center',
+										{field:'currencycode',title:'交易币种',width:90,align:'center',
 											formatter : function(value, rec) {
-												if (rec.CURRENCYCODE == "156") {
+												if (rec.currencycode == "156") {
 													return "人民币";
 												} 
+											}
+										},
+										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
+										{field:'cardno',title:'交易卡号',width:148,align:'center'},
+										{field:'customernm',title:'持卡人姓名',width:200,align:'center'},
+										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
+										{field:'cardtype',title:'卡属类型',width:152,align:'center',
+											formatter : function(value, rec) {
+												if (rec.cardtype == "1") {
+													return "借记卡";
+												} 
+												if (rec.cardtype == "2") {
+													return "信用卡";
+												}
 											}	
 										},
-										{field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'},
-										{field:'DEBTORACCOUNT',title:'付款人账号',width:148,align:'center'},
-										{field:'DEBTORNAME',title:'付款人名称',width:200,align:'center'},
-										{field:'DEBTORBANK',title:'付款人银行号',width:100,align:'center'},
-										{field:'CREDITORACCOUNT',title:'收款人账号',width:152,align:'center'},
-										{field:'CREDITORNAME',title:'收款人名称',width:200,align:'center'},
-										{field:'CREDITORBANK',title:'收款人银行号',width:100,align:'center'},
-										{field:'RESPCODE',title:'响应码',width:100,align:'center'},
-										{field:'RESPMSG',title:'应答信息',width:100,align:'center'},
-										{field:'RELATETRADETXN',title:'交易序列号',width:158,align:'center'},
-										{field:'STATUS',title:'状态',width:159,align:'center',
+										{field:'respcode',title:'响应码',width:100,align:'center'},
+										{field:'respmsg',title:'应答信息',width:100,align:'center'},
+										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
+										{field:'status',title:'状态',width:159,align:'center',
 											formatter : function(value, rec) {
-												if (rec.STATUS == "00") {
+												if (rec.status == "00") {
 													return "交易完成";
 												} 
-												if (rec.STATUS == "01") {
+												if (rec.status == "01") {
 													return "订单提交成功";
 												} 
-												if (rec.STATUS == "02") {
+												if (rec.status == "02") {
 													return "交易中";
 												} 
-												if (rec.STATUS == "03") {
+												if (rec.status == "03") {
 													return "交易失败";
 												} 
-												if (rec.STATUS == "04") {
+												if (rec.status == "04") {
 													return "批次失效";
 												} 
 											}		
@@ -289,10 +290,11 @@ table tr td select {
 		var data = {
 				"batchno" : $('#batchnos').val(),
 				"merid" : $('#merids').val(),
+				"tn" : $('#tns').val(),
 				"stime" : $('#stime').datebox('getValue'),
 				"etime" : $('#etime').datebox('getValue')
 		};
-		alert( $('#stime').datebox('getValue'));
+		/* alert( $('#stime').datebox('getValue')); */
 		$('#test').datagrid('load', data);
 	}
 	
@@ -355,31 +357,31 @@ table tr td select {
 			} 
 		}
 		var rows = $('#test').datagrid('getSelected');
-		$("#tid").html(rows["TID"]);
-		$("#accesstype").html(rows["ACCESSTYPE"]);
-		$("#coopinstiid").html(rows["COOPINSTIID"]);
-		$("#merid").html(rows["MERID"]);
-		$("#version").html(rows["VERSION"]);
-		if (rows["ENCODING"] == "1") {
+		$("#tid").html(rows["tid"]);
+		$("#accesstype").html(rows["accesstype"]);
+		$("#coopinstiid").html(rows["coopinstiid"]);
+		$("#merid").html(rows["merid"]);
+		$("#version").html(rows["version"]);
+		if (rows["encoding"] == "1") {
 			$("#encoding").html("UTF-8");
 		}
-		$("#txntype").html(rows["TXNTYPE"]);
-		$("#txnsubtype").html(rows["TXNSUBTYPE"]);
-		$("#biztype").html(rows["BIZTYPE"]);
-		$("#backurl").html(rows["BACKURL"]);
-		$("#batchno").html(rows["BATCHNO"]);
-		$("#txntime").html(changeDate(rows["ORDERFINSHTIME"]));
-		$("#totalqty").html(rows["TOTALQTY"]);
-		$("#totalamt ").html(fenToYuan(rows["TOTALAMT"]));
-		$("#reserved").html(rows["RESERVED"]);
-		$("#respcode").html(rows["RESPCODE"]);
-		$("#respmsg").html(rows["RESPMSG"]);
-		$("#status").html(getStatus(rows["STATUS"]));
-		$("#ordercommitime").html(changeDate(rows["ORDERCOMMITIME"]));
-		$("#syncnotify").html(rows["SYNCNOTIFY"]);
-		$("#notes").html(rows["NOTES"]);
-		$("#remarks").html(rows["REMARKS"]);
-		$("#mername").html(rows["ENTERPRISE_NAME"]);
+		$("#txntype").html(rows["txntype"]);
+		$("#txnsubtype").html(rows["txnsubtype"]);
+		$("#biztype").html(rows["biztype"]);
+		$("#backurl").html(rows["backurl"]);
+		$("#batchno").html(rows["batchno"]);
+		$("#txntime").html(changeDate(rows["txndate"]+rows["txntime"]));
+		$("#totalqty").html(rows["totalqty"]);
+		$("#totalamt ").html(fenToYuan(rows["totalamt"]));
+		$("#reserved").html(rows["reserved"]);
+		$("#respcode").html(rows["respcode"]);
+		$("#respmsg").html(rows["respmsg"]);
+		$("#status").html(getStatus(rows["status"]));
+		$("#ordercommitime").html(changeDate(rows["ordercommitime"]));
+		$("#syncnotify").html(rows["syncnotify"]);
+		$("#notes").html(rows["notes"]);
+		$("#remarks").html(rows["remarks"]);
+		$("#mername").html(rows["mername"]);
 	}
 	function fenToYuan(value){
 		var str = (value/100).toFixed(2) + '';

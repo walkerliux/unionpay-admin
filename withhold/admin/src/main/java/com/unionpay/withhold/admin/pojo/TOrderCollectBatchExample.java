@@ -4,6 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TOrderCollectBatchExample {
+	private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
     protected String orderByClause;
 
     protected boolean distinct;
@@ -2057,4 +2080,41 @@ public class TOrderCollectBatchExample {
             this(condition, value, secondValue, null);
         }
     }
+    private String merid;
+    private String batch;
+    private String tn;
+    private String starttime;
+    private String endtime;
+
+	public String getMerid() {
+		return merid;
+	}
+	public void setMerid(String merid) {
+		this.merid = merid;
+	}
+	public String getBatch() {
+		return batch;
+	}
+	public void setBatch(String batch) {
+		this.batch = batch;
+	}
+	public String getTn() {
+		return tn;
+	}
+	public void setTn(String tn) {
+		this.tn = tn;
+	}
+	public String getStarttime() {
+		return starttime;
+	}
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+    
 }

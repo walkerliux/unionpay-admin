@@ -1,87 +1,87 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TChnlCpdkLog {
-    private Integer tid;
+    private Integer tid;//主键
 
-    private String txnseqno;
+    private String txnseqno;//交易序列号
 
-    private String merid;
+    private String merid;//商户编号
 
-    private String transdate;
+    private String transdate;//商户日期
 
-    private String orderno;
+    private String orderno;//订单号
 
-    private String transtype;
+    private String transtype;//交易类型
 
-    private String openbankid;
+    private String openbankid;//开户行号
 
-    private String cardtype;
+    private String cardtype;//卡折标志
 
-    private String cardno;
+    private String cardno;//卡号/折号
 
-    private String usrname;
+    private String usrname;//持卡人姓名
 
-    private String certtype;
+    private String certtype;//证件类型
 
-    private String certid;
+    private String certid;//证件号
 
-    private String curyid;
+    private String curyid;//交易币种
 
-    private String transamt;
+    private String transamt;//金额
 
-    private String purpose;
+    private String purpose;//用途
 
-    private String priv1;
+    private String priv1;//私有域
 
-    private String version;
+    private String version;//版本号
 
-    private String gateid;
+    private String gateid;//网关号
 
-    private String termtype;
+    private String termtype;//渠道类型
 
-    private String paymode;
+    private String paymode;//交易模式
 
-    private String userid;
+    private String userid;//用户ID
 
-    private String userregistertime;
+    private String userregistertime;//用户注册时间
 
-    private String usermail;
+    private String usermail;//用户注册邮箱
 
-    private String usermobile;
+    private String usermobile;//用户注册手机号
 
-    private String disksn;
+    private String disksn;//PC 硬盘序列号
 
-    private String mac;
+    private String mac;//PC mac地址
 
-    private String imei;
+    private String imei;//手机串号IMEI
 
-    private String ip;
+    private String ip;//用户IP
 
-    private String coordinates;
+    private String coordinates;//代付经纬度信息
 
-    private String basestationsn;
+    private String basestationsn;//手机所在基站序列号
 
-    private String codeinputtype;
+    private String codeinputtype;//短信验证码输入操作特征
 
-    private String mobileforbank;
+    private String mobileforbank;//预留手机号
 
-    private String orderdesc;
+    private String orderdesc;//购买商品明细
 
-    private String chkvalue;
+    private String chkvalue;//签名值
 
-    private String responsecode;
+    private String responsecode;//应答信息
 
-    private String transstat;
+    private String transstat;//代扣状态
 
-    private String message;
+    private String message;//描述
 
-    private String chnlretdate;
+    private String chnlretdate;//渠道返回日期
 
-    private String intime;
+    private String intime;//插入时间
 
-    private String uptime;
+    private String uptime;//更新时间
 
-    private String chnlfee;
+    private String chnlfee;//通道手续费(通道成本)
 
     public Integer getTid() {
         return tid;

@@ -1,7 +1,10 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,6 +13,7 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
+import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
 import com.unionpay.withhold.admin.service.TradeService;
@@ -177,22 +181,9 @@ public class TradeController {
 	    return tradeService.getSingleById(tid);
 	}
 	
-	
-	/**
-	 * 获取渠道名
-	 * @param 
-	 * @return
-	 */
-	@RequestMapping("/showCoop")
-	@ResponseBody
-	public Object getShowCoop() {
-		
-	    return tradeService.getshowCoop();
-	}
-	//getTxnsLogByTxnseqno
 	/**
 	 * 获取单条实时订单信息详情
-	 * @param tid
+	 * @param txnseqno
 	 * @return
 	 */
 	@RequestMapping("/getTxnsLogByTxnseqno")
@@ -200,6 +191,31 @@ public class TradeController {
 	public TTxnsLog getTxnsLogByTxnseqno(String txnseqno) {
 		TTxnsLog txnsLog =tradeService.getTxnsLogByTxnseqno(txnseqno);
 	    return txnsLog;
+	}
+	
+	//getCollectOrderDetaByBatchNo?batchno=1505978983775
+	/**
+	 * 获取批量订单明细
+	 * @param batchno
+	 * @return
+	 */
+	@RequestMapping("/getCollectOrderDetaByBatchNo")
+	@ResponseBody
+	public PageBean getCollectOrderDetaByBatchNo(String batchno,int page,int rows) {
+		PageBean result =tradeService.getCollectOrderDetaByBatchNo(batchno,page,rows);
+	    return result;
+	}
+	//getChnCollectDetaByBatchNo
+	/**
+	 * 获取批量渠道明细
+	 * @param batchno
+	 * @return
+	 */
+	@RequestMapping("/getChnCollectDetaByBatchNo")
+	@ResponseBody
+	public PageBean getChnCollectDetaByBatchNo(String batchno,int page,int rows) {
+		PageBean result =tradeService.getChnCollectDetaByBatchNo(batchno,page,rows);
+	    return result;
 	}
 	
 }
