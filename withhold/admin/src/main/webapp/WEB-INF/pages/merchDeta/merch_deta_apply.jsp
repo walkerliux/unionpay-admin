@@ -391,6 +391,43 @@ table tr td select {
 			});
 		}
 		
+		function showMCCList() {
+			var mcc = $("#mcc").val();
+			$.ajax({
+				type: "POST",
+				url: "mccList/queryByMcc",
+				data: "mcc=" + mcc,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择MCC小类--</option>";
+					$.each(json,function(key, value) {
+						html += '<option value="' + value.mcclist + '">' + value.mcccount + '</option>';
+					});
+					$("#mcclist").html(html);
+				}
+			}); 
+		}
+		
+		function showMCCListWithMCCList(mcc,mcclist) {
+			$.ajax({
+				type: "POST",
+				url: "mccList/queryByMcc",
+				data: "mcc=" + mcc,
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择MCC小类--</option>";
+					$.each(json,function(key, value) {
+						if(value.mcclist == mcclist){
+							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccount + '</option>';
+						}else{
+							html += '<option value="' + value.mcclist + '">' + value.mcccount + '</option>';
+						}
+					});
+					$("#mcclist").html(html);
+				}
+			}); 
+		}
+		
 		function saveCoopAgencyApply(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
