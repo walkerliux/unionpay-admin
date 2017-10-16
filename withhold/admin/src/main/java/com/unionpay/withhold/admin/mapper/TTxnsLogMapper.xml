@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TTxnsLogMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TTxnsLog" >
+    <id column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
+    <result column="TXNDATE" property="txndate" jdbcType="CHAR" />
+    <result column="TXNTIME" property="txntime" jdbcType="CHAR" />
+    <result column="APPTYPE" property="apptype" jdbcType="CHAR" />
+    <result column="BUSITYPE" property="busitype" jdbcType="CHAR" />
+    <result column="BUSICODE" property="busicode" jdbcType="CHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
+    <result column="TRADCOMM" property="tradcomm" jdbcType="DECIMAL" />
+    <result column="CHNLFEE" property="chnlfee" jdbcType="CHAR" />
+    <result column="COOPFEE" property="coopfee" jdbcType="CHAR" />
+    <result column="TXNFEE" property="txnfee" jdbcType="DECIMAL" />
+    <result column="RISKVER" property="riskver" jdbcType="VARCHAR" />
+    <result column="SPLITVER" property="splitver" jdbcType="VARCHAR" />
+    <result column="FEEVER" property="feever" jdbcType="VARCHAR" />
+    <result column="PRDTVER" property="prdtver" jdbcType="VARCHAR" />
+    <result column="CHECKSTANDVER" property="checkstandver" jdbcType="VARCHAR" />
+    <result column="ROUTVER" property="routver" jdbcType="VARCHAR" />
+    <result column="PAN" property="pan" jdbcType="VARCHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="VARCHAR" />
+    <result column="CARDINSTINO" property="cardinstino" jdbcType="VARCHAR" />
+    <result column="INPAN" property="inpan" jdbcType="VARCHAR" />
+    <result column="INCARDTYPE" property="incardtype" jdbcType="VARCHAR" />
+    <result column="INCARDINSTINO" property="incardinstino" jdbcType="VARCHAR" />
+    <result column="ACCORDNO" property="accordno" jdbcType="VARCHAR" />
+    <result column="ACCORDINST" property="accordinst" jdbcType="VARCHAR" />
+    <result column="ACCSECMERNO" property="accsecmerno" jdbcType="VARCHAR" />
+    <result column="ACCFIRMERNO" property="accfirmerno" jdbcType="VARCHAR" />
+    <result column="ACCSETTLEDATE" property="accsettledate" jdbcType="VARCHAR" />
+    <result column="ACCORDCOMMITIME" property="accordcommitime" jdbcType="VARCHAR" />
+    <result column="ACCORDFINTIME" property="accordfintime" jdbcType="VARCHAR" />
+    <result column="ACCRETCODE" property="accretcode" jdbcType="CHAR" />
+    <result column="ACCRETINFO" property="accretinfo" jdbcType="CHAR" />
+    <result column="PAYTYPE" property="paytype" jdbcType="VARCHAR" />
+    <result column="PAYORDNO" property="payordno" jdbcType="VARCHAR" />
+    <result column="PAYINST" property="payinst" jdbcType="VARCHAR" />
+    <result column="PAYFIRMERNO" property="payfirmerno" jdbcType="VARCHAR" />
+    <result column="PAYSECMERNO" property="paysecmerno" jdbcType="VARCHAR" />
+    <result column="PAYORDCOMTIME" property="payordcomtime" jdbcType="VARCHAR" />
+    <result column="PAYORDFINTIME" property="payordfintime" jdbcType="VARCHAR" />
+    <result column="PAYRETTSNSEQNO" property="payrettsnseqno" jdbcType="VARCHAR" />
+    <result column="PAYRETCODE" property="payretcode" jdbcType="VARCHAR" />
+    <result column="PAYRETINFO" property="payretinfo" jdbcType="VARCHAR" />
+    <result column="APPORDNO" property="appordno" jdbcType="VARCHAR" />
+    <result column="APPINST" property="appinst" jdbcType="VARCHAR" />
+    <result column="APPORDCOMMITIME" property="appordcommitime" jdbcType="VARCHAR" />
+    <result column="APPORDFINTIME" property="appordfintime" jdbcType="VARCHAR" />
+    <result column="TRADESELTXN" property="tradeseltxn" jdbcType="VARCHAR" />
+    <result column="RETCODE" property="retcode" jdbcType="VARCHAR" />
+    <result column="RETINFO" property="retinfo" jdbcType="VARCHAR" />
+    <result column="TRADESTATFLAG" property="tradestatflag" jdbcType="VARCHAR" />
+    <result column="TRADETXNFLAG" property="tradetxnflag" jdbcType="VARCHAR" />
+    <result column="TXNCODE" property="txncode" jdbcType="VARCHAR" />
+    <result column="CASHCODE" property="cashcode" jdbcType="VARCHAR" />
+    <result column="RELATE" property="relate" jdbcType="VARCHAR" />
+    <result column="RETDATETIME" property="retdatetime" jdbcType="CHAR" />
+    <result column="TXNSEQNO_OG" property="txnseqnoOg" jdbcType="CHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="ACCMEMBERID" property="accmemberid" jdbcType="VARCHAR" />
+    <result column="APPORDERSTATUS" property="apporderstatus" jdbcType="VARCHAR" />
+    <result column="APPORDERINFO" property="apporderinfo" jdbcType="VARCHAR" />
+    <result column="ACCBUSICODE" property="accbusicode" jdbcType="VARCHAR" />
+    <result column="ACCCOOPINSTINO" property="acccoopinstino" jdbcType="VARCHAR" />
+    <result column="PAN_NAME" property="panName" jdbcType="VARCHAR" />
+    <result column="PRODUCTCODE" property="productcode" jdbcType="VARCHAR" />
+    <result column="GROUPCODE" property="groupcode" jdbcType="VARCHAR" />
+    <result column="INPAN_NAME" property="inpanName" jdbcType="VARCHAR" />
+    <result column="FEEPAYMODEL" property="feepaymodel" jdbcType="VARCHAR" />
+    <result column="PATHCODE" property="pathcode" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TXNSEQNO, TXNDATE, TXNTIME, APPTYPE, BUSITYPE, BUSICODE, AMOUNT, TRADCOMM, CHNLFEE, 
+    COOPFEE, TXNFEE, RISKVER, SPLITVER, FEEVER, PRDTVER, CHECKSTANDVER, ROUTVER, PAN, 
+    CARDTYPE, CARDINSTINO, INPAN, INCARDTYPE, INCARDINSTINO, ACCORDNO, ACCORDINST, ACCSECMERNO, 
+    ACCFIRMERNO, ACCSETTLEDATE, ACCORDCOMMITIME, ACCORDFINTIME, ACCRETCODE, ACCRETINFO, 
+    PAYTYPE, PAYORDNO, PAYINST, PAYFIRMERNO, PAYSECMERNO, PAYORDCOMTIME, PAYORDFINTIME, 
+    PAYRETTSNSEQNO, PAYRETCODE, PAYRETINFO, APPORDNO, APPINST, APPORDCOMMITIME, APPORDFINTIME, 
+    TRADESELTXN, RETCODE, RETINFO, TRADESTATFLAG, TRADETXNFLAG, TXNCODE, CASHCODE, RELATE, 
+    RETDATETIME, TXNSEQNO_OG, NOTES, REMARKS, ACCMEMBERID, APPORDERSTATUS, APPORDERINFO, 
+    ACCBUSICODE, ACCCOOPINSTINO, PAN_NAME, PRODUCTCODE, GROUPCODE, INPAN_NAME, FEEPAYMODEL, 
+    PATHCODE
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_txns_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_txns_log
+    where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
+  </select>
+ 
+  
+  
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_txns_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_txns_log a where 1=1
+    <if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="pathcode!=null">
+	and a.PATHCODE=#{pathcode}
+	</if>
+	
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+	
+  </select>
+  
+  <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+    select a.*, b.MEMBER_NAME memberName
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	 t_txns_log a
+	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
+	 where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="pathcode!=null">
+	and a.PATHCODE=#{pathcode}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+	
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+   	limit #{beginRow},#{pageSize}
+  </select>
+
+</mapper>

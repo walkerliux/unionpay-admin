@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TSpeFeeDetaMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
+    <result column="MINFEE" property="minfee" jdbcType="DECIMAL" />
+    <result column="MAXFEE" property="maxfee" jdbcType="DECIMAL" />
+    <result column="FIXFEE" property="fixfee" jdbcType="DECIMAL" />
+    <result column="FEERATE" property="feerate" jdbcType="DECIMAL" />
+    <result column="FUNCTION" property="function" jdbcType="VARCHAR" />
+    <result column="notes" property="notes" jdbcType="VARCHAR" />
+    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, RATE_ID, MINFEE, MAXFEE, FIXFEE, FEERATE, FUNCTION, notes, remarks
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_spe_fee_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_spe_fee_deta
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_spe_fee_deta
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
+    delete from t_spe_fee_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+    insert into t_spe_fee_deta (TID, RATE_ID, MINFEE, 
+      MAXFEE, FIXFEE, FEERATE, 
+      FUNCTION, notes, remarks
+      )
+    values (#{tid,jdbcType=INTEGER}, #{rateId,jdbcType=DECIMAL}, #{minfee,jdbcType=DECIMAL}, 
+      #{maxfee,jdbcType=DECIMAL}, #{fixfee,jdbcType=DECIMAL}, #{feerate,jdbcType=DECIMAL}, 
+      #{function,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+    insert into t_spe_fee_deta
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="rateId != null" >
+        RATE_ID,
+      </if>
+      <if test="minfee != null" >
+        MINFEE,
+      </if>
+      <if test="maxfee != null" >
+        MAXFEE,
+      </if>
+      <if test="fixfee != null" >
+        FIXFEE,
+      </if>
+      <if test="feerate != null" >
+        FEERATE,
+      </if>
+      <if test="function != null" >
+        FUNCTION,
+      </if>
+      <if test="notes != null" >
+        notes,
+      </if>
+      <if test="remarks != null" >
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="rateId != null" >
+        #{rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="minfee != null" >
+        #{minfee,jdbcType=DECIMAL},
+      </if>
+      <if test="maxfee != null" >
+        #{maxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="fixfee != null" >
+        #{fixfee,jdbcType=DECIMAL},
+      </if>
+      <if test="feerate != null" >
+        #{feerate,jdbcType=DECIMAL},
+      </if>
+      <if test="function != null" >
+        #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" resultType="java.lang.Integer" >
+    select count(*) from t_spe_fee_deta
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_spe_fee_deta
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rateId != null" >
+        RATE_ID = #{record.rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.minfee != null" >
+        MINFEE = #{record.minfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxfee != null" >
+        MAXFEE = #{record.maxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fixfee != null" >
+        FIXFEE = #{record.fixfee,jdbcType=DECIMAL},
+      </if>
+      <if test="record.feerate != null" >
+        FEERATE = #{record.feerate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.function != null" >
+        FUNCTION = #{record.function,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        notes = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        remarks = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_spe_fee_deta
+    set TID = #{record.tid,jdbcType=INTEGER},
+      RATE_ID = #{record.rateId,jdbcType=DECIMAL},
+      MINFEE = #{record.minfee,jdbcType=DECIMAL},
+      MAXFEE = #{record.maxfee,jdbcType=DECIMAL},
+      FIXFEE = #{record.fixfee,jdbcType=DECIMAL},
+      FEERATE = #{record.feerate,jdbcType=DECIMAL},
+      FUNCTION = #{record.function,jdbcType=VARCHAR},
+      notes = #{record.notes,jdbcType=VARCHAR},
+      remarks = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+    update t_spe_fee_deta
+    <set >
+      <if test="rateId != null" >
+        RATE_ID = #{rateId,jdbcType=DECIMAL},
+      </if>
+      <if test="minfee != null" >
+        MINFEE = #{minfee,jdbcType=DECIMAL},
+      </if>
+      <if test="maxfee != null" >
+        MAXFEE = #{maxfee,jdbcType=DECIMAL},
+      </if>
+      <if test="fixfee != null" >
+        FIXFEE = #{fixfee,jdbcType=DECIMAL},
+      </if>
+      <if test="feerate != null" >
+        FEERATE = #{feerate,jdbcType=DECIMAL},
+      </if>
+      <if test="function != null" >
+        FUNCTION = #{function,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        notes = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+    update t_spe_fee_deta
+    set RATE_ID = #{rateId,jdbcType=DECIMAL},
+      MINFEE = #{minfee,jdbcType=DECIMAL},
+      MAXFEE = #{maxfee,jdbcType=DECIMAL},
+      FIXFEE = #{fixfee,jdbcType=DECIMAL},
+      FEERATE = #{feerate,jdbcType=DECIMAL},
+      FUNCTION = #{function,jdbcType=VARCHAR},
+      notes = #{notes,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

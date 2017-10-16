@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TRateAccumMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TRateAccum" >
+    <id column="RATE_ID" property="rateId" jdbcType="INTEGER" />
+    <result column="RATE_DESC" property="rateDesc" jdbcType="VARCHAR" />
+    <result column="RATE_METHOD" property="rateMethod" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RATE_ID, RATE_DESC, RATE_METHOD, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_rate_accum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_rate_accum
+    where RATE_ID = #{rateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_rate_accum
+    where RATE_ID = #{rateId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" >
+    delete from t_rate_accum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
+    insert into t_rate_accum (RATE_ID, RATE_DESC, RATE_METHOD, 
+      NOTES, REMARKS)
+    values (#{rateId,jdbcType=INTEGER}, #{rateDesc,jdbcType=VARCHAR}, #{rateMethod,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
+    insert into t_rate_accum
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rateId != null" >
+        RATE_ID,
+      </if>
+      <if test="rateDesc != null" >
+        RATE_DESC,
+      </if>
+      <if test="rateMethod != null" >
+        RATE_METHOD,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rateId != null" >
+        #{rateId,jdbcType=INTEGER},
+      </if>
+      <if test="rateDesc != null" >
+        #{rateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rateMethod != null" >
+        #{rateMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumExample" resultType="java.lang.Integer" >
+    select count(*) from t_rate_accum
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_rate_accum
+    <set >
+      <if test="record.rateId != null" >
+        RATE_ID = #{record.rateId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rateDesc != null" >
+        RATE_DESC = #{record.rateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rateMethod != null" >
+        RATE_METHOD = #{record.rateMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_rate_accum
+    set RATE_ID = #{record.rateId,jdbcType=INTEGER},
+      RATE_DESC = #{record.rateDesc,jdbcType=VARCHAR},
+      RATE_METHOD = #{record.rateMethod,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
+    update t_rate_accum
+    <set >
+      <if test="rateDesc != null" >
+        RATE_DESC = #{rateDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rateMethod != null" >
+        RATE_METHOD = #{rateMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RATE_ID = #{rateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
+    update t_rate_accum
+    set RATE_DESC = #{rateDesc,jdbcType=VARCHAR},
+      RATE_METHOD = #{rateMethod,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where RATE_ID = #{rateId,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  
+  <select id="getAllRateList" resultMap="BaseResultMap">
+    select 
+    	RATE_ID,RATE_DESC
+    from t_rate_accum
+  </select>
+</mapper>

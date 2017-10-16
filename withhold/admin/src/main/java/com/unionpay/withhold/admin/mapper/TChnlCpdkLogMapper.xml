@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkLogMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
+    <result column="merId" property="merid" jdbcType="CHAR" />
+    <result column="transDate" property="transdate" jdbcType="CHAR" />
+    <result column="orderNo" property="orderno" jdbcType="CHAR" />
+    <result column="transType" property="transtype" jdbcType="CHAR" />
+    <result column="openBankId" property="openbankid" jdbcType="CHAR" />
+    <result column="cardType" property="cardtype" jdbcType="CHAR" />
+    <result column="cardNo" property="cardno" jdbcType="CHAR" />
+    <result column="usrName" property="usrname" jdbcType="CHAR" />
+    <result column="certType" property="certtype" jdbcType="CHAR" />
+    <result column="certId" property="certid" jdbcType="CHAR" />
+    <result column="curyId" property="curyid" jdbcType="CHAR" />
+    <result column="transAmt" property="transamt" jdbcType="CHAR" />
+    <result column="purpose" property="purpose" jdbcType="CHAR" />
+    <result column="priv1" property="priv1" jdbcType="CHAR" />
+    <result column="version" property="version" jdbcType="CHAR" />
+    <result column="gateId" property="gateid" jdbcType="CHAR" />
+    <result column="termType" property="termtype" jdbcType="CHAR" />
+    <result column="payMode" property="paymode" jdbcType="CHAR" />
+    <result column="userId" property="userid" jdbcType="CHAR" />
+    <result column="userRegisterTime" property="userregistertime" jdbcType="CHAR" />
+    <result column="userMail" property="usermail" jdbcType="CHAR" />
+    <result column="userMobile" property="usermobile" jdbcType="CHAR" />
+    <result column="diskSn" property="disksn" jdbcType="CHAR" />
+    <result column="mac" property="mac" jdbcType="CHAR" />
+    <result column="imei" property="imei" jdbcType="CHAR" />
+    <result column="ip" property="ip" jdbcType="CHAR" />
+    <result column="coordinates" property="coordinates" jdbcType="CHAR" />
+    <result column="baseStationSn" property="basestationsn" jdbcType="CHAR" />
+    <result column="codeInputType" property="codeinputtype" jdbcType="CHAR" />
+    <result column="mobileForBank" property="mobileforbank" jdbcType="CHAR" />
+    <result column="orderdesc" property="orderdesc" jdbcType="CHAR" />
+    <result column="chkValue" property="chkvalue" jdbcType="CHAR" />
+    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
+    <result column="transStat" property="transstat" jdbcType="CHAR" />
+    <result column="message" property="message" jdbcType="CHAR" />
+    <result column="chnlRetDate" property="chnlretdate" jdbcType="CHAR" />
+    <result column="inTime" property="intime" jdbcType="CHAR" />
+    <result column="upTime" property="uptime" jdbcType="CHAR" />
+    <result column="chnlFee" property="chnlfee" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TXNSEQNO, merId, transDate, orderNo, transType, openBankId, cardType, cardNo, 
+    usrName, certType, certId, curyId, transAmt, purpose, priv1, version, gateId, termType, 
+    payMode, userId, userRegisterTime, userMail, userMobile, diskSn, mac, imei, ip, coordinates, 
+    baseStationSn, codeInputType, mobileForBank, orderdesc, chkValue, responseCode, transStat, 
+    message, chnlRetDate, inTime, upTime, chnlFee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_log
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_cpdk_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+</mapper>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TOrderCollectBatch" >
+    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="MERID" property="merid" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="VARCHAR" />
+    <result column="ENCODING" property="encoding" jdbcType="VARCHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
+    <result column="TXNTYPE" property="txntype" jdbcType="VARCHAR" />
+    <result column="TXNSUBTYPE" property="txnsubtype" jdbcType="VARCHAR" />
+    <result column="BIZTYPE" property="biztype" jdbcType="VARCHAR" />
+    <result column="BACKURL" property="backurl" jdbcType="VARCHAR" />
+    <result column="BATCHNO" property="batchno" jdbcType="VARCHAR" />
+    <result column="FACTORID" property="factorid" jdbcType="VARCHAR" />
+    <result column="TXNTIME" property="txntime" jdbcType="VARCHAR" />
+    <result column="TXNDATE" property="txndate" jdbcType="VARCHAR" />
+    <result column="TOTALQTY" property="totalqty" jdbcType="DECIMAL" />
+    <result column="TOTALAMT" property="totalamt" jdbcType="DECIMAL" />
+    <result column="RESERVED" property="reserved" jdbcType="VARCHAR" />
+    <result column="RESPCODE" property="respcode" jdbcType="VARCHAR" />
+    <result column="RESPMSG" property="respmsg" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="ORDERCOMMITIME" property="ordercommitime" jdbcType="VARCHAR" />
+    <result column="ORDERFINSHTIME" property="orderfinshtime" jdbcType="VARCHAR" />
+    <result column="SYNCNOTIFY" property="syncnotify" jdbcType="VARCHAR" />
+    <result column="TN" property="tn" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="ACCESSTYPE" property="accesstype" jdbcType="VARCHAR" />
+    <result column="COOPINSTIID" property="coopinstiid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, MERID, VERSION, ENCODING, CERTID, TXNTYPE, TXNSUBTYPE, BIZTYPE, BACKURL, BATCHNO, 
+    FACTORID, TXNTIME, TXNDATE, TOTALQTY, TOTALAMT, RESERVED, RESPCODE, RESPMSG, STATUS, 
+    ORDERCOMMITIME, ORDERFINSHTIME, SYNCNOTIFY, TN, NOTES, REMARKS, ACCESSTYPE, COOPINSTIID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_order_collect_batch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_collect_batch
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  
+  
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_collect_batch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+   <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_collect_batch a where 1=1
+    <if test="merid!=null">
+	and a.MERID=#{merid}
+	</if>
+    <if test="batch!=null">
+	and a.BATCHNO=#{batch}
+	</if>
+	<if test="tn!=null">
+	and a.TN=#{tn}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+  </select>
+ <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
+    select a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    from t_order_collect_batch a where 1=1
+   <if test="merid!=null">
+	and a.MERID=#{merid}
+	</if>
+    <if test="batch!=null">
+	and a.BATCHNO=#{batch}
+	</if>
+	<if test="tn!=null">
+	and a.TN=#{tn}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
+</mapper>

@@ -1,0 +1,203 @@
+package com.unionpay.withhold.admin.pojo;
+
+public class TChnlCpdkBatch {
+    private Integer tid;
+
+    private String tn;//受理批次号（平台内部使用）
+
+    private String filename;//文件名
+
+    private String hpfilename;//回盘文件名
+
+    private String merid;//商户号
+
+    private String batchno;//批次号
+
+    private String totalnum;//总笔数
+
+    private String totalamt;//总金额
+
+    private String succnum;//成功笔数
+
+    private String failnum;//失败笔数
+
+    private String succamt;//成功金额
+
+    private String failamt;//失败金额
+
+    private String intime;//插入时间
+
+    private String uploadresptime;//上传应答时间
+
+    private String noticetime;//回盘通知时间
+
+    private String finishtime;//交易完成时间
+
+    private String uploadrespcode;//上传文件错误码
+
+    private String uploadrespmessage;//上传文件错误信息
+
+    private String hprespcode;//回盘文件错误码
+
+    private String hprespmessage;//回盘文件错误信息
+
+    public Integer getTid() {
+        return tid;
+    }
+
+    public void setTid(Integer tid) {
+        this.tid = tid;
+    }
+
+    public String getTn() {
+        return tn;
+    }
+
+    public void setTn(String tn) {
+        this.tn = tn == null ? null : tn.trim();
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename == null ? null : filename.trim();
+    }
+
+    public String getHpfilename() {
+        return hpfilename;
+    }
+
+    public void setHpfilename(String hpfilename) {
+        this.hpfilename = hpfilename == null ? null : hpfilename.trim();
+    }
+
+    public String getMerid() {
+        return merid;
+    }
+
+    public void setMerid(String merid) {
+        this.merid = merid == null ? null : merid.trim();
+    }
+
+    public String getBatchno() {
+        return batchno;
+    }
+
+    public void setBatchno(String batchno) {
+        this.batchno = batchno == null ? null : batchno.trim();
+    }
+
+    public String getTotalnum() {
+        return totalnum;
+    }
+
+    public void setTotalnum(String totalnum) {
+        this.totalnum = totalnum == null ? null : totalnum.trim();
+    }
+
+    public String getTotalamt() {
+        return totalamt;
+    }
+
+    public void setTotalamt(String totalamt) {
+        this.totalamt = totalamt == null ? null : totalamt.trim();
+    }
+
+    public String getSuccnum() {
+        return succnum;
+    }
+
+    public void setSuccnum(String succnum) {
+        this.succnum = succnum == null ? null : succnum.trim();
+    }
+
+    public String getFailnum() {
+        return failnum;
+    }
+
+    public void setFailnum(String failnum) {
+        this.failnum = failnum == null ? null : failnum.trim();
+    }
+
+    public String getSuccamt() {
+        return succamt;
+    }
+
+    public void setSuccamt(String succamt) {
+        this.succamt = succamt == null ? null : succamt.trim();
+    }
+
+    public String getFailamt() {
+        return failamt;
+    }
+
+    public void setFailamt(String failamt) {
+        this.failamt = failamt == null ? null : failamt.trim();
+    }
+
+    public String getIntime() {
+        return intime;
+    }
+
+    public void setIntime(String intime) {
+        this.intime = intime == null ? null : intime.trim();
+    }
+
+    public String getUploadresptime() {
+        return uploadresptime;
+    }
+
+    public void setUploadresptime(String uploadresptime) {
+        this.uploadresptime = uploadresptime == null ? null : uploadresptime.trim();
+    }
+
+    public String getNoticetime() {
+        return noticetime;
+    }
+
+    public void setNoticetime(String noticetime) {
+        this.noticetime = noticetime == null ? null : noticetime.trim();
+    }
+
+    public String getFinishtime() {
+        return finishtime;
+    }
+
+    public void setFinishtime(String finishtime) {
+        this.finishtime = finishtime == null ? null : finishtime.trim();
+    }
+
+    public String getUploadrespcode() {
+        return uploadrespcode;
+    }
+
+    public void setUploadrespcode(String uploadrespcode) {
+        this.uploadrespcode = uploadrespcode == null ? null : uploadrespcode.trim();
+    }
+
+    public String getUploadrespmessage() {
+        return uploadrespmessage;
+    }
+
+    public void setUploadrespmessage(String uploadrespmessage) {
+        this.uploadrespmessage = uploadrespmessage == null ? null : uploadrespmessage.trim();
+    }
+
+    public String getHprespcode() {
+        return hprespcode;
+    }
+
+    public void setHprespcode(String hprespcode) {
+        this.hprespcode = hprespcode == null ? null : hprespcode.trim();
+    }
+
+    public String getHprespmessage() {
+        return hprespmessage;
+    }
+
+    public void setHprespmessage(String hprespmessage) {
+        this.hprespmessage = hprespmessage == null ? null : hprespmessage.trim();
+    }
+}
