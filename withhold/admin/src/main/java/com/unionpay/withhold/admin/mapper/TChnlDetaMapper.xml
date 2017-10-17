@@ -33,7 +33,7 @@
     <result column="CONTACT" property="contact" jdbcType="VARCHAR" />
     <result column="CONT_PHONE" property="contPhone" jdbcType="VARCHAR" />
     <result column="INUSER" property="inuser" jdbcType="DECIMAL" />
-	<result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -97,7 +97,7 @@
     CHNLID, CHNLCODE, CHNLNAME, INSTICODE, CHNLTYPE, STATUS, URL, BMK, MACKEY, PINKEY, 
     DATAKEY, ENCODE, NOTES, REMARKS, FRONTURL, BACKURL, SAFEURL, CHNLMERCHNO, IMPL, REFUND_IMPL, 
     limitnum, limitamt, TRADEELEMENT, CHKFILEURL, CHKFILGETTYPE, CFFTPUSER, CFFTPPWD, 
-    ADDRESS, CONTACT, CONT_PHONE ,INUSER,INTIME
+    ADDRESS, CONTACT, CONT_PHONE, INUSER, INTIME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlDetaExample" >
     select
@@ -139,7 +139,8 @@
       REFUND_IMPL, limitnum, limitamt, 
       TRADEELEMENT, CHKFILEURL, CHKFILGETTYPE, 
       CFFTPUSER, CFFTPPWD, ADDRESS, 
-      CONTACT, CONT_PHONE)
+      CONTACT, CONT_PHONE, INUSER, 
+      INTIME)
     values (#{chnlid,jdbcType=INTEGER}, #{chnlcode,jdbcType=VARCHAR}, #{chnlname,jdbcType=VARCHAR}, 
       #{insticode,jdbcType=VARCHAR}, #{chnltype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{url,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, #{mackey,jdbcType=VARCHAR}, #{pinkey,jdbcType=VARCHAR}, 
@@ -149,7 +150,8 @@
       #{refundImpl,jdbcType=VARCHAR}, #{limitnum,jdbcType=DECIMAL}, #{limitamt,jdbcType=DECIMAL}, 
       #{tradeelement,jdbcType=CHAR}, #{chkfileurl,jdbcType=CHAR}, #{chkfilgettype,jdbcType=CHAR}, 
       #{cfftpuser,jdbcType=CHAR}, #{cfftppwd,jdbcType=CHAR}, #{address,jdbcType=VARCHAR}, 
-      #{contact,jdbcType=VARCHAR}, #{contPhone,jdbcType=VARCHAR})
+      #{contact,jdbcType=VARCHAR}, #{contPhone,jdbcType=VARCHAR}, #{inuser,jdbcType=DECIMAL}, 
+      #{intime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlDeta" >
     insert into t_chnl_deta
@@ -244,6 +246,12 @@
       <if test="contPhone != null" >
         CONT_PHONE,
       </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="chnlid != null" >
@@ -335,6 +343,12 @@
       </if>
       <if test="contPhone != null" >
         #{contPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -437,6 +451,12 @@
       <if test="record.contPhone != null" >
         CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
       </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -473,7 +493,9 @@
       CFFTPPWD = #{record.cfftppwd,jdbcType=CHAR},
       ADDRESS = #{record.address,jdbcType=VARCHAR},
       CONTACT = #{record.contact,jdbcType=VARCHAR},
-      CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR}
+      CONT_PHONE = #{record.contPhone,jdbcType=VARCHAR},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -568,6 +590,12 @@
       <if test="contPhone != null" >
         CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
       </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where CHNLID = #{chnlid,jdbcType=INTEGER}
   </update>
@@ -601,7 +629,9 @@
       CFFTPPWD = #{cfftppwd,jdbcType=CHAR},
       ADDRESS = #{address,jdbcType=VARCHAR},
       CONTACT = #{contact,jdbcType=VARCHAR},
-      CONT_PHONE = #{contPhone,jdbcType=VARCHAR}
+      CONT_PHONE = #{contPhone,jdbcType=VARCHAR},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      INTIME = #{intime,jdbcType=TIMESTAMP}
     where CHNLID = #{chnlid,jdbcType=INTEGER}
   </update>
 </mapper>
