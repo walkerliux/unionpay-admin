@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>欢迎登录宜赋通综合管理系统</title>
+<title>欢迎登银联代扣管理系统</title>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>css/style.css"/>
 <link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>js/themes/icon.css" />
@@ -32,11 +32,11 @@
 			<div class="loginbox">
 				<ul>
 					<li><input type="text" class="loginuser"
-						onclick="JavaScript:this.value=''" size="30" maxlength="128"
+						onclick="JavaScript:this.value=''" size="30" maxlength="128" value="test"
 						name="user.loginName" id="loginname" class="easyui-validatebox"
 						required="true" missingMessage="请输入用户名" /></li>
 					<li><input class="loginpwd" onclick="JavaScript:this.value=''"
-						type="password" id="pwd" name="user.pwd" size="30" maxlength="128"
+						type="password" id="pwd" name="user.pwd" size="30" maxlength="128" value="asd12345"
 						class="easyui-validatebox" required="true" missingMessage="请输入密码" />
 					</li>
 					<li>
