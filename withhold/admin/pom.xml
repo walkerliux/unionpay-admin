@@ -12,7 +12,17 @@
 	<packaging>war</packaging>
 	<name>admin Maven Webapp</name>
 	<url>http://maven.apache.org</url> 
+	<properties>
+	<jedis.version>2.7.2</jedis.version>
+	</properties>
 	<dependencies>
+	<!-- Redis客户端 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>

@@ -1,7 +1,8 @@
+<%@page import="com.unionpay.withhold.admin.pojo.TUser"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="../top.jsp"></jsp:include>
-<jsp:include page="../checkLoginUser.jsp"></jsp:include>
+<jsp:include page="../browser_close.jsp"></jsp:include>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -119,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$.messager.confirm('操作', '确认退出?',
 				function(r) {
 					if (r) {
-						window.parent.location.href = "<%=basePath%>" + "login/logout?userId="+userId;
+						window.parent.location.href = "<%=basePath%>" + "login/logout";
 					}
 				});
 			}
@@ -278,13 +279,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div region="north" border="false"
 		style="height: 71px; background-image: url('pictuer/bg.jpg')">
 		<input type="hidden" id="pwdFlag" value="${pwdFlag}" /> 
-		<input id="LOGIN_USERID" name="userId" type="hidden" value="${LOGIN_USER.user.userId}"/>
+		<input id="LOGIN_USERID" name="userId" type="hidden" value="${user.userId}"/>
 		<input
 			type="hidden" id="pwdDay" value="${pwdDay}" />
 		<table width="100%" height="100%" border="0">			
 			<tr>
 				<td align="right" valign="bottom" width=""></td>
-				<td align="left" valign="bottom">&nbsp;&nbsp;&nbsp;${LOGIN_USER.user.userName}&nbsp;用户,欢迎您登录到本系统!&nbsp;&nbsp;&nbsp;&nbsp;<span
+				<td align="left" valign="bottom">&nbsp;&nbsp;&nbsp;
+				${loginName}&nbsp;用户,欢迎您登录到本系统!&nbsp;&nbsp;&nbsp;&nbsp;<span
 					id="expiration" style="color: red"></span>
 				</td>
 				<td align="right" valign="bottom"><a id="passwordchange"

@@ -9,20 +9,34 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TOperationLogMapper;
 import com.unionpay.withhold.admin.pojo.TOperationLog;
 import com.unionpay.withhold.admin.pojo.TOperationLogExample;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TOperationLogExample.Criteria;
 import com.unionpay.withhold.admin.service.OperationLogService;
+import com.unionpay.withhold.admin.utils.JsonUtils;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 @Service
 @Transactional
 public class OperationLogServiceImpl implements OperationLogService {
+	@Value("${REDIS_USER_KEY}")
+	private String REDIS_USER_KEY;
+	@Value("${REDIS_IP_KEY}")
+	private String REDIS_IP_KEY;
+	@Value("${REDIS_BROWSER_KEY}")
+	private String REDIS_BROWSER_KEY;
+	@Value("${REDIS_SESSION_EXPIRE}")
+	private int REDIS_SESSION_EXPIRE;
+	@Autowired
+	JedisClient jedisClient;
 	@Autowired
 	private TOperationLogMapper tOperationLogMapper;
 	@Override
@@ -49,10 +63,12 @@ public class OperationLogServiceImpl implements OperationLogService {
 	}
 	@Override
 	public void addOperationLog(HttpServletRequest request,String opContent) {
-		LoginUser loginUser=(LoginUser) request.getSession().getAttribute("LOGIN_USER");
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		String userValue = jedisClient.get(REDIS_USER_KEY+":"+cookieValue);
+		TUser tUser = JsonUtils.jsonToPojo(userValue,TUser.class);
 		TOperationLog tOperationLog = new TOperationLog();
-		tOperationLog.setUserId(loginUser.getUser().getUserId().toString());
-		tOperationLog.setUsername(loginUser.getUser().getUserName());
+		tOperationLog.setUserId(tUser.getUserId().toString());
+		tOperationLog.setUsername(tUser.getUserName());
 		tOperationLog.setOpContent(opContent);
 		tOperationLog.setOpDate(new Date());
 		try {
