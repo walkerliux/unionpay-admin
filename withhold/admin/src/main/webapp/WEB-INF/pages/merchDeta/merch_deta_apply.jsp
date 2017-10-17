@@ -391,6 +391,7 @@ table tr td select {
 			});
 		}
 		
+
 		function showMCCList() {
 			var mcc = $("#mcc").val();
 			$.ajax({
@@ -428,6 +429,7 @@ table tr td select {
 			}); 
 		}
 		
+
 		function saveCoopAgencyApply(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  

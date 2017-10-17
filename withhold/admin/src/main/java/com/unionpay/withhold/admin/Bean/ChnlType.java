@@ -1,5 +1,8 @@
 package com.unionpay.withhold.admin.Bean;
 
+
+
+
 public class ChnlType {   
 	private String code;
     private String name;

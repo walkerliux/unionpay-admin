@@ -1,0 +1,24 @@
+使用说明
+1.添加maven依赖，如下
+<dependency>
+	<groupId>org.springframework</groupId>
+	<artifactId>spring-web</artifactId>
+	<version>${springframework.version}</version>
+</dependency>jackson.version
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-databind</artifactId>
+	<version>${jackson.version}</version>
+</dependency>
+<dependency>
+	<groupId>com.fasterxml.jackson.dataformat</groupId>
+	<artifactId>jackson-dataformat-xml</artifactId>
+	<version>${jackson.version}</version>
+</dependency>
+<dependency>
+	<groupId>com.fasterxml.jackson.core</groupId>
+	<artifactId>jackson-core</artifactId>
+	<version>${jackson.version}</version>
+</dependency>
+2.引用spring-trade-api.xml
+<import resource="classpath:/spring-trade-api.xml"/>

@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.ChannelService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 /**
  * 通道管理
@@ -30,6 +32,8 @@ import com.unionpay.withhold.admin.service.ChannelService;
 public class ChannelController {
 	@Autowired
 	private ChannelService channelService;
+	@Autowired
+	private UserService userService;
 	/**
 	 * 渠道申请页面
 	 * 
@@ -89,8 +93,9 @@ public class ChannelController {
 	@ResponseBody
 	@RequestMapping("/addChannel")
 	public ResultBean addCoopAgencyApply(TChnlDeta chnlDeta, HttpServletRequest request,String rates) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		chnlDeta.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		chnlDeta.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return channelService.addChannel(chnlDeta);
 		} catch (Exception e) {

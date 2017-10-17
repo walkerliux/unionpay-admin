@@ -12,7 +12,17 @@
 	<packaging>war</packaging>
 	<name>admin Maven Webapp</name>
 	<url>http://maven.apache.org</url> 
+	<properties>
+	<jedis.version>2.7.2</jedis.version>
+	</properties>
 	<dependencies>
+	<!-- Redis客户端 -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -100,16 +110,10 @@
 			<version>1.0.26</version>
 		</dependency>
 
-		<!-- <dependency>
+		<dependency>
 			<groupId>com.github.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>3.6.3</version>
-		</dependency> -->
-		<!-- https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper -->
-		<dependency>
-		    <groupId>com.github.pagehelper</groupId>
-		    <artifactId>pagehelper</artifactId>
-		    <version>5.1.2</version>
 		</dependency>
 
 		<dependency>
@@ -127,7 +131,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>admin</finalName> 
+		<finalName>admin</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/java</directory>
@@ -140,3 +144,5 @@
 		</resources>
 	</build>
 </project>
+
+

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unionpay.withhold.trade.risk.dao.RiskListDAO">
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.trade.risk.pojo.RiskListDO">
+    <id column="RID" jdbcType="INTEGER" property="rid" />
+    <result column="STRATEGY" jdbcType="VARCHAR" property="strategy" />
+    <result column="ORDERS" jdbcType="DECIMAL" property="orders" />
+    <result column="EXCFNC" jdbcType="VARCHAR" property="excfnc" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+    <result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+    <result column="STATUS" jdbcType="DECIMAL" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    RID, STRATEGY, ORDERS, EXCFNC, NOTES, REMARKS, STATUS
+  </sql>
+  <select id="selectByExample" parameterType="com.unionpay.withhold.trade.risk.pojo.RiskListDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_risk_list
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_risk_list
+    where RID = #{rid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_risk_list
+    where RID = #{rid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.trade.risk.pojo.RiskListDO">
+    insert into t_risk_list (RID, STRATEGY, ORDERS, 
+      EXCFNC, NOTES, REMARKS, 
+      STATUS)
+    values (#{rid,jdbcType=INTEGER}, #{strategy,jdbcType=VARCHAR}, #{orders,jdbcType=DECIMAL}, 
+      #{excfnc,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{status,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.trade.risk.pojo.RiskListDO">
+    insert into t_risk_list
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        RID,
+      </if>
+      <if test="strategy != null">
+        STRATEGY,
+      </if>
+      <if test="orders != null">
+        ORDERS,
+      </if>
+      <if test="excfnc != null">
+        EXCFNC,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+      <if test="remarks != null">
+        REMARKS,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rid != null">
+        #{rid,jdbcType=INTEGER},
+      </if>
+      <if test="strategy != null">
+        #{strategy,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=DECIMAL},
+      </if>
+      <if test="excfnc != null">
+        #{excfnc,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.trade.risk.pojo.RiskListDO">
+    update t_risk_list
+    <set>
+      <if test="strategy != null">
+        STRATEGY = #{strategy,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        ORDERS = #{orders,jdbcType=DECIMAL},
+      </if>
+      <if test="excfnc != null">
+        EXCFNC = #{excfnc,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.trade.risk.pojo.RiskListDO">
+    update t_risk_list
+    set STRATEGY = #{strategy,jdbcType=VARCHAR},
+      ORDERS = #{orders,jdbcType=DECIMAL},
+      EXCFNC = #{excfnc,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=DECIMAL}
+    where RID = #{rid,jdbcType=INTEGER}
+  </update>
+   <select id="getRiskStrategy" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_risk_list
+    where 
+		ORDERS = #{orders,jdbcType=DECIMAL}
+  </select>
+</mapper>

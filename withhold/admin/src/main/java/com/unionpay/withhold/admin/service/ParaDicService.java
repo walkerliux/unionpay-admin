@@ -16,6 +16,7 @@ public interface ParaDicService {
 	TParaDic getSingleById(Long tid);
 
 	List<TParaDic> getParents();
+
 	
 	/**
 	 * 根据父节点的paraCode查询子类的列表信息
@@ -25,5 +26,6 @@ public interface ParaDicService {
 	 * @date 2017年10月16日 15:54:45
 	 */
 	List<TParaDic> selectParaDicByParentCode(String paraCode);
+
 
 }
