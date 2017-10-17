@@ -8,24 +8,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-
-
-
-
 import org.springframework.web.servlet.ModelAndView;
-
-import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
@@ -41,6 +31,7 @@ import com.unionpay.withhold.admin.service.UserFunctService;
 import com.unionpay.withhold.admin.service.UserRoleService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MD5Util;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 @Controller
 @RequestMapping("/user")
@@ -86,8 +77,9 @@ public class UserController {
 	@ResponseBody
     @RequestMapping("/update")
 	public List<?> update(HttpServletRequest request,TUser user) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		user.setCreator(loginUser.getUser().getLoginName());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		user.setCreator(infoByToken.getLoginName());
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			userService.updateUser(user);
@@ -135,8 +127,9 @@ public class UserController {
     @RequestMapping("/save")
 	public List<?> save(HttpServletRequest request,TUser user) {
 		ArrayList<String> list = new ArrayList<String>();
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		user.setCreator(loginUser.getUser().getLoginName());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		user.setCreator(infoByToken.getLoginName());
 		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
 		passwordMark = passwordMark + "123456";
 		user.setPwd(MD5Util.MD5(passwordMark));
@@ -189,8 +182,9 @@ public class UserController {
 	@ResponseBody
     @RequestMapping("/changePassword")
 	public String changePassword(HttpSession session,HttpServletRequest request,String newPwd) throws ParseException {
-		LoginUser sessionUser = (LoginUser) session.getAttribute("LOGIN_USER");
-		TUser dbUser = userService.getSingleById(sessionUser.getUser().getUserId());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		TUser dbUser = userService.getSingleById(infoByToken.getUserId());
 		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
 		passwordMark = passwordMark + newPwd;
 		dbUser.setPwd(MD5Util.MD5(passwordMark));

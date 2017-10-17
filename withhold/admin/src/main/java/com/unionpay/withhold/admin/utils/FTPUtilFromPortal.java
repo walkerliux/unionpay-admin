@@ -151,7 +151,7 @@ public class FTPUtilFromPortal {
 	       // String resFileName = "gg.txt";
 	       String resFileName ="2f050953cb17407cb577fe2273a6f4cb.jpg";
 	        //boolean flag = uploadFile("192.168.2.12", 21, "webftp", "webftp","","FormData/200000000001588", resFileName, in);  
-	        boolean flag = FTPUtils.downloadFile("192.168.2.12", 21, "webftp", "webftp","contract/200000000001588/",resFileName , "D:/temp");
+	        boolean flag = FTPUtils.downloadFile("180.169.179.91", 5921, "tjunionpaydk", "TJUpd#1017","contract/200000000001588/",resFileName , "D:/temp");
 	        System.out.println(flag);  
 	    } catch (Exception e) {  
 	        e.printStackTrace();  

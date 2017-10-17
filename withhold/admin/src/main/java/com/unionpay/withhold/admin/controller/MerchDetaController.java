@@ -1,6 +1,8 @@
 package com.unionpay.withhold.admin.controller;
 
+
 import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,9 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
+
+import com.unionpay.withhold.admin.service.MerchDetaApplyService;
+
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.admin.service.ParaDicService;
+
 
 /**
  * 商户管理
@@ -27,9 +33,11 @@ public class MerchDetaController {
 	@Autowired
 	private MerchDetaApplyService merchDetaApplyService;
 	
+
 	@Autowired
 	private ParaDicService paraDicService;
 	
+
 	/**
 	 * 商户申请页面
 	 * 
@@ -109,6 +117,7 @@ public class MerchDetaController {
 			return merchDetaApplyService.selectApplyWithCondition(merchDetaApply, page, rows);
 		}
 	}
+
 	
 	
 	/**
@@ -120,4 +129,5 @@ public class MerchDetaController {
 	public List<TParaDic> showAllTransfactors(){
 		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.TRANSFACTORS.getCode());
 	}
+
 }

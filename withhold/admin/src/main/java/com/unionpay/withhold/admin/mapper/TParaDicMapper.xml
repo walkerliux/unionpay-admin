@@ -336,8 +336,9 @@
 		FROM
 			`t_para_dic`
 		WHERE
+			`STATUS` = '1' 
 			<if test="paraCode!=null">
-			and	PARENT_ID = (
+			AND	PARENT_ID = (
 					SELECT DISTINCT
 						TID
 					FROM
@@ -347,6 +348,5 @@
 					LIMIT 0,1
 			)
 			</if>
-		AND `STATUS` = '1'
 	</select>
 </mapper>
