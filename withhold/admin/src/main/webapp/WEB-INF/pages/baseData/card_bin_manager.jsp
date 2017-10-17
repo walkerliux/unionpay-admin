@@ -60,8 +60,9 @@ table tr td select {
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="saveForm" action="bin/save"
 					method="post">
-					 
 					<table width="100%" cellpadding="2" cellspacing="2">
+						<input type="hidden" id="oldcardbin" name="oldcardbin">
+						<input type="hidden" id="oldcardlen" name="oldcardlen">
 						<tr style="height: 25px">
 							<td>卡bin</td>
 							<td align="left"><input type="text" id="cardbin"
@@ -137,13 +138,13 @@ table tr td select {
 					{field:'bankname',title:'发卡行',width:100,align:'center'},
 					{field:'type',title:'卡类型',width:100,align:'center',
 						formatter:function(value,rec){
-							if(value=1){
+							if(value==1){
 								return "借记卡";
-							}else if(value=2){
+							}else if(value==2){
 								return "贷记卡";
-							}else if(value=3){
+							}else if(value==3){
 								return "准贷记卡";
-							}else if(value=4){
+							}else if(value==4){
 								return "预付费卡";
 							}
 						}
@@ -267,7 +268,7 @@ table tr td select {
 		}
 		
 		function showbin(cardbin){
-			alert(cardbin)
+			
 			$.ajax({
 			   type: "POST",
 			   url: "bin/getSingleById",
@@ -275,10 +276,10 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   //alert(json.apicode);
+				   //alert(json.apicode);oldcardbinoldcardlen
 						$("#cardbin").val(json.cardbin);
-						$("#cardbin").attr('readonly','readonly');
-						$("#cardbin").css('background-color','#D2D2D2');
+						$("#oldcardbin").val(json.cardbin);
+						$("#oldcardlen").val(json.cardlen);
 						$("#cardname").val(json.cardname);
 						$("#cardlen").val(json.cardlen);
 						$("#bankcode").val(json.bankcode);

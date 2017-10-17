@@ -2,8 +2,24 @@ package com.unionpay.withhold.admin.pojo;
 
 public class TCardBin extends TCardBinKey {
 	private String bankname;
+	private String oldcardbin;
+	private Short oldcardlen;
 	
-    public String getBankname() {
+    public String getOldcardbin() {
+		return oldcardbin;
+	}
+	public void setOldcardbin(String oldcardbin) {
+		this.oldcardbin = oldcardbin;
+	}
+	public Short getOldcardlen() {
+		return oldcardlen;
+	}
+
+	public void setOldcardlen(Short oldcardlen) {
+		this.oldcardlen = oldcardlen;
+	}
+
+	public String getBankname() {
 		return bankname;
 	}
 

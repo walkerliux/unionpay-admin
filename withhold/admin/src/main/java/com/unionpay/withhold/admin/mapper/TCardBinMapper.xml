@@ -205,6 +205,12 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     update t_card_bin
     <set >
+      <if test="cardbin != null" >
+        CARDBIN = #{cardbin,jdbcType=VARCHAR},
+      </if>
+      <if test="cardlen != null" >
+        CARDLEN = #{cardlen,jdbcType=DECIMAL},
+      </if>
       <if test="binlen != null" >
         BINLEN = #{binlen,jdbcType=DECIMAL},
       </if>
@@ -218,8 +224,8 @@
         TYPE = #{type,jdbcType=DECIMAL},
       </if>
     </set>
-    where CARDBIN = #{cardbin,jdbcType=VARCHAR}
-      and CARDLEN = #{cardlen,jdbcType=DECIMAL}
+    where CARDBIN = #{oldcardbin,jdbcType=VARCHAR}
+      and CARDLEN = #{oldcardlen,jdbcType=DECIMAL}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TCardBin" >
     update t_card_bin

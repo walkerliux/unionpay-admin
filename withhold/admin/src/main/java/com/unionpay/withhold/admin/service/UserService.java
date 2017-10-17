@@ -27,7 +27,7 @@ public interface UserService {
 	public abstract TUser getSingleById(Long userId);
 
 	
-	public abstract String putLoginMsgTORedis(HttpServletResponse response,HttpServletRequest request,TUser user);
+	public abstract void putLoginMsgTORedis(HttpServletResponse response,HttpServletRequest request,TUser user);
 	
 	public abstract TUser getUserInfoByToken(String token);
 	

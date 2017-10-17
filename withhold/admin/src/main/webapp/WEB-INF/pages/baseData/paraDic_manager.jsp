@@ -198,7 +198,7 @@ table tr td select {
 					{field:'added',title:'附加',width:100,align:'center'},
 					{field:'tid',title:'操作',align:'center',width:250,rowspan:2,
 						formatter:function(value,rec){
-							if(rec.status=="00"){
+							if(rec.status=="00"&&rec.hasSub==1){
 								return '<a href="javascript:showPara('+value+')" style="color:blue;margin-left:10px">修改</a>'+
 							
 								'<a href="javascript:deletePara('+value+')" style="color:blue;margin-left:10px">注销</a>'

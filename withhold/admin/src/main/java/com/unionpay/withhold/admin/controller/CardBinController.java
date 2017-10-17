@@ -61,7 +61,8 @@ public class CardBinController {
 	public List<?> update(TCardBin bin) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
-			
+			int binlen = bin.getCardbin().length();
+			bin.setBinlen((short)binlen);
 			cardBinService.updateTCardBin(bin);
 			
 			list.add("更新成功");

@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String putLoginMsgTORedis(HttpServletResponse response,HttpServletRequest request,TUser user) {
+	public void putLoginMsgTORedis(HttpServletResponse response,HttpServletRequest request,TUser user) {
 		//判断是否是第二次登录
 		String userMsg = jedisClient.get(REDIS_USER_KEY+":"+user.getUserId());
 		String ip = jedisClient.get(REDIS_IP_KEY+":"+user.getUserId());
@@ -170,7 +170,6 @@ public class UserServiceImpl implements UserService {
 		jedisClient.expire(REDIS_USER_KEY+":"+user.getUserId(), REDIS_SESSION_EXPIRE);
 		MyCookieUtils.setCookie(request, response, "eb_token", user.getUserId().toString());
 		
-		return null;
 	}
 	@Override
 	public TUser getUserInfoByToken(String token) {

@@ -515,7 +515,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 220
+				height: 300
 			});
 			$("#saveForm").attr("action","rsp/update");
 			$('#btn_submit').linkbutton('enable');	

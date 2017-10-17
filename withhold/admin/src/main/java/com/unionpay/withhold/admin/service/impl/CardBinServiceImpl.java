@@ -10,7 +10,7 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TCardBinMapper;
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TCardBinExample;
-
+import com.unionpay.withhold.admin.pojo.TCardBinExample.Criteria;
 import com.unionpay.withhold.admin.service.CardBinService;
 @Service
 @Transactional
@@ -42,8 +42,8 @@ public class CardBinServiceImpl implements CardBinService {
 	}
 	@Override
 	public void updateTCardBin(TCardBin bin) {
-		tCardBinMapper.updateByPrimaryKey(bin);
-		
+		tCardBinMapper.updateByPrimaryKeySelective(bin);
+		System.out.println();
 	}
 	@Override
 	public void saveTCardBin(TCardBin bin) {
