@@ -59,11 +59,11 @@
 		</property>
 		<property name="plugins">
 			<array>
-				<bean class="com.github.pagehelper.PageHelper">
+				<bean class="com.github.pagehelper.PageInterceptor">
 					<property name="properties">
 						<value>
-							dialect=mysql
-							reasonable=true
+							<!-- dialect=mysql
+							reasonable=true -->
 						</value>
 					</property>
 				</bean>

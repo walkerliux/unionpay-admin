@@ -27,4 +27,6 @@ public interface TChnlDetaMapper {
     int updateByPrimaryKeySelective(TChnlDeta record);
 
     int updateByPrimaryKey(TChnlDeta record);
+
+	List<TChnlDeta> selectByCondition(@Param("record")TChnlDeta record);
 }
