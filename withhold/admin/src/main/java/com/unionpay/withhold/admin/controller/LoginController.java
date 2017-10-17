@@ -12,31 +12,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FunctionService;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.CookieUtils;
 import com.unionpay.withhold.admin.utils.MD5Util;
+
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
+
 
 @Controller
 @RequestMapping("/login")
@@ -69,6 +66,7 @@ public class LoginController {
 	public ModelAndView loginSuccess(TUser user, HttpServletRequest request)
 			throws ParseException {
 		ModelAndView result = new ModelAndView("/index");
+
 		
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
@@ -79,12 +77,15 @@ public class LoginController {
 			funlist = functionService.findFunction();
 		} else {
 			funlist = functionService.findLoginFuntion(infoByToken);
+
+		
 		}
 		Integer pwdFlag = checkPWDDate(request);
 		pwdDay = calcExpirationDay(request);
 
 		result.addObject("loginName", infoByToken.getLoginName());
 		result.addObject("funlist", funlist);
+
 		result.addObject("pwdDay", pwdDay);
 		result.addObject("pwdFlag", pwdFlag);
 		operationLogService.addOperationLog(request, "登录成功");
@@ -99,7 +100,9 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/validateUser")
 	public Map<String, Object> validateUser(TUser user,
+
 			HttpServletRequest request, String randcode,HttpServletResponse response) {
+
 		sc = request.getSession().getServletContext();
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		String rand = "";
@@ -140,7 +143,6 @@ public class LoginController {
 			returnMap.put("info", "用户名或密码错误！");
 		} else {
 			userService.putLoginMsgTORedis(response,request, DbUser);
-			
 		}
 		return returnMap;
 	}
@@ -152,19 +154,18 @@ public class LoginController {
 	@RequestMapping("/querymenu")
 	public ModelAndView querymenu() throws Exception {
 		ModelAndView result = new ModelAndView("/index");
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute(
-				"LOGIN_USER");
+		
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		if (infoByToken.getLoginName().equals("admin")) {
 			funlist = functionService.findFunction();
 		} else {
 			funlist = functionService.findLoginFuntion(infoByToken);
+
 		}
 		session.put("Authority", funlist);
 		Integer pwdFlag = checkPWDDate(request);
 		pwdDay = calcExpirationDay(request);
-
 		result.addObject("loginName", infoByToken.getLoginName());
 		result.addObject("funlist", funlist);
 		result.addObject("pwdDay", pwdDay);
@@ -180,8 +181,8 @@ public class LoginController {
 	 */
 	private Integer checkPWDDate(HttpServletRequest request)
 			throws ParseException {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute(
-				"LOGIN_USER");
+		
+
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		pwdFlag = 0;
@@ -190,6 +191,7 @@ public class LoginController {
 			pwdFlag = 1;
 		} else {
 			long time = infoByToken.getPwdValid().getTime();// 密码有效期
+
 			long currentTime = new Date().getTime();// 当前时间
 			if (currentTime > time) {
 				pwdFlag = 1;
@@ -206,8 +208,8 @@ public class LoginController {
 	 */
 	private int calcExpirationDay(HttpServletRequest request)
 			throws ParseException {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute(
-				"LOGIN_USER");
+		
+
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		
@@ -218,6 +220,7 @@ public class LoginController {
 			cal2.setTime(new Date());
 		} else {
 			cal2.setTime(infoByToken.getPwdValid());
+
 			// cal2.setTime(sdf.parse(loginUser.getPwdValid()));
 		}
 		long l = cal2.getTimeInMillis() - cal1.getTimeInMillis();
@@ -235,19 +238,15 @@ public class LoginController {
 	public ModelAndView logout(HttpServletRequest request) {
 
 		ModelAndView result = new ModelAndView("/login");
-		// HttpSession session = request.getSession(true);
-		//TUser tUser = userService.getSingleById(Integer.parseInt(userId));
-		Map<String, HttpSession> applicaMap = (Map<String, HttpSession>) sc
-				.getAttribute("LOGIN_INFO");
+		
 		
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		
-		/*HttpSession appSession = (HttpSession) applicaMap.get(tUser
-				.getLoginName());*/
 
 		if (!isNull(infoByToken)) {
 			userService.delLoginMsgFromRedis(cookieValue);
+
 		}
 		Cookie[] cookies = request.getCookies();
 		for (Cookie cookie : cookies) {

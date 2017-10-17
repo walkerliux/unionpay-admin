@@ -6,19 +6,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+
 import com.unionpay.withhold.admin.dao.JedisClient;
+
 import com.unionpay.withhold.admin.mapper.TUserMapper;
 import com.unionpay.withhold.admin.mapper.TUserRoleMapper;
 import com.unionpay.withhold.admin.pojo.TUser;
@@ -27,6 +34,7 @@ import com.unionpay.withhold.admin.pojo.TUserExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.pojo.TUserRoleExample;
 import com.unionpay.withhold.admin.service.UserService;
+
 import com.unionpay.withhold.admin.utils.JsonUtils;
 import com.unionpay.withhold.admin.utils.MD5Util;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -43,20 +51,29 @@ public class UserServiceImpl implements UserService {
 	private String REDIS_BROWSER_KEY;
 	@Value("${REDIS_SESSION_EXPIRE}")
 	private int REDIS_SESSION_EXPIRE;
+
+
 	@Autowired
 	private TUserMapper tUserMapper;
 	@Autowired
 	private TUserRoleMapper tUserRoleMapper;
+
 	@Autowired
 	JedisClient jedisClient;
+
+	
+
 	@Override
 	public TUser getLoginUser(TUser user) {
 		TUserExample example = new TUserExample();
 		if (user.getLoginName()!=null&&!"".equals(user.getLoginName())) {
 			example.setLoginName(user.getLoginName());
 		}
-		TUser DbUser = tUserMapper.selectTUserByLoginName(example);
-		return DbUser;
+
+		TUser users = tUserMapper.selectTUserByLoginName(example);
+		
+		return users;
+
 	}
 	@Override
 	public TUser getSingleById(Integer userId) {
@@ -123,6 +140,7 @@ public class UserServiceImpl implements UserService {
 		
 		return tUserMapper.selectByPrimaryKey(userId.intValue());
 	}
+
 	@Override
 	public String putLoginMsgTORedis(HttpServletResponse response,HttpServletRequest request,TUser user) {
 		//判断是否是第二次登录
@@ -169,4 +187,5 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+
 }

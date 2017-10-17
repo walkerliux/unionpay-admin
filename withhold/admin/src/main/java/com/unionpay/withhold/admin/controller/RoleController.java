@@ -15,23 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.mapper.TUserMapper;
 import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
 import com.unionpay.withhold.admin.pojo.TRoleFunct;
-
-
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FunctionService;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RoleFunctService;
 import com.unionpay.withhold.admin.service.RoleService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 
 @Controller
 @RequestMapping("/role")
 public class RoleController {
-
+	@Autowired
+	private UserService userService;
 	
 	@Autowired
 	private RoleService roleService;
@@ -89,8 +91,9 @@ public class RoleController {
     @RequestMapping("/save")
 	public List<?> save(HttpServletRequest request,TRole role){
 		ArrayList<String> returnList = new ArrayList<String>();
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		role.setCreator(loginUser.getUser().getLoginName());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		role.setCreator(infoByToken.getLoginName());
 		role.setCreatDate(new Date());
 		role.setStatus("00");
 		try {
@@ -112,8 +115,9 @@ public class RoleController {
     @RequestMapping("/update")
 	public List<?> update(HttpServletRequest request,TRole role){
 		ArrayList<String> returnList = new ArrayList<String>();
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		role.setCreator(loginUser.getUser().getLoginName());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		role.setCreator(infoByToken.getLoginName());
 		
 		try {
 			roleService.updateRole(role);

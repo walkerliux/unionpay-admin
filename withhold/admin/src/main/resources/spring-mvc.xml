@@ -95,6 +95,7 @@
 			<bean class="com.zcbspay.platform.manager.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors> -->
+
 <!-- 拦截器配置 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
@@ -106,4 +107,5 @@
 			<bean class="com.unionpay.withhold.admin.interceptor.LoginInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors>  
+
 </beans>

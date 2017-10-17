@@ -5,15 +5,11 @@ import java.net.NetworkInterface;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.unionpay.withhold.admin.Bean.LoginUser;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TOperationLogMapper;
@@ -37,6 +33,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 	private int REDIS_SESSION_EXPIRE;
 	@Autowired
 	JedisClient jedisClient;
+
 	@Autowired
 	private TOperationLogMapper tOperationLogMapper;
 	@Override
@@ -63,12 +60,14 @@ public class OperationLogServiceImpl implements OperationLogService {
 	}
 	@Override
 	public void addOperationLog(HttpServletRequest request,String opContent) {
+
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		String userValue = jedisClient.get(REDIS_USER_KEY+":"+cookieValue);
 		TUser tUser = JsonUtils.jsonToPojo(userValue,TUser.class);
 		TOperationLog tOperationLog = new TOperationLog();
 		tOperationLog.setUserId(tUser.getUserId().toString());
 		tOperationLog.setUsername(tUser.getUserName());
+
 		tOperationLog.setOpContent(opContent);
 		tOperationLog.setOpDate(new Date());
 		try {

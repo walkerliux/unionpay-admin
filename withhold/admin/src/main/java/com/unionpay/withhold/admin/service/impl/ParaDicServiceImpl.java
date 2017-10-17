@@ -68,4 +68,10 @@ public class ParaDicServiceImpl implements ParaDicService {
 		 return list;
 	}
 
+	@Override
+	public List<TParaDic> selectParaDicByParentCode(String paraCode) {
+		return tParaDicMapper.selectParaDicByParentCode(paraCode);
+	}
+
+
 }

@@ -11,13 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.unionpay.withhold.admin.Bean.LoginUser;
+
+
+
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CoopAgencyApplyService;
 import com.unionpay.withhold.admin.service.CoopAgencyService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 /**
  * 渠道（代理商管理）
@@ -32,7 +38,8 @@ public class CoopAgencyController {
 	private CoopAgencyApplyService coopAgencyApplyService;
 	@Autowired
 	private CoopAgencyService agencyService;
-
+	@Autowired
+	private UserService userService;
 	/**
 	 * 渠道申请页面
 	 * 
@@ -110,8 +117,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/addApply")
 	public ResultBean addCoopAgencyApply(TCoopAgencyApply coopAgencyApply, HttpServletRequest request) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.addCoopAgencyApply(coopAgencyApply);
 		} catch (Exception e) {
@@ -129,8 +137,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/updateApply")
 	public ResultBean updateCoopAgencyApply(TCoopAgencyApply coopAgencyApply, HttpServletRequest request) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.updateCoopAgencyApply(coopAgencyApply);
 		} catch (Exception e) {
@@ -192,8 +201,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/refuseCheck")
 	public ResultBean refuseCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.refuseCheck(coopAgencyApply);
 		} catch (Exception e) {
@@ -211,8 +221,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/passCheck")
 	public ResultBean passCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.passCheck(coopAgencyApply);
 		} catch (Exception e) {
@@ -263,8 +274,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/updateInUse")
 	public ResultBean updateCoopAgencyInUse(TCoopAgency coopAgency, HttpServletRequest request) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgency.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgency.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return agencyService.updateCoopAgencyInUse(coopAgency);
 		} catch (Exception e) {
@@ -275,8 +287,9 @@ public class CoopAgencyController {
 	@ResponseBody
 	@RequestMapping("/commitLogout")
 	public ResultBean commitLogout(HttpServletRequest request, TCoopAgency coopAgency) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgency.setInuser(loginUser.getUser().getUserId().longValue());
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		coopAgency.setInuser(infoByToken.getUserId().longValue());
 		try {
 			return agencyService.commitLogout(coopAgency);
 		} catch (Exception e) {

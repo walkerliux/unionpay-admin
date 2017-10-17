@@ -31,4 +31,7 @@ public interface TParaDicMapper {
 	List<TParaDic> selectByParentIdExample(TParaDicExample tParaDicExample);
 
 	List<TParaDic> selectByLeftJoinExample(TParaDicExample tParaDicExample);
+
+	List<TParaDic> selectParaDicByParentCode(@Param("paraCode") String paraCode);
+
 }
