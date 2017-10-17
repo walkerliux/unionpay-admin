@@ -151,8 +151,17 @@ table tr td select {
 							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
 								<option value=''>--请选择渠道--</option></select>
 							</select><font color="red">*</font></td>
-							<td class="update">所属行业</td>
+							
+							<td class="update">交易要素</td>
 							<td class="update" align="left">
+							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
+								<option value=''>--请选择交易要素--</option></select>
+							</select><font color="red">*</font></td>
+							
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">所属行业</td>
+							<td class="update" align="left" colspan="3">
 								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc" onchange="showMCCList()"/>
 									<option value=''>--请选择MCC大类--</option></select>
 								</select><font color="red">*</font>
@@ -160,13 +169,6 @@ table tr td select {
 									<option value=''>--请选择MCC小类--</option></select>
 								</select><font color="red">*</font>
 							</td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">交易要素</td>
-							<td class="update" align="left" colspan="3">
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
-								<option value=''>--请选择交易要素--</option></select>
-							</select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -266,6 +268,7 @@ table tr td select {
 			//// 显示搜索条件中的上级渠道
 			showAllCacode("add");
 			showMCC();
+			showAllTransfactors();
 			$("#saveForm").attr("action","merchDeta/addApply");
 			$('#saveForm :input').val('');
 			$('#w').window({
@@ -391,6 +394,25 @@ table tr td select {
 			});
 		}
 		
+		function showAllTransfactors(paraCode){
+			$.ajax({
+				type : "POST",
+				url: "merchDeta/showAllTransfactors",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择交易要素--</option>";
+					
+					$.each(json,function(key, value) {
+						if (value.paraCode == paraCode) {
+							html += '<option value="' + value.paraCode + '" selected="selected">' + value.paraName + '</option>';
+						} else {
+							html += '<option value="' + value.paraCode + '">' + value.paraName + '</option>';
+						}
+					});
+					$("#transfactors").html(html);
+				}
+			});
+		}
 
 		function showMCCList() {
 			var mcc = $("#mcc").val();
