@@ -92,7 +92,7 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
-					<input type="hidden" id="selfId" name="selfId" />
+					<input type="hidden" id="chnlid" name="chnlid" />
 					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
@@ -113,11 +113,11 @@ table tr td select {
 							<td class="update" align="left">
 							<input type="text" id="address" name="address" class="easyui-validatebox" required="true"
 								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
-							<td class="update">收费代码</td>
-							<td class="update" align="left">
-							<select id="rates" name="rates" class="easyui-validatebox" required="true" missingMessage="请选择上级代理" name="supercode"/>
+							<td id="ratesntd" class="update">收费代码</td>
+							<td id="ratestd" class="update" align="left">
+							<select id="rates" name="rates" class="easyui-validatebox"  name="supercode"/>
 								<option value=''>--请选择收费代码--</option>
-							</select><font color="red">*</font></td>
+							</select></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -146,7 +146,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
+				<a class="easyui-linkbutton" id="submitok" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -214,7 +214,10 @@ table tr td select {
 		}
 		
 		function showAdd(){
-			$('#cacode').removeAttr("readonly");//取消只读的设置
+			$('#chnlcode').removeAttr("readonly");//取消只读的设置
+			$("#ratestd").show();
+			$("#ratesntd").show();
+			$("#submitok").show();
 			showAllRate();//获取收费代码
 			$("#saveForm").attr("action","channel/addChannel");
 			$('#saveForm :input').val('');
@@ -236,49 +239,64 @@ table tr td select {
 		
 		function showChange(selfId){
 			$('#saveForm :input').val('');
-			$('#cacode').attr("readonly","readonly");//设为只读
-			$("#saveForm").attr("action","coopAgency/updateApply");
+			$('#chnlcode').attr("readonly","readonly");//设为只读
+			$("#saveForm").attr("action","channel/updateChannel");
+			$("#ratestd").hide();
+			$("#ratesntd").hide();
+			$("#submitok").show();
+			getinfo(selfId);
+		}
+		
+		function showDetail(selfId){
+			$('#saveForm :input').val('');
+			$('#chnlcode').attr("readonly","readonly");//设为只读
+			$("#ratestd").hide();
+			$("#ratesntd").hide();
+			$("#submitok").hide();
+			getinfo(selfId);
+		}
+		
+		
+		
+		
+		function getinfo(selfId){
 			$.ajax({
-			   type: "POST",
-			   url: "coopAgency/queryApplyById",
-			   data: "selfId="+selfId,
-			   async: false,
-			   dataType:"json",
-			   success: function(json){	
-				   if (json == null) {
-						$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
-					} else {
-					    $("#cacode").val(json.cacode);
-						$("#caname").val(json.caname);
-						showProvince(json.caprovince);
-						showCityWithCid(json.caprovince,json.cacity);
-						showSuperCode(json.supercode);
-						$("#address").val(json.address);
-						$("#contact").val(json.contact);
-						$("#contPhone").val(json.contPhone);
-						$("#notes").val(json.notes);
-						$("#selfId").val(json.selfId);
-						$("#status").val(json.status);
-						
-						$('#w').window({
-							title: '变更渠道信息',
-							top:100,
-							left:400,
-							width: 800,
-							modal: true,
-							minimizable:false,
-							collapsible:false,
-							maximizable:false,
-							shadow: false,
-							closed: false,
-							height: 360
-						});
+				   type: "POST",
+				   url: "channel/queryChannelById",
+				   data: "selfId="+selfId,
+				   async: false,
+				   dataType:"json",
+				   success: function(json){	
+					   if (json == null) {
+							$.messager.alert('提示', '该通道信息不存在，或已被变更，请刷新一下数据再试试！');
+						} else {
+						    $("#chnlcode").val(json.chnlcode);
+							$("#chnlname").val(json.chnlname);
+							$("#address").val(json.address);
+							$("#contact").val(json.contact);
+							$("#contPhone").val(json.contPhone);
+							$("#notes").val(json.notes);
+							$("#chnlid").val(json.chnlid);
+							$("#status").val(json.status);
+							$('#w').window({
+								title: '变更渠道信息',
+								top:100,
+								left:400,
+								width: 800,
+								modal: true,
+								minimizable:false,
+								collapsible:false,
+								maximizable:false,
+								shadow: false,
+								closed: false,
+								height: 360
+							});
+						}
+				    },
+					error : function(){
+						$.messager.alert('提示', '服务异常！');
 					}
-			    },
-				error : function(){
-					$.messager.alert('提示', '服务异常！');
-				}
-			});
+				});
 		}
 		
 		function showAllRate(caprovince) {
@@ -287,7 +305,7 @@ table tr td select {
 				url: "rateAccum/getAllRateList",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择收费代码--</option>";
+					var html = "";
 					$.each(json,function(key, value) {
 						if(value.rateId==caprovince){
 							html += '<option value="' + value.rateId + '" selected="selected">' + value.rateDesc + '</option>';
@@ -306,7 +324,7 @@ table tr td select {
 			    	if($('#saveForm').form('validate')){
 			    		$('#btn_submit').linkbutton('disable');	
 			    		return true;   
-				    }
+				    } 
 			        return false;   
 			    }, 
 			    success: function(json) {

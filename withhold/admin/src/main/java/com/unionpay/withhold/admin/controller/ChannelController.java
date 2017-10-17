@@ -92,50 +92,47 @@ public class ChannelController {
 		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
 		chnlDeta.setInuser(loginUser.getUser().getUserId().longValue());
 		try {
-			return channelService.addChannel(chnlDeta);
+			return channelService.addChannel(chnlDeta,rates);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
-
-	/**
-	 * 查询渠道申请信息详情
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryApplyById")
-	public TCoopAgencyApply queryCoopAgencyApplyById(Long selfId) {
-		if (selfId == null) {
-			return null;
-		}
-		return  coopAgencyApplyService.queryCoopAgencyApplyById(selfId);
-	}
-
 	
-
-	*//**
-	 * 被拒变更或注册待审的变更
+	/**
+	 * @author: zhangshd
+	 * @param selfId
+	 * @return TCoopAgencyApply
+	 * @date: 2017年10月17日 下午3:53:37 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("/queryChannelById")
+	public TChnlDeta queryChannelById(Integer selfId) {
+		return selfId == null ? null : channelService.queryChannelById(selfId);
+	}
+	
+	/**
 	 * 
+	 * @author: zhangshd
 	 * @param coopAgencyApply
 	 * @param request
-	 * @return
-	 *//*
+	 * @return ResultBean
+	 * @date: 2017年10月17日 下午4:13:01 
+	 * @version v1.0
+	 */
 	@ResponseBody
-	@RequestMapping("/updateApply")
-	public ResultBean updateCoopAgencyApply(TCoopAgencyApply coopAgencyApply, HttpServletRequest request) {
+	@RequestMapping("/updateChannel")
+	public ResultBean updateChannel(TChnlDeta chnlDeta, HttpServletRequest request) {
 		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+		chnlDeta.setInuser(loginUser.getUser().getUserId().longValue());
 		try {
-			return coopAgencyApplyService.updateCoopAgencyApply(coopAgencyApply);
+			return channelService.updateChannel(chnlDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
 
+	/*
 	*//**
 	 * 查询上级渠道
 	 * 

@@ -4,15 +4,23 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.tools.ant.taskdefs.condition.And;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ChannelStatusEnums;
+import com.unionpay.withhold.admin.enums.MerchSetlFlgEnums;
+import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TChnlDetaMapper;
+import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
+import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TChnlDetaExample;
+import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
+import com.unionpay.withhold.admin.pojo.TRateAccum;
+import com.unionpay.withhold.admin.pojo.TRateAccumExample;
 import com.unionpay.withhold.admin.service.ChannelService;
 import com.unionpay.withhold.admin.utils.StringUtil;
 
@@ -21,6 +29,12 @@ import com.unionpay.withhold.admin.utils.StringUtil;
 public class ChannelServiceImpl implements ChannelService {
 	@Autowired
 	private TChnlDetaMapper chnlDetaMapper;
+	
+	@Autowired
+	private TRateAccumMapper rateAccumMapper;
+	
+	@Autowired
+	private TMerchRateConfigMapper merchRateConfigMapper;
 
 	@Override
 	public List<TChnlDeta> selectByCondition(TChnlDeta chnlDeta) {
@@ -46,9 +60,9 @@ public class ChannelServiceImpl implements ChannelService {
 	}
 
 	@Override
-	public ResultBean addChannel(TChnlDeta chnlDeta) {
+	public ResultBean addChannel(TChnlDeta chnlDeta,String rates) {
 		
-		//严重重复code
+		//查询重复
 		TChnlDetaExample chnlDetaExample=new TChnlDetaExample();
 		TChnlDetaExample.Criteria criteria =  chnlDetaExample.createCriteria();
 		criteria.andChnlcodeEqualTo(chnlDeta.getChnlcode());
@@ -56,13 +70,39 @@ public class ChannelServiceImpl implements ChannelService {
 		if (CollectionUtils.isNotEmpty(list)) {
 			 return new ResultBean("", "此通道代码被注册过！");
 		}
+		TRateAccum tRateAccum =rateAccumMapper.selectByPrimaryKey(Integer.valueOf(rates));
+	
+		TMerchRateConfig merchRateConfig=new TMerchRateConfig();
+		merchRateConfig.setIntime(new Date());
+		merchRateConfig.setInuser(chnlDeta.getInuser());
+		merchRateConfig.setTarget(MerchTargetTypeEnums.CHANNEL.getCode());
+		merchRateConfig.setMemberId(chnlDeta.getChnlcode());
+		merchRateConfig.setRateId((long)tRateAccum.getRateId());
+		merchRateConfig.setSetlflg(Short.valueOf(MerchSetlFlgEnums.join.getCode()));
+		merchRateConfig.setRateMethod(Short.valueOf(tRateAccum.getRateMethod()));
+		int configflag =merchRateConfigMapper.insertSelective(merchRateConfig);
 		chnlDeta.setIntime(new Date());
 		chnlDeta.setStatus(ChannelStatusEnums.NORMAL.getCode());
-		int flag =chnlDetaMapper.insert(chnlDeta);
-		if (flag > 0) {
+		int flag =chnlDetaMapper.insertSelective(chnlDeta);
+		if (flag > 0 && configflag>0) {
 			return new ResultBean("操作成功 ！");
 		} else {
 			return new ResultBean("", "添加失败！");
+		}
+	}
+
+	@Override
+	public TChnlDeta queryChannelById(int selfId) {
+		return chnlDetaMapper.selectByPrimaryKey(selfId);
+	}
+
+	@Override
+	public ResultBean updateChannel(TChnlDeta chnlDeta) {
+		int flag = chnlDetaMapper.updateByPrimaryKey(chnlDeta);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "修改失败！");
 		}
 	}
 
