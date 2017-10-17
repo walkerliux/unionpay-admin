@@ -72,6 +72,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			coopAgencyApply.setCalevel((short) (coopAgencyList.get(0).getCalevel() + 1));
 		}
 		coopAgencyApply.setStatus(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());
+		coopAgencyApply.setIntime(new Date());
 		count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);
 		if (count > 0) {
 			return new ResultBean("操作成功 ！");
