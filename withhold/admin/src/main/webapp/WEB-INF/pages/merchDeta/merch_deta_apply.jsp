@@ -153,7 +153,7 @@ table tr td select {
 							</select><font color="red">*</font></td>
 							<td class="update">所属行业</td>
 							<td class="update" align="left">
-								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc"/>
+								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc" onchange="showMCCList()"/>
 									<option value=''>--请选择MCC大类--</option></select>
 								</select><font color="red">*</font>
 								<select id="mccList" class="easyui-validatebox" required="true" missingMessage="请选择MCC小类" name="mccList"/>

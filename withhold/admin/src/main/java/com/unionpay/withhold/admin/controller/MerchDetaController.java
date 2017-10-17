@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
@@ -110,9 +111,13 @@ public class MerchDetaController {
 	}
 	
 	
-	
+	/**
+	 * 查询所有的交易要素
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/showAllTransfactors")
 	public List<TParaDic> showAllTransfactors(){
-		
-		return paraDicService.selectParaDicByParentCode("");
+		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.TRANSFACTORS.getCode());
 	}
 }
