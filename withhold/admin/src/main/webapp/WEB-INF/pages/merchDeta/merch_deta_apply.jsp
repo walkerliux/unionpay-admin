@@ -401,9 +401,9 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						html += '<option value="' + value.mcclist + '">' + value.mcccount + '</option>';
+						html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
 					});
-					$("#mcclist").html(html);
+					$("#mccList").html(html);
 				}
 			}); 
 		}
@@ -418,12 +418,12 @@ table tr td select {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
 						if(value.mcclist == mcclist){
-							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccount + '</option>';
+							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccont + '</option>';
 						}else{
-							html += '<option value="' + value.mcclist + '">' + value.mcccount + '</option>';
+							html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
 						}
 					});
-					$("#mcclist").html(html);
+					$("#mccList").html(html);
 				}
 			}); 
 		}
