@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TCoopAgency;
+import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
+import com.unionpay.withhold.admin.service.MerchDetaService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -34,6 +37,8 @@ import com.unionpay.withhold.admin.utils.MyCookieUtils;
 public class MerchDetaController {
 	@Autowired
 	private MerchDetaApplyService merchDetaApplyService;
+	@Autowired
+	private MerchDetaService merchDetaService;
 	@Autowired
 	private ParaDicService paraDicService;
 	@Autowired
@@ -251,6 +256,76 @@ public class MerchDetaController {
 		merchDetaApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
 			return merchDetaApplyService.passCheck(merchDetaApply);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 查询在用信息（在用：信息变动、注销）
+	 * 
+	 * @param merchDeta
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryModify")
+	public PageBean queryMerchDetaModify(TMerchDeta merchDeta, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer rows) {
+		if (null == merchDeta) {
+			return null;
+		} else {
+			return merchDetaService.selectInUseWithCondition(merchDeta, page, rows);
+		}
+	}
+	
+	/**
+	 * 查询在用信息详情(在用)
+	 * 
+	 * @param merchId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryModifyById")
+	public TMerchDeta queryMerchDetaModifyById(Integer merchId) {
+		return merchId == null ? null : merchDetaService.queryMerchDetaModifyById(merchId);
+	}
+	
+	/**
+	 * 在用的申请变更
+	 * 
+	 * @param merchDeta
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateInUse")
+	public ResultBean updateMerchDetaInUse(TMerchDeta merchDeta, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDeta.setInUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaService.updateMerchDetaInUse(merchDeta);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 注销
+	 * @param request
+	 * @param merchDeta
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/commitLogout")
+	public ResultBean commitLogout(HttpServletRequest request, TMerchDeta merchDeta) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDeta.setInUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaService.commitLogout(merchDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}

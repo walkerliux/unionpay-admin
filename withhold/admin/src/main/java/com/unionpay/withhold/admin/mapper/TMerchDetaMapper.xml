@@ -32,6 +32,9 @@
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
 		<!-- 关联查询时的属性 -->
 		<result column="CANAME" property="caname" jdbcType="VARCHAR" />
+		<result column="TRANSFACTORS_NAME" property="transfactorsName" jdbcType="VARCHAR" />
+		<result column="MCC_NAME" property="mccName" jdbcType="VARCHAR" />
+		<result column="MCC_LIST_NAME" property="mccListName" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -590,4 +593,60 @@
 		REMARKS = #{remarks,jdbcType=VARCHAR}
 		where MERCH_ID = #{merchId,jdbcType=INTEGER}
 	</update>
+	
+	
+	
+	<select id="selectWithCondition" resultMap="BaseResultMap">
+		SELECT
+		md.*, ca.CANAME AS CANAME
+		FROM
+		t_merch_deta AS md
+		LEFT JOIN
+		t_coop_agency AS ca ON md.CACODE = ca.CACODE
+		AND ca.`STATUS` = '00'
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
+				AND md.CACODE = #{merchDeta.cacode}
+			</if>
+			<if test="statuses != null ">
+				And
+				<foreach collection="statuses" item="status" open="md.STATUS IN("
+					close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by MERCH_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_merch_deta AS md
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
+				AND md.CACODE = #{merchDeta.cacode}
+			</if>
+			<if test="statuses != null ">
+				And
+				<foreach collection="statuses" item="status" open="md.STATUS IN("
+					close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+	</select>
 </mapper>

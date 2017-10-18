@@ -61,6 +61,9 @@ public class TMerchDeta {
 
 	// 关联属性
 	private String caname;
+	private String transfactorsName;
+	private String mccName;
+	private String mccListName;
 
 	public Integer getMerchId() {
 		return merchId;
@@ -292,5 +295,29 @@ public class TMerchDeta {
 
 	public void setCaname(String caname) {
 		this.caname = caname;
+	}
+
+	public String getTransfactorsName() {
+		return transfactorsName;
+	}
+
+	public void setTransfactorsName(String transfactorsName) {
+		this.transfactorsName = transfactorsName;
+	}
+
+	public String getMccName() {
+		return mccName;
+	}
+
+	public void setMccName(String mccName) {
+		this.mccName = mccName;
+	}
+
+	public String getMccListName() {
+		return mccListName;
+	}
+
+	public void setMccListName(String mccListName) {
+		this.mccListName = mccListName;
 	}
 }

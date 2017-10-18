@@ -543,11 +543,7 @@
 	</select>
 
 	<select id="selectCountWithCondition" resultType="java.lang.Integer">
-		select
-		count(*)
-		from t_coop_agency caa
-		LEFT JOIN t_coop_agency ca ON caa.SUPERCODE = ca.CACODE AND
-		ca.`STATUS`='00'
+		select count(*) from t_coop_agency caa
 		<where>
 			<if test="coopAgency.cacode != null and coopAgency.cacode != ''">
 				AND caa.CACODE = #{coopAgency.cacode}

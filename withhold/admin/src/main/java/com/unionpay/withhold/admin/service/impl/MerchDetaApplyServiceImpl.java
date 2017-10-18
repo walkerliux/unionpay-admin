@@ -43,7 +43,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			statuses.add(merchDetaApply.getStatus());
 		}
 
-		List<TMerchDetaApply> list = merchDetaApplyMapper.selectApplyWithCondition(merchDetaApply, statuses, beginRow,
+		List<TMerchDetaApply> list = merchDetaApplyMapper.selectWithCondition(merchDetaApply, statuses, beginRow,
 				rows);
 		int count = merchDetaApplyMapper.selectCountWithCondition(merchDetaApply, statuses);
 
@@ -126,7 +126,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			statuses.add(merchDetaApply.getStatus());
 		}
 
-		List<TMerchDetaApply> list = merchDetaApplyMapper.selectApplyWithCondition(merchDetaApply, statuses, beginRow,
+		List<TMerchDetaApply> list = merchDetaApplyMapper.selectWithCondition(merchDetaApply, statuses, beginRow,
 				rows);
 		int count = merchDetaApplyMapper.selectCountWithCondition(merchDetaApply, statuses);
 

@@ -230,12 +230,13 @@ table tr td select {
 					},
 					{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-						if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
-						}else{
-							return '';
+							if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
+								return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
+							}else{
+								return '';
+							}
 						}
-					}}
+					}
 				]],
 				pagination:true,
 				rownumbers:true,

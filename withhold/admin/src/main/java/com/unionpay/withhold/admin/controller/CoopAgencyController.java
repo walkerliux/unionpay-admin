@@ -249,9 +249,7 @@ public class CoopAgencyController {
 	/**
 	 * 查询在用信息详情(在用)
 	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
+	 * @param caid
 	 * @return
 	 */
 	@ResponseBody

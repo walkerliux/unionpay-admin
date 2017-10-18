@@ -728,7 +728,7 @@
 		#{selfId,jdbcType=INTEGER}
 	</update>
 
-	<select id="selectApplyWithCondition" resultMap="BaseResultMap">
+	<select id="selectWithCondition" resultMap="BaseResultMap">
 		SELECT
 		mda.*, ca.CANAME AS CANAME
 		FROM
@@ -761,13 +761,7 @@
 	</select>
 	
 	<select id="selectCountWithCondition" resultType="java.lang.Integer">
-		SELECT
-		COUNT(*)
-		FROM
-		t_merch_deta_apply AS mda
-		LEFT JOIN
-		t_coop_agency AS ca ON mda.CACODE = ca.CACODE
-		AND ca.`STATUS` = '00'
+		SELECT COUNT(*) FROM t_merch_deta_apply AS mda
 		<where>
 			<if test="merchDetaApply.memberId != null and merchDetaApply.memberId !=''">
 				AND mda.MEMBER_ID = #{merchDetaApply.memberId}
