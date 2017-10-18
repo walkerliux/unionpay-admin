@@ -3,6 +3,8 @@ package com.unionpay.withhold.admin.mapper;
 import com.unionpay.withhold.admin.pojo.TChnlBank;
 import com.unionpay.withhold.admin.pojo.TChnlBankExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TChnlBankMapper {
@@ -27,4 +29,9 @@ public interface TChnlBankMapper {
     int updateByPrimaryKeySelective(TChnlBank record);
 
     int updateByPrimaryKey(TChnlBank record);
+    
+    List<Map<String, Object>> selectByChnlCode(String chnlcode,String cardtype);
+    
+    int deleteWithIn(Map<String, Object> map);
+    
 }

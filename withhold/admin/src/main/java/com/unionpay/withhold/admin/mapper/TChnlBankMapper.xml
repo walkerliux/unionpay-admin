@@ -303,4 +303,19 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByChnlCode"  resultType="java.util.Map" >
+	select b.*,c.CHNLCODE,c.TID CHNLID,c.CARDTYPE from t_bank b 
+	LEFT JOIN  (select * from t_chnl_bank 	where CHNLCODE=#{0} and status='00' and CARDTYPE=#{1}) c 
+	on b.bankCode=c.BANKCODE order by BANKCODE
+  </select>
+  <delete id="deleteWithIn"> 
+       delete from t_chnl_bank  where BANKCODE in 
+       <foreach collection="list" item="list"  open="(" separator="," close=")">   
+           #{list}  
+       </foreach> 
+       and CHNLCODE=#{chnlcode} and STATUS='00' and CARDTYPE=#{cardtype}
+   </delete> 
+  
+  
 </mapper>

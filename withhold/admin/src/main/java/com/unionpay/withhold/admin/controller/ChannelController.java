@@ -1,9 +1,16 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,6 +51,12 @@ public class ChannelController {
 	@RequestMapping(value = "/toChannel", method = RequestMethod.GET)
 	public String toCoopAgencyApply() {
 		return "/channel/channel";
+	}
+	
+	
+	@RequestMapping(value = "/toChannelBank", method = RequestMethod.GET)
+	public String toChannelBank() {
+		return "/channel/channel_bank_limit";
 	}
 
 	/**
@@ -104,6 +117,43 @@ public class ChannelController {
 		return selfId == null ? null : channelService.queryChannelById(selfId);
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/queryChannelBankById")
+	public Map<String, Object> queryChannelBankById(String selfId) {
+		return selfId == null ? null : channelService.queryChannelBankByChnlcode(selfId);
+	}
+	@ResponseBody
+	@RequestMapping("/changeChannelBank")
+	public ResultBean changeChannelBank(HttpServletRequest request ,String chnlcode,String debitdata,String creditdata,String[] debitcheckboxList,String[] creditcheckboxList){
+		
+		List<String> debitoldlist= new ArrayList<>();
+		if (StringUtils.isNotEmpty(debitdata)) {
+			debitoldlist=Arrays.asList(debitdata.split("\\|"));
+		}
+		List<String> debitnewlist=new ArrayList<>();
+		if (debitcheckboxList!=null) {
+			debitnewlist=Arrays.asList(debitcheckboxList);
+		}
+		
+		List<String> creditdataoldlist= new ArrayList<>();
+		if (StringUtils.isNotEmpty(creditdata)) {
+			creditdataoldlist=Arrays.asList(creditdata.split("\\|"));
+		}
+		List<String> creditdatanewlist=new ArrayList<>();
+		if (creditcheckboxList!=null) {
+			creditdatanewlist=Arrays.asList(creditcheckboxList);
+		}
+		Map<String, List<String>> debitmap =getDiffrent(debitoldlist, debitnewlist);
+		Map<String, List<String>> creditmap =getDiffrent(creditdataoldlist, creditdatanewlist);
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		ResultBean resultBean =channelService.changeChannlBank(debitmap.get("old"), debitmap.get("new"),creditmap.get("old"), creditmap.get("new"),chnlcode,infoByToken.getUserId().longValue());
+		return resultBean;
+	}
+	
+	
+	
 	/**
 	 * 修改通道信息
 	 * @author: zhangshd
@@ -125,4 +175,41 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	
+	
+	private static Map<String, List<String>> getDiffrent(List<String> list1, List<String> list2) {
+		Map<String, Integer> map = new HashMap<String, Integer>(list1.size() + list2.size());
+		for (String string : list1) {
+			map.put(string, 1);
+		}
+		for (String string : list2) {
+			Integer cc = map.get(string);
+			if (cc != null) {
+				map.put(string, 3);
+				continue;
+			}
+			map.put(string, 2);
+		}
+		list1=new ArrayList<>();
+		list2=new ArrayList<>();
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			if (entry.getValue() == 1) {
+				list1.add(entry.getKey());
+			}
+			if (entry.getValue() == 2) {
+				list2.add(entry.getKey());
+			}
+		}
+		
+		Map<String, List<String>> map2 =new HashMap<>();
+		map2.put("old", list1);
+		map2.put("new", list2);
+		return map2;
+	}
+	
+	public static void main(String[] args) {
+		String[] tem ="1$2".split("\\&");
+		System.out.println(tem);
+	}
+	
 }
