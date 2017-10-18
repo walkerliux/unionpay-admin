@@ -27,4 +27,9 @@ public interface TMerchDetaMapper {
     int updateByPrimaryKeySelective(TMerchDeta record);
 
     int updateByPrimaryKey(TMerchDeta record);
+
+	List<TMerchDeta> selectWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("statuses")List<String> statuses, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+
+	int selectCountWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("statuses")List<String> statuses);
+
 }

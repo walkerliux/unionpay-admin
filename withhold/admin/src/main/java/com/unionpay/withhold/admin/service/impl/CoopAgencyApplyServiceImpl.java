@@ -101,7 +101,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		} else {
 			CoopAgencyStatusEnums status = null;
 
-			coopAgencyApply.setIntime(new Date());
+			//coopAgencyApply.setIntime(new Date());
 			if (coopAgencyApply.getSupercode().equals("0")) {
 				coopAgencyApply.setCalevel((short) 1);
 			}
@@ -232,7 +232,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
 					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
 					merchRateConfig.setIntime(now);
-					merchRateConfig.setInuser(coopAgencyApply.getInuser());
+					merchRateConfig.setInuser(coopAgencyApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
 				}
 
@@ -276,7 +276,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
 					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
 					merchRateConfig.setIntime(now);
-					merchRateConfig.setInuser(coopAgencyApply.getInuser());
+					merchRateConfig.setInuser(coopAgencyApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
 				}
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKING.getCode())) {
@@ -290,14 +290,15 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					return new ResultBean("", "还有在用的下级渠道，不能注销！");
 				} else {
 					// 修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”
+					Date now = new Date();
 					TCoopAgency coopAgency = new TCoopAgency();
 					coopAgency.setCaid(agencyApplyBack.getCaid());
 					coopAgency.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 					coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
-					coopAgency.setStexaTime(coopAgency.getStexaTime());
+					coopAgency.setStexaTime(now);
 					coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
 
-					coopAgencyApply.setStexaTime(new Date());
+					coopAgencyApply.setStexaTime(now);
 					coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 					this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 				}

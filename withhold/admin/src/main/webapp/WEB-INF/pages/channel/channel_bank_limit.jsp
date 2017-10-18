@@ -6,6 +6,8 @@
 	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <script type="text/javascript" src="<%=basePath%>/js/extendsValidator_1.0_20151215.js"></script>
+<script type="text/javascript" src="js/checkboxbeautify/jquery-hcheckbox.js"></script>
+<link href='js/checkboxbeautify/css.css' rel="stylesheet" type="text/css" />
 <style type="text/css">
 .left, .mid, .right {
 	width: auto;
@@ -15,7 +17,9 @@
 .form-control {
 	border: 2px solid #A9C9E2;
 }
-
+.activeflag_label {
+	width: 90px
+}
 .mid {
 	padding-top: 45px;
 	padding-left: 12px;
@@ -92,54 +96,37 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
-					<input type="hidden" id="chnlid" name="chnlid" />
-					<input type="hidden" id="status" name="status" />
+					<input type="hidden" id="debitdata" name="debitdata" />
+					<input type="hidden" id="creditdata" name="creditdata" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td class="update">通道代码</td>
 							<td class="update" align="left">
 							<input type="text" id="chnlcode" name="chnlcode" class="easyui-validatebox" required="true"
-								maxlength="11" missingMessage="请输入通道代码"/><font color="red">*</font></td>
+								maxlength="11" /></td>
 							<td class="update" width="15%">通道名称 </td>
 							<td class="update" align="left">
 							<input type="text" id="chnlname" name="chnlname" class="easyui-validatebox" required="true"
-								maxlength="64" missingMessage="请输入通道名称 " /><font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
+								maxlength="64"  /></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">地址</td>
-							<td class="update" align="left">
-							<input type="text" id="address" name="address" class="easyui-validatebox" required="true"
-								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
-							<td id="ratesntd" class="update">收费代码</td>
-							<td id="ratestd" class="update" align="left">
-							<select id="rates" name="rates" class="easyui-validatebox"  name="supercode"/>
-								<option value=''>--请选择收费代码--</option>
-							</select></td>
+							<td colspan="4" class="head-title">
+								借记卡
+							</td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td id="debit" colspan="4" ></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">联系人</td>
-							<td class="update" align="left">
-							<input type="text" id="contact" name="contact" class="easyui-validatebox" 
-							 maxlength="32" missingMessage="请输入联系人" required="true" /><font color="red">*</font></td>
-							<td class="update">联系电话</td>
-							<td class="update" align="left">
-							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" 
-							 maxlength="11" missingMessage="请输入联系电话" required="true" /><font color="red">*</font></td>
+							<td colspan="4" class="head-title">
+								贷记卡
+							</td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td id="credit" colspan="4" ></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">备注</td>
-							<td class="update" align="left" colspan="3">
-							<textarea rows="3" cols="81" id="notes" maxlength="128" name="notes" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+						
 						</tr>
 					</table>
 				</form>
@@ -182,20 +169,12 @@ table tr td select {
 					},
 					{field:'chnlid',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showDetail(\''+value+'\')" style="color:blue;margin-left:10px">详情</a>';
+							return '<a href="javascript:showChange(\''+rec.chnlcode+'\')" style="color:blue;margin-left:10px">银行权限</a>';
 						}
 					}
 				]],
 				pagination:true,
 				rownumbers:true,
-				toolbar:[{
-					id:'btnadd',
-					text:'新增通道信息',
-					iconCls:'icon-add',
-					handler:function(){
-						showAdd();
-					}
-				}]
 			});
 		});
 
@@ -212,53 +191,24 @@ table tr td select {
 			};
 			$('#channelList').datagrid('load',data);
 		}
-		
-		function showAdd(){
-			$('#chnlcode').removeAttr("readonly");//取消只读的设置
-			$("#ratestd").show();
-			$("#ratesntd").show();
-			$("#submitok").show();
-			showAllRate();//获取收费代码
-			$("#saveForm").attr("action","channel/addChannel");
-			$('#saveForm :input').val('');
-			$('#w').window({
-				title: '新增渠道信息',
-				top:100,
-				left:400,
-				width: 800,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 360
-			});
-			$('#btn_submit').linkbutton('enable');	
-		}
-		
 		function showChange(selfId){
 			$('#saveForm :input').val('');
 			$('#chnlcode').attr("readonly","readonly");//设为只读
-			$("#saveForm").attr("action","channel/updateChannel");
+			$('#chnlname').attr("readonly","readonly");//设为只读
+			$("#saveForm").attr("action","channel/changeChannelBank");
 			$("#ratestd").hide();
 			$("#ratesntd").hide();
 			$("#submitok").show();
 			getinfo(selfId);
 		}
-		
-		function showDetail(selfId){
-			$('#saveForm :input').val('');
-			$('#chnlcode').attr("readonly","readonly");//设为只读
-			$("#ratestd").hide();
-			$("#ratesntd").hide();
-			$("#submitok").hide();
-			getinfo(selfId);
-		}
 		function getinfo(selfId){
+			var rows = $('#channelList').datagrid('getSelected');
+			var chnlname =rows["chnlname"];
+			var chnlcode =rows["chnlcode"];
+			
 			$.ajax({
 				   type: "POST",
-				   url: "channel/queryChannelById",
+				   url: "channel/queryChannelBankById",
 				   data: "selfId="+selfId,
 				   async: false,
 				   dataType:"json",
@@ -266,14 +216,58 @@ table tr td select {
 					   if (json == null) {
 							$.messager.alert('提示', '该通道信息不存在，或已被变更，请刷新一下数据再试试！');
 						} else {
-						    $("#chnlcode").val(json.chnlcode);
-							$("#chnlname").val(json.chnlname);
-							$("#address").val(json.address);
-							$("#contact").val(json.contact);
-							$("#contPhone").val(json.contPhone);
-							$("#notes").val(json.notes);
-							$("#chnlid").val(json.chnlid);
-							$("#status").val(json.status);
+							var debitdata="";
+							var creditdata="";
+							var debithtml="";
+							var credithtml="";
+							var mark=1;
+							var mark1=1;
+						    $("#chnlcode").val(chnlcode);
+							$("#chnlname").val(chnlname);
+							$.each(json.debit,
+									function(key, value) {
+									   if(value.CHNLCODE !== null && value.CHNLCODE !== undefined){
+											if(debitdata==""){
+												debitdata+=value.bankCode;
+											}else{
+												debitdata=debitdata +"|" + value.bankCode;
+											}
+											debithtml += '<input type="checkbox"  checked="checked id="debitcheckboxList" name="debitcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+										}
+										else{ 
+											debithtml += '<input type="checkbox"  name="debitcheckboxList" id="debitcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+										}
+										
+										if (mark%4==0) {
+											debithtml += '<br/>';
+								  		}
+								  		mark = mark + 1;
+									});
+							$.each(json.credit,
+									function(key, value) {
+									   if(value.CHNLCODE !== null && value.CHNLCODE !== undefined){
+												if(creditdata==""){
+													creditdata+=value.bankCode;
+												}else{
+													creditdata=creditdata +"|" + value.bankCode;
+												}
+												credithtml += '<input type="checkbox"  checked="checked id="creditcheckboxList" name="creditcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+										}
+										else{ 
+											credithtml += '<input type="checkbox"   name="creditcheckboxList" id="creditcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+										}
+										
+										if (mark1%4==0) {
+											credithtml += '<br/>';
+								  		}
+										mark1 = mark1 + 1;
+									});
+							$("#debit").html(debithtml);
+							$("#credit").html(credithtml);
+							$('#debit').hcheckbox();
+							$('#credit').hcheckbox();
+							$("#debitdata").val(debitdata);
+							$("#creditdata").val(creditdata);
 							$('#w').window({
 								title: '变更渠道信息',
 								top:100,

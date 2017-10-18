@@ -151,8 +151,17 @@ table tr td select {
 							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
 								<option value=''>--请选择渠道--</option></select>
 							</select><font color="red">*</font></td>
-							<td class="update">所属行业</td>
+							
+							<td class="update">交易要素</td>
 							<td class="update" align="left">
+							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
+								<option value=''>--请选择交易要素--</option></select>
+							</select><font color="red">*</font></td>
+							
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">所属行业</td>
+							<td class="update" align="left" colspan="3">
 								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc" onchange="showMCCList()"/>
 									<option value=''>--请选择MCC大类--</option></select>
 								</select><font color="red">*</font>
@@ -160,13 +169,6 @@ table tr td select {
 									<option value=''>--请选择MCC小类--</option></select>
 								</select><font color="red">*</font>
 							</td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">交易要素</td>
-							<td class="update" align="left" colspan="3">
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
-								<option value=''>--请选择交易要素--</option></select>
-							</select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -182,7 +184,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveMerchDetaApply()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -211,7 +213,7 @@ table tr td select {
 					{field:'contPhone',title:'联系电话',align:'center',width:100},
 					{field:'contAddress',title:'联系人地址',align:'center',width:200},
 					{field:'contPost',title:'联系人邮箱',align:'center',width:120},
-					{field:'caname',title:'代理商',align:'center',width:150},
+					{field:'caname',title:'渠道',align:'center',width:150},
 					{field:'notes',title:'备注',align:'center',width:120},
 					{field:'status',title:'状态',width:100,align:'center',
 						formatter:function(value,rec){
@@ -228,12 +230,13 @@ table tr td select {
 					},
 					{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-						if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
-						}else{
-							return '';
+							if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
+								return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
+							}else{
+								return '';
+							}
 						}
-					}}
+					}
 				]],
 				pagination:true,
 				rownumbers:true,
@@ -256,20 +259,20 @@ table tr td select {
 			var data={
 				'memberId':$('#s_memberId').val(),
 				'memberName':$("#s_memberName").val(),
-				'supercode':$("#s_cacode").val(),
+				'cacode':$("#s_cacode").val()
 			};
 			$('#merchDetaList').datagrid('load',data);
 		}
 		
 		function showAdd(){
 			$('#memberId').removeAttr("readonly");//取消只读的设置
-			//// 显示搜索条件中的上级渠道
 			showAllCacode("add");
 			showMCC();
+			showAllTransfactors();
 			$("#saveForm").attr("action","merchDeta/addApply");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增渠道信息',
+				title: '新增商户信息',
 				top:100,
 				left:400,
 				width: 800,
@@ -286,32 +289,37 @@ table tr td select {
 		
 		function showChange(selfId){
 			$('#saveForm :input').val('');
-			$('#cacode').attr("readonly","readonly");//设为只读
-			$("#saveForm").attr("action","coopAgency/updateApply");
+			$('#memberId').attr("readonly","readonly");//设为只读
+			$("#saveForm").attr("action","merchDeta/updateApply");
 			$.ajax({
 			   type: "POST",
-			   url: "coopAgency/queryApplyById",
+			   url: "merchDeta/queryApplyById",
 			   data: "selfId="+selfId,
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
 				   if (json == null) {
-						$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
+						$.messager.alert('提示', '该商户信息不存在，或已被变更，请刷新一下数据再试试！');
 					} else {
-					    $("#cacode").val(json.cacode);
-						$("#caname").val(json.caname);
-						showProvince(json.caprovince);
-						showCityWithCid(json.caprovince,json.cacity);
-						showSuperCode(json.supercode);
+					    $("#memberId").val(json.memberId);
+						$("#memberName").val(json.memberName);
 						$("#address").val(json.address);
+						$("#postCode").val(json.postCode);
 						$("#contact").val(json.contact);
 						$("#contPhone").val(json.contPhone);
+						$("#contAddress").val(json.contAddress);
+						$("#contPost").val(json.contPost);
+						$("#contEmail").val(json.contEmail);
+						showCacode(json.cacode);
+						showAllTransfactors(json.transfactors);
+						showMCC(json.mcc);
+						showMCCListWithMCCList(json.mcc, json.mccList);
 						$("#notes").val(json.notes);
 						$("#selfId").val(json.selfId);
 						$("#status").val(json.status);
 						
 						$('#w').window({
-							title: '变更渠道信息',
+							title: '变更商户信息',
 							top:100,
 							left:400,
 							width: 800,
@@ -321,7 +329,7 @@ table tr td select {
 							maximizable:false,
 							shadow: false,
 							closed: false,
-							height: 360
+							height: 409
 						});
 					}
 			    },
@@ -332,7 +340,7 @@ table tr td select {
 		}
 		
 		
-		function showCacode(supercode){
+		function showCacode(cacode){
 			$.ajax({
 				type : "POST",
 				url: "coopAgency/queryAllSuperCode",
@@ -341,7 +349,7 @@ table tr td select {
 					var html = "<option value=''>--请选择渠道--</option>";
 					
 					$.each(json,function(key, value) {
-						if (value.cacode == supercode) {
+						if (value.cacode == cacode) {
 							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
 						} else {
 							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
@@ -391,6 +399,25 @@ table tr td select {
 			});
 		}
 		
+		function showAllTransfactors(paraCode){
+			$.ajax({
+				type : "POST",
+				url: "merchDeta/showAllTransfactors",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择交易要素--</option>";
+					
+					$.each(json,function(key, value) {
+						if (value.paraCode == paraCode) {
+							html += '<option value="' + value.paraCode + '" selected="selected">' + value.paraName + '</option>';
+						} else {
+							html += '<option value="' + value.paraCode + '">' + value.paraName + '</option>';
+						}
+					});
+					$("#transfactors").html(html);
+				}
+			});
+		}
 
 		function showMCCList() {
 			var mcc = $("#mcc").val();
@@ -409,7 +436,7 @@ table tr td select {
 			}); 
 		}
 		
-		function showMCCListWithMCCList(mcc,mcclist) {
+		function showMCCListWithMCCList(mcc,mccList) {
 			$.ajax({
 				type: "POST",
 				url: "mccList/queryByMcc",
@@ -418,7 +445,7 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						if(value.mcclist == mcclist){
+						if(value.mcclist == mccList){
 							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccont + '</option>';
 						}else{
 							html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
@@ -430,7 +457,7 @@ table tr td select {
 		}
 		
 
-		function saveCoopAgencyApply(){
+		function saveMerchDetaApply(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#saveForm').form('validate')){

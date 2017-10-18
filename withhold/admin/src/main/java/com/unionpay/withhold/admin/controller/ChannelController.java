@@ -1,9 +1,16 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,42 +42,32 @@ public class ChannelController {
 	@Autowired
 	private UserService userService;
 	/**
-	 * 渠道申请页面
-	 * 
-	 * @return
+	 * 通道管理页面
+	 * @author: zhangshd
+	 * @return String
+	 * @date: 2017年10月18日 上午8:57:16 
+	 * @version v1.0
 	 */
 	@RequestMapping(value = "/toChannel", method = RequestMethod.GET)
 	public String toCoopAgencyApply() {
 		return "/channel/channel";
 	}
-
-	/**
-	 * 渠道审核页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/toCheck", method = RequestMethod.GET)
-	public String toCoopAgencyCheck() {
-		return "/coopAgency/coop_agency_check";
+	
+	
+	@RequestMapping(value = "/toChannelBank", method = RequestMethod.GET)
+	public String toChannelBank() {
+		return "/channel/channel_bank_limit";
 	}
 
 	/**
-	 * 渠道变更页面
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/toModify", method = RequestMethod.GET)
-	public String toCoopAgencyModify() {
-		return "/coopAgency/coop_agency_modify";
-	}
-
-	/**
-	 * 查询渠道申请信息
-	 * 
+	 * 查询通道信息
+	 * @author: zhangshd
 	 * @param chnlDeta
 	 * @param page
 	 * @param rows
-	 * @return
+	 * @return PageBean
+	 * @date: 2017年10月18日 上午8:57:22 
+	 * @version v1.0
 	 */
 	@ResponseBody
 	@RequestMapping("/queryChannel")
@@ -84,11 +81,14 @@ public class ChannelController {
 	}
 	
 	/**
-	 * 注册
-	 * 
-	 * @param coopAgencyApply
+	 * 添加通道信息
+	 * @author: zhangshd
+	 * @param chnlDeta
 	 * @param request
-	 * @return
+	 * @param rates
+	 * @return ResultBean
+	 * @date: 2017年10月18日 上午8:57:37 
+	 * @version v1.0
 	 */
 	@ResponseBody
 	@RequestMapping("/addChannel")
@@ -97,193 +97,119 @@ public class ChannelController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		chnlDeta.setInuser(infoByToken.getUserId().longValue());
 		try {
-			return channelService.addChannel(chnlDeta);
+			return channelService.addChannel(chnlDeta,rates);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
-
-	/**
-	 * 查询渠道申请信息详情
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryApplyById")
-	public TCoopAgencyApply queryCoopAgencyApplyById(Long selfId) {
-		if (selfId == null) {
-			return null;
-		}
-		return  coopAgencyApplyService.queryCoopAgencyApplyById(selfId);
-	}
-
 	
-
-	*//**
-	 * 被拒变更或注册待审的变更
-	 * 
-	 * @param coopAgencyApply
+	/**
+	 * 查询通道详情
+	 * @author: zhangshd
+	 * @param selfId
+	 * @return TChnlDeta
+	 * @date: 2017年10月18日 上午8:57:49 
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("/queryChannelById")
+	public TChnlDeta queryChannelById(Integer selfId) {
+		return selfId == null ? null : channelService.queryChannelById(selfId);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/queryChannelBankById")
+	public Map<String, Object> queryChannelBankById(String selfId) {
+		return selfId == null ? null : channelService.queryChannelBankByChnlcode(selfId);
+	}
+	@ResponseBody
+	@RequestMapping("/changeChannelBank")
+	public ResultBean changeChannelBank(HttpServletRequest request ,String chnlcode,String debitdata,String creditdata,String[] debitcheckboxList,String[] creditcheckboxList){
+		
+		List<String> debitoldlist= new ArrayList<>();
+		if (StringUtils.isNotEmpty(debitdata)) {
+			debitoldlist=Arrays.asList(debitdata.split("\\|"));
+		}
+		List<String> debitnewlist=new ArrayList<>();
+		if (debitcheckboxList!=null) {
+			debitnewlist=Arrays.asList(debitcheckboxList);
+		}
+		
+		List<String> creditdataoldlist= new ArrayList<>();
+		if (StringUtils.isNotEmpty(creditdata)) {
+			creditdataoldlist=Arrays.asList(creditdata.split("\\|"));
+		}
+		List<String> creditdatanewlist=new ArrayList<>();
+		if (creditcheckboxList!=null) {
+			creditdatanewlist=Arrays.asList(creditcheckboxList);
+		}
+		Map<String, List<String>> debitmap =getDiffrent(debitoldlist, debitnewlist);
+		Map<String, List<String>> creditmap =getDiffrent(creditdataoldlist, creditdatanewlist);
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		ResultBean resultBean =channelService.changeChannlBank(debitmap.get("old"), debitmap.get("new"),creditmap.get("old"), creditmap.get("new"),chnlcode,infoByToken.getUserId().longValue());
+		return resultBean;
+	}
+	
+	
+	
+	/**
+	 * 修改通道信息
+	 * @author: zhangshd
+	 * @param chnlDeta
 	 * @param request
-	 * @return
-	 *//*
+	 * @return ResultBean
+	 * @date: 2017年10月18日 上午8:58:24 
+	 * @version v1.0
+	 */
 	@ResponseBody
-	@RequestMapping("/updateApply")
-	public ResultBean updateCoopAgencyApply(TCoopAgencyApply coopAgencyApply, HttpServletRequest request) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
+	@RequestMapping("/updateChannel")
+	public ResultBean updateChannel(TChnlDeta chnlDeta, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		chnlDeta.setInuser(infoByToken.getUserId().longValue());
 		try {
-			return coopAgencyApplyService.updateCoopAgencyApply(coopAgencyApply);
+			return channelService.updateChannel(chnlDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
-
-	*//**
-	 * 查询上级渠道
-	 * 
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryAllSuperCode")
-	public List<TCoopAgency> queryAllSuperCode(String supercode) {
-		return this.agencyService.queryAllSuperCode(supercode);
-	};
-
-	*//**
-	 * 查询渠道审核信息
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryCheck")
-	public PageBean queryCoopAgencyCheck(TCoopAgencyApply coopAgencyApply,
-			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
-		if (null == coopAgencyApply) {
-			return null;
-		} else {
-			return coopAgencyApplyService.selectCheckWithCondition(coopAgencyApply, page, rows);
+	
+	
+	private static Map<String, List<String>> getDiffrent(List<String> list1, List<String> list2) {
+		Map<String, Integer> map = new HashMap<String, Integer>(list1.size() + list2.size());
+		for (String string : list1) {
+			map.put(string, 1);
 		}
-	}
-
-	*//**
-	 * 查询渠道审核信息详情
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryCheckById")
-	public TCoopAgencyApply queryCoopAgencyCheckById(Long selfId) {
-		return selfId == null ? null : coopAgencyApplyService.queryCoopAgencyCheckById(selfId);
-	}
-
-	*//**
-	 * 审核拒绝
-	 * 
-	 * @param request
-	 * @param coopAgencyApply
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/refuseCheck")
-	public ResultBean refuseCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
-		try {
-			return coopAgencyApplyService.refuseCheck(coopAgencyApply);
-		} catch (Exception e) {
-			return new ResultBean("", "服务器异常，请稍后再试！");
+		for (String string : list2) {
+			Integer cc = map.get(string);
+			if (cc != null) {
+				map.put(string, 3);
+				continue;
+			}
+			map.put(string, 2);
 		}
-	}
-
-	*//**
-	 * 审核通过
-	 * 
-	 * @param request
-	 * @param coopAgencyApply
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/passCheck")
-	public ResultBean passCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgencyApply.setInuser(loginUser.getUser().getUserId().longValue());
-		try {
-			return coopAgencyApplyService.passCheck(coopAgencyApply);
-		} catch (Exception e) {
-			return new ResultBean("", "服务器异常，请稍后再试！");
+		list1=new ArrayList<>();
+		list2=new ArrayList<>();
+		for (Map.Entry<String, Integer> entry : map.entrySet()) {
+			if (entry.getValue() == 1) {
+				list1.add(entry.getKey());
+			}
+			if (entry.getValue() == 2) {
+				list2.add(entry.getKey());
+			}
 		}
+		
+		Map<String, List<String>> map2 =new HashMap<>();
+		map2.put("old", list1);
+		map2.put("new", list2);
+		return map2;
 	}
-
-	*//**
-	 * 查询在用信息（在用：信息变动、注销）
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryModify")
-	public PageBean queryCoopAgencyModify(TCoopAgency coopAgency, @RequestParam(defaultValue = "1") Integer page,
-			@RequestParam(defaultValue = "10") Integer rows) {
-		if (null == coopAgency) {
-			return null;
-		} else {
-			return agencyService.selectInUseWithCondition(coopAgency, page, rows);
-		}
+	
+	public static void main(String[] args) {
+		String[] tem ="1$2".split("\\&");
+		System.out.println(tem);
 	}
-
-	*//**
-	 * 查询在用信息详情(在用)
-	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/queryModifyById")
-	public TCoopAgency queryCoopAgencyModifyById(Long caid) {
-		return caid == null ? null : agencyService.queryCoopAgencyModifyById(caid);
-	}
-
-	*//**
-	 * 在用的申请变更
-	 * 
-	 * @param coopAgencyApply
-	 * @param request
-	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping("/updateInUse")
-	public ResultBean updateCoopAgencyInUse(TCoopAgency coopAgency, HttpServletRequest request) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgency.setInuser(loginUser.getUser().getUserId().longValue());
-		try {
-			return agencyService.updateCoopAgencyInUse(coopAgency);
-		} catch (Exception e) {
-			return new ResultBean("", "服务器异常，请稍后再试！");
-		}
-	}
-
-	@ResponseBody
-	@RequestMapping("/commitLogout")
-	public ResultBean commitLogout(HttpServletRequest request, TCoopAgency coopAgency) {
-		LoginUser loginUser = (LoginUser) request.getSession().getAttribute("LOGIN_USER");
-		coopAgency.setInuser(loginUser.getUser().getUserId().longValue());
-		try {
-			return agencyService.commitLogout(coopAgency);
-		} catch (Exception e) {
-			return new ResultBean("", "服务器异常，请稍后再试！");
-		}
-	}*/
+	
 }
