@@ -192,44 +192,7 @@ table tr td select {
 		</div>
 	</div>
 	
-	<div id="w3" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 300px; height: 200px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<input id="userId_addrole" name="userId" type="hidden" />
-				<form action="" id="passwordRestForm" name="PasswordForm">
-				<table width="100%">
-					<tr height="4"></tr>
-					<tr>
-						<td align="right">新密码</td>
-						<td align="left" style="padding-left: 5px">
-						<input id="passwordone" name="passwordone" type="password"/></td>
-					</tr>
-					<tr height="4"></tr>
-					<tr>
-						<td align="right">确认密码</td>
-						<td align="left" style="padding-left: 5px">
-						<input id="passwordtwo" type="password" />
-					</tr>
-					<tr height="4"></tr>
-					<tr>
-						<td align="right"></td>
-						<td align="left" style="padding-left: 5px">
-						<a href="javascript:updatePassword()" class="easyui-linkbutton" iconCls="icon-search">确定</a></td>
-					</tr>
-					<tr height="4"></tr>
-					<tr align="right">
-						<td align="right"></td>
-						<td style="color: red" align="left" id="tishi"></td>
-						<td align="left" style="padding-left: 5px"></td>
-					</tr>
-				</table>
-			</form>
-				
-			</div>
-		</div>
-	</div>
+	
 	
 	<div id="userRoleW3" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
@@ -347,60 +310,7 @@ table tr td select {
 			   }
 			});
 		} 
-		/* function showDept(flag){
-			var organId;
-			if(flag==1){//查询条件
-				organId=$("#userOrganId").val();
-			}else{
-				organId=$("#user_organId").val();
-			}
-			var html = '<option value="">--请选择所属部门--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "user/showDept",
-			  	data: "rand="+new Date().getTime()+"&organId="+organId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.deptId+'">'+value.deptName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#userDeptId").html(html);
-					}else{
-						$("#user_deptId").html(html);
-					}
-			 	}
-			});
-		} */
-
-	/* 	function showRole(flag){
-			var roleId;
-			if(flag==1){//查询条件
-				roleId=$("#userRoleId").val();
-			}else{
-				roleId=$("#user_deptId").val();
-			} 
-			var html = '<option value="">--请选择用户角色--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "user/showRole",
-			  	//data: "rand="+new Date().getTime()+"&roleId="+roleId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#userRoleId").html(html);
-					}else{
-						/* $("#user_roleId").html(html); 
-					}
-			 	}
-			});
-		}  
-		*/
+		
 		function resize(){
 			$('#searchForm :input').val('');
 		}
@@ -409,7 +319,7 @@ table tr td select {
 			$("#saveForm").attr("action","rsp/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增用户信息',
+				title: '新增应答码信息',
 				top:100,
 				width: 650,
 				modal: true,
@@ -418,7 +328,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 240
+				height: 300
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}

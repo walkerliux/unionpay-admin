@@ -237,9 +237,12 @@
       and CARDLEN = #{cardlen,jdbcType=DECIMAL}
   </update>
   <select id="selectByCardBinNum" parameterType="com.unionpay.withhold.admin.pojo.TCardBinExample" resultMap="BaseResultMap">
-  		SELECT * FROM t_card_bin
+  		select a.*,b.BANKNAME from t_card_bin a LEFT JOIN t_bank_insti b on a.BANKCODE=b.BANKCODE
 	<if test="cardbin!=null">
-   		 where CARDBIN=#{cardbin}
+   		 where a.CARDBIN=#{cardbin}
     </if>
+  </select>
+   <select id="selectTbankInsti" resultType="com.unionpay.withhold.admin.pojo.TbankInsti" parameterType="com.unionpay.withhold.admin.pojo.TbankInsti">
+  	SELECT a.BANKCODE bankcode,a.BANKNAME bankname FROM t_bank_insti a where a.BANKNAME like '%${bankname}%'
   </select>
 </mapper>

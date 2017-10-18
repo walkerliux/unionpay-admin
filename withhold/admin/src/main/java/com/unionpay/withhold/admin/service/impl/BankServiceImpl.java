@@ -74,4 +74,26 @@ public class BankServiceImpl implements BankService {
 		
 	}
 
+	@Override
+	public TBank getSingleBycode(String bankcode) {
+		TBankExample tBankExample = new TBankExample();
+		Criteria criteria = tBankExample.createCriteria();
+		criteria.andBankcodeEqualTo(bankcode);
+		tBankExample.setPageNum(1);
+		tBankExample.setPageSize(10);
+		List<TBank> banks = bankMapper.selectByExample(tBankExample);
+		if (banks!=null&&banks.size()>0) {
+			return banks.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public int countByOldAndNewCode(TBank bank) {
+		int num = bankMapper.countByOldAndNewCode(bank);
+		
+		return num;
+	}
+	
+
 }

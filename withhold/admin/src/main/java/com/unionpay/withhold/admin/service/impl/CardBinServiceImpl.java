@@ -11,6 +11,7 @@ import com.unionpay.withhold.admin.mapper.TCardBinMapper;
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TCardBinExample;
 import com.unionpay.withhold.admin.pojo.TCardBinExample.Criteria;
+import com.unionpay.withhold.admin.pojo.TbankInsti;
 import com.unionpay.withhold.admin.service.CardBinService;
 @Service
 @Transactional
@@ -49,6 +50,14 @@ public class CardBinServiceImpl implements CardBinService {
 	public void saveTCardBin(TCardBin bin) {
 		tCardBinMapper.insert(bin);
 		
+	}
+	@Override
+	public List<TbankInsti> selectTbankInstis(String q) {
+		TbankInsti tbankInsti = new TbankInsti();
+		tbankInsti.setBankname(q);
+	 List<TbankInsti> TbankInstis = tCardBinMapper.selectTbankInsti(tbankInsti);
+		
+		return TbankInstis;
 	}
 
 }

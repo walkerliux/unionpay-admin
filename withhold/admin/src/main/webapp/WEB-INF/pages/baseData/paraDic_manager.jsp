@@ -104,10 +104,23 @@ table tr td select {
 									<option value='0'>--无父级--</option>
 							</select></td>
 							<td>参数类型</td>
-							<td align="left"><input type="text" id="para_Type"
+							<td align="left"><%-- <input type="text" id="para_Type"
 								name="paraType" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入参数类型" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="7" missingMessage="请输入参数类型" onkeyup="value=value.replace(/<[^<]+>/g,'')"/> --%>
+								<select id="para_Type"
+								class="easyui-validatebox" required="true" name="paraType"
+								missingMessage="请选择参数类型">
+									<option value=''>--请选择参数类型--</option>
+									<option value='0'>--无父级--</option>
+							</select>
+								</td>
 							
+							<select id="parent_Id"
+								class="easyui-validatebox" required="true" name="parentId"
+								missingMessage="请选择父级参数">
+									<option value=''>--请选择父级参数--</option>
+									<option value='0'>--无父级--</option>
+							</select>
 							
 						</tr>
 						<tr style="height: 25px">
@@ -120,8 +133,8 @@ table tr td select {
 									<option value='0'>否</option>
 							<td>附加</td>
 							<td align="left"><input type="text" id="para_added"
-								name="added" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入附加数值" onkeyup="money()"/><span id="ADDVALUE"></span></td>
+								name="added" class="easyui-validatebox" 
+								maxlength="20"  onkeyup="money()"/><span id="ADDVALUE"></span></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>备注</td>
@@ -245,7 +258,7 @@ table tr td select {
 			var money = $("#para_added").val();
 			var masg;
 			var isok = true;
-			if (money != null && isMoney(money)) {
+			if (money != null && !isNaN(money)) {
 
 				//masg = toChineseCash(money);
 				//$("#ADDVALUE").css("color", "black");

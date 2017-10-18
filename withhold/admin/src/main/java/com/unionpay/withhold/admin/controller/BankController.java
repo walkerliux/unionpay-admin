@@ -55,6 +55,16 @@ public class BankController {
 		return paraDic;
 	}
 	/**
+	 * 通过Id获取bank
+	 * @return
+	 */
+	@ResponseBody
+    @RequestMapping("/getSingleBycode")
+	public TBank getSingleBycode(String bankcode){
+		TBank paraDic=bankService.getSingleBycode(bankcode);
+		return paraDic;
+	}
+	/**
 	 * 修改
 	 * 
 	 * @return
@@ -64,10 +74,14 @@ public class BankController {
 	public List<?> update(TBank bank) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
+			int num=bankService.countByOldAndNewCode(bank);
+			if (num==0) {
+				bankService.updateTBank(bank);
+				list.add("更新成功");
+			}else {
+				list.add("已存在相同银行代码,更新失败");
+			}
 			
-			bankService.updateTBank(bank);
-			
-			list.add("更新成功");
 		} catch (Exception e) {
 			list.add("更新失败");
 			e.printStackTrace();
@@ -85,9 +99,14 @@ public class BankController {
 	public List<?> save(TBank bank) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
+			TBank paraDic=bankService.getSingleBycode(bank.getBankcode());
+			if (paraDic==null) {
+				bankService.saveTBank(bank);
+				list.add("保存成功");
+			}else {
+				list.add("已存在相同银行代码,保存失败");
+			}
 			
-			bankService.saveTBank(bank);
-			list.add("保存成功");
 		} catch (Exception e) {
 			list.add("保存失败");
 			e.printStackTrace();

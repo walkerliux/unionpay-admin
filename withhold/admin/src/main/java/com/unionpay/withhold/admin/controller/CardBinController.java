@@ -2,6 +2,9 @@ package com.unionpay.withhold.admin.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TCardBin;
-
+import com.unionpay.withhold.admin.pojo.TbankInsti;
 import com.unionpay.withhold.admin.service.CardBinService;
 
 @Controller
@@ -61,6 +66,9 @@ public class CardBinController {
 	public List<?> update(TCardBin bin) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
+			List<TbankInsti> TbankInstis = cardBinService.selectTbankInstis(bin.getBankcode());
+			String bankcode = TbankInstis.get(0).getBankcode();
+			bin.setBankcode(bankcode);
 			int binlen = bin.getCardbin().length();
 			bin.setBinlen((short)binlen);
 			cardBinService.updateTCardBin(bin);
@@ -83,6 +91,9 @@ public class CardBinController {
 	public List<?> save(TCardBin bin) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
+			List<TbankInsti> TbankInstis = cardBinService.selectTbankInstis(bin.getBankcode());
+			String bankcode = TbankInstis.get(0).getBankcode();
+			bin.setBankcode(bankcode);
 			int binlen = bin.getCardbin().length();
 			bin.setBinlen((short)binlen);
 			
@@ -95,4 +106,22 @@ public class CardBinController {
 		
 		return list;
 	}
+	
+	/**
+     * 关键字查询开户行
+     */
+    @ResponseBody
+	@RequestMapping("/selectTbankInsti")
+    public List<?> queryBankNode(String bankname, Integer page, Integer rows,HttpServletRequest request) { 
+    	List<Map<String, Object>> resultList = Lists.newArrayList();
+
+    	List<TbankInsti> bankInstis = cardBinService.selectTbankInstis(bankname);
+    	for(TbankInsti map : bankInstis ){
+    		Map<String, Object> valueMap = Maps.newHashMap();
+    		valueMap.put("id",  map.getBankcode());
+    		valueMap.put("text", map.getBankname());
+    		resultList.add(valueMap);
+    	}
+    	return resultList;
+     }
 }

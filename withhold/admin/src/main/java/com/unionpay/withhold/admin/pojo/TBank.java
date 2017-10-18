@@ -40,4 +40,14 @@ public class TBank {
     public void setPbcBankcode(String pbcBankcode) {
         this.pbcBankcode = pbcBankcode == null ? null : pbcBankcode.trim();
     }
+    private String oldbankcode;
+
+	public String getOldbankcode() {
+		return oldbankcode;
+	}
+
+	public void setOldbankcode(String oldbankcode) {
+		this.oldbankcode = oldbankcode;
+	}
+    
 }

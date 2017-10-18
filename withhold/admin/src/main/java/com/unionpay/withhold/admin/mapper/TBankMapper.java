@@ -27,4 +27,5 @@ public interface TBankMapper {
     int updateByPrimaryKeySelective(TBank record);
 
     int updateByPrimaryKey(TBank record);
+    int countByOldAndNewCode(TBank record);
 }

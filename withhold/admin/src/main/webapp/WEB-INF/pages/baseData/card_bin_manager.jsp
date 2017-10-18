@@ -67,7 +67,7 @@ table tr td select {
 							<td>卡bin</td>
 							<td align="left"><input type="text" id="cardbin"
 								name="cardbin" class="easyui-validatebox" required="true"
-								maxlength="10" missingMessage="卡bin" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="12" missingMessage="卡bin" onkeyup="money()"/><span id="ADDVALUE"></span></td>
 							<td>卡名</td>
 							<td align="left"><input type="text" id="cardname"
 								name="cardname" class="easyui-validatebox" required="true"
@@ -78,22 +78,22 @@ table tr td select {
 							<td>主账号卡长</td>
 							<td align="left"><input type="text" id="cardlen"
 								name="cardlen" class="easyui-validatebox" required="true"
-								maxlength="2" missingMessage="主账号卡长" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="2" missingMessage="主账号卡长" onkeyup="moneylen()"/><span id="LENADDVALUE"></span></td>
 							<td>卡类型</td>
 							<td align="left" style="padding-left: 5px">
-								<select id="type" name="type" onchange="showRole(1)">
+								<select id="type" name="type" onchange="yanzhentype()"  >
 									<option value=''>--请选择卡类型--</option>
 									<option value=1>借记卡</option>
 									<option value=2>贷记卡</option>
 									<option value=3>准贷记卡</option>
 									<option value=4>预付费卡</option>
-								</select></td>
+								</select><span id="yantype"></span></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>发卡行</td>
 							<td align="left"><input type="text" id="bankcode"
-								name="bankcode" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="发卡行code" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								name="bankcode" class="easyui-validatebox" 
+								maxlength="20" /></td>
 							
 						</tr>
 						
@@ -191,21 +191,6 @@ table tr td select {
 			   
 			});  
 		});
-		
-		/* function showOrgan(){		
-			$.ajax({
-			   type: "POST",
-			   url: "bin/showTypes",
-			   dataType:"json",
-			   success: function(json){
-			   		var html ="<option value=''>--请选择渠道类型--</option>";
-			   		$.each(json, function(key,value){
-			   			html += '<option value="'+value.code+'">'+value.name+'</option>';
-					})
-					$("#chnl_type,#chnltype").html(html);
-			   }
-			});
-		}  */
 	
 		function resize(){
 			$('#searchForm :input').val('');
@@ -215,7 +200,7 @@ table tr td select {
 			$("#saveForm").attr("action","bin/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增用户信息',
+				title: '新增卡bin信息',
 				top:100,
 				width: 650,
 				modal: true,
@@ -237,6 +222,16 @@ table tr td select {
 			$('#userList').datagrid('load',data);
 		}
 		function saveUser(){
+			var type=$("#type").val();
+			if(type!=""){
+				$("#yantype").html("");
+			}else{
+				masg = "请选择卡类型";
+				$("#yantype").css("color", "red");
+				
+				$("#yantype").html(masg);
+			}
+			
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#saveForm').form('validate')){
@@ -276,13 +271,14 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   //alert(json.apicode);oldcardbinoldcardlen
+				   //alert(json.bankname);
 						$("#cardbin").val(json.cardbin);
 						$("#oldcardbin").val(json.cardbin);
 						$("#oldcardlen").val(json.cardlen);
 						$("#cardname").val(json.cardname);
 						$("#cardlen").val(json.cardlen);
-						$("#bankcode").val(json.bankcode);
+						//$("#bankcode").val(json.bankname);
+						$('#bankcode').combobox('select',json.bankname);
 						$("#type").val(json.type);
 						
 			   }
@@ -302,21 +298,100 @@ table tr td select {
 			$("#saveForm").attr("action","bin/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
+		// 验证cardbin
+		function money() {
+			var cardbin = $("#cardbin").val();
+			
+			var masg;
+			var isok = true;
+			if (cardbin != null && !isNaN(cardbin)) {
 
-		
-		
-		
-	
-	     
-	   
-	  
-	
-		
-		 function invokeFunction(){
-			showbinFunction($('#userId').val())
-		} 
+				$("#ADDVALUE").html("");
+			} else {
+				masg = "请输入正确的数值";
+				$("#ADDVALUE").css("color", "red");
 
+				isok = false;
+				$("#ADDVALUE").html(masg);
+				
+			}
+			return isok;
+		}
+		// 验证cardlen
+		function moneylen() {
+			
+			var len = $("#cardlen").val();
+			var masg;
+			var isok = true;
+			if (len!=null&& !isNaN(len)) {
+
+				$("#LENADDVALUE").html("");
+			} else {
+				masg = "请输入正确的数值";
+				$("#LENADDVALUE").css("color", "red");
+
+				isok = false;
+				
+				$("#LENADDVALUE").html(masg);
+			}
+			return isok;
+		}
+		//yanzhentype(1)
+		function yanzhentype(){
+			var type=$("#type").val();
+			if(type!=""){
+				$("#yantype").html("");
+			}else{
+				masg = "请选择卡类型";
+				$("#yantype").css("color", "red");
+				
+				$("#yantype").html(masg);
+			}
+		}
 		
-	</script>
+	$(function() {
+
+	$('#bankcode').combobox({
+		 required:true, 
+		width:260,
+		 missingMessage:"请输入开户行", 
+		valueField:'text',
+		textField:'text',
+	    mode:'remote',
+	    editable:true,
+		onChange: function(newValue,oldValue){
+			if(newValue==null||newValue==""){
+				return;
+			}
+			if(newValue==oldValue){
+				return;
+			}
+			var url = 'bin/selectTbankInsti?bankname='+ encodeURI(newValue);
+            $('#bankcode').combobox('reload', url);
+            
+		}
+	});
+	
+});
+	function selectTbankInsti(jp) {
+		$.ajax({
+			type: "POST",
+			url: "bin/selectTbankInsti",
+			data: "bankname=" +jp,
+			/* dataType: "json", */
+			success: function(json) {
+				var html;
+				$.each(json,function(key, value) {
+					alert(value.id);
+					var codenode = value.id;
+					$("#bankcode").val(codenode);
+				});
+			}
+		});
+	}
+	function invokeFunction() {
+		showbinFunction($('#userId').val())
+	}
+</script>
 
 </html>

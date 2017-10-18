@@ -3,6 +3,7 @@ package com.unionpay.withhold.admin.mapper;
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TCardBinExample;
 import com.unionpay.withhold.admin.pojo.TCardBinKey;
+import com.unionpay.withhold.admin.pojo.TbankInsti;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface TCardBinMapper {
     int updateByPrimaryKey(TCardBin record);
 
 	TCardBin selectByCardBinNum(TCardBinExample example);
+	
+	List<TbankInsti> selectTbankInsti(TbankInsti tbankInsti);
 }

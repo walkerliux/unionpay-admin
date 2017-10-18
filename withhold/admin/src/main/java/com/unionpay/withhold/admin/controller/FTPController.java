@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -28,13 +29,13 @@ public class FTPController {
 	private static final String PWD="webftp";
 	private static final String IPADDRESS="192.168.2.12";
 	private static final int PORTNUM=21;
-	private static final String DOWNLOADADDRESS="D:/temp";
+	private static final String DOWNLOADADDRESS="D:/DownLogFromFtp";
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
         ModelAndView result=new ModelAndView("/system/ftp/ftp_mana");
         return result;
-    }
+    } 
 	/**
 	 * 查询文件夹
 	 * s
@@ -99,6 +100,11 @@ public class FTPController {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String[] split = fileName.split("/");
 		 try {
+			 File file = new File("D:/DownLogFromFtp");
+			 if(!file.exists()){
+				 file.mkdir();
+			 }
+			 
 			boolean flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/",split[1] , DOWNLOADADDRESS);
 			if (flag) {
 				hashMap.put("RET", "succ");

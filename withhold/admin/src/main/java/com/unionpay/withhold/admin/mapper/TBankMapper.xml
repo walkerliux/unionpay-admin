@@ -194,4 +194,11 @@
       PBC_BANKCODE = #{pbcBankcode,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+    <select id="countByOldAndNewCode" resultType="java.lang.Integer" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
+   select COUNT(*) from t_bank where bankCode=#{bankcode} and bankCode!=#{oldbankcode}
+    
+   
+    
+  </select>
+  
 </mapper>

@@ -17,4 +17,8 @@ public interface BankService {
 	void updateTBank(TBank bank);
 
 	void saveTBank(TBank bank);
+
+	TBank getSingleBycode(String bankcode);
+	
+	int countByOldAndNewCode(TBank bank);
 }

@@ -65,12 +65,13 @@ table tr td select {
 				<form id="saveForm" action="bank/save"
 					method="post">
 					 <input type="hidden" id="tid" name="tid" /> 
+					 <input type="hidden" id="oldbankcode" name="oldbankcode" /> 
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td>银行代码</td>
-							<td align="left"><input type="text" id="bankcode"
+							<td align="left"><input type="text" id="tbankcode"
 								name="bankcode" class="easyui-validatebox" required="true"
-								maxlength="4" missingMessage="银行代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="4" missingMessage="银行代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><span></span></td>
 							
 						</tr>
 						<tr style="height: 25px">
@@ -144,7 +145,7 @@ table tr td select {
 					text:'新增银行信息',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#bankcode").removeAttr('readonly');
+						$("#tbankcode").removeAttr('readonly');
 						showAdd(0);
 						$("#saveForm").attr("action","bank/save");
 					},   
@@ -237,8 +238,8 @@ table tr td select {
 			   dataType:"json",
 			   success: function(json){	
 				   //alert(json.apicode);
-						$("#bankcode").val(json.bankcode);
-						$("#bankcode").attr('readonly','readonly');
+						$("#tbankcode").val(json.bankcode);
+						$("#oldbankcode").val(json.bankcode);
 						$("#apicode").css('background-color','#D2D2D2');
 						$("#bankname").val(json.bankname);
 						$("#pbcBankcode").val(json.pbcBankcode);
@@ -262,19 +263,29 @@ table tr td select {
 			$('#btn_submit').linkbutton('enable');	
 		}
 
-		
-		
-		
+		/*  $("#tbankcode").blur(function(){
+			var bankcode=$("#tbankcode").val();
+			$.ajax({
+				   type: "POST",
+				   url: "bank/getSingleBycode",
+				   data: "bankcode="+bankcode,
+				   async: false,
+				   dataType:"json",
+				   success: function(json){	
+					   
+						if(json.bankcode!=null){
+							$.messager.alert('提示',"已存在相同银行代码"); 
+							}	
+						}
+							
+				 
+			
+		});
+		})  */
 		
 	   
-		 function invokeFunction(){
-			showBankFunction($('#userId').val())
-		} 
-
-		
-		
+	 	function invokeFunction(){
+			showBankFunction($('#userId').val());
+		}   
 	</script>
-	
-
-
 </html>
