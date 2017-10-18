@@ -37,6 +37,9 @@
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
 		<!-- 关联查询时的属性 -->
 		<result column="CANAME" property="caname" jdbcType="VARCHAR" />
+		<result column="TRANSFACTORS_NAME" property="transfactorsName" jdbcType="VARCHAR" />
+		<result column="MCC_NAME" property="mccName" jdbcType="VARCHAR" />
+		<result column="MCC_LIST_NAME" property="mccListName" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -783,5 +786,18 @@
 				</foreach>
 			</if>
 		</where>
+	</select>
+	
+	<select id="selectMerchDetailById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			mda.*, ca.CANAME AS CANAME, pd.PARA_NAME AS TRANSFACTORS_NAME, md.MCCNAME AS MCC_NAME, ml.MCCCONT AS MCC_LIST_NAME
+		FROM
+			t_merch_deta_apply AS mda
+		LEFT JOIN t_coop_agency AS ca ON mda.CACODE = ca.CACODE AND ca.`STATUS` = '00'
+		LEFT JOIN t_para_dic AS pd ON mda.TRANSFACTORS = pd.PARA_CODE AND pd.`STATUS` = '1'
+		LEFT JOIN t_mcc_desc AS md ON mda.MCC = md.MCC
+		LEFT JOIN t_mcc_list AS ml ON mda.MCC_LIST = ml.MCCLIST AND ml.`STATUS` = '1'
+		WHERE
+		mda.SELF_ID = #{selfId} AND mda.`STATUS` != '99'
 	</select>
 </mapper>

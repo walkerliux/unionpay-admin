@@ -178,9 +178,7 @@ public class CoopAgencyController {
 	/**
 	 * 查询渠道审核信息详情
 	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
+	 * @param selfId
 	 * @return
 	 */
 	@ResponseBody
@@ -201,7 +199,7 @@ public class CoopAgencyController {
 	public ResultBean refuseCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
+		coopAgencyApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.refuseCheck(coopAgencyApply);
 		} catch (Exception e) {
@@ -221,7 +219,7 @@ public class CoopAgencyController {
 	public ResultBean passCheck(HttpServletRequest request, TCoopAgencyApply coopAgencyApply) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
+		coopAgencyApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
 			return coopAgencyApplyService.passCheck(coopAgencyApply);
 		} catch (Exception e) {

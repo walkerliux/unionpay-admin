@@ -195,7 +195,7 @@
 	</select>
 
 	<select id="selectCoopAgencyDetailById" resultMap="BaseResultMap"
-		resultType="java.lang.Long">
+		parameterType="java.lang.Long">
 		SELECT
 		caa.*, p.P_NAME AS PROVINCE_NAME,
 		C_NAME AS CITY_NAME,

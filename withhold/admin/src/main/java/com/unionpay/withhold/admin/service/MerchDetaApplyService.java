@@ -26,6 +26,43 @@ public interface MerchDetaApplyService {
 	 * @param selfId
 	 * @return
 	 */
-	TMerchDetaApply queryMerchDetaApplyById(Long selfId);
+	TMerchDetaApply queryMerchDetaApplyById(Integer selfId);
+
+	/**
+	 * 被拒变更或注册待审的变更
+	 * @param merchDetaApply
+	 * @return
+	 */
+	ResultBean updateMerchDetaApply(TMerchDetaApply merchDetaApply);
+
+	/**
+	 * 查询商户审核信息
+	 * @param merchDetaApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	PageBean selectCheckWithCondition(TMerchDetaApply merchDetaApply, Integer page, Integer rows);
+
+	/**
+	 * 查询商户审核信息详情
+	 * @param selfId
+	 * @return
+	 */
+	TMerchDetaApply queryMerchDetaCheckById(Integer selfId);
+
+	/**
+	 * 审核拒绝
+	 * @param merchDetaApply
+	 * @return
+	 */
+	ResultBean refuseCheck(TMerchDetaApply merchDetaApply);
+
+	/**
+	 * 审核通过
+	 * @param merchDetaApply
+	 * @return
+	 */
+	ResultBean passCheck(TMerchDetaApply merchDetaApply);
 
 }

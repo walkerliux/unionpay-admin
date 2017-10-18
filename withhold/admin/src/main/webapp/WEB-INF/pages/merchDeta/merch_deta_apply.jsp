@@ -213,7 +213,7 @@ table tr td select {
 					{field:'contPhone',title:'联系电话',align:'center',width:100},
 					{field:'contAddress',title:'联系人地址',align:'center',width:200},
 					{field:'contPost',title:'联系人邮箱',align:'center',width:120},
-					{field:'caname',title:'代理商',align:'center',width:150},
+					{field:'caname',title:'渠道',align:'center',width:150},
 					{field:'notes',title:'备注',align:'center',width:120},
 					{field:'status',title:'状态',width:100,align:'center',
 						formatter:function(value,rec){
@@ -258,7 +258,7 @@ table tr td select {
 			var data={
 				'memberId':$('#s_memberId').val(),
 				'memberName':$("#s_memberName").val(),
-				'cacode':$("#s_cacode").val(),
+				'cacode':$("#s_cacode").val()
 			};
 			$('#merchDetaList').datagrid('load',data);
 		}
@@ -328,7 +328,7 @@ table tr td select {
 							maximizable:false,
 							shadow: false,
 							closed: false,
-							height: 360
+							height: 409
 						});
 					}
 			    },
@@ -428,7 +428,7 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						html += '<option value="' + value.mccList + '">' + value.mcccont + '</option>';
+						html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
 					});
 					$("#mccList").html(html);
 				}
@@ -444,10 +444,10 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						if(value.mccList == mccList){
-							html += '<option value="' + value.mccList + '" selected="selected">' + value.mcccont + '</option>';
+						if(value.mcclist == mccList){
+							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccont + '</option>';
 						}else{
-							html += '<option value="' + value.mccList + '">' + value.mcccont + '</option>';
+							html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
 						}
 					});
 					$("#mccList").html(html);

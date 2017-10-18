@@ -15,11 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
-import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
-
-import com.unionpay.withhold.admin.service.MerchDetaApplyService;
-
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
@@ -133,7 +129,7 @@ public class MerchDetaController {
 	 */
 	@ResponseBody
 	@RequestMapping("/queryApplyById")
-	public TMerchDetaApply queryMerchDetaApplyById(Long selfId) {
+	public TMerchDetaApply queryMerchDetaApplyById(Integer selfId) {
 		if (selfId == null) {
 			return null;
 		}
@@ -164,6 +160,97 @@ public class MerchDetaController {
 		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
 		try {
 			return merchDetaApplyService.addMerchDetaApply(merchDetaApply);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 被拒变更或注册待审的变更
+	 * 
+	 * @param merchDetaApply
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateApply")
+	public ResultBean updateMerchDetaApply(TMerchDetaApply merchDetaApply, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaApplyService.updateMerchDetaApply(merchDetaApply);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 查询商户审核信息
+	 * 
+	 * @param merchDetaApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCheck")
+	public PageBean queryMerchDetaCheck(TMerchDetaApply merchDetaApply,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		if (null == merchDetaApply) {
+			return null;
+		} else {
+			return merchDetaApplyService.selectCheckWithCondition(merchDetaApply, page, rows);
+		}
+	}
+	
+	/**
+	 * 查询渠道审核信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCheckById")
+	public TMerchDetaApply queryMerchDetaCheckById(Integer selfId) {
+		return selfId == null ? null : merchDetaApplyService.queryMerchDetaCheckById(selfId);
+	}
+	
+	/**
+	 * 审核拒绝
+	 * 
+	 * @param request
+	 * @param merchDetaApply
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/refuseCheck")
+	public ResultBean refuseCheck(HttpServletRequest request, TMerchDetaApply merchDetaApply) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDetaApply.setStexaUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaApplyService.refuseCheck(merchDetaApply);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 审核通过
+	 * 
+	 * @param request
+	 * @param merchDetaApply
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/passCheck")
+	public ResultBean passCheck(HttpServletRequest request, TMerchDetaApply merchDetaApply) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDetaApply.setStexaUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaApplyService.passCheck(merchDetaApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
