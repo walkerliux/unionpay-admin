@@ -81,7 +81,7 @@ table tr td select {
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-			<table id="coopAgencyList">
+			<table id="channelList">
 			</table>
 		</div>
 	</div>
@@ -146,7 +146,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
-				<a class="easyui-linkbutton" id="submitok" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
+				<a class="easyui-linkbutton" id="submitok" iconCls="icon-ok" href="javascript:saveChannel()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -155,7 +155,7 @@ table tr td select {
 <script>
   	var width = $("#continer").width();
 		$(function(){
-			$('#coopAgencyList').datagrid({
+			$('#channelList').datagrid({
 				title:'渠道信息列表',
 				iconCls:'icon-save',
 				height:600,
@@ -210,7 +210,7 @@ table tr td select {
 				'inuser':$("#s_inuser").val(),
 				'status':$("#s_status").val()
 			};
-			$('#coopAgencyList').datagrid('load',data);
+			$('#channelList').datagrid('load',data);
 		}
 		
 		function showAdd(){
@@ -255,10 +255,6 @@ table tr td select {
 			$("#submitok").hide();
 			getinfo(selfId);
 		}
-		
-		
-		
-		
 		function getinfo(selfId){
 			$.ajax({
 				   type: "POST",
@@ -318,7 +314,7 @@ table tr td select {
 			});
 		}
 		
-		function saveCoopAgencyApply(){
+		function saveChannel(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#saveForm').form('validate')){
