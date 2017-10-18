@@ -3,6 +3,7 @@ package com.unionpay.withhold.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +13,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 
 import com.unionpay.withhold.admin.pojo.TParaDic;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.admin.service.ParaDicService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 
 /**
@@ -32,10 +38,10 @@ import com.unionpay.withhold.admin.service.ParaDicService;
 public class MerchDetaController {
 	@Autowired
 	private MerchDetaApplyService merchDetaApplyService;
-	
-
 	@Autowired
 	private ParaDicService paraDicService;
+	@Autowired
+	private UserService userService;
 	
 
 	/**
@@ -117,8 +123,22 @@ public class MerchDetaController {
 			return merchDetaApplyService.selectApplyWithCondition(merchDetaApply, page, rows);
 		}
 	}
-
 	
+	
+	/**
+	 * 查询商户申请信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryApplyById")
+	public TMerchDetaApply queryMerchDetaApplyById(Long selfId) {
+		if (selfId == null) {
+			return null;
+		}
+		return merchDetaApplyService.queryMerchDetaApplyById(selfId);
+	}
 	
 	/**
 	 * 查询所有的交易要素
@@ -130,4 +150,22 @@ public class MerchDetaController {
 		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.TRANSFACTORS.getCode());
 	}
 
+	/**
+	 * 新增商户信息(注册)
+	 * @param merchDetaApply
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addApply")
+	public ResultBean addMerchDetaApply(TMerchDetaApply merchDetaApply, HttpServletRequest request){
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
+		try {
+			return merchDetaApplyService.addMerchDetaApply(merchDetaApply);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
 }

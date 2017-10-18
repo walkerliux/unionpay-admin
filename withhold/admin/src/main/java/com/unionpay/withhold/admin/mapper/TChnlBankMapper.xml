@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TChnlBankMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlBank" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="CHNLCODE" property="chnlcode" jdbcType="VARCHAR" />
+    <result column="BANKCODE" property="bankcode" jdbcType="VARCHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="VARCHAR" />
+    <result column="PERLIMIT" property="perlimit" jdbcType="DECIMAL" />
+    <result column="ACCUMLIMIT" property="accumlimit" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="INUSER" property="inuser" jdbcType="DECIMAL" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, CHNLCODE, BANKCODE, CARDTYPE, PERLIMIT, ACCUMLIMIT, STATUS, INUSER, INTIME, 
+    NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlBankExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_bank
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chnl_bank
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlBankExample" >
+    delete from t_chnl_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlBank" >
+    insert into t_chnl_bank (TID, CHNLCODE, BANKCODE, 
+      CARDTYPE, PERLIMIT, ACCUMLIMIT, 
+      STATUS, INUSER, INTIME, 
+      NOTES, REMARKS)
+    values (#{tid,jdbcType=INTEGER}, #{chnlcode,jdbcType=VARCHAR}, #{bankcode,jdbcType=VARCHAR}, 
+      #{cardtype,jdbcType=VARCHAR}, #{perlimit,jdbcType=DECIMAL}, #{accumlimit,jdbcType=DECIMAL}, 
+      #{status,jdbcType=VARCHAR}, #{inuser,jdbcType=DECIMAL}, #{intime,jdbcType=TIMESTAMP}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlBank" >
+    insert into t_chnl_bank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="chnlcode != null" >
+        CHNLCODE,
+      </if>
+      <if test="bankcode != null" >
+        BANKCODE,
+      </if>
+      <if test="cardtype != null" >
+        CARDTYPE,
+      </if>
+      <if test="perlimit != null" >
+        PERLIMIT,
+      </if>
+      <if test="accumlimit != null" >
+        ACCUMLIMIT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="inuser != null" >
+        INUSER,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="chnlcode != null" >
+        #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="perlimit != null" >
+        #{perlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="accumlimit != null" >
+        #{accumlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="inuser != null" >
+        #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlBankExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_bank
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_chnl_bank
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.chnlcode != null" >
+        CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankcode != null" >
+        BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardtype != null" >
+        CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.perlimit != null" >
+        PERLIMIT = #{record.perlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.accumlimit != null" >
+        ACCUMLIMIT = #{record.accumlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inuser != null" >
+        INUSER = #{record.inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_chnl_bank
+    set TID = #{record.tid,jdbcType=INTEGER},
+      CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      CARDTYPE = #{record.cardtype,jdbcType=VARCHAR},
+      PERLIMIT = #{record.perlimit,jdbcType=DECIMAL},
+      ACCUMLIMIT = #{record.accumlimit,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      INUSER = #{record.inuser,jdbcType=DECIMAL},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlBank" >
+    update t_chnl_bank
+    <set >
+      <if test="chnlcode != null" >
+        CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankcode != null" >
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardtype != null" >
+        CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      </if>
+      <if test="perlimit != null" >
+        PERLIMIT = #{perlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="accumlimit != null" >
+        ACCUMLIMIT = #{accumlimit,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="inuser != null" >
+        INUSER = #{inuser,jdbcType=DECIMAL},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlBank" >
+    update t_chnl_bank
+    set CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      CARDTYPE = #{cardtype,jdbcType=VARCHAR},
+      PERLIMIT = #{perlimit,jdbcType=DECIMAL},
+      ACCUMLIMIT = #{accumlimit,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      INUSER = #{inuser,jdbcType=DECIMAL},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,6 +1,7 @@
 package com.unionpay.withhold.admin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
+import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 
 @Service
@@ -34,6 +37,34 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 		int count = merchDetaApplyMapper.selectCountWithCondition(merchDetaApply, statuses);
 
 		return new PageBean(count, list);
+	}
+
+	@Override
+	public ResultBean addMerchDetaApply(TMerchDetaApply merchDetaApply) {
+		// 验重
+		TMerchDetaApplyExample merchDetaApplyExample = new TMerchDetaApplyExample();
+		TMerchDetaApplyExample.Criteria criteria = merchDetaApplyExample.createCriteria();
+		criteria.andMemberIdEqualTo(merchDetaApply.getMemberId());
+		int count = merchDetaApplyMapper.countByExample(merchDetaApplyExample);
+		if (count > 0) {
+			return new ResultBean("", "此商户号已被注册过！");
+		}
+		
+		merchDetaApply.setStatus(MerchDetaStatusEnums.REGISTERCHECKING.getCode());
+		merchDetaApply.setInTime(new Date());
+		
+		// 添加
+		count = merchDetaApplyMapper.insertSelective(merchDetaApply);
+		if (count > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "新增商户失败！");
+		}
+	}
+
+	@Override
+	public TMerchDetaApply queryMerchDetaApplyById(Long selfId) {
+		return merchDetaApplyMapper.selectByPrimaryKey(selfId.intValue());
 	}
 
 }

@@ -184,7 +184,7 @@ table tr td select {
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
 				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
-				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveCoopAgencyApply()" id="btn_submit">提交</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveMerchDetaApply()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -258,21 +258,20 @@ table tr td select {
 			var data={
 				'memberId':$('#s_memberId').val(),
 				'memberName':$("#s_memberName").val(),
-				'supercode':$("#s_cacode").val(),
+				'cacode':$("#s_cacode").val(),
 			};
 			$('#merchDetaList').datagrid('load',data);
 		}
 		
 		function showAdd(){
 			$('#memberId').removeAttr("readonly");//取消只读的设置
-			//// 显示搜索条件中的上级渠道
 			showAllCacode("add");
 			showMCC();
 			showAllTransfactors();
 			$("#saveForm").attr("action","merchDeta/addApply");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增渠道信息',
+				title: '新增商户信息',
 				top:100,
 				left:400,
 				width: 800,
@@ -289,32 +288,37 @@ table tr td select {
 		
 		function showChange(selfId){
 			$('#saveForm :input').val('');
-			$('#cacode').attr("readonly","readonly");//设为只读
-			$("#saveForm").attr("action","coopAgency/updateApply");
+			$('#memberId').attr("readonly","readonly");//设为只读
+			$("#saveForm").attr("action","merchDeta/updateApply");
 			$.ajax({
 			   type: "POST",
-			   url: "coopAgency/queryApplyById",
+			   url: "merchDeta/queryApplyById",
 			   data: "selfId="+selfId,
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
 				   if (json == null) {
-						$.messager.alert('提示', '该渠道信息不存在，或已被变更，请刷新一下数据再试试！');
+						$.messager.alert('提示', '该商户信息不存在，或已被变更，请刷新一下数据再试试！');
 					} else {
-					    $("#cacode").val(json.cacode);
-						$("#caname").val(json.caname);
-						showProvince(json.caprovince);
-						showCityWithCid(json.caprovince,json.cacity);
-						showSuperCode(json.supercode);
+					    $("#memberId").val(json.memberId);
+						$("#memberName").val(json.memberName);
 						$("#address").val(json.address);
+						$("#postCode").val(json.postCode);
 						$("#contact").val(json.contact);
 						$("#contPhone").val(json.contPhone);
+						$("#contAddress").val(json.contAddress);
+						$("#contPost").val(json.contPost);
+						$("#contEmail").val(json.contEmail);
+						showCacode(json.cacode);
+						showAllTransfactors(json.transfactors);
+						showMCC(json.mcc);
+						showMCCListWithMCCList(json.mcc, json.mccList);
 						$("#notes").val(json.notes);
 						$("#selfId").val(json.selfId);
 						$("#status").val(json.status);
 						
 						$('#w').window({
-							title: '变更渠道信息',
+							title: '变更商户信息',
 							top:100,
 							left:400,
 							width: 800,
@@ -335,7 +339,7 @@ table tr td select {
 		}
 		
 		
-		function showCacode(supercode){
+		function showCacode(cacode){
 			$.ajax({
 				type : "POST",
 				url: "coopAgency/queryAllSuperCode",
@@ -344,7 +348,7 @@ table tr td select {
 					var html = "<option value=''>--请选择渠道--</option>";
 					
 					$.each(json,function(key, value) {
-						if (value.cacode == supercode) {
+						if (value.cacode == cacode) {
 							html += '<option value="' + value.cacode + '" selected="selected">' + value.caname + '</option>';
 						} else {
 							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
@@ -424,14 +428,14 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
+						html += '<option value="' + value.mccList + '">' + value.mcccont + '</option>';
 					});
 					$("#mccList").html(html);
 				}
 			}); 
 		}
 		
-		function showMCCListWithMCCList(mcc,mcclist) {
+		function showMCCListWithMCCList(mcc,mccList) {
 			$.ajax({
 				type: "POST",
 				url: "mccList/queryByMcc",
@@ -440,10 +444,10 @@ table tr td select {
 				success: function(json) {
 					var html = "<option value=''>--请选择MCC小类--</option>";
 					$.each(json,function(key, value) {
-						if(value.mcclist == mcclist){
-							html += '<option value="' + value.mcclist + '" selected="selected">' + value.mcccont + '</option>';
+						if(value.mccList == mccList){
+							html += '<option value="' + value.mccList + '" selected="selected">' + value.mcccont + '</option>';
 						}else{
-							html += '<option value="' + value.mcclist + '">' + value.mcccont + '</option>';
+							html += '<option value="' + value.mccList + '">' + value.mcccont + '</option>';
 						}
 					});
 					$("#mccList").html(html);
@@ -452,7 +456,7 @@ table tr td select {
 		}
 		
 
-		function saveCoopAgencyApply(){
+		function saveMerchDetaApply(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
 			    	if($('#saveForm').form('validate')){

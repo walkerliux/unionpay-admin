@@ -93,9 +93,7 @@ public class CoopAgencyController {
 	/**
 	 * 查询渠道申请信息详情
 	 * 
-	 * @param coopAgencyApply
-	 * @param page
-	 * @param rows
+	 * @param selfId
 	 * @return
 	 */
 	@ResponseBody
