@@ -106,11 +106,11 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">商户公钥</td>
 							<td class="update" align="left">
-							<input type="text" id="memberId" name="memberId" class="easyui-validatebox" required="true"
+							<input type="text" id="pubkey" name="pubkey" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>
 							<td class="update" width="15%">商户私钥 </td>
 							<td class="update" align="left">
-							<input type="text" id="memberName" name="memberName" class="easyui-validatebox" required="true"
+							<input type="text" id="prikey" name="prikey" class="easyui-validatebox" required="true"
 								maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>
 						</tr>
 						<tr style="height: 25px">
@@ -118,39 +118,19 @@ table tr td select {
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">通道名称</td>
-							<td class="update" align="left" >
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors" />
-								<option value=''>-------------------------</option></select>
-							</select><font color="red">*</font></td>
-							<td class="update">通道商户号</td>
-							<td class="update" align="left" colspan="3">
-							<input type="text" id="contact" name="contact" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入通道商户号"/><font color="red">*</font></td>
-						</tr>
-						<tr>
-							<td class="update">商户公钥</td>
-							<td class="update" align="left">
-							<input type="text" id="memberId" name="memberId" class="easyui-validatebox" required="true"
-								maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">通道2</td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">通道名称</td>
 							<td class="update" align="left"  >
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors" />
+							<select id="caname" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors" />
 								<option value='' >-----------------------</option></select>
 							</select><font color="red">*</font></td>
 							<td class="update">通道商户号</td>
 							<td class="update" align="left">
-							<input type="text" id="contact" name="contact" class="easyui-validatebox" required="true"
+							<input type="text" id="chnlmercno" name="chnlmercno" class="easyui-validatebox" required="true"
 								maxlength="32" missingMessage="请输入通道商户号"/><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td class="update">商户公钥</td>
 							<td class="update" align="left">
-							<input type="text" id="memberId" name="memberId" class="easyui-validatebox" required="true"
+							<input type="text" id="chnlpubkey" name="chnlpubkey" class="easyui-validatebox" required="true"
 								maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>
 						</tr>		
 					</table>
@@ -178,40 +158,33 @@ table tr td select {
 				nowrap: false,
 				striped: true,
 				singleSelect:true,
-				url:'merchDeta/querychnj',
+				url:'merchDeta/queryMerchChnl',
 				remoteSort: false,
 				columns:[[
-					{field:'memberId',title:'商户号',align:'center',width:120},
+					{field:'merchno',title:'商户号',align:'center',width:120},
 					{field:'memberName',title:'商户名称',width:150,align:'center'},
-					{field:'cacode',title:'通道编号',align:'center',width:200},
-					{field:'caname',title:'通道名称',align:'center',width:100},
+					{field:'chnlcode',title:'通道编号',align:'center',width:200},
+					{field:'chnlname',title:'通道名称',align:'center',width:100},
 					{field:'chnlmercno',title:'通道商户号',align:'center',width:100},
 					{field:'transfactors',title:'交易要素',align:'center',width:200},
 					{field:'status',title:'状态',width:100,align:'center',
-						formatter:function(value,rec){
-
-							
-							if (value=="09" || value=="10") {
-								return "注册待审";
-							}else if (value=="00") {
-								return "在用"}
-							else if (value=="11") {
-								return "注册被拒";
-							}else if (value=="21") {
-								return "变更被拒";
-							}else if (value=="31") {
-								return "注销被拒";
+						formatter : function(value, rec) {
+							if (value == "00") {
+								return "有效";
 							}
 						}
 					},
-					{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
-						formatter:function(value,rec){
-						if(rec.status=="10" || rec.status=="11" || rec.status=="21" || rec.status=="31"){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">变更</a>';
-						}else{
-							return '';
+					{field:'merchId',title:'操作',align:'center',width:120,rowspan:2,
+						formatter : function(value, rec) {
+							if (rec.status == "00") {
+								return '<a href="javascript:showChange(\''
+										+ value
+										+ '\')" style="color:blue;margin-left:10px">修改</a>';
+							} else {
+								return '';
 						}
-					}}
+					}
+				}
 				]],
 				pagination:true,
 				rownumbers:true,
@@ -225,7 +198,6 @@ table tr td select {
 				}]
 			});
 		});
-
 		function resize(){
 			$('#searchForm :input').val('');
 		}
@@ -241,11 +213,28 @@ table tr td select {
 		
 		function showAdd(){
 			$('#memberId').removeAttr("readonly");//取消只读的设置
-			//// 显示搜索条件中的上级渠道
-			showAllCacode("add");
-			showMCC();
-			$("#saveForm").attr("action","merchDeta/addApply");
+			
+			$("#saveForm").attr("action","merchDeta/addMerchDetaChnl");
 			$('#saveForm :input').val('');
+			
+			$.ajax({
+				   type: "POST",
+				   url: "merchDeta/addMerchChnl",
+				   data: "selfId="+selfId,
+				   async: false,
+				   dataType:"json",
+				   success: function(json){	
+					   if (json == null) {
+							$.messager.alert('提示', '该商户信息不存在，或已被变更，请刷新一下数据再试试！');
+						} else {
+							$("#memberId").val(json.memberId);
+							$("#memberName").val(json.memberName);
+							$("#pubkey").val(json.pubkey);
+							$("#prikey").val(json.prikey);
+							$("#caname").val(json.caname);
+							$("#chnlmercno").val(json.chnlmercno);
+							$("#chnlpubkey").val(json.chnlpubkey);
+							
 			$('#w').window({
 				title: '商户通道维护',
 				top:100,
@@ -259,8 +248,13 @@ table tr td select {
 				closed: false,
 				height: 409
 			});
-			$('#btn_submit').linkbutton('enable');	
-		}
+						}
+					},
+					error : function(){
+						$.messager.alert('提示', '服务异常！');
+					}
+				});
+			}
 		
 		function showChange(selfId){
 			$('#saveForm :input').val('');
@@ -268,7 +262,7 @@ table tr td select {
 			$("#saveForm").attr("action","coopAgency/updateApply");
 			$.ajax({
 			   type: "POST",
-			   url: "coopAgency/queryApplyById",
+			   url: "merchDeta/queryMerchChnlById",
 			   data: "selfId="+selfId,
 			   async: false,
 			   dataType:"json",
@@ -396,6 +390,7 @@ table tr td select {
 		}
 		function closeAdd(){
 			$('#w').window('close');
-		}	
+		}
+				 
 	</script>
 </html>

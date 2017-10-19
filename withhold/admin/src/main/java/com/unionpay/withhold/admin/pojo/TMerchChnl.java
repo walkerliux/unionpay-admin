@@ -26,8 +26,38 @@ public class TMerchChnl {
     private String notes;
 
     private String remarks;
+    
+//    关联属性
+    private String memberName;
+    private String chnlname;
+    private String transfactors;
+    
 
-    public Integer getTid() {
+    public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getChnlname() {
+		return chnlname;
+	}
+
+	public void setChnlname(String chnlname) {
+		this.chnlname = chnlname;
+	}
+
+	public String getTransfactors() {
+		return transfactors;
+	}
+
+	public void setTransfactors(String transfactors) {
+		this.transfactors = transfactors;
+	}
+
+	public Integer getTid() {
         return tid;
     }
 

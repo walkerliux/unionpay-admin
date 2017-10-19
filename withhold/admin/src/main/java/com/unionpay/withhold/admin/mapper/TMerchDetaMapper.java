@@ -34,6 +34,4 @@ public interface TMerchDetaMapper {
 
 	int selectCountWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("statuses")List<String> statuses);
 	
-	List<TMerchDeta> selectChnlWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("statuses")List<String> statuses, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
-
 }

@@ -16,10 +16,13 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
+import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
+import com.unionpay.withhold.admin.pojo.TMerchChnl;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.service.MerchChnlService;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.admin.service.MerchDetaService;
 import com.unionpay.withhold.admin.service.ParaDicService;
@@ -43,6 +46,8 @@ public class MerchDetaController {
 	private ParaDicService paraDicService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MerchChnlService merchChnlService;
 	
 
 	/**
@@ -339,13 +344,14 @@ public class MerchDetaController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/querychnj")
-	public PageBean querychnj(TMerchDeta merchDeta,
+	@RequestMapping("/queryMerchChnl")
+	public PageBean queryMerchChnl(TMerchDeta merchDeta,
 			@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows){
 		if(null==merchDeta){
 			return null;			
 		}else{
-			return merchDetaService.querychnj(merchDeta,page,rows);
+			return merchChnlService.queryMerchChnl(merchDeta,page,rows);
 		}
 	}
+	
 }
