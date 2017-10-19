@@ -140,25 +140,28 @@ public class RoleController {
 	@ResponseBody
     @RequestMapping("/delete")
     public List<?> delete(HttpServletRequest request,TRole role){
-		//判断该角色是否已分配给用户
-		List<TUserRole> userRoles=userRoleService.findByRoleId(role.getRoleId());
-		
 		ArrayList<Object> list = new ArrayList<Object>();
-		
-		TRole role2 = roleService.getSingleById(role.getRoleId());
+		// 判断该角色是否已分配给用户
+		List<TUserRole> userRoles = userRoleService.findByRoleId(role
+				.getRoleId());
+		if (userRoles != null && userRoles.size() > 0) {
+			list.add("该角色已分配给用户，拒绝注销");
+		}else {
 			role.setStatus("01");
-		    try {
-		    	roleService.updateRole(role);
-		    	operationLogService.addOperationLog(request, "注销角色"+role2.getRoleName());
+			TRole role2 = roleService.getSingleById(role.getRoleId());
+			try {
+				roleService.updateRole(role);
+				operationLogService.addOperationLog(request,
+						"注销角色" + role2.getRoleName());
 				list.add("注销成功");
-		    } catch (Exception e) {
-		    	list.add("注销失败");
+			} catch (Exception e) {
+				list.add("注销失败");
 				e.printStackTrace();
 			}
-		    
-		    
-		   
-			return list;
+		
+		}
+		
+		return list;
 	}
 	
 	/**

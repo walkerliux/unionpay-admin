@@ -41,8 +41,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 	}
 	@Override
 	public List<TUserRole> findByRoleId(Long roleId) {
-		
-		return null;
+		TUserRoleExample tUserRoleExample = new TUserRoleExample();
+		Criteria criteria = tUserRoleExample.createCriteria();
+		criteria.andRoleIdEqualTo(roleId);
+		List<TUserRole> result = tUserRoleMapper.selectByExample(tUserRoleExample);
+		return result;
 	}
 
 }
