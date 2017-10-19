@@ -181,10 +181,10 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 		} else {
 			// 根据状态判断是哪种操作
 			if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.REGISTERCHECKING.getCode())) {
-				// 注册待审：修改申请表的状态为“不在用”，并添加数据到在用的表中
+				// 注册待审：修改申请表的状态为“在用”，并添加数据到在用的表中
 				Date now = new Date();
 				merchDetaApply.setStexaTime(now);
-				merchDetaApply.setStatus(MerchDetaStatusEnums.UNNORMAL.getCode());
+				merchDetaApply.setStatus(MerchDetaStatusEnums.NORMAL.getCode());
 				this.merchDetaApplyMapper.updateByPrimaryKeySelective(merchDetaApply);
 				
 				TMerchDeta merchDeta = BeanCopyUtil.copyBean(TMerchDeta.class, merchDetaApplyBack);
@@ -194,30 +194,31 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				merchDeta.setMerchId(null);
 				merchDetaMapper.insertSelective(merchDeta);
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode())) {
-				// 变更待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”，并添加新数据到在用的表中
+				// 变更待审：修改申请表的状态为“在用”，更新在用表中的信息
 				Date now = new Date();
-				TMerchDeta merchDeta = new TMerchDeta();
-				merchDeta.setMerchId(merchDetaApplyBack.getMerchId().intValue());
+				/*TMerchDeta merchDeta = new TMerchDeta();
+				merchDeta.setMerchId(merchDetaApplyBack.getMerchId());
 				merchDeta.setStatus(MerchDetaStatusEnums.UNNORMAL.getCode());
 				merchDeta.setStexaUser(merchDetaApply.getStexaUser());
 				merchDeta.setStexaTime(now);
-				merchDetaMapper.updateByPrimaryKeySelective(merchDeta);
+				merchDetaMapper.updateByPrimaryKeySelective(merchDeta);*/
 
-				merchDetaApply.setStexaTime(merchDeta.getStexaTime());
-				merchDetaApply.setStatus(MerchDetaStatusEnums.UNNORMAL.getCode());
+				merchDetaApply.setStexaTime(now);
+				merchDetaApply.setStatus(MerchDetaStatusEnums.NORMAL.getCode());
 				this.merchDetaApplyMapper.updateByPrimaryKeySelective(merchDetaApply);
 
+				TMerchDeta merchDeta = new TMerchDeta();
 				merchDeta = BeanCopyUtil.copyBean(TMerchDeta.class, merchDetaApplyBack);
 				merchDeta.setStatus(MerchDetaStatusEnums.NORMAL.getCode());
 				merchDeta.setStexaUser(merchDetaApply.getStexaUser());
-				merchDeta.setStexaTime(merchDetaApply.getStexaTime());
-				merchDeta.setMerchId(null);
-				merchDetaMapper.insertSelective(merchDeta);
+				merchDeta.setStexaTime(now);
+				//merchDeta.setMerchId(null);
+				merchDetaMapper.updateByPrimaryKeySelective(merchDeta);
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.LOGOUTCHECKING.getCode())) {// 注销待审
 				// 注销待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”
 				Date now = new Date();
 				TMerchDeta merchDeta = new TMerchDeta();
-				merchDeta.setMerchId(merchDetaApplyBack.getMerchId().intValue());
+				merchDeta.setMerchId(merchDetaApplyBack.getMerchId());
 				merchDeta.setStatus(MerchDetaStatusEnums.UNNORMAL.getCode());
 				merchDeta.setStexaUser(merchDetaApply.getStexaUser());
 				merchDeta.setStexaTime(now);
@@ -230,7 +231,22 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				return new ResultBean("", "信息有误，操作失败！");
 			}
 		}
-		return new ResultBean("审核拒绝操作成功 ！");
+		return new ResultBean("审核通过操作成功 ！");
+	}
+
+	@Override
+	public PageBean selectAllWithCondition(TMerchDetaApply merchDetaApply, Integer page, Integer rows) {
+		// 查分页数据
+		Integer beginRow = (page - 1) * rows;		
+		List<TMerchDetaApply> list = merchDetaApplyMapper.selectAllWithCondition(merchDetaApply, beginRow, rows);
+		int count = merchDetaApplyMapper.selectAllCountWithCondition(merchDetaApply);
+
+		return new PageBean(count, list);
+	}
+
+	@Override
+	public TMerchDetaApply queryMerchDetaById(Integer selfId) {
+		return this.merchDetaApplyMapper.selectMerchDetailById(selfId);
 	}
 
 }

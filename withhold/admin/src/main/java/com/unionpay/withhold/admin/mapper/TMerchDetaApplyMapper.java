@@ -35,4 +35,6 @@ public interface TMerchDetaApplyMapper {
     
     TMerchDetaApply selectMerchDetailById(Integer selfId);
     
+    List<TMerchDetaApply> selectAllWithCondition(@Param("merchDetaApply")TMerchDetaApply merchDetaApply, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+    int selectAllCountWithCondition(@Param("merchDetaApply")TMerchDetaApply merchDetaApply);
 }

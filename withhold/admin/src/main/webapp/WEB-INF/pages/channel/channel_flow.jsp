@@ -67,11 +67,9 @@ table tr td select {
 						</td>
 						<td align="right">通道名称</td>
 						<td id ="channelName" align="left" style="padding-left: 5px">
-							<select id="s_target" name="target"/>
-								<option value=''>----全部----</option>
-								<option value='0'>渠道</option>
-								<option value='1'>商户</option>
-								</select>
+							<select id="schannelName" name="target"/>
+								
+							</select>
 						</td>
 						<td align="right">商户号</td>
 						<td  align="left" style="padding-left: 5px">
@@ -163,6 +161,7 @@ table tr td select {
 <script>
   	var width = $("#continer").width();
 		$(function(){
+			showAllChannl();
 			$('#channelList').datagrid({
 				title:'渠道信息列表',
 				iconCls:'icon-save',
@@ -191,7 +190,7 @@ table tr td select {
 					},
 					{field:'tid',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showDetail(\''+value+'\')" style="color:blue;margin-left:10px">详情</a>';
+							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showDetail(\''+value+'\')" style="color:blue;margin-left:10px">注销</a>';
 						}
 					}
 				]],
@@ -214,10 +213,9 @@ table tr td select {
 
 		function search(){
 			var data={
-				'chnlcode':$('#s_chnlcode').val(),
-				'chnlname':$("#s_chnlname").val(),
-				'inuser':$("#s_inuser").val(),
-				'status':$("#s_status").val()
+				'target':$('#s_target').val(),
+				'chnlcode':$("#schannelName").val(),
+				'merchno':$("#s_merchNo").val()
 			};
 			$('#channelList').datagrid('load',data);
 		}
@@ -304,21 +302,18 @@ table tr td select {
 				});
 		}
 		
-		function showAllRate(caprovince) {
+		function showAllChannl(caprovince) {
+			var em="";
 			$.ajax({
 				type: "POST",
-				url: "rateAccum/getAllRateList",
+				url: "channel/queryChannelAll",
 				dataType: "json",
 				success: function(json) {
-					var html = "";
+					var html = html += '<option value="' + em + '">--全部--</option>';
 					$.each(json,function(key, value) {
-						if(value.rateId==caprovince){
-							html += '<option value="' + value.rateId + '" selected="selected">' + value.rateDesc + '</option>';
-						}else{
-							html += '<option value="' + value.rateId + '">' + value.rateDesc + '</option>';
-						}
+							html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
 					}) ;
-					$("#rates").html(html);
+					$("#schannelName").html(html);
 				}
 			});
 		}
