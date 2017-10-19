@@ -12,4 +12,6 @@ public interface UserRoleService {
 
 	void save(List<TUserRole> userRoleList);
 
+	List<TUserRole> findByRoleId(Long roleId);
+
 }

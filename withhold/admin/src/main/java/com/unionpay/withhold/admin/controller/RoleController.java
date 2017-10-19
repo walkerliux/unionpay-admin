@@ -21,10 +21,12 @@ import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
 import com.unionpay.withhold.admin.pojo.TRoleFunct;
 import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.service.FunctionService;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RoleFunctService;
 import com.unionpay.withhold.admin.service.RoleService;
+import com.unionpay.withhold.admin.service.UserRoleService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
@@ -37,7 +39,8 @@ public class RoleController {
 	
 	@Autowired
 	private RoleService roleService;
-	
+	@Autowired
+	private UserRoleService userRoleService;
 	@Autowired
 	private FunctionService functionService;
 
@@ -137,6 +140,8 @@ public class RoleController {
 	@ResponseBody
     @RequestMapping("/delete")
     public List<?> delete(HttpServletRequest request,TRole role){
+		//判断该角色是否已分配给用户
+		List<TUserRole> userRoles=userRoleService.findByRoleId(role.getRoleId());
 		
 		ArrayList<Object> list = new ArrayList<Object>();
 		

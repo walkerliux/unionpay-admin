@@ -19,15 +19,10 @@ public class UserRoleServiceImpl implements UserRoleService {
 	private TUserRoleMapper tUserRoleMapper;
 	@Override
 	public List<TUserRole> findByProperty(Long userId) {
-		
-			TUserRoleExample tUserRoleExample = new TUserRoleExample();
-			Criteria criteria = tUserRoleExample.createCriteria();
-			criteria.andUserIdEqualTo(userId);
-			List<TUserRole> tUserRoles = tUserRoleMapper.selectByExample(tUserRoleExample);
-			
-		
-		
-		
+		TUserRoleExample tUserRoleExample = new TUserRoleExample();
+		Criteria criteria = tUserRoleExample.createCriteria();
+		criteria.andUserIdEqualTo(userId);
+		List<TUserRole> tUserRoles = tUserRoleMapper.selectByExample(tUserRoleExample);
 		return tUserRoles;
 	}
 	@Override
@@ -43,6 +38,11 @@ public class UserRoleServiceImpl implements UserRoleService {
 			tUserRoleMapper.insert(tUserRole);
 		}
 		
+	}
+	@Override
+	public List<TUserRole> findByRoleId(Long roleId) {
+		
+		return null;
 	}
 
 }
