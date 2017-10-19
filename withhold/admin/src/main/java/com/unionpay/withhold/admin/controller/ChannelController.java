@@ -1,6 +1,5 @@
 package com.unionpay.withhold.admin.controller;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +21,7 @@ import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
+import com.unionpay.withhold.admin.pojo.TChnlFlowControl;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.ChannelService;
 import com.unionpay.withhold.admin.service.UserService;
@@ -58,6 +57,11 @@ public class ChannelController {
 	public String toChannelBank() {
 		return "/channel/channel_bank_limit";
 	}
+	
+	@RequestMapping(value = "/toChannelFlow", method = RequestMethod.GET)
+	public String toChannelFlow() {
+		return "/channel/channel_flow";
+	}
 
 	/**
 	 * 查询通道信息
@@ -71,7 +75,7 @@ public class ChannelController {
 	 */
 	@ResponseBody
 	@RequestMapping("/queryChannel")
-	public PageBean queryCoopAgencyApply(TChnlDeta chnlDeta,
+	public PageBean queryChannel(TChnlDeta chnlDeta,
 			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
 		PageHelper.startPage(page, rows);
 		List<TChnlDeta> list=  channelService.selectByCondition(chnlDeta);
@@ -79,6 +83,26 @@ public class ChannelController {
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
 	}
+	
+	@ResponseBody
+	@RequestMapping("/queryChannelAll")
+	public List<TChnlDeta> queryChannelAll() {
+		List<TChnlDeta> list=  channelService.selectByCondition(new TChnlDeta());
+		return list;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/queryChannelFlow")
+	public PageBean queryChannelFlow(TChnlFlowControl chnlFlowControl,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		PageHelper.startPage(page, rows);
+		List<TChnlFlowControl> list=  channelService.selectChannlFlowByCondition(chnlFlowControl);
+		PageInfo<TChnlFlowControl> pageInfo=new PageInfo<>(list);
+		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
+		return pageBean;
+	}
+	
+	
 	
 	/**
 	 * 添加通道信息
