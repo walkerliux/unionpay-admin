@@ -61,12 +61,12 @@ public class LoginController {
 
 		return new ModelAndView("/index");
 	}
-
+	
 	@RequestMapping(value = "/loginSuccess", method = RequestMethod.GET)
 	public ModelAndView loginSuccess(TUser user, HttpServletRequest request)
 			throws ParseException {
 		ModelAndView result = new ModelAndView("/index");
-
+		
 		
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
