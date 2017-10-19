@@ -123,4 +123,21 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 		}
 	}
 
+	@Override
+	public PageBean querychnj(TMerchDeta merchDeta, Integer page, Integer rows) {
+		// 查分页数据
+				Integer beginRow = (page - 1) * rows;
+				List<String> statuses = new ArrayList<>();
+				if (StringUtils.isBlank(merchDeta.getStatus())) {
+					statuses.add(MerchDetaStatusEnums.NORMAL.getCode());// 在用的状态
+				} else {
+					statuses.add(merchDeta.getStatus());
+				}
+
+				List<TMerchDeta> list = merchDetaMapper.selectChnlWithCondition(merchDeta, statuses, beginRow, rows);
+				int count = merchDetaMapper.selectCountWithCondition(merchDeta, statuses);
+
+				return new PageBean(count, list);
+	}
+
 }

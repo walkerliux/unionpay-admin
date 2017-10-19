@@ -330,4 +330,22 @@ public class MerchDetaController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	/**
+	 * 查询通道信息
+	 * @param merchDate
+	 * @param merchChnl
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/querychnj")
+	public PageBean querychnj(TMerchDeta merchDeta,
+			@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows){
+		if(null==merchDeta){
+			return null;			
+		}else{
+			return merchDetaService.querychnj(merchDeta,page,rows);
+		}
+	}
 }

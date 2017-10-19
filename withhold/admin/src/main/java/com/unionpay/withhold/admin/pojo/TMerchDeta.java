@@ -64,6 +64,16 @@ public class TMerchDeta {
 	private String transfactorsName;
 	private String mccName;
 	private String mccListName;
+	
+	private String chnlmercno;
+	public String getChnlmercno() {
+		return chnlmercno;
+	}
+
+	public void setChnlmercno(String chnlmercno) {
+		this.chnlmercno = chnlmercno;
+	}
+
 
 	public Integer getMerchId() {
 		return merchId;

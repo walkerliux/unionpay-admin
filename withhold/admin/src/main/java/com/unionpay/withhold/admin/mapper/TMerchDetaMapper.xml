@@ -35,6 +35,8 @@
 		<result column="TRANSFACTORS_NAME" property="transfactorsName" jdbcType="VARCHAR" />
 		<result column="MCC_NAME" property="mccName" jdbcType="VARCHAR" />
 		<result column="MCC_LIST_NAME" property="mccListName" jdbcType="VARCHAR" />
+		
+		<result column="CHNLMERCNO" property="chnlmercno" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -627,7 +629,41 @@
 			limit #{beginRow},#{pageSize}
 		</if>
 	</select>
-
+	
+	<select id="selectChnlWithCondition" resultMap="BaseResultMap">
+		select 
+		md.*,ca.caname,mc.chnlmercno 
+		from 
+		t_merch_deta md
+		left join 
+		t_merch_chnl mc on md.member_id =mc.MERCHNO
+		left join
+		t_coop_agency ca on md.cacode =ca.cacode
+		AND md.`STATUS` ='00'
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
+				AND md.CACODE = #{merchDeta.cacode}
+			</if>
+			<if test="statuses != null ">
+				And
+				<foreach collection="statuses" item="status" open="md.STATUS IN("
+					close=")" separator=",">
+					#{status}
+				</foreach>
+			</if>
+		</where>
+		order by MERCH_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+	
 	<select id="selectCountWithCondition" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM t_merch_deta AS md
 		<where>

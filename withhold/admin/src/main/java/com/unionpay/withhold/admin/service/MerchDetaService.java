@@ -35,5 +35,13 @@ public interface MerchDetaService {
 	 * @return
 	 */
 	ResultBean commitLogout(TMerchDeta merchDeta);
+	/**
+	 * 查询商户通道信息
+	 * @param merchDeta
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	PageBean querychnj(TMerchDeta merchDeta, Integer page, Integer rows);
 
 }
