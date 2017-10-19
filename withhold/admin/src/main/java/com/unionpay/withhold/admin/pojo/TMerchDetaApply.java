@@ -6,7 +6,7 @@ import java.util.Date;
 public class TMerchDetaApply {
 	private Integer selfId;
 
-	private Long merchId;
+	private Integer merchId;
 
 	private Long memId;
 
@@ -82,11 +82,11 @@ public class TMerchDetaApply {
 		this.selfId = selfId;
 	}
 
-	public Long getMerchId() {
+	public Integer getMerchId() {
 		return merchId;
 	}
 
-	public void setMerchId(Long merchId) {
+	public void setMerchId(Integer merchId) {
 		this.merchId = merchId;
 	}
 
@@ -335,7 +335,7 @@ public class TMerchDetaApply {
 	}
 
 	public void setCaname(String caname) {
-		this.caname = caname;
+		this.caname = caname == null ? null : caname.trim();
 	}
 
 	public String getTransfactorsName() {
@@ -343,7 +343,7 @@ public class TMerchDetaApply {
 	}
 
 	public void setTransfactorsName(String transfactorsName) {
-		this.transfactorsName = transfactorsName;
+		this.transfactorsName = transfactorsName == null ? null : transfactorsName.trim();
 	}
 
 	public String getMccName() {
@@ -351,7 +351,7 @@ public class TMerchDetaApply {
 	}
 
 	public void setMccName(String mccName) {
-		this.mccName = mccName;
+		this.mccName = mccName == null ? null : mccName.trim();
 	}
 
 	public String getMccListName() {
@@ -359,7 +359,7 @@ public class TMerchDetaApply {
 	}
 
 	public void setMccListName(String mccListName) {
-		this.mccListName = mccListName;
+		this.mccListName = mccListName == null ? null : mccListName.trim();
 	}
 
 }

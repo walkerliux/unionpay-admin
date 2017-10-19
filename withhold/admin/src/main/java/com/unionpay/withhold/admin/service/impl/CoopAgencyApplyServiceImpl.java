@@ -237,14 +237,14 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				}
 
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode())) {
-				// 变更待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”，并添加新数据到在用的表中
+				// 变更待审：修改申请表的状态为“不在用”，并更新数据到在用的表中
 				Date now = new Date();
 				TCoopAgency coopAgency = new TCoopAgency();
-				coopAgency.setCaid(agencyApplyBack.getCaid());
+				/*coopAgency.setCaid(agencyApplyBack.getCaid());
 				coopAgency.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(now);
-				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
+				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);*/
 
 				coopAgencyApply.setStexaTime(coopAgency.getStexaTime());
 				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
@@ -254,9 +254,9 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgency.setStatus(CoopAgencyStatusEnums.NORMAL.getCode());
 				coopAgency.setStexaUser(coopAgencyApply.getStexaUser());
 				coopAgency.setStexaTime(coopAgencyApply.getStexaTime());
-				coopAgency.setCaid(null);
+				//coopAgency.setCaid(null);
 				coopAgency.setRiskver(coopAgencyApply.getRiskver());
-				coopAgencyMapper.insertSelective(coopAgency);
+				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
 
 				// 判断扣率配置是否有变更，有的话，更新配置
 				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
@@ -307,7 +307,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			}
 		}
 
-		return new ResultBean("审核拒绝操作成功 ！");
+		return new ResultBean("审核通过操作成功 ！");
 	}
 
 	@Override

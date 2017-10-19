@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap"
 		type="com.unionpay.withhold.admin.pojo.TMerchDetaApply">
 		<id column="SELF_ID" property="selfId" jdbcType="INTEGER" />
-		<result column="MERCH_ID" property="merchId" jdbcType="DECIMAL" />
+		<result column="MERCH_ID" property="merchId" jdbcType="INTEGER" />
 		<result column="MEM_ID" property="memId" jdbcType="DECIMAL" />
 		<result column="MEMBER_NAME" property="memberName" jdbcType="VARCHAR" />
 		<result column="MEMBER_ID" property="memberId" jdbcType="VARCHAR" />
@@ -792,6 +792,87 @@
 		LEFT JOIN t_mcc_desc AS md ON mda.MCC = md.MCC
 		LEFT JOIN t_mcc_list AS ml ON mda.MCC_LIST = ml.MCCLIST AND ml.`STATUS` = '1'
 		WHERE
-		mda.SELF_ID = #{selfId} AND mda.`STATUS` != '99'
+		mda.SELF_ID = #{selfId}
+	</select>
+	
+	
+	<select id="selectAllWithCondition" resultMap="BaseResultMap">
+		SELECT
+			mda_group.*, ca.CANAME AS CANAME
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					(
+						SELECT
+							*
+						FROM
+							`t_merch_deta_apply`
+						WHERE
+							`STATUS` != '31'
+						ORDER BY
+							SELF_ID DESC
+					) mda_order
+				GROUP BY
+					MEMBER_ID
+			) mda_group
+		LEFT JOIN t_coop_agency AS ca ON mda_group.CACODE = ca.CACODE
+		AND ca.`STATUS` = '00'
+		<where>
+			<if test="merchDetaApply.memberId != null and merchDetaApply.memberId !=''">
+				AND mda_group.MEMBER_ID = #{merchDetaApply.memberId}
+			</if>
+			<if test="merchDetaApply.memberName != null and merchDetaApply.memberName !=''">
+				AND mda_group.MEMBER_NAME = #{merchDetaApply.memberName}
+			</if>
+			<if test="merchDetaApply.cacode != null and merchDetaApply.cacode !=''">
+				AND mda_group.CACODE = #{merchDetaApply.cacode}
+			</if>
+			<if test="merchDetaApply.status != null and merchDetaApply.status !=''">
+				AND mda_group.STATUS = #{merchDetaApply.status}
+			</if>
+		</where>
+		order by mda_group.SELF_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="selectAllCountWithCondition" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					(
+						SELECT
+							*
+						FROM
+							`t_merch_deta_apply`
+						WHERE
+							`STATUS` != '31'
+						ORDER BY
+							SELF_ID DESC
+					) mda_order
+				GROUP BY
+					MEMBER_ID
+			) mda_group
+		<where>
+			<if test="merchDetaApply.memberId != null and merchDetaApply.memberId !=''">
+				AND mda_group.MEMBER_ID = #{merchDetaApply.memberId}
+			</if>
+			<if test="merchDetaApply.memberName != null and merchDetaApply.memberName !=''">
+				AND mda_group.MEMBER_NAME = #{merchDetaApply.memberName}
+			</if>
+			<if test="merchDetaApply.cacode != null and merchDetaApply.cacode !=''">
+				AND mda_group.CACODE = #{merchDetaApply.cacode}
+			</if>
+			<if test="merchDetaApply.status != null and merchDetaApply.status !=''">
+				AND mda_group.STATUS = #{merchDetaApply.status}
+			</if>
+		</where>
 	</select>
 </mapper>
