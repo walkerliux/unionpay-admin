@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TChnlFlowControlMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
+    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <result column="TARGET" property="target" jdbcType="VARCHAR" />
+    <result column="CHNLCODE" property="chnlcode" jdbcType="VARCHAR" />
+    <result column="MERCHNO" property="merchno" jdbcType="VARCHAR" />
+    <result column="CONTROLTYPE" property="controltype" jdbcType="VARCHAR" />
+    <result column="SECONDS" property="seconds" jdbcType="DECIMAL" />
+    <result column="FLOWS" property="flows" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TARGET, CHNLCODE, MERCHNO, CONTROLTYPE, SECONDS, FLOWS, STATUS, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControlExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_flow_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_flow_control
+    where TID = #{tid,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from t_chnl_flow_control
+    where TID = #{tid,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControlExample" >
+    delete from t_chnl_flow_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
+    insert into t_chnl_flow_control (TID, TARGET, CHNLCODE, 
+      MERCHNO, CONTROLTYPE, SECONDS, 
+      FLOWS, STATUS, NOTES, 
+      REMARKS)
+    values (#{tid,jdbcType=DECIMAL}, #{target,jdbcType=VARCHAR}, #{chnlcode,jdbcType=VARCHAR}, 
+      #{merchno,jdbcType=VARCHAR}, #{controltype,jdbcType=VARCHAR}, #{seconds,jdbcType=DECIMAL}, 
+      #{flows,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
+    insert into t_chnl_flow_control
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="target != null" >
+        TARGET,
+      </if>
+      <if test="chnlcode != null" >
+        CHNLCODE,
+      </if>
+      <if test="merchno != null" >
+        MERCHNO,
+      </if>
+      <if test="controltype != null" >
+        CONTROLTYPE,
+      </if>
+      <if test="seconds != null" >
+        SECONDS,
+      </if>
+      <if test="flows != null" >
+        FLOWS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=DECIMAL},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null" >
+        #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="controltype != null" >
+        #{controltype,jdbcType=VARCHAR},
+      </if>
+      <if test="seconds != null" >
+        #{seconds,jdbcType=DECIMAL},
+      </if>
+      <if test="flows != null" >
+        #{flows,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControlExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_flow_control
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_chnl_flow_control
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.target != null" >
+        TARGET = #{record.target,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chnlcode != null" >
+        CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.merchno != null" >
+        MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controltype != null" >
+        CONTROLTYPE = #{record.controltype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seconds != null" >
+        SECONDS = #{record.seconds,jdbcType=DECIMAL},
+      </if>
+      <if test="record.flows != null" >
+        FLOWS = #{record.flows,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_chnl_flow_control
+    set TID = #{record.tid,jdbcType=DECIMAL},
+      TARGET = #{record.target,jdbcType=VARCHAR},
+      CHNLCODE = #{record.chnlcode,jdbcType=VARCHAR},
+      MERCHNO = #{record.merchno,jdbcType=VARCHAR},
+      CONTROLTYPE = #{record.controltype,jdbcType=VARCHAR},
+      SECONDS = #{record.seconds,jdbcType=DECIMAL},
+      FLOWS = #{record.flows,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
+    update t_chnl_flow_control
+    <set >
+      <if test="target != null" >
+        TARGET = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="chnlcode != null" >
+        CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      </if>
+      <if test="merchno != null" >
+        MERCHNO = #{merchno,jdbcType=VARCHAR},
+      </if>
+      <if test="controltype != null" >
+        CONTROLTYPE = #{controltype,jdbcType=VARCHAR},
+      </if>
+      <if test="seconds != null" >
+        SECONDS = #{seconds,jdbcType=DECIMAL},
+      </if>
+      <if test="flows != null" >
+        FLOWS = #{flows,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
+    update t_chnl_flow_control
+    set TARGET = #{target,jdbcType=VARCHAR},
+      CHNLCODE = #{chnlcode,jdbcType=VARCHAR},
+      MERCHNO = #{merchno,jdbcType=VARCHAR},
+      CONTROLTYPE = #{controltype,jdbcType=VARCHAR},
+      SECONDS = #{seconds,jdbcType=DECIMAL},
+      FLOWS = #{flows,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=DECIMAL}
+  </update>
+</mapper>
