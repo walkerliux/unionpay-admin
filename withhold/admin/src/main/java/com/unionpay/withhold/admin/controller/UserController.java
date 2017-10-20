@@ -8,14 +8,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TFunction;
 import com.unionpay.withhold.admin.pojo.TRole;
@@ -280,17 +284,7 @@ public class UserController {
 			}
 			//建立user-role表关系
 			userRoleService.save(userRoleList);
-			//把role的权限赋值给User
-			ArrayList<TUserFunct> tUserFunctList = new ArrayList<TUserFunct>();
 			
-			for (Long long1 : functIds) {
-				TUserFunct tUserFunct = new TUserFunct();
-				tUserFunct.setFunctId(long1);
-				tUserFunct.setUserId(userId);
-				tUserFunctList.add(tUserFunct);
-			}
-			userFunctService.deleteOldFunc(userId);
-			userFunctService.save(tUserFunctList);
 			operationLogService.addOperationLog(request, "绑定用户"+user.getLoginName()+"相关角色");
 			return "true";
 		}
@@ -337,15 +331,12 @@ public class UserController {
 				function.setState("closed");
 				
 			} else {// 子节点
+				//遍历角色-权限
 				for (TRoleFunct roleFunct : roleFucList) {
-					for (TUserFunct userFunct : userFunctList) {
-						if (roleFunct.getFunctId().equals(function.getFunctId())&&roleFunct.getFunctId().equals(userFunct.getFunctId())) {
-							function.setChecked("true");
-							function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");
-							
-						}
+					if (roleFunct.getFunctId().equals(function.getFunctId())) {
+						function.setChecked("true");
+						function.setText("<span style='color:blue'>" + function.getFunctName() + "</span>");
 					}
-					
 				}
 				for (TUserFunct userFunct : userFunctList) {
 					if (userFunct.getFunctId().equals(function.getFunctId())) {
@@ -382,21 +373,28 @@ public class UserController {
 		userFunctService.deleteOldFunc(userId);
 		TUser user = userService.getSingleById(userId);
 		if(userFunc != null &&!"".equals(userFunc)){
-			String[] funcId = userFunc.split(",");
-			List<TUserFunct> functList = new ArrayList<TUserFunct>();
-			
-			for (int i = 0; i < funcId.length; i++) {
-				TUserFunct model = new TUserFunct();
+			try {
+				String[] funcId = userFunc.split(",");
+				List<TUserFunct> functList = new ArrayList<TUserFunct>();
 				
-				model.setUserId(userId);
-				model.setFunctId(Long.valueOf(funcId[i]));
-				functList.add(model);
-				
+				for (int i = 0; i < funcId.length; i++) {
+					TUserFunct model = new TUserFunct();
+					
+					model.setUserId(userId);
+					model.setFunctId(Long.valueOf(funcId[i]));
+					functList.add(model);
+					
+				}
+				userFunctService.save(functList);
+				operationLogService.addOperationLog(request, "赋予用户"+user.getLoginName()+"相关权限");
+				return "true";
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+				return "false";
 			}
-			userFunctService.save(functList);
-			operationLogService.addOperationLog(request, "赋予用户"+user.getLoginName()+"相关权限");
+		}else{
 			return "true";
 		}
-		return "false";
+		
 	}
 }

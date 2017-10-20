@@ -28,4 +28,6 @@ public interface TFunctionMapper {
     int updateByPrimaryKeySelective(TFunction record);
 
     int updateByPrimaryKey(TFunction record);
+    
+    List<TFunction> selectByUnion(Integer userId);
 }

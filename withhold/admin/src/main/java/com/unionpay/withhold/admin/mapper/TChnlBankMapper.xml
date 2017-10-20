@@ -316,6 +316,18 @@
        </foreach> 
        and CHNLCODE=#{chnlcode} and STATUS='00' and CARDTYPE=#{cardtype}
    </delete> 
+   
+	<!-- <insert id="insertAll" >
+	    insert into
+	    t_chnl_bank(belong_program,workflow_comment,schedule_id,job_id,parent_job_id,job_level,exec_time,created_user)
+	    values
+	    <foreach collection="list" item="item" index="index" separator=",">
+	 
+	      (#{item.belongProgram},#{item.workFlowComment},#{item.scheduleId},#{item.jobId},#{item.parentJobId},#{item.jobLevel},#{item.execTime},#{item.createdUser})
+	 
+	    </foreach>
+	 	
+	  </insert> -->
   
   
 </mapper>

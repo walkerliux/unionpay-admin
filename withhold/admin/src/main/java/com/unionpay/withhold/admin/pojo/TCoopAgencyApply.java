@@ -247,7 +247,7 @@ public class TCoopAgencyApply {
 	}
 
 	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
+		this.provinceName = provinceName == null ? null : provinceName.trim();
 	}
 
 	public String getCityName() {
@@ -255,7 +255,7 @@ public class TCoopAgencyApply {
 	}
 
 	public void setCityName(String cityName) {
-		this.cityName = cityName;
+		this.cityName = cityName == null ? null : cityName.trim();
 	}
 
 	public String getSuperName() {
@@ -263,7 +263,7 @@ public class TCoopAgencyApply {
 	}
 
 	public void setSuperName(String superName) {
-		this.superName = superName;
+		this.superName = superName == null ? null : superName.trim();
 	}
 
 	public String getBusicode() {
@@ -271,7 +271,7 @@ public class TCoopAgencyApply {
 	}
 
 	public void setBusicode(String busicode) {
-		this.busicode = busicode;
+		this.busicode = busicode == null ? null : busicode.trim();
 	}
 
 	public String getRateId() {
@@ -280,6 +280,7 @@ public class TCoopAgencyApply {
 
 	public void setRateId(String rateId) {
 		this.rateId = rateId;
+		this.rateId = rateId == null ? null : rateId.trim();
 	}
 
 }

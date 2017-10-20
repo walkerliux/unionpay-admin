@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
@@ -185,9 +184,9 @@ public class MerchDetaController {
 	@ResponseBody
 	@RequestMapping("/updateApply")
 	public ResultBean updateMerchDetaApply(TMerchDetaApply merchDetaApply, HttpServletRequest request) {
-		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
-		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
 		try {
 			return merchDetaApplyService.updateMerchDetaApply(merchDetaApply);
 		} catch (Exception e) {
@@ -215,7 +214,7 @@ public class MerchDetaController {
 	}
 	
 	/**
-	 * 查询渠道审核信息详情
+	 * 查询商户审核信息详情
 	 * 
 	 * @param selfId
 	 * @return
@@ -307,9 +306,9 @@ public class MerchDetaController {
 	@ResponseBody
 	@RequestMapping("/updateInUse")
 	public ResultBean updateMerchDetaInUse(TMerchDeta merchDeta, HttpServletRequest request) {
-		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
-		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		merchDeta.setInUser(infoByToken.getUserId().longValue());
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		merchDeta.setInUser(infoByToken.getUserId().longValue());
 		try {
 			return merchDetaService.updateMerchDetaInUse(merchDeta);
 		} catch (Exception e) {
@@ -326,15 +325,16 @@ public class MerchDetaController {
 	@ResponseBody
 	@RequestMapping("/commitLogout")
 	public ResultBean commitLogout(HttpServletRequest request, TMerchDeta merchDeta) {
-		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
-		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		merchDeta.setInUser(infoByToken.getUserId().longValue());
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		merchDeta.setInUser(infoByToken.getUserId().longValue());
 		try {
 			return merchDetaService.commitLogout(merchDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+
 	/**
 	 * 查询通道信息
 	 * @param merchDate
@@ -354,4 +354,37 @@ public class MerchDetaController {
 		}
 	}
 	
+
+	
+	/**
+	 * 查询商户信息（全部或按条件）
+	 * 
+	 * @param merchDetaApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryAll")
+	public PageBean queryAllMerchDetaApply(TMerchDetaApply merchDetaApply,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		if (null == merchDetaApply) {
+			return null;
+		} else {
+			return merchDetaApplyService.selectAllWithCondition(merchDetaApply, page, rows);
+		}
+	}
+	
+	/**
+	 * 查询商户信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryDetailById")
+	public TMerchDetaApply queryMerchDetaDetailById(Integer selfId) {
+		return selfId == null ? null : merchDetaApplyService.queryMerchDetaById(selfId);
+	}
+
 }

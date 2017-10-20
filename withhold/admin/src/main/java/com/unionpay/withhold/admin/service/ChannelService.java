@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
+import com.unionpay.withhold.admin.pojo.TChnlFlowControl;
 
 public interface ChannelService {
 	
@@ -20,4 +21,6 @@ public interface ChannelService {
 
 	ResultBean changeChannlBank(List<String> debitoldlist, List<String> debitnewlist, List<String> creditdataoldlist,
 			List<String> creditdatanewlist, String chnlcode,long userid);
+
+	List<TChnlFlowControl> selectChannlFlowByCondition(TChnlFlowControl chnlFlowControl);
 }

@@ -370,4 +370,47 @@
   <select id="selectAll" resultMap="BaseResultMap">
   	select * from t_function ORDER BY FUNCT_ORDER
   </select>
+   <select id="selectByUnion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    SELECT
+	FUNCT_ID,
+	FUNCT_NAME,
+	FUNCT_ORDER,
+	LEAFNODE,
+	URL,
+	PARENT_ID
+FROM
+	(
+		SELECT
+			t2.FUNCT_ID,
+			t2.FUNCT_NAME,
+			t2.FUNCT_ORDER,
+			t2.LEAFNODE,
+			t2.URL,
+			t2.PARENT_ID
+		FROM
+			t_user_funct t1,
+			t_function t2
+		WHERE
+			t1.FUNCT_ID = t2.FUNCT_ID
+		AND t1.USER_ID = #{userId,jdbcType=INTEGER}
+		UNION
+			SELECT
+				t5.FUNCT_ID,
+				t5.FUNCT_NAME,
+				t5.FUNCT_ORDER,
+				t5.LEAFNODE,
+				t5.URL,
+				t5.PARENT_ID
+			FROM
+				t_user_role t3,
+				t_role_funct t4,
+				t_function t5
+			WHERE
+				t3.ROLE_ID = t4.ROLE_ID
+			AND t4.FUNCT_ID = t5.FUNCT_ID
+			AND t3.USER_ID = #{userId,jdbcType=INTEGER}
+	) t32
+ORDER BY
+	FUNCT_ORDER
+  </select>
 </mapper>

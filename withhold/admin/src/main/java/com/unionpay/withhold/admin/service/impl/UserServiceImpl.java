@@ -174,6 +174,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public TUser getUserInfoByToken(String token) {
 		String userValue = jedisClient.get(REDIS_USER_KEY+":"+token);
+		if (StringUtil.isNull(userValue)) {
+			return null;
+		}
+		
 		jedisClient.expire(REDIS_USER_KEY+":"+token, REDIS_SESSION_EXPIRE);
 		return JsonUtils.jsonToPojo(userValue,TUser.class);
 	}

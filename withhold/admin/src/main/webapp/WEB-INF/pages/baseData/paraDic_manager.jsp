@@ -114,14 +114,6 @@ table tr td select {
 									<option value='0'>--无父级--</option>
 							</select>
 								</td>
-							
-							<select id="parent_Id"
-								class="easyui-validatebox" required="true" name="parentId"
-								missingMessage="请选择父级参数">
-									<option value=''>--请选择父级参数--</option>
-									<option value='0'>--无父级--</option>
-							</select>
-							
 						</tr>
 						<tr style="height: 25px">
 							<td>是否可改</td>
