@@ -116,7 +116,7 @@ public class ChannelController {
 	 */
 	@ResponseBody
 	@RequestMapping("/addChannel")
-	public ResultBean addCoopAgencyApply(TChnlDeta chnlDeta, HttpServletRequest request,String rates) {
+	public ResultBean addChannel(TChnlDeta chnlDeta, HttpServletRequest request,String rates) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		chnlDeta.setInuser(infoByToken.getUserId().longValue());
@@ -126,6 +126,16 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	@ResponseBody
+	@RequestMapping("/addChannelFlow")
+	public ResultBean addChannelFlow(TChnlFlowControl chnlDeta, HttpServletRequest request,String rates) {
+		try {
+			return channelService.addChannelFlow(chnlDeta);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
 	
 	/**
 	 * 查询通道详情
@@ -141,11 +151,24 @@ public class ChannelController {
 		return selfId == null ? null : channelService.queryChannelById(selfId);
 	}
 	
+	@ResponseBody
+	@RequestMapping("/queryChannelFlowById")
+	public TChnlFlowControl queryChannelFlowById(Integer selfId) {
+		return selfId == null ? null : channelService.queryChannelFlowById(selfId);
+	}
+	
 	
 	@ResponseBody
 	@RequestMapping("/queryChannelBankById")
 	public Map<String, Object> queryChannelBankById(String selfId) {
 		return selfId == null ? null : channelService.queryChannelBankByChnlcode(selfId);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/changeStatus")
+	public ResultBean changeStatus(TChnlFlowControl chnlFlowControl) {
+		return channelService.updateChannelFlow(chnlFlowControl);
 	}
 	@ResponseBody
 	@RequestMapping("/changeChannelBank")
@@ -199,6 +222,16 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	@ResponseBody
+	@RequestMapping("/updateChannelFlow")
+	public ResultBean updateChannelFlow(TChnlFlowControl chnlDeta) {
+		try {
+			return channelService.updateChannelFlow(chnlDeta);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
 	
 	
 	private static Map<String, List<String>> getDiffrent(List<String> list1, List<String> list2) {

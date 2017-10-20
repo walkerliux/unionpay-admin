@@ -1,6 +1,5 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.CardTypeEnums;
 import com.unionpay.withhold.admin.enums.ChannelStatusEnums;
@@ -23,7 +21,6 @@ import com.unionpay.withhold.admin.mapper.TChnlFlowControlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
 import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.pojo.TChnlBank;
-import com.unionpay.withhold.admin.pojo.TChnlBankExample;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TChnlDetaExample;
 import com.unionpay.withhold.admin.pojo.TChnlFlowControl;
@@ -185,5 +182,31 @@ public class ChannelServiceImpl implements ChannelService {
 		}
 		List<TChnlFlowControl> list = chnlFlowControlMapper.selectByExample(chnlDetaExample);
 		return list;
+	}
+
+	@Override
+	public ResultBean addChannelFlow(TChnlFlowControl chnlDeta) {
+		chnlDeta.setStatus("00");
+		int flag =chnlFlowControlMapper.insertSelective(chnlDeta);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "添加失败！");
+		}
+	}
+
+	@Override
+	public TChnlFlowControl queryChannelFlowById(Integer selfId) {
+		return chnlFlowControlMapper.selectByPrimaryKey(selfId);
+	}
+
+	@Override
+	public ResultBean updateChannelFlow(TChnlFlowControl chnlDeta) {
+		int flag =chnlFlowControlMapper.updateByPrimaryKeySelective(chnlDeta);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "更新失败！");
+		}
 	}
 }

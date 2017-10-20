@@ -1,7 +1,7 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TChnlFlowControl {
-    private Long tid;
+    private Integer tid;
 
     private String target;
 
@@ -21,11 +21,11 @@ public class TChnlFlowControl {
 
     private String remarks;
 
-    public Long getTid() {
+    public Integer getTid() {
         return tid;
     }
 
-    public void setTid(Long tid) {
+    public void setTid(Integer tid) {
         this.tid = tid;
     }
 

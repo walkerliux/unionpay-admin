@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlFlowControlMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlFlowControl" >
-    <id column="TID" property="tid" jdbcType="DECIMAL" />
+    <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TARGET" property="target" jdbcType="VARCHAR" />
     <result column="CHNLCODE" property="chnlcode" jdbcType="VARCHAR" />
     <result column="MERCHNO" property="merchno" jdbcType="VARCHAR" />
@@ -88,7 +88,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_chnl_flow_control

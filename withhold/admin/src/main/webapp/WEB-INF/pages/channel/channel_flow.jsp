@@ -98,45 +98,52 @@ table tr td select {
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
 				<form id="saveForm" action="" method="post">
-					<input type="hidden" id="chnlid" name="chnlid" />
+					<input type="hidden" id="tid" name="tid" />
 					<input type="hidden" id="status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td class="update">通道代码</td>
-							<td class="update" align="left">
-							<input type="text" id="chnlcode" name="chnlcode" class="easyui-validatebox" required="true"
-								maxlength="11" missingMessage="请输入通道代码"/><font color="red">*</font></td>
-							<td class="update" width="15%">通道名称 </td>
-							<td class="update" align="left">
-							<input type="text" id="chnlname" name="chnlname" class="easyui-validatebox" required="true"
-								maxlength="64" missingMessage="请输入通道名称 " /><font color="red">*</font></td>
+							<td class="update" align="right">控制目标</td>
+							<td class="update" align="left" style="padding-left: 5px">
+								<select id="target" name="target"/>
+									<option value='0'>渠道</option>
+									<option value='1'>商户</option>
+								</select>
+							</td>
+							<td class="update" align="right">通道名称</td>
+							<td class="update"  align="left" style="padding-left: 5px">
+								<select id="chnlcode" name="chnlcode"/>
+									
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update" align="right">商户号</td>
+							<td class="update" align="left" style="padding-left: 5px">
+								<input name="merchno" id="merchno" maxlength="8" class="easyui-validatebox" required="true"/>
+							</td>
+							<td class="update" align="right">控制类型</td>
+							<td class="update" align="left" style="padding-left: 5px">
+								<select id="controltype" name="controltype"/>
+									<option value='1'>按并发控制</option>
+									<option value='0'>按时间控制</option>
+									</select>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">地址</td>
-							<td class="update" align="left">
-							<input type="text" id="address" name="address" class="easyui-validatebox" required="true"
-								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
-							<td id="ratesntd" class="update">收费代码</td>
-							<td id="ratestd" class="update" align="left">
-							<select id="rates" name="rates" class="easyui-validatebox"  name="supercode"/>
-								<option value=''>--请选择收费代码--</option>
-							</select></td>
-						</tr>
-						<tr>
-							<td colspan="4" class="head-title"></td>
-						</tr>
-						<tr style="height: 25px">
-							<td class="update">联系人</td>
-							<td class="update" align="left">
-							<input type="text" id="contact" name="contact" class="easyui-validatebox" 
-							 maxlength="32" missingMessage="请输入联系人" required="true" /><font color="red">*</font></td>
-							<td class="update">联系电话</td>
-							<td class="update" align="left">
-							<input type="text" id="contPhone" name="contPhone" class="easyui-validatebox" 
-							 maxlength="11" missingMessage="请输入联系电话" required="true" /><font color="red">*</font></td>
+							<td class="update" align="right">秒数</td>
+							<td class="update"  align="left" style="padding-left: 5px">
+								<input name="seconds" id="seconds" maxlength="8" class="easyui-validatebox" required="true"/>
+							</td>
+							<td class="update" align="right">限制笔数</td>
+							<td class="update"  align="left" style="padding-left: 5px" >
+								<input name="flows" id="flows" maxlength="8" class="easyui-validatebox" required="true"/>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -156,7 +163,6 @@ table tr td select {
 			</div>
 		</div>
 	</div>
-
 </body>
 <script>
   	var width = $("#continer").width();
@@ -172,25 +178,45 @@ table tr td select {
 				url:'channel/queryChannelFlow',
 				remoteSort: false,
 				columns:[[
-					{field:'target',title:'控制目标',align:'center',width:120},
+					{field:'target',title:'控制目标',align:'center',width:120,
+						formatter:function(value,rec){
+							if (value=="0") {
+								return "渠道";
+							}else  {
+								return "商户";
+							}
+						}
+					},
 					{field:'chnlcode',title:'通道代码',width:150,align:'center'},
 					{field:'merchno',title:'商户号',align:'center',width:200},
-					{field:'controltype',title:'控制类型',align:'center',width:80},
+					{field:'controltype',title:'控制类型',align:'center',width:80,
+						formatter:function(value,rec){
+							if (value=="1") {
+								return "按时间控制";
+							}else  {
+								return "按并发控制";
+							}
+						}
+					},
 					{field:'seconds',title:'秒数',align:'center',width:100},
 					{field:'flows',title:'限制笔数',align:'center',width:100},
 					{field:'notes',title:'备注',align:'center',width:120},
 					{field:'status',title:'状态',width:100,align:'center',
 						formatter:function(value,rec){
 							if (value=="00") {
-								return "启用";
+								return "有效";
 							}else  {
-								return "禁用";
+								return "无效";
 							}
 						}
 					},
 					{field:'tid',title:'操作',align:'center',width:120,rowspan:2,
 						formatter:function(value,rec){
-							return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showDetail(\''+value+'\')" style="color:blue;margin-left:10px">注销</a>';
+							if(rec.status=="00"){
+								return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showdown(\''+value+'\')" style="color:blue;margin-left:10px">注销</a>';
+							}else{
+								return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a><a href="javascript:showup(\''+value+'\')" style="color:blue;margin-left:10px">启用</a>';
+							}
 						}
 					}
 				]],
@@ -221,12 +247,9 @@ table tr td select {
 		}
 		
 		function showAdd(){
-			$('#chnlcode').removeAttr("readonly");//取消只读的设置
-			$("#ratestd").show();
-			$("#ratesntd").show();
 			$("#submitok").show();
-			showAllRate();//获取收费代码
-			$("#saveForm").attr("action","channel/addChannel");
+			showAllChannladd();//获取收费代码
+			$("#saveForm").attr("action","channel/addChannelFlow");
 			$('#saveForm :input').val('');
 			$('#w').window({
 				title: '新增渠道信息',
@@ -244,28 +267,57 @@ table tr td select {
 			$('#btn_submit').linkbutton('enable');	
 		}
 		
-		function showChange(selfId){
-			$('#saveForm :input').val('');
-			$('#chnlcode').attr("readonly","readonly");//设为只读
-			$("#saveForm").attr("action","channel/updateChannel");
-			$("#ratestd").hide();
-			$("#ratesntd").hide();
-			$("#submitok").show();
-			getinfo(selfId);
+		function showdown(tid){
+			$.messager.prompt('注销', '备注:', function(r){
+				if (r){
+					updateStatus(r,"01",tid);
+				}
+			});
 		}
 		
-		function showDetail(selfId){
+		function showup(tid){
+			$.messager.prompt('启用', '备注:', function(r){
+				if (r){
+					updateStatus(r,"00",tid);
+				}
+			});
+		}
+		
+		function updateStatus(r,status,tid){
+			$.ajax({
+				   type: "POST",
+				   url: "channel/changeStatus",
+				   data: {
+					   "remarks":r,
+					   "tid":tid,
+					   "status":status
+				   },
+				   async: false,
+				   dataType:"json",
+				   success: function(json){	
+					   if (json == null) {
+							$.messager.alert('提示', '修改失败');
+						} else {
+							$.messager.alert('提示', '修改成功！');
+							search();
+						}
+				    },
+					error : function(){
+						$.messager.alert('提示', '服务异常！');
+					}
+				});
+		}
+		
+		function showChange(selfId){
 			$('#saveForm :input').val('');
-			$('#chnlcode').attr("readonly","readonly");//设为只读
-			$("#ratestd").hide();
-			$("#ratesntd").hide();
-			$("#submitok").hide();
+			$("#saveForm").attr("action","channel/updateChannelFlow");
+			$("#submitok").show();
 			getinfo(selfId);
 		}
 		function getinfo(selfId){
 			$.ajax({
 				   type: "POST",
-				   url: "channel/queryChannelById",
+				   url: "channel/queryChannelFlowById",
 				   data: "selfId="+selfId,
 				   async: false,
 				   dataType:"json",
@@ -273,13 +325,16 @@ table tr td select {
 					   if (json == null) {
 							$.messager.alert('提示', '该通道信息不存在，或已被变更，请刷新一下数据再试试！');
 						} else {
-						    $("#chnlcode").val(json.chnlcode);
-							$("#chnlname").val(json.chnlname);
-							$("#address").val(json.address);
-							$("#contact").val(json.contact);
-							$("#contPhone").val(json.contPhone);
+							
+							$("#target").find("option").eq(json.target).attr("selected","selected");
+							
+							$("#controltype").find("option").eq(json.controltype).attr("selected","selected");
+							showAllChannlupdate(json.chnlcode);
+						    $("#merchno").val(json.merchno);
+							$("#seconds").val(json.seconds);
+							$("#flows").val(json.flows);
 							$("#notes").val(json.notes);
-							$("#chnlid").val(json.chnlid);
+							$("#tid").val(json.tid);
 							$("#status").val(json.status);
 							$('#w').window({
 								title: '变更渠道信息',
@@ -309,7 +364,7 @@ table tr td select {
 				url: "channel/queryChannelAll",
 				dataType: "json",
 				success: function(json) {
-					var html = html += '<option value="' + em + '">--全部--</option>';
+					var html = '<option value="' + em + '">--全部--</option>';
 					$.each(json,function(key, value) {
 							html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
 					}) ;
@@ -317,7 +372,42 @@ table tr td select {
 				}
 			});
 		}
+		function showAllChannladd(){
+			var em="";
+			$.ajax({
+				type: "POST",
+				url: "channel/queryChannelAll",
+				dataType: "json",
+				success: function(json) {
+					var html ='';
+					$.each(json,function(key, value) {
+							html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
+					}) ;
+					$("#chnlcode").html(html);
+				}
+			});
+		}
 		
+		function showAllChannlupdate(chnlcode){
+			var em="";
+			$.ajax({
+				type: "POST",
+				url: "channel/queryChannelAll",
+				dataType: "json",
+				success: function(json) {
+					var html ='';
+					$.each(json,function(key, value) {
+							if(chnlcode==value.chnlcode){
+								html += '<option value="' + value.chnlcode + '" selected="selected">' + value.chnlname + '</option>';
+							}else{
+								html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
+							}
+							
+					}) ;
+					$("#chnlcode").html(html);
+				}
+			});
+		}
 		function saveChannel(){
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  

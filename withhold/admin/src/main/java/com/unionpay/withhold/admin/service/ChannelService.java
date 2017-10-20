@@ -23,4 +23,11 @@ public interface ChannelService {
 			List<String> creditdatanewlist, String chnlcode,long userid);
 
 	List<TChnlFlowControl> selectChannlFlowByCondition(TChnlFlowControl chnlFlowControl);
+
+	ResultBean addChannelFlow(TChnlFlowControl chnlDeta);
+
+	TChnlFlowControl queryChannelFlowById(Integer selfId);
+
+	ResultBean updateChannelFlow(TChnlFlowControl chnlDeta);
+
 }
