@@ -14,6 +14,11 @@
     <result column="INUSER" property="inuser" jdbcType="INTEGER" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <!--关联属性  -->
+    <result column="MEMBER_NAME" property="memberName" jdbcType="VARCHAR" />
+    <result column="CHNLNAME" property="chnlname" jdbcType="VARCHAR" />
+    <result column="transfactors" property="transfactors" jdbcType="VARCHAR" />
+
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" extends="BaseResultMap" >
     <result column="PUBKEY" property="pubkey" jdbcType="LONGVARCHAR" />
@@ -423,4 +428,53 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectChnlWithCondition" resultMap="BaseResultMap">
+		select 
+		mc.*,md.MEMBER_NAME,cd.CHNLNAME,md.transfactors
+		from 
+		t_merch_chnl mc
+		left join
+		t_merch_deta md on mc.merchno=md.member_id 
+		left join
+		t_chnl_deta cd on mc.CHNLCODE = cd.CHNLCODE
+		AND mc.`STATUS` = '00'
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
+				AND md.CACODE = #{merchDeta.cacode}
+			</if>
+			
+		</where>
+		order by MERCH_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		SELECT COUNT(*)  from 
+		t_merch_chnl mc
+		left join
+		t_merch_deta md on mc.merchno=md.member_id 
+		left join
+		t_chnl_deta cd on mc.CHNLCODE = cd.CHNLCODE
+		AND mc.`STATUS` = '00'
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
+				AND md.CACODE = #{merchDeta.cacode}
+			</if>
+		</where>
+	</select>
 </mapper>

@@ -2,7 +2,6 @@ package com.unionpay.withhold.admin.service.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,13 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
-import com.unionpay.withhold.admin.enums.CoopAgencyStatusEnums;
 import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
-import com.unionpay.withhold.admin.pojo.TCoopAgency;
-import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
-import com.unionpay.withhold.admin.pojo.TCoopAgencyApplyExample;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
@@ -69,7 +64,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			// 判断是否已经提交了，如果是，则驳回
 			TMerchDetaApplyExample merchDetaApplyExample = new TMerchDetaApplyExample();
 			TMerchDetaApplyExample.Criteria criteria = merchDetaApplyExample.createCriteria();
-			criteria.andMerchIdEqualTo(merchDeta.getMerchId().longValue());
+			criteria.andMerchIdEqualTo(merchDeta.getMerchId());
 			criteria.andStatusIn(Arrays.asList(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
 					MerchDetaStatusEnums.LOGOUTCHECKING.getCode(),
@@ -80,8 +75,11 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 
 			// 把信息添加到申请表吧
 			TMerchDetaApply merchDetaApply = BeanCopyUtil.copyBean(TMerchDetaApply.class, merchDeta);
-			merchDetaApply.setInTime(new Date());
-			merchDetaApply.setInUser(merchDeta.getInUser());
+			merchDetaApply.setInTime(merchDetaBack.getInTime());
+			merchDetaApply.setInUser(merchDetaBack.getInUser());
+			merchDetaApply.setStexaOpt(null);
+			merchDetaApply.setStexaTime(null);
+			merchDetaApply.setStexaUser(null);
 			merchDetaApply.setStatus(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode());
 			int count = merchDetaApplyMapper.insertSelective(merchDetaApply);
 			return count == 0 ? new ResultBean("", "信息变更提交失败，请稍后再试 ！") : new ResultBean("信息变更已提交成功 ！");
@@ -101,7 +99,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			// 判断是否已经提交了，如果是，则驳回
 			TMerchDetaApplyExample merchDetaApplyExample = new TMerchDetaApplyExample();
 			TMerchDetaApplyExample.Criteria criteria = merchDetaApplyExample.createCriteria();
-			criteria.andMerchIdEqualTo(merchDeta.getMerchId().longValue());
+			criteria.andMerchIdEqualTo(merchDeta.getMerchId());
 			criteria.andStatusIn(Arrays.asList(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
 					MerchDetaStatusEnums.LOGOUTCHECKING.getCode(),
@@ -112,8 +110,8 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 
 			// 把信息添加到申请表吧
 			TMerchDetaApply merchDetaApply = BeanCopyUtil.copyBean(TMerchDetaApply.class, merchDetaBack);
-			merchDetaApply.setInTime(new Date());
-			merchDetaApply.setInUser(merchDeta.getInUser());
+			merchDetaApply.setInTime(merchDetaBack.getInTime());
+			merchDetaApply.setInUser(merchDetaBack.getInUser());
 			merchDetaApply.setStexaOpt(null);
 			merchDetaApply.setStexaTime(null);
 			merchDetaApply.setStexaUser(null);
@@ -122,5 +120,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			return count == 0 ? new ResultBean("", "注销申请提交失败，请稍后再试 ！") : new ResultBean("注销申请已提交成功 ！");
 		}
 	}
+
+	
 
 }

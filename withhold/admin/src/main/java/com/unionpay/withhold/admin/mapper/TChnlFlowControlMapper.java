@@ -18,7 +18,7 @@ public interface TChnlFlowControlMapper {
 
     List<TChnlFlowControl> selectByExample(TChnlFlowControlExample example);
 
-    TChnlFlowControl selectByPrimaryKey(Long tid);
+    TChnlFlowControl selectByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TChnlFlowControl record, @Param("example") TChnlFlowControlExample example);
 

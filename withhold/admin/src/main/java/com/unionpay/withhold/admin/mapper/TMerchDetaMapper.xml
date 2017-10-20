@@ -35,6 +35,8 @@
 		<result column="TRANSFACTORS_NAME" property="transfactorsName" jdbcType="VARCHAR" />
 		<result column="MCC_NAME" property="mccName" jdbcType="VARCHAR" />
 		<result column="MCC_LIST_NAME" property="mccListName" jdbcType="VARCHAR" />
+		
+		<result column="CHNLMERCNO" property="chnlmercno" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -627,7 +629,7 @@
 			limit #{beginRow},#{pageSize}
 		</if>
 	</select>
-
+		
 	<select id="selectCountWithCondition" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM t_merch_deta AS md
 		<where>

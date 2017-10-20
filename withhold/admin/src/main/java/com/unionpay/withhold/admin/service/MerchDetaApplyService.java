@@ -65,4 +65,19 @@ public interface MerchDetaApplyService {
 	 */
 	ResultBean passCheck(TMerchDetaApply merchDetaApply);
 
+	/**
+	 * 查询商户信息（全部或按条件）
+	 * @param merchDetaApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	PageBean selectAllWithCondition(TMerchDetaApply merchDetaApply, Integer page, Integer rows);
+	
+	/**
+	 * 查询商户信息详情
+	 * @param selfId
+	 * @return
+	 */
+	TMerchDetaApply queryMerchDetaById(Integer selfId);
 }

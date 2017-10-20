@@ -233,7 +233,7 @@ public class TCoopAgency {
 	}
 
 	public void setProvinceName(String provinceName) {
-		this.provinceName = provinceName;
+		this.provinceName = provinceName == null ? null : provinceName.trim();
 	}
 
 	public String getCityName() {
@@ -241,7 +241,7 @@ public class TCoopAgency {
 	}
 
 	public void setCityName(String cityName) {
-		this.cityName = cityName;
+		this.cityName = cityName == null ? null : cityName.trim();
 	}
 
 	public String getSuperName() {
@@ -249,7 +249,7 @@ public class TCoopAgency {
 	}
 
 	public void setSuperName(String superName) {
-		this.superName = superName;
+		this.superName = superName == null ? null : superName.trim();
 	}
     
 }

@@ -1,6 +1,5 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.CardTypeEnums;
 import com.unionpay.withhold.admin.enums.ChannelStatusEnums;
@@ -19,12 +17,14 @@ import com.unionpay.withhold.admin.enums.MerchSetlFlgEnums;
 import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TChnlBankMapper;
 import com.unionpay.withhold.admin.mapper.TChnlDetaMapper;
+import com.unionpay.withhold.admin.mapper.TChnlFlowControlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
 import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.pojo.TChnlBank;
-import com.unionpay.withhold.admin.pojo.TChnlBankExample;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TChnlDetaExample;
+import com.unionpay.withhold.admin.pojo.TChnlFlowControl;
+import com.unionpay.withhold.admin.pojo.TChnlFlowControlExample;
 import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
 import com.unionpay.withhold.admin.pojo.TRateAccum;
 import com.unionpay.withhold.admin.service.ChannelService;
@@ -44,11 +44,13 @@ public class ChannelServiceImpl implements ChannelService {
 	
 	@Autowired
 	private TChnlBankMapper chnlBankMapper ;
+	
+	@Autowired
+	private TChnlFlowControlMapper chnlFlowControlMapper;
 
 	@Override
 	public List<TChnlDeta> selectByCondition(TChnlDeta chnlDeta) {
 		// 查分页数据
-
 		TChnlDetaExample chnlDetaExample = new TChnlDetaExample();
 		TChnlDetaExample.Criteria criteria = chnlDetaExample.createCriteria();
 		if (StringUtil.isNotEmpty(chnlDeta.getChnlname())) {
@@ -70,7 +72,6 @@ public class ChannelServiceImpl implements ChannelService {
 
 	@Override
 	public ResultBean addChannel(TChnlDeta chnlDeta, String rates) {
-
 		// 查询重复
 		TChnlDetaExample chnlDetaExample = new TChnlDetaExample();
 		TChnlDetaExample.Criteria criteria = chnlDetaExample.createCriteria();
@@ -164,5 +165,48 @@ public class ChannelServiceImpl implements ChannelService {
 			chnlBankMapper.insertSelective(tChnlBank);
 		}
 		return new ResultBean("操作成功 ！");
+	}
+
+	@Override
+	public List<TChnlFlowControl> selectChannlFlowByCondition(TChnlFlowControl chnlFlowControl) {
+		TChnlFlowControlExample chnlDetaExample = new TChnlFlowControlExample();
+		TChnlFlowControlExample.Criteria criteria = chnlDetaExample.createCriteria();
+		if (StringUtil.isNotEmpty(chnlFlowControl.getTarget())) {
+			criteria.andTargetEqualTo(chnlFlowControl.getTarget());
+		}
+		if (StringUtil.isNotEmpty(chnlFlowControl.getChnlcode())) {
+			criteria.andChnlcodeEqualTo((chnlFlowControl.getChnlcode()));
+		}
+		if (StringUtil.isNotEmpty(chnlFlowControl.getMerchno())) {
+			criteria.andMerchnoLike("%"+chnlFlowControl.getMerchno()+"%");
+		}
+		List<TChnlFlowControl> list = chnlFlowControlMapper.selectByExample(chnlDetaExample);
+		return list;
+	}
+
+	@Override
+	public ResultBean addChannelFlow(TChnlFlowControl chnlDeta) {
+		chnlDeta.setStatus("00");
+		int flag =chnlFlowControlMapper.insertSelective(chnlDeta);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "添加失败！");
+		}
+	}
+
+	@Override
+	public TChnlFlowControl queryChannelFlowById(Integer selfId) {
+		return chnlFlowControlMapper.selectByPrimaryKey(selfId);
+	}
+
+	@Override
+	public ResultBean updateChannelFlow(TChnlFlowControl chnlDeta) {
+		int flag =chnlFlowControlMapper.updateByPrimaryKeySelective(chnlDeta);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "更新失败！");
+		}
 	}
 }

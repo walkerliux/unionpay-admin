@@ -35,5 +35,5 @@ public interface MerchDetaService {
 	 * @return
 	 */
 	ResultBean commitLogout(TMerchDeta merchDeta);
-
+	
 }
