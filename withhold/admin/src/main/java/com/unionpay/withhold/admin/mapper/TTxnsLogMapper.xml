@@ -162,7 +162,12 @@
     from t_txns_log
     where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
   </select>
- 
+ <select id="selectHistoryByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_txns_log_bak
+    where TXNSEQNO = #{txnseqno,jdbcType=CHAR}
+  </select>
   
   
   <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
@@ -171,7 +176,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  
+  <!-- 实时核心流水查询 -->
   <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_log a where 1=1
     <if test="accsecmerno!=null">
@@ -183,8 +188,8 @@
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
-	<if test="pathcode!=null">
-	and a.PATHCODE=#{pathcode}
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	
 	<if test="starttime!=null">
@@ -195,7 +200,7 @@
 	</if>
 	
   </select>
-  
+  <!-- 实时核心流水查询 -->
   <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
     select a.*, b.MEMBER_NAME memberName
     <if test="distinct" >
@@ -214,8 +219,65 @@
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
-	<if test="pathcode!=null">
-	and a.PATHCODE=#{pathcode}
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+	
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+   	limit #{beginRow},#{pageSize}
+  </select>
+<!-- 历史核心流水查询 -->
+	<select id="countHistoryByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_txns_log_bak a where 1=1
+    <if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+  </select>
+<!-- 历史核心流水查询 -->
+  <select id="selectHistoryByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+    select a.*, b.MEMBER_NAME memberName
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	 t_txns_log_bak a
+	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
+	 where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="apporderstatus!=null">
+	and a.APPORDERSTATUS=#{apporderstatus}
+	</if>
+	<if test="pan!=null">
+	and a.PAN=#{pan}
+	</if>
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	<if test="starttime!=null">
 	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
@@ -230,4 +292,283 @@
    	limit #{beginRow},#{pageSize}
   </select>
 
+<select id="countByMerchIdExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultMap="BaseResultMap" >
+     
+     SELECT
+    a.ACCSECMERNO,
+	b.MEMBER_NAME othername,
+	COUNT(a.ACCSECMERNO) total,
+	SUM(a.AMOUNT) amount,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+      FROM
+    	view_txns_log a
+      LEFT JOIN 
+        t_merch_deta b 
+      ON 
+        a.ACCSECMERNO = b.MEMBER_ID
+	  where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.ACCSECMERNO
+  </select>
+  <!--商户统计-->
+ <select id="selectByMerchId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+    SELECT
+    a.ACCSECMERNO,
+	b.MEMBER_NAME othername,
+	COUNT(a.ACCSECMERNO) total,
+	SUM(a.AMOUNT) amount,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+      FROM
+    	view_txns_log a
+      LEFT JOIN 
+        t_merch_deta b 
+      ON 
+        a.ACCSECMERNO = b.MEMBER_ID
+	  where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.ACCSECMERNO
+   	limit #{beginRow},#{pageSize}
+  </select>
+  
+<select id="countByCoopIdExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultMap="BaseResultMap" >
+SELECT
+   	a.ACCFIRMERNO,
+	b.CANAME othername,
+	COUNT(a.ACCFIRMERNO) total,
+	SUM(a.AMOUNT) amout,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	view_txns_log a
+	LEFT JOIN 
+	t_coop_agency b
+	ON 
+	a.ACCFIRMERNO = b.CACODE
+	  where 1=1
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.ACCFIRMERNO
+</select>
+<!--渠道统计-->
+ <select id="selectByCoopId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+   SELECT
+   	a.ACCFIRMERNO,
+	b.CANAME othername,
+	COUNT(a.ACCFIRMERNO) total,
+	SUM(a.AMOUNT) amout,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	view_txns_log a
+	LEFT JOIN 
+	t_coop_agency b
+	ON 
+	a.ACCFIRMERNO = b.CACODE
+	  where 1=1
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.ACCFIRMERNO
+   	limit #{beginRow},#{pageSize}
+  </select>
+  
+  <select id="countByChnlIdExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultMap="BaseResultMap" >
+   SELECT
+   	a.PAYINST,
+	b.CHNLNAME othername,
+	COUNT(a.PAYINST) total,
+	SUM(a.AMOUNT) amout,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	view_txns_log a
+	LEFT JOIN 
+	t_chnl_deta b
+	ON 
+	a.PAYINST = b.CHNLCODE
+	  where 1=1
+	<if test="payinst!=null">
+	and a.PAYINST=#{payinst}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.PAYINST
+  
+  </select>
+	<!--通道统计  -->
+	<select id="selectByChnlId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+   SELECT
+   	a.PAYINST,
+	b.CHNLNAME othername,
+	COUNT(a.PAYINST) total,
+	SUM(a.AMOUNT) amout,
+	sum(a.TXNFEE) txnfee,
+	sum(a.CHNLFEE) chnlfee,
+	sum(a.COOPFEE) coopfee
+    <if test="distinct" >
+      distinct
+    </if>
+     FROM
+	view_txns_log a
+	LEFT JOIN 
+	t_chnl_deta b
+	ON 
+	a.PAYINST = b.CHNLCODE
+	  where 1=1
+	<if test="payinst!=null">
+	and a.PAYINST=#{payinst}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	GROUP BY
+	a.PAYINST
+   	limit #{beginRow},#{pageSize}
+  </select>
+	<!-- 商户号核心流水详情 -->
+	<select id="selectInfoByMernoId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+	SELECT
+	a.*,
+	b.MEMBER_NAME mername
+	 <if test="distinct" >
+      distinct
+    </if>
+    FROM
+	view_txns_log a
+	LEFT JOIN 
+	t_merch_deta b 
+	ON 
+	a.ACCSECMERNO = b.MEMBER_ID 
+	where 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	
+  	 <if test='retcode!=null and retcode =="0000"'>
+	and a.RETCODE =#{retcode}
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	  	 
+	<if test="starttime!=null">
+	and a.RETDATETIME &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.RETDATETIME &lt;#{endtime}
+	</if>
+	limit #{beginRow},#{pageSize}
+	</select>
+	
+	
 </mapper>

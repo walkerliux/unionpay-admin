@@ -5026,13 +5026,45 @@ public class TTxnsLogExample {
         }
     }
     /*条件添加*/
-    private String accsecmerno;
+    private String accsecmerno;//商户号
     private String apporderstatus;
     private String pan;
     private String pathcode;
     
     private String starttime;
     private String endtime;
+
+    private String accfirmerno;//渠道号
+    private String retcode;//中心应答码状态"0000"成功
+    private String payinst;//通道号
+   
+    
+    
+	public String getAccfirmerno() {
+		return accfirmerno;
+	}
+
+	public void setAccfirmerno(String accfirmerno) {
+		this.accfirmerno = accfirmerno;
+	}
+
+	public String getRetcode() {
+		return retcode;
+	}
+
+	public void setRetcode(String retcode) {
+		this.retcode = retcode;
+	}
+
+	public String getPayinst() {
+		return payinst;
+	}
+
+	public void setPayinst(String payinst) {
+		this.payinst = payinst;
+	}
+
+
 
 	public String getAccsecmerno() {
 		return accsecmerno;

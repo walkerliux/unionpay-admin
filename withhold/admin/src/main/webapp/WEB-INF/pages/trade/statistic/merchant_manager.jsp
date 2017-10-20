@@ -49,19 +49,24 @@ table tr td select {
 					
 					
 						<td align="right" width="10%">交易状态</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="apporderstatus" id="apporderstatus" /></td>
-						
+						<td align="left" style="padding-left: 5px" width="15%">
+						<select name="retcode"
+							id="retcode" style="width: 150px">
+								<option value="">--请选择订单状态--</option>
+								<option value="0000">成功</option>
+								<option value="01">失败</option>
+						</select></td>
 					</tr>
 				
 					<tr> 
 						 <td align="right" width="15%">开始时间</td>
 						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="beginTime" name="beginTime" type="text"
+							<input id="stime" name="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
 						</td> 
 						 <td align="right" width="15%">截止时间</td>
 						 <td align="left" style="padding-left: 5px" width="25%">
-						 	<input id="endTime" name="endTime" type="text"
+						 	<input id="etime" name="etime" type="text"
 							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
 						<td></td>
 						<td align="right" width="10%"></td>
@@ -83,6 +88,8 @@ table tr td select {
 			<table id="test"></table>
 		</div>
 	</div>
+	
+	
 	<div id="w" class="easyui-window" closed="true" title="My Window"  style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center" id="continer">
@@ -174,6 +181,76 @@ table tr td select {
 			</div>
 		</div>
 	</div>
+	
+    <!--这是一个弹出窗口easyui-dialog，我在它里面放了一个datagrid-->  
+    <div id="dlg" class="easyui-dialog" style="width: 1000px; height: auto; padding: 10px 20px"  
+         data-options="closed:true,buttons:'#dlg-buttons'">  
+        <table id="datagrid" class="easyui-datagrid" style="width:1600px;height:500px">  
+            <thead>  
+                <tr>  
+                    <th data-options="field:'Id'" align="center" width="100" sortable="true">  
+                        系统商户  
+                    </th>  
+                    <th field="payinst" align="center" width="120" sortable="true">  
+                        通道号 
+                    </th>  
+                    <th field="chnlname" align="center" width="80" sortable="true">  
+                        通道名称 
+                    </th>  
+                    <th field="Age" align="center" width="80" sortable="true">  
+                        通道订单号
+                    </th>  
+                    <th field="payfirmerno" align="center" width="80" sortable="true">  
+                        渠道号  
+                    </th> 
+                     
+  	             <th field="coopname" align="center" width="120" sortable="true">  
+                        渠道名称
+                    </th>  
+                    <th field="Name" align="center" width="80" sortable="true">  
+                        渠道订单
+                    </th>  
+                    <th field="paysecmerno" align="center" width="80" sortable="true">  
+                        商户号
+                    </th>  
+                    <th field="mername" align="center" width="80" sortable="true">  
+                        商户名称
+                    </th>
+                    
+                    <th field="retdatetime" align="center" width="120" sortable="true">  
+                        交易时间
+                    </th>  
+                    <th field="retcode" align="center" width="80" sortable="true">  
+                        交易状态 
+                    </th>  
+                    <th field="Age" align="center" width="80" sortable="true">  
+                        要素名称
+                    </th>  
+                    <th field="amount" align="center" width="80" sortable="true">  
+                        交易金额  
+                    </th>
+                    
+                   <th field="txnfee" align="center" width="120" sortable="true">  
+                        商户手续费
+                    </th>  
+                    <th field="txnfee-coopfee" align="center" width="80" sortable="true">  
+                        渠道收益
+                    </th>  
+                    <th field="chnlfee" align="center" width="80" sortable="true">  
+                        通道收益
+                    </th>  
+                    <th field="coopfee-chnlfee" align="center" width="80" sortable="true">  
+                        银联收益
+                    </th>
+                </tr>  
+            </thead>  
+        </table>  
+    </div>  
+    <div id="dlg-buttons">  
+    	<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
+    </div>  
+    
+	
 </body>
 
 <script>
@@ -182,7 +259,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							//title : '实时代收渠道流水信息列表',
+							title : '商户统计列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -199,13 +276,13 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'memberName',
+										field : 'othername',
 										title : '商户名称',
 										width : 110,
 										align : 'center'
 									},
 									{
-										field : 'RECEIVER',
+										field : 'total',
 										title : '交易笔数',
 										width : 120,
 										align : 'center'
@@ -214,7 +291,10 @@ table tr td select {
 										field : 'amount',
 										title : '交易金额',
 										width : 80,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.amount);
+										}
 									},
 									{
 										field : 'txnfee',
@@ -222,7 +302,7 @@ table tr td select {
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
-											return changeDate(rec.TRANSDATE);
+											return fenToYuan(rec.txnfee);
 										}
 									},
 									{
@@ -231,20 +311,26 @@ table tr td select {
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
-											return changeTime(rec.TRANSTIME);
+											return fenToYuan(rec.txnfee-rec.coopfee);
 										}
 									},
 									{
-										field : 'ENDTOENDIDENTIFICATION',
+										field : 'chnlfee',
 										title : '通道收益',
 										width : 200,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.chnlfee);
+										}
 									},
 									{
 										field : 'DEBTORACCOUNTNO',
 										title : '银联收益',
 										width : 140,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.coopfee-rec.chnlfee);
+										}
 									},
 								
 									{
@@ -252,7 +338,7 @@ table tr td select {
 										title : '操作',
 										width : 100,
 										align : 'center',
-										formatter : function(value, rec) {
+									/* 	formatter : function(value, rec) {
 											if (true) {
 												return '<a href="javascript:queryDetail(\''
 														+ rec.txnseqno
@@ -260,7 +346,13 @@ table tr td select {
 											} else {
 												return '';
 											}
-										}
+										} */
+										  formatter: function (value, rec,index) { //参数row表示当前行, 参数index表示当前行的索引值  
+											  
+						                        //row.Id表示这个button按钮所在的那一行的Id这个字段的值  
+						                        var btn = '<input type="button" id='+index+' value="查询详情"  onclick="return LoadUserInfo('+rec.accsecmerno+')"/>';  
+						                        return btn;  
+						                    } 
 									} ] ],
 							pagination : true,
 							rownumbers : true
@@ -271,25 +363,45 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"debtorname" : $('#debtornames').val(),
-			"debtoraccountno" : $('#debtoraccountnos').val(),
-			"debtorbranchcode" : $('#debtorbranchcodes').val(),
-			"creditorname" : $('#creditornames').val(),
-			"creditoraccountno" : $('#creditoraccountnos').val(),
-			"creditorbranchcode" : $('#creditorbranchcodes').val(),
-			"endtoendidentification" : $('#endtoendidentifications').val(),
-			"transmitleg" : $('#transmitlegs').val(),
-			"rspstatus" : $('#rspstatuss').val(),
+			"accsecmerno" : $('#accsecmerno').val(),
+			"retcode" : $('#retcode').val(),
+			
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')
 		}
 		$('#test').datagrid('load', data);
+		
 	}
 
 	function resize() {
 		$('#theForm :input').val('');
 	}
 
+
+	function LoadUserInfo(accsecmerno) {
+		var data = {
+				//"accsecmerno" : $('#accsecmerno').val(),
+				"retcode" : $('#retcode').val(),
+				"stime" : $('#stime').datebox('getValue'),
+				"etime" : $('#etime').datebox('getValue')
+			}
+		/*获取选中行*/
+		//var row = $('#Cse_Bespeak_Log').datagrid('getSelected'); //获取选中行    
+		$("#datagrid").datagrid({
+			url : "statistic/getTnxLogInfoByMerno?accsecmerno=" + accsecmerno+"retcode="+retcode,
+			iconCls : "icon-add",
+			fitColumns : false,
+			loadMsg : "数据加载中......",
+			pagination : true,
+			rownumbers : true,
+			nowrap : false,
+			showFooter : true,
+			singleSelect : true,
+			pageList : [ 100, 50, 20, 10 ],
+		})
+
+		$('#dlg').window('open'); //弹出这个dialog框  
+	};
 	function queryDetail(txnseqno) {
 		$("#msgid").html("");
 		$("#txid").html("");
@@ -322,28 +434,27 @@ table tr td select {
 		$("#txnseqno").html("");
 		$("#notes").html("");
 		$("#remarks").html("");
-		
+
 		$.ajax({
-			   type: "POST",
-			   url: "statistic/getSingleById",
-			   data: "txnseqno="+txnseqno,
-			   async: false,
-			   dataType:"json",
-			   success: function(json){					
-						$("#user_code").val(json.userCode);
-						$("#user_code").attr('readonly','readonly');
-						$("#user_code").css('background-color','#D2D2D2');
-						$("#user_name").val(json.userName);
-						$("#user_loginName").val(json.loginName);
-						$("#user_organId").val(json.organId);
-						$("#user_status").val(json.status);
-						$("#user_isadmin").val(json.isadmin);
-						$("#user_id").val(json.userId);
-						$("#user_notes").val(json.notes);
-						
-					
-			   }
-			});
+			type : "POST",
+			url : "statistic/getSingleById",
+			data : "txnseqno=" + txnseqno,
+			async : false,
+			dataType : "json",
+			success : function(json) {
+				$("#user_code").val(json.userCode);
+				$("#user_code").attr('readonly', 'readonly');
+				$("#user_code").css('background-color', '#D2D2D2');
+				$("#user_name").val(json.userName);
+				$("#user_loginName").val(json.loginName);
+				$("#user_organId").val(json.organId);
+				$("#user_status").val(json.status);
+				$("#user_isadmin").val(json.isadmin);
+				$("#user_id").val(json.userId);
+				$("#user_notes").val(json.notes);
+
+			}
+		});
 		$('#w').window({
 			title : '商户统计详细信息',
 			top : 90,
@@ -391,68 +502,70 @@ table tr td select {
 		$("#notes").html(rows["NOTES"]);
 		$("#remarks").html(rows["REMARKS"]); */
 	}
-	
+
 	// 格式化日期时间
-	function changeDateTime(value){
+	function changeDateTime(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			year=dateString.substring(0,4);//0123
-			month=dateString.substring(4,6);//45
-			day=dateString.substring(6,8);//67
-			hour=dateString.substring(8,10);//89
-			minte=dateString.substring(10,12);//10 11
-			s=dateString.substring(12,14);// 11 12
-			return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+		} else {
+			year = dateString.substring(0, 4);//0123
+			month = dateString.substring(4, 6);//45
+			day = dateString.substring(6, 8);//67
+			hour = dateString.substring(8, 10);//89
+			minte = dateString.substring(10, 12);//10 11
+			s = dateString.substring(12, 14);// 11 12
+			return year + "-" + month + "-" + day + " " + hour + ":" + minte
+					+ ":" + s;
 		}
 	}
 	// 格式化日期
-	function changeDate(value){
+	function changeDate(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			year=dateString.substring(0,4);//0123
-			month=dateString.substring(4,6);//45
-			day=dateString.substring(6,8);//67
-			return year+"-"+month+"-"+day;
+		} else {
+			year = dateString.substring(0, 4);//0123
+			month = dateString.substring(4, 6);//45
+			day = dateString.substring(6, 8);//67
+			return year + "-" + month + "-" + day;
 		}
 	}
 	// 格式化时间
-	function changeTime(value){
+	function changeTime(value) {
 		var dateString = value;
-		if(dateString==null){
+		if (dateString == null) {
 			return "";
-		}else{
-			hour=dateString.substring(0,2);
-			minte=dateString.substring(2,4);
-			s=dateString.substring(4,6);
-			return hour +":"+minte+":"+s;
+		} else {
+			hour = dateString.substring(0, 2);
+			minte = dateString.substring(2, 4);
+			s = dateString.substring(4, 6);
+			return hour + ":" + minte + ":" + s;
 		}
 	}
 	// 解析状态
-	function analysisStatus(value){
+	function analysisStatus(value) {
 		if (value == "PR05") {
 			return "已成功";
-		} 
+		}
 		if (value == "PR09") {
 			return "已拒绝";
-		} 
+		}
 		if (value == "PR32") {
 			return "逾期退回";
-		} 
+		}
 	}
 	// 转换金额格式：分-->元
-	function fenToYuan(value){
-			var str = (value/100).toFixed(2) + '';
-			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
-			var dot = str.substring(str.length,str.indexOf("."))
-			var ret = intSum + dot;
-			return ret;
-		}
-	function closeAdd(){
-		$('#w').window('close');
+	function fenToYuan(value) {
+		var str = (value / 100).toFixed(2) + '';
+		var intSum = str.substring(0, str.indexOf(".")).replace(
+				/\B(?=(?:\d{3})+$)/g, ',');
+		var dot = str.substring(str.length, str.indexOf("."))
+		var ret = intSum + dot;
+		return ret;
+	}
+	function closeAdd() {
+		$('#dlg').window('close');
 	}
 </script>
 </html>

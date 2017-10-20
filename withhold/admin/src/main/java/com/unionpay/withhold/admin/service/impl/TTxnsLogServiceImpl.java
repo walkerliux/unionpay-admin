@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TTxnsLogMapper;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
+import com.unionpay.withhold.admin.pojo.TTxnsLogExample;
 import com.unionpay.withhold.admin.service.TTxnsLogService;
+import com.unionpay.withhold.admin.utils.DateTimeReplaceUtil;
 @Service
 @Transactional
 public class TTxnsLogServiceImpl implements TTxnsLogService {
@@ -19,82 +21,92 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 	private TTxnsLogMapper tTxnsLogMapper;
 
 	@Override
-	public PageBean findPassagewayByPage(String payinst, String apporderstatus,
+	public PageBean findChannelByPage(String payinst, String retcode,
 			String stime, String etime, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
 		if (payinst!=null&&!"".equals(payinst)) {
-			
+			tTxnsLogExample.setPayinst(payinst);
 		}
-		if (apporderstatus!=null&&!"".equals(apporderstatus)) {
-			
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
 		}
-		if (stime!=null&&etime!=null) {
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
 			
 		}
 		//查询当前条件下的总记录
-		
+		int total = tTxnsLogMapper.countByChnlIdExample(tTxnsLogExample).size();
 		//查询当前条件下的分页显示
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectByChnlId(tTxnsLogExample);
 		
-		List<TTxnsLog> list = new ArrayList<TTxnsLog>();
-		TTxnsLog tTxnsLog = new TTxnsLog();
-		tTxnsLog.setPayinst("20171009");
-		tTxnsLog.setAmount(30000l);
-		list.add(tTxnsLog);
-		return new PageBean(5, list);
+		return new PageBean(total, result);
 	}
 
 	@Override
 	public PageBean findMerchantByPage(String accsecmerno,
-			String apporderstatus, String stime, String etime, int page,
+			String retcode, String stime, String etime, int page,
 			int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
 		if (accsecmerno!=null&&!"".equals(accsecmerno)) {
-			
+			tTxnsLogExample.setAccsecmerno(accsecmerno);
 		}
-		if (apporderstatus!=null&&!"".equals(apporderstatus)) {
-			
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
 		}
-		if (stime!=null&&etime!=null) {
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
 			
 		}
 		//查询当前条件下的总记录
+		 int total = tTxnsLogMapper.countByMerchIdExample(tTxnsLogExample).size();
 		
 		//查询当前条件下的分页显示
-		List<TTxnsLog> list = new ArrayList<TTxnsLog>();
-		TTxnsLog tTxnsLog = new TTxnsLog();
-		tTxnsLog.setAccsecmerno("20171009");
-		tTxnsLog.setAmount(30000l);
-		list.add(tTxnsLog);
-		return new PageBean(5, list);
+		 tTxnsLogExample.setPageNum(page);
+		 tTxnsLogExample.setPageSize(rows);
+		 List<TTxnsLog> list = tTxnsLogMapper.selectByMerchId(tTxnsLogExample);
+		
+		return new PageBean(total, list);
 	}
 
 	@Override
-	public PageBean findChannelByPage(String pathcode, String apporderstatus,
+	public PageBean findCoopByPage(String accfirmerno, String retcode,
 			String stime, String etime, int page, int rows) {
-		if (pathcode!=null&&!"".equals(pathcode)) {
-			
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accfirmerno!=null&&!"".equals(accfirmerno)) {
+			tTxnsLogExample.setAccfirmerno(accfirmerno);
 		}
-		if (apporderstatus!=null&&!"".equals(apporderstatus)) {
-			
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
 		}
-		if (stime!=null&&etime!=null) {
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
 			
 		}
 		//查询当前条件下的总记录
-		
+		int total = tTxnsLogMapper.countByCoopIdExample(tTxnsLogExample).size();
 		//查询当前条件下的分页显示
-		List<TTxnsLog> list = new ArrayList<TTxnsLog>();
-		TTxnsLog tTxnsLog = new TTxnsLog();
-		tTxnsLog.setPathcode("20171009");
-		tTxnsLog.setAmount(30000l);
-		list.add(tTxnsLog);
-		return new PageBean(5, list);
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectByCoopId(tTxnsLogExample);
+		return new PageBean(total, result);
 	}
 
 	@Override
-	public TTxnsLog queryDetailsById(String txnseqno) {
-		
-		TTxnsLog tTxnsLog = new TTxnsLog();
-		tTxnsLog.setAmount(3000l);
-		return tTxnsLog;
+	public List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno) {
+		//selectInfoByMernoId
+		//tTxnsLogMapper.selectInfoByMernoId();
+		return null;
 	}
 	
 

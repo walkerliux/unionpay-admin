@@ -68,9 +68,9 @@ public class TradeServiceImpl implements TradeService {
 			
 			tTxnsLogExample.setPan(tTxnsLog.getPan());
 		}
-		if (tTxnsLog.getPathcode()!=null&&!"".equals(tTxnsLog.getPathcode())) {
+		if (tTxnsLog.getAccfirmerno()!=null&&!"".equals(tTxnsLog.getAccfirmerno())) {
 			
-			tTxnsLogExample.setPathcode(tTxnsLog.getPathcode());
+			tTxnsLogExample.setAccfirmerno(tTxnsLog.getAccfirmerno());
 		}
 		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
 			String startTime = DateTimeReplaceUtil.replace(stime);
@@ -292,6 +292,49 @@ public class TradeServiceImpl implements TradeService {
 		tChnlCpdkBatchDetaExample.setOrderByClause("TID");
 		List<TChnlCpdkBatchDeta> result = tChnlCpdkBatchDetaMapper.selectByExample(tChnlCpdkBatchDetaExample);
 		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getTxnsLogBakByPage(TTxnsLog tTxnsLog, String stime,
+			String etime, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		
+		if (tTxnsLog.getAccsecmerno()!=null&&!"".equals(tTxnsLog.getAccsecmerno())) {
+			
+			tTxnsLogExample.setAccsecmerno(tTxnsLog.getAccsecmerno());
+		}
+		if (tTxnsLog.getApporderstatus()!=null&&!"".equals(tTxnsLog.getApporderstatus())) {
+			
+			tTxnsLogExample.setApporderstatus(tTxnsLog.getApporderstatus());
+		}
+		if (tTxnsLog.getPan()!=null&&!"".equals(tTxnsLog.getPan())) {
+			
+			tTxnsLogExample.setPan(tTxnsLog.getPan());
+		}
+		if (tTxnsLog.getAccfirmerno()!=null&&!"".equals(tTxnsLog.getAccfirmerno())) {
+			
+			tTxnsLogExample.setAccfirmerno(tTxnsLog.getAccfirmerno());
+		}
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);;
+		}
+		int total = tTxnsLogMapper.countHistoryByMyExample(tTxnsLogExample);
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		tTxnsLogExample.setOrderByClause("TXNSEQNO");
+		List<TTxnsLog> retureList = tTxnsLogMapper.selectHistoryByPageExample(tTxnsLogExample);
+		return new PageBean(total, retureList);
+		
+	}
+
+	@Override
+	public TTxnsLog getTxnsLogBakByTxnseqno(String txnseqno) {
+		// selectHistoryByPrimaryKey
+		TTxnsLog hislog = tTxnsLogMapper.selectHistoryByPrimaryKey(txnseqno);
+		return hislog;
 	}
 
 	

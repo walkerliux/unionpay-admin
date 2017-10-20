@@ -1,5 +1,7 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,10 +61,10 @@ public class StatisticController {
 	 * @return
 	 */
 	@ResponseBody
-    @RequestMapping("/getPassagewayByPage")
-	public PageBean getPassagewayByPage(String payinst,String apporderstatus,String stime,String etime,int page,int rows){
+    @RequestMapping("/getChnlByPage")
+	public PageBean getChannelByPage(String payinst,String retcode,String stime,String etime,int page,int rows){
 		
-		PageBean resultBean = tTxnsLogService.findPassagewayByPage(payinst,apporderstatus,stime,etime,page, rows);
+		PageBean resultBean = tTxnsLogService.findChannelByPage(payinst,retcode,stime,etime,page, rows);
 		
 		return resultBean;
 		
@@ -73,10 +75,10 @@ public class StatisticController {
 	 * @return
 	 */
 	@ResponseBody
-    @RequestMapping("/getChannelByPage")
-	public PageBean getChannelByPage(String pathcode,String apporderstatus,String stime,String etime,int page,int rows){
+    @RequestMapping("/getCoopByPage")
+	public PageBean getCoopByPage(String accfirmerno,String retcode,String stime,String etime,int page,int rows){
 		
-		PageBean resultBean = tTxnsLogService.findChannelByPage(pathcode,apporderstatus,stime,etime,page, rows);
+		PageBean resultBean = tTxnsLogService.findCoopByPage(accfirmerno,retcode,stime,etime,page, rows);
 		
 		return resultBean;
 		
@@ -88,23 +90,26 @@ public class StatisticController {
 	 */
 	@ResponseBody
     @RequestMapping("/getMerchantByPage")
-	public PageBean getMerchantByPage(String accsecmerno,String apporderstatus,String stime,String etime,int page,int rows){
+	public PageBean getMerchantByPage(String accsecmerno,String retcode,String stime,String etime,int page,int rows){
 		
-		PageBean resultBean = tTxnsLogService.findMerchantByPage(accsecmerno,apporderstatus,stime,etime,page, rows);
+		PageBean resultBean = tTxnsLogService.findMerchantByPage(accsecmerno,retcode,stime,etime,page, rows);
 		
 		return resultBean;
 		
 	}
+	
 	/**
-	 * 查询商户统计
+	 * 查询商户号所有核心流水
 	 * 
 	 * @return
 	 */
 	@ResponseBody
-    @RequestMapping("/getSingleById")
-	public TTxnsLog getSingleById(String txnseqno){
-		TTxnsLog tTxnsLog=tTxnsLogService.queryDetailsById(txnseqno);
+    @RequestMapping("/getTnxLogInfoByMerno")
+	public List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno){
+		List<TTxnsLog> tTxnsLog=tTxnsLogService.getTnxLogInfoByMerno(accsecmerno);
 		
 		return tTxnsLog;
 	}
+	
+	
 }

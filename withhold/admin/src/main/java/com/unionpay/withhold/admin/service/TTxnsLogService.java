@@ -1,19 +1,21 @@
 package com.unionpay.withhold.admin.service;
 
+import java.util.List;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
 
 public interface TTxnsLogService {
 
-	PageBean findPassagewayByPage(String payinst,String apporderstatus, String stime,String etime, int page,
+	PageBean findChannelByPage(String payinst,String retcode, String stime,String etime, int page,
 			int rows);
 
-	PageBean findMerchantByPage(String accsecmerno,String apporderstatus, String stime, String etime,
+	PageBean findMerchantByPage(String accsecmerno,String retcode, String stime, String etime,
 			int page, int rows);
 
-	PageBean findChannelByPage(String pathcode,String apporderstatus, String stime, String etime,
+	PageBean findCoopByPage(String accfirmerno,String retcode, String stime, String etime,
 			int page, int rows);
 
-	TTxnsLog queryDetailsById(String txnseqno);
+	List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno);
 
 }

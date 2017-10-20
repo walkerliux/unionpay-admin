@@ -49,7 +49,7 @@ public class TradeController {
 	     return result;
 	}
 	/**
-	 * 核心流水查询页面
+	 * 实时核心流水查询页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
@@ -58,6 +58,18 @@ public class TradeController {
 	@RequestMapping("/txns_log")
 	public ModelAndView showTxns_log() {
 		 ModelAndView result=new ModelAndView("/trade/txns_log");
+	     return result;
+	}
+	/**
+	 * 历史核心流水查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/txns_log_bak")
+	public ModelAndView showTxns_log_bak() {
+		 ModelAndView result=new ModelAndView("/trade/txns_log_bak");
 	     return result;
 	}
 	/**
@@ -87,11 +99,11 @@ public class TradeController {
 	}
 	
 	/**
-	 * 核心流水条件分页查询
+	 * 实时核心流水条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
-	 * @version v1.0
+	 * @version v1.0getTxnsLogBakByPage
 	 */
 	@RequestMapping("/getTxnsLogByPage")
 	@ResponseBody
@@ -99,7 +111,19 @@ public class TradeController {
 		PageBean resultBean =tradeService.getTxnsLogByPage(tTxnsLog,stime,etime,page,rows);
 	    return resultBean;
 	}
-
+	/**
+	 * 实时核心流水条件分页查询
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0getTxnsLogBakByPage
+	 */
+	@RequestMapping("/getTxnsLogBakByPage")
+	@ResponseBody
+	public PageBean getTxnsLogBakByPage(TTxnsLog tTxnsLog,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getTxnsLogBakByPage(tTxnsLog,stime,etime,page,rows);
+	    return resultBean;
+	}
 	/**
 	 * 订单批量条件分页查询
 	 * @author:LIUXIN
@@ -184,7 +208,7 @@ public class TradeController {
 	/**
 	 * 获取单条实时订单信息详情
 	 * @param txnseqno
-	 * @return
+	 * @return 
 	 */
 	@RequestMapping("/getTxnsLogByTxnseqno")
 	@ResponseBody
@@ -192,7 +216,17 @@ public class TradeController {
 		TTxnsLog txnsLog =tradeService.getTxnsLogByTxnseqno(txnseqno);
 	    return txnsLog;
 	}
-	
+	/**
+	 * 获取单条实时订单信息详情
+	 * @param txnseqno
+	 * @return getTxnsLogBakByTxnseqno
+	 */
+	@RequestMapping("/getTxnsLogBakByTxnseqno")
+	@ResponseBody
+	public TTxnsLog getTxnsLogBakByTxnseqno(String txnseqno) {
+		TTxnsLog txnsLog =tradeService.getTxnsLogBakByTxnseqno(txnseqno);
+	    return txnsLog;
+	}
 	//getCollectOrderDetaByBatchNo?batchno=1505978983775
 	/**
 	 * 获取批量订单明细

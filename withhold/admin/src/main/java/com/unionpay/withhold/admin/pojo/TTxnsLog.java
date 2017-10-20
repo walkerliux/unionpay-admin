@@ -700,5 +700,25 @@ public class TTxnsLog {
 	public void setMemberName(String memberName) {
 		this.memberName = memberName;
 	}
+	//新加 
+	private String othername;
+	private int total;
+
+	public String getOthername() {
+		return othername;
+	}
+
+	public void setOthername(String othername) {
+		this.othername = othername;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
     
 }

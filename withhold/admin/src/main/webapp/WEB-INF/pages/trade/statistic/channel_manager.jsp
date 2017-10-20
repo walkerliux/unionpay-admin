@@ -43,25 +43,31 @@ table tr td select {
 			<form id="theForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="10%">渠道号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="accsecmerno" id="accsecmerno" /></td>
+						<td align="right" width="10%">通道号</td>
+						<td align="left" style="padding-left: 5px" width="25%"><input name="payinst" id="payinst" /></td>
 						
 					
 					
 						<td align="right" width="10%">交易状态</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="apporderstatus" id="apporderstatus" /></td>
+						<td align="left" style="padding-left: 5px" width="15%">
+						<select name="retcode"
+							id="retcode" style="width: 150px">
+								<option value="">--请选择订单状态--</option>
+								<option value="0000">成功</option>
+								<option value="01">失败</option>
+						</select></td>
 						
 					</tr>
 				
 					<tr> 
 						 <td align="right" width="15%">开始时间</td>
 						<td align="left" style="padding-left: 5px" width="25%">
-							<input id="beginTime" name="beginTime" type="text"
+							<input id="stime" name="stime" type="text"
 							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
 						</td> 
 						 <td align="right" width="15%">截止时间</td>
 						 <td align="left" style="padding-left: 5px" width="25%">
-						 	<input id="endTime" name="endTime" type="text"
+						 	<input id="etime" name="etime" type="text"
 							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
 						<td></td>
 						<td align="right" width="10%"></td>
@@ -182,30 +188,30 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							//title : '实时代收渠道流水信息列表',
+							title : '通道统计列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'statistic/getChannelByPage',
+							url : 'statistic/getChnlByPage',
 							remoteSort : false,
 							idField : 'ORGAN_ID',
 							columns : [ [
 								
 									{
-										field : 'accsecmerno',
+										field : 'payinst',
 										title : '通道号',
 										width : 120,
 										align : 'center'
 									},
 									{
-										field : 'memberName',
+										field : 'othername',
 										title : '通道名称',
 										width : 110,
 										align : 'center'
 									},
 									{
-										field : 'RECEIVER',
+										field : 'total',
 										title : '交易笔数',
 										width : 120,
 										align : 'center'
@@ -214,7 +220,10 @@ table tr td select {
 										field : 'amount',
 										title : '交易金额',
 										width : 80,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.amount);
+										}
 									},
 									{
 										field : 'txnfee',
@@ -222,7 +231,7 @@ table tr td select {
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
-											return changeDate(rec.TRANSDATE);
+											return fenToYuan(rec.txnfee);
 										}
 									},
 									{
@@ -231,20 +240,26 @@ table tr td select {
 										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
-											return changeTime(rec.TRANSTIME);
+											return fenToYuan(rec.txnfee-rec.coopfee);
 										}
 									},
 									{
-										field : 'ENDTOENDIDENTIFICATION',
+										field : 'chnlfee',
 										title : '通道收益',
 										width : 200,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.chnlfee);
+										}
 									},
 									{
 										field : 'DEBTORACCOUNTNO',
 										title : '银联收益',
 										width : 140,
-										align : 'center'
+										align : 'center',
+										formatter : function(value, rec) {
+											return fenToYuan(rec.coopfee-rec.chnlfee);
+										}
 									},
 								
 									{
@@ -271,15 +286,9 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"debtorname" : $('#debtornames').val(),
-			"debtoraccountno" : $('#debtoraccountnos').val(),
-			"debtorbranchcode" : $('#debtorbranchcodes').val(),
-			"creditorname" : $('#creditornames').val(),
-			"creditoraccountno" : $('#creditoraccountnos').val(),
-			"creditorbranchcode" : $('#creditorbranchcodes').val(),
-			"endtoendidentification" : $('#endtoendidentifications').val(),
-			"transmitleg" : $('#transmitlegs').val(),
-			"rspstatus" : $('#rspstatuss').val(),
+			"payinst" : $('#payinst').val(),
+			"retcode" : $('#retcode').val(),
+			
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')
 		}

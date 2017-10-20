@@ -327,7 +327,7 @@ table tr td select {
 				singleSelect:true,
 				nowrap: false,
 				striped: true,
-				url:'trade/getTxnsLogByPage',
+				url:'trade/getTxnsLogBakByPage',
 				remoteSort: false,
 				idField:'ORGAN_ID',
 				columns:[
@@ -511,7 +511,7 @@ table tr td select {
 	
 			$.ajax({
 				   type: "POST",
-				   url: "trade/getTxnsLogByTxnseqno",
+				   url: "trade/getTxnsLogBakByTxnseqno",
 				   data: "txnseqno="+txnseqno,
 				   dataType:"json",
 				   success:function(json){

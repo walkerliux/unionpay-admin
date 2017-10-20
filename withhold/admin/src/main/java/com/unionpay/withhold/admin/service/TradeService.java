@@ -41,4 +41,9 @@ public interface TradeService {
 
 	PageBean getChnCollectDetaByBatchNo(String batchno, int page, int rows);
 
+	PageBean getTxnsLogBakByPage(TTxnsLog tTxnsLog, String stime, String etime,
+			int page, int rows);
+
+	TTxnsLog getTxnsLogBakByTxnseqno(String txnseqno);
+
 }
