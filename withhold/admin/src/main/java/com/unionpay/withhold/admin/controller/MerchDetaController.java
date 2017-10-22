@@ -1,6 +1,7 @@
 package com.unionpay.withhold.admin.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
@@ -386,5 +388,26 @@ public class MerchDetaController {
 	public TMerchDetaApply queryMerchDetaDetailById(Integer selfId) {
 		return selfId == null ? null : merchDetaApplyService.queryMerchDetaById(selfId);
 	}
-
+	/**
+	 * 修改商户通道信息
+	 * @param merchDeta
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateMerchDChnl")
+	public ResultBean updateMerchDChnl(TMerchChnl merchChnl, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		merchDetaApply.setInUser(infoByToken.getUserId().longValue())
+		try {
+			return merchChnlService.updateMerchDChnl(merchChnl);
+			
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+		
+	
+	}
+	
 }

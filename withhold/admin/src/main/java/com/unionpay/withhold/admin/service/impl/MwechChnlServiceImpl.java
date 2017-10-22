@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.mapper.TMerchChnlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
@@ -30,5 +31,15 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 				int count = merchChnlMapper.selectCountWithCondition(merchDeta);
 
 				return new PageBean(count, list);
+	}
+	@Override
+	public ResultBean updateMerchDChnl(TMerchChnl merchChnl) {
+			
+		int flag = merchChnlMapper.updateByPrimaryKey( merchChnl);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "修改失败！");
+		}
 	}
 }

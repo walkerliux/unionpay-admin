@@ -1,6 +1,8 @@
 package com.unionpay.withhold.admin.service;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
+import com.unionpay.withhold.admin.pojo.TMerchChnl;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 
 public interface MerchChnlService {
@@ -12,5 +14,11 @@ public interface MerchChnlService {
 	 * @return
 	 */
 	PageBean queryMerchChnl(TMerchDeta merchDeta, Integer page, Integer rows);
+	/**
+	 * 修改商户通道信息
+	 * @param merchDeta
+	 * @return
+	 */
+	ResultBean updateMerchDChnl(TMerchChnl merchChnl);
 
 }
