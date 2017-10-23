@@ -254,15 +254,17 @@ public class UserController {
 	}
 	/**
 	 * 保存用户角色
-	 * 将角色的权限分配给user
+	 * 
 	 * @return
 	 */
 	@ResponseBody
     @RequestMapping("/SaveUserRole")
 	public String SaveUserRole(HttpServletRequest request,String userFunc,Long userId) {
-		userRoleService.deleteOldUserRole(userId);
+		
+		
 		TUser user = userService.getSingleById(userId);
 		if(userFunc != null && !"".equals(userFunc)){
+			userRoleService.deleteOldUserRole(userId);
 			String[] roleId = userFunc.split(",");
 			List<TUserRole> userRoleList = new ArrayList<TUserRole>();
 			ArrayList<Long> functIds = new ArrayList<Long>();
@@ -287,8 +289,11 @@ public class UserController {
 			
 			operationLogService.addOperationLog(request, "绑定用户"+user.getLoginName()+"相关角色");
 			return "true";
+		}else {
+			userRoleService.deleteOldUserRole(userId);
+			return "true";
 		}
-		return "false";
+		
 	}
 	
 	/**

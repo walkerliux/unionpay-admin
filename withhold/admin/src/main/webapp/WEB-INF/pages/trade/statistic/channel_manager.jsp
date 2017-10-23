@@ -205,7 +205,7 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'othername',
+										field : 'chnlname',
 										title : '通道名称',
 										width : 110,
 										align : 'center'

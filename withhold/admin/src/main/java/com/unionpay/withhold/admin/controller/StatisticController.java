@@ -105,8 +105,8 @@ public class StatisticController {
 	 */
 	@ResponseBody
     @RequestMapping("/getTnxLogInfoByMerno")
-	public List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno){
-		List<TTxnsLog> tTxnsLog=tTxnsLogService.getTnxLogInfoByMerno(accsecmerno);
+	public PageBean getTnxLogInfoByMerno(String accsecmerno,String retcode,String stime,String etime,int page,int rows){
+		PageBean tTxnsLog=tTxnsLogService.getTnxLogInfoByMerno(accsecmerno,retcode,stime,etime,page, rows);
 		
 		return tTxnsLog;
 	}
