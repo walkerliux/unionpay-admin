@@ -18,4 +18,10 @@ public interface TTxnsLogService {
 
 	PageBean getTnxLogInfoByMerno(String accsecmerno,String retcode,String stime,String etime,int page,int rows);
 
+	PageBean getTnxLogInfoByCoopno(String accfirmerno, String retcode,
+			String stime, String etime, int page, int rows);
+
+	PageBean getTnxLogInfoByPayinst(String payinst, String retcode,
+			String stime, String etime, int page, int rows);
+
 }

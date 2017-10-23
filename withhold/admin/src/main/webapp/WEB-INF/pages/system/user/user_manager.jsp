@@ -85,10 +85,9 @@ table tr td select {
 						type="hidden" id="user_status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>用户代码</td>
+							<!-- <td>用户代码</td>
 							<td align="left"><input type="text" id="user_code"
-								name="userCode" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								name="userCode" value="自动生成"/></td> -->
 							<td>用户名称</td>
 							<td align="left"><input type="text" id="user_name"
 								name="userName" class="easyui-validatebox" required="true"
@@ -254,8 +253,9 @@ table tr td select {
 						}
 					},
 					{field:'userName',title:'用户名称',align:'center',width:150},
+					{field:'userCode',title:'用户代码',width:100,align:'center'},
 					{field:'loginName',title:'登陆账号',width:180,align:'center'},
-					/* {field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
+					/* 
 					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'}, */
 					{field:'creator',title:'创建者',width:180,align:'center'},
 					{field:'createDate',title:'创建时间',width:200,align:'center',
@@ -300,7 +300,7 @@ table tr td select {
 					text:'新增用户',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#user_code").removeAttr('readonly');
+						$("#user_code").attr('readonly','readonly');
 						showAdd(0);
 						$("#saveForm").attr("action","user/save");
 					},   

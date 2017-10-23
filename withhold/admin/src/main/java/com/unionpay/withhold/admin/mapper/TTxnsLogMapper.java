@@ -31,4 +31,8 @@ public interface TTxnsLogMapper {
 	List<TTxnsLog> countByCoopIdExample(TTxnsLogExample tTxnsLogExample);
 	//根据商户号查询统计后的详情
 	List<TTxnsLog> selectInfoByMernoId(TTxnsLogExample tTxnsLogExample);
+	//根据渠道号查询统计后的详情
+	List<TTxnsLog> selectInfoByCoopId(TTxnsLogExample tTxnsLogExample);
+	//根据通道号查询统计后的详情
+	List<TTxnsLog> selectInfoByChnlId(TTxnsLogExample tTxnsLogExample);
 }

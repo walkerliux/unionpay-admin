@@ -7,33 +7,37 @@ import java.util.List;
 import java.util.Map;
 
 
+
+
+
+
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
-
 import com.unionpay.withhold.admin.dao.JedisClient;
-
+import com.unionpay.withhold.admin.mapper.TParaDicMapper;
 import com.unionpay.withhold.admin.mapper.TUserMapper;
 import com.unionpay.withhold.admin.mapper.TUserRoleMapper;
+import com.unionpay.withhold.admin.pojo.TParaDic;
+import com.unionpay.withhold.admin.pojo.TParaDicExample;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TUserExample;
 import com.unionpay.withhold.admin.pojo.TUserExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TUserRole;
 import com.unionpay.withhold.admin.pojo.TUserRoleExample;
 import com.unionpay.withhold.admin.service.UserService;
-
 import com.unionpay.withhold.admin.utils.JsonUtils;
 import com.unionpay.withhold.admin.utils.MD5Util;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -50,13 +54,17 @@ public class UserServiceImpl implements UserService {
 	private String REDIS_BROWSER_KEY;
 	@Value("${REDIS_SESSION_EXPIRE}")
 	private int REDIS_SESSION_EXPIRE;
-
-
+	@Value("${REDIS_USER_CODE_START}")
+	private String REDIS_USER_CODE_START;
+	@Value("${REDIS_USER_CODE_KEY}")
+	private String REDIS_USER_CODE_KEY;
 	@Autowired
 	private TUserMapper tUserMapper;
 	@Autowired
 	private TUserRoleMapper tUserRoleMapper;
-
+	@Autowired
+	private TParaDicMapper tParaDicMapper;
+	
 	@Autowired
 	JedisClient jedisClient;
 
@@ -126,6 +134,21 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public void saveUser(TUser user) {
+		String value = jedisClient.get(REDIS_USER_CODE_KEY);
+		if (StringUtil.isNull(value)) {
+			jedisClient.set(REDIS_USER_CODE_KEY, REDIS_USER_CODE_START);
+		}
+		String  codeId= jedisClient.incr(REDIS_USER_CODE_KEY)+"";
+		TParaDicExample tParaDicExample = new TParaDicExample();
+		com.unionpay.withhold.admin.pojo.TParaDicExample.Criteria createCriteria = tParaDicExample.createCriteria();
+		createCriteria.andParaCodeEqualTo("userIdPrefix");
+		List<TParaDic> list = tParaDicMapper.selectByExample(tParaDicExample);
+		if (list!=null&&list.size()>0) {
+			TParaDic tParaDic = list.get(0);
+			String paraName = tParaDic.getParaName();
+			user.setUserCode(paraName+codeId);
+		}
+		
 		tUserMapper.insert(user);
 		
 	}

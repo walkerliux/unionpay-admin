@@ -93,99 +93,6 @@ table tr td select {
 		</div>
 	</div>
 	
-	
-	<div id="w" class="easyui-window" closed="true" title="My Window"  style="width: 500px; height: 200px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center" id="continer">
-				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo" border="1">
-					<tr>
-						<td colspan="4" class="head-title">报文头信息</td>
-					</tr>
-					<tr>					
-						<td width="15%">报文标识号</td><td width="35%" id="msgid"></td>
-						<td width="15%">交易类型 </td><td width="35%" id="tradetype"></td>
-						
-					</tr>
-					<tr>	
-						<td>发起方代码</td><td id="transmitleg"></td>
-						<td>接收方代码</td><td id="receiver"></td>
-					</tr>
-					<tr>
-						<td>本地日期 </td><td id="transdate"></td>
-						<td>本地时间</td><td id="transtime"></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="head-title">业务报文信息</td>
-					</tr>
-					<tr>
-						<td>明细标识号</td><td id="txid"></td>
-						<td>金额（元）</td><td id="amount"></td>
-					</tr>
-					<tr>
-						<td>合同（协议）号</td><td id="endtoendidentification" colspan="3"></td>
-					</tr>
-					<tr>
-						<td>付款账号</td><td id="debtoraccountno"></td>
-						<td>收款账号</td><td id="creditoraccountno"></td>
-					</tr>
-					<tr>
-						
-						<td>付款账户名称</td><td id="debtorname"></td>
-						<td>收款账户名称</td><td id="creditorname"></td>
-					</tr>
-					<tr>
-						<td>付款行行号</td><td id="debtorbranchcode"></td>
-						<td>收款行行号</td><td id="creditorbranchcode"></td>
-					</tr>
-					<tr>
-						<td>业务种类编码</td><td id="purposeproprietary"></td>
-						<td>票据号码</td><td id="billnumber"></td>
-					</tr>
-					<tr>
-						<td>摘要</td><td id="summary" colspan="3"></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="head-title">通用处理信息</td>
-					</tr>
-					<tr>
-						<td>通用处理报文标识号</td><td id="commsgid"></td>
-						<td>通用处理应答状态</td><td id="comstatus"></td>
-					</tr>
-					<tr>
-						<td>通用处理应答码</td><td id="comrejectcode"></td>
-						<td>通用处理拒绝信息</td><td id="comrejectinformation"></td>
-					</tr>
-					<tr>
-						<td>通用处理应答时间</td><td id="comdate"></td>
-						<td></td><td></td>
-					</tr>
-					<tr>
-						<td colspan="4" class="head-title">业务应答信息</td>
-					</tr>
-					<tr>
-						<td>应答报文标识号</td><td id="rspmsgid"></td>
-						<td>应答状态</td><td id="rspstatus"></td>
-					</tr>
-					<tr>
-						<td>应答码</td><td id="rsprejectcode"></td>
-						<td>业务拒绝信息</td><td id="rsprejectinformation"></td>
-					</tr>
-					<tr>
-						<td>业务应答时间</td><td id="rspdate"></td>
-						<td>轧差日期</td><td id="nettingdate"></td>
-					</tr>
-					<tr>
-						<td>交易流水号</td><td id="txnseqno"></td>
-						<td></td><td></td>
-					</tr>
-				</table>
-			</div>
-			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
-			</div>
-		</div>
-	</div>
-	
     <!--这是一个弹出窗口easyui-dialog，我在它里面放了一个datagrid-->  
     <div id="dlg" class="easyui-dialog" style="width: 1000px; height: auto; padding: 10px 20px"  
          data-options="closed:true,buttons:'#dlg-buttons'">  
@@ -289,7 +196,7 @@ table tr td select {
 									{
 										field : 'total',
 										title : '交易笔数',
-										width : 120,
+										width : 90,
 										align : 'center'
 									}, 
 									{
@@ -322,7 +229,7 @@ table tr td select {
 									{
 										field : 'chnlfee',
 										title : '通道收益',
-										width : 200,
+										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
 											return fenToYuan(rec.chnlfee);
@@ -331,91 +238,102 @@ table tr td select {
 									{
 										field : 'DEBTORACCOUNTNO',
 										title : '银联收益',
-										width : 140,
+										width : 90,
 										align : 'center',
 										formatter : function(value, rec) {
 											return fenToYuan(rec.coopfee-rec.chnlfee);
 										}
-									},
+									} ,
 								
 									{
 										field : 'id',
 										title : '操作',
 										width : 100,
 										align : 'center',
-									
-										  formatter: function (value, rec,index) { //参数row表示当前行, 参数index表示当前行的索引值  
+										formatter: function (value, rec,index) { //参数row表示当前行, 参数index表示当前行的索引值  
 						                        //row.Id表示这个button按钮所在的那一行的Id这个字段的值  
-						                        var btn = '<input type="button" id='+index+' value="查询详情"  onclick="return LoadUserInfo('+rec.accsecmerno+')"/>';  
-						                        return btn;  
+						                        //var btn = '<input type="button" id='+index+' value="查询详情"  onclick="return LoadUserInfo('+rec.accsecmerno+')"/>';  
+						                        return "点击查询详情";  
 						                    } 
-									} ] ],
+									}] ],
 							pagination : true,
 							rownumbers : true,
 							
 							onClickRow: function (index, row) { 
 								var accsecmerno= row["accsecmerno"];
+								var retcode = $('#retcode').val();
+								var stime = $('#stime').datebox('getValue');
+								var etime = $('#etime').datebox('getValue');
 								$('#detailInfo').datagrid({
-									title:'批量代收明细表',
+									title:'商户统计列表详情',
 									
 									height:400,
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/getCollectOrderDetaByBatchNo?accsecmerno='+accsecmerno,	
+									url:"statistic/getTnxLogInfoByMerno?accsecmerno="
+										+ accsecmerno + "&retcode=" + retcode + "&stime="
+										+ stime + "&etime=" + etime,
 									remoteSort: false,
 									idField:'TID',
 									columns:[
 									[
-										{field:'batchno',title:'批次号',width:180,align:'center'},
-										{field:'orderid',title:'订单号',width:144,align:'center'},
-										{field:'amt',title:'单笔金额(元)',width:146,align:'center',
-											formatter:function(value,rec){
-												return fenToYuan(rec.amt);
+										{field:'accsecmerno',title:'系统商户',width:180,align:'center'},
+										{field:'memberName',title:'商户名称',width:144,align:'center'},
+										{field:'accordno',title:'商户订单',width:144,align:'center'},
+										{field:'paysecmerno',title:'外部商户号',width:146,align:'center'},
+										{field:'payinst',title:'通道号',width:90,align:'center',},
+										{field:'chnlname',title:'通道名称',width:148,align:'center'},
+										{field:'payordno',title:'通道订单',width:200,align:'center'},
+										{field:'accfirmerno',title:'渠道号',width:100,align:'center'},
+										{field:'caname',title:'渠道名称',width:152,align:'center',},
+										{field:'retdatetime',title:'交易时间',width:100,align:'center'},
+										{field:'retcode',title:'交易状态码',width:100,align:'center'},
+										{field:'tradeelement',title:'交易要素 ',width:158,align:'center'},
+										{
+											field : 'amount',
+											title : '交易金额',
+											width : 80,
+											align : 'center',
+											formatter : function(value, rec) {
+												return fenToYuan(rec.amount);
 											}
 										},
-										{field:'currencycode',title:'交易币种',width:90,align:'center',
+										{
+											field : 'txnfee',
+											title : '商户手续费 ',
+											width : 90,
+											align : 'center',
 											formatter : function(value, rec) {
-												if (rec.currencycode == "156") {
-													return "人民币";
-												} 
+												return fenToYuan(rec.txnfee);
 											}
 										},
-										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
-										{field:'cardno',title:'交易卡号',width:148,align:'center'},
-										{field:'customernm',title:'持卡人姓名',width:200,align:'center'},
-										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
-										{field:'cardtype',title:'卡属类型',width:152,align:'center',
+										{
+											field : 'TRANSTIME',
+											title : '渠道收益',
+											width : 90,
+											align : 'center',
 											formatter : function(value, rec) {
-												if (rec.cardtype == "1") {
-													return "借记卡";
-												} 
-												if (rec.cardtype == "2") {
-													return "信用卡";
-												}
-											}	
+												return fenToYuan(rec.txnfee-rec.coopfee);
+											}
 										},
-										{field:'respcode',title:'响应码',width:100,align:'center'},
-										{field:'respmsg',title:'应答信息',width:100,align:'center'},
-										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
-										{field:'status',title:'状态',width:159,align:'center',
+										{
+											field : 'chnlfee',
+											title : '通道收益',
+											width : 90,
+											align : 'center',
 											formatter : function(value, rec) {
-												if (rec.status == "00") {
-													return "交易完成";
-												} 
-												if (rec.status == "01") {
-													return "订单提交成功";
-												} 
-												if (rec.status == "02") {
-													return "交易中";
-												} 
-												if (rec.status == "03") {
-													return "交易失败";
-												} 
-												if (rec.status == "04") {
-													return "批次失效";
-												} 
-											}		
+												return fenToYuan(rec.chnlfee);
+											}
+										},
+										{
+											field : 'DEBTORACCOUNTNO',
+											title : '银联收益',
+											width : 90,
+											align : 'center',
+											formatter : function(value, rec) {
+												return fenToYuan(rec.coopfee-rec.chnlfee);
+											}
 										},
 									]],
 									pagination:true,

@@ -108,7 +108,7 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 		//tTxnsLogMapper.selectInfoByMernoId();
 		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
 		if (accsecmerno!=null&&!"".equals(accsecmerno)) {
-			tTxnsLogExample.setAccfirmerno(accsecmerno);
+			tTxnsLogExample.setAccsecmerno(accsecmerno);
 		}
 		if (retcode!=null&&!"".equals(retcode)) {
 			tTxnsLogExample.setRetcode(retcode);
@@ -127,6 +127,54 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 		tTxnsLogExample.setPageSize(rows);
 		List<TTxnsLog> result = tTxnsLogMapper.selectInfoByMernoId(tTxnsLogExample);
 		
+		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getTnxLogInfoByCoopno(String accfirmerno, String retcode,
+			String stime, String etime, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accfirmerno!=null&&!"".equals(accfirmerno)) {
+			tTxnsLogExample.setAccfirmerno(accfirmerno);
+		}
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
+		}
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
+			
+		}
+		int total = tTxnsLogMapper.selectInfoByCoopId(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectInfoByCoopId(tTxnsLogExample);
+		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getTnxLogInfoByPayinst(String payinst, String retcode,
+			String stime, String etime, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (payinst!=null&&!"".equals(payinst)) {
+			tTxnsLogExample.setPayinst(payinst);;
+		}
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
+		}
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
+			
+		}
+		int total = tTxnsLogMapper.selectInfoByChnlId(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectInfoByChnlId(tTxnsLogExample);
 		return new PageBean(total, result);
 	}
 	
