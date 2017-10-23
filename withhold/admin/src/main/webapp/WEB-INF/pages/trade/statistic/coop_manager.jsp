@@ -205,7 +205,7 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'othername',
+										field : 'caname',
 										title : '渠道名称',
 										width : 110,
 										align : 'center'

@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				var day = $('#pwdDay').val();
 				if (day < 6) {
 					//$('#expiration').html('用户密码有效期还有'+day+"天到期，请及时更新您的密码！");
-					$('#expiration').html('距离您的登录密码到期还有' + day + "天，请您及时更新密码！");
+					/* $('#expiration').html('距离您的登录密码到期还有' + day + "天，请您及时更新密码！"); */
 				} else {
 					$('#expiration').html("");
 				}

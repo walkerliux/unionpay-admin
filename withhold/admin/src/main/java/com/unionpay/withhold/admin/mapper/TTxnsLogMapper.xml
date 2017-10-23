@@ -176,7 +176,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <!-- 实时核心流水查询 -->
+  <!-- 实时核心流水统计查询 -->
   <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_log a where 1=1
     <if test="accsecmerno!=null">
@@ -296,7 +296,7 @@
      
      SELECT
     a.ACCSECMERNO,
-	b.MEMBER_NAME othername,
+	b.MEMBER_NAME memberName,
 	COUNT(a.ACCSECMERNO) total,
 	SUM(a.AMOUNT) amount,
 	sum(a.TXNFEE) txnfee,
@@ -335,7 +335,7 @@
  <select id="selectByMerchId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
     SELECT
     a.ACCSECMERNO,
-	b.MEMBER_NAME othername,
+	b.MEMBER_NAME memberName,
 	COUNT(a.ACCSECMERNO) total,
 	SUM(a.AMOUNT) amount,
 	sum(a.TXNFEE) txnfee,
@@ -376,7 +376,7 @@
 <select id="countByCoopIdExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultMap="BaseResultMap" >
 SELECT
    	a.ACCFIRMERNO,
-	b.CANAME othername,
+	b.CANAME caname,
 	COUNT(a.ACCFIRMERNO) total,
 	SUM(a.AMOUNT) amout,
 	sum(a.TXNFEE) txnfee,
@@ -416,7 +416,7 @@ SELECT
  <select id="selectByCoopId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
    SELECT
    	a.ACCFIRMERNO,
-	b.CANAME othername,
+	b.CANAME caname,
 	COUNT(a.ACCFIRMERNO) total,
 	SUM(a.AMOUNT) amout,
 	sum(a.TXNFEE) txnfee,
@@ -457,7 +457,7 @@ SELECT
   <select id="countByChnlIdExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultMap="BaseResultMap" >
    SELECT
    	a.PAYINST,
-	b.CHNLNAME othername,
+	b.CHNLNAME chnlname,
 	COUNT(a.PAYINST) total,
 	SUM(a.AMOUNT) amout,
 	sum(a.TXNFEE) txnfee,
@@ -498,7 +498,7 @@ SELECT
 	<select id="selectByChnlId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
    SELECT
    	a.PAYINST,
-	b.CHNLNAME othername,
+	b.CHNLNAME chnlname,
 	COUNT(a.PAYINST) total,
 	SUM(a.AMOUNT) amout,
 	sum(a.TXNFEE) txnfee,
@@ -539,7 +539,10 @@ SELECT
 	<select id="selectInfoByMernoId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
 	SELECT
 	a.*,
-	b.MEMBER_NAME mername
+	b.MEMBER_NAME membername,
+	c.caname,
+	d.chnlname,
+	d.tradeelement
 	 <if test="distinct" >
       distinct
     </if>
@@ -548,26 +551,34 @@ SELECT
 	LEFT JOIN 
 	t_merch_deta b 
 	ON 
-	a.ACCSECMERNO = b.MEMBER_ID 
+	a.ACCSECMERNO = b.MEMBER_ID
+	LEFT JOIN
+	t_coop_agency c
+	ON
+	a.ACCFIRMERNO=c.CACODE
+	LEFT JOIN
+	t_chnl_deta d
+	ON
+	a.PAYINST =d.CHNLCODE
 	where 1=1
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	
   	 <if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE =#{retcode}
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
-	  	 
 	<if test="starttime!=null">
 	and a.RETDATETIME &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
 	and a.RETDATETIME &lt;#{endtime}
 	</if>
+	<if test='beginRow!="-1" and pageSize!="0"'>
 	limit #{beginRow},#{pageSize}
+	</if>
 	</select>
 	
 	

@@ -103,10 +103,31 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 	}
 
 	@Override
-	public List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno) {
+	public PageBean getTnxLogInfoByMerno(String accsecmerno,String retcode,String stime,String etime,int page,int rows) {
 		//selectInfoByMernoId
 		//tTxnsLogMapper.selectInfoByMernoId();
-		return null;
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accsecmerno!=null&&!"".equals(accsecmerno)) {
+			tTxnsLogExample.setAccfirmerno(accsecmerno);
+		}
+		if (retcode!=null&&!"".equals(retcode)) {
+			tTxnsLogExample.setRetcode(retcode);
+		}
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
+			
+		}
+		int total=tTxnsLogMapper.selectInfoByMernoId(tTxnsLogExample).size();
+		//查询当前条件下的分页显示
+		
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectInfoByMernoId(tTxnsLogExample);
+		
+		return new PageBean(total, result);
 	}
 	
 

@@ -16,6 +16,6 @@ public interface TTxnsLogService {
 	PageBean findCoopByPage(String accfirmerno,String retcode, String stime, String etime,
 			int page, int rows);
 
-	List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno);
+	PageBean getTnxLogInfoByMerno(String accsecmerno,String retcode,String stime,String etime,int page,int rows);
 
 }

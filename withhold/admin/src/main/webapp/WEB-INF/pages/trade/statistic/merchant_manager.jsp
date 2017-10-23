@@ -87,6 +87,10 @@ table tr td select {
 		<div style="margin-top: 5px">
 			<table id="test"></table>
 		</div>
+		
+		<div style="margin-top: 5px">
+			<table id="detailInfo"></table>
+		</div>
 	</div>
 	
 	
@@ -185,61 +189,62 @@ table tr td select {
     <!--这是一个弹出窗口easyui-dialog，我在它里面放了一个datagrid-->  
     <div id="dlg" class="easyui-dialog" style="width: 1000px; height: auto; padding: 10px 20px"  
          data-options="closed:true,buttons:'#dlg-buttons'">  
-        <table id="datagrid" class="easyui-datagrid" style="width:1600px;height:500px">  
+        <table id="datagrid" class="easyui-datagrid" style="width:1600px;height:360px">  
             <thead>  
                 <tr>  
-                    <th data-options="field:'Id'" align="center" width="100" sortable="true">  
+                    <th field="accsecmerno" align="center" width="120" sortable="true">  
                         系统商户  
                     </th>  
                     <th field="payinst" align="center" width="120" sortable="true">  
                         通道号 
                     </th>  
-                    <th field="chnlname" align="center" width="80" sortable="true">  
+                    <th field="chnlname" align="center" width="120" sortable="true">  
                         通道名称 
                     </th>  
-                    <th field="Age" align="center" width="80" sortable="true">  
+                    <th field="payordno" align="center" width="80" sortable="true">  
                         通道订单号
                     </th>  
-                    <th field="payfirmerno" align="center" width="80" sortable="true">  
+                    <th field="accfirmerno" align="center" width="80" sortable="true">  
                         渠道号  
                     </th> 
                      
-  	             <th field="coopname" align="center" width="120" sortable="true">  
+  	             <th field="caname" align="center" width="120" sortable="true">  
                         渠道名称
                     </th>  
-                    <th field="Name" align="center" width="80" sortable="true">  
-                        渠道订单
+                    <th field="accordno" align="center" width="120" sortable="true">  
+                        商户订单
                     </th>  
-                    <th field="paysecmerno" align="center" width="80" sortable="true">  
-                        商户号
+                    <th field="paysecmerno" align="center" width="120" sortable="true">  
+                        外部商户号
                     </th>  
-                    <th field="mername" align="center" width="80" sortable="true">  
+                    <th field="memberName" align="center" width="120" sortable="true">  
                         商户名称
                     </th>
-                    
                     <th field="retdatetime" align="center" width="120" sortable="true">  
                         交易时间
                     </th>  
                     <th field="retcode" align="center" width="80" sortable="true">  
                         交易状态 
                     </th>  
-                    <th field="Age" align="center" width="80" sortable="true">  
+                    <th field="tradeelement" align="center" width="80" sortable="true">  
                         要素名称
                     </th>  
-                    <th field="amount" align="center" width="80" sortable="true">  
+                    <th field="amount" align="center" width="60" sortable="true" >          
                         交易金额  
                     </th>
                     
-                   <th field="txnfee" align="center" width="120" sortable="true">  
+                   <th field="txnfee" align="center" width="60" sortable="true">  
                         商户手续费
                     </th>  
-                    <th field="txnfee-coopfee" align="center" width="80" sortable="true">  
+                    <th field="txnfee-coopfee" align="center" width="60" sortable="true">  
                         渠道收益
                     </th>  
-                    <th field="chnlfee" align="center" width="80" sortable="true">  
+                    <th field="chnlfee" align="center" width="60" sortable="true">  
                         通道收益
                     </th>  
-                    <th field="coopfee-chnlfee" align="center" width="80" sortable="true">  
+                    <th field="coopfee-chnlfee" align="center" width="60" sortable="true"
+                      
+                    >  
                         银联收益
                     </th>
                 </tr>  
@@ -276,7 +281,7 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'othername',
+										field : 'memberName',
 										title : '商户名称',
 										width : 110,
 										align : 'center'
@@ -338,25 +343,85 @@ table tr td select {
 										title : '操作',
 										width : 100,
 										align : 'center',
-									/* 	formatter : function(value, rec) {
-											if (true) {
-												return '<a href="javascript:queryDetail(\''
-														+ rec.txnseqno
-														+ '\')" style="color:blue;margin-left:10px">详细信息</a>';
-											} else {
-												return '';
-											}
-										} */
+									
 										  formatter: function (value, rec,index) { //参数row表示当前行, 参数index表示当前行的索引值  
-											  
 						                        //row.Id表示这个button按钮所在的那一行的Id这个字段的值  
 						                        var btn = '<input type="button" id='+index+' value="查询详情"  onclick="return LoadUserInfo('+rec.accsecmerno+')"/>';  
 						                        return btn;  
 						                    } 
 									} ] ],
 							pagination : true,
-							rownumbers : true
-
+							rownumbers : true,
+							
+							onClickRow: function (index, row) { 
+								var accsecmerno= row["accsecmerno"];
+								$('#detailInfo').datagrid({
+									title:'批量代收明细表',
+									
+									height:400,
+									singleSelect:true,
+									nowrap: false,
+									striped: true,
+									url:'trade/getCollectOrderDetaByBatchNo?accsecmerno='+accsecmerno,	
+									remoteSort: false,
+									idField:'TID',
+									columns:[
+									[
+										{field:'batchno',title:'批次号',width:180,align:'center'},
+										{field:'orderid',title:'订单号',width:144,align:'center'},
+										{field:'amt',title:'单笔金额(元)',width:146,align:'center',
+											formatter:function(value,rec){
+												return fenToYuan(rec.amt);
+											}
+										},
+										{field:'currencycode',title:'交易币种',width:90,align:'center',
+											formatter : function(value, rec) {
+												if (rec.currencycode == "156") {
+													return "人民币";
+												} 
+											}
+										},
+										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
+										{field:'cardno',title:'交易卡号',width:148,align:'center'},
+										{field:'customernm',title:'持卡人姓名',width:200,align:'center'},
+										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
+										{field:'cardtype',title:'卡属类型',width:152,align:'center',
+											formatter : function(value, rec) {
+												if (rec.cardtype == "1") {
+													return "借记卡";
+												} 
+												if (rec.cardtype == "2") {
+													return "信用卡";
+												}
+											}	
+										},
+										{field:'respcode',title:'响应码',width:100,align:'center'},
+										{field:'respmsg',title:'应答信息',width:100,align:'center'},
+										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
+										{field:'status',title:'状态',width:159,align:'center',
+											formatter : function(value, rec) {
+												if (rec.status == "00") {
+													return "交易完成";
+												} 
+												if (rec.status == "01") {
+													return "订单提交成功";
+												} 
+												if (rec.status == "02") {
+													return "交易中";
+												} 
+												if (rec.status == "03") {
+													return "交易失败";
+												} 
+												if (rec.status == "04") {
+													return "批次失效";
+												} 
+											}		
+										},
+									]],
+									pagination:true,
+									rownumbers:true,
+								});
+						}
 						});
 
 	});
@@ -379,26 +444,28 @@ table tr td select {
 
 
 	function LoadUserInfo(accsecmerno) {
-		var data = {
-				//"accsecmerno" : $('#accsecmerno').val(),
-				"retcode" : $('#retcode').val(),
-				"stime" : $('#stime').datebox('getValue'),
-				"etime" : $('#etime').datebox('getValue')
-			}
+
+		var retcode = $('#retcode').val();
+		var stime = $('#stime').datebox('getValue');
+		var etime = $('#etime').datebox('getValue');
+
 		/*获取选中行*/
 		//var row = $('#Cse_Bespeak_Log').datagrid('getSelected'); //获取选中行    
-		$("#datagrid").datagrid({
-			url : "statistic/getTnxLogInfoByMerno?accsecmerno=" + accsecmerno+"retcode="+retcode,
-			iconCls : "icon-add",
-			fitColumns : false,
-			loadMsg : "数据加载中......",
-			pagination : true,
-			rownumbers : true,
-			nowrap : false,
-			showFooter : true,
-			singleSelect : true,
-			pageList : [ 100, 50, 20, 10 ],
-		})
+		$("#datagrid").datagrid(
+				{
+					url : "statistic/getTnxLogInfoByMerno?accsecmerno="
+							+ accsecmerno + "&retcode=" + retcode + "&stime="
+							+ stime + "&etime=" + etime,
+					iconCls : "icon-add",
+					fitColumns : false,
+					loadMsg : "数据加载中......",
+					pagination : true,
+					rownumbers : true,
+					nowrap : false,
+					showFooter : true,
+					singleSelect : true,
+					pageList : [ 100, 50, 20, 10 ],
+				})
 
 		$('#dlg').window('open'); //弹出这个dialog框  
 	};

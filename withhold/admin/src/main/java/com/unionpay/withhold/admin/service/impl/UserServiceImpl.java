@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
 		int total = tUserMapper.countByExample(tUserExample);
 		tUserExample.setPageNum(page);
 		tUserExample.setPageSize(rows);
-		tUserExample.setOrderByClause("USER_ID");
+		tUserExample.setOrderByClause("USER_ID DESC");
 		List<TUser> list = tUserMapper.selectByExample(tUserExample);
 		
 		return new PageBean(total, list); 
@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public void updateUser(TUser user) {
-			 tUserMapper.updateByPrimaryKeySelective(user);
+		tUserMapper.updateByPrimaryKeySelective(user);
 
 	}
 	@Override
