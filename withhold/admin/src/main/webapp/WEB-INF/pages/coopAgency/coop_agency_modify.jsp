@@ -152,7 +152,7 @@ table tr td select {
 								missingMessage="请选择上级代理" name="supercode" />
 								<option value=''>--请选择上级渠道--</option>
 								<option value='0'></option>
-								</select> </select><font color="red">*</font></td>
+								</select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>

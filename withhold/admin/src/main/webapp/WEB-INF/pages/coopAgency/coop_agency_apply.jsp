@@ -141,7 +141,7 @@ table tr td select {
 							<td class="update" align="left">
 							<select id="supercode" class="easyui-validatebox" required="true" missingMessage="请选择上级代理" name="supercode"/>
 								<option value=''>--请选择上级渠道--</option>
-								<option value='0'></option></select>
+								<option value='0'></option>
 							</select><font color="red">*</font></td>
 						</tr>
 						<tr>
