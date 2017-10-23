@@ -42,4 +42,5 @@ public interface TMerchChnlMapper {
 	
 	List<TMerchChnl> selectChnlWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
 
+
 }

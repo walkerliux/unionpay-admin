@@ -20,6 +20,7 @@
     <result column="KEYFLAG" property="keyflag" jdbcType="CHAR" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +82,8 @@
   </sql>
   <sql id="Base_Column_List" >
     SAFESEQ, MEMBERID, SAFETYPE, MEMBERPUBKEY, MEMBERPRIKEY, LOCALPUBKEY, LOCALPRIKEY, 
-    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS
+    PLATFORMPFXPWD, BMK, PIN, MAC, DATA, MD5, STORGETYPE, STATUS, KEYFLAG, NOTES, REMARKS, 
+    CERTID
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TMerchMkExample" >
     select
@@ -119,13 +121,15 @@
       LOCALPRIKEY, PLATFORMPFXPWD, BMK, 
       PIN, MAC, DATA, MD5, 
       STORGETYPE, STATUS, KEYFLAG, 
-      NOTES, REMARKS)
+      NOTES, REMARKS, CERTID
+      )
     values (#{safeseq,jdbcType=INTEGER}, #{memberid,jdbcType=VARCHAR}, #{safetype,jdbcType=VARCHAR}, 
       #{memberpubkey,jdbcType=VARCHAR}, #{memberprikey,jdbcType=VARCHAR}, #{localpubkey,jdbcType=VARCHAR}, 
       #{localprikey,jdbcType=VARCHAR}, #{platformpfxpwd,jdbcType=VARCHAR}, #{bmk,jdbcType=VARCHAR}, 
       #{pin,jdbcType=VARCHAR}, #{mac,jdbcType=VARCHAR}, #{data,jdbcType=VARCHAR}, #{md5,jdbcType=VARCHAR}, 
       #{storgetype,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{keyflag,jdbcType=CHAR}, 
-      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, #{certid,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchMk" >
     insert into t_merch_mk
@@ -184,6 +188,9 @@
       <if test="remarks != null" >
         REMARKS,
       </if>
+      <if test="certid != null" >
+        CERTID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="safeseq != null" >
@@ -239,6 +246,9 @@
       </if>
       <if test="remarks != null" >
         #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="certid != null" >
+        #{certid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -305,6 +315,9 @@
       <if test="record.remarks != null" >
         REMARKS = #{record.remarks,jdbcType=VARCHAR},
       </if>
+      <if test="record.certid != null" >
+        CERTID = #{record.certid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -329,7 +342,8 @@
       STATUS = #{record.status,jdbcType=VARCHAR},
       KEYFLAG = #{record.keyflag,jdbcType=CHAR},
       NOTES = #{record.notes,jdbcType=VARCHAR},
-      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+      REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      CERTID = #{record.certid,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -388,6 +402,9 @@
       <if test="remarks != null" >
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
+      <if test="certid != null" >
+        CERTID = #{certid,jdbcType=VARCHAR},
+      </if>
     </set>
     where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
@@ -409,7 +426,8 @@
       STATUS = #{status,jdbcType=VARCHAR},
       KEYFLAG = #{keyflag,jdbcType=CHAR},
       NOTES = #{notes,jdbcType=VARCHAR},
-      REMARKS = #{remarks,jdbcType=VARCHAR}
+      REMARKS = #{remarks,jdbcType=VARCHAR},
+      CERTID = #{certid,jdbcType=VARCHAR}
     where SAFESEQ = #{safeseq,jdbcType=INTEGER}
   </update>
 </mapper>

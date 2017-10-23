@@ -265,7 +265,7 @@ table tr td select {
 						$("#notes").val(json.notes);
 						
 						$('#w').window({
-							title: '审核商户信息',
+							title: '商户详细信息',
 							top:100,
 							left:400,
 							width: 800,

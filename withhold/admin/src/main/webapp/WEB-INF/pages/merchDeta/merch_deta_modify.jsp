@@ -153,13 +153,13 @@ table tr td select {
 							<td class="update">渠道</td>
 							<td class="update" align="left">
 							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
-								<option value=''>--请选择渠道--</option></select>
+								<option value=''>--请选择渠道--</option>
 							</select><font color="red">*</font></td>
 							
 							<td class="update">交易要素</td>
 							<td class="update" align="left">
 							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
-								<option value=''>--请选择交易要素--</option></select>
+								<option value=''>--请选择交易要素--</option>
 							</select><font color="red">*</font></td>
 							
 						</tr>
@@ -167,10 +167,10 @@ table tr td select {
 							<td class="update">所属行业</td>
 							<td class="update" align="left" colspan="3">
 								<select id="mcc" class="easyui-validatebox" required="true" missingMessage="请选择MCC大类" name="mcc" onchange="showMCCList()"/>
-									<option value=''>--请选择MCC大类--</option></select>
+									<option value=''>--请选择MCC大类--</option>
 								</select><font color="red">*</font>
 								<select id="mccList" class="easyui-validatebox" required="true" missingMessage="请选择MCC小类" name="mccList"/>
-									<option value=''>--请选择MCC小类--</option></select>
+									<option value=''>--请选择MCC小类--</option>
 								</select><font color="red">*</font>
 							</td>
 						</tr>
@@ -340,7 +340,6 @@ table tr td select {
 			dataType: "json",
 			success: function(json) {
 				var html = "<option value=''>--请选择渠道--</option>";
-				html += "<option value='0'></option>";
 				$.each(json,function(key, value) {
 						html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
 				});
