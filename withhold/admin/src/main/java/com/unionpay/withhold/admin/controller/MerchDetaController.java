@@ -19,6 +19,7 @@ import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
+import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
@@ -409,5 +410,18 @@ public class MerchDetaController {
 		
 	
 	}
-	
+	/**
+	 * 查询商户通道信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/querydateMerchDChnlById")
+	public TMerchChnlWithBLOBs querydateMerchDChnlById(Integer selfId) {
+		if (selfId == null) {
+			return null;
+		}
+		return merchChnlService.querydateMerchDChnlById(selfId);
+	}
 }

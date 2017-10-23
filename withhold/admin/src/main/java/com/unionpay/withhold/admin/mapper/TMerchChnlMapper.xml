@@ -451,7 +451,7 @@
 			</if>
 			
 		</where>
-		order by MERCH_ID DESC
+		order by md.MERCH_ID DESC
 		<if test="beginRow != null and pageSize != null">
 			limit #{beginRow},#{pageSize}
 		</if>

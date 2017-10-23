@@ -45,17 +45,17 @@ table tr td.update {
 					<tr>
 						<td align="right">商户号</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="memberId" id="s_memberId" maxlength="8" /></td>
+							name="memberId" id="s_memberId" maxlength="25" /></td>
 						<td align="right">商户名称</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="memberName" id="s_memberName" maxlength="8" /></td>
+							name="memberName" id="s_memberName" maxlength="25" /></td>
 						<td align="right">通道名称</td>
 						<td id ="channelName" align="left" style="padding-left: 5px">
 							<select id="schannelName" name="target"/>
-							<option value=''>--请选择通道--</option>								
+													
 							</select>
 						</td>
-					
+											
 						<td class="add" align="right"><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a>
 						 <a href="javascript:clear()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
 					</tr>
@@ -68,7 +68,7 @@ table tr td.update {
 
 	</div>
 
-	<!-- 添加及修改页面 -->
+	<!-- 添加页面 -->
 	<div id="wadd" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 500px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
@@ -85,19 +85,44 @@ table tr td.update {
 		</div>
 	</div>
 
-	<!-- 详情页面 -->
-	<div id="wdetail" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 500px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="detailForm" action="" method="post">
-					<table id="tabledetail" width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
+	<!-- 修改页面 -->
+	<div id="wupdate" class="easyui-window" closed="true" title="My Window" iconCls="icon-save" style="width: 500px; height: 500px; padding: 5px;">
+			
+			<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc; font-size: 12px; text-align: center">
+				<form id="updateForm" action="" method="post">
+				<input type="hidden" id="selfId" name="selfId" />
+					<input type="hidden" id="status" name="status" />
+					<table width="100%" cellpadding="2" cellspacing="2">
+						<<tr style="height: 25px">
+							<td class="update">商户号</td>
+							<td class="update" align="left">
+							<input type="text" id="merchno" name="merchno" class="easyui-validatebox" required="true"
+								maxlength="64" missingMessage="请输入商户号"/><font color="red">*</font></td>
+							<td class="update" width="15%">商户名称 </td>
+							<td class="update" align="left">
+							<input type="text" id="memberName" name="memberName" class="easyui-validatebox" required="true"
+								maxlength="64" missingMessage="请输入商户名称 " /><font color="red">*</font></td>
+						</tr>
+						
+						<tr style="height: 25px">
+							<td class="update">通道名称</td>
+							<td class="update" align="left">
+							<input type="text" id="chnlname" name="chnlname" class="easyui-validatebox" required="true"
+								maxlength="15" missingMessage="请输入通道名称"/><font color="red">*</font></td>
+							<td class="update" width="15%">通道商户号 </td>
+							<td class="update" align="left">
+							<input type="text" id="chnlmercno" name="chnlmercno" class="easyui-validatebox" required="true"
+								maxlength="64" missingMessage="请输入通道商户号 " /><font color="red">*</font></td>
+						</tr>
 					</table>
 				</form>
 			</div>
-			<div region="south" border="false"
-				style="text-align: center; padding: 5px 0;">
-				 <a class="easyui-linkbutton" iconCls="icon-back"
-					href="javascript:void(0)" onclick="closeDetail()">返回</a>
+			
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" href="javascript:void(0)" onclick="closeAdd()">返回</a>
+				<a class="easyui-linkbutton" iconCls="icon-ok" href="javascript:saveMerchDetaApply()" id="btn_submit">提交</a>
 			</div>
 		</div>
 	</div>
@@ -114,6 +139,7 @@ table tr td.update {
 	var width = $("#continer").width();
 	 
 	$(function() {
+		showAllChannl("serch");
 		$('#test')
 				.datagrid(
 						{
@@ -139,17 +165,15 @@ table tr td.update {
 												}
 											}
 										},
-										{field:'tid',title:'操作',align:'center',width:120,rowspan:2,
-											formatter : function(value, rec) {
-												if (rec.status == "00") {
-													return '<a href="javascript:showChange(\''
-															+ value
-															+ '\')" style="color:blue;margin-left:10px">修改</a>';
-												} else {
+										{field:'selfId',title:'操作',align:'center',width:120,rowspan:2,
+											formatter:function(value,rec){
+												if(rec.status=="00"){
+													return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a>';
+												}else{
 													return '';
+												}
 											}
 										}
-									}
 									]],
 							pagination : true,
 							rownumbers : true,
@@ -219,7 +243,7 @@ table tr td.update {
 		$('#tableadd').html(output);
 		
 		$.parser.parse('#tableadd');
-		//y
+		
 		$("#addForm").attr("action", "fee/saveAmtAccumRate");
 		$('#wadd').window({
 			title : '商户通道维护',
@@ -265,9 +289,9 @@ table tr td.update {
 	}
 	function search() {
 		var data = {
-			'merchno':$('#s_memberId').val(),
+			'memberId':$('#s_memberId').val(),
 			'memberName':$("#s_memberName").val(),
-			'chnlcode':$("#schannelName").val(),
+			'cacode':$("#schannelName").val(),
 		};
 		$('#test').datagrid('load', data);
 	}
@@ -279,7 +303,7 @@ table tr td.update {
 	}
 	
 	
-	// 添加分段
+	// 添加通道
 	function addSegment(){
 		var segmentIndex = $('.segment').length;//每一段有个class="segment"的标记，故统计出段数
 		var output='';	// 拼接显示的内容
@@ -359,13 +383,45 @@ table tr td.update {
 	}
 	
 	function showChange(selfId){
-		$('#saveForm :input').val('');
-		$('#chnlcode').attr("readonly","readonly");//设为只读
-		$("#saveForm").attr("action","channel/updateChannel");
-		$("#ratestd").hide();
-		$("#ratesntd").hide();
-		$("#submitok").show();
-		getinfo(selfId);
+		$('#updateForm :input').val('');
+		$('#merchno').attr("readonly","readonly");//设为只读
+		$('#memberName').attr("readonly","readonly");//设为只读
+		$("#updateForm").attr("action","merchDeta/updateMerchDChnl");
+		
+		$.ajax({
+			   type: "POST",
+			   url: "merchDeta/querydateMerchDChnlById",
+			   data: "selfId="+selfId,
+			   async: false,
+			   dataType:"json",
+			   success: function(json){	
+				   if (json == null) {
+						$.messager.alert('提示', '该商户通道信息不存在，或已被变更，请刷新一下数据再试试！');
+					} else {
+					    $("#merchno").val(json.merchno);
+						$("#memberName").val(json.memberName);
+						$("#chnlmercno").val(json.chnlmercno);
+						showAllChannlupdate(json.chnlcode);
+						
+						$('#wupdate').window({
+							title: '变更商户通道信息',
+							top:100,
+							left:400,
+							width: 800,
+							modal: true,
+							minimizable:false,
+							collapsible:false,
+							maximizable:false,
+							shadow: false,
+							closed: false,
+							height: 409
+						});
+					}
+			    },
+				error : function(){
+					$.messager.alert('提示', '服务异常！');
+				}
+			});
 	}
 </script>
 </html>

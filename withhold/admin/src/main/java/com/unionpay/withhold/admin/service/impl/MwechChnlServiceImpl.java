@@ -14,6 +14,7 @@ import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.mapper.TMerchChnlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
+import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.service.MerchChnlService;
 
@@ -42,4 +43,11 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 			return new ResultBean("", "修改失败！");
 		}
 	}
+	@Override
+	public TMerchChnlWithBLOBs querydateMerchDChnlById(Integer selfId) {
+		
+		return  merchChnlMapper.selectByPrimaryKey(selfId);
+	}
+	
+	
 }
