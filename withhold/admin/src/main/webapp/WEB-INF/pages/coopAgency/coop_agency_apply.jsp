@@ -71,9 +71,9 @@ table tr td select {
 						</select></td>
 					<tr>
 					</tr>
-						<td align="right">创建人</td>
+						<!-- <td align="right">创建人</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="inuser" id="s_inuser" maxlength="8" /></td>
+							name="inuser" id="s_inuser" maxlength="8" /></td> -->
 						<td class="add" align="right">生效状态</td>
 						<td class="add" align="left" style="padding-left: 5px">
 						<select id="s_status" name="status"/>
@@ -83,10 +83,10 @@ table tr td select {
 								<option value='21'>变更被拒</option>
 								<option value='31'>注销被拒</option>
 								</select></td>
-						<td class="add" align="right" colspan="3">
+						<td class="add" align="right" colspan="4">
 							<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查询</a> 
 							<a href="javascript:resize()" class="easyui-linkbutton"iconCls="icon-redo">清空</a></td>
-						<td class="add" align="right"></td>
+<!-- 						<td class="add" align="right"></td> -->
 					</tr>
 				</table>
 			</form>
