@@ -148,13 +148,13 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">渠道</td>
 							<td class="update" align="left">
-							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
+							<select id="cacode" name="cacode"/>
 								<option value=''>--请选择渠道--</option>
-							</select><font color="red">*</font></td>
+							</select></td>
 							
 							<td class="update">交易要素</td>
 							<td class="update" align="left">
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="transfactors"/>
+							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
 								<option value=''>--请选择交易要素--</option>
 							</select><font color="red">*</font></td>
 							

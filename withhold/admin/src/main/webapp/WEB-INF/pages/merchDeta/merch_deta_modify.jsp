@@ -152,9 +152,9 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">渠道</td>
 							<td class="update" align="left">
-							<select id="cacode" class="easyui-validatebox" required="true" missingMessage="请选择渠道" name="cacode"/>
+							<select id="cacode" name="cacode"/>
 								<option value=''>--请选择渠道--</option>
-							</select><font color="red">*</font></td>
+							</select></td>
 							
 							<td class="update">交易要素</td>
 							<td class="update" align="left">
@@ -458,28 +458,32 @@ table tr td select {
 
 	
 	 function logout(merchId,status){
-			$.ajax({
-				type : "POST",
-				url : "merchDeta/commitLogout",
-				dataType : "json",
-				data : {
-					"merchId" : merchId,
-					"status" : status
-				},
-				success : function(json) {
-					if (json.resultBool == true) {
-						$.messager.alert('提示', "注销申请已成功提交！");
-						$('#w').window('close');
-						search();
-					} else {
-						$.messager.alert('提示', json.errMsg);
+		$.messager.confirm('商户注销',
+		'您确定要注销该商户吗?', function(r) {
+			if (r) {
+				$.ajax({
+					type : "POST",
+					url : "merchDeta/commitLogout",
+					dataType : "json",
+					data : {
+						"merchId" : merchId,
+						"status" : status
+					},
+					success : function(json) {
+						if (json.resultBool == true) {
+							$.messager.alert('提示', "注销申请已成功提交！");
+							$('#w').window('close');
+							search();
+						} else {
+							$.messager.alert('提示', json.errMsg);
+						}
+					},
+					error : function() {
+						$.messager.alert('提示', '服务异常！');
 					}
-				},
-				error : function() {
-					$.messager.alert('提示', '服务异常！');
-				}
-			});
-	 }
-	 
+				});
+			}
+		});
+	}
 </script>
 </html>

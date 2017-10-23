@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>风控版本管理</title>
+<title>持卡人黑名单</title>
 </head>
 <body>
-<h2>风控版本管理 正在开发中……
+<h2>持卡人黑名单 正在开发中……
 </body>
 </html>

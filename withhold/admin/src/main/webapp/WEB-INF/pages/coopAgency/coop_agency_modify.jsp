@@ -75,9 +75,9 @@ table tr td select {
 							</select></td>
 						<tr>
 						</tr>
-						<td align="right">创建人</td>
+						<!-- <td align="right">创建人</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="inuser" id="s_inuser" maxlength="8" /></td>
+							name="inuser" id="s_inuser" maxlength="8" /></td> -->
 						<!-- <td class="add" align="right">生效状态</td>
 						<td class="add" align="left" style="padding-left: 5px"><select
 							id="s_status" name="status" />
@@ -85,11 +85,11 @@ table tr td select {
 							<option value='10'>注册待审</option>
 							<option value='20'>变更待审</option>
 							<option value='30'>注销待审</option> </select></td> -->
-						<td class="add" align="right" colspan="4"><a
+						<td class="add" align="right" colspan="6"><a
 							href="javascript:search()" class="easyui-linkbutton"
 							iconCls="icon-search">查询</a> <a href="javascript:resize()"
 							class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
-						<td class="add" align="right"></td>
+<!-- 						<td class="add" align="right"></td> -->
 						</tr>
 					</table>
 				</form>
@@ -522,29 +522,34 @@ table tr td select {
 
 	
 	 function logout(caid,status){
-			$.ajax({
-				type : "POST",
-				url : "coopAgency/commitLogout",
-				dataType : "json",
-				data : {
-					"caid" : caid,
-					"status" : status
-				},
-				success : function(json) {
-					//json = JSON.parse(json);
-					if (json.resultBool == true) {
-						$.messager.alert('提示', "注销申请已成功提交！");
-						$('#w').window('close');
-						search();
-					} else {
-						$.messager.alert('提示', json.errMsg);
+		 
+	$.messager.confirm('渠道注销',
+		'您确定要注销该渠道吗?', function(r) {
+			if (r) {
+				$.ajax({
+					type : "POST",
+					url : "coopAgency/commitLogout",
+					dataType : "json",
+					data : {
+						"caid" : caid,
+						"status" : status
+					},
+					success : function(json) {
+						//json = JSON.parse(json);
+						if (json.resultBool == true) {
+							$.messager.alert('提示', "注销申请已成功提交！");
+							$('#w').window('close');
+							search();
+						} else {
+							$.messager.alert('提示', json.errMsg);
+						}
+					},
+					error : function() {
+						$.messager.alert('提示', '服务异常！');
 					}
-				},
-				error : function() {
-					$.messager.alert('提示', '服务异常！');
-				}
-			});
-	 }
-	 
+				});
+			}
+		});
+	}
 </script>
 </html>
