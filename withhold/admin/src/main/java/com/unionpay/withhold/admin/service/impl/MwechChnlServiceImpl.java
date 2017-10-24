@@ -23,12 +23,13 @@ import com.unionpay.withhold.admin.service.MerchChnlService;
 public class MwechChnlServiceImpl implements MerchChnlService {
 	@Autowired
 	private TMerchChnlMapper merchChnlMapper;
+
 	@Override
 	public PageBean queryMerchChnl(TMerchDeta merchDeta, Integer page, Integer rows) {
 		// 查分页数据
 				Integer beginRow = (page - 1) * rows;
 
-				List<TMerchChnl> list = merchChnlMapper.selectChnlWithCondition(merchDeta,  beginRow, rows);
+				List<TMerchChnlWithBLOBs> list = merchChnlMapper.selectChnlWithCondition(merchDeta,  beginRow, rows);
 				int count = merchChnlMapper.selectCountWithCondition(merchDeta);
 
 				return new PageBean(count, list);
@@ -44,9 +45,9 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		}
 	}
 	@Override
-	public TMerchChnlWithBLOBs querydateMerchDChnlById(Integer selfId) {
+	public TMerchChnlWithBLOBs querydateMerchDChnlById(Integer tid) {
 		
-		return  merchChnlMapper.selectByPrimaryKey(selfId);
+		return  merchChnlMapper.selectChnlByPrimaryKey(tid);
 	}
 	
 	

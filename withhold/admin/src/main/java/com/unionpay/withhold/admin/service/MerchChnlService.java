@@ -27,6 +27,6 @@ public interface MerchChnlService {
 	 * @param selfId
 	 * @return
 	 */
-	TMerchChnlWithBLOBs querydateMerchDChnlById(Integer selfId);
+	TMerchChnlWithBLOBs querydateMerchDChnlById(Integer tid);
 
 }

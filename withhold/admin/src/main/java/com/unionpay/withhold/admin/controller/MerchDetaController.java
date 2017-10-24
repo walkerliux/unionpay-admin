@@ -417,11 +417,11 @@ public class MerchDetaController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping("/querydateMerchDChnlById")
-	public TMerchChnlWithBLOBs querydateMerchDChnlById(Integer selfId) {
-		if (selfId == null) {
+	@RequestMapping("/querydateMerchChnlById")
+	public TMerchChnlWithBLOBs querydateMerchChnlById(Integer tid) {
+		if (tid == null) {
 			return null;
 		}
-		return merchChnlService.querydateMerchDChnlById(selfId);
+		return merchChnlService.querydateMerchDChnlById(tid);
 	}
 }
