@@ -75,13 +75,14 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 			criteria.andCaidEqualTo(coopAgency.getCaid());
 			criteria.andStatusIn(Arrays.asList(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
-					CoopAgencyStatusEnums.LOGOUTCHECKING.getCode(),
-					CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode()));
+					CoopAgencyStatusEnums.LOGOUTCHECKING.getCode()
+					//,CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode()-被拒的信息不参与新的业务
+					));
 			if (this.coopAgencyApplyMapper.countByExample(coopAgencyApplyExample) > 0) {
 				return new ResultBean("", "已提交过注销或变更申请，不允许再次提交！");
 			}
 
-			// 把信息添加到申请表吧
+			// 把信息添加到申请表
 			TCoopAgencyApply coopAgencyApply = BeanCopyUtil.copyBean(TCoopAgencyApply.class, coopAgency);
 			coopAgencyApply.setIntime(new Date());
 			coopAgencyApply.setInuser(coopAgency.getInuser());
@@ -111,13 +112,14 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 			criteria.andCaidEqualTo(coopAgency.getCaid());
 			criteria.andStatusIn(Arrays.asList(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
-					CoopAgencyStatusEnums.LOGOUTCHECKING.getCode(),
-					CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode()));
+					CoopAgencyStatusEnums.LOGOUTCHECKING.getCode()
+					//,CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode()-被拒的信息不参与新的业务
+					));
 			if (this.coopAgencyApplyMapper.countByExample(coopAgencyApplyExample) > 0) {
 				return new ResultBean("", "已提交过注销或变更申请，不允许再次提交！");
 			}
 
-			// 把信息添加到申请表吧
+			// 把信息添加到申请表
 			TCoopAgencyApply coopAgencyApply = BeanCopyUtil.copyBean(TCoopAgencyApply.class, agencyBack);
 			coopAgencyApply.setIntime(new Date());
 			coopAgencyApply.setInuser(coopAgency.getInuser());
