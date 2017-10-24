@@ -333,7 +333,7 @@ table tr td select {
 					"status":status
 				},
 				success: function(json) {
-					$('.rateId').linkbutton('enable');
+					$('.checkmd').linkbutton('enable');
 		    		if(json.resultBool==true){
 						 $.messager.alert('提示',"已审核通过！");
 						 $('#w').window('close');
