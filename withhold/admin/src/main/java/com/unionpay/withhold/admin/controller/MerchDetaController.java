@@ -1,7 +1,6 @@
 package com.unionpay.withhold.admin.controller;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,11 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
-import com.unionpay.withhold.admin.pojo.TCoopAgency;
-import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
+
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
 import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
+
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;

@@ -36,7 +36,6 @@ import com.unionpay.withhold.admin.utils.MyCookieUtils;
 public class RoleController {
 	@Autowired
 	private UserService userService;
-	
 	@Autowired
 	private RoleService roleService;
 	@Autowired

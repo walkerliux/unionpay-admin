@@ -101,15 +101,37 @@ public class StatisticController {
 	/**
 	 * 查询商户号所有核心流水
 	 * 
-	 * @return
+	 * @return 
 	 */
 	@ResponseBody
     @RequestMapping("/getTnxLogInfoByMerno")
-	public List<TTxnsLog> getTnxLogInfoByMerno(String accsecmerno){
-		List<TTxnsLog> tTxnsLog=tTxnsLogService.getTnxLogInfoByMerno(accsecmerno);
+	public PageBean getTnxLogInfoByMerno(String accsecmerno,String retcode,String stime,String etime,int page,int rows){
+		PageBean tTxnsLog=tTxnsLogService.getTnxLogInfoByMerno(accsecmerno,retcode,stime,etime,page, rows);
 		
 		return tTxnsLog;
 	}
-	
-	
+	/**
+	 * 查询商户号所有核心流水
+	 * 
+	 * @return 
+	 */
+	@ResponseBody
+    @RequestMapping("/getTnxLogInfoByCoopno")
+	public PageBean getTnxLogInfoByCoopno(String accfirmerno,String retcode,String stime,String etime,int page,int rows){
+		PageBean tTxnsLog=tTxnsLogService.getTnxLogInfoByCoopno(accfirmerno,retcode,stime,etime,page, rows);
+		
+		return tTxnsLog;
+	}
+	/**
+	 * 查询商户号所有核心流水
+	 * 
+	 * @return 
+	 */
+	@ResponseBody
+    @RequestMapping("/getTnxLogInfoByPayinst")
+	public PageBean getTnxLogInfoByPayinst(String payinst,String retcode,String stime,String etime,int page,int rows){
+		PageBean tTxnsLog=tTxnsLogService.getTnxLogInfoByPayinst(payinst,retcode,stime,etime,page, rows);
+		
+		return tTxnsLog;
+	}
 }

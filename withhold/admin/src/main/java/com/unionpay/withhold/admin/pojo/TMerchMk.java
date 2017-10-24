@@ -37,6 +37,8 @@ public class TMerchMk {
 
     private String remarks;
 
+    private String certid;
+
     public Integer getSafeseq() {
         return safeseq;
     }
@@ -179,5 +181,13 @@ public class TMerchMk {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
+    }
+
+    public String getCertid() {
+        return certid;
+    }
+
+    public void setCertid(String certid) {
+        this.certid = certid == null ? null : certid.trim();
     }
 }

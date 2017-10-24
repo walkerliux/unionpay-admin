@@ -23,12 +23,16 @@ public interface TTxnsLogMapper {
 	//按通道统计
 	List<TTxnsLog> selectByChnlId(TTxnsLogExample tTxnsLogExample);
 	
-	//countByMerchIdExample按商户号统计总记录数  不加分页
+	//按商户号统计总记录数  不加分页
 	List<TTxnsLog> countByMerchIdExample(TTxnsLogExample tTxnsLogExample);
-	//countByMerchIdExample按通道号统计总记录数  不加分页
+	//按通道号统计总记录数  不加分页
 	List<TTxnsLog> countByChnlIdExample(TTxnsLogExample tTxnsLogExample);
-	//countByMerchIdExample按渠道号统计总记录数  不加分页
+	//按渠道号统计总记录数  不加分页
 	List<TTxnsLog> countByCoopIdExample(TTxnsLogExample tTxnsLogExample);
-
-	
+	//根据商户号查询统计后的详情
+	List<TTxnsLog> selectInfoByMernoId(TTxnsLogExample tTxnsLogExample);
+	//根据渠道号查询统计后的详情
+	List<TTxnsLog> selectInfoByCoopId(TTxnsLogExample tTxnsLogExample);
+	//根据通道号查询统计后的详情
+	List<TTxnsLog> selectInfoByChnlId(TTxnsLogExample tTxnsLogExample);
 }

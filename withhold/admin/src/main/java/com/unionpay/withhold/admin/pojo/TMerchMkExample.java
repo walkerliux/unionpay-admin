@@ -1353,6 +1353,76 @@ public class TMerchMkExample {
             addCriterion("REMARKS not between", value1, value2, "remarks");
             return (Criteria) this;
         }
+
+        public Criteria andCertidIsNull() {
+            addCriterion("CERTID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidIsNotNull() {
+            addCriterion("CERTID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidEqualTo(String value) {
+            addCriterion("CERTID =", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotEqualTo(String value) {
+            addCriterion("CERTID <>", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidGreaterThan(String value) {
+            addCriterion("CERTID >", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidGreaterThanOrEqualTo(String value) {
+            addCriterion("CERTID >=", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLessThan(String value) {
+            addCriterion("CERTID <", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLessThanOrEqualTo(String value) {
+            addCriterion("CERTID <=", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidLike(String value) {
+            addCriterion("CERTID like", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotLike(String value) {
+            addCriterion("CERTID not like", value, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidIn(List<String> values) {
+            addCriterion("CERTID in", values, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotIn(List<String> values) {
+            addCriterion("CERTID not in", values, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidBetween(String value1, String value2) {
+            addCriterion("CERTID between", value1, value2, "certid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertidNotBetween(String value1, String value2) {
+            addCriterion("CERTID not between", value1, value2, "certid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

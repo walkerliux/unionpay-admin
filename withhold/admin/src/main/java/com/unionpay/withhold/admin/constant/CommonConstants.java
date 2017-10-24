@@ -12,5 +12,9 @@ public class CommonConstants {
 	public final static String MCCLIST_STATUS_NORMAL = "1";
 	/** 非正常状态  **/
 	public final static String MCCLIST_STATUS_UNNORMAL = "0";
+	
+	// 商户密钥状态
+	/** 正常状态 **/
+	public final static String MERCH_MK_STATUS_NORMAL = "00";
 
 }

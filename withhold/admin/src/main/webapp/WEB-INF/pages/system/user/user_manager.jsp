@@ -85,10 +85,9 @@ table tr td select {
 						type="hidden" id="user_status" name="status" />
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
-							<td>用户代码</td>
+							<!-- <td>用户代码</td>
 							<td align="left"><input type="text" id="user_code"
-								name="userCode" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入用户代码" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								name="userCode" value="自动生成"/></td> -->
 							<td>用户名称</td>
 							<td align="left"><input type="text" id="user_name"
 								name="userName" class="easyui-validatebox" required="true"
@@ -243,10 +242,20 @@ table tr td select {
 				url:'user/query',
 				remoteSort: false,
 				columns:[[
-					{field:'userCode',title:'用户代码',align:'center',width:150},
+					{field:'isadmin',title:'用户类型',align:'center',width:150,
+						formatter:function(value, row) { 
+							if(value="1"){
+								return "管理员";
+							}
+							if(value="0"){
+								return "普通用户";
+							}
+						}
+					},
 					{field:'userName',title:'用户名称',align:'center',width:150},
+					{field:'userCode',title:'用户代码',width:100,align:'center'},
 					{field:'loginName',title:'登陆账号',width:180,align:'center'},
-					/* {field:'ORGAN_NAME',title:'所属机构',width:100,align:'center'},
+					/* 
 					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'}, */
 					{field:'creator',title:'创建者',width:180,align:'center'},
 					{field:'createDate',title:'创建时间',width:200,align:'center',
@@ -272,9 +281,7 @@ table tr td select {
 						formatter:function(value,rec){
 							if(rec.status=="00"){
 								return '<a href="javascript:showUser('+value+')" style="color:blue;margin-left:10px">修改</a>'+
-								'<a href="javascript:ToUserAuthority('+value+')" style="color:blue;margin-left:10px">赋权</a>'+
-								
-								/* '<a href="javascript:UserPasswordReset('+value+')" style="color:blue;margin-left:10px">密码重置</a>'+ */
+								/* '<a href="javascript:ToUserAuthority('+value+')" style="color:blue;margin-left:10px">赋权</a>'+ */					
 								'<a href="javascript:ToSelectRole('+value+')" style="color:blue;margin-left:10px">绑定角色</a>'+
 								'<a href="javascript:deleteUser('+value+')" style="color:blue;margin-left:10px">注销</a>'
 								;
@@ -293,7 +300,7 @@ table tr td select {
 					text:'新增用户',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#user_code").removeAttr('readonly');
+						$("#user_code").attr('readonly','readonly');
 						showAdd(0);
 						$("#saveForm").attr("action","user/save");
 					},   
@@ -329,60 +336,7 @@ table tr td select {
 			   }
 			});
 		} 
-		/* function showDept(flag){
-			var organId;
-			if(flag==1){//查询条件
-				organId=$("#userOrganId").val();
-			}else{
-				organId=$("#user_organId").val();
-			}
-			var html = '<option value="">--请选择所属部门--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "user/showDept",
-			  	data: "rand="+new Date().getTime()+"&organId="+organId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.deptId+'">'+value.deptName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#userDeptId").html(html);
-					}else{
-						$("#user_deptId").html(html);
-					}
-			 	}
-			});
-		} */
-
-	/* 	function showRole(flag){
-			var roleId;
-			if(flag==1){//查询条件
-				roleId=$("#userRoleId").val();
-			}else{
-				roleId=$("#user_deptId").val();
-			} 
-			var html = '<option value="">--请选择用户角色--</option>';
-			$.ajax({
-				type: "GET",
-			  	url: "user/showRole",
-			  	//data: "rand="+new Date().getTime()+"&roleId="+roleId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
-					})
-					
-					if(flag==1){//查询条件
-						$("#userRoleId").html(html);
-					}else{
-						/* $("#user_roleId").html(html); 
-					}
-			 	}
-			});
-		}  
-		*/
+		
 		function resize(){
 			$('#searchForm :input').val('');
 		}
@@ -500,7 +454,7 @@ table tr td select {
 		}
 
 		function deleteUser(userId){
-			$.messager.confirm('提示','您是否想要注销此用户?',function(r){   
+			$.messager.confirm('提示','账户注销后无法恢复，确定需要注销？',function(r){   
 			   if (r){  
 				$.ajax({
 				   type: "POST",
@@ -628,11 +582,11 @@ table tr td select {
 		            	userFunc+=txt+",";; //添加到数组中
 		        });
 		    });
-		   if(userFunc == ""){
+		   /* if(userFunc == ""){
 			   $('#w2').window('close');
 			   $.messager.alert('提示',"用户为配置角色！");
 			   return false;
-		   }
+		   } */
 		    $.ajax({
 				type: "POST",
 			    url: "user/SaveUserRole",

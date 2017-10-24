@@ -51,9 +51,9 @@ public class TTxnsLog {
 
     private String accordinst;//受理订单所属机构
 
-    private String accsecmerno;//受理二级商户号
+    private String accsecmerno;//受理二级商户号(商户号)
 
-    private String accfirmerno;//受理一级商户号
+    private String accfirmerno;//受理一级商户号(渠道号)
 
     private String accsettledate;//受理清算日期
 
@@ -71,9 +71,9 @@ public class TTxnsLog {
 
     private String payinst;//通道代码
 
-    private String payfirmerno;//支付一级商户号(渠道号)
+    private String payfirmerno;//支付一级商户号
 
-    private String paysecmerno;//支付二级商户号(商户号)
+    private String paysecmerno;//支付二级商户号
 
     private String payordcomtime;//支付定单提交时间
 
@@ -690,26 +690,27 @@ public class TTxnsLog {
     public void setPathcode(String pathcode) {
         this.pathcode = pathcode == null ? null : pathcode.trim();
     }
-    
-    private String memberName;
+  //新加 关联字段
+    private String memberName;//商户名
+	private String chnlname;//通道名
+	private String caname;//渠道名
+	private String tradeelement;//TRADEELEMENT
+	private int total;//count统计总数
 
-	public String getMemberName() {
-		return memberName;
+	public String getChnlname() {
+		return chnlname;
 	}
 
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
-	//新加 
-	private String othername;
-	private int total;
-
-	public String getOthername() {
-		return othername;
+	public void setChnlname(String chnlname) {
+		this.chnlname = chnlname;
 	}
 
-	public void setOthername(String othername) {
-		this.othername = othername;
+	public String getCaname() {
+		return caname;
+	}
+
+	public void setCaname(String caname) {
+		this.caname = caname;
 	}
 
 	public int getTotal() {
@@ -719,6 +720,20 @@ public class TTxnsLog {
 	public void setTotal(int total) {
 		this.total = total;
 	}
-	
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+
+	public String getTradeelement() {
+		return tradeelement;
+	}
+
+	public void setTradeelement(String tradeelement) {
+		this.tradeelement = tradeelement;
+	}
     
 }
