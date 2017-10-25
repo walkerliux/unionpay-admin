@@ -177,6 +177,86 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 		List<TTxnsLog> result = tTxnsLogMapper.selectInfoByChnlId(tTxnsLogExample);
 		return new PageBean(total, result);
 	}
+
+	@Override
+	public PageBean getMerchDayCountByPage(String accsecmerno,
+			String dayormonth, String stime, String etime, int page, int rows) {
+		
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accsecmerno!=null&&!"".equals(accsecmerno)) {
+			tTxnsLogExample.setAccsecmerno(accsecmerno);
+		}
+		if (dayormonth!=null&&!"".equals(dayormonth)) {
+			tTxnsLogExample.setDayormonth(dayormonth);
+		}
+		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+			tTxnsLogExample.setEndtime(endTime);
+			
+		}
+		int total = tTxnsLogMapper.selectMerchDayCountBymerId(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectMerchDayCountBymerId(tTxnsLogExample);
+		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getMerDayCountInfo(String accsecmerno, String txndate,
+			 int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accsecmerno!=null&&!"".equals(accsecmerno)) {
+			tTxnsLogExample.setAccsecmerno(accsecmerno);
+		}
+		if (txndate!=null&&!"".equals(txndate)) {
+			String startTime = DateTimeReplaceUtil.replace(txndate);
+			//String endTime = DateTimeReplaceUtil.replace(etime);
+			tTxnsLogExample.setStarttime(startTime);
+		}
+		int total = tTxnsLogMapper.selectMerchDayCountInfo(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectMerchDayCountInfo(tTxnsLogExample);
+		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getCoopMonthCountByPage(String accfirmerno, String year,
+			String month, int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accfirmerno!=null&&!"".equals(accfirmerno)) {
+			tTxnsLogExample.setAccsecmerno(accfirmerno);
+		}
+		if (year!=null&&!"".equals(year)&&month!=null&&!"".equals(month)) {
+			
+			tTxnsLogExample.setStarttime(year+month);
+		}
+		int total = tTxnsLogMapper.selectCoopMonthByPage(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectCoopMonthByPage(tTxnsLogExample);
+		return new PageBean(total, result);
+	}
+
+	@Override
+	public PageBean getCoopMonthCountInfo(String accfirmerno, String txndate,
+			 int page, int rows) {
+		TTxnsLogExample tTxnsLogExample = new TTxnsLogExample();
+		if (accfirmerno!=null&&!"".equals(accfirmerno)) {
+			tTxnsLogExample.setAccsecmerno(accfirmerno);
+		}
+		if (txndate!=null&&!"".equals(txndate)) {
+			
+			tTxnsLogExample.setStarttime(txndate);
+		}
+		int total = tTxnsLogMapper.selectCoopMonthInfo(tTxnsLogExample).size();
+		tTxnsLogExample.setPageNum(page);
+		tTxnsLogExample.setPageSize(rows);
+		List<TTxnsLog> result = tTxnsLogMapper.selectCoopMonthInfo(tTxnsLogExample);
+		return new PageBean(total, result);
+	}
 	
 
 }

@@ -670,5 +670,148 @@ SELECT
 	limit #{beginRow},#{pageSize}
 	</if>
 	</select>
+	<!--商户日结算 -->
+	<select id="selectMerchDayCountBymerId" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+	SELECT
+	a.TXNDATE,
+	a.ACCSECMERNO,
+	b.CANAME,
+	a.PAYINST,
+	a.ACCFIRMERNO,
+	COUNT(a.amount) total,
+	SUM(a.amount) amount,
+	SUM(a.TXNFEE) txnfee
+	<if test="distinct" >
+      distinct
+    </if>
+	FROM
+	view_txns_log a
+	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
+	WHERE 1=1
+	<if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="starttime!=null">
+	and a.TXNDATE &gt;=#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and a.TXNDATE &lt;#{endtime}
+	</if>
+	<if test="dayormonth==null">
+	GROUP BY a.TXNDATE
+	</if> 
+	<if test='dayormonth!=null and dayormonth=="00"'>
+	GROUP BY a.TXNDATE
+	</if>
+	<if test='dayormonth!=null and dayormonth=="01"'>
+	GROUP BY
+	SUBSTR(a.TXNDATE,1,6)
+	</if>
+	<if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+	</select>
+	<!--商户日结算详情 -->
+	<select id="selectMerchDayCountInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+	SELECT
+	a.TXNSEQNO,
+	a.TXNTIME,
+	a.TXNDATE,
+	a.ACCSECMERNO,
+	a.PAN,
+	a.PAN_NAME,
+	a.AMOUNT,
+	a.TXNFEE,
+	c.MEMBER_NAME memberName,
+	b.CANAME
+	<if test="distinct" >
+      distinct
+    </if>
+    FROM
+	view_txns_log a
+	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
+	LEFT JOIN t_merch_deta c on a.ACCSECMERNO = c.MEMBER_ID
+	WHERE 1=1
+    <if test="accsecmerno!=null">
+	and a.ACCSECMERNO=#{accsecmerno}
+	</if>
+	<if test="starttime!=null and starttime.length()==8">
+	and a.TXNDATE =#{starttime}
+	</if>
+	<if test="starttime!=null and starttime.length()==6">
+	and SUBSTR(a.TXNDATE,1,6) =#{starttime}
+	</if>
 	
+	<if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+	</select>
+	<!--渠道月分润结算 -->
+	<select id="selectCoopMonthByPage" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+	SELECT
+	a.TXNDATE,
+	a.ACCSECMERNO,
+	b.CANAME,
+	c.CHNLNAME,
+	a.PAYINST,
+	a.ACCFIRMERNO,
+	COUNT(a.amount) total,
+	SUM(a.amount) amount,
+	SUM(a.TXNFEE) txnfee,
+	SUM(a.CHNLFEE) chnlfee,
+	SUM(a.coopfee) coopfee
+	<if test="distinct" >
+      distinct
+    </if>
+    FROM
+	view_txns_log a
+	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
+	LEFT JOIN t_chnl_deta c on a.PAYINST = c.CHNLCODE
+	WHERE 1=1
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	<if test="starttime!=null and starttime.length()==6">
+	and SUBSTR(a.TXNDATE,1,6) =#{starttime}
+	</if>
+	GROUP BY
+	SUBSTR(a.TXNDATE,1,6)
+	<if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+	</select>
+	<!--渠道月分润详情 -->
+	<select id="selectCoopMonthInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
+	SELECT
+	a.TXNSEQNO,
+	a.TXNTIME,
+	a.TXNDATE,
+	a.ACCSECMERNO,
+	a.ACCFIRMERNO,
+	a.PAN,
+	a.PAN_NAME,
+	a.AMOUNT,
+	a.TXNFEE,
+	a.COOPFEE,
+	a.CHNLFEE,
+	c.MEMBER_NAME memberName,
+	b.CANAME
+	<if test="distinct" >
+      distinct
+    </if>
+    FROM
+	view_txns_log a
+	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
+	LEFT JOIN t_merch_deta c on a.ACCSECMERNO = c.MEMBER_ID
+	WHERE 1=1
+	<if test="accfirmerno!=null">
+	and a.ACCFIRMERNO=#{accfirmerno}
+	</if>
+	<if test="starttime!=null and starttime.length()==6">
+	and SUBSTR(a.TXNDATE,1,6) =#{starttime}
+	</if>
+	<if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+	</select>
 </mapper>

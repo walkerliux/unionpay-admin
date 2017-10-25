@@ -5038,8 +5038,16 @@ public class TTxnsLogExample {
     private String retcode;//中心应答码状态"0000"成功
     private String payinst;//通道号
    
+    private String dayormonth;
     
-    
+	public String getDayormonth() {
+		return dayormonth;
+	}
+
+	public void setDayormonth(String dayormonth) {
+		this.dayormonth = dayormonth;
+	}
+
 	public String getAccfirmerno() {
 		return accfirmerno;
 	}

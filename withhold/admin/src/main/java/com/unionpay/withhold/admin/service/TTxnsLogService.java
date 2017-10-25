@@ -24,4 +24,15 @@ public interface TTxnsLogService {
 	PageBean getTnxLogInfoByPayinst(String payinst, String retcode,
 			String stime, String etime, int page, int rows);
 
+	PageBean getMerchDayCountByPage(String accsecmerno, String dayormonth,
+			String stime, String etime, int page, int rows);
+
+	PageBean getMerDayCountInfo(String accsecmerno,String txndate, int page, int rows);
+
+	PageBean getCoopMonthCountByPage(String accfirmerno, String year,
+			String month, int page, int rows);
+
+	PageBean getCoopMonthCountInfo(String accfirmerno, String txndate,
+			 int page, int rows);
+
 }
