@@ -2,6 +2,8 @@ package com.unionpay.withhold.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +14,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 @Controller
 @RequestMapping("/risk")
@@ -25,7 +31,8 @@ public class RiskController {
 	private RiskService riskService;
 	@Autowired
 	private ParaDicService paraDicService;
-	
+	@Autowired
+	private UserService userService;
 	/**
 	 * 风控版本管理
 	 * 
@@ -117,7 +124,7 @@ public class RiskController {
 	}
 	
 	/**
-	 * 查询风控列表
+	 * 查询风控版本列表
 	 * @return
 	 */
 	@ResponseBody
@@ -153,5 +160,56 @@ public class RiskController {
 		PageInfo<TRisk> pageInfo=new PageInfo<>(list);
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
+	}
+	
+	/**
+	 * 查询风控版本信息详情
+	 * 
+	 * @param riskid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryRiskByRiskid")
+	public TRisk queryRiskByRiskid(Long riskid) {
+		return riskid == null ? null : riskService.queryRiskByRiskid(riskid);
+	}
+	
+	/**
+	 * 新增风控版本信息
+	 * @param risk
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addRisk")
+	public ResultBean addRisk(TRisk risk, HttpServletRequest request){
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		risk.setInuser(infoByToken.getUserId().longValue());
+		try {
+			return riskService.addRisk(risk);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 修改风控版本信息
+	 * 
+	 * @param risk
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateRisk")
+	public ResultBean updateRisk(TRisk risk, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		risk.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return riskService.updateRisk(risk);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
 	}
 }
