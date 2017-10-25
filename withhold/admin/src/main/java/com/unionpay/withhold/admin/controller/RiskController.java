@@ -8,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
+import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskService;
 
 @Controller
@@ -16,6 +19,8 @@ import com.unionpay.withhold.admin.service.RiskService;
 public class RiskController {
 	@Autowired
 	private RiskService riskService;
+	@Autowired
+	private ParaDicService paraDicService;
 	
 	/**
 	 * 风控版本管理
@@ -107,9 +112,23 @@ public class RiskController {
 		return "/risk/card_day_amt_limit";
 	}
 	
+	/**
+	 * 查询风控列表
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/getAllRiskList")
 	public List<TRisk> getAllRiskList(){
 		return riskService.getAllRiskList();
+	}
+	
+	/**
+	 * 查询所有的风险级别
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/showAllRisklevel")
+	public List<TParaDic> showAllRisklevel(){
+		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.RISKLEVEL.getCode());
 	}
 }

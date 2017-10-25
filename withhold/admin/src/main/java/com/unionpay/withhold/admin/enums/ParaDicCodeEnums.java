@@ -7,6 +7,8 @@ public enum ParaDicCodeEnums {
 	SAFETYPE("safetype"),
 	/** 存储方式 **/
 	STORGETYPE("storgetype"),
+	/** 风险级别 **/
+	RISKLEVEL("risklevel"),
 	UNKNOW("unknow");
 	private String code;
 
