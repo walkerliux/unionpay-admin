@@ -6,9 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
+import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskService;
 
 @Controller
@@ -16,6 +23,8 @@ import com.unionpay.withhold.admin.service.RiskService;
 public class RiskController {
 	@Autowired
 	private RiskService riskService;
+	@Autowired
+	private ParaDicService paraDicService;
 	
 	/**
 	 * 风控版本管理
@@ -107,9 +116,42 @@ public class RiskController {
 		return "/risk/card_day_amt_limit";
 	}
 	
+	/**
+	 * 查询风控列表
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/getAllRiskList")
 	public List<TRisk> getAllRiskList(){
 		return riskService.getAllRiskList();
+	}
+	
+	/**
+	 * 查询所有的风险级别
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/showAllRisklevel")
+	public List<TParaDic> showAllRisklevel(){
+		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.RISKLEVEL.getCode());
+	}
+	
+	/**
+	 * 查询风控分页信息
+	 * 
+	 * @param risk
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryRisk")
+	public PageBean queryRisk(TRisk risk,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		PageHelper.startPage(page, rows);
+		List<TRisk> list=  riskService.selectRiskByCondition(risk);
+		PageInfo<TRisk> pageInfo=new PageInfo<>(list);
+		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
+		return pageBean;
 	}
 }

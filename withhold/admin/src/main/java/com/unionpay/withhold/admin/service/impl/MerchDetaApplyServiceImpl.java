@@ -38,7 +38,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			statuses.add(MerchDetaStatusEnums.REGISTERCHECKING.getCode());// 注册待审
 			statuses.add(MerchDetaStatusEnums.REGISTERCHECKREFUSED.getCode());// 注册审核拒绝
 			statuses.add(MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode());// 变更被拒
-			statuses.add(MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode());// 注销被拒
+			// statuses.add(MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode());// 注销被拒-不做业务处理，也不显示
 		} else {
 			statuses.add(merchDetaApply.getStatus());
 		}
@@ -96,8 +96,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				status = MerchDetaStatusEnums.REGISTERCHECKING;
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode())) {// 变更被拒——待审
 				status = MerchDetaStatusEnums.UPDATEAFTERCHECKED;
-			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode())) {// 注销被拒——待审
-				status = MerchDetaStatusEnums.LOGOUTCHECKING;
+//			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode())) {// 注销被拒——待审--不做业务处理
+//				status = MerchDetaStatusEnums.LOGOUTCHECKING;
 			} else {
 				return new ResultBean("", "信息有误，操作失败！");
 			}

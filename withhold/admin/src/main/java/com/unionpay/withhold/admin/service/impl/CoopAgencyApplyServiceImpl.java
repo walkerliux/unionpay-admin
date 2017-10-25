@@ -112,8 +112,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				status = CoopAgencyStatusEnums.REGISTERCHECKING;
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode())) {// 变更被拒——待审
 				status = CoopAgencyStatusEnums.UPDATEAFTERCHECKED;
-			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode())) {// 注销被拒——待审
-				status = CoopAgencyStatusEnums.LOGOUTCHECKING;
+//			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode())) {// 注销被拒——待审--不做处理
+//				status = CoopAgencyStatusEnums.LOGOUTCHECKING;
 			} else {
 				return new ResultBean("", "信息有误，操作失败！");
 			}
@@ -321,7 +321,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKING.getCode());// 注册待审
 			statuses.add(CoopAgencyStatusEnums.REGISTERCHECKREFUSED.getCode());// 注册审核拒绝
 			statuses.add(CoopAgencyStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode());// 变更被拒
-			statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode());// 注销被拒
+			//statuses.add(CoopAgencyStatusEnums.LOGOUTCHECKREFUSED.getCode());// 注销被拒-不再显示
 		} else {
 			statuses.add(coopAgencyApply.getStatus());
 		}

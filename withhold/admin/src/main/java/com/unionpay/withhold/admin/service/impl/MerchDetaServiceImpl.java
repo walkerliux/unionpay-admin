@@ -67,8 +67,9 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			criteria.andMerchIdEqualTo(merchDeta.getMerchId());
 			criteria.andStatusIn(Arrays.asList(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
-					MerchDetaStatusEnums.LOGOUTCHECKING.getCode(),
-					MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode()));
+					MerchDetaStatusEnums.LOGOUTCHECKING.getCode()
+					//,MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode()--注销被拒的，不再做业务处理
+					));
 			if (this.merchDetaApplyMapper.countByExample(merchDetaApplyExample)> 0) {
 				return new ResultBean("", "已提交过注销或变更申请，不允许再次提交！");
 			}
@@ -102,8 +103,9 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			criteria.andMerchIdEqualTo(merchDeta.getMerchId());
 			criteria.andStatusIn(Arrays.asList(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode(),
 					MerchDetaStatusEnums.UPDATEAFTERCHECKEDREFUSED.getCode(),
-					MerchDetaStatusEnums.LOGOUTCHECKING.getCode(),
-					MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode()));
+					MerchDetaStatusEnums.LOGOUTCHECKING.getCode()
+					//,MerchDetaStatusEnums.LOGOUTCHECKREFUSED.getCode()--注销被拒的，不再做业务处理
+					));
 			if (this.merchDetaApplyMapper.countByExample(merchDetaApplyExample) > 0) {
 				return new ResultBean("", "已提交过注销或变更申请，不允许再次提交！");
 			}
