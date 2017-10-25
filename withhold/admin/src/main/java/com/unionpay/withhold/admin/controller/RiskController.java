@@ -6,8 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
@@ -130,5 +134,24 @@ public class RiskController {
 	@RequestMapping("/showAllRisklevel")
 	public List<TParaDic> showAllRisklevel(){
 		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.RISKLEVEL.getCode());
+	}
+	
+	/**
+	 * 查询风控分页信息
+	 * 
+	 * @param risk
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryRisk")
+	public PageBean queryRisk(TRisk risk,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		PageHelper.startPage(page, rows);
+		List<TRisk> list=  riskService.selectRiskByCondition(risk);
+		PageInfo<TRisk> pageInfo=new PageInfo<>(list);
+		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
+		return pageBean;
 	}
 }

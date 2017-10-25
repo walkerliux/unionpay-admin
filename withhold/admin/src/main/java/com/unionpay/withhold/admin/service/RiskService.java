@@ -10,4 +10,12 @@ public interface RiskService {
 	 * @return
 	 */
 	List<TRisk> getAllRiskList();
+
+	/**
+	 * 查询风控分页信息
+	 * 
+	 * @param risk
+	 * @return
+	 */
+	List<TRisk> selectRiskByCondition(TRisk risk);
 }
