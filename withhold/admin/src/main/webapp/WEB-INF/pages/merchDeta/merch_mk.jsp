@@ -63,10 +63,10 @@ table tr td select {
 					<tr>
 						<td align="right">商户号</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="memberId" id="s_memberId" maxlength="8" /></td>
+							name="memberId" id="s_memberId" maxlength="15" /></td>
 						<td align="right">商户名称</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="memberName" id="s_memberName" maxlength="8" /></td>
+							name="memberName" id="s_memberName" maxlength="64" /></td>
 						<td class="add" align="right">渠道</td>
 						<td class="add" align="left" style="padding-left: 5px">
 						<select id="s_cacode" name="cacode">

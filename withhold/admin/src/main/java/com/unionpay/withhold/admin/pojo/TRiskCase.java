@@ -1,145 +1,166 @@
 package com.unionpay.withhold.admin.pojo;
 
 import java.util.Date;
+import java.util.List;
 
 public class TRiskCase {
-    private Long caseid;
+	private Long caseid;
 
-    private Long riskid;
+	private Long riskid;
 
-    private String busicode;
+	private String busicode;
 
-    private String businame;
+	private String businame;
 
-    private String riskver;
+	private String riskver;
 
-    private String status;
+	private String status;
 
-    private Date intime;
+	private Date intime;
 
-    private Long inuser;
+	private Long inuser;
 
-    private Date uptime;
+	private Date uptime;
 
-    private Long upuser;
+	private Long upuser;
 
-    private String notes;
+	private String notes;
 
-    private String remarks;
+	private String remarks;
 
-    private String activeflag;
+	private String activeflag;
 
-    private String initflag;
+	private String initflag;
 
-    public Long getCaseid() {
-        return caseid;
-    }
+	private Boolean isExist = false;
 
-    public void setCaseid(Long caseid) {
-        this.caseid = caseid;
-    }
+	private List<TRiskList> strategyList;
 
-    public Long getRiskid() {
-        return riskid;
-    }
+	public Long getCaseid() {
+		return caseid;
+	}
 
-    public void setRiskid(Long riskid) {
-        this.riskid = riskid;
-    }
+	public void setCaseid(Long caseid) {
+		this.caseid = caseid;
+	}
 
-    public String getBusicode() {
-        return busicode;
-    }
+	public Long getRiskid() {
+		return riskid;
+	}
 
-    public void setBusicode(String busicode) {
-        this.busicode = busicode == null ? null : busicode.trim();
-    }
+	public void setRiskid(Long riskid) {
+		this.riskid = riskid;
+	}
 
-    public String getBusiname() {
-        return businame;
-    }
+	public String getBusicode() {
+		return busicode;
+	}
 
-    public void setBusiname(String businame) {
-        this.businame = businame == null ? null : businame.trim();
-    }
+	public void setBusicode(String busicode) {
+		this.busicode = busicode == null ? null : busicode.trim();
+	}
 
-    public String getRiskver() {
-        return riskver;
-    }
+	public String getBusiname() {
+		return businame;
+	}
 
-    public void setRiskver(String riskver) {
-        this.riskver = riskver == null ? null : riskver.trim();
-    }
+	public void setBusiname(String businame) {
+		this.businame = businame == null ? null : businame.trim();
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public String getRiskver() {
+		return riskver;
+	}
 
-    public void setStatus(String status) {
-        this.status = status == null ? null : status.trim();
-    }
+	public void setRiskver(String riskver) {
+		this.riskver = riskver == null ? null : riskver.trim();
+	}
 
-    public Date getIntime() {
-        return intime;
-    }
+	public String getStatus() {
+		return status;
+	}
 
-    public void setIntime(Date intime) {
-        this.intime = intime;
-    }
+	public void setStatus(String status) {
+		this.status = status == null ? null : status.trim();
+	}
 
-    public Long getInuser() {
-        return inuser;
-    }
+	public Date getIntime() {
+		return intime;
+	}
 
-    public void setInuser(Long inuser) {
-        this.inuser = inuser;
-    }
+	public void setIntime(Date intime) {
+		this.intime = intime;
+	}
 
-    public Date getUptime() {
-        return uptime;
-    }
+	public Long getInuser() {
+		return inuser;
+	}
 
-    public void setUptime(Date uptime) {
-        this.uptime = uptime;
-    }
+	public void setInuser(Long inuser) {
+		this.inuser = inuser;
+	}
 
-    public Long getUpuser() {
-        return upuser;
-    }
+	public Date getUptime() {
+		return uptime;
+	}
 
-    public void setUpuser(Long upuser) {
-        this.upuser = upuser;
-    }
+	public void setUptime(Date uptime) {
+		this.uptime = uptime;
+	}
 
-    public String getNotes() {
-        return notes;
-    }
+	public Long getUpuser() {
+		return upuser;
+	}
 
-    public void setNotes(String notes) {
-        this.notes = notes == null ? null : notes.trim();
-    }
+	public void setUpuser(Long upuser) {
+		this.upuser = upuser;
+	}
 
-    public String getRemarks() {
-        return remarks;
-    }
+	public String getNotes() {
+		return notes;
+	}
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks == null ? null : remarks.trim();
-    }
+	public void setNotes(String notes) {
+		this.notes = notes == null ? null : notes.trim();
+	}
 
-    public String getActiveflag() {
-        return activeflag;
-    }
+	public String getRemarks() {
+		return remarks;
+	}
 
-    public void setActiveflag(String activeflag) {
-        this.activeflag = activeflag == null ? null : activeflag.trim();
-    }
+	public void setRemarks(String remarks) {
+		this.remarks = remarks == null ? null : remarks.trim();
+	}
 
-    public String getInitflag() {
-        return initflag;
-    }
+	public String getActiveflag() {
+		return activeflag;
+	}
 
-    public void setInitflag(String initflag) {
-        this.initflag = initflag == null ? null : initflag.trim();
-    }
+	public void setActiveflag(String activeflag) {
+		this.activeflag = activeflag == null ? null : activeflag.trim();
+	}
+
+	public String getInitflag() {
+		return initflag;
+	}
+
+	public void setInitflag(String initflag) {
+		this.initflag = initflag == null ? null : initflag.trim();
+	}
+
+	public Boolean getIsExist() {
+		return isExist;
+	}
+
+	public void setIsExist(Boolean isExist) {
+		this.isExist = isExist;
+	}
+
+	public List<TRiskList> getStrategyList() {
+		return strategyList;
+	}
+
+	public void setStrategyList(List<TRiskList> strategyList) {
+		this.strategyList = strategyList;
+	}
 }

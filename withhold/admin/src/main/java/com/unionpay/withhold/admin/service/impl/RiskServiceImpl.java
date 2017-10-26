@@ -22,6 +22,7 @@ public class RiskServiceImpl implements RiskService {
 	@Autowired
 	private TRiskMapper riskMapper;
 
+	
 	@Override
 	public List<TRisk> getAllRiskList() {
 		return riskMapper.getAllRiskList();
@@ -75,5 +76,4 @@ public class RiskServiceImpl implements RiskService {
 	public TRisk queryRiskByRiskid(Long riskid) {
 		return riskMapper.selectByPrimaryKey(riskid);
 	}
-
 }

@@ -8,6 +8,7 @@ import com.unionpay.withhold.admin.pojo.TRisk;
 public interface RiskService {
 	/**
 	 * 查询全部风控版本列表（风控版本代码、风控版本名称）
+	 * 
 	 * @return
 	 */
 	List<TRisk> getAllRiskList();
@@ -22,6 +23,7 @@ public interface RiskService {
 
 	/**
 	 * 添加风控版本信息
+	 * 
 	 * @param risk
 	 * @return
 	 */
@@ -29,6 +31,7 @@ public interface RiskService {
 
 	/**
 	 * 修改版本信息
+	 * 
 	 * @param risk
 	 * @return
 	 */
@@ -36,8 +39,10 @@ public interface RiskService {
 
 	/**
 	 * 查询风控版本信息详情
+	 * 
 	 * @param riskid
 	 * @return
 	 */
 	TRisk queryRiskByRiskid(Long riskid);
+
 }
