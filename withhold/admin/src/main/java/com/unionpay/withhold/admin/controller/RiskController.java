@@ -17,10 +17,12 @@ import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TBlacklistPan;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.pojo.TRiskCase;
 import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.service.CardBlackListService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskCaseService;
 import com.unionpay.withhold.admin.service.RiskService;
@@ -34,6 +36,8 @@ public class RiskController {
 	private RiskService riskService;
 	@Autowired
 	private RiskCaseService riskCaseService;
+	@Autowired
+	private CardBlackListService cardBlackListService;
 	@Autowired
 	private ParaDicService paraDicService;
 	@Autowired
@@ -271,6 +275,113 @@ public class RiskController {
 		riskCase.setActiveflag(riskCaseService.changRiskStrategy(checkboxList));
 		try {
 			return riskCaseService.updateRiskCase(riskCase);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 查询银行卡黑名单分页信息
+	 * 
+	 * @param blacklistPan
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardBlackList")
+	public PageBean queryCardBlackList(TBlacklistPan blacklistPan, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer rows) {
+		return blacklistPan == null ? null : cardBlackListService.selectListWithCondition(blacklistPan, page, rows);
+	}
+	
+	/**
+	 * 查询银行卡黑名单信息详情
+	 * 
+	 * @param tid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardBlackListByTid")
+	public TBlacklistPan queryCardBlackListByTid(Integer tid) {
+		return tid == null ? null : cardBlackListService.queryCardBlackListByTid(tid);
+	}
+	
+	/**
+	 * 新增银行卡黑名单
+	 * 
+	 * @param blacklistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addCardBlackList")
+	public ResultBean addCardBlackList(TBlacklistPan blacklistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistPan.setInuser(infoByToken.getUserId().longValue());
+		try {
+			return cardBlackListService.addCardBlackList(blacklistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 修改银行卡黑名单
+	 * 
+	 * @param blacklistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateCardBlackList")
+	public ResultBean updateCardBlackList(TBlacklistPan blacklistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardBlackListService.updateCardBlackList(blacklistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 注销银行卡黑名单
+	 * 
+	 * @param blacklistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logoutCardBlackList")
+	public ResultBean logoutCardBlackList(TBlacklistPan blacklistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardBlackListService.logoutCardBlackList(blacklistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 启用银行卡黑名单
+	 * 
+	 * @param blacklistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/startCardBlackList")
+	public ResultBean startCardBlackList(TBlacklistPan blacklistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardBlackListService.startCardBlackList(blacklistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}

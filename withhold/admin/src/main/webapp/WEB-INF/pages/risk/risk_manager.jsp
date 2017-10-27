@@ -354,7 +354,7 @@
 		
 		$('#btn_case_submit').linkbutton('enable');
 		$('#riskver').attr("readonly", false);	
-		
+		$("#setCaseForm").attr("action", "risk/updateRiskCase");
 		
 		$.ajax({
 			 type: "POST",
@@ -370,9 +370,10 @@
 						$("#caseid").val(json.caseid);
 						$("#notes_case").val(json.notes);
 						$("#setCaseForm").attr("action", "risk/updateRiskCase");
-					} else {
-						$("#setCaseForm").attr("action", "risk/addRiskCase");
 					}
+// 					else {
+// 						$("#setCaseForm").attr("action", "risk/addRiskCase");
+// 					}
 					$('#w_case').window({
 						title : '配置风控策略信息',
 						top : panelVertFloat,
