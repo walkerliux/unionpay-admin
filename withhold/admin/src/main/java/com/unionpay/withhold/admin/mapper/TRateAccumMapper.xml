@@ -208,13 +208,35 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where RATE_ID = #{rateId,jdbcType=INTEGER}
   </update>
-  
-  
-  
-  
   <select id="getAllRateList" resultMap="BaseResultMap">
     select 
     	RATE_ID,RATE_DESC
     from t_rate_accum
   </select>
+  <select id="queryAmtAccumRate" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum">
+    SELECT
+	a.RATE_ID,
+	a.RATE_DESC,
+	b.INUSER,
+	b.INTIME
+	<if test="distinct" >
+      distinct
+    </if>
+    FROM
+	t_rate_accum a
+	LEFT JOIN 
+	t_rate_accum_deta b 
+	ON a.RATE_ID = b.RATE_ID
+	where 1=1
+	<if test="rateId!=null" >
+      and a.RATE_ID=#{rateId}
+    </if>
+    <if test="rateDesc!=null" >
+      and a.RATE_DESC=#{rateDesc}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
+  
 </mapper>

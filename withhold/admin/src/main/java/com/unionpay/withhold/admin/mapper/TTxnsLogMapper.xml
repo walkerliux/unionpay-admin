@@ -678,6 +678,8 @@ SELECT
 	b.CANAME,
 	a.PAYINST,
 	a.ACCFIRMERNO,
+	d.chnlname,
+	c.MEMBER_NAME memberName,
 	COUNT(a.amount) total,
 	SUM(a.amount) amount,
 	SUM(a.TXNFEE) txnfee
@@ -687,6 +689,8 @@ SELECT
 	FROM
 	view_txns_log a
 	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
+	LEFT JOIN t_merch_deta c on a.ACCSECMERNO = c.MEMBER_ID
+	LEFT JOIN t_chnl_deta d ON a.PAYINST =d.CHNLCODE
 	WHERE 1=1
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
@@ -723,6 +727,7 @@ SELECT
 	a.AMOUNT,
 	a.TXNFEE,
 	c.MEMBER_NAME memberName,
+	d.chnlname,
 	b.CANAME
 	<if test="distinct" >
       distinct
@@ -731,6 +736,7 @@ SELECT
 	view_txns_log a
 	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
 	LEFT JOIN t_merch_deta c on a.ACCSECMERNO = c.MEMBER_ID
+	LEFT JOIN t_chnl_deta d ON a.PAYINST =d.CHNLCODE
 	WHERE 1=1
     <if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
@@ -755,6 +761,7 @@ SELECT
 	c.CHNLNAME,
 	a.PAYINST,
 	a.ACCFIRMERNO,
+	d.chnlname,
 	COUNT(a.amount) total,
 	SUM(a.amount) amount,
 	SUM(a.TXNFEE) txnfee,
@@ -767,6 +774,7 @@ SELECT
 	view_txns_log a
 	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
 	LEFT JOIN t_chnl_deta c on a.PAYINST = c.CHNLCODE
+	LEFT JOIN t_chnl_deta d ON a.PAYINST =d.CHNLCODE
 	WHERE 1=1
 	<if test="accfirmerno!=null">
 	and a.ACCFIRMERNO=#{accfirmerno}
@@ -795,6 +803,7 @@ SELECT
 	a.COOPFEE,
 	a.CHNLFEE,
 	c.MEMBER_NAME memberName,
+	d.chnlname,
 	b.CANAME
 	<if test="distinct" >
       distinct
@@ -803,6 +812,7 @@ SELECT
 	view_txns_log a
 	LEFT JOIN t_coop_agency b ON a.ACCFIRMERNO = b.CACODE
 	LEFT JOIN t_merch_deta c on a.ACCSECMERNO = c.MEMBER_ID
+	LEFT JOIN t_chnl_deta d ON a.PAYINST =d.CHNLCODE
 	WHERE 1=1
 	<if test="accfirmerno!=null">
 	and a.ACCFIRMERNO=#{accfirmerno}

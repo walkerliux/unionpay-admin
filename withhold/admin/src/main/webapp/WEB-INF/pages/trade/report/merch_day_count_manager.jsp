@@ -164,8 +164,8 @@ table tr td select {
 	$(function() {
 		$('#test')
 				.datagrid(
-						{
-							title : '下载excel',
+						{//
+							title : '<a href="" id="down1" onclick="downExcel()">下载excel</a>',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -191,7 +191,13 @@ table tr td select {
 										align : 'center'
 									},
 									{
-										field : 'caname',
+										field : 'memberName',
+										title : '商户名称',
+										width : 110,
+										align : 'center'
+									},
+									{
+										field : 'chnlname',
 										title : '通道',
 										width : 160,
 										align : 'center'
@@ -250,27 +256,30 @@ table tr td select {
 							rownumbers : true,
 							
 							onClickRow: function (index, row) { 
-								var accsecmerno= row["accsecmerno"];
+								var accsecmer= row["accsecmerno"];
 								var txndate= subString(row["txndate"]);
 								var dayormonth = $('#dayormonth').val();
 								var stime = $('#stime').datebox('getValue');
 								var etime = $('#etime').datebox('getValue');
+								//;
 								$('#detailInfo').datagrid({
-									title:'商户统计列表详情',
+									//title : '<a href="" id="down2" onclick="downInfo()">明细下载</a>',
 									
+									title : '<a href="report/downloadmerchExcelInfo?accsecmerno='+accsecmer+'&txndate='+txndate+'">明细下载</a>',
 									height:400,
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
 									url:"report/getMerDayCountInfo?accsecmerno="
-										+ accsecmerno + "&txndate="
+										+ accsecmer + "&txndate="
 										+ txndate,
 									remoteSort: false,
 									idField:'TID',
 									columns:[
 									[
 										{field:'txnseqno',title:'交易序列号',width:160,align:'center'},
-										{field:'caname',title:'通道',width:120,align:'center'},
+										{field:'caname',title:'渠道',width:120,align:'center'},
+										{field:'chnlname',title:'通道',width:120,align:'center'},
 										{field:'accsecmerno',title:'商户号',width:120,align:'center'},
 										{field:'memberName',title:'商户名称',width:120,align:'center'},
 										{field:'pan',title:'交易卡号',width:140,align:'center',},
@@ -295,6 +304,7 @@ table tr td select {
 									]],
 									pagination:true,
 									rownumbers:true,
+									
 								});
 						}
 						});
@@ -524,5 +534,21 @@ table tr td select {
 	function closeAdd() {
 		$('#dlg').window('close');
 	}
+	function downExcel(){
+		var accsecmerno= $('#accsecmerno').val();
+		var dayormonth=$('#dayormonth').val();
+		var stime=$('#stime').datebox('getValue');
+		var etime= $('#etime').datebox('getValue');
+		
+		document.getElementById("down1").href="report/downloadmerchExcel?accsecmerno="+accsecmerno+"&dayormonth="+dayormonth+"&stime="+stime+"&etime="+etime;
+	
+		
+	}
+	/* function downInfo(){
+		var accsecmer= rows["accsecmerno"];
+		alert(accsecmer);
+		var txndate= subString(rows["txndate"]);
+		document.getElementById("down2").href="report/downloadmerchExcelInfo?accsecmerno="+accsecmer+"&txndate="+txndate;
+	} */
 </script>
 </html>

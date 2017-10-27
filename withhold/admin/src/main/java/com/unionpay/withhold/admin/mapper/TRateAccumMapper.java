@@ -29,4 +29,6 @@ public interface TRateAccumMapper {
     int updateByPrimaryKey(TRateAccum record);
 
 	List<TRateAccum> getAllRateList();
+	
+	List<TRateAccum> queryAmtAccumRate(TRateAccumExample example);
 }

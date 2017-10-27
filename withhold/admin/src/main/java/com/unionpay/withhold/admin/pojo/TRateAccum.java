@@ -50,4 +50,24 @@ public class TRateAccum {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+    //新增页面展示字段
+    private String inuser;
+    private String intime;
+
+	public String getInuser() {
+		return inuser;
+	}
+
+	public void setInuser(String inuser) {
+		this.inuser = inuser;
+	}
+
+	public String getIntime() {
+		return intime;
+	}
+
+	public void setIntime(String intime) {
+		this.intime = intime;
+	}
+    
 }

@@ -109,7 +109,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '商户统计列表',
+							title : '<a href="" id="down1" onclick="downExcel()">下载excel</a>',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -220,7 +220,7 @@ table tr td select {
 								var month = $('#month').val();
 								var year = $('#year').val();
 								$('#detailInfo').datagrid({
-									title:'商户统计列表详情',
+									title : '<a href="report/downloadcoopExcelInfo?accfirmerno='+accfirmerno+'&txndate='+txndate+'">明细下载</a>',
 									
 									height:400,
 									singleSelect:true,
@@ -233,7 +233,8 @@ table tr td select {
 									columns:[
 									[
 										{field:'txnseqno',title:'交易序列号',width:160,align:'center'},
-										{field:'caname',title:'通道',width:120,align:'center'},
+										{field:'caname',title:'渠道',width:120,align:'center'},
+										{field:'chnlname',title:'通道',width:120,align:'center'},
 										{field:'accsecmerno',title:'商户号',width:120,align:'center'},
 										{field:'memberName',title:'商户名称',width:120,align:'center'},
 										{field:'pan',title:'交易卡号',width:140,align:'center',},
@@ -248,12 +249,12 @@ table tr td select {
 												return fenToYuan(rec.txnfee);
 											}
 										},
-										{field:'caname',title:'结算金额',width:100,align:'center',
+										{field:'ca',title:'结算金额',width:100,align:'center',
 											formatter : function(value, rec) {
 												return fenToYuan(rec.amount-rec.txnfee);
 											}
 										},
-										{field:'caname',title:'渠道分润',width:100,align:'center',
+										{field:'can',title:'渠道分润',width:100,align:'center',
 											formatter : function(value, rec) {
 												return fenToYuan(rec.txnfee-rec.coopfee);
 											}
@@ -481,6 +482,11 @@ table tr td select {
 	function subString(value){
 		return value.substring(0,6);
 	}
-	
+	function downExcel(){
+		var accfirmerno= $('#accfirmerno').val();
+		var month=$('#month').val();
+		var year=$('#year').val();
+		document.getElementById("down1").href="report/downloadcoopExcel?accfirmerno="+accfirmerno+"&month="+month+"&year="+year;
+	}
 </script>
 

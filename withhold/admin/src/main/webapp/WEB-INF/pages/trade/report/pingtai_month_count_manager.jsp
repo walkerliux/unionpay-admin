@@ -176,7 +176,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '商户统计列表',
+							title : '<a href="" id="down1" onclick="downExcel()">下载excel</a>',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -295,7 +295,7 @@ table tr td select {
 								var txndate= subString(row["txndate"]);
 								
 								$('#detailInfo').datagrid({
-									title:'商户统计列表详情',
+									title : '<a href="report/downloadpingtaiExcelInfo?accfirmerno='+accfirmerno+'&txndate='+txndate+'">明细下载</a>',
 									
 									height:400,
 									singleSelect:true,
@@ -558,6 +558,12 @@ table tr td select {
 	//月报截取日期前六位
 	function subString(value){
 		return value.substring(0,6);
+	}
+	function downExcel(){
+		var accfirmerno= $('#accfirmerno').val();
+		var month=$('#month').val();
+		var year=$('#year').val();
+		document.getElementById("down1").href="report/downloadpingtaiExcel?accfirmerno="+accfirmerno+"&month="+month+"&year="+year;
 	}
 </script>
 </html>
