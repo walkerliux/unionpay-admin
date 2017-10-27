@@ -9,6 +9,8 @@
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+   <!-- >关联属性 -->
+    <result column="RISKNAME" property="riskname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -240,4 +242,54 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  
+  <select id="queryLimitMemNumsDay" resultMap="BaseResultMap">
+		select lmn.*,r.RISKNAME
+		from t_limit_mem_nums_day lmn 
+		LEFT JOIN t_risk_case rc
+		ON lmn.CASEID=rc.CASEID 
+		LEFT JOIN t_risk r
+		ON r.RISKID=rc.RISKID
+		 <where>
+			<if test="caseid!= null and caseid !=''">
+				lmn.CASEID= #{caseid}
+			</if>			
+		</where>
+		order by lmn.tid DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		select COUNT(*) 
+		from t_limit_mem_nums_day lmn 
+		LEFT JOIN t_risk_case rc
+		ON lmn.CASEID=rc.CASEID 
+		LEFT JOIN t_risk r
+		ON r.RISKID=rc.RISKID
+		<where>
+			<if test="caseid!= null and caseid !=''">
+				lmn.CASEID= #{caseid}
+			</if>			
+		</where>
+	</select>
+	 <select id="querycaseid" resultType="java.lang.Long">
+		SELECT lmn.CASEID
+		from  t_limit_mem_nums_day lmn 
+		LEFT JOIN t_risk_case rc
+		ON lmn.CASEID=rc.CASEID 
+		LEFT JOIN t_risk r
+		ON r.RISKID=rc.RISKID
+		where rc.RISKID= #{riskid}		
+	</select> 
+	<select id="queryLimitMemNumsDaybytid" resultMap="BaseResultMap">
+		select lmn.*,r.RISKNAME
+		from t_limit_mem_nums_day lmn 
+		LEFT JOIN t_risk_case rc
+		ON lmn.CASEID=rc.CASEID 
+		LEFT JOIN t_risk r
+		ON r.RISKID=rc.RISKID
+		 where lmn.tid=#{tid}
+	 </select> 
 </mapper>

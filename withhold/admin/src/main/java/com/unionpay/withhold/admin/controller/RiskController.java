@@ -2,6 +2,8 @@ package com.unionpay.withhold.admin.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,11 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TChnlDeta;
+import com.unionpay.withhold.admin.pojo.TChnlFlowControl;
+import com.unionpay.withhold.admin.pojo.TLimitMemNumsDay;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
+import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.service.LimitService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
+import com.unionpay.withhold.admin.utils.StringUtil;
 
 @Controller
 @RequestMapping("/risk")
@@ -25,6 +35,7 @@ public class RiskController {
 	private RiskService riskService;
 	@Autowired
 	private ParaDicService paraDicService;
+	
 	
 	/**
 	 * 风控版本管理
@@ -153,5 +164,6 @@ public class RiskController {
 		PageInfo<TRisk> pageInfo=new PageInfo<>(list);
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
-	}
+	}	
 }
+

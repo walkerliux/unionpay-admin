@@ -23,7 +23,19 @@ public class TRisk {
 
     private String remarks;
 
-    public Long getRiskid() {
+    //关联属性
+    private String caseid;
+    
+    
+    public String getCaseid() {
+		return caseid;
+	}
+
+	public void setCaseid(String caseid) {
+		this.caseid = caseid;
+	}
+
+	public Long getRiskid() {
         return riskid;
     }
 
