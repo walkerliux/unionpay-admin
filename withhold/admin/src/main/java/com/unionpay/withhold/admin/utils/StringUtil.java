@@ -79,7 +79,6 @@ public class StringUtil {
 		return value != null && value.trim().length() > 0
 				&& !"null".endsWith(value);
 	}
-
 	/**
 	 * Converts <code>null</code> to empty string, otherwise returns it
 	 * directly.

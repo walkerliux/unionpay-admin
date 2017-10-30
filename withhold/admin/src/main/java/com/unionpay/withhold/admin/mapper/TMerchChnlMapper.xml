@@ -128,6 +128,15 @@
     from t_merch_chnl
     where TID = #{tid,jdbcType=INTEGER}
   </select>
+  
+   <select id="selectChnlByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select mc.*,md.MEMBER_NAME    
+    from t_merch_chnl mc 
+    left join t_merch_deta md
+    on  mc.MERCHNO=md.MEMBER_ID
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_merch_chnl
     where TID = #{tid,jdbcType=INTEGER}
@@ -429,7 +438,7 @@
     where TID = #{tid,jdbcType=INTEGER}
   </update>
   
-  <select id="selectChnlWithCondition" resultMap="BaseResultMap">
+  <select id="selectChnlWithCondition" resultMap="ResultMapWithBLOBs">
 		select 
 		mc.*,md.MEMBER_NAME,cd.CHNLNAME,md.transfactors
 		from 
@@ -451,7 +460,7 @@
 			</if>
 			
 		</where>
-		order by MERCH_ID DESC
+		order by md.MERCH_ID DESC
 		<if test="beginRow != null and pageSize != null">
 			limit #{beginRow},#{pageSize}
 		</if>

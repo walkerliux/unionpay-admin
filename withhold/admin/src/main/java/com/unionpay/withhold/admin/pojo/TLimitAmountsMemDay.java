@@ -16,8 +16,19 @@ public class TLimitAmountsMemDay {
     private String notes;
 
     private String remarks;
+    //关联属性
+    private String riskname;
+    
+    
+    public String getRiskname() {
+		return riskname;
+	}
 
-    public Integer getTid() {
+	public void setRiskname(String riskname) {
+		this.riskname = riskname;
+	}
+
+	public Integer getTid() {
         return tid;
     }
 

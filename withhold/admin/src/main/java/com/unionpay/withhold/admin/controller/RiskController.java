@@ -33,6 +33,7 @@ import com.unionpay.withhold.admin.service.RiskService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
+
 @Controller
 @RequestMapping("/risk")
 public class RiskController {
@@ -48,8 +49,10 @@ public class RiskController {
 	private CardWhiteListService cardWhiteListService;
 	@Autowired
 	private ParaDicService paraDicService;
+
 	@Autowired
 	private UserService userService;
+
 
 	/**
 	 * 风控版本管理
@@ -180,6 +183,7 @@ public class RiskController {
 		PageInfo<TRisk> pageInfo = new PageInfo<>(list);
 		PageBean pageBean = new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
+
 	}
 
 	/**
@@ -619,3 +623,4 @@ public class RiskController {
 	}
 	/** end   ********************* 银行卡白名单  *********************/
 }
+

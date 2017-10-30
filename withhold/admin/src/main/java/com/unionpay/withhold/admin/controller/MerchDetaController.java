@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
+import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
+
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
@@ -406,5 +410,18 @@ public class MerchDetaController {
 		
 	
 	}
-	
+	/**
+	 * 查询商户通道信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/querydateMerchChnlById")
+	public TMerchChnlWithBLOBs querydateMerchChnlById(Integer tid) {
+		if (tid == null) {
+			return null;
+		}
+		return merchChnlService.querydateMerchDChnlById(tid);
+	}
 }

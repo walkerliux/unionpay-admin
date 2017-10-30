@@ -25,6 +25,8 @@ public interface TMerchChnlMapper {
     List<TMerchChnl> selectByExample(TMerchChnlExample example);
 
     TMerchChnlWithBLOBs selectByPrimaryKey(Integer tid);
+    
+    TMerchChnlWithBLOBs selectChnlByPrimaryKey(Integer tid);
 
     int updateByExampleSelective(@Param("record") TMerchChnlWithBLOBs record, @Param("example") TMerchChnlExample example);
 
@@ -40,7 +42,7 @@ public interface TMerchChnlMapper {
 
 	int selectCountWithCondition(@Param("merchDeta")TMerchDeta merchDeta);
 	
-	List<TMerchChnl> selectChnlWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
-
-
+	List<TMerchChnlWithBLOBs> selectChnlWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+	
+	
 }
