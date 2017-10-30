@@ -280,7 +280,7 @@
 		$('#btn_submit').linkbutton('enable'); 
 	}
 	function deleteLimitMem(tid){
-		$.messager.confirm('提示','您是否想要注销此商户累计限次?',function(r){   
+		$.messager.confirm('提示','您是否想要注销此日商户累计限次?',function(r){   
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
@@ -298,7 +298,7 @@
 		});  
 	}
 	function startLimitMem(tid){
-		$.messager.confirm('提示','您是否想要启用此委托机构日累计限次限额?',function(r){   
+		$.messager.confirm('提示','您是否想要启用此商户日累计限次?',function(r){   
 		    if (r){  
 		    	$.ajax({
 					type: "GET",

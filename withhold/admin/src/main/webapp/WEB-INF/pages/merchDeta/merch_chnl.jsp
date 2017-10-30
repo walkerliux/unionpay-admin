@@ -216,12 +216,7 @@ table tr td.update {
 		output +='<input type="text" id="prikey" name="prikey" class="easyui-validatebox" required="true"';
 		output +='maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
 		output +='</tr>';
-		/*  <c:forEach var="每个变量名字"   items="要迭代的list"   varStatus="每个对象的状态"
-
-             begin="循环从哪儿开始"    end="循环到哪儿结束"    step="循环的步长">
-
-                循环要输出的东西
-    </c:forEach> */
+		
 		output += '<tr class="segment seg1">';
 		output += 	'<td colspan="4" class="head-title update">通道1</td>';
 		output += '</tr>'
@@ -266,13 +261,13 @@ table tr td.update {
 		$("#a_merchno").blur(
 				function (){
 				 var merchno =$("#a_merchno").val;
-				showMerchChnl(merchno);	
-				
+				showMerchChnl(merchno);					
 			});
 	}
 	
 	function closeAdd() {
 		$('#wadd').window('close');
+		
 	}
 	function closeupdate() {
 		$('#wupdate').window('close');
@@ -339,7 +334,8 @@ table tr td.update {
 					 $.messager.alert('提示',json.errMsg);
 				}
 			}
-		}); 
+		}); 	
+		
 	}
 	// 添加通道
 	function addSegment(){
@@ -505,10 +501,10 @@ table tr td.update {
 			shadow : true,
 			closed : false,
 		});
-		var data={'memberId':merchno};
 		$.ajax({
 			type : "POST",
 			url : "merchDeta/queryMerchChnl",
+//			data:"memberId="+merchno,
 			async : false,
 			dataType : "json",
 			success : function(json) {
@@ -517,7 +513,8 @@ table tr td.update {
 				output += '<tr>';
 				output += 	'<td class="update" width="15%">商户号</td>';
 				output += 	'<td class="update" width="30%">';
-				output += 	'<input id="a_merchno" name="merchno" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[0].merchno + '" />';
+				output += 	'<input id="merchno" name="merchno" maxlength="64" class="easyui-validatebox" required="true" value="' +rows[0].merchno +'"/>';
+				
 				output += 	'</td>';
 				output += 	'<td class="update" width="15%">商户名</td>';
 				output += 	'<td class="update" width="30%">';
@@ -535,9 +532,7 @@ table tr td.update {
 				output +='maxlength="64" value="' + rows[0].prikey + '" /><font color="red">*</font></td>';
 				output +='</tr>';
 				
-		     // 循环要输出的东西
-		   
-		   
+		     // 循环要输出的东西		   		   
 			for (var i = 0; i < rows.length; i++) {
 				output += '<tr class="segment seg1">';
 				output += 	'<td colspan="4" class="head-title update">通道'+(i+1)+'</td>';
@@ -564,15 +559,12 @@ table tr td.update {
 				output += '<tr id="notes" display="none"></tr>';		
 				output += '</tr>';
 				
-		
+				
 				$('#tableadd').html(output);
 				
 				$.parser.parse('#tableadd');
-			
-			
 			}
-		});
-		
+		});	
 	}
 </script>
 </html>
