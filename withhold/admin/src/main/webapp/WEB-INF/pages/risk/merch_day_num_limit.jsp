@@ -98,7 +98,7 @@
 				height:gridHeight,
 				nowrap: false,
 				striped: true,
-				url:'riskLimit/queryLimitMemNumsDay',
+				url:'riskLimitNum/queryLimitMemNumsDay',
 				remoteSort: false,
 				columns:[
 				[
@@ -170,7 +170,7 @@
 			showAllriskid();
 			showRiskLevel();
 			$('#theForm :input').val('');
-			$("#theForm").attr("action","riskLimit/saveLimitMemNumDay");
+			$("#theForm").attr("action","riskLimitNum/saveLimitMemNumDay");
 			$('#w').window({
 				title: '商户累计限次信息',
 				top: panelVertFloat, 
@@ -251,7 +251,7 @@
 	function showLimitMem(tid){		
 		$.ajax({
 		   type: "POST",
-		   url: "riskLimit/queryLimitMumDaybytid",
+		   url: "riskLimitNum/queryLimitMumDaybytid",
 		   data: "tid="+tid,
 		   dataType:"json",
 		   success: function(json){
@@ -276,7 +276,7 @@
 			shadow: false,
 			closed: false
 		});
-		$("#theForm").attr("action","riskLimit/updateLimitMemMNumDay");
+		$("#theForm").attr("action","riskLimitNum/updateLimitMemMNumDay");
 		$('#btn_submit').linkbutton('enable'); 
 	}
 	function deleteLimitMem(tid){
@@ -284,7 +284,7 @@
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
-				  	url: "riskLimit/deleteLimitMemNumDay",
+				  	url: "riskLimitNum/deleteLimitMemNumDay",
 				  	data: "&tid="+tid,
 				 	dataType: "text",
 				 	success:function(text){		
@@ -302,7 +302,7 @@
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
-				  	url: "riskLimit/startLimitMemDay",
+				  	url: "riskLimitNum/startLimitMemDay",
 				  	data: "tid="+tid,
 				 	dataType: "text",
 				 	success:function(text){
@@ -321,7 +321,7 @@
 	function showAllriskid(type){
 		$.ajax({
 			type : "POST",
-			url: "riskLimit/getAllLimitRiskList",
+			url: "riskLimitNum/getAllLimitRiskList",
 			dataType: "json",
 			success: function(json) {
 				var html = "<option value=''>--请选择风控版本--</option>";
@@ -339,7 +339,7 @@
 	function showriskid(riskname){
 		$.ajax({
 			type : "POST",
-			url: "riskLimit/getAllLimitRiskList",
+			url: "riskLimitNum/getAllLimitRiskList",
 			dataType: "json",
 			success: function(json) {
 				var html ="<option value=''>--请选择风控版本--</option>";

@@ -37,8 +37,22 @@ public class LimitServiceImpl implements LimitService {
 	@Override
 	public ResultBean saveLimitMemNumDay(TLimitMemNumsDay limitMenNumsDay) {
 		
-		limitMenNumsDay.setStatus("00");
+		//判断交易限次是否有效
+		Long caseid = limitMenNumsDay.getCaseid();
+		List<TLimitMemNumsDay> list = limitMemNumsDayMapper.queryAllLimitMemNumsDay(caseid);
+		for (TLimitMemNumsDay tLimitMemNumsDay : list) {
+			if(limitMenNumsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
+			limitMenNumsDay.getLimitCount()>=tLimitMemNumsDay.getLimitCount()){
+				return new ResultBean("此规定限次与其他限次冲突");
+			}else if(limitMenNumsDay.getRisklevel()==tLimitMemNumsDay.getRisklevel()){
+				return new ResultBean("此规定限次已存在");
+			}else if(limitMenNumsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
+					   limitMenNumsDay.getLimitCount()<=tLimitMemNumsDay.getLimitCount()){
+				return new ResultBean("此规定限次与其他限次冲突");
+			}
+		}
 		
+		limitMenNumsDay.setStatus("00");
 		int flag =limitMemNumsDayMapper.insertSelective(limitMenNumsDay);
 		if(flag>0){
 			return new ResultBean("操作成功");
@@ -57,8 +71,20 @@ public class LimitServiceImpl implements LimitService {
 
 	@Override
 	public ResultBean updateLimitMemMNumDay(TLimitMemNumsDay limitMenNumsDay) {
+		//判断交易限次是否有效
+		Long caseid = limitMenNumsDay.getCaseid();
+		List<TLimitMemNumsDay> list = limitMemNumsDayMapper.queryAllLimitMemNumsDay(caseid);
+		for (TLimitMemNumsDay tLimitMemNumsDay : list) {
+			if(limitMenNumsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
+			   limitMenNumsDay.getLimitCount()>=tLimitMemNumsDay.getLimitCount()){
+				return new ResultBean("此规定限次与其他限次冲突");
+			}else if(limitMenNumsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
+					   limitMenNumsDay.getLimitCount()<=tLimitMemNumsDay.getLimitCount()){
+				return new ResultBean("此规定限次与其他限次冲突");
+			}
+			}
+						
 		limitMenNumsDay.setStatus("00");
-		
 		int flag =limitMemNumsDayMapper.updateByPrimaryKey(limitMenNumsDay);
 		if(flag>0){
 			return new ResultBean("操作成功");

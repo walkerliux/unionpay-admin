@@ -292,4 +292,11 @@
 		ON r.RISKID=rc.RISKID
 		 where lmn.tid=#{tid}
 	 </select> 
+	 
+	 <select id="queryAllLimitMemNumsDay" resultMap="BaseResultMap">
+		select LIMIT_COUNT,RISKLEVEL
+		from t_limit_mem_nums_day  	
+		where CASEID=#{caseid} AND `STATUS`='00'
+				 
+	</select>
 </mapper>

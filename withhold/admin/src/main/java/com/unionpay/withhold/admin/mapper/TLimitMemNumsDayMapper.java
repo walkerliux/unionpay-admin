@@ -39,5 +39,7 @@ public interface TLimitMemNumsDayMapper {
 
 
 	TLimitMemNumsDay queryLimitMemNumsDaybytid(@Param("tid")Integer tid);
+
+	List<TLimitMemNumsDay> queryAllLimitMemNumsDay(@Param("caseid")Long caseid);
 	
 }
