@@ -45,10 +45,14 @@ table tr td.update {
 					<tr>
 						<td align="right">商户号</td>
 						<td align="left" style="padding-left: 5px"><input
+
 							name="memberId" id="s_memberId" maxlength="25" /></td>
+
+
 						<td align="right">商户名称</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="memberName" id="s_memberName" maxlength="25" /></td>
+					name="memberName" id="s_memberName" maxlength="64" /></td>
+
 						<td align="right">通道名称</td>
 						<td  align="left" style="padding-left: 5px">
 							<select id="schannelName" name="target"/>

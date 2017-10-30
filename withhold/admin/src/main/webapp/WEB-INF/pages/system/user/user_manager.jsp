@@ -244,10 +244,10 @@ table tr td select {
 				columns:[[
 					{field:'isadmin',title:'用户类型',align:'center',width:150,
 						formatter:function(value, row) { 
-							if(value="1"){
+							if(value=="1"){
 								return "管理员";
 							}
-							if(value="0"){
+							if(value=="0"){
 								return "普通用户";
 							}
 						}

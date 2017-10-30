@@ -118,20 +118,34 @@ table tr td.update {
 							remoteSort : false,
 							columns : [ [
 									{
-										field : 'RATE_ID',
+										field : 'rateId',
 										title : '扣率代码',
-										width : 160,
+										width : 120,
 										align : 'center',
 										rowspan : 1
 									},
 									{
-										field : 'RATE_DESC',
+										field : 'rateDesc',
 										title : '扣率描述',
-										width : 240,
+										width : 120,
 										align : 'center',
 										rowspan : 1
 									},
 									{
+										field : 'inuser',
+										title : '创建者',
+										width : 120,
+										align : 'center',
+										rowspan : 1
+									},
+									{
+										field : 'intime',
+										title : '创建时间',
+										width : 200,
+										align : 'center',
+										rowspan : 1
+									},
+									/* {
 										field : 'ACCMODE',
 										title : '累计方式',
 										width : 100,
@@ -145,11 +159,11 @@ table tr td.update {
 												return '年';
 											}
 										}
-									},
+									}, */
 									{
 										field : 'TID',
 										title : '操作',
-										width : 150,
+										width : 120,
 										align : 'center',
 										formatter : function(value, rec) {
 											return '<a href="javascript:showModify(\''
@@ -203,15 +217,16 @@ table tr td.update {
 		output += 	'<td class="update" colspan="3">';
 		output += 		'<input id="rateId_a" name="rateId" maxlength="10" class="easyui-validatebox" required="true" missingMessage="请输入扣率代码" />';
 		output += 	'</td>';
+		
 		output += '</tr>';
 		
 		// 拼接扣率描述+累计方式
 		output += '<tr>';
 		output += 	'<td class="update" width="15%">扣率描述</td>';
-		output += 	'<td class="update" width="30%">';
-		output += 		'<input id="rateDes_a" name="rateDes" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入扣率描述" />';
+		output += 	'<td class="update" colspan="3">';
+		output += 		'<input id="rateDes_a" name="rateDesc" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入扣率描述" />';
 		output += 	'</td>';
-		output += 	'<td class="update" width="15%">累计方式</td>';
+		/* output += 	'<td class="update" width="15%">累计方式</td>';
 		output += 	'<td class="update">';
 		output += 		'<select id="accMode_a" name="accMode" class="easyui-validatebox" required="true" missingMessage="请选择累计方式">';
 		output += 			'<option value="" selected="selected">--请选择累计方式--</option>';
@@ -219,7 +234,7 @@ table tr td.update {
 		output += 			'<option value="1">月</option>';
 		output += 			'<option value="2">年</option>';
 		output += 		'</select>';
-		output += 	'</td>';
+		output += 	'</td>'; */
 		output += '</tr>';
 		
 		// 拼接段1
@@ -477,7 +492,7 @@ table tr td.update {
 	function search() {
 		var data = {
 			'rateId' : $('#rateId').val(),
-			'rateDes' : $('#rateDes').val()
+			'rateDesc' : $('#rateDes').val()
 		};
 		$('#test').datagrid('load', data);
 	}

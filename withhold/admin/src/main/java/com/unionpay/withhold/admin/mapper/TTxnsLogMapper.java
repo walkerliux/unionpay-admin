@@ -35,4 +35,12 @@ public interface TTxnsLogMapper {
 	List<TTxnsLog> selectInfoByCoopId(TTxnsLogExample tTxnsLogExample);
 	//根据通道号查询统计后的详情
 	List<TTxnsLog> selectInfoByChnlId(TTxnsLogExample tTxnsLogExample);
+	//商户日分润
+	List<TTxnsLog> selectMerchDayCountBymerId(TTxnsLogExample tTxnsLogExample);
+	//商户日分润详情
+	List<TTxnsLog> selectMerchDayCountInfo(TTxnsLogExample tTxnsLogExample);
+	//渠道月分润
+	List<TTxnsLog> selectCoopMonthByPage(TTxnsLogExample tTxnsLogExample);
+	//渠道月份润详情
+	List<TTxnsLog> selectCoopMonthInfo(TTxnsLogExample tTxnsLogExample);
 }

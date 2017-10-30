@@ -537,4 +537,44 @@ public class TRateAccumExample {
             this(condition, value, secondValue, null);
         }
     }
+    //新增分页查询
+    private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	//条件查询
+	private String rateId;
+	private String rateDesc;
+	
+	public String getRateId() {
+		return rateId;
+	}
+
+	public void setRateId(String rateId) {
+		this.rateId = rateId;
+	}
+
+	public String getRateDesc() {
+		return rateDesc;
+	}
+
+	public void setRateDesc(String rateDesc) {
+		this.rateDesc = rateDesc;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
 }
