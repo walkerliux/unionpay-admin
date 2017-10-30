@@ -177,6 +177,7 @@
 //			$('#Notes').val('');
 			showAllriskid();
 			showRiskLevel();
+			showCardtype();
 			$('#theForm :input').val('');
 			$("#theForm").attr("action","riskLimitCardNum/saveLimitMemNumDay");
 			$('#w').window({
@@ -256,6 +257,39 @@
 		   }
 		});
 	}
+	function showuCardtype(paraCode){		
+		$.ajax({
+		   type: "POST",
+		   url: "risk/showAllCardtype",
+		   dataType:"json",
+		   success: function(json){
+		   		var html ="<option value=''>--请选择银行卡类型--</option>";
+		   		$.each(json, function(key,value){
+		   			if (value.paraCode == paraCode) {
+						html += '<option value="' + value.paraCode + '" selected="selected">' + value.paraName + '</option>';
+					} else {
+						html += '<option value="' + value.paraCode + '">' + value.paraName + '</option>';
+					}   			
+		   		});
+				$("#cardtype").html(html);
+		   }
+		});
+	}
+	
+	function showCardtype(paraCode){		
+		$.ajax({
+		   type: "POST",
+		   url: "risk/showAllCardtype",
+		   dataType:"json",
+		   success: function(json){
+		   		var html ="<option value=''>--请选择银行卡类型--</option>";
+		   		$.each(json, function(key,value){
+		   			html += '<option value="'+value.paraCode+'">'+value.paraName+'</option>';	   			
+		   		});
+				$("#cardtype").html(html);
+		   }
+		});
+	}
 	function showLimitMem(tid){		
 		$.ajax({
 		   type: "POST",
@@ -267,6 +301,7 @@
 			$("#notes").val(json.notes);
 			$("#limitCount").val(json.limitCount);
 			showuRiskLevel(json.risklevel);
+			showuCardtype(json.cardtype);
 			$("#tid").val(json.tid);  
 		    }
 		

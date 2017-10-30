@@ -274,15 +274,7 @@
 			</if>			
 		</where>
 	</select>
-	 <select id="querycaseid" resultType="java.lang.Long">
-		SELECT lmn.CASEID
-		from  t_limit_mem_nums_day lmn 
-		LEFT JOIN t_risk_case rc
-		ON lmn.CASEID=rc.CASEID 
-		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
-		where rc.RISKID= #{riskid}		
-	</select> 
+	 
 	<select id="queryLimitMemNumsDaybytid" resultMap="BaseResultMap">
 		select lmn.*,r.RISKNAME
 		from t_limit_mem_nums_day lmn 

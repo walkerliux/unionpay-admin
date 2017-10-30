@@ -167,7 +167,17 @@ public class RiskController {
 	public List<TParaDic> showAllRisklevel() {
 		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.RISKLEVEL.getCode());
 	}
-
+	
+	/**
+	 * 查询所有的银行卡类型
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/showAllCardtype")
+	public List<TParaDic> showAllCardtype() {
+		return paraDicService.selectParaDicByParentCode(ParaDicCodeEnums.CARDTYPE.getCode());
+	}
 	/**
 	 * 查询风控分页信息
 	 * 
