@@ -161,7 +161,7 @@
 				},
 				{
 					field: 'riskLevelName',
-					title: '银行卡风险等级',
+					title: '风险等级',
 					width: 100,
 					align: 'center'
 				},
@@ -237,7 +237,7 @@
 		}
 	
 		function resize() {
-			$('searchForm :input').val("");
+			$('#searchForm :input').val("");
 		}
 	
 		function saveBlackPan() {

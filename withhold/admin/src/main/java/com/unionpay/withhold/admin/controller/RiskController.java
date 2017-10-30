@@ -17,12 +17,16 @@ import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TBlacklistIdnum;
 import com.unionpay.withhold.admin.pojo.TBlacklistPan;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.pojo.TRiskCase;
 import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.pojo.TWhitelistPan;
 import com.unionpay.withhold.admin.service.CardBlackListService;
+import com.unionpay.withhold.admin.service.CardWhiteListService;
+import com.unionpay.withhold.admin.service.CardholderBlackListService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskCaseService;
 import com.unionpay.withhold.admin.service.RiskService;
@@ -38,6 +42,10 @@ public class RiskController {
 	private RiskCaseService riskCaseService;
 	@Autowired
 	private CardBlackListService cardBlackListService;
+	@Autowired
+	private CardholderBlackListService cardholderBlackListService;
+	@Autowired
+	private CardWhiteListService cardWhiteListService;
 	@Autowired
 	private ParaDicService paraDicService;
 	@Autowired
@@ -280,6 +288,8 @@ public class RiskController {
 		}
 	}
 	
+	
+	/** start ********************* 银行卡黑名单  *********************/	
 	/**
 	 * 查询银行卡黑名单分页信息
 	 * 
@@ -386,4 +396,226 @@ public class RiskController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	/** end   ********************* 银行卡黑名单  *********************/
+	
+	
+	
+	/** start ********************* 持卡人黑名单  *********************/	
+	/**
+	 * 查询持卡人黑名单分页信息
+	 * 
+	 * @param blacklistIdnum
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardholderBlackList")
+	public PageBean queryCardholderBlackList(TBlacklistIdnum blacklistIdnum, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer rows) {
+		return blacklistIdnum == null ? null : cardholderBlackListService.selectListWithCondition(blacklistIdnum, page, rows);
+	}
+	
+	/**
+	 * 查询持卡人黑名单信息详情
+	 * 
+	 * @param tid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardholderBlackListByTid")
+	public TBlacklistIdnum queryCardholderBlackListByTid(Integer tid) {
+		return tid == null ? null : cardholderBlackListService.queryCardholderBlackListByTid(tid);
+	}
+	
+	/**
+	 * 新增持卡人黑名单
+	 * 
+	 * @param blacklistIdnum
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addCardholderBlackList")
+	public ResultBean addCardholderBlackList(TBlacklistIdnum blacklistIdnum, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistIdnum.setInuser(infoByToken.getUserId().longValue());
+		try {
+			return cardholderBlackListService.addCardholderBlackList(blacklistIdnum);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 修改持卡人黑名单
+	 * 
+	 * @param blacklistIdnum
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateCardholderBlackList")
+	public ResultBean updateCardholderBlackList(TBlacklistIdnum blacklistIdnum, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardholderBlackListService.updateCardholderBlackList(blacklistIdnum);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 注销持卡人黑名单
+	 * 
+	 * @param blacklistIdnum
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logoutCardholderBlackList")
+	public ResultBean logoutCardholderBlackList(TBlacklistIdnum blacklistIdnum, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardholderBlackListService.logoutCardholderBlackList(blacklistIdnum);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 启用持卡人黑名单
+	 * 
+	 * @param blacklistIdnum
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/startCardholderBlackList")
+	public ResultBean startCardholderBlackList(TBlacklistIdnum blacklistIdnum, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardholderBlackListService.startCardholderBlackList(blacklistIdnum);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	/** end   ********************* 持卡人黑名单  *********************/
+	
+	
+	/** start ********************* 银行卡白名单  *********************/	
+	/**
+	 * 查询银行卡白名单分页信息
+	 * 
+	 * @param whitelistPan
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardWhiteList")
+	public PageBean queryCardWhiteList(TWhitelistPan whitelistPan, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer rows) {
+		return whitelistPan == null ? null : cardWhiteListService.selectListWithCondition(whitelistPan, page, rows);
+	}
+	
+	/**
+	 * 查询银行卡白名单信息详情
+	 * 
+	 * @param tid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryCardWhiteListByTid")
+	public TWhitelistPan queryCardWhiteListByTid(Integer tId) {
+		return tId == null ? null : cardWhiteListService.queryCardWhiteListByTid(tId);
+	}
+	
+	/**
+	 * 新增银行卡白名单
+	 * 
+	 * @param whitelistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addCardWhiteList")
+	public ResultBean addCardWhiteList(TWhitelistPan whitelistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		whitelistPan.setInuser(infoByToken.getUserId().longValue());
+		try {
+			return cardWhiteListService.addCardWhiteList(whitelistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 修改银行卡白名单
+	 * 
+	 * @param whitelistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateCardWhiteList")
+	public ResultBean updateCardWhiteList(TWhitelistPan whitelistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardWhiteListService.updateCardWhiteList(whitelistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 注销银行卡白名单
+	 * 
+	 * @param whitelistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logoutCardWhiteList")
+	public ResultBean logoutCardWhiteList(TWhitelistPan whitelistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardWhiteListService.logoutCardWhiteList(whitelistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 启用银行卡白名单
+	 * 
+	 * @param whitelistPan
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/startCardWhiteList")
+	public ResultBean startCardWhiteList(TWhitelistPan whitelistPan, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return cardWhiteListService.startCardWhiteList(whitelistPan);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	/** end   ********************* 银行卡白名单  *********************/
 }

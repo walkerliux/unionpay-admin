@@ -1,17 +1,17 @@
 package com.unionpay.withhold.admin.pojo;
 
-public class TBlacklistPan {
+public class TBlacklistIdnum {
     private Integer tid;
 
-    private String pan;
+    private String idnum;
+
+    private Short risklevel;
 
     private String status;
 
     private String notes;
 
     private String remarks;
-
-    private Short risklevel;
     
     private String riskLevelName;
 
@@ -23,12 +23,20 @@ public class TBlacklistPan {
         this.tid = tid;
     }
 
-    public String getPan() {
-        return pan;
+    public String getIdnum() {
+        return idnum;
     }
 
-    public void setPan(String pan) {
-        this.pan = pan == null ? null : pan.trim();
+    public void setIdnum(String idnum) {
+        this.idnum = idnum == null ? null : idnum.trim();
+    }
+
+    public Short getRisklevel() {
+        return risklevel;
+    }
+
+    public void setRisklevel(Short risklevel) {
+        this.risklevel = risklevel;
     }
 
     public String getStatus() {
@@ -55,14 +63,6 @@ public class TBlacklistPan {
         this.remarks = remarks == null ? null : remarks.trim();
     }
 
-    public Short getRisklevel() {
-        return risklevel;
-    }
-
-    public void setRisklevel(Short risklevel) {
-        this.risklevel = risklevel;
-	}
-
 	public String getRiskLevelName() {
 		return riskLevelName;
 	}
@@ -70,4 +70,5 @@ public class TBlacklistPan {
 	public void setRiskLevelName(String riskLevelName) {
 		this.riskLevelName = riskLevelName == null ? null : riskLevelName.trim();
 	}
+    
 }

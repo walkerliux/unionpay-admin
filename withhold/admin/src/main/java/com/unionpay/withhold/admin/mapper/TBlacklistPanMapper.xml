@@ -270,7 +270,7 @@
 				AND bl.PAN = #{blacklistPan.pan}
 			</if>
 			<if test="blacklistPan.risklevel != null">
-				AND bl.RISKLEVEL = #{blacklistPan.pan}
+				AND bl.RISKLEVEL = #{blacklistPan.risklevel}
 			</if>
 		</where>
 		order by TID DESC
@@ -286,7 +286,7 @@
 				AND bl.PAN = #{blacklistPan.pan}
 			</if>
 			<if test="blacklistPan.risklevel != null">
-				AND bl.RISKLEVEL = #{blacklistPan.pan}
+				AND bl.RISKLEVEL = #{blacklistPan.risklevel}
 			</if>
 		</where>
 	</select>
