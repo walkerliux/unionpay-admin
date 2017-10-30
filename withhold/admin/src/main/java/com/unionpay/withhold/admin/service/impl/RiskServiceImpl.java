@@ -12,7 +12,9 @@ import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.constant.CommonConstants;
 import com.unionpay.withhold.admin.mapper.TRiskMapper;
 import com.unionpay.withhold.admin.pojo.TRisk;
+import com.unionpay.withhold.admin.pojo.TRiskCase;
 import com.unionpay.withhold.admin.pojo.TRiskExample;
+import com.unionpay.withhold.admin.service.RiskCaseService;
 import com.unionpay.withhold.admin.service.RiskService;
 
 @Service
@@ -21,7 +23,8 @@ public class RiskServiceImpl implements RiskService {
 
 	@Autowired
 	private TRiskMapper riskMapper;
-
+	@Autowired
+	private RiskCaseService riskCaseService;
 	
 	@Override
 	public List<TRisk> getAllRiskList() {
@@ -49,9 +52,18 @@ public class RiskServiceImpl implements RiskService {
 		criteria.andRiskverEqualTo(risk.getRiskver());
 		int count = riskMapper.countByExample(riskExample);
 		if (count > 0) {
-			return new ResultBean("", "此风控版本代码已存在！");
+			return new ResultBean("", "此风控版本已存在！");
 		}
 
+		TRiskCase riskCase = new TRiskCase();
+		riskCase.setRiskver(risk.getRiskver());
+		riskCase.setActiveflag(new String("000000000000000000000000000000000000000000000000000000000000"));
+		riskCase.setInuser(risk.getInuser());
+		ResultBean resultBean = riskCaseService.addRiskCase(riskCase);
+		if (!resultBean.isResultBool()) {
+			return new ResultBean("", "信息异常，风控版本添加失败！");
+		}
+		
 		risk.setStatus(CommonConstants.RISK_STATUS_NORMAL);
 		risk.setIntime(new Date());
 
