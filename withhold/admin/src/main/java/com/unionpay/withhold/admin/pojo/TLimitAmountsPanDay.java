@@ -1,7 +1,8 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TLimitAmountsPanDay {
-    private Integer tid;
+    
+	private Integer tid;
 
     private Long caseid;
 
@@ -16,7 +17,17 @@ public class TLimitAmountsPanDay {
     private String notes;
 
     private String remarks;
+    
+    //关联属性
+    private String riskname;
+    
+    public String getRiskname() {
+		return riskname;
+	}
 
+	public void setRiskname(String riskname) {
+		this.riskname = riskname;
+	}
     public Integer getTid() {
         return tid;
     }
