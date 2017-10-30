@@ -24,7 +24,7 @@ table tr td select {
 			style="height: 120px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post"
-				action="checkinfo/saveProcess">
+				action="checkbill/saveProcess">
 				<table width="100%">
 					<tr height="26" id="fileadd1">
 						<td align="center">对账机构</td>
@@ -79,14 +79,14 @@ table tr td select {
 	function queryChannel() {
 		$.ajax({
 			type : "POST",
-			url : "checkinfo/queryChannel",
+			url : "checkbill/queryChannel",
 			data : "",
 			dataType : "json",
 			success : function(json) {
 				var html = "<option  Seleted ='Seleted' value=''>--请选择--</option>";
 				$.each(json,
 				function(key, value) {
-					html += '<option value="' + value.CHANNEL_CODE + '">' + value.CHANNEL_NAME + '</option>';
+					html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
 				});
 				$("#instiid_ins").html(html);
 			}
@@ -101,14 +101,14 @@ table tr td select {
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
-			url:'checkinfo/queryProcess',
+			url:'checkbill/queryProcess',
 			remoteSort: false,
-			idField:'TID',
+			idField:'tid',
 			columns:[
 			[
-				{field:'TID',title:'任务代码',width:120,align:'center'},
-				{field:'STARTTIME',title:'任务开始时间',width:160,align:'center'},
-				{field:'STATUS',title:'状态',width:120,align:'center',
+				{field:'tid',title:'任务代码',width:120,align:'center'},
+				{field:'starttime',title:'任务开始时间',width:160,align:'center'},
+				{field:'status',title:'状态',width:120,align:'center',
 					formatter:function(value,rec){
 					if(value=="00"){
 						return "初始";
@@ -121,15 +121,14 @@ table tr td select {
 					}
 				}
 					},	
-				{field:'TI',title:'操作',width:260,align:'center',
+				{field:'1',title:'操作',width:260,align:'center',
 				formatter:function(value,rec){
-					if(rec.STATUS=="00"){
+					if(rec.status=="00"){
 						return '<a id="sp'+rec.TID+'" href="javascript:startProcess('+rec.TID+')" style="color:blue;margin-left:10px">开始任务</a>';
 					}else{
 						return '<a href="javascript:showCheckSuccess(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">查看对账表</a>' + 
 						       '<a href="javascript:showCheckFail(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">查看差错表</a>';
 					}
-					
 				}
 				}
 			]],
@@ -163,7 +162,7 @@ table tr td select {
 		}		
 	}
 	function search(){
-		var data={"startDate":$('#startDate').datebox('getValue'),"endDate":$("#endDate").datebox('getValue')};
+		var data={"startDate":$('#startDate').datebox('getValue'),"endDate":$("#endDate").datebox('getValue'),instiid:$("#instiid_ins").val()};
 		$('#test').datagrid('load',data);
 	}
 	function startProcess(tId) {

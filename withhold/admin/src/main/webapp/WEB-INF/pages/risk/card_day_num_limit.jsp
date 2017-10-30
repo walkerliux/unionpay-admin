@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div style="margin: 5px; border:" id="continer">
-		<div id="p" class="easyui-panel" title="商户单日累计限次查询"
+		<div id="p" class="easyui-panel" title="银行卡单日累计限次查询"
 			style="height: 72px; padding: 10px; background: #fafafa;"
 			iconCls="icon-save" collapsible="true">
 			<form id="dedurateForm" method="post">
@@ -152,7 +152,7 @@
 				rownumbers:true,
 				toolbar:[{
 					id:'btnadd',
-					text:'新增商户日累计限次',
+					text:'新增银行卡日累计限次',
 					iconCls:'icon-add',
 					handler:function(){
 						showAdd();
@@ -181,7 +181,7 @@
 			$('#theForm :input').val('');
 			$("#theForm").attr("action","riskLimitCardNum/saveLimitMemNumDay");
 			$('#w').window({
-				title: '商户累计限次信息',
+				title: '银行卡累计限次信息',
 				top: panelVertFloat, 
 		  		width: panelWidth,
 		  		height: panelHeight,
@@ -307,7 +307,7 @@
 		
 		});
 		$('#w').window({
-			title: '修改商户日累计限次',
+			title: '修改银行卡日累计限次',
 			top: panelVertFloat, 
 	  		width: panelWidth,
 	  		height: panelHeight,
@@ -323,7 +323,7 @@
 		$('#btn_submit').linkbutton('enable'); 
 	}
 	function deleteLimitMem(tid){
-		$.messager.confirm('提示','您是否想要注销此日商户累计限次?',function(r){   
+		$.messager.confirm('提示','您是否想要注销此日银行卡累计限次?',function(r){   
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
@@ -341,7 +341,7 @@
 		});  
 	}
 	function startLimitMem(tid){
-		$.messager.confirm('提示','您是否想要启用此商户日累计限次?',function(r){   
+		$.messager.confirm('提示','您是否想要启用此银行卡日累计限次?',function(r){   
 		    if (r){  
 		    	$.ajax({
 					type: "GET",
