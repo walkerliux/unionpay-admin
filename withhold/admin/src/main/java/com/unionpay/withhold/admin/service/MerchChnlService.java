@@ -11,11 +11,12 @@ public interface MerchChnlService {
 	/**
 	 * 查询商户通道信息
 	 * @param merchDeta
+	 * @param chnlcode 
 	 * @param page
 	 * @param rows
 	 * @return
 	 */
-	PageBean queryMerchChnl(TMerchDeta merchDeta, Integer page, Integer rows);
+	PageBean queryMerchChnl(TMerchDeta merchDeta, String chnlcode, Integer page, Integer rows);
 	/**
 	 * 修改商户通道信息
 	 * @param merchDeta

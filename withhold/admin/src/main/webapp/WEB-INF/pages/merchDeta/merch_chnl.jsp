@@ -113,7 +113,7 @@ table tr td.update {
 						<tr style="height: 25px">
 							<td class="update">通道名称</td>
 							<td class="update" align="left">
-							<select id="uschannelName" name="target"/>
+							<select id="uschannelName" name="chnlcode"/>
 							
 							</select>
 							<td class="update" width="15%">通道商户号 </td>
@@ -144,7 +144,7 @@ table tr td.update {
 	var width = $("#continer").width();
 	 
 	$(function() {
-		showAllChannl("serch");
+		showAllChannl();
 		$('#test')
 				.datagrid(
 						{
@@ -196,9 +196,7 @@ table tr td.update {
 	
 	/* 弹出添加窗口 */
 	function showAdd() {
-		var output='';	// 拼接显示的内容
-		
-		
+		var output='';	// 拼接显示的内容		
 		// 拼接扣率描述+累计方式
 		output += '<tr>';
 		output += 	'<td class="update" width="15%">商户号</td>';
@@ -210,6 +208,23 @@ table tr td.update {
 		output += 	'<input id="memberName" name="memberName" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
 		output += 	'</td>';
 		output += '</tr>';
+		
+		
+		output += '<tr class="segment seg1">';
+		output += 	'<td colspan="4" class="head-title update">通道1</td>';
+		output += '</tr>'
+		output += '<tr>'		
+		output += '<tr>';
+		output += 	'<td class="update" width="15%">通道名称</td>';
+		output += 	'<td class="update" width="30%">';
+		output += 	'<input id="chnlname" name="chnlname" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入通道名称" />';
+		output += 	'</td>';
+		output += 	'<td class="update" width="15%">通道商户号</td>';
+		output += 	'<td class="update" width="30%">';
+		output += 	'<input id="chnlmercno" name="chnlmercno" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
+		output += 	'</td>';
+		output += '</tr>';
+		
 		output +='<tr>';
 		output +='<td class="update">商户公钥</td>';
 		output +='<td class="update" align="left">';
@@ -221,20 +236,6 @@ table tr td.update {
 		output +='maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
 		output +='</tr>';
 		
-		output += '<tr class="segment seg1">';
-		output += 	'<td colspan="4" class="head-title update">通道1</td>';
-		output += '</tr>'
-		output += '<tr>'		
-			output += '<tr>';
-		output += 	'<td class="update" width="15%">通道名称</td>';
-		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlname" name="chnlname" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入通道名称" />';
-		output += 	'</td>';
-		output += 	'<td class="update" width="15%">通道商户号</td>';
-		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlmercno" name="chnlmercno" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
-		output += 	'</td>';
-		output += '</tr>';
 		output +='<tr>';
 		output +='<td class="update">通道公钥</td>';
 		output +='<td class="update" align="left">';
@@ -245,7 +246,7 @@ table tr td.update {
 		output += '</tr>';
 		$('#tableadd').html(output);
 		
-		$.parser.parse('#tableadd');
+	 	$.parser.parse('#tableadd');
 		
 //		$("#addForm").attr("action", "fee/saveAmtAccumRate");
 		$('#wadd').window({
@@ -260,14 +261,21 @@ table tr td.update {
 			modal : true,
 			shadow : true,
 			closed : false
-		});
-		//失去焦点
-		$("#a_merchno").blur(
+		}); 
+//失去焦点
+		/* $("#a_merchno").blur(
 				function (){
 				 var merchno =$("#a_merchno").val;
 				showMerchChnl(merchno);					
-			});
+			}); */
+	$("#a_merchno").focusout(function() {
+		var merchno = $("#a_merchno").val();
+		  if(merchno != null && merchno != ''){
+			  showMerchChnl(merchno);	
+		  }
+		});
 	}
+	
 	
 	function closeAdd() {
 		$('#wadd').window('close');
@@ -283,7 +291,7 @@ table tr td.update {
 		var data = {
 			'memberId':$('#s_memberId').val(),
 			'memberName':$("#s_memberName").val(),
-			'cacode':$("#schannelName").val(),
+			'chnlcode':$("#schannelName").val(),
 		};
 		$('#test').datagrid('load', data);
 	}
@@ -363,6 +371,17 @@ table tr td.update {
 		output += 	'</td>';
 		output += '</tr>';
 		output +='<tr>';
+		output +='<td class="update">商户公钥</td>';
+		output +='<td class="update" align="left">';
+		output +='<input type="text" id="pubkey' + (segmentIndex + 1) + '" name="pubkey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
+		output +='maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
+		output +='<td class="update" width="15%">商户私钥 </td>';
+		output +='<td class="update" align="left">';
+		output +='<input type="text" id="prikey' + (segmentIndex + 1) + '" name="prikey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
+		output +='maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
+		output +='</tr>';
+		
+		output +='<tr>';
 		output +='<td class="update">通道公钥</td>';
 		output +='<td class="update" align="left">';
 		output +='<input type="text" id="chnlpubkey' + (segmentIndex + 1) + '" name="chnlpubkey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
@@ -387,7 +406,7 @@ table tr td.update {
 			success: function(json) {
 				var html = "<option value=''>--请选择通道--</option>";
 				$.each(json,function(key, value) {
-						html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
+						html += '<option value="' + value.chnlcode + '">' + value.chnlname + '</option>';
 				});
 				$("#schannelName").html(html);
 			}
@@ -423,7 +442,7 @@ table tr td.update {
 		});
 	}
 	
-	function showAllChannl(caprovince) {
+	function showAllChannl() {
 		var em="";
 		$.ajax({
 			type: "POST",
@@ -448,7 +467,6 @@ table tr td.update {
 		$('#umerchno').attr("readonly","readonly");//设为只读
 		$('#umemberName').attr("readonly","readonly");//设为只读
 		$("#updateForm").attr("action","merchDeta/updateMerchDChnl");
-		
 		$.ajax({
 			   type: "POST",
 			   url: "merchDeta/querydateMerchChnlById",
@@ -463,6 +481,8 @@ table tr td.update {
 						$("#umemberName").val(json.memberName);
 						$("#uchnlmercno").val(json.chnlmercno);
 						showChannl(json.chnlcode);
+						$("#tid").val(json.tid);
+						$("#status").val(json.status);
 						
 						$('#wupdate').window({
 							title: '变更商户通道信息',
@@ -508,11 +528,12 @@ table tr td.update {
 		$.ajax({
 			type : "POST",
 			url : "merchDeta/queryMerchChnl",
-//			data:"memberId="+merchno,
+	 		data:"memberId="+merchno, 
 			async : false,
 			dataType : "json",
 			success : function(json) {
 				var output='';	// 拼接显示的内容
+				
 		 		 var rows = json.rows;
 				output += '<tr>';
 				output += 	'<td class="update" width="15%">商户号</td>';
@@ -525,16 +546,7 @@ table tr td.update {
 				output += 	'<input id="memberName" name="memberName" maxlength="64" class="easyui-validatebox" required="true" value="' +rows[0].memberName + '"/>';
 				output += 	'</td>';
 				output += '</tr>';
-				output +='<tr>';
-				output +='<td class="update">商户公钥</td>';
-				output +='<td class="update" align="left">';
-				output +='<input type="text" id="pubkey" name="pubkey" class="easyui-validatebox" required="true"';
-				output +='maxlength="15" value="' + rows[0].pubkey + '"/><font color="red">*</font></td>';
-				output +='<td class="update" width="15%">商户私钥 </td>';
-				output +='<td class="update" align="left">';
-				output +='<input type="text" id="prikey" name="prikey" class="easyui-validatebox" required="true"';
-				output +='maxlength="64" value="' + rows[0].prikey + '" /><font color="red">*</font></td>';
-				output +='</tr>';
+				
 				
 		     // 循环要输出的东西		   		   
 			for (var i = 0; i < rows.length; i++) {
@@ -552,6 +564,16 @@ table tr td.update {
 				output += 	'<input id="chnlmercno' + (i + 1) + '" name="chnlmercno" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlmercno + '" />';
 				output += 	'</td>';
 				output += '</tr>';
+				output +='<tr>';
+				output +='<td class="update">商户公钥</td>';
+				output +='<td class="update" align="left">';
+				output +='<input type="text" id="pubkey' + (i + 1) + '" name="pubkey" class="easyui-validatebox" required="true"';
+				output +='maxlength="15" value="' + rows[i].pubkey + '"/><font color="red">*</font></td>';
+				output +='<td class="update" width="15%">商户私钥 </td>';
+				output +='<td class="update" align="left">';
+				output +='<input type="text" id="prikey' + (i + 1) + '" name="prikey" class="easyui-validatebox" required="true"';
+				output +='maxlength="64" value="' + rows[i].prikey + '" /><font color="red">*</font></td>';
+				output +='</tr>';
 				output +='<tr>';
 				output +='<td class="update">通道公钥</td>';
 				output +='<td class="update" align="left">';

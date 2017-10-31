@@ -25,19 +25,19 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 	private TMerchChnlMapper merchChnlMapper;
 
 	@Override
-	public PageBean queryMerchChnl(TMerchDeta merchDeta, Integer page, Integer rows) {
+	public PageBean queryMerchChnl(TMerchDeta merchDeta,String chnlcode, Integer page, Integer rows) {
 		// 查分页数据
 				Integer beginRow = (page - 1) * rows;
 
-				List<TMerchChnlWithBLOBs> list = merchChnlMapper.selectChnlWithCondition(merchDeta,  beginRow, rows);
-				int count = merchChnlMapper.selectCountWithCondition(merchDeta);
+				List<TMerchChnlWithBLOBs> list = merchChnlMapper.selectChnlWithCondition(merchDeta,chnlcode, beginRow, rows);
+				int count = merchChnlMapper.selectCountWithCondition(merchDeta,chnlcode);
 
 				return new PageBean(count, list);
 	}
 	@Override
 	public ResultBean updateMerchDChnl(TMerchChnl merchChnl) {
 			
-		int flag = merchChnlMapper.updateByPrimaryKey( merchChnl);
+		int flag = merchChnlMapper.updateByPrimaryKeySelective( merchChnl);
 		if (flag > 0) {
 			return new ResultBean("操作成功 ！");
 		} else {

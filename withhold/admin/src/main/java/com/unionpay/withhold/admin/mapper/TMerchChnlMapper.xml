@@ -134,7 +134,7 @@
     from t_merch_chnl mc 
     left join t_merch_deta md
     on  mc.MERCHNO=md.MEMBER_ID
-    where TID = #{tid,jdbcType=INTEGER}
+    where mc.TID = #{tid,jdbcType=INTEGER}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -356,7 +356,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TMerchChnl" >
     update t_merch_chnl
     <set >
       <if test="merchno != null" >
@@ -392,15 +392,7 @@
       <if test="remarks != null" >
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
-      <if test="pubkey != null" >
-        PUBKEY = #{pubkey,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="prikey != null" >
-        PRIKEY = #{prikey,jdbcType=LONGVARCHAR},
-      </if>
-      <if test="chnlpubkey != null" >
-        CHNLPUBKEY = #{chnlpubkey,jdbcType=LONGVARCHAR},
-      </if>
+     
     </set>
     where TID = #{tid,jdbcType=INTEGER}
   </update>
@@ -455,8 +447,8 @@
 			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
 				AND md.MEMBER_NAME = #{merchDeta.memberName}
 			</if>
-			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
-				AND md.CACODE = #{merchDeta.cacode}
+			<if test="chnlcode != null and chnlcode !=''">
+				AND mc.CHNLCODE = #{chnlcode}
 			</if>
 			
 		</where>
@@ -481,8 +473,8 @@
 			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
 				AND md.MEMBER_NAME = #{merchDeta.memberName}
 			</if>
-			<if test="merchDeta.cacode != null and merchDeta.cacode !=''">
-				AND md.CACODE = #{merchDeta.cacode}
+			<if test="chnlcode != null and chnlcode !=''">
+				AND mc.CHNLCODE = #{chnlcode}
 			</if>
 		</where>
 	</select>

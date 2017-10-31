@@ -348,12 +348,12 @@ public class MerchDetaController {
 	 */
 	@ResponseBody
 	@RequestMapping("/queryMerchChnl")
-	public PageBean queryMerchChnl(TMerchDeta merchDeta,
+	public PageBean queryMerchChnl(TMerchDeta merchDeta,String chnlcode,
 			@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows){
 		if(null==merchDeta){
 			return null;			
 		}else{
-			return merchChnlService.queryMerchChnl(merchDeta,page,rows);
+			return merchChnlService.queryMerchChnl(merchDeta,chnlcode,page,rows);
 		}
 	}
 	
@@ -401,6 +401,7 @@ public class MerchDetaController {
 //		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDetaApply.setInUser(infoByToken.getUserId().longValue())
+//		merchChnl.setTid(Integer.parseInt(tid));
 		try {
 			return merchChnlService.updateMerchDChnl(merchChnl);
 			
