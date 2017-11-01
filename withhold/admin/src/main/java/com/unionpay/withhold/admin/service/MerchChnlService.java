@@ -29,6 +29,8 @@ public interface MerchChnlService {
 	 * @return
 	 */
 	TMerchChnlWithBLOBs querydateMerchDChnlById(Integer tid);
-	ResultBean addMerchChnl(TMerchChnl merchChnl);
+	
+	
+	ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl);
 
 }

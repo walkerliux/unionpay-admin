@@ -50,9 +50,13 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		return  merchChnlMapper.selectChnlByPrimaryKey(tid);
 	}
 	@Override
-	public ResultBean addMerchChnl(TMerchChnl merchChnl) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl) {
+		int flag = merchChnlMapper.insertSelective(merchChnl);
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "修改失败！");
+		}
 	}
 	
 	

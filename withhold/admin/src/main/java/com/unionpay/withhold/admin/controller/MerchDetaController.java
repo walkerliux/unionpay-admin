@@ -434,9 +434,17 @@ public class MerchDetaController {
 	
 	@ResponseBody
 	@RequestMapping("/addMerchChnl")
-	public ResultBean addMerchChnl(TMerchChnl merchChnl, HttpServletRequest request){
+	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl, HttpServletRequest request){
+		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
+		merch.setMerchno(merchChnl.getMerchno());
+		merch.setMemberName(merchChnl.getMemberName());
+		int length = merchChnl.getArdList().size();
+		
+		for (int i = 0; i < length; i++) {
+			merch=merchChnl.getArdList().get(i);
+		}
 		try {
-			return merchChnlService.addMerchChnl(merchChnl);
+			return merchChnlService.addMerchChnl(merch);
 			
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");

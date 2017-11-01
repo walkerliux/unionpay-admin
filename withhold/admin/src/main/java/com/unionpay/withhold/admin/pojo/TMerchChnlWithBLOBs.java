@@ -1,13 +1,26 @@
 package com.unionpay.withhold.admin.pojo;
 
+import java.util.List;
+
 public class TMerchChnlWithBLOBs extends TMerchChnl {
     private String pubkey;
 
     private String prikey;
 
     private String chnlpubkey;
+    
+    private  List<TMerchChnlWithBLOBs> ardList;
+    
+    
+    public List<TMerchChnlWithBLOBs> getArdList() {
+		return ardList;
+	}
 
-    public String getPubkey() {
+	public void setArdList(List<TMerchChnlWithBLOBs> ardList) {
+		this.ardList = ardList;
+	}
+
+	public String getPubkey() {
         return pubkey;
     }
 

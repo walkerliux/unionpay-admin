@@ -211,35 +211,41 @@ table tr td.update {
 		
 		
 		output += '<tr class="segment seg1">';
-		output += 	'<td colspan="4" class="head-title update">通道1</td>';
+		output += '<td colspan="4" class="head-title update">通道1</td>';
 		output += '</tr>'
 		output += '<tr>'		
 		output += '<tr>';
-		output += 	'<td class="update" width="15%">通道名称</td>';
+		 output += 	'<td class="update" width="15%">通道名称</td>';
 		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlname" name="chnlname" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入通道名称" />';
-		output += 	'</td>';
+		output += 	'<input id="chnlname" name="ardList[0].chnlname" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入通道名称" />';
+		output += 	'</td>'; 
+		/* output += 	'<tr style="height: 25px">';
+		output += 	'<td class="update">通道名称</td>';
+		output += 	'<td class="update" align="left">';
+		output += 	'<select id="uschannelName" name="chnlcode"/>';
+		output += 	'</select>'; */
+		
 		output += 	'<td class="update" width="15%">通道商户号</td>';
 		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlmercno" name="chnlmercno" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
+		output += 	'<input id="chnlmercno" name="ardList[0].chnlmercno" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
 		output += 	'</td>';
 		output += '</tr>';
 		
 		output +='<tr>';
 		output +='<td class="update">商户公钥</td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="pubkey" name="pubkey" class="easyui-validatebox" required="true"';
+		output +='<input type="text" id="pubkey" name="ardList[0].pubkey" class="easyui-validatebox" required="true"';
 		output +='maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
 		output +='<td class="update" width="15%">商户私钥 </td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="prikey" name="prikey" class="easyui-validatebox" required="true"';
+		output +='<input type="text" id="prikey" name="ardList[0].prikey" class="easyui-validatebox" required="true"';
 		output +='maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
 		output +='</tr>';
 		
 		output +='<tr>';
 		output +='<td class="update">通道公钥</td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="chnlpubkey" name="chnlpubkey" class="easyui-validatebox" required="true"';
+		output +='<input type="text" id="chnlpubkey" name="ardList[0].chnlpubkey" class="easyui-validatebox" required="true"';
 		output +='maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>';
 		output += '</tr>';		
 		output += '<tr id="notes" display="none"></tr>';		
@@ -248,7 +254,7 @@ table tr td.update {
 		
 	 	$.parser.parse('#tableadd');
 		
-//		$("#addForm").attr("action", "fee/saveAmtAccumRate");
+	$("#addForm").attr("action", "merchDeta/addMerchChnl");
 		$('#wadd').window({
 			title : '商户通道维护',
 			top : panelVertFloat,
@@ -363,29 +369,32 @@ table tr td.update {
 		output += '<tr>';
 		output += 	'<td class="update" width="15%">通道名称</td>';
 		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlname' + (segmentIndex + 1) + '" name="chnlname' + (segmentIndex + 1) + '" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户号" />';
-		output += 	'</td>';
+		output += 	'<input id="chnlname' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlcode" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户号" />';
+		output += 	'</td>'; 
+		/* output += 	'<tr style="height: 25px">';
+		output += 	'<td class="update">通道名称</td>';
+		output += 	'<td class="update" align="left">';
+		output += 	'<select id="uschannelName' + (segmentIndex + 1) + '" name="chnlcode' + (segmentIndex + 1) + '"/>';
+		output += 	'</select>';
+		 */
 		output += 	'<td class="update" width="15%">通道商户号</td>';
 		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlmercno' + (segmentIndex + 1) + '" name="chnlmercno' + (segmentIndex + 1) + '" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
+		output += 	'<input id="chnlmercno' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlmercno" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户名称" />';
 		output += 	'</td>';
 		output += '</tr>';
 		output +='<tr>';
 		output +='<td class="update">商户公钥</td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="pubkey' + (segmentIndex + 1) + '" name="pubkey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
-		output +='maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
+		output +='<input type="text" id="pubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].pubkey" class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
 		output +='<td class="update" width="15%">商户私钥 </td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="prikey' + (segmentIndex + 1) + '" name="prikey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
-		output +='maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
+		output +='<input type="text" id="prikey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].prikey" class="easyui-validatebox" required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
 		output +='</tr>';
 		
 		output +='<tr>';
 		output +='<td class="update">通道公钥</td>';
 		output +='<td class="update" align="left">';
-		output +='<input type="text" id="chnlpubkey' + (segmentIndex + 1) + '" name="chnlpubkey' + (segmentIndex + 1) + '" class="easyui-validatebox" required="true"';
-		output +='maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>';
+		output +='<input type="text" id="chnlpubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlpubkey" class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>';
 		output += '</tr>';
 		
 		
@@ -510,9 +519,9 @@ table tr td.update {
 	
 	function showMerchChnl(merchno){
 		var output='';	// 拼接显示的内容
-		$("#addForm").attr("action", "merchDeta/addMerchChnl");
+		//$("#addForm").attr("action", "merchDeta/addMerchChnl");
 		
-		$('#wadd').window({
+		/* $('#wadd').window({
 			title : '商户通道维护',
 			top : panelVertFloat,
 			left : panelHoriFloat,
@@ -524,7 +533,7 @@ table tr td.update {
 			modal : true,
 			shadow : true,
 			closed : false,
-		});
+		}); */
 		$.ajax({
 			type : "POST",
 			url : "merchDeta/queryMerchChnl",
@@ -557,28 +566,25 @@ table tr td.update {
 				output += '<tr>';
 				output += 	'<td class="update" width="15%">通道名称</td>';
 				output += 	'<td class="update" width="30%">';
-				output += 	'<input id="chnlname' + (i + 1) + '" name="chnlname" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlname + '"/>';
+				output += 	'<input id="chnlname' + (i + 1) + '" name="ardList['+i+'].chnlcode" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlname + '"/>';
 				output += 	'</td>';
 				output += 	'<td class="update" width="15%">通道商户号</td>';
 				output += 	'<td class="update" width="30%">';
-				output += 	'<input id="chnlmercno' + (i + 1) + '" name="chnlmercno" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlmercno + '" />';
+				output += 	'<input id="chnlmercno' + (i + 1) + '" name="ardList['+i+'].chnlmercno" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlmercno + '" />';
 				output += 	'</td>';
 				output += '</tr>';
 				output +='<tr>';
 				output +='<td class="update">商户公钥</td>';
 				output +='<td class="update" align="left">';
-				output +='<input type="text" id="pubkey' + (i + 1) + '" name="pubkey" class="easyui-validatebox" required="true"';
-				output +='maxlength="15" value="' + rows[i].pubkey + '"/><font color="red">*</font></td>';
+				output +='<input type="text" id="pubkey' + (i + 1) + '" name="ardList['+i+'].pubkey" class="easyui-validatebox" required="true" maxlength="15" value="' + rows[i].pubkey + '"/><font color="red">*</font></td>';
 				output +='<td class="update" width="15%">商户私钥 </td>';
 				output +='<td class="update" align="left">';
-				output +='<input type="text" id="prikey' + (i + 1) + '" name="prikey" class="easyui-validatebox" required="true"';
-				output +='maxlength="64" value="' + rows[i].prikey + '" /><font color="red">*</font></td>';
+				output +='<input type="text" id="prikey' + (i + 1) + '" name="ardList['+i+'].prikey" class="easyui-validatebox" required="true" maxlength="64" value="' + rows[i].prikey + '" /><font color="red">*</font></td>';
 				output +='</tr>';
 				output +='<tr>';
 				output +='<td class="update">通道公钥</td>';
 				output +='<td class="update" align="left">';
-				output +='<input type="text" id="chnlpubkey' + (i + 1) + '" name="chnlpubkey" class="easyui-validatebox" required="true"';
-				output +='maxlength="15" value="' + rows[i].chnlpubkey + '"/><font color="red">*</font></td>';
+				output +='<input type="text" id="chnlpubkey' + (i + 1) + '" name="ardList['+i+'].chnlpubkey" class="easyui-validatebox" required="true" maxlength="15" value="' + rows[i].chnlpubkey + '"/><font color="red">*</font></td>';
 				output += '</tr>';		
 				
 			}
