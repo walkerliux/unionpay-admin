@@ -14,8 +14,17 @@ public class TLimitMemNumsDay {
     private String notes;
 
     private String remarks;
+    //关联属性
+    private String riskname;
+    public String getriskname() {
+		return riskname;
+	}
 
-    public Integer getTid() {
+	public void setriskname(String riskname) {
+		this.riskname = riskname;
+	}
+
+	public Integer getTid() {
         return tid;
     }
 

@@ -9,6 +9,8 @@ public enum ParaDicCodeEnums {
 	STORGETYPE("storgetype"),
 	/** 风险级别 **/
 	RISKLEVEL("risklevel"),
+	/** 银行卡类型 **/
+	CARDTYPE("cardtype"),
 	UNKNOW("unknow");
 	private String code;
 

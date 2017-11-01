@@ -81,6 +81,7 @@ public class RiskCaseServiceImpl implements RiskCaseService {
 			return new ResultBean("", "信息有误，操作失败！");
 		} else {
 			riskCase.setUptime(new Date());
+			riskCase.setInitflag(CommonConstants.RISK_CASE_FLAG_UPDATE);
 			int count = riskCaseMapper.updateByPrimaryKeySelective(riskCase);
 			return count > 0 ? new ResultBean("风控策略信息配置成功！") : new ResultBean("", "风控策略信息配置失败！");
 		}

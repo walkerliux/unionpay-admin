@@ -12,6 +12,8 @@
     <result column="UPUSER" property="upuser" jdbcType="DECIMAL" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+  	<!-- 关联属性 -->
+    <result column="CASEID" property="caseid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -297,5 +299,12 @@
     	RISKVER,RISKNAME
     from t_risk
     where STATUS = '00'
+  </select>
+  <select id="getAllLimitRiskList" resultMap="BaseResultMap">
+   select rc.CASEID,r.RISKNAME
+	from t_risk r
+	LEFT JOIN t_risk_case rc
+	on r.RISKID=rc.RISKID
+    where r.STATUS = '00'
   </select>
 </mapper>

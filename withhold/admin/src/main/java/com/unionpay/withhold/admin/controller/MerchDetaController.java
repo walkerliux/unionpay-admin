@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
+import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
+
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TParaDic;
@@ -344,12 +348,12 @@ public class MerchDetaController {
 	 */
 	@ResponseBody
 	@RequestMapping("/queryMerchChnl")
-	public PageBean queryMerchChnl(TMerchDeta merchDeta,
+	public PageBean queryMerchChnl(TMerchDeta merchDeta,String chnlcode,
 			@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows){
 		if(null==merchDeta){
 			return null;			
 		}else{
-			return merchChnlService.queryMerchChnl(merchDeta,page,rows);
+			return merchChnlService.queryMerchChnl(merchDeta,chnlcode,page,rows);
 		}
 	}
 	
@@ -397,6 +401,7 @@ public class MerchDetaController {
 //		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDetaApply.setInUser(infoByToken.getUserId().longValue())
+//		merchChnl.setTid(Integer.parseInt(tid));
 		try {
 			return merchChnlService.updateMerchDChnl(merchChnl);
 			
@@ -405,6 +410,38 @@ public class MerchDetaController {
 		}
 		
 	
+	}
+	/**
+	 * 查询商户通道信息详情
+	 * 
+	 * @param selfId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/querydateMerchChnlById")
+	public TMerchChnlWithBLOBs querydateMerchChnlById(Integer tid) {
+		if (tid == null) {
+			return null;
+		}
+		return merchChnlService.querydateMerchDChnlById(tid);
+	}
+	/**
+	 * 增加通道信息
+	 * @param merchChnl
+	 * @param request
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping("/addMerchChnl")
+	public ResultBean addMerchChnl(TMerchChnl merchChnl, HttpServletRequest request){
+		try {
+			return merchChnlService.addMerchChnl(merchChnl);
+			
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+		
 	}
 	
 }

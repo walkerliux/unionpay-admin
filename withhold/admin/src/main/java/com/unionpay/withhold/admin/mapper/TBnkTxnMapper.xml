@@ -444,4 +444,17 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  <update id="updateByCheckBill" parameterType="map" >
+   update t_bnk_txn t set  t.status = '9', t.proid = 1, t.RESULT = '02'
+   where  exists (select b.tid from t_self_txn b where
+				t.instiid = b.instiid
+				AND t.pan=b.pan
+                AND t.amount = b.amount
+                AND t.systrcno = b.systrcno
+                AND t.payordno = b.payordno
+				AND b.status='1')
+  </update>
+  
+  
+  
 </mapper>

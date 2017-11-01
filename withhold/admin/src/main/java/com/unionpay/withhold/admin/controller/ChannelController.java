@@ -51,18 +51,14 @@ public class ChannelController {
 	public String toCoopAgencyApply() {
 		return "/channel/channel";
 	}
-	
-	
 	@RequestMapping(value = "/toChannelBank", method = RequestMethod.GET)
 	public String toChannelBank() {
 		return "/channel/channel_bank_limit";
 	}
-	
 	@RequestMapping(value = "/toChannelFlow", method = RequestMethod.GET)
 	public String toChannelFlow() {
 		return "/channel/channel_flow";
 	}
-
 	/**
 	 * 查询通道信息
 	 * @author: zhangshd
@@ -83,14 +79,29 @@ public class ChannelController {
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
 	}
-	
+	/**
+	 * 
+	 * @author: zhangshd
+	 * @return List<TChnlDeta>
+	 * @date: 2017年10月20日 下午5:42:43 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/queryChannelAll")
 	public List<TChnlDeta> queryChannelAll() {
 		List<TChnlDeta> list=  channelService.selectByCondition(new TChnlDeta());
 		return list;
 	}
-	
+	/**
+	 * 
+	 * @author: zhangshd
+	 * @param chnlFlowControl
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 * @date: 2017年10月20日 下午5:42:48 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/queryChannelFlow")
 	public PageBean queryChannelFlow(TChnlFlowControl chnlFlowControl,
@@ -101,9 +112,6 @@ public class ChannelController {
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), list);
 		return pageBean;
 	}
-	
-	
-	
 	/**
 	 * 添加通道信息
 	 * @author: zhangshd
@@ -126,6 +134,15 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	/**
+	 * @author: zhangshd
+	 * @param chnlDeta
+	 * @param request
+	 * @param rates
+	 * @return ResultBean
+	 * @date: 2017年10月20日 下午5:43:03 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/addChannelFlow")
 	public ResultBean addChannelFlow(TChnlFlowControl chnlDeta, HttpServletRequest request,String rates) {
@@ -135,8 +152,6 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
-	
-	
 	/**
 	 * 查询通道详情
 	 * @author: zhangshd
@@ -150,20 +165,30 @@ public class ChannelController {
 	public TChnlDeta queryChannelById(Integer selfId) {
 		return selfId == null ? null : channelService.queryChannelById(selfId);
 	}
-	
+	/**
+	 * @author: zhangshd
+	 * @param selfId
+	 * @return TChnlFlowControl
+	 * @date: 2017年10月20日 下午5:43:34 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/queryChannelFlowById")
 	public TChnlFlowControl queryChannelFlowById(Integer selfId) {
 		return selfId == null ? null : channelService.queryChannelFlowById(selfId);
 	}
-	
-	
+	/**
+	 * @author: zhangshd
+	 * @param selfId
+	 * @return Map<String,Object>
+	 * @date: 2017年10月20日 下午5:43:44 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/queryChannelBankById")
 	public Map<String, Object> queryChannelBankById(String selfId) {
 		return selfId == null ? null : channelService.queryChannelBankByChnlcode(selfId);
 	}
-	
 	
 	@ResponseBody
 	@RequestMapping("/changeStatus")
@@ -198,9 +223,6 @@ public class ChannelController {
 		ResultBean resultBean =channelService.changeChannlBank(debitmap.get("old"), debitmap.get("new"),creditmap.get("old"), creditmap.get("new"),chnlcode,infoByToken.getUserId().longValue());
 		return resultBean;
 	}
-	
-	
-	
 	/**
 	 * 修改通道信息
 	 * @author: zhangshd
@@ -222,6 +244,13 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	/**
+	 * @author: zhangshd
+	 * @param chnlDeta
+	 * @return ResultBean
+	 * @date: 2017年10月20日 下午5:44:04 
+	 * @version v1.0
+	 */
 	@ResponseBody
 	@RequestMapping("/updateChannelFlow")
 	public ResultBean updateChannelFlow(TChnlFlowControl chnlDeta) {
@@ -231,9 +260,14 @@ public class ChannelController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
-	
-	
-	
+	/**
+	 * @author: zhangshd
+	 * @param list1
+	 * @param list2
+	 * @return Map<String,List<String>>
+	 * @date: 2017年10月20日 下午5:44:25 
+	 * @version v1.0
+	 */
 	private static Map<String, List<String>> getDiffrent(List<String> list1, List<String> list2) {
 		Map<String, Integer> map = new HashMap<String, Integer>(list1.size() + list2.size());
 		for (String string : list1) {

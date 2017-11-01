@@ -2,7 +2,9 @@ package com.unionpay.withhold.admin.mapper;
 
 import com.unionpay.withhold.admin.pojo.TLimitNumsPanDay;
 import com.unionpay.withhold.admin.pojo.TLimitNumsPanDayExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TLimitNumsPanDayMapper {
@@ -27,4 +29,15 @@ public interface TLimitNumsPanDayMapper {
     int updateByPrimaryKeySelective(TLimitNumsPanDay record);
 
     int updateByPrimaryKey(TLimitNumsPanDay record);
+    
+    List<TLimitNumsPanDay> queryLimitMemNumsDay(@Param("caseid")Long caseid,
+			@Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+
+	int selectCountWithCondition(@Param("caseid")Long caseid);
+
+
+	TLimitNumsPanDay queryLimitMemNumsDaybytid(@Param("tid")Integer tid);
+
+	List<TLimitNumsPanDay> queryAllLimitMemNumsDay(@Param("caseid")Long caseid,@Param("cardtype")String cardtype);
+	
 }
