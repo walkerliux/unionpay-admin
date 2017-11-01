@@ -49,6 +49,11 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		
 		return  merchChnlMapper.selectChnlByPrimaryKey(tid);
 	}
+	@Override
+	public ResultBean addMerchChnl(TMerchChnl merchChnl) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

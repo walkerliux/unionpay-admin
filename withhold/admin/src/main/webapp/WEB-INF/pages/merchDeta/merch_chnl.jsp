@@ -510,7 +510,7 @@ table tr td.update {
 	
 	function showMerchChnl(merchno){
 		var output='';	// 拼接显示的内容
-//		$("#addForm").attr("action", "merchDeta/addMerchChnl");
+		$("#addForm").attr("action", "merchDeta/addMerchChnl");
 		
 		$('#wadd').window({
 			title : '商户通道维护',

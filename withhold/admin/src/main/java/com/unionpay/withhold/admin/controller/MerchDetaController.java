@@ -425,4 +425,23 @@ public class MerchDetaController {
 		}
 		return merchChnlService.querydateMerchDChnlById(tid);
 	}
+	/**
+	 * 增加通道信息
+	 * @param merchChnl
+	 * @param request
+	 * @return
+	 */
+	
+	@ResponseBody
+	@RequestMapping("/addMerchChnl")
+	public ResultBean addMerchChnl(TMerchChnl merchChnl, HttpServletRequest request){
+		try {
+			return merchChnlService.addMerchChnl(merchChnl);
+			
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+		
+	}
+	
 }
