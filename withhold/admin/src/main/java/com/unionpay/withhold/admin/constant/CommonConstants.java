@@ -29,8 +29,8 @@ public class CommonConstants {
 	public final static String RISK_CASE_FLAG_UPDATE = "u";
 
 	// 黑名单或白名单的状态
-	/** 黑名单或白名单的状态-在用 **/
+	/** 黑名单或白名单或限额限次的状态-在用 **/
 	public final static String LIST_STATUS_NORMAL = "00";
-	/** 黑名单或白名单的状态-不在用 **/
+	/** 黑名单或白名单或限额限次的状态-不在用 **/
 	public final static String LIST_STATUS_UNNORMAL = "01";
 }
