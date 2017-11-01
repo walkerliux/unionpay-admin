@@ -27,4 +27,6 @@ public interface TRateAccumDetaMapper {
     int updateByPrimaryKeySelective(TRateAccumDeta record);
 
     int updateByPrimaryKey(TRateAccumDeta record);
+    //selectRateAccDateInfo
+    List<TRateAccumDeta> selectRateAccDateInfo(TRateAccumDetaExample example);
 }

@@ -3,14 +3,14 @@ package com.unionpay.withhold.admin.pojo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TRateAccumExample {
+public class TSpeFeeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TRateAccumExample() {
+    public TSpeFeeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,6 +104,66 @@ public class TRateAccumExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
+        public Criteria andTidIsNull() {
+            addCriterion("TID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidIsNotNull() {
+            addCriterion("TID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidEqualTo(Integer value) {
+            addCriterion("TID =", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidNotEqualTo(Integer value) {
+            addCriterion("TID <>", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidGreaterThan(Integer value) {
+            addCriterion("TID >", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TID >=", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidLessThan(Integer value) {
+            addCriterion("TID <", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidLessThanOrEqualTo(Integer value) {
+            addCriterion("TID <=", value, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidIn(List<Integer> values) {
+            addCriterion("TID in", values, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidNotIn(List<Integer> values) {
+            addCriterion("TID not in", values, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidBetween(Integer value1, Integer value2) {
+            addCriterion("TID between", value1, value2, "tid");
+            return (Criteria) this;
+        }
+
+        public Criteria andTidNotBetween(Integer value1, Integer value2) {
+            addCriterion("TID not between", value1, value2, "tid");
+            return (Criteria) this;
+        }
+
         public Criteria andRateIdIsNull() {
             addCriterion("RATE_ID is null");
             return (Criteria) this;
@@ -114,52 +174,52 @@ public class TRateAccumExample {
             return (Criteria) this;
         }
 
-        public Criteria andRateIdEqualTo(Integer value) {
+        public Criteria andRateIdEqualTo(Long value) {
             addCriterion("RATE_ID =", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotEqualTo(Integer value) {
+        public Criteria andRateIdNotEqualTo(Long value) {
             addCriterion("RATE_ID <>", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThan(Integer value) {
+        public Criteria andRateIdGreaterThan(Long value) {
             addCriterion("RATE_ID >", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThanOrEqualTo(Integer value) {
+        public Criteria andRateIdGreaterThanOrEqualTo(Long value) {
             addCriterion("RATE_ID >=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThan(Integer value) {
+        public Criteria andRateIdLessThan(Long value) {
             addCriterion("RATE_ID <", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThanOrEqualTo(Integer value) {
+        public Criteria andRateIdLessThanOrEqualTo(Long value) {
             addCriterion("RATE_ID <=", value, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdIn(List<Integer> values) {
+        public Criteria andRateIdIn(List<Long> values) {
             addCriterion("RATE_ID in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotIn(List<Integer> values) {
+        public Criteria andRateIdNotIn(List<Long> values) {
             addCriterion("RATE_ID not in", values, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdBetween(Integer value1, Integer value2) {
+        public Criteria andRateIdBetween(Long value1, Long value2) {
             addCriterion("RATE_ID between", value1, value2, "rateId");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotBetween(Integer value1, Integer value2) {
+        public Criteria andRateIdNotBetween(Long value1, Long value2) {
             addCriterion("RATE_ID not between", value1, value2, "rateId");
             return (Criteria) this;
         }
@@ -231,76 +291,6 @@ public class TRateAccumExample {
 
         public Criteria andRateDescNotBetween(String value1, String value2) {
             addCriterion("RATE_DESC not between", value1, value2, "rateDesc");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodIsNull() {
-            addCriterion("RATE_METHOD is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodIsNotNull() {
-            addCriterion("RATE_METHOD is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodEqualTo(String value) {
-            addCriterion("RATE_METHOD =", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodNotEqualTo(String value) {
-            addCriterion("RATE_METHOD <>", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodGreaterThan(String value) {
-            addCriterion("RATE_METHOD >", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodGreaterThanOrEqualTo(String value) {
-            addCriterion("RATE_METHOD >=", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodLessThan(String value) {
-            addCriterion("RATE_METHOD <", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodLessThanOrEqualTo(String value) {
-            addCriterion("RATE_METHOD <=", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodLike(String value) {
-            addCriterion("RATE_METHOD like", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodNotLike(String value) {
-            addCriterion("RATE_METHOD not like", value, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodIn(List<String> values) {
-            addCriterion("RATE_METHOD in", values, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodNotIn(List<String> values) {
-            addCriterion("RATE_METHOD not in", values, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodBetween(String value1, String value2) {
-            addCriterion("RATE_METHOD between", value1, value2, "rateMethod");
-            return (Criteria) this;
-        }
-
-        public Criteria andRateMethodNotBetween(String value1, String value2) {
-            addCriterion("RATE_METHOD not between", value1, value2, "rateMethod");
             return (Criteria) this;
         }
 
@@ -537,15 +527,15 @@ public class TRateAccumExample {
             this(condition, value, secondValue, null);
         }
     }
-    //新增分页查询
+  //新增分页查询
     private int pageNum;
 	private int pageSize;
 	private int beginRow;
 	//条件查询
 	private String rateId;
 	private String rateDesc;
-	private String rateMethod;
-	
+
+
 	public String getRateId() {
 		return rateId;
 	}
@@ -578,13 +568,4 @@ public class TRateAccumExample {
 		// 在mapper.xml使用begin属性时，对其进行计算
 		return (pageNum - 1) * pageSize;
 	}
-
-	public String getRateMethod() {
-		return rateMethod;
-	}
-
-	public void setRateMethod(String rateMethod) {
-		this.rateMethod = rateMethod;
-	}
-	
 }

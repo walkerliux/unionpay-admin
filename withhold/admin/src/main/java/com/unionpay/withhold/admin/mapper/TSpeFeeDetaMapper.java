@@ -27,4 +27,6 @@ public interface TSpeFeeDetaMapper {
     int updateByPrimaryKeySelective(TSpeFeeDeta record);
 
     int updateByPrimaryKey(TSpeFeeDeta record);
+    
+    List<TSpeFeeDeta> selectSpeFeeDateInfo(TSpeFeeDetaExample example);
 }

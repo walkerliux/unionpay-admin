@@ -949,10 +949,17 @@ public class TRateAccumDetaExample {
         }
     }
     //新增分页查询
+    private String rateId;
     private int pageNum;
 	private int pageSize;
 	private int beginRow;
 	
+	public String getRateId() {
+		return rateId;
+	}
+	public void setRateId(String rateId) {
+		this.rateId = rateId;
+	}
 	public int getPageNum() {
 		return pageNum;
 	}

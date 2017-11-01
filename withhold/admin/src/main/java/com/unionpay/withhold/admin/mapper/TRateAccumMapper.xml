@@ -99,7 +99,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TRateAccum" useGeneratedKeys="true" keyProperty="rateId">
     insert into t_rate_accum (RATE_ID, RATE_DESC, RATE_METHOD, 
       NOTES, REMARKS)
     values (#{rateId,jdbcType=INTEGER}, #{rateDesc,jdbcType=VARCHAR}, #{rateMethod,jdbcType=VARCHAR}, 
@@ -217,19 +217,18 @@
     SELECT
 	a.RATE_ID,
 	a.RATE_DESC,
-	b.INUSER,
-	b.INTIME
+	a.NOTES
 	<if test="distinct" >
       distinct
     </if>
     FROM
 	t_rate_accum a
-	LEFT JOIN 
-	t_rate_accum_deta b 
-	ON a.RATE_ID = b.RATE_ID
 	where 1=1
 	<if test="rateId!=null" >
       and a.RATE_ID=#{rateId}
+    </if>
+    <if test="rateMethod!=null" >
+      and a.RATE_METHOD=#{rateMethod}
     </if>
     <if test="rateDesc!=null" >
       and a.RATE_DESC=#{rateDesc}

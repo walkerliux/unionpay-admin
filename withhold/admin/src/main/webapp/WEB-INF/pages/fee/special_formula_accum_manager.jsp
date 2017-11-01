@@ -108,13 +108,13 @@ table tr td.update {
 		$('#test')
 				.datagrid(
 						{
-							title : '交易金额累计分段扣率列表',
+							title : '特殊公式计费列表',
 							iconCls : 'icon-save',
 							height : gridHeight,
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'fee/queryAmtAccumRate',
+							url : 'fee/querySpecialfee',
 							remoteSort : false,
 							columns : [ [
 									{
@@ -190,7 +190,7 @@ table tr td.update {
 							rownumbers : true,
 							toolbar : [ {
 								id : 'btnadd',
-								text : '新增交易金额累计分段扣率',
+								text : '新增特殊公式计费',
 								iconCls : 'icon-add',
 								handler : function() {
 									showAdd(false);
@@ -207,7 +207,7 @@ table tr td.update {
 		// 拼接交易金额累计分段扣率
 		output += '<tr>';
 		output += 	'<td colspan="4" class="head-title update">';
-		output += 		'交易金额累计分段扣率<input type="hidden" id="tid" name="tid"/>';
+		output += 		'特殊公式计费<input type="hidden" id="tid" name="tid"/>';
 		output += 	'</td>';
 		output += '</tr>';
 		
@@ -217,8 +217,7 @@ table tr td.update {
 		output += 	'<td class="update" colspan="3">';
 		output += 		'<input id="rateId_a" name="rateId" maxlength="10" class="easyui-validatebox" required="true" missingMessage="请输入扣率代码" />';
 		output += 	'</td>';
-		
-		output += '</tr>'; */
+		output += '</tr>';  */
 		
 		// 拼接扣率描述+累计方式
 		output += '<tr>';
@@ -226,51 +225,41 @@ table tr td.update {
 		output += 	'<td class="update" colspan="3">';
 		output += 		'<input id="rateDes_a" name="rateDesc" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入扣率描述" />';
 		output += 	'</td>';
-		/* output += 	'<td class="update" width="15%">累计方式</td>';
-		output += 	'<td class="update">';
-		output += 		'<select id="accMode_a" name="accMode" class="easyui-validatebox" required="true" missingMessage="请选择累计方式">';
-		output += 			'<option value="" selected="selected">--请选择累计方式--</option>';
-		output += 			'<option value="0">日</option>';
-		output += 			'<option value="1">月</option>';
-		output += 			'<option value="2">年</option>';
-		output += 		'</select>';
-		output += 	'</td>'; */
 		output += '</tr>';
 		
 		// 拼接段1
 		output += '<tr class="segment seg1">';
 		output += 	'<td colspan="4" class="head-title update">段1</td>';
 		output += '</tr>';
-		
-		// 拼接段1--（计费方式+费率）
-		output += '<tr class="seg1" id="trRate1">';
-		output += 	'<td class="update" width="15%">计费方式</td>';
-		output += 	'<td class="update" width="30%" id="tdRate1">';
-		output += 		'<select id="rateType_a1" name="ardList[0].rateType" class="easyui-validatebox" required="true" onchange="changeRateType(1)" missingMessage="请选择计费方式">';
-		output += 			'<option value="" selected="selected">--请选择计费方式--</option>';
-		output += 			'<option value="1">固定金额</option>';
-		output += 			'<option value="2">固定比例</option>';
-		output += 			'<option value="3">固定比例+限额</option>';
-		output += 		'</select>';
-		output += 	'</td>';
-		output += 	'<td class="update rateChanged1" width="15%">费率（百分比）</td>';
-		output += 	'<td class="update rateChanged1">';
-		output += 		'<input id="feeRate_a1" name="ardList[0].feeRate" validType="percent" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
-		output += 	'</td>';
-		output += '</tr>';
-		
-		// 拼接段1--（最低收费额+最高收费额）
+	
 		output += '<tr class="rateChanged1 seg1">';
-		output += 	'<td class="update" width="15%">最低收费额(元)</td>';
+		output += 	'<td class="update" width="15%">最低商户手续费(不含)-f(元)</td>';
 		output += 	'<td class="update" width="30%">';
 		output += 		'<input id="minFee_a1" name="ardList[0].minFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额" />';
 		output += 	'</td>';
-		output += 	'<td class="update" width="15%">最高收费额(元)</td>';
+		output += 	'<td class="update" width="15%">最高商户手续费(包含)-f(元)</td>';
 		output += 	'<td class="update">';
 		output += 		'<input id="maxFee_a1" name="ardList[0].maxFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额" />';
 		output += 	'</td>';
 		output += '</tr>';
 		
+		output += '<tr class="rateChanged1 seg1">';
+		output += 	'<td class="update" width="15%">固定金额-a(元)</td>';
+		output += 	'<td class="update" width="30%">';
+		output += 		'<input id="minFee_a1" name="ardList[0].fixFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入固定金额" />';
+		output += 	'</td>';
+		output += 	'<td class="update" width="15%">费率-l(元)</td>';
+		output += 	'<td class="update">';
+		output += 		'<input id="maxFee_a1" name="ardList[0].feeRate" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入费率" />';
+		output += 	'</td>';
+		output += '</tr>';
+		//计算公式
+		output += '<tr>';
+		output += 	'<td class="update" width="15%">计算公式</td>';
+		output += 	'<td class="update" colspan="3">';
+		output += 		'<input id="rateDes_a" name="ardList[0].function" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入计算公式" />';
+		output += 	'</td>';
+		output += '</tr>';
 		// 拼接备注
 		output += '<tr id="notes">';
 		output += 	'<td class="update">备注</td>';
@@ -283,7 +272,7 @@ table tr td.update {
 		
 		$.parser.parse('#tableadd');
 		
-		$("#addForm").attr("action", "fee/saveAmtAccumRate");
+		$("#addForm").attr("action", "fee/savespefee");
 		$('#wadd').window({
 			title : '新增交易金额累计分段扣率',
 			top : panelVertFloat,
@@ -351,10 +340,10 @@ table tr td.update {
 	/* 显示修改页面 */
 	function showModify(rateId, rateDesc, accMode, notes) {
 		var output='';	// 拼接显示的内容
-		$("#addForm").attr("action", "fee/updateAmtAccumRate");
+		$("#addForm").attr("action", "fee/updateSpecialFeeRate");
 		
 		$('#wadd').window({
-			title : '修改交易金额累计分段扣率',
+			title : '修改特殊公式扣率',
 			top : panelVertFloat,
 			left : panelHoriFloat,
 			width : panelWidth,
@@ -369,7 +358,7 @@ table tr td.update {
 		
 		$.ajax({
 			type : "POST",
-			url : "fee/queryAccumRateDeta?rateId=" + rateId,
+			url : "fee/querySpecialFeeDeta?rateId=" + rateId,
 			async : false,
 			dataType : "json",
 			success : function(json) {
@@ -377,17 +366,17 @@ table tr td.update {
 				// 拼接交易金额累计分段扣率
 				output += '<tr>';
 				output += 	'<td colspan="4" class="head-title update">';
-				output += 		'交易金额累计分段扣率';
+				output += 		'特殊公式扣率';
 				output += 	'</td>';
 				output += '</tr>';
 				
 				// 拼接扣率代码
-				output += '<tr>';
+				 output += '<tr>';
 				output += 	'<td class="update" width="15%">扣率代码</td>';
 				output += 	'<td class="update" colspan="3">';
 				output += 		'<input id="rateId_a" name="rateId" class="easyui-validatebox" readonly="readonly" value="' + rateId + '"/>';
 				output += 	'</td>';
-				output += '</tr>';
+				output += '</tr>'; 
 				
 				// 拼接扣率描述+累计方式
 				output += '<tr>';
@@ -395,15 +384,6 @@ table tr td.update {
 				output += 	'<td class="update" width="30%">';
 				output += 		'<input id="rateDes_a" name="rateDesc" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入扣率描述" value="' + rateDesc + '"/>';
 				output += 	'</td>';
-				/* output += 	'<td class="update" width="15%">累计方式</td>';
-				output += 	'<td class="update">';
-				output += 		'<select id="accMode_a" name="accMode" class="easyui-validatebox" required="true" missingMessage="请选择累计方式">';
-				output += 			'<option value="" selected="selected">--请选择累计方式--</option>';
-				output += 			'<option value="0" ' + (accMode == 0 ? 'selected="selected"' : '') + '>日</option>';
-				output += 			'<option value="1" ' + (accMode == 1 ? 'selected="selected"' : '') + '>月</option>';
-				output += 			'<option value="2" ' + (accMode == 2 ? 'selected="selected"' : '') + '>年</option>';
-				output += 		'</select>';
-				output += 	'</td>'; */
 				output += '</tr>';
 				
 				var rows = json.rows;
@@ -416,56 +396,34 @@ table tr td.update {
 					output +=	'</td>';
 					output += '</tr>';
 					
-					if (i != 0) { 
-						// 拼接分界线
-						output += '<tr class="seg' + (i+1)  + '">';
-						output += 	'<td class="update" width="15%">';
-						output += 		'分界线' + i + '(元)';
-						output += 	'</td>';
-						output += 	'<td class="update" colspan="3">';
-						output += 		'<input id="startRange_a' + (i + 1) + '" name="ardList[' + i + '].startRange" value="' + rows[i].startrange/100 + '" required="true" validType="amount" maxlength="12" type="text" class="easyui-validatebox" missingMessage="请输入分界线金额" />';
-						output +=	'</td>';
-						output += '</tr>';
-					 } 
-					
-					// 拼接计费方式
-					output += '<tr class="seg' + (i + 1) + '"  id="trRate' + (i + 1) + '">';
-					output += 	'<td class="update" width="15%">计费方式</td>';
-					output += 	'<td class="update" id="tdRate' + (i + 1) + '" width="30%">';
-					output += 		'<select id="rateType_a' + (i + 1) + '" name="ardList[' + i + '].rateType" class="easyui-validatebox" required="true" onchange="changeRateType(' + (i + 1) + ')" missingMessage="请选择计费方式">';
-					output += 			'<option value="">--请选择计费方式--</option>';
-					output += 			'<option value="1" ' + (rows[i].rateType == 1 ? 'selected="selected"' : '') + '>固定金额</option>';
-					output += 			'<option value="2" ' + (rows[i].rateType == 2 ? 'selected="selected"' : '') + '>固定比例</option>';
-					output += 			'<option value="3" ' + (rows[i].rateType == 3 ? 'selected="selected"' : '') + '>固定比例+限额</option>';
-					output += 		'</select>'
+					output += '<tr class="seg' + (i + 1) +'">';
+					output += 	'<td class="update" width="15%">最低商户手续费(不含)-f(元)</td>';
+					output += 	'<td class="update" width="30%">';
+					output += 		'<input id="minFee_a' + (i + 1) + '" name="ardList[' + i + '].minFee" maxlength="12" value="' + fenToYuan(rows[i].minfee) + '" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最低商户手续费" />';
 					output += 	'</td>';
-					if (rows[i].rateType == 1) {
-						// 添加固定金额要显示的部
-						output += '<td class="update rateChanged' + (i + 1) + '" width="15%">收费额(元)</td>';
-						output += '<td class="update rateChanged' + (i + 1) + '" width="30%">';
-						output += 	'<input id="minFee_a' + (i + 1) + '" name="ardList[' + i + '].minFee" maxlength="12" value="' + fenToYuan(rows[i].minFee) + '" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入收费金额" />';
-						output += '</td>';
-					}else if (rows[i].rateType >1) {
-						// 添加 固定比例 或 固定比例+限额  要显示的费率部分
-						output += '<td class="update rateChanged' + (i + 1) + '" width="15%">费率（百分比）</td>';
-						output += '<td class="update rateChanged' + (i + 1) + '" width="30%">';
-						output += 	'<input id="feeRate_a' + (i + 1) + '" name="ardList[' + i + '].feeRate" validType="percent" value="' + rows[i].feeRate + '" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
-						output += '</td>';
-					}
-					output += '</tr>'
-					// 添加固定比例+限额要显示的收费额部分
-					if (rows[i].rateType == 3) {
-						output += '<tr class="rateChanged' + (i + 1) + ' seg' + (i + 1) + '">';
-						output += 	'<td class="update" width="15%">最低收费额(元)</td>';
-						output += 	'<td class="update" width="30%">';
-						output += 		'<input id="minFee_a' + (i + 1) + '" name="ardList[' + i + '].minFee" maxlength="12" value="' + fenToYuan(rows[i].minFee) + '" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额" />';
-						output += 	'</td>';
-						output += 	'<td class="update" width="15%">最高收费额(元)</td>';
-						output += 	'<td class="update">';
-						output += 		'<input id="maxFee_a' + (i + 1) + '" name="ardList[' + i + '].maxFee" maxlength="12" value="' + fenToYuan(rows[i].maxFee) + '" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额" />';
-						output += 	'</td>';
-						output += '</tr>';
-					}
+					output += 	'<td class="update" width="15%">最高商户手续费(不含)-f(元)</td>';
+					output += 	'<td class="update">';
+					output += 		'<input id="maxFee_a' + (i + 1) + '" name="ardList[' + i + '].maxFee" maxlength="12" value="' + fenToYuan(rows[i].maxfee) + '" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最高商户手续费" />';
+					output += 	'</td>';
+					output += '</tr>';
+					
+					output += '<tr class="seg' + (i+ 1) + '"  id="trRate' + (i + 1) + '">';
+					output += 	'<td class="update" width="15%">固定金额(元)-a</td>';
+					output += 	'<td class="update" width="30%">';
+					output += 		'<input id="fixFee_a'+(i + 1) + '" name="ardList[' + i + '].fixFee" maxlength="12" required="true" value="' + fenToYuan(rows[i].fixfee) + '" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入固定金额" />';
+					output += 	'</td>';
+					output += 	'<td class="update" width="15%">费率-l(元)</td>';
+					output += 	'<td class="update">';
+					output += 		'<input id="feeRate_a'+(i + 1) + '" name="ardList[' + i + '].feeRate" maxlength="12" required="true" value="' + fenToYuan(rows[i].feerate) + '" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入费率" />';
+					output += 	'</td>';
+					output += '</tr>';
+					output += '<tr class="seg' + (i + 1) + '"  id="trRate' + (i + 1) + '">';
+					output += 	'<td class="update" width="15%">计算公式</td>';
+					output += 	'<td class="update" colspan="3">';
+					output += 		'<input id="function_a'+(i + 1) + '" name="ardList[' + i + '].function" value="' + rows[i].function + '" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入计算公式" />';
+					output += 	'</td>';
+					output += '</tr>'; 
+					 
 				} 
 				
 				// 拼接备注
@@ -504,10 +462,10 @@ table tr td.update {
 
 		$.ajax({
 			type : "POST",
-			url : "fee/queryAccumRateDeta?rateId=" + rateId,
+			url : "fee/querySpecialFeeDeta?rateId=" + rateId,
 			dataType : "json",
 			success : function(json) {
-				output += '<tr><td colspan="4" class="head-title update">交易金额累计分段扣率</td></tr>';
+				output += '<tr><td colspan="4" class="head-title update">特殊gongshi扣率</td></tr>';
 				output += '<tr><td class="update" width="15%">扣率代码</td><td class="update" colspan="3">' + rateId + '</td></tr>';
 				output += '<tr><td class="update" width="15%">扣率描述</td><td class="update" width="30%">' + rateDesc + '</td>';		
 				//output += '<td class="update" width="15%">累计方式</td><td class="update">' + (accMode == 0 ? '日' : (accMode == 1 ? '月' : (accMode == 2 ? '年' : ''))) + '</td></tr>';		
@@ -515,46 +473,23 @@ table tr td.update {
 				var rows = json.rows;
 				for (var i = 1; i <= rows.length; i++) {
 					var row = rows[i - 1];
-					if (row.rateType == 1) {// 固定金额
-						output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
-						heightAdd += 26;
-						if (i != 1) {
-							output += '<tr><td class="update" width="15%">分界线' + (i-1) + '(元)</td><td class="update" colspan="3">' + row.STARTRANGE/100 + '</td></tr>';
-							heightAdd += 26;
-						}
-						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定金额</td>';
-						output += '<td class="update" width="15%">收费额(元)</td><td class="update">' + fenToYuan(row.minFee) + '</td></tr>';
-						heightAdd += 26;
-					} else if (row.rateType == 2) {// 固定比例
-						output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
-						heightAdd += 26;
-						if (i != 1) {
-							output += '<tr><td class="update" width="15%">分界线' + (i-1) + '(元)</td><td class="update" colspan="3">' + row.startrange/100 + '</td></tr>';
-							heightAdd += 26;
-						}
-						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定比例</td>';
-						output += '<td class="update" width="15%">费率（百分比）</td><td class="update">' + row.feeRate + '</td></tr>';
-						heightAdd += 26;
-					}else if (row.rateType == 3) {// 固定比例+限额
-						output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
-						heightAdd += 26;
-						if (i != 1) {
-							output += '<tr><td class="update" width="15%">分界线' + (i-1) + '(元)</td><td class="update" colspan="3">' + row.startrange/100 + '</td></tr>';
-							heightAdd += 26;
-						}
-						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定比例+限额</td>';
-						output += '<td class="update" width="15%">费率（百分比）</td><td class="update">' + row.feeRate + '</td></tr>';
-						heightAdd += 26;
-						output += '<tr><td class="update" width="15%">最低收费额(元)</td><td class="update" width="30%">' + fenToYuan(row.minFee) + '</td>';
-						output += '<td class="update" width="15%">最高收费额(元)</td><td class="update">' +fenToYuan(row.maxFee) + '</td></tr>';
-						heightAdd += 26;
-					}
+					output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
+					heightAdd += 26;
+					output += '<tr><td class="update" width="15%">最低商户手续费(不含)-f(元)</td><td class="update" width="30%">' + fenToYuan(row.minfee) + '</td>';
+					output += '<td class="update" width="15%">最高商户手续费(不含)-f(元)</td><td class="update">' +fenToYuan(row.maxfee) + '</td></tr>';
+					heightAdd += 26;
+					output += '<tr><td class="update" width="15%">固定金额(元)-a</td><td class="update" width="30%">' + fenToYuan(row.fixfee) + '</td>';
+					output += '<td class="update" width="15%">费率-l(元)</td><td class="update">' +fenToYuan(row.feerate) + '</td></tr>';
+					heightAdd += 26;
+					output += '<tr><td class="update" width="15%">计算公式</td><td class="update" width="30%">' + row.function+ '</td></tr>';
+					heightAdd += 26;
+					
 				}
 				output += '<tr height="50px"><td class="update">备注</td><td class="update" colspan="3" id="notes_d">' + (notes=="null"?"":notes) + '</td></tr>';
 				$('#tabledetail').html(output);
 				
 				$('#wdetail').window({
-					title : '交易金额累计分段扣率详情',
+					title : '特殊公式扣率详情',
 					top : panelVertFloat,
 					left : panelHoriFloat,
 					width : panelWidth,
@@ -640,28 +575,34 @@ table tr td.update {
 		output += 		'段' + (segmentIndex + 1);
 		output +=	'</td>';
 		output += '</tr>';
-		// 拼接分界线
-		output += '<tr class="seg' + (segmentIndex + 1) + '">';
-		output += 	'<td class="update" width="15%">';
-		output += 		'分界线' + segmentIndex + '(元)';
-		output += 	'</td>';
-		output += 	'<td class="update" colspan="3">';
-		output += 		'<input id="startRange_a' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].startRange" required="true" validType="amount" maxlength="12" type="text" class="easyui-validatebox" missingMessage="请输入分界线金额" />';
-		output +=	'</td>';
-		output += '</tr>';
-		// 拼接计费方式
-		output += '<tr class="seg' + (segmentIndex + 1) + '"  id="trRate' + (segmentIndex + 1) + '">';
-		output += 	'<td class="update" width="15%">计费方式</td>';
-		output += 	'<td class="update" id="tdRate' + (segmentIndex + 1) + '" width="30%">';
-		output += 		'<select id="rateType_a' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].rateType" class="easyui-validatebox" required="true" onchange="changeRateType(' + (segmentIndex + 1) + ')" missingMessage="请选择计费方式">';
-		output += 			'<option value="" selected="selected">--请选择计费方式--</option>';
-		output += 			'<option value="1">固定金额</option>';
-		output += 			'<option value="2">固定比例</option>';
-		output += 			'<option value="3">固定比例+限额</option>';
-		output += 		'</select>'
-		output += 	'</td>';
-		output += '</tr>'
 		
+		output += '<tr class="seg' + (segmentIndex + 1) + '"  id="trRate' + (segmentIndex + 1) + '">';
+		output += 	'<td class="update" width="15%">最低商户手续费(不含)-f(元)</td>';
+		output += 	'<td class="update" width="30%">';
+		output += 		'<input id="minFee_a'+(segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].minFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最低收费金额" />';
+		output += 	'</td>';
+		output += 	'<td class="update" width="15%">最高商户手续费(包含)-f(元)</td>';
+		output += 	'<td class="update">';
+		output += 		'<input id="maxFee_a'+(segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].maxFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入最高收费金额" />';
+		output += 	'</td>';
+		output += '</tr>';
+		
+		output += '<tr class="seg' + (segmentIndex + 1) + '"  id="trRate' + (segmentIndex + 1) + '">';
+		output += 	'<td class="update" width="15%">固定金额(元)-a</td>';
+		output += 	'<td class="update" width="30%">';
+		output += 		'<input id="fixFee_a'+(segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].fixFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入固定金额" />';
+		output += 	'</td>';
+		output += 	'<td class="update" width="15%">费率-l(元)</td>';
+		output += 	'<td class="update">';
+		output += 		'<input id="feeRate_a'+(segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].feeRate" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入费率" />';
+		output += 	'</td>';
+		output += '</tr>';
+		output += '<tr class="seg' + (segmentIndex + 1) + '"  id="trRate' + (segmentIndex + 1) + '">';
+		output += 	'<td class="update" width="15%">计算公式</td>';
+		output += 	'<td class="update" colspan="3">';
+		output += 		'<input id="function_a'+(segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].function" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入计算公式" />';
+		output += 	'</td>';
+		output += '</tr>';
 		$('#notes').before(output);
 		
 		resize("wadd");
