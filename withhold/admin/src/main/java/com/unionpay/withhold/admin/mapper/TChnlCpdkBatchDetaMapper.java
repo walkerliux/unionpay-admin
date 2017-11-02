@@ -27,4 +27,9 @@ public interface TChnlCpdkBatchDetaMapper {
     int updateByPrimaryKeySelective(TChnlCpdkBatchDeta record);
 
     int updateByPrimaryKey(TChnlCpdkBatchDeta record);
+
+	int countByExample_bak(TChnlCpdkBatchDetaExample tChnlCpdkBatchDetaExample);
+
+	List<TChnlCpdkBatchDeta> selectByExample_bak(
+			TChnlCpdkBatchDetaExample tChnlCpdkBatchDetaExample);
 }

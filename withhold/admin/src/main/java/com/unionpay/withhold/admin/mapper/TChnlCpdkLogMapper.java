@@ -27,4 +27,9 @@ public interface TChnlCpdkLogMapper {
     int updateByPrimaryKeySelective(TChnlCpdkLog record);
 
     int updateByPrimaryKey(TChnlCpdkLog record);
+
+	int countByExample_bak(TChnlCpdkLogExample tChnlCpdkLogExample);
+
+	List<TChnlCpdkLog> selectByExample_bak(
+			TChnlCpdkLogExample tChnlCpdkLogExample);
 }

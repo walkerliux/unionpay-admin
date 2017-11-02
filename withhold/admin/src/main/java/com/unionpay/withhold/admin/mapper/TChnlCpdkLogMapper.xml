@@ -138,4 +138,26 @@
     </if>
   </select>
   
+  <!-- 历史表查询 -->
+  <select id="countByExample_bak" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_cpdk_log_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByExample_bak" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_log_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
 </mapper>

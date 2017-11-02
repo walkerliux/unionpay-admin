@@ -715,4 +715,26 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=BIGINT}
   </update>
+  <!-- 历史查询 -->
+  <select id="countByExample_bak" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_collect_single_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <select id="selectByExample_bak" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_order_collect_single_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
 </mapper>
