@@ -307,4 +307,15 @@
 	on r.RISKID=rc.RISKID
     where r.STATUS = '00'
   </select>
+  
+  <select id="getAllRiskWithCase" resultMap="BaseResultMap">
+	SELECT
+		rc.CASEID,r.RISKNAME
+	FROM
+		t_risk_case rc
+	LEFT JOIN t_risk r ON rc.RISKVER = r.RISKVER
+	WHERE
+		r.`STATUS` = '00'
+	ORDER BY rc.CASEID
+  </select>
 </mapper>

@@ -19,6 +19,7 @@ import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
 import com.unionpay.withhold.admin.pojo.TBlacklistIdnum;
 import com.unionpay.withhold.admin.pojo.TBlacklistPan;
+import com.unionpay.withhold.admin.pojo.TLimitSingle;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.pojo.TRiskCase;
@@ -27,6 +28,7 @@ import com.unionpay.withhold.admin.pojo.TWhitelistPan;
 import com.unionpay.withhold.admin.service.CardBlackListService;
 import com.unionpay.withhold.admin.service.CardWhiteListService;
 import com.unionpay.withhold.admin.service.CardholderBlackListService;
+import com.unionpay.withhold.admin.service.LimitSingleService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskCaseService;
 import com.unionpay.withhold.admin.service.RiskService;
@@ -47,6 +49,8 @@ public class RiskController {
 	private CardholderBlackListService cardholderBlackListService;
 	@Autowired
 	private CardWhiteListService cardWhiteListService;
+	@Autowired
+	private LimitSingleService limitSingleService;
 	@Autowired
 	private ParaDicService paraDicService;
 
@@ -153,6 +157,17 @@ public class RiskController {
 	@RequestMapping("/getAllRiskList")
 	public List<TRisk> getAllRiskList() {
 		return riskService.getAllRiskList();
+	}
+	
+	/**
+	 * 查询风控版本列表(带版本实例ID)
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getAllRiskWithCase")
+	public List<TRisk> getAllRiskWithCase() {
+		return riskService.getAllRiskWithCase();
 	}
 
 	/**
@@ -632,5 +647,115 @@ public class RiskController {
 		}
 	}
 	/** end   ********************* 银行卡白名单  *********************/
+	
+	
+	/** start ********************* 单   笔    限   额  *********************/	
+	/**
+	 * 查询单笔限额分页信息
+	 * 
+	 * @param limitSingle
+	 * @param page
+	 * @param rows
+	 * @return PageBean
+	 */
+	@ResponseBody
+	@RequestMapping("/queryLimitSingle")
+	public PageBean queryLimitSingle(TLimitSingle limitSingle, @RequestParam(defaultValue = "1") Integer page,
+			@RequestParam(defaultValue = "10") Integer rows) {
+		return limitSingle == null ? null : limitSingleService.selectListWithCondition(limitSingle, page, rows);
+	}
+	
+	/**
+	 * 查询单笔限额信息详情
+	 * 
+	 * @param tid
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryLimitSingleById")
+	public TLimitSingle queryLimitSingleById(Integer tid) {
+		return tid == null ? null : limitSingleService.queryLimitSingleById(tid);
+	}
+	
+	/**
+	 * 新增单笔限额
+	 * 
+	 * @param limitSingle
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/addLimitSingle")
+	public ResultBean addLimitSingle(TLimitSingle limitSingle, HttpServletRequest request) {
+		/*String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		limitSingle.setInuser(infoByToken.getUserId().longValue());*/
+		try {
+			return limitSingleService.addLimitSingle(limitSingle);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 修改单笔限额
+	 * 
+	 * @param limitSingle
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/updateLimitSingle")
+	public ResultBean updateLimitSingle(TLimitSingle limitSingle, HttpServletRequest request) {
+		/*String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		limitSingle.setInuser(infoByToken.getUserId().longValue());*/
+		try {
+			return limitSingleService.updateLimitSingle(limitSingle);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 注销单笔限额
+	 * 
+	 * @param limitSingle
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logoutLimitSingle")
+	public ResultBean logoutLimitSingle(TLimitSingle limitSingle, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		limitSingle.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return limitSingleService.logoutLimitSingle(limitSingle);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 启用单笔限额
+	 * 
+	 * @param limitSingle
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/startLimitSingle")
+	public ResultBean startLimitSingle(TLimitSingle limitSingle, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		limitSingle.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return limitSingleService.startLimitSingle(limitSingle);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	/** end   ********************* 单   笔    限   额  *********************/
 }
 

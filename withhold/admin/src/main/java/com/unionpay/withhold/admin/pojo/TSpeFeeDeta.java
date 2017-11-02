@@ -90,4 +90,13 @@ public class TSpeFeeDeta {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+  //添加显示页面字段
+    private String rateDesc;
+	public String getRateDesc() {
+		return rateDesc;
+	}
+	public void setRateDesc(String rateDesc) {
+		this.rateDesc = rateDesc;
+	}
+    
 }

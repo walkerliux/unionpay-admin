@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TLimitSingleMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TLimitSingle" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="CASEID" property="caseid" jdbcType="DECIMAL" />
+    <result column="MAX_AMOUNT" property="maxAmount" jdbcType="DECIMAL" />
+    <result column="MIN_AMOUNT" property="minAmount" jdbcType="DECIMAL" />
+    <result column="RISKLEVEL" property="risklevel" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <result column="RISKLEVELNAME" property="riskLevelName" jdbcType="VARCHAR" />
+    <result column="RISKVER" property="riskver" jdbcType="CHAR" />
+    <result column="RISKNAME" property="riskname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, CASEID, MAX_AMOUNT, MIN_AMOUNT, RISKLEVEL, STATUS, NOTES, REMARKS
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_limit_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_limit_single
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_limit_single
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" >
+    delete from t_limit_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
+    insert into t_limit_single (TID, CASEID, MAX_AMOUNT, 
+      MIN_AMOUNT, RISKLEVEL, STATUS, 
+      NOTES, REMARKS)
+    values (#{tid,jdbcType=INTEGER}, #{caseid,jdbcType=DECIMAL}, #{maxAmount,jdbcType=DECIMAL}, 
+      #{minAmount,jdbcType=DECIMAL}, #{risklevel,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
+    insert into t_limit_single
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="caseid != null" >
+        CASEID,
+      </if>
+      <if test="maxAmount != null" >
+        MAX_AMOUNT,
+      </if>
+      <if test="minAmount != null" >
+        MIN_AMOUNT,
+      </if>
+      <if test="risklevel != null" >
+        RISKLEVEL,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="caseid != null" >
+        #{caseid,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="risklevel != null" >
+        #{risklevel,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingleExample" resultType="java.lang.Integer" >
+    select count(*) from t_limit_single
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_limit_single
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseid != null" >
+        CASEID = #{record.caseid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.maxAmount != null" >
+        MAX_AMOUNT = #{record.maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.minAmount != null" >
+        MIN_AMOUNT = #{record.minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.risklevel != null" >
+        RISKLEVEL = #{record.risklevel,jdbcType=DECIMAL},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remarks != null" >
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_limit_single
+    set TID = #{record.tid,jdbcType=INTEGER},
+      CASEID = #{record.caseid,jdbcType=DECIMAL},
+      MAX_AMOUNT = #{record.maxAmount,jdbcType=DECIMAL},
+      MIN_AMOUNT = #{record.minAmount,jdbcType=DECIMAL},
+      RISKLEVEL = #{record.risklevel,jdbcType=DECIMAL},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
+    update t_limit_single
+    <set >
+      <if test="caseid != null" >
+        CASEID = #{caseid,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null" >
+        MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null" >
+        MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="risklevel != null" >
+        RISKLEVEL = #{risklevel,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" >
+    update t_limit_single
+    set CASEID = #{caseid,jdbcType=DECIMAL},
+      MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      RISKLEVEL = #{risklevel,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  
+  
+  	<select id="selectWithCondition" resultMap="BaseResultMap">
+		SELECT
+			ls.*, r.RISKVER AS RISKVER,
+			r.RISKNAME AS RISKNAME,pd.PARA_NAME AS RISKLEVELNAME
+		FROM
+			t_limit_single ls
+		LEFT JOIN t_risk_case rc ON ls.CASEID = rc.CASEID
+		LEFT JOIN t_risk r ON rc.RISKVER = r.RISKVER
+		JOIN t_para_dic pd ON pd.PARA_TYPE = 'RISKLEVEL' AND ls.RISKLEVEL = pd.PARA_CODE
+		<where>
+			<if test="limitSingle.riskver != null and limitSingle.riskver !=''">
+				AND rc.RISKVER = #{limitSingle.riskver}
+			</if>
+			<if test="limitSingle.risklevel != null">
+				AND ls.RISKLEVEL = #{limitSingle.risklevel}
+			</if>
+		</where>
+		order by TID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_limit_single AS ls
+		LEFT JOIN t_risk_case rc ON ls.CASEID = rc.CASEID
+		<where>
+			<if test="limitSingle.riskver != null and limitSingle.riskver !=''">
+				AND rc.RISKVER = #{limitSingle.riskver}
+			</if>
+			<if test="limitSingle.risklevel != null">
+				AND ls.RISKLEVEL = #{limitSingle.risklevel}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectIntersectionCount" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			t_limit_single
+		WHERE
+			CASEID = #{caseid,jdbcType=DECIMAL}
+			<if test="tid != null">
+				AND TID != #{tid}
+			</if>
+		AND 
+			NOT ((MIN_AMOUNT &gt;= #{maxAmount,jdbcType=DECIMAL} ) OR (MAX_AMOUNT &lt;= #{minAmount,jdbcType=DECIMAL}))
+	</select>
+	
+	<select id="selectRiskConflictCount" parameterType="com.unionpay.withhold.admin.pojo.TLimitSingle" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			t_limit_single
+		WHERE
+			CASEID = #{caseid,jdbcType=DECIMAL}
+			<if test="tid != null">
+				AND TID != #{tid}
+			</if>
+		AND
+			((MAX_AMOUNT&lt;#{maxAmount,jdbcType=DECIMAL} AND RISKLEVEL&gt;=#{risklevel})
+			OR
+			(MAX_AMOUNT&gt;#{maxAmount,jdbcType=DECIMAL} AND RISKLEVEL&lt;=#{risklevel}))
+	</select>
+	
+	
+</mapper>

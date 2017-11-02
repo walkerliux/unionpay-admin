@@ -1,16 +1,17 @@
 package com.unionpay.withhold.admin.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TRateAccumExample {
+public class TLimitSingleExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TRateAccumExample() {
+    public TLimitSingleExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -104,203 +105,373 @@ public class TRateAccumExample {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andRateIdIsNull() {
-            addCriterion("RATE_ID is null");
+        public Criteria andTidIsNull() {
+            addCriterion("TID is null");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdIsNotNull() {
-            addCriterion("RATE_ID is not null");
+        public Criteria andTidIsNotNull() {
+            addCriterion("TID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdEqualTo(Integer value) {
-            addCriterion("RATE_ID =", value, "rateId");
+        public Criteria andTidEqualTo(Integer value) {
+            addCriterion("TID =", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotEqualTo(Integer value) {
-            addCriterion("RATE_ID <>", value, "rateId");
+        public Criteria andTidNotEqualTo(Integer value) {
+            addCriterion("TID <>", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThan(Integer value) {
-            addCriterion("RATE_ID >", value, "rateId");
+        public Criteria andTidGreaterThan(Integer value) {
+            addCriterion("TID >", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("RATE_ID >=", value, "rateId");
+        public Criteria andTidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("TID >=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThan(Integer value) {
-            addCriterion("RATE_ID <", value, "rateId");
+        public Criteria andTidLessThan(Integer value) {
+            addCriterion("TID <", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdLessThanOrEqualTo(Integer value) {
-            addCriterion("RATE_ID <=", value, "rateId");
+        public Criteria andTidLessThanOrEqualTo(Integer value) {
+            addCriterion("TID <=", value, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdIn(List<Integer> values) {
-            addCriterion("RATE_ID in", values, "rateId");
+        public Criteria andTidIn(List<Integer> values) {
+            addCriterion("TID in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotIn(List<Integer> values) {
-            addCriterion("RATE_ID not in", values, "rateId");
+        public Criteria andTidNotIn(List<Integer> values) {
+            addCriterion("TID not in", values, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdBetween(Integer value1, Integer value2) {
-            addCriterion("RATE_ID between", value1, value2, "rateId");
+        public Criteria andTidBetween(Integer value1, Integer value2) {
+            addCriterion("TID between", value1, value2, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("RATE_ID not between", value1, value2, "rateId");
+        public Criteria andTidNotBetween(Integer value1, Integer value2) {
+            addCriterion("TID not between", value1, value2, "tid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescIsNull() {
-            addCriterion("RATE_DESC is null");
+        public Criteria andCaseidIsNull() {
+            addCriterion("CASEID is null");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescIsNotNull() {
-            addCriterion("RATE_DESC is not null");
+        public Criteria andCaseidIsNotNull() {
+            addCriterion("CASEID is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescEqualTo(String value) {
-            addCriterion("RATE_DESC =", value, "rateDesc");
+        public Criteria andCaseidEqualTo(Long value) {
+            addCriterion("CASEID =", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescNotEqualTo(String value) {
-            addCriterion("RATE_DESC <>", value, "rateDesc");
+        public Criteria andCaseidNotEqualTo(Long value) {
+            addCriterion("CASEID <>", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescGreaterThan(String value) {
-            addCriterion("RATE_DESC >", value, "rateDesc");
+        public Criteria andCaseidGreaterThan(Long value) {
+            addCriterion("CASEID >", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescGreaterThanOrEqualTo(String value) {
-            addCriterion("RATE_DESC >=", value, "rateDesc");
+        public Criteria andCaseidGreaterThanOrEqualTo(Long value) {
+            addCriterion("CASEID >=", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescLessThan(String value) {
-            addCriterion("RATE_DESC <", value, "rateDesc");
+        public Criteria andCaseidLessThan(Long value) {
+            addCriterion("CASEID <", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescLessThanOrEqualTo(String value) {
-            addCriterion("RATE_DESC <=", value, "rateDesc");
+        public Criteria andCaseidLessThanOrEqualTo(Long value) {
+            addCriterion("CASEID <=", value, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescLike(String value) {
-            addCriterion("RATE_DESC like", value, "rateDesc");
+        public Criteria andCaseidIn(List<Long> values) {
+            addCriterion("CASEID in", values, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescNotLike(String value) {
-            addCriterion("RATE_DESC not like", value, "rateDesc");
+        public Criteria andCaseidNotIn(List<Long> values) {
+            addCriterion("CASEID not in", values, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescIn(List<String> values) {
-            addCriterion("RATE_DESC in", values, "rateDesc");
+        public Criteria andCaseidBetween(Long value1, Long value2) {
+            addCriterion("CASEID between", value1, value2, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescNotIn(List<String> values) {
-            addCriterion("RATE_DESC not in", values, "rateDesc");
+        public Criteria andCaseidNotBetween(Long value1, Long value2) {
+            addCriterion("CASEID not between", value1, value2, "caseid");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescBetween(String value1, String value2) {
-            addCriterion("RATE_DESC between", value1, value2, "rateDesc");
+        public Criteria andMaxAmountIsNull() {
+            addCriterion("MAX_AMOUNT is null");
             return (Criteria) this;
         }
 
-        public Criteria andRateDescNotBetween(String value1, String value2) {
-            addCriterion("RATE_DESC not between", value1, value2, "rateDesc");
+        public Criteria andMaxAmountIsNotNull() {
+            addCriterion("MAX_AMOUNT is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodIsNull() {
-            addCriterion("RATE_METHOD is null");
+        public Criteria andMaxAmountEqualTo(BigDecimal value) {
+            addCriterion("MAX_AMOUNT =", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodIsNotNull() {
-            addCriterion("RATE_METHOD is not null");
+        public Criteria andMaxAmountNotEqualTo(BigDecimal value) {
+            addCriterion("MAX_AMOUNT <>", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodEqualTo(String value) {
-            addCriterion("RATE_METHOD =", value, "rateMethod");
+        public Criteria andMaxAmountGreaterThan(BigDecimal value) {
+            addCriterion("MAX_AMOUNT >", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodNotEqualTo(String value) {
-            addCriterion("RATE_METHOD <>", value, "rateMethod");
+        public Criteria andMaxAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("MAX_AMOUNT >=", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodGreaterThan(String value) {
-            addCriterion("RATE_METHOD >", value, "rateMethod");
+        public Criteria andMaxAmountLessThan(BigDecimal value) {
+            addCriterion("MAX_AMOUNT <", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodGreaterThanOrEqualTo(String value) {
-            addCriterion("RATE_METHOD >=", value, "rateMethod");
+        public Criteria andMaxAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("MAX_AMOUNT <=", value, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodLessThan(String value) {
-            addCriterion("RATE_METHOD <", value, "rateMethod");
+        public Criteria andMaxAmountIn(List<BigDecimal> values) {
+            addCriterion("MAX_AMOUNT in", values, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodLessThanOrEqualTo(String value) {
-            addCriterion("RATE_METHOD <=", value, "rateMethod");
+        public Criteria andMaxAmountNotIn(List<BigDecimal> values) {
+            addCriterion("MAX_AMOUNT not in", values, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodLike(String value) {
-            addCriterion("RATE_METHOD like", value, "rateMethod");
+        public Criteria andMaxAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("MAX_AMOUNT between", value1, value2, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodNotLike(String value) {
-            addCriterion("RATE_METHOD not like", value, "rateMethod");
+        public Criteria andMaxAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("MAX_AMOUNT not between", value1, value2, "maxAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodIn(List<String> values) {
-            addCriterion("RATE_METHOD in", values, "rateMethod");
+        public Criteria andMinAmountIsNull() {
+            addCriterion("MIN_AMOUNT is null");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodNotIn(List<String> values) {
-            addCriterion("RATE_METHOD not in", values, "rateMethod");
+        public Criteria andMinAmountIsNotNull() {
+            addCriterion("MIN_AMOUNT is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodBetween(String value1, String value2) {
-            addCriterion("RATE_METHOD between", value1, value2, "rateMethod");
+        public Criteria andMinAmountEqualTo(BigDecimal value) {
+            addCriterion("MIN_AMOUNT =", value, "minAmount");
             return (Criteria) this;
         }
 
-        public Criteria andRateMethodNotBetween(String value1, String value2) {
-            addCriterion("RATE_METHOD not between", value1, value2, "rateMethod");
+        public Criteria andMinAmountNotEqualTo(BigDecimal value) {
+            addCriterion("MIN_AMOUNT <>", value, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountGreaterThan(BigDecimal value) {
+            addCriterion("MIN_AMOUNT >", value, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("MIN_AMOUNT >=", value, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountLessThan(BigDecimal value) {
+            addCriterion("MIN_AMOUNT <", value, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("MIN_AMOUNT <=", value, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountIn(List<BigDecimal> values) {
+            addCriterion("MIN_AMOUNT in", values, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountNotIn(List<BigDecimal> values) {
+            addCriterion("MIN_AMOUNT not in", values, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("MIN_AMOUNT between", value1, value2, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andMinAmountNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("MIN_AMOUNT not between", value1, value2, "minAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelIsNull() {
+            addCriterion("RISKLEVEL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelIsNotNull() {
+            addCriterion("RISKLEVEL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelEqualTo(Short value) {
+            addCriterion("RISKLEVEL =", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelNotEqualTo(Short value) {
+            addCriterion("RISKLEVEL <>", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelGreaterThan(Short value) {
+            addCriterion("RISKLEVEL >", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelGreaterThanOrEqualTo(Short value) {
+            addCriterion("RISKLEVEL >=", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelLessThan(Short value) {
+            addCriterion("RISKLEVEL <", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelLessThanOrEqualTo(Short value) {
+            addCriterion("RISKLEVEL <=", value, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelIn(List<Short> values) {
+            addCriterion("RISKLEVEL in", values, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelNotIn(List<Short> values) {
+            addCriterion("RISKLEVEL not in", values, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelBetween(Short value1, Short value2) {
+            addCriterion("RISKLEVEL between", value1, value2, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRisklevelNotBetween(Short value1, Short value2) {
+            addCriterion("RISKLEVEL not between", value1, value2, "risklevel");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNull() {
+            addCriterion("STATUS is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIsNotNull() {
+            addCriterion("STATUS is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusEqualTo(String value) {
+            addCriterion("STATUS =", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotEqualTo(String value) {
+            addCriterion("STATUS <>", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThan(String value) {
+            addCriterion("STATUS >", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("STATUS >=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThan(String value) {
+            addCriterion("STATUS <", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLessThanOrEqualTo(String value) {
+            addCriterion("STATUS <=", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusLike(String value) {
+            addCriterion("STATUS like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotLike(String value) {
+            addCriterion("STATUS not like", value, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusIn(List<String> values) {
+            addCriterion("STATUS in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotIn(List<String> values) {
+            addCriterion("STATUS not in", values, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusBetween(String value1, String value2) {
+            addCriterion("STATUS between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatusNotBetween(String value1, String value2) {
+            addCriterion("STATUS not between", value1, value2, "status");
             return (Criteria) this;
         }
 
@@ -537,54 +708,4 @@ public class TRateAccumExample {
             this(condition, value, secondValue, null);
         }
     }
-    //新增分页查询
-    private int pageNum;
-	private int pageSize;
-	private int beginRow;
-	//条件查询
-	private String rateId;
-	private String rateDesc;
-	private String rateMethod;
-	
-	public String getRateId() {
-		return rateId;
-	}
-
-	public void setRateId(String rateId) {
-		this.rateId = rateId;
-	}
-
-	public String getRateDesc() {
-		return rateDesc;
-	}
-
-	public void setRateDesc(String rateDesc) {
-		this.rateDesc = rateDesc;
-	}
-
-	public int getPageNum() {
-		return pageNum;
-	}
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-	public int getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-	public int getBeginRow() {
-		// 在mapper.xml使用begin属性时，对其进行计算
-		return (pageNum - 1) * pageSize;
-	}
-
-	public String getRateMethod() {
-		return rateMethod;
-	}
-
-	public void setRateMethod(String rateMethod) {
-		this.rateMethod = rateMethod;
-	}
-	
 }

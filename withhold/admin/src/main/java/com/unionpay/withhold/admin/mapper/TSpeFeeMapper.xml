@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.unionpay.withhold.admin.mapper.TSpeFeeDetaMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TSpeFeeMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TSpeFee" >
     <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
-    <result column="MINFEE" property="minfee" jdbcType="DECIMAL" />
-    <result column="MAXFEE" property="maxfee" jdbcType="DECIMAL" />
-    <result column="FIXFEE" property="fixfee" jdbcType="DECIMAL" />
-    <result column="FEERATE" property="feerate" jdbcType="DECIMAL" />
-    <result column="FUNCTION" property="function" jdbcType="VARCHAR" />
-    <result column="notes" property="notes" jdbcType="VARCHAR" />
-    <result column="remarks" property="remarks" jdbcType="VARCHAR" />
+    <result column="RATE_DESC" property="rateDesc" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    TID, RATE_ID, MINFEE, MAXFEE, FIXFEE, FEERATE, FUNCTION, notes, remarks
+    TID, RATE_ID, RATE_DESC, NOTES, REMARKS
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from t_spe_fee_deta
+    from t_spe_fee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,31 +86,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from t_spe_fee_deta
+    from t_spe_fee
     where TID = #{tid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_spe_fee_deta
+    delete from t_spe_fee
     where TID = #{tid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" >
-    delete from t_spe_fee_deta
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" >
+    delete from t_spe_fee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
-    insert into t_spe_fee_deta (TID, RATE_ID, MINFEE, 
-      MAXFEE, FIXFEE, FEERATE, 
-      FUNCTION, notes, remarks
-      )
-    values (#{tid,jdbcType=INTEGER}, #{rateId,jdbcType=DECIMAL}, #{minfee,jdbcType=DECIMAL}, 
-      #{maxfee,jdbcType=DECIMAL}, #{fixfee,jdbcType=DECIMAL}, #{feerate,jdbcType=DECIMAL}, 
-      #{function,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
+    insert into t_spe_fee (TID, RATE_ID, RATE_DESC, 
+      NOTES, REMARKS)
+    values (#{tid,jdbcType=INTEGER}, #{rateId,jdbcType=DECIMAL}, #{rateDesc,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
-    insert into t_spe_fee_deta
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
+    insert into t_spe_fee
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="tid != null" >
         TID,
@@ -122,26 +114,14 @@
       <if test="rateId != null" >
         RATE_ID,
       </if>
-      <if test="minfee != null" >
-        MINFEE,
-      </if>
-      <if test="maxfee != null" >
-        MAXFEE,
-      </if>
-      <if test="fixfee != null" >
-        FIXFEE,
-      </if>
-      <if test="feerate != null" >
-        FEERATE,
-      </if>
-      <if test="function != null" >
-        FUNCTION,
+      <if test="rateDesc != null" >
+        RATE_DESC,
       </if>
       <if test="notes != null" >
-        notes,
+        NOTES,
       </if>
       <if test="remarks != null" >
-        remarks,
+        REMARKS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -151,20 +131,8 @@
       <if test="rateId != null" >
         #{rateId,jdbcType=DECIMAL},
       </if>
-      <if test="minfee != null" >
-        #{minfee,jdbcType=DECIMAL},
-      </if>
-      <if test="maxfee != null" >
-        #{maxfee,jdbcType=DECIMAL},
-      </if>
-      <if test="fixfee != null" >
-        #{fixfee,jdbcType=DECIMAL},
-      </if>
-      <if test="feerate != null" >
-        #{feerate,jdbcType=DECIMAL},
-      </if>
-      <if test="function != null" >
-        #{function,jdbcType=VARCHAR},
+      <if test="rateDesc != null" >
+        #{rateDesc,jdbcType=VARCHAR},
       </if>
       <if test="notes != null" >
         #{notes,jdbcType=VARCHAR},
@@ -174,14 +142,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample" resultType="java.lang.Integer" >
-    select count(*) from t_spe_fee_deta
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" resultType="java.lang.Integer" >
+    select count(*) from t_spe_fee
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_spe_fee_deta
+    update t_spe_fee
     <set >
       <if test="record.tid != null" >
         TID = #{record.tid,jdbcType=INTEGER},
@@ -189,26 +157,14 @@
       <if test="record.rateId != null" >
         RATE_ID = #{record.rateId,jdbcType=DECIMAL},
       </if>
-      <if test="record.minfee != null" >
-        MINFEE = #{record.minfee,jdbcType=DECIMAL},
-      </if>
-      <if test="record.maxfee != null" >
-        MAXFEE = #{record.maxfee,jdbcType=DECIMAL},
-      </if>
-      <if test="record.fixfee != null" >
-        FIXFEE = #{record.fixfee,jdbcType=DECIMAL},
-      </if>
-      <if test="record.feerate != null" >
-        FEERATE = #{record.feerate,jdbcType=DECIMAL},
-      </if>
-      <if test="record.function != null" >
-        FUNCTION = #{record.function,jdbcType=VARCHAR},
+      <if test="record.rateDesc != null" >
+        RATE_DESC = #{record.rateDesc,jdbcType=VARCHAR},
       </if>
       <if test="record.notes != null" >
-        notes = #{record.notes,jdbcType=VARCHAR},
+        NOTES = #{record.notes,jdbcType=VARCHAR},
       </if>
       <if test="record.remarks != null" >
-        remarks = #{record.remarks,jdbcType=VARCHAR},
+        REMARKS = #{record.remarks,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -216,78 +172,62 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_spe_fee_deta
+    update t_spe_fee
     set TID = #{record.tid,jdbcType=INTEGER},
       RATE_ID = #{record.rateId,jdbcType=DECIMAL},
-      MINFEE = #{record.minfee,jdbcType=DECIMAL},
-      MAXFEE = #{record.maxfee,jdbcType=DECIMAL},
-      FIXFEE = #{record.fixfee,jdbcType=DECIMAL},
-      FEERATE = #{record.feerate,jdbcType=DECIMAL},
-      FUNCTION = #{record.function,jdbcType=VARCHAR},
-      notes = #{record.notes,jdbcType=VARCHAR},
-      remarks = #{record.remarks,jdbcType=VARCHAR}
+      RATE_DESC = #{record.rateDesc,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR},
+      REMARKS = #{record.remarks,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
-    update t_spe_fee_deta
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
+    update t_spe_fee
     <set >
       <if test="rateId != null" >
         RATE_ID = #{rateId,jdbcType=DECIMAL},
       </if>
-      <if test="minfee != null" >
-        MINFEE = #{minfee,jdbcType=DECIMAL},
-      </if>
-      <if test="maxfee != null" >
-        MAXFEE = #{maxfee,jdbcType=DECIMAL},
-      </if>
-      <if test="fixfee != null" >
-        FIXFEE = #{fixfee,jdbcType=DECIMAL},
-      </if>
-      <if test="feerate != null" >
-        FEERATE = #{feerate,jdbcType=DECIMAL},
-      </if>
-      <if test="function != null" >
-        FUNCTION = #{function,jdbcType=VARCHAR},
+      <if test="rateDesc != null" >
+        RATE_DESC = #{rateDesc,jdbcType=VARCHAR},
       </if>
       <if test="notes != null" >
-        notes = #{notes,jdbcType=VARCHAR},
+        NOTES = #{notes,jdbcType=VARCHAR},
       </if>
       <if test="remarks != null" >
-        remarks = #{remarks,jdbcType=VARCHAR},
+        REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
     where TID = #{tid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
-    update t_spe_fee_deta
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TSpeFee" >
+    update t_spe_fee
     set RATE_ID = #{rateId,jdbcType=DECIMAL},
-      MINFEE = #{minfee,jdbcType=DECIMAL},
-      MAXFEE = #{maxfee,jdbcType=DECIMAL},
-      FIXFEE = #{fixfee,jdbcType=DECIMAL},
-      FEERATE = #{feerate,jdbcType=DECIMAL},
-      FUNCTION = #{function,jdbcType=VARCHAR},
-      notes = #{notes,jdbcType=VARCHAR},
-      remarks = #{remarks,jdbcType=VARCHAR}
+      RATE_DESC = #{rateDesc,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
-   <!-- 特殊公式详情 -->
-  <select id="selectSpeFeeDateInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeDeta" >
-    SELECT
-	a.*,b.RATE_DESC rateDesc
+  
+   <select id="selectspecialfee" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TSpeFeeExample" >
+    select
+    a.RATE_ID,
+	a.RATE_DESC,
+	a.NOTES
     <if test="distinct" >
       distinct
     </if>
-    FROM
-	t_spe_fee_deta a
-	LEFT JOIN t_rate_accum b ON a.RATE_ID = b.RATE_ID
-	where 1=1
-    <if test="rateId != null" >
-     and a.RATE_ID=#{rateId}
+    from
+    t_spe_fee a
+    where 1=1
+	<if test="rateId!=null" >
+      and a.RATE_ID=#{rateId}
     </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
+    <if test="rateDesc!=null" >
+      and a.RATE_DESC=#{rateDesc}
     </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
   </select>
 </mapper>

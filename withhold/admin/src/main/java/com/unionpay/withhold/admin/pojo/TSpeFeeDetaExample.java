@@ -767,4 +767,32 @@ public class TSpeFeeDetaExample {
             this(condition, value, secondValue, null);
         }
     }
+    //新增分页查询
+    private String rateId;
+    private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	
+	public String getRateId() {
+		return rateId;
+	}
+	public void setRateId(String rateId) {
+		this.rateId = rateId;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
 }

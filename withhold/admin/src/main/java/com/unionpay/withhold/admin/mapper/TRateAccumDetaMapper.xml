@@ -303,7 +303,7 @@
         REMARKS = #{remarks,jdbcType=VARCHAR},
       </if>
     </set>
-    where TID = #{tid,jdbcType=INTEGER}
+    where TID = #{tid,jdbcType=INTEGET}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumDeta" >
     update t_rate_accum_deta
@@ -320,4 +320,23 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  <!-- 查询分段详情 -->
+  <select id="selectRateAccDateInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TRateAccumDetaExample" >
+    SELECT
+	a.*,b.RATE_DESC rateDesc
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM
+	t_rate_accum_deta a
+	LEFT JOIN t_rate_accum b ON a.RATE_ID = b.RATE_ID
+	where 1=1
+    <if test="rateId != null" >
+     and a.RATE_ID=#{rateId}
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  
 </mapper>

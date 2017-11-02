@@ -12,6 +12,12 @@ public interface RiskService {
 	 * @return
 	 */
 	List<TRisk> getAllRiskList();
+	/**
+	 * 查询全部风控版本列表（风控实例ID、风控版本名称）
+	 * 
+	 * @return
+	 */
+	List<TRisk> getAllRiskWithCase();
 
 	/**
 	 * 查询风控分页信息
