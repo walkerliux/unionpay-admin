@@ -30,6 +30,11 @@ public class RiskServiceImpl implements RiskService {
 	public List<TRisk> getAllRiskList() {
 		return riskMapper.getAllRiskList();
 	}
+	
+	@Override
+	public List<TRisk> getAllRiskWithCase() {
+		return riskMapper.getAllRiskWithCase();
+	}
 
 	@Override
 	public List<TRisk> selectRiskByCondition(TRisk risk) {

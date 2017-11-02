@@ -31,4 +31,6 @@ public interface TRiskMapper {
     List<TRisk> getAllRiskList();
 
 	List<TRisk> getAllLimitRiskList();
+
+	List<TRisk> getAllRiskWithCase();
 }
