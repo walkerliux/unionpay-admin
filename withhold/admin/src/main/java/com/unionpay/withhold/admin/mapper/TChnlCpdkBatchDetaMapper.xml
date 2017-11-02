@@ -4,24 +4,24 @@
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDeta" >
     <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
-    <result column="batchNo" property="batchno" jdbcType="CHAR" />
-    <result column="transDate" property="transdate" jdbcType="CHAR" />
-    <result column="orderNo" property="orderno" jdbcType="CHAR" />
-    <result column="openBankId" property="openbankid" jdbcType="CHAR" />
-    <result column="cardType" property="cardtype" jdbcType="CHAR" />
-    <result column="cardNo" property="cardno" jdbcType="CHAR" />
-    <result column="usrName" property="usrname" jdbcType="CHAR" />
-    <result column="certType" property="certtype" jdbcType="CHAR" />
-    <result column="certId" property="certid" jdbcType="CHAR" />
-    <result column="curyId" property="curyid" jdbcType="CHAR" />
-    <result column="transAmt" property="transamt" jdbcType="CHAR" />
-    <result column="purpose" property="purpose" jdbcType="CHAR" />
-    <result column="priv1" property="priv1" jdbcType="CHAR" />
-    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
-    <result column="message" property="message" jdbcType="CHAR" />
-    <result column="inTime" property="intime" jdbcType="CHAR" />
-    <result column="upTime" property="uptime" jdbcType="CHAR" />
-    <result column="extField" property="extfield" jdbcType="CHAR" />
+    <result column="BATCHNO" property="batchno" jdbcType="CHAR" />
+    <result column="TRANSDATE" property="transdate" jdbcType="CHAR" />
+    <result column="ORDERNO" property="orderno" jdbcType="CHAR" />
+    <result column="OPENBANKID" property="openbankid" jdbcType="CHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="CHAR" />
+    <result column="CARDNO" property="cardno" jdbcType="VARCHAR" />
+    <result column="USRNAME" property="usrname" jdbcType="VARCHAR" />
+    <result column="CERTTYPE" property="certtype" jdbcType="CHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
+    <result column="CURYID" property="curyid" jdbcType="CHAR" />
+    <result column="TRANSAMT" property="transamt" jdbcType="VARCHAR" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="PRIV1" property="priv1" jdbcType="VARCHAR" />
+    <result column="RESPONSECODE" property="responsecode" jdbcType="CHAR" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="UPTIME" property="uptime" jdbcType="TIMESTAMP" />
+    <result column="EXTFIELD" property="extfield" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,9 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    TID, TXNSEQNO, batchNo, transDate, orderNo, openBankId, cardType, cardNo, usrName, 
-    certType, certId, curyId, transAmt, purpose, priv1, responseCode, message, inTime, 
-    upTime, extField
+    TID, TXNSEQNO, BATCHNO, TRANSDATE, ORDERNO, OPENBANKID, CARDTYPE, CARDNO, USRNAME, 
+    CERTTYPE, CERTID, CURYID, TRANSAMT, PURPOSE, PRIV1, RESPONSECODE, MESSAGE, INTIME, 
+    UPTIME, EXTFIELD
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" >
     select
@@ -107,7 +107,6 @@
     from t_chnl_cpdk_batch_deta
     where TID = #{tid,jdbcType=INTEGER}
   </select>
- 
   
   <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_cpdk_batch_deta
@@ -115,8 +114,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  
- <!-- 历史查询 -->
+  <!-- 历史查询 -->
    <select id="countByExample_bak" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample" resultType="java.lang.Integer" >
     select count(*) from t_chnl_cpdk_batch_deta_bak
     <if test="_parameter != null" >
@@ -138,4 +136,6 @@
     </if>
     limit #{beginRow},#{pageSize}
   </select>
+  
+  
 </mapper>

@@ -4,45 +4,45 @@
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkLog" >
     <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
-    <result column="merId" property="merid" jdbcType="CHAR" />
-    <result column="transDate" property="transdate" jdbcType="CHAR" />
-    <result column="orderNo" property="orderno" jdbcType="CHAR" />
-    <result column="transType" property="transtype" jdbcType="CHAR" />
-    <result column="openBankId" property="openbankid" jdbcType="CHAR" />
-    <result column="cardType" property="cardtype" jdbcType="CHAR" />
-    <result column="cardNo" property="cardno" jdbcType="CHAR" />
-    <result column="usrName" property="usrname" jdbcType="CHAR" />
-    <result column="certType" property="certtype" jdbcType="CHAR" />
-    <result column="certId" property="certid" jdbcType="CHAR" />
-    <result column="curyId" property="curyid" jdbcType="CHAR" />
-    <result column="transAmt" property="transamt" jdbcType="CHAR" />
-    <result column="purpose" property="purpose" jdbcType="CHAR" />
-    <result column="priv1" property="priv1" jdbcType="CHAR" />
-    <result column="version" property="version" jdbcType="CHAR" />
-    <result column="gateId" property="gateid" jdbcType="CHAR" />
-    <result column="termType" property="termtype" jdbcType="CHAR" />
-    <result column="payMode" property="paymode" jdbcType="CHAR" />
-    <result column="userId" property="userid" jdbcType="CHAR" />
-    <result column="userRegisterTime" property="userregistertime" jdbcType="CHAR" />
-    <result column="userMail" property="usermail" jdbcType="CHAR" />
-    <result column="userMobile" property="usermobile" jdbcType="CHAR" />
-    <result column="diskSn" property="disksn" jdbcType="CHAR" />
-    <result column="mac" property="mac" jdbcType="CHAR" />
-    <result column="imei" property="imei" jdbcType="CHAR" />
-    <result column="ip" property="ip" jdbcType="CHAR" />
-    <result column="coordinates" property="coordinates" jdbcType="CHAR" />
-    <result column="baseStationSn" property="basestationsn" jdbcType="CHAR" />
-    <result column="codeInputType" property="codeinputtype" jdbcType="CHAR" />
-    <result column="mobileForBank" property="mobileforbank" jdbcType="CHAR" />
-    <result column="orderdesc" property="orderdesc" jdbcType="CHAR" />
-    <result column="chkValue" property="chkvalue" jdbcType="CHAR" />
-    <result column="responseCode" property="responsecode" jdbcType="CHAR" />
-    <result column="transStat" property="transstat" jdbcType="CHAR" />
-    <result column="message" property="message" jdbcType="CHAR" />
-    <result column="chnlRetDate" property="chnlretdate" jdbcType="CHAR" />
-    <result column="inTime" property="intime" jdbcType="CHAR" />
-    <result column="upTime" property="uptime" jdbcType="CHAR" />
-    <result column="chnlFee" property="chnlfee" jdbcType="CHAR" />
+    <result column="MERID" property="merid" jdbcType="CHAR" />
+    <result column="TRANSDATE" property="transdate" jdbcType="CHAR" />
+    <result column="ORDERNO" property="orderno" jdbcType="CHAR" />
+    <result column="TRANSTYPE" property="transtype" jdbcType="CHAR" />
+    <result column="OPENBANKID" property="openbankid" jdbcType="CHAR" />
+    <result column="CARDTYPE" property="cardtype" jdbcType="CHAR" />
+    <result column="CARDNO" property="cardno" jdbcType="VARCHAR" />
+    <result column="USRNAME" property="usrname" jdbcType="VARCHAR" />
+    <result column="CERTTYPE" property="certtype" jdbcType="CHAR" />
+    <result column="CERTID" property="certid" jdbcType="VARCHAR" />
+    <result column="CURYID" property="curyid" jdbcType="CHAR" />
+    <result column="TRANSAMT" property="transamt" jdbcType="CHAR" />
+    <result column="PURPOSE" property="purpose" jdbcType="VARCHAR" />
+    <result column="PRIV1" property="priv1" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="CHAR" />
+    <result column="GATEID" property="gateid" jdbcType="CHAR" />
+    <result column="TERMTYPE" property="termtype" jdbcType="CHAR" />
+    <result column="PAYMODE" property="paymode" jdbcType="CHAR" />
+    <result column="USERID" property="userid" jdbcType="VARCHAR" />
+    <result column="USERREGISTERTIME" property="userregistertime" jdbcType="CHAR" />
+    <result column="USERMAIL" property="usermail" jdbcType="VARCHAR" />
+    <result column="USERMOBILE" property="usermobile" jdbcType="VARCHAR" />
+    <result column="DISKSN" property="disksn" jdbcType="VARCHAR" />
+    <result column="MAC" property="mac" jdbcType="VARCHAR" />
+    <result column="IMEI" property="imei" jdbcType="VARCHAR" />
+    <result column="IP" property="ip" jdbcType="VARCHAR" />
+    <result column="COORDINATES" property="coordinates" jdbcType="VARCHAR" />
+    <result column="BASESTATIONSN" property="basestationsn" jdbcType="VARCHAR" />
+    <result column="CODEINPUTTYPE" property="codeinputtype" jdbcType="CHAR" />
+    <result column="MOBILEFORBANK" property="mobileforbank" jdbcType="VARCHAR" />
+    <result column="ORDERDESC" property="orderdesc" jdbcType="VARCHAR" />
+    <result column="CHKVALUE" property="chkvalue" jdbcType="VARCHAR" />
+    <result column="RESPONSECODE" property="responsecode" jdbcType="CHAR" />
+    <result column="TRANSSTAT" property="transstat" jdbcType="CHAR" />
+    <result column="MESSAGE" property="message" jdbcType="VARCHAR" />
+    <result column="CHNLRETDATE" property="chnlretdate" jdbcType="CHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="UPTIME" property="uptime" jdbcType="TIMESTAMP" />
+    <result column="CHNLFEE" property="chnlfee" jdbcType="DECIMAL" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -103,11 +103,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    TID, TXNSEQNO, merId, transDate, orderNo, transType, openBankId, cardType, cardNo, 
-    usrName, certType, certId, curyId, transAmt, purpose, priv1, version, gateId, termType, 
-    payMode, userId, userRegisterTime, userMail, userMobile, diskSn, mac, imei, ip, coordinates, 
-    baseStationSn, codeInputType, mobileForBank, orderdesc, chkValue, responseCode, transStat, 
-    message, chnlRetDate, inTime, upTime, chnlFee
+    TID, TXNSEQNO, MERID, TRANSDATE, ORDERNO, TRANSTYPE, OPENBANKID, CARDTYPE, CARDNO, 
+    USRNAME, CERTTYPE, CERTID, CURYID, TRANSAMT, PURPOSE, PRIV1, VERSION, GATEID, TERMTYPE, 
+    PAYMODE, USERID, USERREGISTERTIME, USERMAIL, USERMOBILE, DISKSN, MAC, IMEI, IP, COORDINATES, 
+    BASESTATIONSN, CODEINPUTTYPE, MOBILEFORBANK, ORDERDESC, CHKVALUE, RESPONSECODE, TRANSSTAT, 
+    MESSAGE, CHNLRETDATE, INTIME, UPTIME, CHNLFEE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample" >
     select
