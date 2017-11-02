@@ -23,6 +23,8 @@ import com.unionpay.withhold.admin.service.MerchChnlService;
 public class MwechChnlServiceImpl implements MerchChnlService {
 	@Autowired
 	private TMerchChnlMapper merchChnlMapper;
+	@Autowired
+	private TMerchDetaMapper merchDetaMapper ;
 
 	@Override
 	public PageBean queryMerchChnl(TMerchDeta merchDeta,String chnlcode, Integer page, Integer rows) {
@@ -51,12 +53,45 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 	}
 	@Override
 	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl) {
-		int flag = merchChnlMapper.insertSelective(merchChnl);
+		
+		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
+//		merch.setMerchno(merchChnl.getMerchno());
+//		merch.setMemberName(merchChnl.getMemberName());
+		int length = merchChnl.getArdList().size();
+		
+		int count = merchChnlMapper.selectaddCountWithCondition(merchChnl.getMerchno());
+		
+		int flag = 0;
+		for (int i = count; i <length; i++) {
+			merch=merchChnl.getArdList().get(i);
+			merch.setMerchno(merchChnl.getMerchno());
+			merch.setStatus("00");
+			 flag = merchChnlMapper.insertSelective(merch);
+		}
+		
 		if (flag > 0) {
 			return new ResultBean("操作成功 ！");
 		} else {
 			return new ResultBean("", "修改失败！");
 		}
+	}
+	@Override
+	public PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
+			Integer page, Integer rows) {
+		
+		Integer beginRow = (page - 1) * rows;
+
+		List<TMerchChnlWithBLOBs> list = merchChnlMapper.selectChnlWithCondition(merchDeta,chnlcode, beginRow, rows);
+		int count = merchChnlMapper.selectCountWithCondition(merchDeta,chnlcode);
+		
+		if(list.size()==0){
+			List<TMerchDeta> lists = merchDetaMapper.selectByMemberId(merchDeta.getMemberId());
+			return new PageBean(count, lists);
+		}
+		
+
+		return new PageBean(count, list);
+		
 	}
 	
 	

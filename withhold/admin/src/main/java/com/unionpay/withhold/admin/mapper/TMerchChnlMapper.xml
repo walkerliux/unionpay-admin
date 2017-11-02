@@ -478,4 +478,61 @@
 			</if>
 		</where>
 	</select>
+	
+		<select id="selectaddCountWithCondition" resultType="java.lang.Integer">
+		SELECT COUNT(*)  from 
+		t_merch_chnl mc
+		left join
+		t_merch_deta md on mc.merchno=md.member_id 
+		left join
+		t_chnl_deta cd on mc.CHNLCODE = cd.CHNLCODE
+		AND mc.`STATUS` = '00'
+		where mc.merchno=#{merchno}
+	</select>
+	
+	 <select id="selectaddChnl" resultMap="ResultMapWithBLOBs">
+		SELECT md.MEMBER_NAME, mc.* ,cd.CHNLNAME
+		from t_merch_deta md 
+		LEFT JOIN t_merch_chnl mc
+		on md.MEMBER_ID=mc.MERCHNO
+		LEFT JOIN t_chnl_deta cd
+		ON mc.CHNLCODE=cd.CHNLCODE
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="chnlcode != null and chnlcode !=''">
+				AND mc.CHNLCODE = #{chnlcode}
+			</if>
+			
+		</where>
+		order by md.MERCH_ID DESC
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="selectaddCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)  
+		from t_merch_deta md 
+		LEFT JOIN t_merch_chnl mc
+		on md.MEMBER_ID=mc.MERCHNO
+		LEFT JOIN t_chnl_deta cd
+		ON mc.CHNLCODE=cd.CHNLCODE
+		<where>
+			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
+				AND md.MEMBER_ID = #{merchDeta.memberId}
+			</if>
+			<if test="merchDeta.memberName != null and merchDeta.memberName !=''">
+				AND md.MEMBER_NAME = #{merchDeta.memberName}
+			</if>
+			<if test="chnlcode != null and chnlcode !=''">
+				AND mc.CHNLCODE = #{chnlcode}
+			</if>
+		</where>
+	</select>
+	
 </mapper>

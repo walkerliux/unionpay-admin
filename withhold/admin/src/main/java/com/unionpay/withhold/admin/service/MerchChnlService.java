@@ -32,5 +32,8 @@ public interface MerchChnlService {
 	
 	
 	ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl);
+	
+	PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
+			Integer page, Integer rows);
 
 }

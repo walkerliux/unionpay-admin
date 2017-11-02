@@ -304,7 +304,7 @@
    select rc.CASEID,r.RISKNAME
 	from t_risk r
 	LEFT JOIN t_risk_case rc
-	on r.RISKID=rc.RISKID
+	on r.RISKVER=rc.RISKVER
     where r.STATUS = '00'
   </select>
   

@@ -651,4 +651,10 @@
 			</if>
 		</where>
 	</select>
+	
+	<select id="selectByMemberId" resultMap="BaseResultMap">
+		SELECT md.MEMBER_NAME from 
+		t_merch_deta md 
+		where md.MEMBER_ID=#{memberId}
+	</select>
 </mapper>

@@ -248,7 +248,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		 <where>
 			<if test="caseid!= null and caseid !=''">
 				lmn.CASEID= #{caseid}
@@ -265,7 +265,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		<where>
 			<if test="caseid!= null and caseid !=''">
 				lmn.CASEID= #{caseid}
@@ -278,7 +278,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		 where lmn.tid=#{tid}
 	 </select> 
 	<select id="queryAllLimitMemNumsDay" resultMap="BaseResultMap">

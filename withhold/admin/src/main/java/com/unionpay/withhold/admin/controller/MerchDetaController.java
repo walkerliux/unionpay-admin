@@ -357,7 +357,25 @@ public class MerchDetaController {
 		}
 	}
 	
-
+	/**
+	 * 查询商户通道信息
+	 * @param merchDate
+	 * @param merchChnl
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryaddMerchChnl")
+	public PageBean queryaddMerchChnl(TMerchDeta merchDeta,String chnlcode,
+			@RequestParam(defaultValue="1")Integer page,@RequestParam(defaultValue="10")Integer rows){
+		if(null==merchDeta){
+			return null;			
+		}else{
+			return merchChnlService.queryaddMerchChnl(merchDeta,chnlcode,page,rows);
+		}
+	}
+	
 	
 	/**
 	 * 查询商户信息（全部或按条件）
@@ -435,16 +453,16 @@ public class MerchDetaController {
 	@ResponseBody
 	@RequestMapping("/addMerchChnl")
 	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl, HttpServletRequest request){
-		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
+		/*TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
 		merch.setMerchno(merchChnl.getMerchno());
 		merch.setMemberName(merchChnl.getMemberName());
 		int length = merchChnl.getArdList().size();
 		
 		for (int i = 0; i < length; i++) {
 			merch=merchChnl.getArdList().get(i);
-		}
+		}*/
 		try {
-			return merchChnlService.addMerchChnl(merch);
+			return merchChnlService.addMerchChnl(merchChnl);
 			
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");

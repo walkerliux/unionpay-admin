@@ -90,7 +90,7 @@
   	
 		 $(function(){
 			
-			showAllriskid("serch");
+			showAllriskver("serch");
 			$('#test').datagrid({
 				title:'',
 				singleSelect:true,
@@ -167,7 +167,7 @@
 		function showAdd(){	
 //			$('#accumulateRateForm :input').val('');
 //			$('#Notes').val('');
-			showAllriskid();
+			showAllriskver();
 			showRiskLevel();
 			$('#theForm :input').val('');
 			$("#theForm").attr("action","riskLimitNum/saveLimitMemNumDay");
@@ -255,7 +255,7 @@
 		   data: "tid="+tid,
 		   dataType:"json",
 		   success: function(json){
-			 showriskid(json.riskname);
+			 showriskver(json.riskname);
 			$("#notes").val(json.notes);
 			$("#limitCount").val(json.limitCount);
 			showuRiskLevel(json.risklevel);
@@ -318,7 +318,7 @@
 		$('#w').window('close');			
 	}
 	
-	function showAllriskid(type){
+	function showAllriskver(type){
 		$.ajax({
 			type : "POST",
 			url: "riskLimitNum/getAllLimitRiskList",
@@ -336,7 +336,7 @@
 			}
 		});
 	}
-	function showriskid(riskname){
+	function showriskver(riskname){
 		$.ajax({
 			type : "POST",
 			url: "riskLimitNum/getAllLimitRiskList",
