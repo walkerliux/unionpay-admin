@@ -40,6 +40,7 @@
 		<result column="TRANSFACTORS_NAME" property="transfactorsName" jdbcType="VARCHAR" />
 		<result column="MCC_NAME" property="mccName" jdbcType="VARCHAR" />
 		<result column="MCC_LIST_NAME" property="mccListName" jdbcType="VARCHAR" />
+		<result column="RATE_ID" property="rateId" jdbcType="DECIMAL" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -784,13 +785,14 @@
 	
 	<select id="selectMerchDetailById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		SELECT
-			mda.*, ca.CANAME AS CANAME, pd.PARA_NAME AS TRANSFACTORS_NAME, md.MCCNAME AS MCC_NAME, ml.MCCCONT AS MCC_LIST_NAME
+			mda.*, ca.CANAME AS CANAME, pd.PARA_NAME AS TRANSFACTORS_NAME, md.MCCNAME AS MCC_NAME, ml.MCCCONT AS MCC_LIST_NAME, mr.RATE_ID AS RATE_ID
 		FROM
 			t_merch_deta_apply AS mda
 		LEFT JOIN t_coop_agency AS ca ON mda.CACODE = ca.CACODE AND ca.`STATUS` = '00'
 		LEFT JOIN t_para_dic AS pd ON mda.TRANSFACTORS = pd.PARA_CODE AND pd.`STATUS` = '1'
 		LEFT JOIN t_mcc_desc AS md ON mda.MCC = md.MCC
 		LEFT JOIN t_mcc_list AS ml ON mda.MCC_LIST = ml.MCCLIST AND ml.`STATUS` = '1'
+		LEFT JOIN t_merch_rate_config mr ON mda.MEMBER_ID = mr.MEMBER_ID
 		WHERE
 		mda.SELF_ID = #{selfId}
 	</select>
