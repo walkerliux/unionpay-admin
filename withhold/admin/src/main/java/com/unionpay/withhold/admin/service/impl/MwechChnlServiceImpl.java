@@ -37,8 +37,17 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 				return new PageBean(count, list);
 	}
 	@Override
-	public ResultBean updateMerchDChnl(TMerchChnl merchChnl) {
-			
+	public ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl) {
+		
+		//判断商户通道是否已存在
+		List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectByMerchno(merchChnl.getMerchno());
+		for (TMerchChnl tMerchChnl : chnlcodeList) {
+			if(tMerchChnl.getChnlcode().equals(merchChnl.getChnlcode())){
+				return new ResultBean("", "通道配置重复！");	
+			}
+		}
+		
+		
 		int flag = merchChnlMapper.updateByPrimaryKeySelective( merchChnl);
 		if (flag > 0) {
 			return new ResultBean("操作成功 ！");
@@ -53,7 +62,7 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 	}
 	@Override
 	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl) {
-		
+	
 		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
 //		merch.setMerchno(merchChnl.getMerchno());
 //		merch.setMemberName(merchChnl.getMemberName());
@@ -64,6 +73,16 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		int flag = 0;
 		for (int i = count; i <length; i++) {
 			merch=merchChnl.getArdList().get(i);
+			
+			//判断商户通道是否已存在
+			List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectByMerchno(merchChnl.getMerchno());
+			for (TMerchChnl tMerchChnl : chnlcodeList) {
+				if(tMerchChnl.getChnlcode().equals(merch.getChnlcode())){
+					return new ResultBean("", "通道配置重复！");	
+				}
+			}
+			
+			
 			merch.setMerchno(merchChnl.getMerchno());
 			merch.setStatus("00");
 			 flag = merchChnlMapper.insertSelective(merch);
@@ -72,7 +91,7 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		if (flag > 0) {
 			return new ResultBean("操作成功 ！");
 		} else {
-			return new ResultBean("", "修改失败！");
+			return new ResultBean("", "添加失败！");
 		}
 	}
 	@Override

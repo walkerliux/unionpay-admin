@@ -121,6 +121,24 @@ table tr td.update {
 							<input type="text" id="uchnlmercno" name="chnlmercno" class="easyui-validatebox" required="true"
 								maxlength="64" missingMessage="请输入通道商户号 " /><font color="red">*</font></td>
 						</tr>
+						<tr>
+						<td class="update">商户公钥</td>
+						<td class="update" align="left">
+						<input type="text" id="upubkey" name="pubkey" 
+						class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>
+						<td class="update" width="15%">商户私钥 </td>
+						<td class="update" align="left">
+						<input type="text" id="uprikey" name="prikey" class="easyui-validatebox" 
+						required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>
+						</tr>
+		
+						<tr>
+						<td class="update">通道公钥</td>
+						<td class="update" align="left">
+						<input type="text" id="uchnlpubkey" name="chnlpubkey" class="easyui-validatebox" 
+						required="true" maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>
+						</tr>
+		
 					</table>
 				</form>
 			</div>
@@ -518,7 +536,10 @@ table tr td.update {
 					} else {
 					    $("#umerchno").val(json.merchno);
 						$("#umemberName").val(json.memberName);
+						$("#upubkey").val(json.pubkey);
 						$("#uchnlmercno").val(json.chnlmercno);
+						$("#uprikey").val(json.prikey);
+						$("#uchnlpubkey").val(json.chnlpubkey);
 						showChannl(json.chnlcode);
 						$("#tid").val(json.tid);
 						$("#status").val(json.status);
