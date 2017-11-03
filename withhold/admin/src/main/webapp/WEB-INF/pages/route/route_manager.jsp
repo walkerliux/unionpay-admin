@@ -3,7 +3,51 @@
 <html>
 <head>
 </head>
+<style type="text/css">
+	.left, .mid, .right {
+		width: auto;
+		float: left;
+	}
+	
+	.form-control {
+		border: 2px solid #A9C9E2;
+	}
+	
+	.mid {
+		padding-top: 45px;
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+</style>
 <body>
+	<style type="text/css">
+		table tr td.head-title {
+			height: 25px;
+			background-color: #F0F8FF;
+			font-weight: bold;
+			border-width: 1px 1px 1px 1px;
+			border-style: groove;
+		}
+		
+		table tr td.update {
+			height: 25px;
+			padding-left: 10px;
+			border-width: 1px 1px 1px 1px;
+			border-style: groove;
+		}
+		
+		table tr td.add {
+			height: 25px;
+		}
+		
+		table tr td input {
+			height: 15px;
+		}
+		
+		table tr td select {
+			height: 20px
+		}
+	</style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="路由查询"
 			style="height: 72px; padding: 10px; background: #fafafa;"
@@ -11,12 +55,12 @@
 			<form id="dedurateForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right">路由版本代码</td>
+						<td align="right">路由版本</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="routver" id="routver_qid" maxlength="8" /></td>
-						<td align="right">路由版本名称</td>
+							name="routver" id="routver_s" maxlength="10" /></td>
+						<td align="right">路由名称</td>
 						<td align="left" style="padding-left: 5px"><input
-							name="routname" id="routname_qid" maxlength="128" />
+							name="routname" id="routname_s" maxlength="64" />
 						</td>
 						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
@@ -29,7 +73,7 @@
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-			<table id="test"></table>
+			<table id="route"></table>
 		</div>
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
@@ -37,31 +81,34 @@
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="theForm" method="post"
-					action="route/saveRoute">
+				<form id="theForm" method="post" action="">
 					<input name="routid" id="routid" type="hidden" />
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="inputForm">
 						<tr>
-							<td align="right" width="15%" height="50px">路由版本代码</td>
-							<td align="left" style="padding-left: 5px" width="25%">
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update" width="15%">路由版本</td>
+							<td class="update" align="left">
 							<input name="routver" id="routver" required="true" validType="minLength[8,8]" maxlength="8"
 								class="easyui-validatebox" missingMessage="请输入路由版本"/> <font color="red">*</font></td>
 							</td>
-							<td align="right" width="15%">路由版本名称</td>
-							<td align="left" style="padding-left: 5px" width="25%"><input
+							<td class="update" width="15%">路由名称</td>
+							<td class="update" align="left"><input
 								name="routname" id="routname" required="true"
-								missingMessage="请输入路由版本名称" maxlength="32"
+								missingMessage="请输入路由名称" maxlength="64"
 								class="easyui-validatebox"
 								onblur="value=value.replace( /\s+/g,'')" /> <font color="red">*</font></td>
 							</td>
 						</tr>
-						<tr></tr>
 						<tr>
-							<td align="right" width="15%">备注</td>
-							<td align="left" style="padding-left: 5px" width="25%">
-							<input name="note" id="notes" maxlength="64" class="easyui-validatebox" /></td>
-							<td align="center" colspan="2"><font color="red">提示:请于启用、注销前在备注处填写理由</font></td>
+							<td colspan="4" class="head-title"></td>
+						</tr>
+						<tr>
+							<td class="update">备注</td>
+							<td class="update" align="left" colspan="3">
+							<textarea rows="3" cols="81" id="notes" maxlength="128" name="notes" style="resize: none;" onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 					</table>
 				</form>
@@ -81,13 +128,13 @@
 	
 		var width = $("#continer").width();
 	  	var gridHeight = 540;
-		var panelWidth = 640;
-		var panelHeight = 260;
+		var panelWidth = 700;
+		var panelHeight = 235;
 		var panelHoriFloat = (width-panelWidth)/2;
 		var panelVertFloat = 150;
 	
 		$(function() {
-			$('#test').datagrid({
+			$('#route').datagrid({
 				title: '路由版本列表', 
 				singleSelect: true,
 				iconCls: 'icon-save',
@@ -95,29 +142,28 @@
 				nowrap: false,
 				striped: true,
 				sortName: 'ROUTVER',
-				url: 'route/queryRouteEdition',
+				url: 'route/queryRoute',
 				remoteSort: false,
 				columns: [[				    
-					{field: 'ROUTVER',title: '路由版本代码',width: 200,align: 'center'},
-				    {field: 'ROUTNAME',title: '路由版本名称',width: 250,align: 'center'},
-				    {field: 'STATUS',title: '状态',width: 100,align: 'center',
+					{field: 'routver',title: '路由版本代码',width: 100,align: 'center'},
+				    {field: 'routname',title: '路由版本名称',width: 200,align: 'center'},
+				    {field: 'inUserName',title: '创建者',width: 100,align: 'center'},
+				    {field: 'intime',title: '创建时间',width: 150,align: 'center'},
+				    {field: 'notes',title: '备注',width: 200,align: 'center'},				
+				    {field: 'status',title: '状态',width: 100,align: 'center',
 				    	formatter: function(value, rec){
-				    		if(value == 00){
-				    			return "在用";
-				    		}else if(value == 01){
-				    			return "停用";
+				    		if(value == 1){
+				    			return "有效";
+				    		}else {
+				    			return "无效";
 				    		}
 				    	}
 				    },
-				    {field: 'NOTES',title: '备注',width: 100,align: 'center'},				
-				    {field: 'ROUTID',title: '操作',width: 150,align: 'center', 
+				    {field: 'routid',title: '操作',width: 150,align: 'center', 
 						formatter: function(value, rec) {
-							if(rec.STATUS ==00){
-								return '<a href="javascript:showRoute(' + value + ')" style="color:blue;margin-left:10px">修改</a>&nbsp;&nbsp;<a href="javascript:deleteRoute('+ value + ')" style="color:blue;margin-left:10px">注销</a>';
-							}else if(rec.STATUS ==01){
-								return '<a href="javascript:startRoute(' + value + ')" style="color:blue;margin-left:10px">启用</a>';
+							if(rec.status ==1){
+								return '<a href="javascript:showRoute(\'' + value + '\')" style="color:blue;margin-left:10px">修改</a>';
 							}
-							
 					}
 				}]],
 				pagination: true,
@@ -131,7 +177,7 @@
 					}
 				}]
 			});
-			var p = $('#test').datagrid('getPager');
+			var p = $('#route').datagrid('getPager');
 			$(p).pagination({
 				onBeforeRefresh: function() {
 	
@@ -141,30 +187,19 @@
 	
 		function search() {
 			var data = {
-				'routver': $('#routver_qid').val(),
-				'routname': $("#routname_qid").val()
+				'routver': $('#routver_s').val(),
+				'routname': $("#routname_s").val()
 			};
-			$('#test').datagrid('load', data);
+			$('#route').datagrid('load', data);
 		}
 	
 		//新增路由版本 
 		function showAdd() {
-			$('#theForm').clearForm();
-			$('#routname').removeAttr('readonly');
-			$("#routname").css("background-color","#FFFFFF");
-		  	$.ajax({
-		  		type: "POST",
-		  		url: "route/queryRoutver",
-		  		data:"",
-		  		async: false,
-		  		dataType: "json",
-		  		success: function(json) {
-		  			$("#routver").val(json.ROUTVER);
-                    $("#routver").attr("disabled","disabled");
-		  		}
-		  	});	
+			//$('#theForm').clearForm();
+			$('#theForm :input').val('');
+			$('#routver').attr("readonly", false);
 			$('#w').window({
-				title: '扣率版本信息',
+				title: '路由版本信息',
 				top: panelVertFloat,
 		  		left: panelHoriFloat,
 		  		width: panelWidth,
@@ -176,29 +211,30 @@
 				shadow: false,
 				closed: false
 			});
-			$("#theForm").attr("action", "route/saveRoute");
+			$("#theForm").attr("action", "route/addRoute");
 			$('#btn_submit').linkbutton('enable');
 		}
 		
 		//保存 
 		function saveRoute(){
-			$("#routver").removeAttr("disabled");
-			$('#routname').removeAttr('readonly');
-			$("#routname").css("background-color","#FFFFFF");
-			
 			$('#theForm').form('submit', {
-				onSubmit: function() {
+				onSubmit : function() {
 					if ($('#theForm').form('validate')) {
 						$('#btn_submit').linkbutton('disable');
 						return true;
 					}
 					return false;
 				},
-				success: function(data) {
-					$.messager.alert('提示', data);
-					closeAdd();
+				success : function(json) {
 					$('#btn_submit').linkbutton('enable');
-					search();
+		    		json = JSON.parse(json);
+		    		if(json.resultBool==true){
+						 $.messager.alert('提示',"操作成功！");
+						 $('#w').window('close');
+						 search();
+					}else{
+						 $.messager.alert('提示',json.errMsg);
+					}
 				}
 			});
 		}
@@ -210,19 +246,18 @@
 
 		//修改
 		function showRoute(routid){
-			$('#routname').removeAttr('readonly');
-			$("#routname").css("background-color","#FFFFFF");
+			$('#theForm :input').val('');
 			$.ajax({
 				type: "POST",
-				url: "route/queryOneRoute",
+				url: "route/queryRouteById",
 				data: "routid=" + routid,
 				dataType: "json",
 				success: function(json) {
 					$("#routid").val(routid);
-					$("#routver").val(json.ROUTVER);
-					$("#routver").attr("disabled","disabled");
-					$("#routname").val(json.ROUTNAME);
-					$("#notes").val(json.NOTES);										
+					$("#routver").val(json.routver);
+					$('#routver').attr("readonly", true);
+					$("#routname").val(json.routname);
+					$("#notes").val(json.notes);										
 				}	
 			});
 			$('#w').window({
@@ -239,74 +274,6 @@
 				closed: false
 			});
 			$("#theForm").attr("action", "route/updateRoute");
-			$('#btn_submit').linkbutton('enable');
-		}
-	    //注销 
-		function deleteRoute(routid){
-			$.ajax({
-				type: "POST",
-				url: "route/queryOneRoute",
-				data: "routid=" + routid,
-				dataType: "json",
-				success: function(json) {
-					$("#routid").val(routid);
-					
-					$("#routver").val(json.ROUTVER);
-					$("#routver").attr("readonly","readonly");
-					$("#routver").css("background-color","#BEBEBE");
-					
-					$("#routname").val(json.ROUTNAME);
-					$("#routname").attr("readonly","readonly");
-					$("#routname").css("background-color","#BEBEBE");
-					
-					$("#notes").val(json.NOTES);					
-				}	
-			});
-			$('#w').window({
-				title: '注销路由版本', 
-				top: panelVertFloat,
-		  		left: panelHoriFloat,
-		  		width: panelWidth,
-		  		height: panelHeight,
-				collapsible: false,
-				minimizable: false,
-				maximizable: false,
-				modal: true,
-				shadow: false,
-				closed: false
-			});
-			$('#btn_submit').linkbutton('enable');
-			$("#theForm").attr("action", "route/deleteRoute"); 			
-	    }
-		function startRoute(routid){
-			$.ajax({
-				type: "POST",
-				url: "route/queryOneRoute",
-				data: "routid=" + routid,
-				dataType: "json",
-				success: function(json) {
-					$("#routid").val(routid);
-					$("#routver").val(json.ROUTVER);
-					$("#routver").attr("readonly","readonly");
-					$("#routname").val(json.ROUTNAME);
-					$("#routname").attr("readonly","readonly");
-					$("#notes").val(json.NOTES);										
-				}	
-			});
-			$('#w').window({
-				title: '启用路由版本', 
-				top: panelVertFloat,
-		  		left: panelHoriFloat,
-		  		width: panelWidth,
-		  		height: panelHeight,
-				collapsible: false,
-				minimizable: false,
-				maximizable: false,
-				modal: true,
-				shadow: false,
-				closed: false
-			});
-			$("#theForm").attr("action", "route/startRoute"); 
 			$('#btn_submit').linkbutton('enable');
 		}
 	
