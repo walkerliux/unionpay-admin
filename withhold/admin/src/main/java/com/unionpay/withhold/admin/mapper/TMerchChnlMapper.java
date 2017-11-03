@@ -51,5 +51,7 @@ public interface TMerchChnlMapper {
 	List<TMerchChnlWithBLOBs> selectaddChnl(@Param("merchDeta")TMerchDeta merchDeta, @Param("chnlcode")String chnlcode,@Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
 	
 	 List<TMerchChnl> selectByMerchno( @Param("merchno")String merchno);
+	 
+	 List<TMerchChnl> selectupdateByMerchno( @Param("merchno")String merchno, @Param("tid")Integer tid);
 	
 }

@@ -415,7 +415,7 @@ public class MerchDetaController {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateMerchDChnl")
-	public ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl, HttpServletRequest request) {
+	public ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl,HttpServletRequest request) {
 //		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDetaApply.setInUser(infoByToken.getUserId().longValue())

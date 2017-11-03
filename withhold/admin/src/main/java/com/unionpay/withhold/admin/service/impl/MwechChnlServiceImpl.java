@@ -40,7 +40,7 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 	public ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl) {
 		
 		//判断商户通道是否已存在
-		List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectByMerchno(merchChnl.getMerchno());
+		List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectupdateByMerchno(merchChnl.getMerchno(),merchChnl.getTid());
 		for (TMerchChnl tMerchChnl : chnlcodeList) {
 			if(tMerchChnl.getChnlcode().equals(merchChnl.getChnlcode())){
 				return new ResultBean("", "通道配置重复！");	
