@@ -358,11 +358,7 @@ table tr td.update {
 		output +=	'</td>';
 		output += '</tr>';
 		
-	/* 	output += '<tr>';
-		output += 	'<td class="update" width="15%">通道名称</td>';
-		output += 	'<td class="update" width="30%">';
-		output += 	'<input id="chnlname' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlcode" maxlength="64" class="easyui-validatebox" required="true" missingMessage="请输入商户号" />';
-		output += 	'</td>'; */ 
+	
 		 output += 	'<tr style="height: 25px">';
 		output += 	'<td class="update">通道名称</td>';
 		output += 	'<td class="update" align="left">';
@@ -553,23 +549,7 @@ table tr td.update {
 	
 	function showMerchChnl(merchno){
 		var output='';	// 拼接显示的内容
-		//$("#addForm").attr("action", "merchDeta/addMerchChnl");
-//		showAddChannl();
 
-		/* $('#wadd').window({
-			title : '商户通道维护',
-			top : panelVertFloat,
-			left : panelHoriFloat,
-			width : panelWidth,
-			height : panelHeight,
-			collapsible : false,
-			minimizable : false,
-			maximizable : false,
-			modal : true,
-			shadow : true,
-			closed : false,
-		}); */
-		
 		
 		$.ajax({
 			type : "POST",
@@ -610,13 +590,7 @@ table tr td.update {
 				output += 	'<input id="chnlname' + (i + 1) + '" name="ardList['+i+'].chnlcode" maxlength="64" class="easyui-validatebox" required="true" value="' + rows[i].chnlname + '"/>';
 				output += 	'</td>';
 				
-				/* output += 	'<tr style="height: 25px">';
-				output += 	'<td class="update">通道名称</td>';
-				output += 	'<td class="update" align="left">';
-				output += 	'<select class="chnl" id="chnlname' + (i + 1) + '" name="ardList['+i+'].chnlcode" />';
-//				output += 	'<option value=''>' + rows[i].chnlname + '</option>';
-				output += 	'</select>'; */
-				
+
 				
 				output += 	'<td class="update" width="15%">通道商户号</td>';
 				output += 	'<td class="update" width="30%">';
@@ -644,7 +618,7 @@ table tr td.update {
 				
 				
 				$('#tableadd').html(output);
-				//showAddChnl($(".chnl").val());
+			
 				
 				$.parser.parse('#tableadd');
 			}
