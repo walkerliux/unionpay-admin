@@ -22,6 +22,11 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 		Integer beginRow = (page - 1) * rows;
 		
 		List<TLimitAmountsPanDay> list = limitAmountsPanDayMapper.queryLimitMemNumsDay(caseid,beginRow, rows);
+		
+		//把金额单位换成元
+		for (TLimitAmountsPanDay tLimitAmountsPanDay : list) {
+			tLimitAmountsPanDay.setLimitAmount(tLimitAmountsPanDay.getLimitAmount()/100);
+		}
 		int count = limitAmountsPanDayMapper.selectCountWithCondition(caseid);
 		
 		return new PageBean(count, list);
@@ -48,6 +53,9 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 		}
 		
 		limitAmountsPanDay.setStatus("00");
+		//把金额单位换成分
+		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
+		
 		int flag =limitAmountsPanDayMapper.insertSelective(limitAmountsPanDay);
 		if(flag>0){
 			return new ResultBean("操作成功");
@@ -61,6 +69,8 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 	public TLimitAmountsPanDay queryLimitMemNumsDaybytid(Integer tid) {
 		
 		TLimitAmountsPanDay  limitMemNumsDay= limitAmountsPanDayMapper.queryLimitMemNumsDaybytid(tid);
+		//把金额单位换成元
+		limitMemNumsDay.setLimitAmount(limitMemNumsDay.getLimitAmount()/100);
 		return limitMemNumsDay;
 	}
 
@@ -81,6 +91,10 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 			}
 						
 		limitAmountsPanDay.setStatus("00");
+		
+		//把金额单位换成分
+		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
+		
 		int flag =limitAmountsPanDayMapper.updateByPrimaryKey(limitAmountsPanDay);
 		if(flag>0){
 			return new ResultBean("操作成功");
