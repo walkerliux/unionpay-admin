@@ -46,4 +46,22 @@ public interface TradeService {
 
 	TTxnsLog getTxnsLogBakByTxnseqno(String txnseqno);
 
+	PageBean getBatchOrderByPage_bak(TOrderCollectBatch orderBatch,
+			String stime, String etime, int page, int rows);
+
+	PageBean getSingleOrderByPage_bak(TOrderCollectSingle orderSingle,
+			String stime, String etime, int page, int rows);
+
+	PageBean getCollectOrderDetaByBatchNo_bak(String batchno, int page, int rows);
+
+	Object getOrderSingleById_bak(String tid);
+
+	PageBean getChnCollectSingleLogByPage_bak(TChnlCpdkLog tChnlCpdkLog,
+			String stime, String etime, int page, int rows);
+
+	PageBean getChnCollectBatchLogByPage_bak(TChnlCpdkBatch tChnlCpdkBatch,
+			String stime, String etime, int page, int rows);
+
+	PageBean getChnCollectDetaByBatchNo_bak(String batchno, int page, int rows);
+
 }

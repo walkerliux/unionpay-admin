@@ -7,17 +7,12 @@ import org.apache.ibatis.annotations.Param;
 
 public interface TOrderCollectBatchMapper {
     int countByExample(TOrderCollectBatchExample example);
-
-    
-
     List<TOrderCollectBatch> selectByExample(TOrderCollectBatchExample example);
-
     TOrderCollectBatch selectByPrimaryKey(Long tid);
-
-   
-
 	int countByMyExample(TOrderCollectBatchExample tOrderCollectBatchExample);
-
 	List<TOrderCollectBatch> selectByPageExample(
+			TOrderCollectBatchExample tOrderCollectBatchExample);
+	int countByMyExample_bak(TOrderCollectBatchExample tOrderCollectBatchExample);
+	List<TOrderCollectBatch> selectByPageExample_bak(
 			TOrderCollectBatchExample tOrderCollectBatchExample);
 }

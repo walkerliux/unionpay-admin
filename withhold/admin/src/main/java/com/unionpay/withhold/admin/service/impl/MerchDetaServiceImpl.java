@@ -78,6 +78,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			TMerchDetaApply merchDetaApply = BeanCopyUtil.copyBean(TMerchDetaApply.class, merchDeta);
 			merchDetaApply.setInTime(merchDetaBack.getInTime());
 			merchDetaApply.setInUser(merchDetaBack.getInUser());
+			merchDetaApply.setRiskVer(merchDetaBack.getRiskVer());
 			merchDetaApply.setStexaOpt(null);
 			merchDetaApply.setStexaTime(null);
 			merchDetaApply.setStexaUser(null);
@@ -114,6 +115,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			TMerchDetaApply merchDetaApply = BeanCopyUtil.copyBean(TMerchDetaApply.class, merchDetaBack);
 			merchDetaApply.setInTime(merchDetaBack.getInTime());
 			merchDetaApply.setInUser(merchDetaBack.getInUser());
+			merchDetaApply.setRiskVer(merchDetaBack.getRiskVer());
 			merchDetaApply.setStexaOpt(null);
 			merchDetaApply.setStexaTime(null);
 			merchDetaApply.setStexaUser(null);

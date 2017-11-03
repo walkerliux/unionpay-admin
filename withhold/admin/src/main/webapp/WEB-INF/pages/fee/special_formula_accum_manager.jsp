@@ -246,11 +246,11 @@ table tr td.update {
 		output += '<tr class="rateChanged1 seg1">';
 		output += 	'<td class="update" width="15%">固定金额-a(元)</td>';
 		output += 	'<td class="update" width="30%">';
-		output += 		'<input id="minFee_a1" name="ardList[0].fixFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入固定金额" />';
+		output += 		'<input id="fixFee_a1" name="ardList[0].fixFee" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入固定金额" />';
 		output += 	'</td>';
 		output += 	'<td class="update" width="15%">费率-l(元)</td>';
 		output += 	'<td class="update">';
-		output += 		'<input id="maxFee_a1" name="ardList[0].feeRate" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入费率" />';
+		output += 		'<input id="feeRate_a1" name="ardList[0].feeRate" maxlength="12" required="true" validType="amount" type="text" class="easyui-validatebox" missingMessage="请输入费率" />';
 		output += 	'</td>';
 		output += '</tr>';
 		//计算公式
@@ -291,10 +291,11 @@ table tr td.update {
 	/* 保存 */ 
 	function addAmtAccumRate() {
 		var segmentIndex = $('.segment').length;//每一段有个class="segment"的标记，故统计出段数
+		//var segmentIndex = $('.segment').length;
 		for (var i = 1; i <= segmentIndex; i++) {
 			var rateType = $("#rateType_a" + i).val();
 			// 计费方式为“固定比例+限额”时，最低收费额不能大于最高收费额
-			if(rateType==3){
+			if(true){
 				var minFee = parseFloat($("#minFee_a" + i).val());
 				var maxFee = parseFloat($("#maxFee_a" + i).val());
 				if (minFee > maxFee) {
@@ -304,7 +305,7 @@ table tr td.update {
 			}
 			
 			// 分界线递增
-			if (i > 1) {
+			/* if (i > 1) {
 				var preRange = 0;
 				var thisRange = parseFloat($("#startRange_a" + i).val());
 				if (i > 2) {
@@ -314,7 +315,7 @@ table tr td.update {
 					$.messager.alert("","段" + i + "的分界线金额要大于段" + (i-1) + "的分界线金额","warning");
 					return false;
 				}
-			}
+			} */
 		}
 		
 		$('#addForm').form('submit', {
@@ -567,6 +568,7 @@ table tr td.update {
 	// 添加分段
 	function addSegment(){
 		var segmentIndex = $('.segment').length;//每一段有个class="segment"的标记，故统计出段数
+		//alert(segmentIndex);
 		var output='';	// 拼接显示的内容
 		
 		// 拼接段

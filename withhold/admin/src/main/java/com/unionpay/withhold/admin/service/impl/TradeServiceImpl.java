@@ -337,6 +337,203 @@ public class TradeServiceImpl implements TradeService {
 		return hislog;
 	}
 
+	@Override
+	public PageBean getBatchOrderByPage_bak(TOrderCollectBatch orderBatch,
+			String stime, String etime, int page, int rows) {
+		TOrderCollectBatchExample tOrderCollectBatchExample = new TOrderCollectBatchExample();
+		com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample.Criteria criteria = tOrderCollectBatchExample.createCriteria();
+		//商户号
+		if (orderBatch.getMerid()!=null&&!"".equals(orderBatch.getMerid())) {
+			tOrderCollectBatchExample.setMerid(orderBatch.getMerid());
+		}
+		//批次号
+		if (orderBatch.getBatchno()!=null&&!"".equals(orderBatch.getBatchno())) {
+			tOrderCollectBatchExample.setBatch(orderBatch.getBatchno());
+		}
+		//受理批次号
+		if (orderBatch.getTn()!=null&&!"".equals(orderBatch.getTn())) {
+			tOrderCollectBatchExample.setTn(orderBatch.getTn());
+		}
+		//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
+			tOrderCollectBatchExample.setStarttime(startTime);
+			tOrderCollectBatchExample.setEndtime(endTime);
+			
+		}
+		int total = tOrderCollectBatchMapper.countByMyExample_bak(tOrderCollectBatchExample);
+		tOrderCollectBatchExample.setPageNum(page);
+		tOrderCollectBatchExample.setPageSize(rows);
+		tOrderCollectBatchExample.setOrderByClause("TID");
+		List<TOrderCollectBatch> returnList = tOrderCollectBatchMapper.selectByPageExample_bak(tOrderCollectBatchExample);
+		return new PageBean(total, returnList);
+		
+	}
+
+	@Override
+	public PageBean getSingleOrderByPage_bak(TOrderCollectSingle orderSingle,
+			String stime, String etime, int page, int rows) {
+		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
+		Criteria criteria = singleExample.createCriteria();
+		//商户号
+		if (orderSingle.getMerid()!=null&&!"".equals(orderSingle.getMerid())) {
+			criteria.andMeridEqualTo(orderSingle.getMerid());
+		}
+		//交易卡号
+		if (orderSingle.getCardno()!=null&&!"".equals(orderSingle.getCardno())) {
+			criteria.andCardnoEqualTo(orderSingle.getCardno());
+		}
+		//受理订单号
+		if (orderSingle.getTn()!=null&&!"".equals(orderSingle.getTn())) {
+			criteria.andTnEqualTo(orderSingle.getTn());
+		}
+		//交易状态
+		if (orderSingle.getStatus()!=null&&!"".equals(orderSingle.getStatus())) {
+			criteria.andStatusEqualTo(orderSingle.getStatus());
+		}
+		//商户订单号
+		if (orderSingle.getOrderid()!=null&&!"".equals(orderSingle.getOrderid())) {
+			criteria.andOrderidEqualTo(orderSingle.getOrderid());
+		}
+		
+		//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			String st = DateTimeReplaceUtil.replace(stime);
+			String et = DateTimeReplaceUtil.replace(etime);
+			criteria.andTxntimeBetween(st, et);
+		}
+		int tatol = tOrderCollectSingleMapper.countByExample_bak(singleExample);
+		singleExample.setPageNum(page);
+		singleExample.setPageSize(rows);
+		singleExample.setOrderByClause("TID");
+		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectByExample_bak(singleExample);
+		
+		return new PageBean(tatol, selectByExample);
+	}
+
+	@Override
+	public PageBean getCollectOrderDetaByBatchNo_bak(String batchno, int page,
+			int rows) {
+		TOrderCollectDetaExample tOrderCollectDetaExample = new TOrderCollectDetaExample();
+		com.unionpay.withhold.admin.pojo.TOrderCollectDetaExample.Criteria criteria = tOrderCollectDetaExample.createCriteria();
+		if (batchno!=null&& !"".equals(batchno)) {
+			criteria.andBatchnoEqualTo(batchno);
+		}
+		int total = tOrderCollectDetaMapper.countByExample_bak(tOrderCollectDetaExample);
+		tOrderCollectDetaExample.setPageNum(page);
+		tOrderCollectDetaExample.setPageSize(rows);
+		tOrderCollectDetaExample.setOrderByClause("TID");
+		List<TOrderCollectDeta> result = tOrderCollectDetaMapper.selectByExample_bak(tOrderCollectDetaExample);
+		return new PageBean(total, result);
+		
+	}
+
+	@Override
+	public Object getOrderSingleById_bak(String tid) {
+		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
+		Criteria criteria = singleExample.createCriteria();
+		criteria.andTidEqualTo(Long.parseLong(tid));
+		singleExample.setPageNum(1);
+		singleExample.setPageSize(1);
+		List<TOrderCollectSingle> list= tOrderCollectSingleMapper.selectByExample_bak(singleExample);
+		if (list!=null&&list.size()>0) {
+			TOrderCollectSingle tOrderCollectSingle = list.get(0);
+			return tOrderCollectSingle;
+		}
+		
+		return null;
+		
+	}
+
+	@Override
+	public PageBean getChnCollectSingleLogByPage_bak(TChnlCpdkLog tChnlCpdkLog,
+			String stime, String etime, int page, int rows) {
+		TChnlCpdkLogExample tChnlCpdkLogExample = new TChnlCpdkLogExample();
+		com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample.Criteria criteria = tChnlCpdkLogExample.createCriteria();
+		// 商户号
+		if (tChnlCpdkLog.getMerid()!=null&&!"".equals(tChnlCpdkLog.getMerid())) {
+			criteria.andMeridEqualTo(tChnlCpdkLog.getMerid());
+		}
+		//交易卡号
+		if (tChnlCpdkLog.getCardno()!=null&&!"".equals(tChnlCpdkLog.getCardno())) {
+			criteria.andCardnoEqualTo(tChnlCpdkLog.getCardno());
+		}
+		//交易状态
+		if (tChnlCpdkLog.getTransstat()!=null&&!"".equals(tChnlCpdkLog.getTransstat())) {
+			criteria.andTransstatEqualTo(tChnlCpdkLog.getTransstat());
+		}
+		//订单号
+		if (tChnlCpdkLog.getOrderno()!=null&&!"".equals(tChnlCpdkLog.getOrderno())) {
+			criteria.andOrdernoEqualTo(tChnlCpdkLog.getOrderno());
+		}
+		//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			//String st = DateTimeReplaceUtil.replace(stime);
+			//String et = DateTimeReplaceUtil.replace(etime);	
+			criteria.andIntimeBetween(stime, etime);
+		}
+		int total = tChnlCpdkLogMapper.countByExample_bak(tChnlCpdkLogExample);
+		tChnlCpdkLogExample.setPageNum(page);
+		tChnlCpdkLogExample.setPageSize(rows);
+		tChnlCpdkLogExample.setOrderByClause("TID");
+		List<TChnlCpdkLog> result = tChnlCpdkLogMapper.selectByExample_bak(tChnlCpdkLogExample);
+		return new PageBean(total, result);
+		
+	}
+
+	@Override
+	public PageBean getChnCollectBatchLogByPage_bak(
+			TChnlCpdkBatch tChnlCpdkBatch, String stime, String etime,
+			int page, int rows) {
+		TChnlCpdkBatchExample tChnlCpdkBatchExample = new TChnlCpdkBatchExample();
+		com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample.Criteria createCriteria = tChnlCpdkBatchExample.createCriteria();
+		//商户号
+		if (tChnlCpdkBatch.getMerid()!=null&&!"".equals(tChnlCpdkBatch.getMerid())) {
+			createCriteria.andMeridEqualTo(tChnlCpdkBatch.getMerid());
+		}
+		//批次号
+		if (tChnlCpdkBatch.getBatchno()!=null&&!"".equals(tChnlCpdkBatch.getBatchno())) {
+			createCriteria.andBatchnoEqualTo(tChnlCpdkBatch.getBatchno());
+		}
+		//受理批次号
+		if (tChnlCpdkBatch.getTn()!=null&&!"".equals(tChnlCpdkBatch.getTn())) {
+			createCriteria.andTnEqualTo(tChnlCpdkBatch.getTn());
+		}
+		//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			//String st = DateTimeReplaceUtil.replace(stime);
+			//String et = DateTimeReplaceUtil.replace(etime);	
+			createCriteria.andIntimeBetween(stime, etime);
+			
+		}
+		int total = tChnlCpdkBatchMapper.countByExample_bak(tChnlCpdkBatchExample);
+		tChnlCpdkBatchExample.setPageNum(page);
+		tChnlCpdkBatchExample.setPageSize(rows);
+		tChnlCpdkBatchExample.setOrderByClause("TID");
+		List<TChnlCpdkBatch> result = tChnlCpdkBatchMapper.selectByExample_bak(tChnlCpdkBatchExample);
+		return new PageBean(total, result);
+		
+	}
+
+	@Override
+	public PageBean getChnCollectDetaByBatchNo_bak(String batchno, int page,
+			int rows) {
+		TChnlCpdkBatchDetaExample tChnlCpdkBatchDetaExample = new TChnlCpdkBatchDetaExample();
+		com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample.Criteria criteria = tChnlCpdkBatchDetaExample.createCriteria();
+		if (batchno!=null&&!"".equals(batchno)) {
+			criteria.andBatchnoEqualTo(batchno);
+		}
+		
+		int total = tChnlCpdkBatchDetaMapper.countByExample_bak(tChnlCpdkBatchDetaExample);
+		tChnlCpdkBatchDetaExample.setPageNum(page);
+		tChnlCpdkBatchDetaExample.setPageSize(rows);
+		tChnlCpdkBatchDetaExample.setOrderByClause("TID");
+		List<TChnlCpdkBatchDeta> result = tChnlCpdkBatchDetaMapper.selectByExample_bak(tChnlCpdkBatchDetaExample);
+		return new PageBean(total, result);
+	}
+	
+
 	
 	
 	

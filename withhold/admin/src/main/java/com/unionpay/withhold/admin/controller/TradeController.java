@@ -112,7 +112,7 @@ public class TradeController {
 	    return resultBean;
 	}
 	/**
-	 * 实时核心流水条件分页查询
+	 * 历史核心流水条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
@@ -252,4 +252,179 @@ public class TradeController {
 	    return result;
 	}
 	
+	/*******************************************历史查询***********************************/
+	/**
+	 * 历史订单实时查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/single_collect_order_query_bak")
+	public ModelAndView showSingle_collect_order_query_bak() {
+		 ModelAndView result=new ModelAndView("/trade/single_collect_order_query_bak");
+	     return result;
+	}
+	/**
+	 * 历史订单批量查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/batch_collect_order_query_bak")
+	public ModelAndView showBatch_collect_order_query_bak() {
+		 ModelAndView result=new ModelAndView("/trade/batch_collect_order_query_bak");
+	     return result;
+	}
+	/**
+	 * 历史渠道流水批量查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/chn_collect_batch_log_query_bak")
+	public ModelAndView showChn_collect_batch_log_query_bak() {
+		 ModelAndView result=new ModelAndView("/trade/chn_collect_batch_log_query_bak");
+	     return result;
+	}
+	/**
+	 * 历史渠道流水实时查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/chn_collect_single_log_query_bak")
+	public ModelAndView showChn_collect_single_log_query_bak() {
+		 ModelAndView result=new ModelAndView("/trade/chn_collect_single_log_query_bak");
+	     return result;
+	}
+	/**
+	 * 订单批量条件分页查询
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getBatchOrderByPage_bak")
+	@ResponseBody
+	public PageBean getBatchOrderByPage_bak(TOrderCollectBatch orderBatch,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getBatchOrderByPage_bak(orderBatch,stime,etime,page,rows);
+	    return resultBean;
+	}
+	
+	
+	/**
+	 * 订单实时条件分页查询 
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getSingleOrderByPage_bak")
+	@ResponseBody
+	public PageBean getSingleOrderByPage_bak(TOrderCollectSingle orderSingle,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getSingleOrderByPage_bak(orderSingle,stime,etime,page,rows);
+	    return resultBean;
+	}
+
+	/**
+	 * 渠道批量条件分页查询
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getChnCollectBatchLogByPage_bak")
+	@ResponseBody
+	public PageBean getChnCollectBatchLogByPage_bak(TChnlCpdkBatch tChnlCpdkBatch,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getChnCollectBatchLogByPage_bak(tChnlCpdkBatch,stime,etime,page,rows);
+	    return resultBean;
+	}
+
+	/**
+	 * 渠道实时条件分页查询
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getChnCollectSingleLogByPage_bak")
+	@ResponseBody
+	public PageBean getChnCollectSingleLogByPage_bak(TChnlCpdkLog tChnlCpdkLog,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getChnCollectSingleLogByPage_bak(tChnlCpdkLog,stime,etime,page,rows);
+	    return resultBean;
+	}
+	/**
+	 * 渠道实时条件分页查询
+	 * @author:LIUXIN
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getMerchantDaySettlement_bak")
+	@ResponseBody
+	public PageBean getMerchantDaySettlement_bak(TTxnsLog tTxnsLog,String stime,String etime,int page,int rows) {
+		PageBean resultBean =tradeService.getMerchantDaySettlement(tTxnsLog,stime,etime,page,rows);
+	    return resultBean;
+	}
+	/**
+	 * 获取单条实时订单信息详情
+	 * @param tid
+	 * @return
+	 */
+	@RequestMapping("/getOrderSingleById_bak")
+	@ResponseBody
+	public Object getOrderSingleById_bak(String tid) {
+		
+	    return tradeService.getOrderSingleById_bak(tid);
+	}
+	
+	/**
+	 * 获取单条实时核心流水信息详情
+	 * @param txnseqno
+	 * @return 
+	 */
+	@RequestMapping("/getTxnsLogByTxnseqno_bak")
+	@ResponseBody
+	public TTxnsLog getTxnsLogByTxnseqno_bak(String txnseqno) {
+		TTxnsLog txnsLog =tradeService.getTxnsLogByTxnseqno(txnseqno);
+	    return txnsLog;
+	}
+	/**
+	 * 获取单条实时订单信息详情
+	 * @param txnseqno
+	 * @return getTxnsLogBakByTxnseqno
+	 */
+	@RequestMapping("/getTxnsLogBakByTxnseqno_bak")
+	@ResponseBody
+	public TTxnsLog getTxnsLogBakByTxnseqno_bak(String txnseqno) {
+		TTxnsLog txnsLog =tradeService.getTxnsLogBakByTxnseqno(txnseqno);
+	    return txnsLog;
+	}
+	/**
+	 * 获取批量订单明细
+	 * @param batchno
+	 * @return
+	 */
+	@RequestMapping("/getCollectOrderDetaByBatchNo_bak")
+	@ResponseBody
+	public PageBean getCollectOrderDetaByBatchNo_bak(String batchno,int page,int rows) {
+		PageBean result =tradeService.getCollectOrderDetaByBatchNo_bak(batchno,page,rows);
+	    return result;
+	}
+	//getChnCollectDetaByBatchNo
+	/**
+	 * 获取批量渠道明细
+	 * @param batchno
+	 * @return
+	 */
+	@RequestMapping("/getChnCollectDetaByBatchNo_bak")
+	@ResponseBody
+	public PageBean getChnCollectDetaByBatchNo_bak(String batchno,int page,int rows) {
+		PageBean result =tradeService.getChnCollectDetaByBatchNo_bak(batchno,page,rows);
+	    return result;
+	}
 }

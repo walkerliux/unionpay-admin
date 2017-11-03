@@ -166,4 +166,51 @@
     </if>
     limit #{beginRow},#{pageSize}
   </select>
+  <!-- 历史查询 -->
+  
+   <select id="countByMyExample_bak" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" resultType="java.lang.Integer" >
+    select count(*) from t_order_collect_batch_bak a where 1=1
+    <if test="merid!=null">
+	and a.MERID=#{merid}
+	</if>
+    <if test="batch!=null">
+	and a.BATCHNO=#{batch}
+	</if>
+	<if test="tn!=null">
+	and a.TN=#{tn}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+  </select>
+ <select id="selectByPageExample_bak" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
+    select a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    from t_order_collect_batch_bak a where 1=1
+   <if test="merid!=null">
+	and a.MERID=#{merid}
+	</if>
+    <if test="batch!=null">
+	and a.BATCHNO=#{batch}
+	</if>
+	<if test="tn!=null">
+	and a.TN=#{tn}
+	</if>
+	<if test="starttime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	</if>
+	<if test="endtime!=null">
+	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
+  
 </mapper>

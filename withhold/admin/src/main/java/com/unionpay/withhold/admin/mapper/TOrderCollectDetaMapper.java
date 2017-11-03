@@ -12,5 +12,10 @@ public interface TOrderCollectDetaMapper {
 
     TOrderCollectDeta selectByPrimaryKey(Long tid);
 
+	int countByExample_bak(TOrderCollectDetaExample tOrderCollectDetaExample);
+
+	List<TOrderCollectDeta> selectByExample_bak(
+			TOrderCollectDetaExample tOrderCollectDetaExample);
+
    
 }

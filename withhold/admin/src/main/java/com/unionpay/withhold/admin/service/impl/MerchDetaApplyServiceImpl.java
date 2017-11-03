@@ -12,11 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
+import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
+import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
+import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
+import com.unionpay.withhold.admin.pojo.TMerchRateConfigExample;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.utils.BeanCopyUtil;
 
@@ -27,6 +31,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 	private TMerchDetaApplyMapper merchDetaApplyMapper;
 	@Autowired
 	private TMerchDetaMapper merchDetaMapper;
+	@Autowired
+	private TMerchRateConfigMapper merchRateConfigMapper;
 
 	@Override
 	public PageBean selectApplyWithCondition(TMerchDetaApply merchDetaApply, Integer page, Integer rows) {
@@ -178,6 +184,9 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			return new ResultBean("", "信息有误，操作失败！");
 		} else if (!merchDetaApplyBack.getStatus().equals(merchDetaApply.getStatus())) {
 			return new ResultBean("", "状态信息有误，请确保是有其他人在操作，或刷新一下数据再试试！");
+		} else if (StringUtils.isBlank(merchDetaApply.getRateId())
+				|| StringUtils.isBlank(merchDetaApply.getRiskVer())) {
+			return new ResultBean("", "您还未配置完收费代码或风控版本，不能通过审核！");
 		} else {
 			// 根据状态判断是哪种操作
 			if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.REGISTERCHECKING.getCode())) {
@@ -192,7 +201,30 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				merchDeta.setStexaUser(merchDetaApply.getStexaUser());
 				merchDeta.setStexaTime(merchDetaApply.getStexaTime());
 				merchDeta.setMerchId(null);
+				merchDeta.setRiskVer(merchDetaApply.getRiskVer());
 				merchDetaMapper.insertSelective(merchDeta);
+				
+				// 判断扣率配置是否有变更，有的话，更新配置
+				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
+				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
+				criteria.andMemberIdEqualTo(merchDetaApplyBack.getMemberId());
+				List<TMerchRateConfig> merchRateConfigList = merchRateConfigMapper.selectByExample(merchRateConfigExample);
+				if (merchRateConfigList.size() > 0) {// 已存在
+					merchRateConfig = merchRateConfigList.get(0);
+					if (!String.valueOf(merchRateConfig.getRateId()).equals(merchDetaApply.getRateId())) {// 不相等，说明已发生变更
+						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));;
+						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
+					}
+				} else {
+					// 添加
+					merchRateConfig.setTarget(MerchTargetTypeEnums.MERCH.getCode());
+					merchRateConfig.setMemberId(merchDetaApplyBack.getMemberId());
+					merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+					merchRateConfig.setIntime(now);
+					merchRateConfig.setInuser(merchDetaApply.getStexaUser());
+					merchRateConfigMapper.insertSelective(merchRateConfig);
+				}
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode())) {
 				// 变更待审：修改申请表的状态为“在用”，更新在用表中的信息
 				Date now = new Date();
@@ -213,7 +245,30 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				merchDeta.setStexaUser(merchDetaApply.getStexaUser());
 				merchDeta.setStexaTime(now);
 				//merchDeta.setMerchId(null);
+				merchDeta.setRiskVer(merchDetaApply.getRiskVer());
 				merchDetaMapper.updateByPrimaryKeySelective(merchDeta);
+				
+				// 判断扣率配置是否有变更，有的话，更新配置
+				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
+				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
+				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
+				criteria.andMemberIdEqualTo(merchDetaApplyBack.getMemberId());
+				List<TMerchRateConfig> merchRateConfigList = merchRateConfigMapper.selectByExample(merchRateConfigExample);
+				if (merchRateConfigList.size() > 0) {// 已存在
+					merchRateConfig = merchRateConfigList.get(0);
+					if (!String.valueOf(merchRateConfig.getRateId()).equals(merchDetaApply.getRateId())) {// 不相等，说明已发生变更
+						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));;
+						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
+					}
+				} else {
+					// 添加
+					merchRateConfig.setTarget(MerchTargetTypeEnums.MERCH.getCode());
+					merchRateConfig.setMemberId(merchDetaApplyBack.getMemberId());
+					merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+					merchRateConfig.setIntime(now);
+					merchRateConfig.setInuser(merchDetaApply.getStexaUser());
+					merchRateConfigMapper.insertSelective(merchRateConfig);
+				}
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.LOGOUTCHECKING.getCode())) {// 注销待审
 				// 注销待审：修改在用表中的状态为“不在用”，修改申请表的状态为“不在用”
 				Date now = new Date();

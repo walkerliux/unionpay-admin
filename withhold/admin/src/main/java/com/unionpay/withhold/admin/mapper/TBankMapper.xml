@@ -3,8 +3,8 @@
 <mapper namespace="com.unionpay.withhold.admin.mapper.TBankMapper" >
   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TBank" >
     <id column="TID" property="tid" jdbcType="INTEGER" />
-    <result column="bankCode" property="bankcode" jdbcType="VARCHAR" />
-    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="BANKCODE" property="bankcode" jdbcType="VARCHAR" />
+    <result column="BANKNAME" property="bankname" jdbcType="VARCHAR" />
     <result column="PBC_BANKCODE" property="pbcBankcode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    TID, bankCode, bankName, PBC_BANKCODE
+    TID, BANKCODE, BANKNAME, PBC_BANKCODE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TBankExample" >
     select
@@ -100,7 +100,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
-    insert into t_bank (TID, bankCode, bankName, 
+    insert into t_bank (TID, BANKCODE, BANKNAME, 
       PBC_BANKCODE)
     values (#{tid,jdbcType=INTEGER}, #{bankcode,jdbcType=VARCHAR}, #{bankname,jdbcType=VARCHAR}, 
       #{pbcBankcode,jdbcType=VARCHAR})
@@ -112,10 +112,10 @@
         TID,
       </if>
       <if test="bankcode != null" >
-        bankCode,
+        BANKCODE,
       </if>
       <if test="bankname != null" >
-        bankName,
+        BANKNAME,
       </if>
       <if test="pbcBankcode != null" >
         PBC_BANKCODE,
@@ -149,10 +149,10 @@
         TID = #{record.tid,jdbcType=INTEGER},
       </if>
       <if test="record.bankcode != null" >
-        bankCode = #{record.bankcode,jdbcType=VARCHAR},
+        BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
       </if>
       <if test="record.bankname != null" >
-        bankName = #{record.bankname,jdbcType=VARCHAR},
+        BANKNAME = #{record.bankname,jdbcType=VARCHAR},
       </if>
       <if test="record.pbcBankcode != null" >
         PBC_BANKCODE = #{record.pbcBankcode,jdbcType=VARCHAR},
@@ -165,8 +165,8 @@
   <update id="updateByExample" parameterType="map" >
     update t_bank
     set TID = #{record.tid,jdbcType=INTEGER},
-      bankCode = #{record.bankcode,jdbcType=VARCHAR},
-      bankName = #{record.bankname,jdbcType=VARCHAR},
+      BANKCODE = #{record.bankcode,jdbcType=VARCHAR},
+      BANKNAME = #{record.bankname,jdbcType=VARCHAR},
       PBC_BANKCODE = #{record.pbcBankcode,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -176,10 +176,10 @@
     update t_bank
     <set >
       <if test="bankcode != null" >
-        bankCode = #{bankcode,jdbcType=VARCHAR},
+        BANKCODE = #{bankcode,jdbcType=VARCHAR},
       </if>
       <if test="bankname != null" >
-        bankName = #{bankname,jdbcType=VARCHAR},
+        BANKNAME = #{bankname,jdbcType=VARCHAR},
       </if>
       <if test="pbcBankcode != null" >
         PBC_BANKCODE = #{pbcBankcode,jdbcType=VARCHAR},
@@ -189,16 +189,12 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
     update t_bank
-    set bankCode = #{bankcode,jdbcType=VARCHAR},
-      bankName = #{bankname,jdbcType=VARCHAR},
+    set BANKCODE = #{bankcode,jdbcType=VARCHAR},
+      BANKNAME = #{bankname,jdbcType=VARCHAR},
       PBC_BANKCODE = #{pbcBankcode,jdbcType=VARCHAR}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
-    <select id="countByOldAndNewCode" resultType="java.lang.Integer" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
-   select COUNT(*) from t_bank where bankCode=#{bankcode} and bankCode!=#{oldbankcode}
-    
-   
-    
+   <select id="countByOldAndNewCode" resultType="java.lang.Integer" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
+   select COUNT(*) from t_bank where BANKCODE=#{bankcode} and BANKCODE!=#{oldbankcode}
   </select>
-  
 </mapper>

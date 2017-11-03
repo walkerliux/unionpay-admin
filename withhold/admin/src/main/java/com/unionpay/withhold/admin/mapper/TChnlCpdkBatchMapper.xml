@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.unionpay.withhold.admin.mapper.TChnlCpdkBatchMapper" >
-  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
+   <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlCpdkBatch" >
     <id column="TID" property="tid" jdbcType="INTEGER" />
     <result column="TN" property="tn" jdbcType="CHAR" />
-    <result column="fileName" property="filename" jdbcType="CHAR" />
-    <result column="hpFileName" property="hpfilename" jdbcType="CHAR" />
-    <result column="merId" property="merid" jdbcType="CHAR" />
-    <result column="batchNo" property="batchno" jdbcType="CHAR" />
-    <result column="totalNum" property="totalnum" jdbcType="CHAR" />
-    <result column="totalAmt" property="totalamt" jdbcType="CHAR" />
-    <result column="succNum" property="succnum" jdbcType="CHAR" />
-    <result column="failNum" property="failnum" jdbcType="CHAR" />
-    <result column="succAmt" property="succamt" jdbcType="CHAR" />
-    <result column="failAmt" property="failamt" jdbcType="CHAR" />
-    <result column="inTime" property="intime" jdbcType="CHAR" />
-    <result column="uploadRespTime" property="uploadresptime" jdbcType="CHAR" />
-    <result column="noticeTime" property="noticetime" jdbcType="CHAR" />
-    <result column="finishTime" property="finishtime" jdbcType="CHAR" />
-    <result column="uploadRespCode" property="uploadrespcode" jdbcType="CHAR" />
-    <result column="uploadRespMessage" property="uploadrespmessage" jdbcType="CHAR" />
-    <result column="hpRespCode" property="hprespcode" jdbcType="CHAR" />
-    <result column="hpRespMessage" property="hprespmessage" jdbcType="CHAR" />
+    <result column="FILENAME" property="filename" jdbcType="VARCHAR" />
+    <result column="HPFILENAME" property="hpfilename" jdbcType="VARCHAR" />
+    <result column="MERID" property="merid" jdbcType="CHAR" />
+    <result column="BATCHNO" property="batchno" jdbcType="CHAR" />
+    <result column="TOTALNUM" property="totalnum" jdbcType="INTEGER" />
+    <result column="TOTALAMT" property="totalamt" jdbcType="CHAR" />
+    <result column="SUCCNUM" property="succnum" jdbcType="INTEGER" />
+    <result column="FAILNUM" property="failnum" jdbcType="INTEGER" />
+    <result column="SUCCAMT" property="succamt" jdbcType="CHAR" />
+    <result column="FAILAMT" property="failamt" jdbcType="CHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="UPLOADRESPTIME" property="uploadresptime" jdbcType="TIMESTAMP" />
+    <result column="NOTICETIME" property="noticetime" jdbcType="TIMESTAMP" />
+    <result column="FINISHTIME" property="finishtime" jdbcType="TIMESTAMP" />
+    <result column="UPLOADRESPCODE" property="uploadrespcode" jdbcType="CHAR" />
+    <result column="UPLOADRESPMESSAGE" property="uploadrespmessage" jdbcType="VARCHAR" />
+    <result column="HPRESPCODE" property="hprespcode" jdbcType="CHAR" />
+    <result column="HPRESPMESSAGE" property="hprespmessage" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -82,9 +82,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    TID, TN, fileName, hpFileName, merId, batchNo, totalNum, totalAmt, succNum, failNum, 
-    succAmt, failAmt, inTime, uploadRespTime, noticeTime, finishTime, uploadRespCode, 
-    uploadRespMessage, hpRespCode, hpRespMessage
+    TID, TN, FILENAME, HPFILENAME, MERID, BATCHNO, TOTALNUM, TOTALAMT, SUCCNUM, FAILNUM, 
+    SUCCAMT, FAILAMT, INTIME, UPLOADRESPTIME, NOTICETIME, FINISHTIME, UPLOADRESPCODE, 
+    UPLOADRESPMESSAGE, HPRESPCODE, HPRESPMESSAGE
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample" >
     select
@@ -117,7 +117,26 @@
     </if>
   </select>
  
-  
-  
-  
+  <!-- 历史查询 -->
+  <select id="countByExample_bak" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_cpdk_batch_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+   <select id="selectByExample_bak" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_cpdk_batch_bak 
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
 </mapper>

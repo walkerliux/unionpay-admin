@@ -73,6 +73,7 @@ public class TMerchDetaApply {
 	private String transfactorsName;
 	private String mccName;
 	private String mccListName;
+	private String rateId;
 
 	public Integer getSelfId() {
 		return selfId;
@@ -360,6 +361,14 @@ public class TMerchDetaApply {
 
 	public void setMccListName(String mccListName) {
 		this.mccListName = mccListName == null ? null : mccListName.trim();
+	}
+
+	public String getRateId() {
+		return rateId;
+	}
+
+	public void setRateId(String rateId) {
+		this.rateId = rateId == null ? null : rateId.trim();
 	}
 
 }

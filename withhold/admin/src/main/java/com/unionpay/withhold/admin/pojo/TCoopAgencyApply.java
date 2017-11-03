@@ -279,7 +279,6 @@ public class TCoopAgencyApply {
 	}
 
 	public void setRateId(String rateId) {
-		this.rateId = rateId;
 		this.rateId = rateId == null ? null : rateId.trim();
 	}
 

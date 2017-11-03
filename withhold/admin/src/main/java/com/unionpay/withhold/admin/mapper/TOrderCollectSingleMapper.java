@@ -27,4 +27,9 @@ public interface TOrderCollectSingleMapper {
     int updateByPrimaryKeySelective(TOrderCollectSingle record);
 
     int updateByPrimaryKey(TOrderCollectSingle record);
+
+	int countByExample_bak(TOrderCollectSingleExample singleExample);
+
+	List<TOrderCollectSingle> selectByExample_bak(
+			TOrderCollectSingleExample singleExample);
 }
