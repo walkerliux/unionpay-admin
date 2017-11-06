@@ -657,4 +657,10 @@
 		t_merch_deta md 
 		where md.MEMBER_ID=#{memberId}
 	</select>
+	
+	<select id="selectTransfactorsByMemberId" resultMap="BaseResultMap">
+		SELECT md.TRANSFACTORS from 
+		t_merch_deta md 
+		where md.MEMBER_ID=#{memberId}
+	</select>
 </mapper>
