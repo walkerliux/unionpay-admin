@@ -121,22 +121,35 @@ table tr td.update {
 							<input type="text" id="uchnlmercno" name="chnlmercno" class="easyui-validatebox" required="true"
 								maxlength="64" missingMessage="请输入通道商户号 " /><font color="red">*</font></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 						<td class="update">商户公钥</td>
 						<td class="update" align="left">
 						<input type="text" id="upubkey" name="pubkey" 
-						class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>
-						<td class="update" width="15%">商户私钥 </td>
-						<td class="update" align="left">
-						<input type="text" id="uprikey" name="prikey" class="easyui-validatebox" 
-						required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>
+						class="easyui-validatebox"  maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td> -->
+						
+						<tr style="height: 25px">
+							<td class="update">商户公钥</td>
+							<td class="update" align="left" colspan="3">
+							<textarea class="easyui-validatebox"  missingMessage="请输入商户公钥 " rows="3" cols="81" id="upubkey" maxlength="2048" name="pubkey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 		
 						<tr>
-						<td class="update">通道公钥</td>
-						<td class="update" align="left">
-						<input type="text" id="uchnlpubkey" name="chnlpubkey" class="easyui-validatebox" 
-						required="true" maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>
+						<td class="update" width="15%">商户私钥 </td>
+						<td class="update" align="left" colspan="3">
+						<!-- <input type="text" id="uprikey" name="prikey" class="easyui-validatebox" 
+						required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td> -->
+						<textarea class="easyui-validatebox"  missingMessage="请输入商户私钥" required="true" rows="3" cols="81" id="uprikey" maxlength="2048" name="prikey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+						</tr>
+		
+						<tr>
+						<td class="update" >通道公钥</td>
+						<td class="update" align="left" colspan="3">
+						<!-- <input type="text" id="uchnlpubkey" name="chnlpubkey" class="easyui-validatebox" 
+						required="true" maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td> -->
+						<textarea class="easyui-validatebox"  missingMessage="请输入通道公钥" required="true" rows="3" cols="81" id="uchnlpubkey" maxlength="2048" name="chnlpubkey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 		
 					</table>
@@ -390,17 +403,24 @@ table tr td.update {
 		output += '</tr>';
 		output +='<tr>';
 		output +='<td class="update">商户公钥</td>';
-		output +='<td class="update" align="left">';
-		output +='<input type="text" id="pubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].pubkey" class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
+		output +='<td class="update" align="left" colspan="3">';
+		output +='<input type="text" id="pubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].pubkey" class="easyui-validatebox"  maxlength="2048" missingMessage="请输入商户公钥"/><font color="red">*</font></td>';
+		
+	//	output +='<textarea class="easyui-validatebox"  missingMessage="请输入商户公钥 " rows="3" cols="81" id="pubkey' + (segmentIndex + 1) + '" maxlength="2048" name="ardList[' + segmentIndex + '].pubkey"  style="resize: none; ></textarea></td>';
+	
+		output += '</tr>';
+		output +='<tr>';
 		output +='<td class="update" width="15%">商户私钥 </td>';
-		output +='<td class="update" align="left">';
-		output +='<input type="text" id="prikey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].prikey" class="easyui-validatebox" required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
+		output +='<td class="update" align="left" colspan="3">';
+		output +='<input type="text" id="prikey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].prikey" class="easyui-validatebox" required="true" maxlength="2048" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
+	//	output +='<textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥 " rows="3" cols="81" id="prikey' + (segmentIndex + 1) + '" maxlength="2048" name="ardList[' + segmentIndex + '].prikey"  style="resize: none;></textarea></td>';
 		output +='</tr>';
 		
 		output +='<tr>';
 		output +='<td class="update">通道公钥</td>';
-		output +='<td class="update" align="left">';
-		output +='<input type="text" id="chnlpubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlpubkey" class="easyui-validatebox" required="true" maxlength="15" missingMessage="请输入通道公钥"/><font color="red">*</font></td>';
+		output +='<td class="update" align="left" colspan="3">';
+		output +='<input type="text" id="chnlpubkey' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].chnlpubkey" class="easyui-validatebox" required="true" maxlength="2048" missingMessage="请输入通道公钥"/><font color="red">*</font></td>';
+	//	output +='<textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥 " rows="3" cols="81" id="chnlpubkey' + (segmentIndex + 1) + '" maxlength="2048" name="ardList[' + segmentIndex + '].chnlpubkey  style="resize: none;></textarea></td>';
 		output += '</tr>';
 		
 		
@@ -620,16 +640,23 @@ table tr td.update {
 				output += '</tr>';
 				output +='<tr>';
 				output +='<td class="update">商户公钥</td>';
-				output +='<td class="update" align="left">';
-				output +='<input type="text" id="pubkey' + (i + 1) + '" name="ardList['+i+'].pubkey" class="easyui-validatebox" required="true" maxlength="15" value="' + rows[i].pubkey + '"/><font color="red">*</font></td>';
+				output +='<td class="update" align="left" colspan="3">';
+				output +='<input type="text" id="pubkey' + (i + 1) + '" name="ardList['+i+'].pubkey" class="easyui-validatebox"  maxlength="2048" value="' + rows[i].pubkey + '"/><font color="red">*</font></td>';
+				
+				//output +='<textarea class="easyui-validatebox"  missingMessage="请输入商户公钥 " rows="3" cols="81" id="pubkey' + (i + 1) + '" maxlength="2048" name="ardList['+i+'].pubkey"  style="resize: none; value="' + rows[i].pubkey + '"></textarea></td>';
+				output += '</tr>';
+				output +='<tr>';
 				output +='<td class="update" width="15%">商户私钥 </td>';
-				output +='<td class="update" align="left">';
-				output +='<input type="text" id="prikey' + (i + 1) + '" name="ardList['+i+'].prikey" class="easyui-validatebox" required="true" maxlength="64" value="' + rows[i].prikey + '" /><font color="red">*</font></td>';
+				output +='<td class="update" align="left" colspan="3">';
+				output +='<input type="text" id="prikey' + (i + 1) + '" name="ardList['+i+'].prikey" class="easyui-validatebox" required="true" maxlength="2048" value="' + rows[i].prikey + '" /><font color="red">*</font></td>';
+				//output +='<textarea class="easyui-validatebox"   rows="3" cols="81" id="prikey' + (i + 1) + '" maxlength="2048" name="ardList['+i+'].prikey"  style="resize: none; value="' + rows[i].prikey + '"></textarea></td>';
 				output +='</tr>';
+				
 				output +='<tr>';
 				output +='<td class="update">通道公钥</td>';
-				output +='<td class="update" align="left">';
-				output +='<input type="text" id="chnlpubkey' + (i + 1) + '" name="ardList['+i+'].chnlpubkey" class="easyui-validatebox" required="true" maxlength="15" value="' + rows[i].chnlpubkey + '"/><font color="red">*</font></td>';
+				output +='<td class="update" align="left" colspan="3">';
+				output +='<input type="text" id="chnlpubkey' + (i + 1) + '" name="ardList['+i+'].chnlpubkey" class="easyui-validatebox" required="true" maxlength="2048" value="' + rows[i].chnlpubkey + '"/><font color="red">*</font></td>';
+				//output +='<textarea class="easyui-validatebox"  missingMessage="请输入商户公钥 " rows="3" cols="81" id="chnlpubkey' + (i + 1) + '" maxlength="2048" name="ardList['+i+'].chnlpubkey"  style="resize: none; value="' + rows[i].chnlpubkey + '"></textarea></td>';
 				output += '</tr>';		
 				
 			}
