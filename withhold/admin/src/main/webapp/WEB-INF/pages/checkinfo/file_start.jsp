@@ -124,10 +124,10 @@ table tr td select {
 				{field:'1',title:'操作',width:260,align:'center',
 				formatter:function(value,rec){
 					if(rec.status=="00"){
-						return '<a id="sp'+rec.TID+'" href="javascript:startProcess('+rec.TID+')" style="color:blue;margin-left:10px">开始任务</a>';
+						return '<a id="sp'+rec.tid+'" href="javascript:startProcess('+rec.tid+')" style="color:blue;margin-left:10px">开始任务</a>';
 					}else{
-						return '<a href="javascript:showCheckSuccess(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">查看对账表</a>' + 
-						       '<a href="javascript:showCheckFail(\'' + rec.TID + '\')" style="color:blue;margin-left:10px">查看差错表</a>';
+						return '<a href="javascript:showCheckSuccess(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看对账表</a>' + 
+						       '<a href="javascript:showCheckFail(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看差错表</a>';
 					}
 				}
 				}
@@ -171,7 +171,7 @@ table tr td select {
 		 document.getElementById("sp"+tId).style.color="#708090";
 		 $.ajax({
 			   type: "POST",
-			   url: "checkinfo/startCheckFile",
+			   url: "checkbill/startCheckFile",
 			   data: "filestartid="+tId,
 			   dataType:"json",
 			   success:function(json){
@@ -193,25 +193,18 @@ table tr td select {
 			striped: true,
 			url:'checkinfo/querySuccess',			
 			remoteSort: false,
-			idField:'TID',
+			idField:'tid',
 			queryParams:{
 				"proid": proid
 				},
 			columns:[
 			[
-				{field:'TXNSEQNO',title:'交易流水号',width:140,align:'center'},
-				{field:'PAYORDNO',title:'支付订单号',width:140,align:'center'},
-				{field:'PAYRETTSNSEQNO',title:'应答流水号',width:140,align:'center'},
-				{field:'PAYORDFINTIME',title:'交易时间',width:140,align:'center'},
-				{field:'BUSINAME',title:'交易类型',width:140,align:'center'},
-				{field:'AMOUNT',title:'交易金额(元)',width:140,align:'center'},
-				{field:'TXNFEE',title:'手续费金额(元)',width:140,align:'center'},
-				{field:'CHARGINGUNIT',title:'收费单位代码',width:140,align:'center'},
-				{field:'CREDITORACCOUNTNO',title:'收款人账号',width:140,align:'center'},
-				{field:'CREDITORNAME',title:'收款人名称',width:140,align:'center'},
-				{field:'DEBTORACCOUNTNO',title:'付款人账号',width:140,align:'center'},
-				{field:'DEBTORNAME',title:'付款人名称',width:140,align:'center'},
-				{field:'PAYINST',title:'交易渠道',width:140,align:'center'}		
+				{field:'txnseqno',title:'交易流水号',width:140,align:'center'},
+				{field:'payordno',title:'支付订单号',width:140,align:'center'},
+				{field:'txndatetime',title:'交易时间',width:140,align:'center'},
+				{field:'busicode',title:'交易类型',width:140,align:'center'},
+				{field:'amount',title:'交易金额(元)',width:140,align:'center'},
+				{field:'instiid',title:'收费单位代码',width:140,align:'center'},
 			]],
 			pagination:true,
 			rownumbers:true,
@@ -234,23 +227,15 @@ table tr td select {
 			queryParams:{
 				"proid": proid
 				},
-			idField:'TID',
+			idField:'iid',
 			columns:[
 			[
-				{field:'TXNSEQNO',title:'交易流水号',width:140,align:'center'},
-				{field:'PAYORDNO',title:'支付订单号',width:140,align:'center'},
-				{field:'PAYRETTSNSEQNO',title:'应答流水号',width:140,align:'center'},
-				{field:'PAYORDFINTIME',title:'交易时间',width:140,align:'center'},
-				{field:'BUSINAME',title:'交易类型',width:140,align:'center'},
-				{field:'AMOUNT',title:'交易金额(元)',width:140,align:'center'},
-				{field:'TXNFEE',title:'手续费金额(元)',width:140,align:'center'},
-				{field:'PAYINST',title:'交易渠道',width:140,align:'center'},
-				{field:'CHARGINGUNIT',title:'收费单位代码',width:140,align:'center'},
-				{field:'CREDITORACCOUNTNO',title:'收款人账号',width:140,align:'center'},
-				{field:'CREDITORNAME',title:'收款人名称',width:140,align:'center'},
-				{field:'DEBTORACCOUNTNO',title:'付款人账号',width:140,align:'center'},
-				{field:'DEBTORNAME',title:'付款人名称',width:140,align:'center'},
-				{field:'MISTAKEDESC',title:'差错原因',width:240,align:'center'}
+				{field:'txnseqno',title:'交易流水号',width:140,align:'center'},
+				{field:'payordno',title:'支付订单号',width:140,align:'center'},
+				{field:'txndatetime',title:'交易时间',width:140,align:'center'},
+				{field:'busicode',title:'交易类型',width:140,align:'center'},
+				{field:'amount',title:'交易金额(元)',width:140,align:'center'},
+				{field:'mistakedesc',title:'差错原因',width:240,align:'center'}
 			]],
 			pagination:true,
 			rownumbers:true
