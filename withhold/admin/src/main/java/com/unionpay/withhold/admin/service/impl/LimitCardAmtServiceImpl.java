@@ -79,7 +79,7 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 		//判断交易限额是否有效
 		Long caseid = limitAmountsPanDay.getCaseid();
 		String cardtype= limitAmountsPanDay.getCardtype();
-		List<TLimitAmountsPanDay> list = limitAmountsPanDayMapper.queryAllLimitMemNumsDay(caseid,cardtype);
+		List<TLimitAmountsPanDay> list = limitAmountsPanDayMapper.queryAllLimitMemNumsDayOther(caseid,cardtype,limitAmountsPanDay.getTid());
 		for (TLimitAmountsPanDay tlimitAmountsPanDay : list) {
 			if(limitAmountsPanDay.getRisklevel()<tlimitAmountsPanDay.getRisklevel()&&
 			   limitAmountsPanDay.getLimitAmount()>=tlimitAmountsPanDay.getLimitAmount()){

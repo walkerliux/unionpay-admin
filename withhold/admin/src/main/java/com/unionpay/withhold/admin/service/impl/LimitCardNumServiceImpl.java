@@ -70,7 +70,7 @@ public class LimitCardNumServiceImpl implements LimitCardNumService {
 		//判断交易限次是否有效
 		Long caseid = limitMenNumsDay.getCaseid();
 		String cardtype= limitMenNumsDay.getCardtype();
-		List<TLimitNumsPanDay> list = limitNumsPanDayMapper.queryAllLimitMemNumsDay(caseid,cardtype);
+		List<TLimitNumsPanDay> list = limitNumsPanDayMapper.queryAllLimitMemNumsDayOther(caseid,cardtype,limitMenNumsDay.getTid());
 		for (TLimitNumsPanDay tLimitNumsPanDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitNumsPanDay.getRisklevel()&&
 			   limitMenNumsDay.getLimitCount()>=tLimitNumsPanDay.getLimitCount()){

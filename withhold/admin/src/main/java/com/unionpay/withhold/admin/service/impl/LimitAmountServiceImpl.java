@@ -84,7 +84,7 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 			TLimitAmountsMemDay limitMenAmountsDay) {
 		//判断交易限次是否有效
 		Long caseid = limitMenAmountsDay.getCaseid();
-		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDay(caseid);
+		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDayOther(caseid,limitMenAmountsDay.getTid());
 		for (TLimitAmountsMemDay tLimitMemNumsDay : list) {
 			if(limitMenAmountsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 					limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())>=0){

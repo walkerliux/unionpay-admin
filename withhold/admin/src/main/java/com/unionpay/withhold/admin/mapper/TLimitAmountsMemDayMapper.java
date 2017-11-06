@@ -4,6 +4,7 @@ import com.unionpay.withhold.admin.pojo.TLimitAmountsMemDay;
 import com.unionpay.withhold.admin.pojo.TLimitAmountsMemDayExample;
 
 
+
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -39,4 +40,7 @@ public interface TLimitAmountsMemDayMapper {
 	TLimitAmountsMemDay queryLimitMemNumsDaybytid(@Param("tid")Integer tid);
 
 	List<TLimitAmountsMemDay> queryAllLimitMemNumsDay(@Param("caseid")Long caseid);
+
+	List<TLimitAmountsMemDay> queryAllLimitMemNumsDayOther(@Param("caseid")Long caseid,
+			@Param("tid")Integer tid);
 }

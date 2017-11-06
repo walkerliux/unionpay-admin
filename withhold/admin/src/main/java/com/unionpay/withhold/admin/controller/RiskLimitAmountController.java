@@ -41,7 +41,7 @@ public class RiskLimitAmountController {
 		return limitAmountService.queryLimitMemAmountsDay(caseids, page, rows);	
 	}
 	/**
-	 * 保存商户单日累计限次
+	 * 保存商户单日累计限额
 	 * @param limitMenNumsDay
 	 * @param request
 	 * @return
@@ -64,7 +64,7 @@ public class RiskLimitAmountController {
 			}
 	}
 	/**
-	 * 查询一条商户单日限次
+	 * 查询一条商户单日限额
 	 * @param tid
 	 * @return
 	 */
@@ -74,7 +74,7 @@ public class RiskLimitAmountController {
 			return tid == null ? null:limitAmountService.queryLimitMemAmountsDaybytid(tid);	
 	}
 	/**
-	 * 修改商户单日限次
+	 * 修改商户单日限额
 	 * @param limitMenNumsDay
 	 * @param riskid
 	 * @return
@@ -111,7 +111,7 @@ public class RiskLimitAmountController {
 		}
 	}
 	/**
-	 * 启用商户累计次数
+	 * 启用商户累计额数
 	 * @param limitMenAmountsDay
 	 * @return
 	 */

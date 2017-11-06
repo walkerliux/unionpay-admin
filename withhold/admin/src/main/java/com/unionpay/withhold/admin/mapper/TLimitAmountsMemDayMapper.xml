@@ -287,4 +287,10 @@
 		where CASEID=#{caseid} AND `STATUS`='00'
 				 
 	</select>
+	<select id="queryAllLimitMemNumsDayOther" resultMap="BaseResultMap">
+		select LIMIT_AMOUNT,RISKLEVEL
+		from t_limit_amounts_mem_day  	
+		where CASEID=#{caseid} AND `STATUS`='00' AND TID !=#{tid}
+				 
+	</select>
 </mapper>
