@@ -54,7 +54,7 @@
 	<import resource="spring-mybatis.xml" />
 
 	<import resource="applicationContext-jedis.xml"/> 
-
+	<import resource="classpath:/spring-trade-api.xml"/>
 	<!-- <import resource="SqlMapConfig.xml"/> -->
 
 </beans>
