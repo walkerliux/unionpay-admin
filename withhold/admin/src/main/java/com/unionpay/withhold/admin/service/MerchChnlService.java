@@ -22,7 +22,7 @@ public interface MerchChnlService {
 	 * @param merchDeta
 	 * @return
 	 */
-	ResultBean updateMerchDChnl(TMerchChnl merchChnl);
+	ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl);
 	/**
 	 * 查看商户通道信息
 	 * @param selfId

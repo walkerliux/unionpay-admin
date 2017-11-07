@@ -232,10 +232,10 @@ table tr td select {
 											}else{
 												debitdata=debitdata +"|" + value.bankCode;
 											}
-											debithtml += '<input type="checkbox"  checked="checked id="debitcheckboxList" name="debitcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+											debithtml += '<input type="checkbox"  checked="checked id="debitcheckboxList" name="debitcheckboxList" style="align:left" value="' + value.BANKCODE + '" /><label class="activeflag_label">' + value.BANKNAME + '</label>';
 										}
 										else{ 
-											debithtml += '<input type="checkbox"  name="debitcheckboxList" id="debitcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+											debithtml += '<input type="checkbox"  name="debitcheckboxList" id="debitcheckboxList" style="align:left" value="' + value.BANKCODE + '" /><label class="activeflag_label">' + value.BANKNAME + '</label>';
 										}
 										
 										if (mark%4==0) {
@@ -251,10 +251,10 @@ table tr td select {
 												}else{
 													creditdata=creditdata +"|" + value.bankCode;
 												}
-												credithtml += '<input type="checkbox"  checked="checked id="creditcheckboxList" name="creditcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+												credithtml += '<input type="checkbox"  checked="checked id="creditcheckboxList" name="creditcheckboxList" style="align:left" value="' + value.BANKCODE + '" /><label class="activeflag_label">' + value.BANKNAME + '</label>';
 										}
 										else{ 
-											credithtml += '<input type="checkbox"   name="creditcheckboxList" id="creditcheckboxList" style="align:left" value="' + value.bankCode + '" /><label class="activeflag_label">' + value.bankName + '</label>';
+											credithtml += '<input type="checkbox"   name="creditcheckboxList" id="creditcheckboxList" style="align:left" value="' + value.BANKCODE + '" /><label class="activeflag_label">' + value.BANKNAME + '</label>';
 										}
 										
 										if (mark1%4==0) {

@@ -35,4 +35,6 @@ public interface TParaDicMapper {
 	List<TParaDic> selectParaDicByParentCode(@Param("paraCode") String paraCode);
 	
 	List<TParaDic> selectCardtypeCheckbox(String cardtypes);
+	
+	TParaDic selectParaDicByParaCode(@Param("paraCode") String paraCode);
 }

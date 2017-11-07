@@ -40,4 +40,6 @@ public interface TLimitAmountsPanDayMapper {
 
 	List<TLimitAmountsPanDay> queryAllLimitMemNumsDay(@Param("caseid")Long caseid,@Param("cardtype")String cardtype);
 	
+	List<TLimitAmountsPanDay> queryAllLimitMemNumsDayOther(@Param("caseid")Long caseid,@Param("cardtype")String cardtype,@Param("tid")Integer tid);
+	
 }

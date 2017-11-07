@@ -73,7 +73,7 @@ public class LimitServiceImpl implements LimitService {
 	public ResultBean updateLimitMemMNumDay(TLimitMemNumsDay limitMenNumsDay) {
 		//判断交易限次是否有效
 		Long caseid = limitMenNumsDay.getCaseid();
-		List<TLimitMemNumsDay> list = limitMemNumsDayMapper.queryAllLimitMemNumsDay(caseid);
+		List<TLimitMemNumsDay> list = limitMemNumsDayMapper.queryAllLimitMemNumsDayOther(caseid,limitMenNumsDay.getTid());
 		for (TLimitMemNumsDay tLimitMemNumsDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 			   limitMenNumsDay.getLimitCount()>=tLimitMemNumsDay.getLimitCount()){

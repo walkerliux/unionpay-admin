@@ -374,6 +374,15 @@
       <if test="storgetype != null" >
         STORGETYPE = #{storgetype,jdbcType=VARCHAR},
       </if>
+      <if test="chnlpubkey != null" >
+        CHNLPUBKEY = #{chnlpubkey,jdbcType=VARCHAR},
+      </if>
+      <if test="prikey != null" >
+        PRIKEY = #{prikey,jdbcType=VARCHAR},
+      </if>
+      <if test="pubkey != null" >
+        PUBKEY = #{pubkey,jdbcType=VARCHAR},
+      </if>
       <if test="prikeypwd != null" >
         PRIKEYPWD = #{prikeypwd,jdbcType=CHAR},
       </if>
@@ -432,13 +441,15 @@
   
   <select id="selectChnlWithCondition" resultMap="ResultMapWithBLOBs">
 		select 
-		mc.*,md.MEMBER_NAME,cd.CHNLNAME,md.transfactors
+		mc.*,md.MEMBER_NAME,cd.CHNLNAME,pd.PARA_NAME transfactors
 		from 
 		t_merch_chnl mc
 		left join
 		t_merch_deta md on mc.merchno=md.member_id 
 		left join
 		t_chnl_deta cd on mc.CHNLCODE = cd.CHNLCODE
+		left join
+		t_para_dic pd on md.TRANSFACTORS =pd.PARA_CODE
 		AND mc.`STATUS` = '00'
 		<where>
 			<if test="merchDeta.memberId != null and merchDeta.memberId !=''">
@@ -535,4 +546,19 @@
 		</where>
 	</select>
 	
+	<select id="selectByMerchno" resultMap="BaseResultMap" >
+    	select CHNLCODE
+		FROM t_merch_chnl
+		WHERE MERCHNO =#{merchno}
+		
+  </select>
+  
+  <select id="selectupdateByMerchno" resultMap="BaseResultMap" >
+    	select CHNLCODE
+		FROM t_merch_chnl
+		WHERE MERCHNO =#{merchno}
+		<if test="tid != null and tid !=''">
+		AND TID !=#{tid}
+		</if>
+  </select>
 </mapper>

@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.ResultBean;
+import com.unionpay.withhold.admin.mapper.TBnkTxnMapper;
 import com.unionpay.withhold.admin.mapper.TCheckfileMistakeMapper;
 import com.unionpay.withhold.admin.mapper.TChnlDetaMapper;
 import com.unionpay.withhold.admin.mapper.TSelfTxnMapper;
@@ -27,9 +29,6 @@ import com.unionpay.withhold.utils.DateUtil;
 @Transactional
 public class CheckBillServiceImpl implements CheckBillService {
 	@Autowired
-	private TSelfTxnMapper selfTxn;
-
-	@Autowired
 	private TChnlDetaMapper chnlDetaMapper;
 	
 	@Autowired
@@ -40,11 +39,31 @@ public class CheckBillServiceImpl implements CheckBillService {
 	
 	@Autowired
 	private TSelfTxnMapper selfTxnMapper;
+	
+	@Autowired
+	private TBnkTxnMapper bnkTxnMapper;
+	
 	@Override
-	public ResultBean checkBill() {
+	public ResultBean checkBill(String filestartid) {
+		TSettProcess settProcess=new TSettProcess();
+		if (StringUtils.isNotEmpty(filestartid)) {
+			settProcess=settProcessMapper.selectByPrimaryKey(Integer.valueOf(filestartid));
+		}
+		
 		//1,迁移数据
-		//2,对账(正确的改状态, 错误的需要写到差错表)
-		return null;
+		Map<String, Object> map = new HashMap<>();
+		map.put("filestartid", filestartid);
+		map.put("instiid", settProcess.getInstiid());
+		int flag =selfTxnMapper.insertFromTxnLog(map);
+		if (flag>0) {
+			//2,对账(正确的改状态, 错误的需要写到差错表)
+			selfTxnMapper.updateByCheckBill(map);
+			bnkTxnMapper.updateByCheckBill(map);
+			return new ResultBean("对账完成");
+		}else{
+			return new ResultBean("001","无数据需要对账");
+		}
+		
 	}
 
 	@Override
