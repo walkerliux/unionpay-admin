@@ -39,4 +39,14 @@ public class CommonConstants {
 	public final static Short ROUTE_STATUS_NORMAL = 1;
 	/** 路由版本状态-非正常状态 **/
 	public final static Short ROUTE_STATUS_UNNORMAL = 0;
+	
+	// 路由配置状态
+	/** 路由配置状态-正常状态 **/
+	public final static String ROUTECONFIG_STATUS_NORMAL = "00";
+	
+	// 路由配置默认状态
+	/** 路由配置默认状态-默认 **/
+	public final static String ROUTECONFIG_ISDEF = "0";
+	/** 路由配置默认状态-非默认 **/
+	public final static String ROUTECONFIG_ISNOTDEF = "1";
 }

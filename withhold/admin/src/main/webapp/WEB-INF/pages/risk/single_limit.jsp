@@ -108,11 +108,11 @@
 						<tr>
 							<td class="update" width="20%">单笔最小限额（元）</td>
 							<td class="update" align="left">
-							<input name="minAmount" id="minAmount" validType="amount" maxlength="11" 
+							<input name="minAmount" id="minAmount" validType="amount" maxlength="9" 
 								class="easyui-validatebox" required="true" missingMessage="请输入单笔最小金额"/></td>
 							<td class="update" width="20%">单笔最大限额（元）</td>
 							<td class="update" align="left">
-							<input name="maxAmount" id="maxAmount" validType="amount" maxlength="11" 
+							<input name="maxAmount" id="maxAmount" validType="amount" maxlength="9" 
 								class="easyui-validatebox" required="true" missingMessage="请输入单笔最大金额"/></td>
 						</tr>
 						<tr>

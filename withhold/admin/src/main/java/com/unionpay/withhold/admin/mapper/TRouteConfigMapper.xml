@@ -23,6 +23,13 @@
     <result column="TRADEELE" property="tradeele" jdbcType="VARCHAR" />
     <result column="NOTES" property="notes" jdbcType="VARCHAR" />
     <result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+    <!-- 关联属性 -->
+    <result column="ROUTNAME" property="routname" jdbcType="VARCHAR" />
+    <result column="BANKNAMES" property="banknames" jdbcType="VARCHAR" />
+    <result column="BUSINAMES" property="businames" jdbcType="VARCHAR" />
+    <result column="CARDTYPENAMES" property="cardtypenames" jdbcType="VARCHAR" />
+    <result column="TRADEELE_NAME" property="tradeeleName" jdbcType="VARCHAR" />
+    <result column="CHNLNAME" property="chnlname" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -462,4 +469,127 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where RID = #{rid,jdbcType=INTEGER}
   </update>
+  
+  
+  <select id="selectWithCondition" resultMap="BaseResultMap">
+		SELECT
+			rc.*, r.ROUTNAME AS ROUTNAME,
+			(
+				SELECT
+					GROUP_CONCAT(b.BANKNAME)
+				FROM
+					t_bank b
+				WHERE
+					FIND_IN_SET(
+						b.BANKCODE,
+						REPLACE (rc.BANKCODE, ';', ',')
+					)
+			) AS BANKNAMES,
+			(
+				SELECT
+					GROUP_CONCAT(bn.BUSINAME)
+				FROM
+					t_business bn
+				WHERE
+					FIND_IN_SET(
+						bn.BUSICODE,
+						REPLACE (rc.BUSICODE, ';', ',')
+					)
+			) AS BUSINAMES,
+			(
+				SELECT
+					GROUP_CONCAT(pd.PARA_NAME)
+				FROM
+					t_para_dic pd
+				WHERE
+					pd.PARA_TYPE = 'CARDTYPE'
+				AND FIND_IN_SET(
+					pd.PARA_CODE,
+					REPLACE (rc.CARDTYPE, ';', ',')
+				)
+			) AS CARDTYPENAMES,
+			pd2.PARA_NAME AS TRADEELE_NAME,
+			cd.CHNLNAME AS CHNLNAME
+		FROM
+			t_route_config rc
+		LEFT JOIN t_route r ON rc.ROUTVER = r.ROUTVER
+		LEFT JOIN t_para_dic pd2 ON pd2.PARA_TYPE = 'TRANSFACTORS'
+		AND rc.TRADEELE = pd2.PARA_CODE
+		LEFT JOIN t_chnl_deta cd ON rc.CHNLCODE = cd.CHNLCODE
+		<where>
+			<if test="routeConfig.routver != null and routeConfig.routver !=''">
+				AND rc.ROUTVER = #{routeConfig.routver}
+			</if>
+			<if test="routeConfig.routname != null and routeConfig.routname !=''">
+				AND r.ROUTNAME LIKE CONCAT(CONCAT('%', #{routeConfig.routname}), '%')
+			</if>
+		</where>
+		order by ORDERS 
+		<if test="beginRow != null and pageSize != null">
+			limit #{beginRow},#{pageSize}
+		</if>
+	</select>
+
+	<select id="selectCountWithCondition" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM t_route_config rc
+		LEFT JOIN t_route r ON rc.ROUTVER = r.ROUTVER
+		<where>
+			<if test="routeConfig.routver != null and routeConfig.routver !=''">
+				AND rc.ROUTVER = #{routeConfig.routver}
+			</if>
+			<if test="routeConfig.routname != null and routeConfig.routname !=''">
+				AND r.ROUTNAME LIKE CONCAT(CONCAT('%', #{routeConfig.routname}), '%')
+			</if>
+		</where>
+	</select>
+	
+  <select id="selectDetailByID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+			rc.*, r.ROUTNAME AS ROUTNAME,
+			(
+				SELECT
+					GROUP_CONCAT(b.BANKNAME)
+				FROM
+					t_bank b
+				WHERE
+					FIND_IN_SET(
+						b.BANKCODE,
+						REPLACE (rc.BANKCODE, ';', ',')
+					)
+			) AS BANKNAMES,
+			(
+				SELECT
+					GROUP_CONCAT(bn.BUSINAME)
+				FROM
+					t_business bn
+				WHERE
+					FIND_IN_SET(
+						bn.BUSICODE,
+						REPLACE (rc.BUSICODE, ';', ',')
+					)
+			) AS BUSINAMES,
+			(
+				SELECT
+					GROUP_CONCAT(pd.PARA_NAME)
+				FROM
+					t_para_dic pd
+				WHERE
+					pd.PARA_TYPE = 'CARDTYPE'
+				AND FIND_IN_SET(
+					pd.PARA_CODE,
+					REPLACE (rc.CARDTYPE, ';', ',')
+				)
+			) AS CARDTYPENAMES,
+			pd2.PARA_NAME AS TRADEELE_NAME,
+			cd.CHNLNAME AS CHNLNAME
+		FROM
+			t_route_config rc
+		LEFT JOIN t_route r ON rc.ROUTVER = r.ROUTVER
+		LEFT JOIN t_para_dic pd2 ON pd2.PARA_TYPE = 'TRANSFACTORS'
+		AND rc.TRADEELE = pd2.PARA_CODE
+		LEFT JOIN t_chnl_deta cd ON rc.CHNLCODE = cd.CHNLCODE
+		WHERE
+			rc.RID = #{rid,jdbcType=INTEGER}
+	</select>
+	
 </mapper>

@@ -116,27 +116,27 @@ table tr td select {
 						</tr>						
 						<tr style="height: 25px">
 							<td class="update">所在省</td>
-							<td class="update" id="caprovince" align="left">
+							<td class="update" id="caprovince" align="left"></td>
 							<td class="update">所在市</td>
-							<td class="update" id="cacity" align="left">
+							<td class="update" id="cacity" align="left"></td>
 						</tr>
 <!-- 						<tr> -->
 <!-- 							<td colspan="4" class="head-title"></td> -->
 <!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">地址</td>
-							<td class="update" id="address" align="left">
+							<td class="update" id="address" align="left"></td>
 							<td class="update">上级渠道</td>
-							<td class="update" id="supercode" align="left">
+							<td class="update" id="supercode" align="left"></td>
 						</tr>
 <!-- 						<tr> -->
 <!-- 							<td colspan="4" class="head-title"></td> -->
 <!-- 						</tr> -->
 						<tr style="height: 25px">
 							<td class="update">联系人</td>
-							<td class="update" id="contact" align="left">
+							<td class="update" id="contact" align="left"></td>
 							<td class="update">联系电话</td>
-							<td class="update" id="contPhone" align="left">
+							<td class="update" id="contPhone" align="left"></td>
 						</tr>
 <!-- 						<tr> -->
 <!-- 							<td colspan="4" class="head-title"></td> -->

@@ -28,6 +28,8 @@ public class TParaDic {
     private Long added;
 
     private String remarks;
+    
+    private Boolean checked = false;
 
     public Long getTid() {
         return tid;
@@ -100,4 +102,12 @@ public class TParaDic {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
 }

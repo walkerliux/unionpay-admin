@@ -1,9 +1,11 @@
 package com.unionpay.withhold.admin.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.unionpay.withhold.admin.pojo.TRouteConfig;
 import com.unionpay.withhold.admin.pojo.TRouteConfigExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
 public interface TRouteConfigMapper {
     int countByExample(TRouteConfigExample example);
@@ -27,4 +29,10 @@ public interface TRouteConfigMapper {
     int updateByPrimaryKeySelective(TRouteConfig record);
 
     int updateByPrimaryKey(TRouteConfig record);
+    
+	List<TRouteConfig> selectWithCondition(@Param("routeConfig")TRouteConfig routeConfig, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
+
+	int selectCountWithCondition(@Param("routeConfig")TRouteConfig routeConfig);
+	
+	TRouteConfig selectDetailByID(Integer rid);
 }

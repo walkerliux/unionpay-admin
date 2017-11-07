@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.pojo;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -445,52 +446,52 @@ public class TRouteConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andMinamtEqualTo(Long value) {
+        public Criteria andMinamtEqualTo(BigDecimal value) {
             addCriterion("MINAMT =", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtNotEqualTo(Long value) {
+        public Criteria andMinamtNotEqualTo(BigDecimal value) {
             addCriterion("MINAMT <>", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtGreaterThan(Long value) {
+        public Criteria andMinamtGreaterThan(BigDecimal value) {
             addCriterion("MINAMT >", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtGreaterThanOrEqualTo(Long value) {
+        public Criteria andMinamtGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("MINAMT >=", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtLessThan(Long value) {
+        public Criteria andMinamtLessThan(BigDecimal value) {
             addCriterion("MINAMT <", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtLessThanOrEqualTo(Long value) {
+        public Criteria andMinamtLessThanOrEqualTo(BigDecimal value) {
             addCriterion("MINAMT <=", value, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtIn(List<Long> values) {
+        public Criteria andMinamtIn(List<BigDecimal> values) {
             addCriterion("MINAMT in", values, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtNotIn(List<Long> values) {
+        public Criteria andMinamtNotIn(List<BigDecimal> values) {
             addCriterion("MINAMT not in", values, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtBetween(Long value1, Long value2) {
+        public Criteria andMinamtBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("MINAMT between", value1, value2, "minamt");
             return (Criteria) this;
         }
 
-        public Criteria andMinamtNotBetween(Long value1, Long value2) {
+        public Criteria andMinamtNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("MINAMT not between", value1, value2, "minamt");
             return (Criteria) this;
         }
@@ -505,52 +506,52 @@ public class TRouteConfigExample {
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtEqualTo(Long value) {
+        public Criteria andMaxamtEqualTo(BigDecimal value) {
             addCriterion("MAXAMT =", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtNotEqualTo(Long value) {
+        public Criteria andMaxamtNotEqualTo(BigDecimal value) {
             addCriterion("MAXAMT <>", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtGreaterThan(Long value) {
+        public Criteria andMaxamtGreaterThan(BigDecimal value) {
             addCriterion("MAXAMT >", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtGreaterThanOrEqualTo(Long value) {
+        public Criteria andMaxamtGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("MAXAMT >=", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtLessThan(Long value) {
+        public Criteria andMaxamtLessThan(BigDecimal value) {
             addCriterion("MAXAMT <", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtLessThanOrEqualTo(Long value) {
+        public Criteria andMaxamtLessThanOrEqualTo(BigDecimal value) {
             addCriterion("MAXAMT <=", value, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtIn(List<Long> values) {
+        public Criteria andMaxamtIn(List<BigDecimal> values) {
             addCriterion("MAXAMT in", values, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtNotIn(List<Long> values) {
+        public Criteria andMaxamtNotIn(List<BigDecimal> values) {
             addCriterion("MAXAMT not in", values, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtBetween(Long value1, Long value2) {
+        public Criteria andMaxamtBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("MAXAMT between", value1, value2, "maxamt");
             return (Criteria) this;
         }
 
-        public Criteria andMaxamtNotBetween(Long value1, Long value2) {
+        public Criteria andMaxamtNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("MAXAMT not between", value1, value2, "maxamt");
             return (Criteria) this;
         }

@@ -6,6 +6,7 @@
     <result column="BANKCODE" property="bankcode" jdbcType="VARCHAR" />
     <result column="BANKNAME" property="bankname" jdbcType="VARCHAR" />
     <result column="PBC_BANKCODE" property="pbcBankcode" jdbcType="VARCHAR" />
+    <result column="CHECKED" property="checked" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,7 +82,10 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
-    limit #{beginRow},#{pageSize}
+    <if test="pageSize != 0" >
+      limit #{beginRow},#{pageSize}
+    </if>
+    
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -197,4 +201,13 @@
    <select id="countByOldAndNewCode" resultType="java.lang.Integer" parameterType="com.unionpay.withhold.admin.pojo.TBank" >
    select COUNT(*) from t_bank where BANKCODE=#{bankcode} and BANKCODE!=#{oldbankcode}
   </select>
+  
+  
+	<select id="selectBankCheckbox" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+			*,
+			IF (FIND_IN_SET(BANKCODE,REPLACE(#{bankcodes},';',',')),1,0) AS CHECKED
+		FROM
+			t_bank;
+	</select>
 </mapper>

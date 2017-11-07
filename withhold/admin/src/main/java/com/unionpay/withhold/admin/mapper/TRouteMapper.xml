@@ -302,7 +302,7 @@
 			<if test="route.routver != null and route.routver !=''">
 				AND r.ROUTVER = #{route.routver}
 			</if>
-			<if test="route.routname != null">
+			<if test="route.routname != null and route.routname !=''">
 				AND r.ROUTNAME  LIKE CONCAT(CONCAT('%', #{route.routname}), '%')
 			</if>
 		</where>
@@ -318,7 +318,7 @@
 			<if test="route.routver != null and route.routver !=''">
 				AND r.ROUTVER = #{route.routver}
 			</if>
-			<if test="route.routname != null">
+			<if test="route.routname != null and route.routname !=''">
 				AND r.ROUTNAME  LIKE CONCAT(CONCAT('%', #{route.routname}), '%')
 			</if>
 		</where>

@@ -28,4 +28,6 @@ public interface TBankMapper {
 
     int updateByPrimaryKey(TBank record);
     int countByOldAndNewCode(TBank record);
+    
+    List<TBank> selectBankCheckbox(String bankcodes);
 }

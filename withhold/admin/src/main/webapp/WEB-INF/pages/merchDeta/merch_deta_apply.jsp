@@ -157,7 +157,6 @@ table tr td select {
 							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
 								<option value=''>--请选择交易要素--</option>
 							</select><font color="red">*</font></td>
-							
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">所属行业</td>

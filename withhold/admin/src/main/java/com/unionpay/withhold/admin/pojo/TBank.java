@@ -1,46 +1,49 @@
 package com.unionpay.withhold.admin.pojo;
 
 public class TBank {
-    private Integer tid;
+	private Integer tid;
 
-    private String bankcode;
+	private String bankcode;
 
-    private String bankname;
+	private String bankname;
 
-    private String pbcBankcode;
+	private String pbcBankcode;
 
-    public Integer getTid() {
-        return tid;
-    }
+	private Boolean checked = false;
 
-    public void setTid(Integer tid) {
-        this.tid = tid;
-    }
+	public Integer getTid() {
+		return tid;
+	}
 
-    public String getBankcode() {
-        return bankcode;
-    }
+	public void setTid(Integer tid) {
+		this.tid = tid;
+	}
 
-    public void setBankcode(String bankcode) {
-        this.bankcode = bankcode == null ? null : bankcode.trim();
-    }
+	public String getBankcode() {
+		return bankcode;
+	}
 
-    public String getBankname() {
-        return bankname;
-    }
+	public void setBankcode(String bankcode) {
+		this.bankcode = bankcode == null ? null : bankcode.trim();
+	}
 
-    public void setBankname(String bankname) {
-        this.bankname = bankname == null ? null : bankname.trim();
-    }
+	public String getBankname() {
+		return bankname;
+	}
 
-    public String getPbcBankcode() {
-        return pbcBankcode;
-    }
+	public void setBankname(String bankname) {
+		this.bankname = bankname == null ? null : bankname.trim();
+	}
 
-    public void setPbcBankcode(String pbcBankcode) {
-        this.pbcBankcode = pbcBankcode == null ? null : pbcBankcode.trim();
-    }
-    private String oldbankcode;
+	public String getPbcBankcode() {
+		return pbcBankcode;
+	}
+
+	public void setPbcBankcode(String pbcBankcode) {
+		this.pbcBankcode = pbcBankcode == null ? null : pbcBankcode.trim();
+	}
+
+	private String oldbankcode;
 
 	public String getOldbankcode() {
 		return oldbankcode;
@@ -49,5 +52,13 @@ public class TBank {
 	public void setOldbankcode(String oldbankcode) {
 		this.oldbankcode = oldbankcode;
 	}
-    
+
+	public Boolean getChecked() {
+		return checked;
+	}
+
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
+
 }
