@@ -22,13 +22,18 @@ public interface MerchChnlService {
 	 * @param merchDeta
 	 * @return
 	 */
-	ResultBean updateMerchDChnl(TMerchChnl merchChnl);
+	ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl);
 	/**
 	 * 查看商户通道信息
 	 * @param selfId
 	 * @return
 	 */
 	TMerchChnlWithBLOBs querydateMerchDChnlById(Integer tid);
-	ResultBean addMerchChnl(TMerchChnl merchChnl);
+	
+	
+	ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl);
+	
+	PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
+			Integer page, Integer rows);
 
 }

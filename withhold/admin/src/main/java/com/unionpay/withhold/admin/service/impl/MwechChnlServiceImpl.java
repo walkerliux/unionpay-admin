@@ -23,6 +23,8 @@ import com.unionpay.withhold.admin.service.MerchChnlService;
 public class MwechChnlServiceImpl implements MerchChnlService {
 	@Autowired
 	private TMerchChnlMapper merchChnlMapper;
+	@Autowired
+	private TMerchDetaMapper merchDetaMapper ;
 
 	@Override
 	public PageBean queryMerchChnl(TMerchDeta merchDeta,String chnlcode, Integer page, Integer rows) {
@@ -35,8 +37,17 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 				return new PageBean(count, list);
 	}
 	@Override
-	public ResultBean updateMerchDChnl(TMerchChnl merchChnl) {
-			
+	public ResultBean updateMerchDChnl(TMerchChnlWithBLOBs merchChnl) {
+		
+		//判断商户通道是否已存在
+		List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectupdateByMerchno(merchChnl.getMerchno(),merchChnl.getTid());
+		for (TMerchChnl tMerchChnl : chnlcodeList) {
+			if(tMerchChnl.getChnlcode().equals(merchChnl.getChnlcode())){
+				return new ResultBean("", "通道配置重复！");	
+			}
+		}
+		
+		
 		int flag = merchChnlMapper.updateByPrimaryKeySelective( merchChnl);
 		if (flag > 0) {
 			return new ResultBean("操作成功 ！");
@@ -50,9 +61,56 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		return  merchChnlMapper.selectChnlByPrimaryKey(tid);
 	}
 	@Override
-	public ResultBean addMerchChnl(TMerchChnl merchChnl) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl) {
+	
+		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
+//		merch.setMerchno(merchChnl.getMerchno());
+//		merch.setMemberName(merchChnl.getMemberName());
+		int length = merchChnl.getArdList().size();
+		
+		int count = merchChnlMapper.selectaddCountWithCondition(merchChnl.getMerchno());
+		
+		int flag = 0;
+		for (int i = count; i <length; i++) {
+			merch=merchChnl.getArdList().get(i);
+			
+			//判断商户通道是否已存在
+			List<TMerchChnl> chnlcodeList =  merchChnlMapper.selectByMerchno(merchChnl.getMerchno());
+			for (TMerchChnl tMerchChnl : chnlcodeList) {
+				if(tMerchChnl.getChnlcode().equals(merch.getChnlcode())){
+					return new ResultBean("", "通道配置重复！");	
+				}
+			}
+			
+			
+			merch.setMerchno(merchChnl.getMerchno());
+			merch.setStatus("00");
+			 flag = merchChnlMapper.insertSelective(merch);
+		}
+		
+		if (flag > 0) {
+			return new ResultBean("操作成功 ！");
+		} else {
+			return new ResultBean("", "添加失败！");
+		}
+	}
+	@Override
+	public PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
+			Integer page, Integer rows) {
+		
+		Integer beginRow = (page - 1) * rows;
+
+		List<TMerchChnlWithBLOBs> list = merchChnlMapper.selectChnlWithCondition(merchDeta,chnlcode, beginRow, rows);
+		int count = merchChnlMapper.selectCountWithCondition(merchDeta,chnlcode);
+		
+		if(list.size()==0){
+			List<TMerchDeta> lists = merchDetaMapper.selectByMemberId(merchDeta.getMemberId());
+			return new PageBean(count, lists);
+		}
+		
+
+		return new PageBean(count, list);
+		
 	}
 	
 	

@@ -15,7 +15,7 @@ import com.unionpay.withhold.admin.pojo.TSettProcess;
  * @version :v1.0
  */
 public interface CheckBillService {
-	public ResultBean checkBill();
+	public ResultBean checkBill(String filestartid);
 
 	public List<?> getAllChannel();
 

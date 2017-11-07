@@ -249,7 +249,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		 <where>
 			<if test="caseid!= null and caseid !=''">
 				lmn.CASEID= #{caseid}
@@ -267,7 +267,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		<where>
 			<if test="caseid!= null and caseid !=''">
 				lmn.CASEID= #{caseid}
@@ -281,7 +281,7 @@
 		LEFT JOIN t_risk_case rc
 		ON lmn.CASEID=rc.CASEID 
 		LEFT JOIN t_risk r
-		ON r.RISKID=rc.RISKID
+		ON r.RISKVER=rc.RISKVER
 		 where lmn.tid=#{tid}
 	 </select> 
 	 
@@ -289,6 +289,13 @@
 		select LIMIT_COUNT,RISKLEVEL
 		from t_limit_mem_nums_day  	
 		where CASEID=#{caseid} AND `STATUS`='00'
+				 
+	</select>
+	
+	 <select id="queryAllLimitMemNumsDayOther" resultMap="BaseResultMap">
+		select LIMIT_COUNT,RISKLEVEL
+		from t_limit_mem_nums_day  	
+		where CASEID=#{caseid} AND `STATUS`='00' AND TID !=#{tid}
 				 
 	</select>
 </mapper>

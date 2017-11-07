@@ -124,4 +124,20 @@ public class CheckBillController {
 		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
 		return pageBean;
 	}
+	
+	/**
+	 * 开始执行核对
+	 * 
+	 * @author: zhangshd
+	 * @param filestartid
+	 * @return Object
+	 * @date: 2017年3月1日 下午4:56:23
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("startCheckFile")
+	public List<?> startCheckFile(String filestartid) {
+		checkBillService.checkBill(filestartid);
+		return null;
+	}
 }

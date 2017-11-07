@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,14 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 		Integer beginRow = (page - 1) * rows;
 		
 		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryLimitMemNumsDay(caseid,beginRow, rows);
+		//把金额单位换算成元
+		BigDecimal v2 = new BigDecimal(100);
+		for (TLimitAmountsMemDay tLimitAmountsMemDay : list) {
+			BigDecimal v1 =tLimitAmountsMemDay.getLimitAmount();
+			
+			tLimitAmountsMemDay.setLimitAmount(v1.divide(v2));
+		}
+		
 		int count = limitAmountsMemDayMapper.selectCountWithCondition(caseid);
 		
 		return new PageBean(count, list);
@@ -46,6 +55,12 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 				}
 				
 				limitMenAmountsDay.setStatus("00");
+				
+				
+				//把金额换算成分
+				BigDecimal v2 = new BigDecimal(100);	
+				limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));
+		
 				int flag =limitAmountsMemDayMapper.insertSelective(limitMenAmountsDay);
 				if(flag>0){
 					return new ResultBean("操作成功");
@@ -57,6 +72,10 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 	@Override
 	public TLimitAmountsMemDay queryLimitMemAmountsDaybytid(Integer tid) {
 		TLimitAmountsMemDay  limitMemAmountDay= limitAmountsMemDayMapper.queryLimitMemNumsDaybytid(tid);
+		//把金额单位换成元
+		BigDecimal v2 = new BigDecimal(100);
+		limitMemAmountDay.setLimitAmount(limitMemAmountDay.getLimitAmount().divide(v2));	
+		
 		return limitMemAmountDay;
 	}
 
@@ -65,7 +84,7 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 			TLimitAmountsMemDay limitMenAmountsDay) {
 		//判断交易限次是否有效
 		Long caseid = limitMenAmountsDay.getCaseid();
-		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDay(caseid);
+		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDayOther(caseid,limitMenAmountsDay.getTid());
 		for (TLimitAmountsMemDay tLimitMemNumsDay : list) {
 			if(limitMenAmountsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 					limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())>=0){
@@ -76,11 +95,15 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 			}
 		}
 		limitMenAmountsDay.setStatus("00");
+		//把金额单位换成分
+		BigDecimal v2 = new BigDecimal(100);
+		limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));	
+		
 		int flag =limitAmountsMemDayMapper.updateByPrimaryKey(limitMenAmountsDay);
 		if(flag>0){
 			return new ResultBean("操作成功");
 		}else{
-			return new ResultBean("","添加失败！");
+			return new ResultBean("","修改失败！");
 		}
 	}
 

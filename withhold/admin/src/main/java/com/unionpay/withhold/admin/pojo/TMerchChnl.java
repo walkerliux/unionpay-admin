@@ -1,6 +1,8 @@
 package com.unionpay.withhold.admin.pojo;
 
+
 import java.util.Date;
+import java.util.List;
 
 public class TMerchChnl {
     private Integer tid;
@@ -32,8 +34,11 @@ public class TMerchChnl {
     private String chnlname;
     private String transfactors;
     
+   
 
-    public String getMemberName() {
+	
+
+	public String getMemberName() {
 		return memberName;
 	}
 

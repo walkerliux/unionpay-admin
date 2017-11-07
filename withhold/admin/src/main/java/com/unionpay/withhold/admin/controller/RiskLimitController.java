@@ -93,7 +93,7 @@ public class RiskLimitController {
 	/**
 	 * 修改商户单日限次
 	 * @param limitMenNumsDay
-	 * @param riskid
+	 * @param riskver
 	 * @return
 	 */
 	@ResponseBody

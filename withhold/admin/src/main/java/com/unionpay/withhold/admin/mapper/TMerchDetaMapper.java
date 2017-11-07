@@ -34,4 +34,7 @@ public interface TMerchDetaMapper {
 
 	int selectCountWithCondition(@Param("merchDeta")TMerchDeta merchDeta, @Param("statuses")List<String> statuses);
 	
+	List<TMerchDeta> selectByMemberId(@Param("memberId")String memberId);
+	
+	TMerchDeta selectTransfactorsByMemberId(@Param("memberId")String memberId);
 }

@@ -3,6 +3,8 @@ package com.unionpay.withhold.admin.mapper;
 import com.unionpay.withhold.admin.pojo.TBnkTxn;
 import com.unionpay.withhold.admin.pojo.TBnkTxnExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TBnkTxnMapper {
@@ -27,4 +29,6 @@ public interface TBnkTxnMapper {
     int updateByPrimaryKeySelective(TBnkTxn record);
 
     int updateByPrimaryKey(TBnkTxn record);
+    
+    int updateByCheckBill(Map<String, Object> map);
 }

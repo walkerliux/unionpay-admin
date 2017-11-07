@@ -475,12 +475,12 @@
                                ELSE '00'
                             END
                            ) AS RESULT,
-                           'v_tid' AS checking_id
+                           #{filestartid} AS checking_id
                       FROM t_txns_log t LEFT JOIN t_self_txn t1 on t.txnseqno=t1.TXNSEQNO
-                      WHERE t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
+                      WHERE t.instiid=#{instiid} and t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
   </insert>
   <update id="updateByCheckBill" parameterType="map" >
-   update t_self_txn t set  t.status = '9', t.proid = 'v_tid', t.RESULT = '02'
+   update t_self_txn t set  t.status = '9', t.proid = #{filestartid}, t.RESULT = '02'
    where  exist (select s.id from t_self_txn s where 
 				s.instiid = b.instiid
 				AND s.pan=t.pan

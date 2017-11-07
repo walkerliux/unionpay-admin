@@ -33,4 +33,10 @@ public class CommonConstants {
 	public final static String LIST_STATUS_NORMAL = "00";
 	/** 黑名单或白名单或限额限次的状态-不在用 **/
 	public final static String LIST_STATUS_UNNORMAL = "01";
+
+	// 路由版本状态
+	/** 路由版本状态-正常状态 **/
+	public final static Short ROUTE_STATUS_NORMAL = 1;
+	/** 路由版本状态-非正常状态 **/
+	public final static Short ROUTE_STATUS_UNNORMAL = 0;
 }

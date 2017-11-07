@@ -351,4 +351,16 @@
 			)
 			</if>
 	</select>
+	
+	<select id="selectParaDicByParaCode" resultMap="BaseResultMap">
+		SELECT
+			PARA_CODE,
+			PARA_NAME
+		FROM
+			`t_para_dic`
+		WHERE
+			`STATUS` = '1' 
+	AND PARA_CODE=#{paraCode}
+		
+	</select>
 </mapper>
