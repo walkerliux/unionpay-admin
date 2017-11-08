@@ -114,7 +114,7 @@ table tr td select {
 								maxlength="256" missingMessage="请输入营业地址"/><font color="red">*</font></td>
 							<td class="update" width="15%">邮编 </td>
 							<td class="update" align="left">
-							<input type="text" id="postCode" name="postCode" class="easyui-validatebox" required="true"
+							<input type="text" id="postCode" name="postCode" class="easyui-validatebox" required="true" validType="postLength[6,6]"
 								maxlength="6" missingMessage="请输入邮编 " /><font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -137,13 +137,13 @@ table tr td select {
 								maxlength="256" missingMessage="请输入联系人 地址"/><font color="red">*</font></td>
 							<td class="update" width="15%">联系人邮编 </td>
 							<td class="update" align="left">
-							<input type="text" id="contPost" name="contPost" class="easyui-validatebox" required="true"
+							<input type="text" id="contPost" name="contPost" class="easyui-validatebox" required="true" validType="postLength[6,6]"
 								maxlength="6" missingMessage="请输入联系人邮编 " /><font color="red">*</font></td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">联系人邮箱</td>
 							<td class="update" align="left" colspan="3">
-							<input type="text" id="contEmail" name="contEmail" class="easyui-validatebox" required="true"
+							<input type="text" id="contEmail" name="contEmail" class="easyui-validatebox" required="true" validType="email" 
 								maxlength="32" missingMessage="请输入联系人 邮箱"/><font color="red">*</font></td>
 						</tr>
 						<tr>
@@ -196,6 +196,21 @@ table tr td select {
 </body>
 <script>
 	var width = $("#continer").width();
+	
+	$.extend($.fn.validatebox.defaults.rules, {
+		postLength: {
+			validator: function(value, param) {
+				var re = /^\d+$/;
+				if (!re.test(value)) {
+					return false;
+				}
+				return value.length >= param[0];
+			},
+			message: '邮编为6位数字'
+		}
+
+	});
+	
 	$(function() {
 		// 显示搜索条件中的渠道
 		showAllCacode("serch");

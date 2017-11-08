@@ -140,6 +140,7 @@
 					<exclude>test/*</exclude>
 					<exclude>prod/*</exclude>
 					<exclude>dev/*</exclude>
+					<exclude>sit/*</exclude>
 				</excludes>
 			</resource>
 			<resource>
@@ -160,6 +161,7 @@
 					<exclude>test/*</exclude>
 					<exclude>prod/*</exclude>
 					<exclude>dev/*</exclude>
+					<exclude>sit/*</exclude>
 				</excludes>
 			</resource>
 		</resources>
@@ -257,6 +259,12 @@
 			<id>prod</id>
 			<properties>
 				<package.environment>prod</package.environment>
+			</properties>
+		</profile>
+		<profile>
+			<id>sit</id>
+			<properties>
+				<package.environment>sit</package.environment>
 			</properties>
 		</profile>
 	</profiles>
