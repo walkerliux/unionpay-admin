@@ -28,6 +28,7 @@
 			<list>
 			  <value>classpath:database.properties</value>  
               <value>classpath:redis.properties</value>
+              <value>classpath:trade.properties</value>
 			</list>
 		</property>
 	</bean>
@@ -54,7 +55,7 @@
 	<import resource="spring-mybatis.xml" />
 
 	<import resource="applicationContext-jedis.xml"/> 
-
+	<import resource="classpath:/spring-trade-api.xml"/>
 	<!-- <import resource="SqlMapConfig.xml"/> -->
 
 </beans>
