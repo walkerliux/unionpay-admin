@@ -38,9 +38,9 @@ table tr td select {
 				<table width="100%" >
 					<tr style="height: 25px">
 							<td>交易要素</td>
-							<td align="left"><input type="text" id="user_loginName"
-								name="loginName" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							<td align="left"><select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
+							
+							</select></td>
 						</tr>
 					<!--<tr> 
 						<td align="right"></td>
@@ -71,44 +71,28 @@ table tr td select {
 			</table>
 		</div>
 	</div>
-	<!-- <div id="w3" class="easyui-window" closed="true" title="My Window"
-		iconCls="icon-save" style="width: 300px; height: 200px; padding: 5px;">
-		<div class="easyui-layout" fit="true">
-			<div region="center" border="false"
-				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<input id="userId_addrole" name="userId" type="hidden" />
-				<form action="" id="passwordRestForm" name="PasswordForm">
-				<table width="100%" id="excelDetail">
-					
-				</table>
-			</form>
-				
-			</div>
-		</div>
-	</div> -->
+	
 	<div id="w" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="saveForm" action="portalManager/save"
+				<form id="saveForm" action="portalManager/startBatchTrade"
 					method="post">
-					<input type="hidden" id="user_id" name="userId" /> <input
-						type="hidden" id="user_status" name="status" />
+					<input type="hidden" id="json_Str" name="jsonStr" /> 
 					<table width="100%" cellpadding="2" cellspacing="2">
-						 <tr style="height: 25px">
+						<tr style="height: 25px">
+							<td>交易要素</td>
+							<td align="left"><select id="Ttransfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
+							
+							</select></td>
+						</tr>
+						<tr style="height: 25px">
 						<td>交易批次号</td>
 						<td align="left"><input type="text" id="batchNo"
 							name="batchNo" class="easyui-validatebox" required="true"
 							maxlength="20" missingMessage="请输入交易批次号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
 						</tr>
-						<tr style="height: 25px">
-							<td>交易要素</td>
-							<td align="left"><input type="text" id="user_loginName"
-								name="loginName" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-						</tr>
-						
 						
 					</table>
 				</form>
@@ -144,9 +128,8 @@ table tr td select {
 					text:'发起批量交易',
 					iconCls:'icon-add',
 					handler:function(){
-						$("#user_code").attr('readonly','readonly');
 						showAdd(0);
-						$("#saveForm").attr("action","portalManager/save");
+						$("#saveForm").attr("action","portalManager/startBatchTrade");
 					},   
 				    
 				}]
@@ -160,9 +143,9 @@ table tr td select {
 		
 		function showAdd(num){
 			var rows = $("#excelDetail").datagrid("getRows"); 
-			alert(rows[0].orderId);
-			$("#saveForm").attr("action","portalManager/save");
-			$('#saveForm :input').val('');
+			//alert(rows[0].orderId);
+			$("#saveForm").attr("action","portalManager/startBatchTrade");
+			//$('#saveForm :input').val('');
 			$('#w').window({
 				title: '发起批量交易',
 				top:100,
@@ -181,27 +164,18 @@ table tr td select {
 			$('#w').window('close');
 			
 		}		
-		function search(){
+		/* function search(){
 			 //document.getElementById("uploadForm").submit();
 		
 			 var data=new FormData($('#uploadForm')[0]);
 			 $('#test').datagrid('load', data);
 				
 			
-		}
+		} */
 		function saveUser(){
-			var type=$("#type").val();
-			if(type!=""){
-				$("#yantype").html("");
-			}else{
-				masg = "请选择卡类型";
-				$("#yantype").css("color", "red");
-				
-				$("#yantype").html(masg);
-			}
-			
 			$('#saveForm').form('submit', {  
 			    onSubmit: function(){  
+			    	
 			    	if($('#saveForm').form('validate')){
 			    		$('#btn_submit').linkbutton('disable');	
 			    		return true;   
@@ -210,27 +184,27 @@ table tr td select {
 			    },   
 			    success:function(data){ 
 			    	//alert(data)
-		    		/* $('#w').window('close');
-		    		 search();
-		    		$('#btn_submit').linkbutton('enable');
-		    		if(data=='true'){
-						$.messager.alert('提示',"保存成功");  
-					}else if(data=="false"){
-						$.messager.alert('提示',"保存失败");  
-					} */ 
 			    	var json = eval('(' + data + ')')
+		    		$('#w').window('close');	
+		    		$('#btn_submit').linkbutton('enable'); 
+		    		if(json.resultBool=='true'){
+						$.messager.alert('提示',"发起成功");  
+					}else if(json.resultBool=="false"){
+						$.messager.alert('提示',"发起失败");  
+					} 
+			    
 			    	 //alert(json)
-			    	$.each(json, function(key,value){
+			    	/* $.each(json, function(key,value){
 			    		$.messager.alert('提示',value);   
 			    		search();
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
-					}) 
+					}) */ 
 			    }   
 			});  
 		}
 		
-		function showbin(cardbin){
+		/* function showbin(cardbin){
 			
 			$.ajax({
 			   type: "POST",
@@ -265,7 +239,7 @@ table tr td select {
 			});
 			$("#saveForm").attr("action","bin/update");
 			$('#btn_submit').linkbutton('enable');	
-		}
+		} */
 		// 验证cardbin
 		function money() {
 			var cardbin = $("#cardbin").val();
@@ -304,44 +278,27 @@ table tr td select {
 			}
 			return isok;
 		}
-		//yanzhentype(1)
-		function yanzhentype(){
-			var type=$("#type").val();
-			if(type!=""){
-				$("#yantype").html("");
-			}else{
-				masg = "请选择卡类型";
-				$("#yantype").css("color", "red");
-				
-				$("#yantype").html(masg);
-			}
-		}
 		
-	$(function() {
+		
 
-
-	
-});
-	function selectTbankInsti(jp) {
-		$.ajax({
-			type: "POST",
-			url: "bin/selectTbankInsti",
-			data: "bankname=" +jp,
-			/* dataType: "json", */
-			success: function(json) {
-				var html;
-				$.each(json,function(key, value) {
-					alert(value.id);
-					var codenode = value.id;
-					$("#bankcode").val(codenode);
-				});
-			}
-		});
-	}
 	function invokeFunction() {
 		showbinFunction($('#userId').val())
 	}
-	
+	//页面加载完成 获取交易要素
+	$(document).ready(function(){
+		$.ajax({
+			   type: "POST",
+			   url: "portalManager/getTransfactors",	 
+			   dataType:"json",
+			   success: function(json) {
+		
+			var	html = '<option value="' + json.paraCode + '" selected="selected">' + json.paraName + '</option>';
+				$("#transfactors,#Ttransfactors").html(html);
+				//alert(html);
+			   }
+		});
+	})
+	//ajax上传Excel文件
 	$('#btn').click(function () {
 	    $.ajax(
 	        {
@@ -352,8 +309,11 @@ table tr td select {
 	        	    processData: false,
 	        	    contentType: false,
 	            	success: function (json) {
-	            	 //alert(str);
 	            	 $('#excelDetail').datagrid('loadData', json);
+	            	 var jsonStr=JSON.stringify(json);
+	            	 //alert(jsonStr)
+	            	 $('#json_Str').val(jsonStr);
+	            	 
 	            }
 	        }
 	    );

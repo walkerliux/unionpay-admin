@@ -124,7 +124,6 @@ public class PortalManagerController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		String loginName =infoByToken.getLoginName();
 		TParaDic paraDic =portalService.getTransfactors(loginName);
-	  
 		return paraDic;
 	}
 	
