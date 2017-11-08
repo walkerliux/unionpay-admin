@@ -63,10 +63,10 @@ table tr td select {
 						<td align="right">渠道代码</td>
 						<td align="left" style="padding-left: 5px"><input
 							name="cacode" id="s_cacode" maxlength="11" /></td>
-						<td class="add" align="right">上级代理</td>
+						<td class="add" align="right">上级渠道</td>
 						<td class="add" align="left" style="padding-left: 5px">
 						<select id="s_supercode" name="supercode">
-							<option value=''>--请选择上级代理--</option>
+							<option value=''>--请选择上级渠道--</option>
 							<option value='0'></option>
 						</select></td>
 					<tr>
@@ -139,10 +139,10 @@ table tr td select {
 								maxlength="255" missingMessage="请输入地址" /><font color="red">*</font></td>
 							<td class="update">上级渠道</td>
 							<td class="update" align="left">
-							<select id="supercode" class="easyui-validatebox" required="true" missingMessage="请选择上级代理" name="supercode"/>
+							<select id="supercode" name="supercode"/>
 								<option value=''>--请选择上级渠道--</option>
 								<option value='0'></option>
-							</select><font color="red">*</font></td>
+							</select></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -200,7 +200,7 @@ table tr td select {
 					{field:'address',title:'地址',align:'center',width:200},
 					{field:'contact',title:'联系人',align:'center',width:80},
 					{field:'contPhone',title:'联系电话',align:'center',width:100},
-					{field:'calevel',title:'渠道级别',align:'center',width:60},
+					/* {field:'calevel',title:'渠道级别',align:'center',width:60}, */
 					{field:'superName',title:'上级渠道',align:'center',width:150},
 					{field:'notes',title:'备注',align:'center',width:120},
 					{field:'status',title:'状态',width:100,align:'center',
@@ -403,7 +403,7 @@ table tr td select {
 // 				data:"supercode=" + supercode,
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择上级代理--</option>";
+					var html = "<option value=''>--请选择上级渠道--</option>";
 					if (supercode == 0) {
 						html += "<option value='0' selected='selected'></option>";
 					} else {
@@ -428,7 +428,7 @@ table tr td select {
 				url: "coopAgency/queryAllSuperCode",
 				dataType: "json",
 				success: function(json) {
-					var html = "<option value=''>--请选择上级代理--</option>";
+					var html = "<option value=''>--请选择上级渠道--</option>";
 					html += "<option value='0'></option>";
 					$.each(json,function(key, value) {
 							html += '<option value="' + value.cacode + '">' + value.caname + '</option>';

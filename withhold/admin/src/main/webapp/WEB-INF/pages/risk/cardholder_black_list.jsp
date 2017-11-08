@@ -86,6 +86,7 @@
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<form id="theForm" method="post" action="">
 					<input name="tid" id="tid" type="hidden" />
+					<input type="hidden" id="risklevel" name="risklevel"/>
 					<table width="100%" cellpadding="2" cellspacing="2" style="text-align: left">
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -96,12 +97,13 @@
 								<input name="idnum" id="idnum" validType="minLength[16,16]"
 								maxlength="19" class="easyui-validatebox" required="required" missingMessage="请输入持卡人身份证号"/></td>
 							<td class="update" width="15%">风险等级</td>
-							<td class="update" align="left">
-								<select id="risklevel" class="easyui-validatebox"
+							<td class="update" align="left">拒绝
+								<!-- <select id="risklevel" class="easyui-validatebox"
 									missingMessage="请选择风险等级" required="true"
 									name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
-							</select></td>
+								</select> -->
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -218,11 +220,12 @@
 		}
 	
 		function showAdd() {
-			$('#riskver').attr("readonly", false);
+			$('#idnum').attr("readonly", false);
 			$('#theForm :input').val('');
+			$("#risklevel").val('5');
 			$("#theForm").attr("action", "risk/addCardholderBlackList");
 			$('#btn_submit').linkbutton('enable');
-			showRiskLevel();
+			//showRiskLevel();
 			$('#w').window({
 				title: '持卡人黑名单信息',
 				top: panelVertFloat, 
@@ -265,7 +268,7 @@
 			});
 		}
 		
-		function showRiskLevel(risklevel) {
+		/* function showRiskLevel(risklevel) {
 			$.ajax({
 				type: "POST",
 				url: "risk/showAllRisklevel",
@@ -282,11 +285,12 @@
 					$("#risklevel").html(html);
 				}
 			});
-		}
+		} */
 		
 		function showBlackIdnum(tid) {
 			$('#idnum').attr("readonly", true);
 			$('#theForm :input').val('');
+			$("#risklevel").val('5');
 			$("#theForm").attr("action", "risk/updateCardholderBlackList");
 			$('#btn_submit').linkbutton('enable');
 			$.ajax({
@@ -298,7 +302,7 @@
 					$("#idnum").val(json.idnum);
 					$("#tid").val(json.tid);
 					$("#notes").val(json.notes);
-					showRiskLevel(json.risklevel)
+					//showRiskLevel(json.risklevel)
 				}
 	
 			});
