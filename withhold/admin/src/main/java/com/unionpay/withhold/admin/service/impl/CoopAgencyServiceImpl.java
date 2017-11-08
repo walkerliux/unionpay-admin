@@ -18,6 +18,7 @@ import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApplyExample;
+import com.unionpay.withhold.admin.pojo.TCoopAgencyExample;
 import com.unionpay.withhold.admin.service.CoopAgencyService;
 import com.unionpay.withhold.utils.BeanCopyUtil;
 
@@ -87,8 +88,21 @@ public class CoopAgencyServiceImpl implements CoopAgencyService {
 			coopAgencyApply.setIntime(new Date());
 			coopAgencyApply.setInuser(coopAgency.getInuser());
 			coopAgencyApply.setRiskver(agencyBack.getRiskver());
-			if (coopAgency.getSupercode().equals("0")) {
+			if (StringUtils.isBlank(coopAgency.getSupercode())) {
+				coopAgencyApply.setSupercode("0");
 				coopAgencyApply.setCalevel((short) 1);
+			} else if (coopAgency.getSupercode().equals("0")) {
+				coopAgencyApply.setCalevel((short) 1);
+			}else {
+				TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();
+				TCoopAgencyExample.Criteria criteriaSuper = coopAgencyExample.createCriteria();
+				criteriaSuper.andCacodeEqualTo(coopAgency.getSupercode());
+				criteriaSuper.andStatusEqualTo(CoopAgencyStatusEnums.NORMAL.getCode());
+				List<TCoopAgency> coopAgencyList = coopAgencyMapper.selectByExample(coopAgencyExample);
+				if (coopAgencyList.size() == 0) {
+					return new ResultBean("", "上级渠道不存在！");
+				}
+				coopAgencyApply.setCalevel((short) (coopAgencyList.get(0).getCalevel() + 1));
 			}
 			coopAgencyApply.setStatus(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode());
 			int count = coopAgencyApplyMapper.insertSelective(coopAgencyApply);

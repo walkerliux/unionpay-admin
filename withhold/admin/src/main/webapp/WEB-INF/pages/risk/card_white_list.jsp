@@ -90,16 +90,16 @@
 						</tr>
 						<tr>
 							<td class="update" width="15%">银行卡号</td>
-							<td class="update" align="left">
+							<td class="update" align="left" colspan="3">
 								<input name="pan" id="pan" validType="minLength[16,16]"
 								maxlength="19" class="easyui-validatebox" required="required" missingMessage="请输入银行卡号"/></td>
-							<td class="update" width="15%">风险等级</td>
+							<!-- <td class="update" width="15%">风险等级</td>
 							<td class="update" align="left">
 								<select id="risklevel" class="easyui-validatebox"
 									missingMessage="请选择风险等级" required="true"
 									name="risklevel" class="easyui-validatebox">
 									<option value="">--请选择风险等级--</option>
-							</select></td>
+							</select></td> -->
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -158,13 +158,13 @@
 					title: '银行卡号',
 					width: 200,
 					align: 'center'
-				},
+				}/* ,
 				{
 					field: 'riskLevelName',
 					title: '风险等级',
 					width: 100,
 					align: 'center'
-				},
+				} */,
 				{
 					field: 'status',
 					title: '状态',
@@ -216,11 +216,11 @@
 		}
 	
 		function showAdd() {
-			$('#riskver').attr("readonly", false);
+			$('#pan').attr("readonly", false);
 			$('#theForm :input').val('');
 			$("#theForm").attr("action", "risk/addCardWhiteList");
 			$('#btn_submit').linkbutton('enable');
-			showRiskLevel();
+			//showRiskLevel();
 			$('#w').window({
 				title: '银行卡白名单信息',
 				top: panelVertFloat, 
@@ -263,7 +263,7 @@
 			});
 		}
 		
-		function showRiskLevel(risklevel) {
+		/* function showRiskLevel(risklevel) {
 			$.ajax({
 				type: "POST",
 				url: "risk/showAllRisklevel",
@@ -280,7 +280,7 @@
 					$("#risklevel").html(html);
 				}
 			});
-		}
+		} */
 		
 		function showWhitePan(tId) {
 			$('#pan').attr("readonly", true);
@@ -296,7 +296,7 @@
 					$("#pan").val(json.pan);
 					$("#tId").val(json.tId);
 					$("#notes").val(json.notes);
-					showRiskLevel(json.risklevel)
+					//showRiskLevel(json.risklevel)
 				}
 	
 			});

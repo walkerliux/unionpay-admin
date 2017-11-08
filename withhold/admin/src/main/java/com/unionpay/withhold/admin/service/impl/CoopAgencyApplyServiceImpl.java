@@ -58,7 +58,10 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			return new ResultBean("", "此渠道代码被注册过！");
 		}
 
-		if (coopAgencyApply.getSupercode().equals("0")) {
+		if (StringUtils.isBlank(coopAgencyApply.getSupercode())) {
+			coopAgencyApply.setSupercode("0");
+			coopAgencyApply.setCalevel((short) 1);
+		} else if (coopAgencyApply.getSupercode().equals("0")) {
 			coopAgencyApply.setCalevel((short) 1);
 		} else {
 			TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();
@@ -102,8 +105,21 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 			CoopAgencyStatusEnums status = null;
 
 			//coopAgencyApply.setIntime(new Date());
-			if (coopAgencyApply.getSupercode().equals("0")) {
+			if (StringUtils.isBlank(coopAgencyApply.getSupercode())) {
+				coopAgencyApply.setSupercode("0");
 				coopAgencyApply.setCalevel((short) 1);
+			} else if (coopAgencyApply.getSupercode().equals("0")) {
+				coopAgencyApply.setCalevel((short) 1);
+			} else {
+				TCoopAgencyExample coopAgencyExample = new TCoopAgencyExample();
+				TCoopAgencyExample.Criteria criteria = coopAgencyExample.createCriteria();
+				criteria.andCacodeEqualTo(coopAgencyApply.getSupercode());
+				criteria.andStatusEqualTo(CoopAgencyStatusEnums.NORMAL.getCode());
+				List<TCoopAgency> coopAgencyList = coopAgencyMapper.selectByExample(coopAgencyExample);
+				if (coopAgencyList.size() == 0) {
+					return new ResultBean("", "上级渠道不存在！");
+				}
+				coopAgencyApply.setCalevel((short) (coopAgencyList.get(0).getCalevel() + 1));
 			}
 			// 根据状态判断是哪种操作，再进行状态变更
 			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {// 注册待审——不变
