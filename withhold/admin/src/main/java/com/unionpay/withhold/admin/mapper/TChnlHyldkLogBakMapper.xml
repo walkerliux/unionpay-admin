@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TChnlHyldkLogBakMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak" >
+    <id column="TID" property="tid" jdbcType="INTEGER" />
+    <result column="TXNSEQNO" property="txnseqno" jdbcType="CHAR" />
+    <result column="TRXCODE" property="trxcode" jdbcType="VARCHAR" />
+    <result column="VERSION" property="version" jdbcType="CHAR" />
+    <result column="DATATYPE" property="datatype" jdbcType="CHAR" />
+    <result column="PROCESSLEVEL" property="processlevel" jdbcType="CHAR" />
+    <result column="REQSN" property="reqsn" jdbcType="VARCHAR" />
+    <result column="SIGNEDMSG" property="signedmsg" jdbcType="VARCHAR" />
+    <result column="BUSINESSCODE" property="businesscode" jdbcType="CHAR" />
+    <result column="MERCHANTID" property="merchantid" jdbcType="CHAR" />
+    <result column="TOTALITEM" property="totalitem" jdbcType="CHAR" />
+    <result column="TOTALSUM" property="totalsum" jdbcType="INTEGER" />
+    <result column="SN" property="sn" jdbcType="CHAR" />
+    <result column="EUSERCODE" property="eusercode" jdbcType="CHAR" />
+    <result column="BANKCODE" property="bankcode" jdbcType="CHAR" />
+    <result column="ACCOUNTTYPE" property="accounttype" jdbcType="CHAR" />
+    <result column="ACCOUNTNO" property="accountno" jdbcType="VARCHAR" />
+    <result column="ACCOUNTNAME" property="accountname" jdbcType="VARCHAR" />
+    <result column="AMOUNT" property="amount" jdbcType="INTEGER" />
+    <result column="CURRENCY" property="currency" jdbcType="CHAR" />
+    <result column="PROTOCOL" property="protocol" jdbcType="VARCHAR" />
+    <result column="PROTOCOLUSERID" property="protocoluserid" jdbcType="CHAR" />
+    <result column="IDTYPE" property="idtype" jdbcType="CHAR" />
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="CHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="RETCODE" property="retcode" jdbcType="CHAR" />
+    <result column="ERRMSG" property="errmsg" jdbcType="VARCHAR" />
+    <result column="RESERVE1" property="reserve1" jdbcType="VARCHAR" />
+    <result column="RESERVE2" property="reserve2" jdbcType="VARCHAR" />
+    <result column="INTIME" property="intime" jdbcType="TIMESTAMP" />
+    <result column="UPTIME" property="uptime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TID, TXNSEQNO, TRXCODE, VERSION, DATATYPE, PROCESSLEVEL, REQSN, SIGNEDMSG, BUSINESSCODE, 
+    MERCHANTID, TOTALITEM, TOTALSUM, SN, EUSERCODE, BANKCODE, ACCOUNTTYPE, ACCOUNTNO, 
+    ACCOUNTNAME, AMOUNT, CURRENCY, PROTOCOL, PROTOCOLUSERID, IDTYPE, ID, TEL, REMARK, 
+    RETCODE, ERRMSG, RESERVE1, RESERVE2, INTIME, UPTIME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_chnl_hyldk_log_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_chnl_hyldk_log_bak
+    where TID = #{tid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_chnl_hyldk_log_bak
+    where TID = #{tid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample" >
+    delete from t_chnl_hyldk_log_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak" >
+    insert into t_chnl_hyldk_log_bak (TID, TXNSEQNO, TRXCODE, 
+      VERSION, DATATYPE, PROCESSLEVEL, 
+      REQSN, SIGNEDMSG, BUSINESSCODE, 
+      MERCHANTID, TOTALITEM, TOTALSUM, 
+      SN, EUSERCODE, BANKCODE, ACCOUNTTYPE, 
+      ACCOUNTNO, ACCOUNTNAME, AMOUNT, 
+      CURRENCY, PROTOCOL, PROTOCOLUSERID, 
+      IDTYPE, ID, TEL, REMARK, 
+      RETCODE, ERRMSG, RESERVE1, 
+      RESERVE2, INTIME, UPTIME
+      )
+    values (#{tid,jdbcType=INTEGER}, #{txnseqno,jdbcType=CHAR}, #{trxcode,jdbcType=VARCHAR}, 
+      #{version,jdbcType=CHAR}, #{datatype,jdbcType=CHAR}, #{processlevel,jdbcType=CHAR}, 
+      #{reqsn,jdbcType=VARCHAR}, #{signedmsg,jdbcType=VARCHAR}, #{businesscode,jdbcType=CHAR}, 
+      #{merchantid,jdbcType=CHAR}, #{totalitem,jdbcType=CHAR}, #{totalsum,jdbcType=INTEGER}, 
+      #{sn,jdbcType=CHAR}, #{eusercode,jdbcType=CHAR}, #{bankcode,jdbcType=CHAR}, #{accounttype,jdbcType=CHAR}, 
+      #{accountno,jdbcType=VARCHAR}, #{accountname,jdbcType=VARCHAR}, #{amount,jdbcType=INTEGER}, 
+      #{currency,jdbcType=CHAR}, #{protocol,jdbcType=VARCHAR}, #{protocoluserid,jdbcType=CHAR}, 
+      #{idtype,jdbcType=CHAR}, #{id,jdbcType=VARCHAR}, #{tel,jdbcType=CHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{retcode,jdbcType=CHAR}, #{errmsg,jdbcType=VARCHAR}, #{reserve1,jdbcType=VARCHAR}, 
+      #{reserve2,jdbcType=VARCHAR}, #{intime,jdbcType=TIMESTAMP}, #{uptime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak" >
+    insert into t_chnl_hyldk_log_bak
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        TID,
+      </if>
+      <if test="txnseqno != null" >
+        TXNSEQNO,
+      </if>
+      <if test="trxcode != null" >
+        TRXCODE,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+      <if test="datatype != null" >
+        DATATYPE,
+      </if>
+      <if test="processlevel != null" >
+        PROCESSLEVEL,
+      </if>
+      <if test="reqsn != null" >
+        REQSN,
+      </if>
+      <if test="signedmsg != null" >
+        SIGNEDMSG,
+      </if>
+      <if test="businesscode != null" >
+        BUSINESSCODE,
+      </if>
+      <if test="merchantid != null" >
+        MERCHANTID,
+      </if>
+      <if test="totalitem != null" >
+        TOTALITEM,
+      </if>
+      <if test="totalsum != null" >
+        TOTALSUM,
+      </if>
+      <if test="sn != null" >
+        SN,
+      </if>
+      <if test="eusercode != null" >
+        EUSERCODE,
+      </if>
+      <if test="bankcode != null" >
+        BANKCODE,
+      </if>
+      <if test="accounttype != null" >
+        ACCOUNTTYPE,
+      </if>
+      <if test="accountno != null" >
+        ACCOUNTNO,
+      </if>
+      <if test="accountname != null" >
+        ACCOUNTNAME,
+      </if>
+      <if test="amount != null" >
+        AMOUNT,
+      </if>
+      <if test="currency != null" >
+        CURRENCY,
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL,
+      </if>
+      <if test="protocoluserid != null" >
+        PROTOCOLUSERID,
+      </if>
+      <if test="idtype != null" >
+        IDTYPE,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="retcode != null" >
+        RETCODE,
+      </if>
+      <if test="errmsg != null" >
+        ERRMSG,
+      </if>
+      <if test="reserve1 != null" >
+        RESERVE1,
+      </if>
+      <if test="reserve2 != null" >
+        RESERVE2,
+      </if>
+      <if test="intime != null" >
+        INTIME,
+      </if>
+      <if test="uptime != null" >
+        UPTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tid != null" >
+        #{tid,jdbcType=INTEGER},
+      </if>
+      <if test="txnseqno != null" >
+        #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="trxcode != null" >
+        #{trxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=CHAR},
+      </if>
+      <if test="datatype != null" >
+        #{datatype,jdbcType=CHAR},
+      </if>
+      <if test="processlevel != null" >
+        #{processlevel,jdbcType=CHAR},
+      </if>
+      <if test="reqsn != null" >
+        #{reqsn,jdbcType=VARCHAR},
+      </if>
+      <if test="signedmsg != null" >
+        #{signedmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscode != null" >
+        #{businesscode,jdbcType=CHAR},
+      </if>
+      <if test="merchantid != null" >
+        #{merchantid,jdbcType=CHAR},
+      </if>
+      <if test="totalitem != null" >
+        #{totalitem,jdbcType=CHAR},
+      </if>
+      <if test="totalsum != null" >
+        #{totalsum,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        #{sn,jdbcType=CHAR},
+      </if>
+      <if test="eusercode != null" >
+        #{eusercode,jdbcType=CHAR},
+      </if>
+      <if test="bankcode != null" >
+        #{bankcode,jdbcType=CHAR},
+      </if>
+      <if test="accounttype != null" >
+        #{accounttype,jdbcType=CHAR},
+      </if>
+      <if test="accountno != null" >
+        #{accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=CHAR},
+      </if>
+      <if test="protocol != null" >
+        #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="protocoluserid != null" >
+        #{protocoluserid,jdbcType=CHAR},
+      </if>
+      <if test="idtype != null" >
+        #{idtype,jdbcType=CHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="retcode != null" >
+        #{retcode,jdbcType=CHAR},
+      </if>
+      <if test="errmsg != null" >
+        #{errmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uptime != null" >
+        #{uptime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample" resultType="java.lang.Integer" >
+    select count(*) from t_chnl_hyldk_log_bak
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_chnl_hyldk_log_bak
+    <set >
+      <if test="record.tid != null" >
+        TID = #{record.tid,jdbcType=INTEGER},
+      </if>
+      <if test="record.txnseqno != null" >
+        TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="record.trxcode != null" >
+        TRXCODE = #{record.trxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.version != null" >
+        VERSION = #{record.version,jdbcType=CHAR},
+      </if>
+      <if test="record.datatype != null" >
+        DATATYPE = #{record.datatype,jdbcType=CHAR},
+      </if>
+      <if test="record.processlevel != null" >
+        PROCESSLEVEL = #{record.processlevel,jdbcType=CHAR},
+      </if>
+      <if test="record.reqsn != null" >
+        REQSN = #{record.reqsn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signedmsg != null" >
+        SIGNEDMSG = #{record.signedmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businesscode != null" >
+        BUSINESSCODE = #{record.businesscode,jdbcType=CHAR},
+      </if>
+      <if test="record.merchantid != null" >
+        MERCHANTID = #{record.merchantid,jdbcType=CHAR},
+      </if>
+      <if test="record.totalitem != null" >
+        TOTALITEM = #{record.totalitem,jdbcType=CHAR},
+      </if>
+      <if test="record.totalsum != null" >
+        TOTALSUM = #{record.totalsum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sn != null" >
+        SN = #{record.sn,jdbcType=CHAR},
+      </if>
+      <if test="record.eusercode != null" >
+        EUSERCODE = #{record.eusercode,jdbcType=CHAR},
+      </if>
+      <if test="record.bankcode != null" >
+        BANKCODE = #{record.bankcode,jdbcType=CHAR},
+      </if>
+      <if test="record.accounttype != null" >
+        ACCOUNTTYPE = #{record.accounttype,jdbcType=CHAR},
+      </if>
+      <if test="record.accountno != null" >
+        ACCOUNTNO = #{record.accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountname != null" >
+        ACCOUNTNAME = #{record.accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.amount != null" >
+        AMOUNT = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.currency != null" >
+        CURRENCY = #{record.currency,jdbcType=CHAR},
+      </if>
+      <if test="record.protocol != null" >
+        PROTOCOL = #{record.protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="record.protocoluserid != null" >
+        PROTOCOLUSERID = #{record.protocoluserid,jdbcType=CHAR},
+      </if>
+      <if test="record.idtype != null" >
+        IDTYPE = #{record.idtype,jdbcType=CHAR},
+      </if>
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        TEL = #{record.tel,jdbcType=CHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.retcode != null" >
+        RETCODE = #{record.retcode,jdbcType=CHAR},
+      </if>
+      <if test="record.errmsg != null" >
+        ERRMSG = #{record.errmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve1 != null" >
+        RESERVE1 = #{record.reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reserve2 != null" >
+        RESERVE2 = #{record.reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intime != null" >
+        INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.uptime != null" >
+        UPTIME = #{record.uptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_chnl_hyldk_log_bak
+    set TID = #{record.tid,jdbcType=INTEGER},
+      TXNSEQNO = #{record.txnseqno,jdbcType=CHAR},
+      TRXCODE = #{record.trxcode,jdbcType=VARCHAR},
+      VERSION = #{record.version,jdbcType=CHAR},
+      DATATYPE = #{record.datatype,jdbcType=CHAR},
+      PROCESSLEVEL = #{record.processlevel,jdbcType=CHAR},
+      REQSN = #{record.reqsn,jdbcType=VARCHAR},
+      SIGNEDMSG = #{record.signedmsg,jdbcType=VARCHAR},
+      BUSINESSCODE = #{record.businesscode,jdbcType=CHAR},
+      MERCHANTID = #{record.merchantid,jdbcType=CHAR},
+      TOTALITEM = #{record.totalitem,jdbcType=CHAR},
+      TOTALSUM = #{record.totalsum,jdbcType=INTEGER},
+      SN = #{record.sn,jdbcType=CHAR},
+      EUSERCODE = #{record.eusercode,jdbcType=CHAR},
+      BANKCODE = #{record.bankcode,jdbcType=CHAR},
+      ACCOUNTTYPE = #{record.accounttype,jdbcType=CHAR},
+      ACCOUNTNO = #{record.accountno,jdbcType=VARCHAR},
+      ACCOUNTNAME = #{record.accountname,jdbcType=VARCHAR},
+      AMOUNT = #{record.amount,jdbcType=INTEGER},
+      CURRENCY = #{record.currency,jdbcType=CHAR},
+      PROTOCOL = #{record.protocol,jdbcType=VARCHAR},
+      PROTOCOLUSERID = #{record.protocoluserid,jdbcType=CHAR},
+      IDTYPE = #{record.idtype,jdbcType=CHAR},
+      ID = #{record.id,jdbcType=VARCHAR},
+      TEL = #{record.tel,jdbcType=CHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      RETCODE = #{record.retcode,jdbcType=CHAR},
+      ERRMSG = #{record.errmsg,jdbcType=VARCHAR},
+      RESERVE1 = #{record.reserve1,jdbcType=VARCHAR},
+      RESERVE2 = #{record.reserve2,jdbcType=VARCHAR},
+      INTIME = #{record.intime,jdbcType=TIMESTAMP},
+      UPTIME = #{record.uptime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak" >
+    update t_chnl_hyldk_log_bak
+    <set >
+      <if test="txnseqno != null" >
+        TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      </if>
+      <if test="trxcode != null" >
+        TRXCODE = #{trxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=CHAR},
+      </if>
+      <if test="datatype != null" >
+        DATATYPE = #{datatype,jdbcType=CHAR},
+      </if>
+      <if test="processlevel != null" >
+        PROCESSLEVEL = #{processlevel,jdbcType=CHAR},
+      </if>
+      <if test="reqsn != null" >
+        REQSN = #{reqsn,jdbcType=VARCHAR},
+      </if>
+      <if test="signedmsg != null" >
+        SIGNEDMSG = #{signedmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="businesscode != null" >
+        BUSINESSCODE = #{businesscode,jdbcType=CHAR},
+      </if>
+      <if test="merchantid != null" >
+        MERCHANTID = #{merchantid,jdbcType=CHAR},
+      </if>
+      <if test="totalitem != null" >
+        TOTALITEM = #{totalitem,jdbcType=CHAR},
+      </if>
+      <if test="totalsum != null" >
+        TOTALSUM = #{totalsum,jdbcType=INTEGER},
+      </if>
+      <if test="sn != null" >
+        SN = #{sn,jdbcType=CHAR},
+      </if>
+      <if test="eusercode != null" >
+        EUSERCODE = #{eusercode,jdbcType=CHAR},
+      </if>
+      <if test="bankcode != null" >
+        BANKCODE = #{bankcode,jdbcType=CHAR},
+      </if>
+      <if test="accounttype != null" >
+        ACCOUNTTYPE = #{accounttype,jdbcType=CHAR},
+      </if>
+      <if test="accountno != null" >
+        ACCOUNTNO = #{accountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountname != null" >
+        ACCOUNTNAME = #{accountname,jdbcType=VARCHAR},
+      </if>
+      <if test="amount != null" >
+        AMOUNT = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="currency != null" >
+        CURRENCY = #{currency,jdbcType=CHAR},
+      </if>
+      <if test="protocol != null" >
+        PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      </if>
+      <if test="protocoluserid != null" >
+        PROTOCOLUSERID = #{protocoluserid,jdbcType=CHAR},
+      </if>
+      <if test="idtype != null" >
+        IDTYPE = #{idtype,jdbcType=CHAR},
+      </if>
+      <if test="id != null" >
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="retcode != null" >
+        RETCODE = #{retcode,jdbcType=CHAR},
+      </if>
+      <if test="errmsg != null" >
+        ERRMSG = #{errmsg,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve1 != null" >
+        RESERVE1 = #{reserve1,jdbcType=VARCHAR},
+      </if>
+      <if test="reserve2 != null" >
+        RESERVE2 = #{reserve2,jdbcType=VARCHAR},
+      </if>
+      <if test="intime != null" >
+        INTIME = #{intime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uptime != null" >
+        UPTIME = #{uptime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak" >
+    update t_chnl_hyldk_log_bak
+    set TXNSEQNO = #{txnseqno,jdbcType=CHAR},
+      TRXCODE = #{trxcode,jdbcType=VARCHAR},
+      VERSION = #{version,jdbcType=CHAR},
+      DATATYPE = #{datatype,jdbcType=CHAR},
+      PROCESSLEVEL = #{processlevel,jdbcType=CHAR},
+      REQSN = #{reqsn,jdbcType=VARCHAR},
+      SIGNEDMSG = #{signedmsg,jdbcType=VARCHAR},
+      BUSINESSCODE = #{businesscode,jdbcType=CHAR},
+      MERCHANTID = #{merchantid,jdbcType=CHAR},
+      TOTALITEM = #{totalitem,jdbcType=CHAR},
+      TOTALSUM = #{totalsum,jdbcType=INTEGER},
+      SN = #{sn,jdbcType=CHAR},
+      EUSERCODE = #{eusercode,jdbcType=CHAR},
+      BANKCODE = #{bankcode,jdbcType=CHAR},
+      ACCOUNTTYPE = #{accounttype,jdbcType=CHAR},
+      ACCOUNTNO = #{accountno,jdbcType=VARCHAR},
+      ACCOUNTNAME = #{accountname,jdbcType=VARCHAR},
+      AMOUNT = #{amount,jdbcType=INTEGER},
+      CURRENCY = #{currency,jdbcType=CHAR},
+      PROTOCOL = #{protocol,jdbcType=VARCHAR},
+      PROTOCOLUSERID = #{protocoluserid,jdbcType=CHAR},
+      IDTYPE = #{idtype,jdbcType=CHAR},
+      ID = #{id,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=CHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      RETCODE = #{retcode,jdbcType=CHAR},
+      ERRMSG = #{errmsg,jdbcType=VARCHAR},
+      RESERVE1 = #{reserve1,jdbcType=VARCHAR},
+      RESERVE2 = #{reserve2,jdbcType=VARCHAR},
+      INTIME = #{intime,jdbcType=TIMESTAMP},
+      UPTIME = #{uptime,jdbcType=TIMESTAMP}
+    where TID = #{tid,jdbcType=INTEGER}
+  </update>
+</mapper>

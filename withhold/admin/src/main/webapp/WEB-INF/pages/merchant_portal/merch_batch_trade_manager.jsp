@@ -36,7 +36,7 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="uploadForm"  enctype="multipart/form-data">
 				<table width="100%" >
-					<tr style="height: 25px">
+					 <tr style="height: 25px">
 							<td>交易要素</td>
 							<td align="left"><select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
 							
@@ -141,185 +141,191 @@ table tr td select {
 			$('#searchForm :input').val('');
 		}
 		
-		function showAdd(num){
-			var rows = $("#excelDetail").datagrid("getRows"); 
-			//alert(rows[0].orderId);
-			$("#saveForm").attr("action","portalManager/startBatchTrade");
-			//$('#saveForm :input').val('');
+	
+	function showAdd(num) {
+
+		var rows = $("#excelDetail").datagrid("getRows");
+		$("#saveForm").attr("action", "portalManager/startBatchTrade");
+		//$('#saveForm :input').val('');
+		var jstr = $("#json_Str").val();
+		if (jstr == "") {
+			$.messager.alert('提示', "请优先上传批量文件");
+		} else {
 			$('#w').window({
-				title: '发起批量交易',
-				top:100,
-				width: 350,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 160
+				title : '发起批量交易',
+				top : 100,
+				width : 350,
+				modal : true,
+				minimizable : false,
+				collapsible : false,
+				maximizable : false,
+				shadow : false,
+				closed : false,
+				height : 160
 			});
-			$('#btn_submit').linkbutton('enable');	
+			$('#btn_submit').linkbutton('enable');
 		}
-		function closeAdd(){
-			$('#w').window('close');
-			
-		}		
-		/* function search(){
-			 //document.getElementById("uploadForm").submit();
-		
-			 var data=new FormData($('#uploadForm')[0]);
-			 $('#test').datagrid('load', data);
-				
-			
-		} */
-		function saveUser(){
-			$('#saveForm').form('submit', {  
-			    onSubmit: function(){  
-			    	
-			    	if($('#saveForm').form('validate')){
-			    		$('#btn_submit').linkbutton('disable');	
-			    		return true;   
-				    }
-			        return false;   
-			    },   
-			    success:function(data){ 
-			    	//alert(data)
-			    	var json = eval('(' + data + ')')
-		    		$('#w').window('close');	
-		    		$('#btn_submit').linkbutton('enable'); 
-		    		if(json.resultBool=='true'){
-						$.messager.alert('提示',"发起成功");  
-					}else if(json.resultBool=="false"){
-						$.messager.alert('提示',"发起失败");  
-					} 
-			    
-			    	 //alert(json)
-			    	/* $.each(json, function(key,value){
-			    		$.messager.alert('提示',value);   
-			    		search();
-			    		closeAdd();
-			    		$('#btn_submit').linkbutton('enable');	
-					}) */ 
-			    }   
-			});  
-		}
-		
-		/* function showbin(cardbin){
-			
-			$.ajax({
-			   type: "POST",
-			   url: "bin/getSingleById1",
-			   data: "cardbin="+cardbin,
-			   async: false,
-			   dataType:"json",
-			   success: function(json){	
-				   //alert(json.bankname);
-						$("#cardbin").val(json.cardbin);
-						$("#oldcardbin").val(json.cardbin);
-						$("#oldcardlen").val(json.cardlen);
-						$("#cardname").val(json.cardname);
-						$("#cardlen").val(json.cardlen);
-						//$("#bankcode").val(json.bankname);
-						$('#bankcode').combobox('select',json.bankname);
-						$("#type").val(json.type);
-						
-			   }
-			});
-			$('#w').window({
-				title: '修改卡bin信息',
-				top:200,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 220
-			});
-			$("#saveForm").attr("action","bin/update");
-			$('#btn_submit').linkbutton('enable');	
-		} */
-		// 验证cardbin
-		function money() {
-			var cardbin = $("#cardbin").val();
-			
-			var masg;
-			var isok = true;
-			if (cardbin != null && !isNaN(cardbin)) {
+	}
+	function closeAdd() {
+		$('#w').window('close');
 
-				$("#ADDVALUE").html("");
-			} else {
-				masg = "请输入正确的数值";
-				$("#ADDVALUE").css("color", "red");
+	}
+	/* function search(){
+		 //document.getElementById("uploadForm").submit();
+	
+		 var data=new FormData($('#uploadForm')[0]);
+		 $('#test').datagrid('load', data);
+			
+		
+	} */
+	function saveUser() {
+		$('#saveForm').form('submit', {
+			onSubmit : function() {
 
-				isok = false;
-				$("#ADDVALUE").html(masg);
-				
+				if ($('#saveForm').form('validate')) {
+					$('#btn_submit').linkbutton('disable');
+					return true;
+				}
+				return false;
+			},
+			success : function(data) {
+				//alert(data)
+				var json = eval('(' + data + ')')
+				$('#w').window('close');
+				$('#btn_submit').linkbutton('enable');
+				if (json.resultBool == 'true') {
+					$.messager.alert('提示', "发起成功");
+				} else if (json.resultBool == "false") {
+					$.messager.alert('提示', "发起失败");
+				}
+
+				//alert(json)
+				/* $.each(json, function(key,value){
+					$.messager.alert('提示',value);   
+					search();
+					closeAdd();
+					$('#btn_submit').linkbutton('enable');	
+				}) */
 			}
-			return isok;
-		}
-		// 验证cardlen
-		function moneylen() {
-			
-			var len = $("#cardlen").val();
-			var masg;
-			var isok = true;
-			if (len!=null&& !isNaN(len)) {
+		});
+	}
 
-				$("#LENADDVALUE").html("");
-			} else {
-				masg = "请输入正确的数值";
-				$("#LENADDVALUE").css("color", "red");
+	/* function showbin(cardbin){
+		
+		$.ajax({
+		   type: "POST",
+		   url: "bin/getSingleById1",
+		   data: "cardbin="+cardbin,
+		   async: false,
+		   dataType:"json",
+		   success: function(json){	
+			   //alert(json.bankname);
+					$("#cardbin").val(json.cardbin);
+					$("#oldcardbin").val(json.cardbin);
+					$("#oldcardlen").val(json.cardlen);
+					$("#cardname").val(json.cardname);
+					$("#cardlen").val(json.cardlen);
+					//$("#bankcode").val(json.bankname);
+					$('#bankcode').combobox('select',json.bankname);
+					$("#type").val(json.type);
+					
+		   }
+		});
+		$('#w').window({
+			title: '修改卡bin信息',
+			top:200,
+			width: 650,
+			modal: true,
+			minimizable:false,
+			collapsible:false,
+			maximizable:false,
+			shadow: false,
+			closed: false,
+			height: 220
+		});
+		$("#saveForm").attr("action","bin/update");
+		$('#btn_submit').linkbutton('enable');	
+	} */
+	// 验证cardbin
+	function money() {
+		var cardbin = $("#cardbin").val();
 
-				isok = false;
-				
-				$("#LENADDVALUE").html(masg);
-			}
-			return isok;
+		var masg;
+		var isok = true;
+		if (cardbin != null && !isNaN(cardbin)) {
+
+			$("#ADDVALUE").html("");
+		} else {
+			masg = "请输入正确的数值";
+			$("#ADDVALUE").css("color", "red");
+
+			isok = false;
+			$("#ADDVALUE").html(masg);
+
 		}
-		
-		
+		return isok;
+	}
+	// 验证cardlen
+	function moneylen() {
+
+		var len = $("#cardlen").val();
+		var masg;
+		var isok = true;
+		if (len != null && !isNaN(len)) {
+
+			$("#LENADDVALUE").html("");
+		} else {
+			masg = "请输入正确的数值";
+			$("#LENADDVALUE").css("color", "red");
+
+			isok = false;
+
+			$("#LENADDVALUE").html(masg);
+		}
+		return isok;
+	}
 
 	function invokeFunction() {
 		showbinFunction($('#userId').val())
 	}
 	//页面加载完成 获取交易要素
-	$(document).ready(function(){
-		$.ajax({
-			   type: "POST",
-			   url: "portalManager/getTransfactors",	 
-			   dataType:"json",
-			   success: function(json) {
-		
-			var	html = '<option value="' + json.paraCode + '" selected="selected">' + json.paraName + '</option>';
-				$("#transfactors,#Ttransfactors").html(html);
-				//alert(html);
-			   }
-		});
-	})
+	$(document)
+			.ready(
+					function() {
+						$
+								.ajax({
+									type : "POST",
+									url : "portalManager/getTransfactors",
+									dataType : "json",
+									success : function(json) {
+
+										var html = '<option value="' + json.paraCode + '" selected="selected">'
+												+ json.paraName + '</option>';
+										$("#transfactors,#Ttransfactors").html(
+												html);
+										//alert(html);
+									}
+								});
+					})
 	//ajax上传Excel文件
-	$('#btn').click(function () {
-	    $.ajax(
-	        {
-	        	 url: 'portalManager/showDetails',
-	        	    type: 'POST',
-	        	    cache: false,
-	        	    data: new FormData($('#uploadForm')[0]),
-	        	    processData: false,
-	        	    contentType: false,
-	            	success: function (json) {
-	            	 $('#excelDetail').datagrid('loadData', json);
-	            	 var jsonStr=JSON.stringify(json);
-	            	 //alert(jsonStr)
-	            	 $('#json_Str').val(jsonStr);
-	            	 
-	            }
-	        }
-	    );
-	  
+	$('#btn').click(function() {
+		$.ajax({
+			url : 'portalManager/showDetails',
+			type : 'POST',
+			cache : false,
+			data : new FormData($('#uploadForm')[0]),
+			processData : false,
+			contentType : false,
+			success : function(json) {
+				$('#excelDetail').datagrid('loadData', json);
+				var jsonStr = JSON.stringify(json);
+				//alert(jsonStr)
+				$('#json_Str').val(jsonStr);
+
+			}
+		});
+
 	});
-	
 </script>
 
 </html>

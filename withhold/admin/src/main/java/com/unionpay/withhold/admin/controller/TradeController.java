@@ -12,6 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLog;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
 import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
@@ -73,7 +75,7 @@ public class TradeController {
 	     return result;
 	}
 	/**
-	 * 渠道流水批量查询页面
+	 * ChinaPay流水批量查询页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
@@ -154,7 +156,7 @@ public class TradeController {
 	}
 
 	/**
-	 * 渠道批量条件分页查询
+	 * ChinaPay批量条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
@@ -168,7 +170,7 @@ public class TradeController {
 	}
 
 	/**
-	 * 渠道实时条件分页查询
+	 * ChinaPay实时条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
@@ -181,7 +183,7 @@ public class TradeController {
 	    return resultBean;
 	}
 	/**
-	 * 渠道实时条件分页查询
+	 * 商户实时条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
@@ -229,7 +231,7 @@ public class TradeController {
 	}
 	//getCollectOrderDetaByBatchNo?batchno=1505978983775
 	/**
-	 * 获取批量订单明细
+	 * 获取ChinaPay订单明细
 	 * @param batchno
 	 * @return
 	 */
@@ -239,9 +241,9 @@ public class TradeController {
 		PageBean result =tradeService.getCollectOrderDetaByBatchNo(batchno,page,rows);
 	    return result;
 	}
-	//getChnCollectDetaByBatchNo
+	
 	/**
-	 * 获取批量渠道明细
+	 * 获取批量ChinaPay明细
 	 * @param batchno
 	 * @return
 	 */
@@ -251,6 +253,8 @@ public class TradeController {
 		PageBean result =tradeService.getChnCollectDetaByBatchNo(batchno,page,rows);
 	    return result;
 	}
+	
+	
 	
 	/*******************************************历史查询***********************************/
 	/**
@@ -278,7 +282,7 @@ public class TradeController {
 	     return result;
 	}
 	/**
-	 * 历史渠道流水批量查询页面
+	 * 历史ChinaPay流水批量查询页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
@@ -290,7 +294,7 @@ public class TradeController {
 	     return result;
 	}
 	/**
-	 * 历史渠道流水实时查询页面
+	 * 历史ChinaPay流水实时查询页面
 	 * @author: 
 	 * @return ModelAndView
 	 * 
@@ -358,7 +362,7 @@ public class TradeController {
 	    return resultBean;
 	}
 	/**
-	 * 渠道实时条件分页查询
+	 * 商户实时条件分页查询
 	 * @author:LIUXIN
 	 * @return ModelAndView
 	 * 
@@ -419,12 +423,63 @@ public class TradeController {
 	/**
 	 * 获取批量渠道明细
 	 * @param batchno
+	 * @param page rows
 	 * @return
 	 */
 	@RequestMapping("/getChnCollectDetaByBatchNo_bak")
 	@ResponseBody
 	public PageBean getChnCollectDetaByBatchNo_bak(String batchno,int page,int rows) {
 		PageBean result =tradeService.getChnCollectDetaByBatchNo_bak(batchno,page,rows);
+	    return result;
+	}
+	
+	/**************************添加好易联通道交易查询**************************/
+	/**
+	 * 好易联实时查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/chnl_hyldk_log")
+	public ModelAndView showt_chnl_hyldk_log() {
+		 ModelAndView result=new ModelAndView("/trade/t_chnl_hyldk_log");
+	     return result;
+	}
+	/**
+	 * 好易联历史查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/chnl_hyldk_log_bak")
+	public ModelAndView showt_chnl_hyldk_log_bak() {
+		 ModelAndView result=new ModelAndView("/trade/t_chnl_hyldk_log_bak");
+	     return result;
+	}
+	/**
+	 * 获取好易联实时交易
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/getHYLCollectDeta")
+	@ResponseBody
+	public PageBean getHYLCollectDeta(TChnlHyldkLog hyldkLog,String stime,String etime,int page,int rows) {
+		PageBean result =tradeService.getHYLCollectDeta(hyldkLog,stime,etime,page,rows);
+	    return result;
+	}
+	/**
+	 * 获取好易联历史交易
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/getHYLCollectBakDeta")
+	@ResponseBody
+	public PageBean getHYLCollectBakDeta(TChnlHyldkLogBak hyldkLog,String stime,String etime,int page,int rows) {
+		PageBean result =tradeService.getHYLCollectBakDeta(hyldkLog,stime,etime,page,rows);
 	    return result;
 	}
 }

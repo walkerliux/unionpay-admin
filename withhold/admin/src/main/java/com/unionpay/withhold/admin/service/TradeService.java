@@ -5,6 +5,8 @@ import java.util.List;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatch;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLog;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
 import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
@@ -63,5 +65,9 @@ public interface TradeService {
 			String stime, String etime, int page, int rows);
 
 	PageBean getChnCollectDetaByBatchNo_bak(String batchno, int page, int rows);
+
+	PageBean getHYLCollectDeta(TChnlHyldkLog hyldkLog,String stime,String etime,int page,int rows);
+
+	PageBean getHYLCollectBakDeta(TChnlHyldkLogBak hyldkLog,String stime,String etime,int page,int rows);
 
 }

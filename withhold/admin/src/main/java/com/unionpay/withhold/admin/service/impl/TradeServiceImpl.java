@@ -1,5 +1,7 @@
 package com.unionpay.withhold.admin.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TChnlCpdkBatchDetaMapper;
 import com.unionpay.withhold.admin.mapper.TChnlCpdkBatchMapper;
 import com.unionpay.withhold.admin.mapper.TChnlCpdkLogMapper;
+import com.unionpay.withhold.admin.mapper.TChnlHyldkLogBakMapper;
+import com.unionpay.withhold.admin.mapper.TChnlHyldkLogMapper;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectBatchMapper;
 import com.unionpay.withhold.admin.mapper.TOrderCollectDetaMapper;
@@ -21,6 +25,10 @@ import com.unionpay.withhold.admin.pojo.TChnlCpdkBatchDetaExample;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkBatchExample;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLog;
 import com.unionpay.withhold.admin.pojo.TChnlCpdkLogExample;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLog;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
 import com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample;
 import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
@@ -51,6 +59,10 @@ public class TradeServiceImpl implements TradeService {
 	private TChnlCpdkBatchDetaMapper tChnlCpdkBatchDetaMapper;
 	@Autowired
 	private TOrderCollectSingleMapper tOrderCollectSingleMapper;
+	@Autowired
+	private TChnlHyldkLogBakMapper tChnlHyldkLogBakMapper;
+	@Autowired
+	private TChnlHyldkLogMapper tChnlHyldkLogMapper;
 	@Override
 	public PageBean getTxnsLogByPage(TTxnsLog tTxnsLog, String stime,
 			String etime, int page, int rows) {
@@ -532,9 +544,79 @@ public class TradeServiceImpl implements TradeService {
 		List<TChnlCpdkBatchDeta> result = tChnlCpdkBatchDetaMapper.selectByExample_bak(tChnlCpdkBatchDetaExample);
 		return new PageBean(total, result);
 	}
-	
 
-	
-	
+	@Override
+	public PageBean getHYLCollectDeta(TChnlHyldkLog hyldkLog,String stime,String etime,int page,int rows) {
+		TChnlHyldkLogExample tChnlHyldkLogExample = new TChnlHyldkLogExample();
+		com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample.Criteria criteria = tChnlHyldkLogExample.createCriteria();
+		// 商户号
+		if (hyldkLog.getMerchantid()!=null&&!"".equals(hyldkLog.getMerchantid())) {
+			criteria.andMerchantidEqualTo(hyldkLog.getMerchantid());
+		}
+		//交易卡号
+		if (hyldkLog.getAccountno()!=null&&!"".equals(hyldkLog.getAccountno())) {
+			criteria.andAccountnoEqualTo(hyldkLog.getAccountno());
+		}
+				//交易状态
+		if (hyldkLog.getRetcode()!=null&&!"".equals(hyldkLog.getRetcode())) {
+			criteria.andRetcodeEqualTo(hyldkLog.getRetcode());
+		}
+				//订单号
+		if (hyldkLog.getReqsn()!=null&&!"".equals(hyldkLog.getReqsn())) {
+			criteria.andReqsnEqualTo(hyldkLog.getReqsn());
+		}
+				//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+				criteria.andIntimeBetween(sdf.parse(stime), sdf.parse(etime));
+			} catch (ParseException e) {
+  				e.printStackTrace();
+			}
+		}
+		int total = tChnlHyldkLogMapper.countByExample(tChnlHyldkLogExample);
+		tChnlHyldkLogExample.setPageNum(page);
+		tChnlHyldkLogExample.setPageSize(rows);
+		tChnlHyldkLogExample.setOrderByClause("TID");
+		List<TChnlHyldkLog> list = tChnlHyldkLogMapper.selectByExample(tChnlHyldkLogExample);
+		return new PageBean(total, list);
+	}
+
+	@Override
+	public PageBean getHYLCollectBakDeta(TChnlHyldkLogBak hyldkLog,String stime,String etime,int page,int rows) {
+		TChnlHyldkLogBakExample tChnlHyldkLogExample = new TChnlHyldkLogBakExample();
+		com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample.Criteria criteria = tChnlHyldkLogExample.createCriteria();
+		// 商户号
+		if (hyldkLog.getMerchantid()!=null&&!"".equals(hyldkLog.getMerchantid())) {
+			criteria.andMerchantidEqualTo(hyldkLog.getMerchantid());
+		}
+		//交易卡号
+		if (hyldkLog.getAccountno()!=null&&!"".equals(hyldkLog.getAccountno())) {
+			criteria.andAccountnoEqualTo(hyldkLog.getAccountno());
+		}
+				//交易状态
+		if (hyldkLog.getRetcode()!=null&&!"".equals(hyldkLog.getRetcode())) {
+			criteria.andRetcodeEqualTo(hyldkLog.getRetcode());
+		}
+				//订单号
+		if (hyldkLog.getReqsn()!=null&&!"".equals(hyldkLog.getReqsn())) {
+			criteria.andReqsnEqualTo(hyldkLog.getReqsn());
+		}
+				//起止时间
+		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try {
+				criteria.andIntimeBetween(sdf.parse(stime), sdf.parse(etime));
+			} catch (ParseException e) {
+  				e.printStackTrace();
+			}
+		}
+		int total = tChnlHyldkLogBakMapper.countByExample(tChnlHyldkLogExample);
+		tChnlHyldkLogExample.setPageNum(page);
+		tChnlHyldkLogExample.setPageSize(rows);
+		tChnlHyldkLogExample.setOrderByClause("TID");
+		List<TChnlHyldkLogBak> list = tChnlHyldkLogBakMapper.selectByExample(tChnlHyldkLogExample);
+		return new PageBean(total, list);
+}
 	
 }
