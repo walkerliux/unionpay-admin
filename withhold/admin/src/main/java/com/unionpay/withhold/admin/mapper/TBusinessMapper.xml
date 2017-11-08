@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.unionpay.withhold.admin.mapper.TBusinessMapper" >
+  <resultMap id="BaseResultMap" type="com.unionpay.withhold.admin.pojo.TBusiness" >
+    <id column="BUSIID" property="busiid" jdbcType="INTEGER" />
+    <result column="BUSICODE" property="busicode" jdbcType="VARCHAR" />
+    <result column="BUSINAME" property="businame" jdbcType="VARCHAR" />
+    <result column="BUSITYPE" property="busitype" jdbcType="VARCHAR" />
+    <result column="RISKFLAG" property="riskflag" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="VARCHAR" />
+    <result column="NOTES" property="notes" jdbcType="VARCHAR" />
+    <result column="CHECKED" property="checked" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    BUSIID, BUSICODE, BUSINAME, BUSITYPE, RISKFLAG, STATUS, NOTES
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TBusinessExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_business
+    where BUSIID = #{busiid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_business
+    where BUSIID = #{busiid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.unionpay.withhold.admin.pojo.TBusinessExample" >
+    delete from t_business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TBusiness" >
+    insert into t_business (BUSIID, BUSICODE, BUSINAME, 
+      BUSITYPE, RISKFLAG, STATUS, 
+      NOTES)
+    values (#{busiid,jdbcType=INTEGER}, #{busicode,jdbcType=VARCHAR}, #{businame,jdbcType=VARCHAR}, 
+      #{busitype,jdbcType=VARCHAR}, #{riskflag,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{notes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.unionpay.withhold.admin.pojo.TBusiness" >
+    insert into t_business
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="busiid != null" >
+        BUSIID,
+      </if>
+      <if test="busicode != null" >
+        BUSICODE,
+      </if>
+      <if test="businame != null" >
+        BUSINAME,
+      </if>
+      <if test="busitype != null" >
+        BUSITYPE,
+      </if>
+      <if test="riskflag != null" >
+        RISKFLAG,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="notes != null" >
+        NOTES,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="busiid != null" >
+        #{busiid,jdbcType=INTEGER},
+      </if>
+      <if test="busicode != null" >
+        #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="businame != null" >
+        #{businame,jdbcType=VARCHAR},
+      </if>
+      <if test="busitype != null" >
+        #{busitype,jdbcType=VARCHAR},
+      </if>
+      <if test="riskflag != null" >
+        #{riskflag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        #{notes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.unionpay.withhold.admin.pojo.TBusinessExample" resultType="java.lang.Integer" >
+    select count(*) from t_business
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_business
+    <set >
+      <if test="record.busiid != null" >
+        BUSIID = #{record.busiid,jdbcType=INTEGER},
+      </if>
+      <if test="record.busicode != null" >
+        BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businame != null" >
+        BUSINAME = #{record.businame,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busitype != null" >
+        BUSITYPE = #{record.busitype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.riskflag != null" >
+        RISKFLAG = #{record.riskflag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        STATUS = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.notes != null" >
+        NOTES = #{record.notes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_business
+    set BUSIID = #{record.busiid,jdbcType=INTEGER},
+      BUSICODE = #{record.busicode,jdbcType=VARCHAR},
+      BUSINAME = #{record.businame,jdbcType=VARCHAR},
+      BUSITYPE = #{record.busitype,jdbcType=VARCHAR},
+      RISKFLAG = #{record.riskflag,jdbcType=VARCHAR},
+      STATUS = #{record.status,jdbcType=VARCHAR},
+      NOTES = #{record.notes,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.unionpay.withhold.admin.pojo.TBusiness" >
+    update t_business
+    <set >
+      <if test="busicode != null" >
+        BUSICODE = #{busicode,jdbcType=VARCHAR},
+      </if>
+      <if test="businame != null" >
+        BUSINAME = #{businame,jdbcType=VARCHAR},
+      </if>
+      <if test="busitype != null" >
+        BUSITYPE = #{busitype,jdbcType=VARCHAR},
+      </if>
+      <if test="riskflag != null" >
+        RISKFLAG = #{riskflag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null" >
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BUSIID = #{busiid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.unionpay.withhold.admin.pojo.TBusiness" >
+    update t_business
+    set BUSICODE = #{busicode,jdbcType=VARCHAR},
+      BUSINAME = #{businame,jdbcType=VARCHAR},
+      BUSITYPE = #{busitype,jdbcType=VARCHAR},
+      RISKFLAG = #{riskflag,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR}
+    where BUSIID = #{busiid,jdbcType=INTEGER}
+  </update>
+  
+  	<select id="selectBusinessCheckbox" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT
+			*,
+			IF (FIND_IN_SET(BUSICODE,REPLACE(#{busicodes},';',',')),1,0) AS CHECKED
+		FROM
+			t_business;
+	</select>
+</mapper>

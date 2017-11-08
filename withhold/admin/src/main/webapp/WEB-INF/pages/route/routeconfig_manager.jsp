@@ -34,8 +34,51 @@
 }
 </style>
 </head>
-
+<style type="text/css">
+	.left, .mid, .right {
+		width: auto;
+		float: left;
+	}
+	
+	.form-control {
+		border: 2px solid #A9C9E2;
+	}
+	
+	.mid {
+		padding-top: 45px;
+		padding-left: 12px;
+		padding-right: 12px;
+	}
+</style>
 <body>
+<style type="text/css">
+		table tr td.head-title {
+			height: 25px;
+			background-color: #F0F8FF;
+			font-weight: bold;
+			border-width: 1px 1px 1px 1px;
+			border-style: groove;
+		}
+		
+		table tr td.update {
+			height: 25px;
+			padding-left: 10px;
+			border-width: 1px 1px 1px 1px;
+			border-style: groove;
+		}
+		
+		table tr td.add {
+			height: 25px;
+		}
+		
+		table tr td input {
+			height: 15px;
+		}
+		
+		table tr td select {
+			height: 20px
+		}
+	</style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="路由配置信息查询"
 			style="height: 100px; padding: 10px; background: #fafafa;"
@@ -43,36 +86,25 @@
 			<form id="dedurateForm" method="post">
 				<table width="100%">
 					<tr>
-						<td align="right" width="15%">路由版本代码</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input
-							name="merchroutver" id="merchRoutver_qid"
-							class="easyui-validatebox" /></td>
-
-						<td align="right" width="15%">交易渠道</td>
-						<td align="left" style="padding-left: 5px" width="25%"><select
-							id="routver_qid" name="routver"
-							class="easyui-validatebox" />
-							<option value="">--请选择交易渠道--</option> </select></td>
-					</tr>
-					<tr>
-						<td align="right" width="15%">状态</td>
-						<td align="left" style="padding-left: 5px" width="25%"><select
-							id="status_qid" name="status"
-							class="easyui-validatebox" />
-							<option value="">--请选择--</option>
-							<option value="00">在用</option>
-							<option value="01">停用</option> </select></td>
+						<td align="right">路由版本</td>
+						<td align="left" style="padding-left: 5px"><input
+							name="routver" id="routver_s" maxlength="10" /></td>
+						<td align="right">路由名称</td>
+						<td align="left" style="padding-left: 5px"><input
+							name="routname" id="routname_s" maxlength="64" />
+						</td>
 						<td align="right" colspan=2><a href="javascript:search()"
 							class="easyui-linkbutton" iconCls="icon-search">查询</a>
 							<a
 							href="javascript:resize()" class="easyui-linkbutton"
 							iconCls="icon-redo">清空</a>
 							</td>
+					</tr>
 				</table>
 			</form>
 		</div>
 		<div style="margin-top: 5px">
-			<table id="test"></table>
+			<table id="routeConfig"></table>
 		</div>
 	</div>
 	<div id="w" class="easyui-window" closed="true" title="My Window"
@@ -80,18 +112,18 @@
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false"
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
-				<form id="theForm" method="post"
-					action="route/saveRouteConfig">
-					<input name="rid" id="rid" type="hidden" /> <input
-						name="status" id="status1" type="hidden" />
-
+				<form id="theForm" method="post" action="">
+					<input name="rid" id="rid" type="hidden" /> 
 					<table width="100%" cellpadding="2" cellspacing="2"
 						style="text-align: left" id="groupinfo">
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>
 						<tr style="height: 10px">
 							<td align="left" colspan="2"><font color="red">提示1：开始时间、结束时间请按照HHmmss格式输入</font></td>
 						</tr>
 						<tr style="height: 10px">
-							<td align="left" colspan="2"><font color="red">提示2：优先类型、优先级均需手动输入正整数</font></td>
+							<td align="left" colspan="2"><font color="red">提示2：优先级需手动输入正整数</font></td>
 						</tr>
 						<tr>
 							<td align="right" width="15%" height="20px">路由版本</td>
@@ -237,39 +269,46 @@
 		} */
 		$(function() {
 			//交易渠道查询
-			queryChnlcode(); 
+			//queryChnlcode(); 
 		
-			$('#test').datagrid({
+			$('#routeConfig').datagrid({
 				title: '路由版本配置列表',  
 				singleSelect: true,
 				iconCls: 'icon-save',
 				height: gridHeight,
 				nowrap: false,
 				striped: true,
-				sortName: 'ROUTVER',
 				url: 'route/queryRouteConfig',
 				remoteSort: false,
 				columns: [[				    
-					{field: 'MERCHROUTVER',title: '路由版本代码',width: 100,align: 'center'},
-					{field: 'ROUTNAME',title: '路由版本名称',width: 100,align: 'center'},
-				    {field: 'STIME',title: '开始时间',width: 100,align: 'center'},
-				    {field: 'ETIME',title: '结束时间',width: 100,align: 'center'},
-				    {field: 'MINAMT',title: '最小金额',width: 100,align: 'center'},
-				    {field: 'MAXAMT',title: '最大金额',width: 100,align: 'center'},
-				    {field: 'BANKCODE',title: '发卡行',width: 150,align: 'center'},
-				    {field: 'ROUTVER',title: '交易渠道',width: 150,align: 'center'},
-				    {field: 'CARDTYPE',title: '卡类型',width: 100,align: 'center'},
-				    	/* formatter: function(value, rec){
-				    		if(value.equals("1;")){
-				    			return "借记卡";
-				    		}else if(value.equals("2;")){
-				    			return "贷记卡";
-				    		}else if(value.equals("1;2;")){
-				    			return "借记卡;贷记卡";
-				    		}
-				    	} */
-				    
-				    {field: 'ISDEF',title: '是否为默认路由',width: 100,align: 'center',
+					{field: 'routver',title: '路由版本',width: 100,align: 'center'},
+					{field: 'routname',title: '路由名称',width: 100,align: 'center'},
+				    {field: 'stime',title: '开始时间',width: 100,align: 'center',
+						formatter: function(value, rec){
+				    		return changeTime(value);
+				    	}	
+				    },
+				    {field: 'etime',title: '结束时间',width: 100,align: 'center',
+				    	formatter: function(value, rec){
+				    		return changeTime(value);
+				    	}
+				    },
+				    {field: 'minamt',title: '最小交易额（元）',width: 120,align: 'center',
+				    	formatter: function(value, rec){
+				    		return value/100;
+				    	}	
+				    },
+				    {field: 'maxamt',title: '最大交易额（元）',width: 120,align: 'center',
+				    	formatter: function(value, rec){
+				    		return value/100;
+				    	}		
+				    },
+				    {field: 'banknames',title: '所属银行',width: 200,align: 'center'},
+				    {field: 'businames',title: '交易类型',width: 150,align: 'center'},
+				    {field: 'cardtypenames',title: '卡类型',width: 100,align: 'center'},
+				    {field: 'tradeeleName',title: '交易要素',width: 100,align: 'center'},
+				    {field: 'chnlname',title: '通道名称',width: 100,align: 'center'},
+				    {field: 'isdef',title: '是否为默认路由',width: 100,align: 'center',
 				    	formatter: function(value, rec){
 				    		if(value == 0){
 				    			return "默认路由";
@@ -277,19 +316,20 @@
 				    			return "非默认路由";
 				    		}
 				    	}
-				    }, 				    
-				    {field: 'STATUS',title: '状态',width: 100,align: 'center',
+				    }, 	
+				    {field: 'orders',title: '优先级',width: 60,align: 'center'},
+				    {field: 'status',title: '状态',width: 60,align: 'center',
 				    	formatter: function(value, rec){
 				    		if(value == 00){
 				    			return "在用";
-				    		}else if(value == 01){
+				    		}else{
 				    			return "停用";
 				    		}
 				    	}
 				    },				
-				    {field: 'RID',title: '操作',width: 150,align: 'center', 
+				    {field: 'rid',title: '操作',width: 150,align: 'center', 
 						formatter: function(value, rec) {
-							if(rec.STATUS ==00){                                                                                                   
+							if(rec.status ==00){                                                                                                   
 								return '<a href="javascript:showRouteConfig(' + value + ')" style="color:blue;margin-left:10px">修改</a>&nbsp;&nbsp;<a href="javascript:deleteRouteConfig('+ value + ')" style="color:blue;margin-left:10px">注销</a>';
 							}else if(rec.STATUS ==01){
 								return '<a href="javascript:startRouteConfig(' + value + ')" style="color:blue;margin-left:10px">启用</a>';
@@ -308,7 +348,7 @@
 					}
 				}]
 			});
-			var p = $('#test').datagrid('getPager');
+			var p = $('#routeConfig').datagrid('getPager');
 			$(p).pagination({
 				onBeforeRefresh: function() {
 	
@@ -318,11 +358,10 @@
 	
 		function search() {
 			var data = {
-				'merchroutver': $("#merchRoutver_qid").val(),
-				'status':$("#status_qid").val(),
-				'routver':$("#routver_qid").val()
+				'routver':$("#routver_s").val(),
+				'routname':$("#routname_s").val()
 			};
-			$('#test').datagrid('load', data);
+			$('#routeConfig').datagrid('load', data);
 		}
 	
 		//保存按钮 
@@ -790,6 +829,46 @@
 	    
 	    function resize(){
 			$('#dedurateForm :input').val('');
+		}
+	    
+		// 格式化日期时间
+		function changeDateTime(value){
+			var dateString = value;
+			if(dateString==null){
+				return "";
+			}else{
+				year=dateString.substring(0,4);//0123
+				month=dateString.substring(4,6);//45
+				day=dateString.substring(6,8);//67
+				hour=dateString.substring(8,10);//89
+				minte=dateString.substring(10,12);//10 11
+				s=dateString.substring(12,14);// 11 12
+				return year+"-"+month+"-"+day+" " + hour +":"+minte+":"+s;
+			}
+		}
+		// 格式化日期
+		function changeDate(value){
+			var dateString = value;
+			if(dateString==null){
+				return "";
+			}else{
+				year=dateString.substring(0,4);//0123
+				month=dateString.substring(4,6);//45
+				day=dateString.substring(6,8);//67
+				return year+"-"+month+"-"+day;
+			}
+		}
+		// 格式化时间
+		function changeTime(value){
+			var dateString = value;
+			if(dateString==null){
+				return "";
+			}else{
+				hour=dateString.substring(0,2);
+				minte=dateString.substring(2,4);
+				s=dateString.substring(4,6);
+				return hour +":"+minte+":"+s;
+			}
 		}
 </script>
 </html>

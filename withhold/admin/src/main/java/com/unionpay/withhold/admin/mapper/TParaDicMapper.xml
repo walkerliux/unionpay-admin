@@ -11,6 +11,7 @@
 		<result column="STATUS" property="status" jdbcType="DECIMAL" />
 		<result column="ADDED" property="added" jdbcType="DECIMAL" />
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
+		<result column="CHECKED" property="checked" />
 	</resultMap>
 	<sql id="Example_Where_Clause">
 		<where>
@@ -352,6 +353,16 @@
 			</if>
 	</select>
 	
+	<select id="selectCardtypeCheckbox" resultMap="BaseResultMap" parameterType="java.lang.String">
+		SELECT 
+			*,
+			IF(FIND_IN_SET(PARA_CODE,REPLACE(#{cardtypes},';',',')),1,0) AS CHECKED  
+		FROM 
+			t_para_dic 
+		WHERE 
+			PARA_TYPE='CARDTYPE' AND HAS_SUB = 0;
+	</select>
+	
 	<select id="selectParaDicByParaCode" resultMap="BaseResultMap">
 		SELECT
 			PARA_CODE,
@@ -360,7 +371,6 @@
 			`t_para_dic`
 		WHERE
 			`STATUS` = '1' 
-	AND PARA_CODE=#{paraCode}
-		
+			AND PARA_CODE=#{paraCode}
 	</select>
 </mapper>
