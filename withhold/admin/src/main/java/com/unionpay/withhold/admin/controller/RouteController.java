@@ -194,4 +194,45 @@ public class RouteController {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
+	
+	
+	/**
+	 * 注销路由配置
+	 * 
+	 * @param routeConfig
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/logoutRouteConfig")
+	public ResultBean logoutConfig(TRouteConfig routeConfig, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		routeConfig.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return routeConfigService.logoutRouteConfig(routeConfig);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 启用路由配置
+	 * 
+	 * @param routeConfig
+	 * @param request
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/startRouteConfig")
+	public ResultBean startConfig(TRouteConfig routeConfig, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		routeConfig.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			return routeConfigService.startRouteConfig(routeConfig);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
 }

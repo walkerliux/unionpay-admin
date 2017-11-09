@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				checkPwdTime();
 				$('#tt').tabs('add', {
 					title: "首页",
-					content: '<iframe  scrolling="auto" frameborder="0"  style="width:100%;height:100%"></iframe>',
+					content: '<iframe  scrolling="auto" frameborder="0" src="${contextpath}/admin/login/toFirstpage" style="width:100%;height:100%"></iframe>',
 					closable: true,
 					fit: true
 				});
@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						if ($('#tt').tabs('tabs') == "" || $('#tt').tabs('tabs') == null) {
 							$('#tt').tabs('add', {
 								title: "首页",
-								content: '<iframe  scrolling="auto" frameborder="0"  style="width:100%;height:100%"></iframe>',
+								content: '<iframe  scrolling="auto" frameborder="0" src="${contextpath}/admin/login/toFirstpage" style="width:100%;height:100%"></iframe>',
 								closable: true,
 								fit: true
 							});

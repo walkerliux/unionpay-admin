@@ -44,4 +44,18 @@ public interface RouteConfigService {
 	 */
 	ResultBean updateRouteConfig(TRouteConfig routeConfig);
 
+	/**
+	 * 注销路由配置
+	 * @param routeConfig
+	 * @return
+	 */
+	ResultBean logoutRouteConfig(TRouteConfig routeConfig);
+
+	/**
+	 * 启用路由配置
+	 * @param routeConfig
+	 * @return
+	 */
+	ResultBean startRouteConfig(TRouteConfig routeConfig);
+
 }

@@ -43,6 +43,8 @@ public class CommonConstants {
 	// 路由配置状态
 	/** 路由配置状态-正常状态 **/
 	public final static String ROUTECONFIG_STATUS_NORMAL = "00";
+	/** 路由配置状态-正常状态 **/
+	public final static String ROUTECONFIG_STATUS_UNNORMAL = "01";
 	
 	// 路由配置默认状态
 	/** 路由配置默认状态-默认 **/

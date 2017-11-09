@@ -398,4 +398,13 @@ public class LoginController {
 	 }
 	
 	
+		/**
+		 * 路由版本
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value = "/toFirstpage", method = RequestMethod.GET)
+		public String toFirstpage() {
+			return "/firstpage";
+		}
 }
