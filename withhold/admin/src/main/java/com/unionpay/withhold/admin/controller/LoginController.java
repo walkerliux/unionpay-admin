@@ -396,6 +396,7 @@ public class LoginController {
 		return ip;
 	}
 	
+
 	@RequestMapping(value="/getTokennn",method = RequestMethod.GET )
 	@ResponseBody
 	public String getToken(HttpServletRequest request){
@@ -423,5 +424,29 @@ public class LoginController {
 
 		return false;
 	}
+
+
+	
+	 /**
+	  * 检测用户是否登陆
+	  * @param session
+	  * @param account
+	  * @return
+	  */
+	 public boolean checkLogin(HttpSession session,String account){
+		 
+		 return true;
+	 }
+	
+	
+		/**
+		 * 路由版本
+		 * 
+		 * @return
+		 */
+		@RequestMapping(value = "/toFirstpage", method = RequestMethod.GET)
+		public String toFirstpage() {
+			return "/firstpage";
+		}
 
 }

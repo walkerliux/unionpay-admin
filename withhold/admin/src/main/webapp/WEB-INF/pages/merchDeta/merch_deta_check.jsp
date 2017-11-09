@@ -27,7 +27,7 @@
 table tr td.head-title {
 	height: 25px;
 	background-color: #F0F8FF;
-	font-weight: bold;
+	/* font-weight: bold; */
 	border-width: 1px 1px 1px 1px;
 	border-style: groove;
 }
@@ -146,7 +146,7 @@ table tr td select {
 						</tr>
 						
 						<tr>
-							<td colspan="4" class="head-title">手续费及风控配置</td>
+							<td colspan="4" class="head-title">手续费及风控配置（提示：收费代码通过计费管理配置，风控版本通过风控管理配置）</td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">收费代码</td>

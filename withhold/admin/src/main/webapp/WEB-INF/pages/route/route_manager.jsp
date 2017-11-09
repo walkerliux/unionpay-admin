@@ -30,7 +30,7 @@
 		table tr td.head-title {
 			height: 25px;
 			background-color: #F0F8FF;
-			font-weight: bold;
+			/* font-weight: bold; */
 			border-width: 1px 1px 1px 1px;
 			border-style: groove;
 		}
@@ -100,7 +100,7 @@
 						<tr>
 							<td class="update" width="15%">路由版本</td>
 							<td class="update" align="left">
-							<input name="routver" id="routver" required="true" validType="minLength[8,8]" maxlength="8"
+							<input name="routver" id="routver" required="true" validType="routverLength[8,8]" maxlength="8"
 								class="easyui-validatebox" missingMessage="请输入路由版本"/> <font color="red">*</font></td>
 							</td>
 							<td class="update" width="15%">路由名称</td>
@@ -159,7 +159,7 @@
 							<td class="update" align="left"><input
 								name="stime" id="stime_c"
 								onkeyup="value=value.replace(/[^0-9]/g,'')" required="true"
-								missingMessage="请填写开始时间,只能为数字" maxlength="6" validType="minLength[6,6]"
+								missingMessage="请填写开始时间,只能为数字" maxlength="6" validType="timeLength[6,6]"
 								class="easyui-validatebox" /> <font color="red">*</font>
 							</td>
 
@@ -167,7 +167,7 @@
 							<td class="update" align="left"><input
 								name="etime" id="etime_c" required="true"
 								missingMessage="请填写结束时间,只能为数字"
-								onkeyup="value=value.replace(/[^0-9]/g,'')" maxlength="6" validType="minLength[6,6]"
+								onkeyup="value=value.replace(/[^0-9]/g,'')" maxlength="6" validType="timeLength[6,6]"
 								class="easyui-validatebox" /> <font color="red">*</font>
 							</td>
 						</tr>
@@ -185,21 +185,21 @@
 								class="easyui-validatebox" required="true" missingMessage="请输入单笔最大交易额" /></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td colspan="4" class="head-title">提示：不选默认为所有交易卡所属银行</td>
 						</tr>
 						<tr>
 							<td class="update" width="15%" height="100px">交易卡所属银行</td>
 							<td class="update" align="left" id="bankcodes_c" colspan="3"></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td colspan="4" class="head-title">提示：不选默认为所有交易类型</td>
 						</tr>
 						<tr>
 							<td class="update" width="15%" height="100px">交易类型</td>
 							<td class="update" align="left" id="busicodes_c" colspan="3"></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td colspan="4" class="head-title">提示：不选默认为所有卡类型</td>
 						</tr>
 						<tr>
 							<td class="update" width="15%" height="100px">卡类型</td>
@@ -224,19 +224,19 @@
 							<td colspan="4" class="head-title">提示：优先级为正整数</td>
 						</tr>
 						<tr>
-							<td class="update">是否默认路由</td>
+							<!-- <td class="update">是否默认路由</td>
 							<td class="update" align="left">
 								<select name="isdef" id="isdef_c" class="easyui-validatebox" required="true"
 								missingMessage="请选择是否为默认路由" />
 									<option value="0">默认路由</option>
 									<option value="1">非默认路由</option> 
 								</select>
-							</td>
+							</td> -->
 								<!-- <input type="radio" value="0" name="isdef" checked="checked"/>是
 								&nbsp;&nbsp;
 								<input type="radio" value="1" name="isdef"/>否 -->
 							<td class="update">优先级</td>
-							<td class="update" align="left"><input
+							<td class="update" align="left" colspan="3"><input
 								name="orders" id="orders_c" required="true"
 								missingMessage="请填写优先级" maxlength="12"
 								class="easyui-validatebox" /> <font color="red">*</font></td>
@@ -305,10 +305,10 @@
 							<td class="update" align="left" id="chnlcode_d"></td>
 						</tr>
 						<tr>
-							<td class="update" width="15%">是否默认路由</td>
-							<td class="update" align="left" id="isdef_d"></td>
+							<!-- <td class="update" width="15%">是否默认路由</td>
+							<td class="update" align="left" id="isdef_d"></td> -->
 							<td class="update" width="15%">优先级</td>
-							<td class="update" align="left" id="orders_d"></td>
+							<td class="update" align="left" id="orders_d" colspan="3"></td>
 							</td>
 						</tr>
 					</table>
@@ -334,7 +334,17 @@
 		var panelVertFloat = 150;
 	
 		$.extend($.fn.validatebox.defaults.rules, {
-			minLength: {
+			routverLength: {
+				validator: function(value, param) {
+					var re = /^\d+$/;
+					if (!re.test(value)) {
+						return false;
+					}
+					return value.length >= param[0];
+				},
+				message: '路由版本为8位数字'
+			},
+			timeLength: {
 				validator: function(value, param) {
 					var re = /^\d+$/;
 					if (!re.test(value)) {
@@ -344,7 +354,6 @@
 				},
 				message: '时间为6位数字'
 			}
-	
 		});
 		
 		$(function() {
@@ -362,7 +371,7 @@
 				    {field: 'routname',title: '路由版本名称',width: 200,align: 'center'},
 				    {field: 'inUserName',title: '创建者',width: 100,align: 'center'},
 				    {field: 'intime',title: '创建时间',width: 150,align: 'center'},
-				    {field: 'notes',title: '备注',width: 200,align: 'center'},				
+				    {field: 'notes',title: '备注',width: 400,align: 'center'},				
 				    {field: 'status',title: '状态',width: 100,align: 'center',
 				    	formatter: function(value, rec){
 				    		if(value == 1){
@@ -532,7 +541,7 @@
 				    {field: 'cardtypenames',title: '卡类型',width: 100,align: 'center'},
 				    {field: 'tradeeleName',title: '交易要素',width: 150,align: 'center'},
 				    {field: 'chnlname',title: '通道名称',width: 100,align: 'center'},
-				    {field: 'isdef',title: '是否为默认路由',width: 110,align: 'center',
+				    /* {field: 'isdef',title: '是否为默认路由',width: 110,align: 'center',
 				    	formatter: function(value, rec){
 				    		if(value == 0){
 				    			return "默认路由";
@@ -540,7 +549,7 @@
 				    			return "非默认路由";
 				    		}
 				    	}
-				    }, 	
+				    },  */	
 				    {field: 'orders',title: '优先级',width: 50,align: 'center'},
 				    {field: 'status',title: '状态',width: 40,align: 'center',
 				    	formatter: function(value, rec){
@@ -551,12 +560,22 @@
 				    		}
 				    	}
 				    },				
-				    {field: 'rid',title: '操作',width: 100,align: 'center', 
+				    {field: 'rid',title: '操作',width: 140,align: 'center', 
 						formatter: function(value, rec) {
 							if(rec.status ==00){                                                                                                   
-								return '<a href="javascript:showRouteConfigDetail(' + value + ')" style="color:blue;margin-left:10px">详情</a>&nbsp;&nbsp;<a href="javascript:showChangeConfig('+ value + ')" style="color:blue;margin-left:10px">修改</a>';
-							}else if(rec.STATUS ==01){
-								return '<a href="javascript:showRouteConfigDetail(' + value + ')" style="color:blue;margin-left:10px">详情</a>';
+								return '<a href="javascript:showRouteConfigDetail(' 
+										+ value 
+										+ ')" style="color:blue;margin-left:10px">详情</a>&nbsp;&nbsp;<a href="javascript:showChangeConfig(' 
+										+ value 
+										+ ')" style="color:blue;margin-left:10px">修改</a>&nbsp;&nbsp;<a href="javascript:logoutRouteConfig(' 
+										+ value 
+										+ ')" style="color:blue;margin-left:10px">注销</a>';
+							}else {
+								return '<a href="javascript:showRouteConfigDetail(' 
+										+ value 
+										+ ')" style="color:blue;margin-left:10px">详情</a>&nbsp;&nbsp;<a href="javascript:startRouteConfig(' 
+										+ value 
+										+ ')" style="color:blue;margin-left:10px">启用</a>';
 							}
 							
 					}
@@ -795,7 +814,7 @@
 					$("#cardtypes_d").html(json.cardtypenames);
 					$("#tradeele_d").html(json.tradeeleName);
 					$("#chnlcode_d").html(json.chnlname);
-					$("#isdef_d").html(json.isdef=='0'?'默认路由':'非默认路由');
+					//$("#isdef_d").html(json.isdef=='0'?'默认路由':'非默认路由');
 					$("#orders_d").html(json.orders);
 					
 					$('#w_routeConfig_detail').window({
@@ -847,7 +866,7 @@
 					showAllCheckbox(rid);
 					showAllTransfactors(json.tradeele);
 					showAllChannl(json.chnlcode);
-					$("#isdef_c").val(json.isdef);
+					//$("#isdef_c").val(json.isdef);
 					$("#orders_c").val(json.orders);
 					
 					$('#w_routeConfig_save').window({
@@ -869,6 +888,60 @@
 				$.messager.alert('提示', '服务异常！');
 			}
 		});
+	}
+	
+	function logoutRouteConfig(rid) {
+		$.messager.confirm('提示', '您是否想要注销此路由配置规则?',
+				function(r) {
+					if (r) {
+						$.ajax({
+							type : "POST",
+							url : "route/logoutRouteConfig",
+							dataType : "json",
+							data : {
+								"rid" : rid
+							},
+							success : function(json) {
+								if (json.resultBool == true) {
+									$.messager.alert('提示', "注销成功！");
+									showRouteConfig(json.resultObj.routver,json.resultObj.routname);
+								} else {
+									$.messager.alert('提示', json.errMsg);
+								}
+							},
+							error : function() {
+								$.messager.alert('提示', '服务异常！');
+							}
+						});
+					}
+				});
+	}
+	
+	function startRouteConfig(rid) {
+		$.messager.confirm('提示', '您是否想要启用此路由配置规则?',
+				function(r) {
+					if (r) {
+						$.ajax({
+							type : "POST",
+							url : "route/startRouteConfig",
+							dataType : "json",
+							data : {
+								"rid" : rid
+							},
+							success : function(json) {
+								if (json.resultBool == true) {
+									$.messager.alert('提示', "启用成功！");
+									showRouteConfig(json.resultObj.routver,json.resultObj.routname);
+								} else {
+									$.messager.alert('提示', json.errMsg);
+								}
+							},
+							error : function() {
+								$.messager.alert('提示', '服务异常！');
+							}
+						});
+					}
+				});
 	}
 	
 	// 格式化时间

@@ -74,7 +74,11 @@ public class CheckBillController {
 		return pageBean;
 	}
 	
-	
+	/**
+	 * 生成任务
+	 * @param instiid
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("saveProcess")
 	public Map<String, Object> saveProcess(String instiid) {

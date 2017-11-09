@@ -119,34 +119,39 @@ table tr td select {
 						<tr style="height: 25px">
 						<td class="update">证书ID</td>
 							<td class="update" align="left">
-							<input type="text" id="certid" name="certid" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入证书ID"/><font color="red">*</font></td>
+							<input type="text" id="certid" name="certid" maxlength="32"/></td>
 							<td class="update">存储方式</td>
 							<td class="update" align="left">
 							<select id="storgetype" name="storgetype" class="easyui-validatebox" required="true" missingMessage="请选择存储方式"/>
-							<option value=''>--请选择存储方式--</option>
+							<!-- <option value=''>--请选择存储方式--</option> -->
 							</select><font color="red">*</font></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">商户公钥</td>
+							<td class="update">商户公钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥 " rows="3" cols="81" id="memberpubkey" maxlength="2048" name="memberpubkey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+							<input type="text" id="memberpubkey" name="memberpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " validType="url" />
+							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " rows="3" cols="81" id="memberpubkey" maxlength="2048" name="memberpubkey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+							</td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">平台公钥</td>
+							<td class="update">平台公钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<textarea class="easyui-validatebox" required="true" missingMessage="请输入平台公钥 " rows="3" cols="81" id="localpubkey" maxlength="2048" name="localpubkey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+							<input type="text" id="localpubkey" name="localpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台公钥证书 " validType="url" />
+							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台公钥 证书" rows="3" cols="81" id="localpubkey" maxlength="2048" name="localpubkey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+							</td>
 						</tr>
 						<tr style="height: 25px">
-							<td class="update">平台私钥</td>
+							<td class="update">平台私钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<textarea class="easyui-validatebox" required="true" missingMessage="请输入平台私钥 " rows="3" cols="81" id="localprikey" maxlength="2048" name="localprikey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
+							<input type="text" id="localprikey" name="localprikey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台私钥证书 " validType="url" />
+							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台私钥 证书" rows="3" cols="81" id="localprikey" maxlength="2048" name="localprikey" style="resize: none;"
+									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+							</td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -279,7 +284,7 @@ table tr td select {
 					maximizable : false,
 					shadow : false,
 					closed : false,
-					height : 457
+					height : 385
 				});
 			},
 			error : function(){
@@ -333,8 +338,8 @@ table tr td select {
 			url: "merchMK/showAllStorgeType",
 			dataType: "json",
 			success: function(json) {
-				var html = "<option value=''>--请选择存储方式--</option>";
-				
+				//var html = "<option value=''>--请选择存储方式--</option>";
+				var html = "";
 				$.each(json,function(key, value) {
 					if (value.paraCode == storgetype) {
 						html += '<option value="' + value.paraCode + '" selected="selected">' + value.paraName + '</option>';

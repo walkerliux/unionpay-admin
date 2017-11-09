@@ -105,7 +105,7 @@ public class RouteConfigServiceImpl implements RouteConfigService {
 		routeConfig.setCardtype(routeConfig.getCardtypes() == null || routeConfig.getCardtypes().length == 0 ? "" : StringUtils.join(routeConfig.getCardtypes(), ";"));
 		
 		// 是否设置默认值
-		if (routeConfig.getIsdef().equals(CommonConstants.ROUTECONFIG_ISDEF)) {
+		/*if (routeConfig.getIsdef().equals(CommonConstants.ROUTECONFIG_ISDEF)) {
 			TRouteConfigExample routeConfigExampleDef = new TRouteConfigExample();
 			TRouteConfigExample.Criteria criteriaDef = routeConfigExampleDef.createCriteria();
 			criteriaDef.andRoutverEqualTo(routeConfig.getRoutver());
@@ -115,7 +115,9 @@ public class RouteConfigServiceImpl implements RouteConfigService {
 			condition.setIsdef(CommonConstants.ROUTECONFIG_ISNOTDEF);
 			
 			routeConfigMapper.updateByExampleSelective(condition, routeConfigExampleDef);
-		}
+		}*/
+		// 现在全部为非默认——2017.11.09
+		routeConfig.setIsdef(CommonConstants.ROUTECONFIG_ISNOTDEF);
 		
 		routeConfig.setIntime(new Date());
 		routeConfig.setStatus(CommonConstants.ROUTECONFIG_STATUS_NORMAL);
@@ -174,5 +176,33 @@ public class RouteConfigServiceImpl implements RouteConfigService {
 		
 		count = routeConfigMapper.updateByPrimaryKeySelective(routeConfig);
 		return count > 0 ? new ResultBean("路由配置修改成功！") : new ResultBean("", "路由配置修改失败！");
+	}
+
+	@Override
+	public ResultBean logoutRouteConfig(TRouteConfig routeConfig) {
+		TRouteConfig routeConfigBack = routeConfigMapper.selectDetailByID(routeConfig.getRid());
+		if (null == routeConfigBack) {
+			return new ResultBean("", "信息有误，操作失败！");
+		} else if (!routeConfigBack.getStatus().equals(CommonConstants.ROUTECONFIG_STATUS_NORMAL)) {
+			return new ResultBean("", "该路由配置规则已被注销！");
+		}else {
+			routeConfig.setStatus(CommonConstants.ROUTECONFIG_STATUS_UNNORMAL);
+			int count = routeConfigMapper.updateByPrimaryKeySelective(routeConfig);
+			return count > 0 ? new ResultBean(routeConfigBack) : new ResultBean("", "注销失败！");
+		}
+	}
+
+	@Override
+	public ResultBean startRouteConfig(TRouteConfig routeConfig) {
+		TRouteConfig routeConfigBack = routeConfigMapper.selectDetailByID(routeConfig.getRid());
+		if (null == routeConfigBack) {
+			return new ResultBean("", "信息有误，操作失败！");
+		} else if (routeConfigBack.getStatus().equals(CommonConstants.ROUTECONFIG_STATUS_NORMAL)) {
+			return new ResultBean("", "该路由配置规则已被启用！");
+		}else {
+			routeConfig.setStatus(CommonConstants.ROUTECONFIG_STATUS_NORMAL);
+			int count = routeConfigMapper.updateByPrimaryKeySelective(routeConfig);
+			return count > 0 ? new ResultBean(routeConfigBack) : new ResultBean("", "启用失败！");
+		}
 	}
 }

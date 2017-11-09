@@ -31,7 +31,7 @@
 		table tr td.head-title {
 			height: 25px;
 			background-color: #F0F8FF;
-			font-weight: bold;
+			/* font-weight: bold; */
 			border-width: 1px 1px 1px 1px;
 			border-style: groove;
 		}
@@ -103,7 +103,7 @@
 							</select></td>
 						</tr>
 						<tr>
-							<td colspan="4" class="head-title"></td>
+							<td colspan="4" class="head-title">提示：小于最小，大于最大金额的交易触发风控</td>
 						</tr>
 						<tr>
 							<td class="update" width="20%">单笔最小限额（元）</td>
@@ -350,7 +350,7 @@
 								success : function(json) {
 									if (json.resultBool == true) {
 										$.messager.alert('提示', "注销成功！");
-										$('#w').window('close');
+										//$('#w').window('close');
 										search();
 									} else {
 										$.messager.alert('提示', json.errMsg);
@@ -378,7 +378,7 @@
 								success : function(json) {
 									if (json.resultBool == true) {
 										$.messager.alert('提示', "启用成功！");
-										$('#w').window('close');
+										//$('#w').window('close');
 										search();
 									} else {
 										$.messager.alert('提示', json.errMsg);
