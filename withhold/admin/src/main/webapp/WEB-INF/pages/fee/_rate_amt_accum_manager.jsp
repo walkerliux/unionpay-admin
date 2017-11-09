@@ -253,9 +253,9 @@ table tr td.update {
 		output += 			'<option value="3">固定比例+限额</option>';
 		output += 		'</select>';
 		output += 	'</td>';
-		output += 	'<td class="update rateChanged1" width="15%">费率（百分比）</td>';
+		output += 	'<td class="update rateChanged1" width="15%">费率（%）</td>';
 		output += 	'<td class="update rateChanged1">';
-		output += 		'<input id="feeRate_a1" name="ardList[0].feeRate" validType="percent" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
+		output += 		'<input id="feeRate_a1" name="ardList[0].feeRate" validType="amount" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
 		output += 	'</td>';
 		output += '</tr>';
 		
@@ -447,9 +447,9 @@ table tr td.update {
 						output += '</td>';
 					}else if (rows[i].rateType >1) {
 						// 添加 固定比例 或 固定比例+限额  要显示的费率部分
-						output += '<td class="update rateChanged' + (i + 1) + '" width="15%">费率（百分比）</td>';
+						output += '<td class="update rateChanged' + (i + 1) + '" width="15%">费率（%）</td>';
 						output += '<td class="update rateChanged' + (i + 1) + '" width="30%">';
-						output += 	'<input id="feeRate_a' + (i + 1) + '" name="ardList[' + i + '].feeRate" validType="percent" value="' + rows[i].feeRate + '" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
+						output += 	'<input id="feeRate_a' + (i + 1) + '" name="ardList[' + i + '].feeRate" validType="amount" value="' + fenToYuan(rows[i].feeRate) + '" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
 						output += '</td>';
 					}
 					output += '</tr>'
@@ -533,7 +533,7 @@ table tr td.update {
 							heightAdd += 26;
 						}
 						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定比例</td>';
-						output += '<td class="update" width="15%">费率（百分比）</td><td class="update">' + row.feeRate + '</td></tr>';
+						output += '<td class="update" width="15%">费率（%）</td><td class="update">' + fenToYuan(row.feeRate) + '</td></tr>';
 						heightAdd += 26;
 					}else if (row.rateType == 3) {// 固定比例+限额
 						output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
@@ -543,7 +543,7 @@ table tr td.update {
 							heightAdd += 26;
 						}
 						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定比例+限额</td>';
-						output += '<td class="update" width="15%">费率（百分比）</td><td class="update">' + row.feeRate + '</td></tr>';
+						output += '<td class="update" width="15%">费率（%）</td><td class="update">' + fenToYuan(row.feeRate) + '</td></tr>';
 						heightAdd += 26;
 						output += '<tr><td class="update" width="15%">最低收费额(元)</td><td class="update" width="30%">' + fenToYuan(row.minFee) + '</td>';
 						output += '<td class="update" width="15%">最高收费额(元)</td><td class="update">' +fenToYuan(row.maxFee) + '</td></tr>';
@@ -594,17 +594,17 @@ table tr td.update {
 			$('#tdRate'+index).after(output);
 		} else if (rateType == 2) {// 固定比例
 			// 添加固定比例要显示的部分
-			output += '<td class="update rateChanged' + index + '" width="15%">费率（百分比）</td>';
+			output += '<td class="update rateChanged' + index + '" width="15%">费率（%）</td>';
 			output += '<td class="update rateChanged' + index + '" width="30%">';
-			output += 	'<input id="feeRate_a' + index + '" name="ardList[' + (index - 1) + '].feeRate" validType="percent" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
+			output += 	'<input id="feeRate_a' + index + '" name="ardList[' + (index - 1) + '].feeRate" validType="amount" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
 			output += '</td>';
 			
 			$('#tdRate'+index).after(output);
 		} else if (rateType == 3) {// 固定比例+限额
 			// 添加固定比例+限额要显示的部分
-			output += '<td class="update rateChanged' + index + '" width="15%">费率（百分比）</td>';
+			output += '<td class="update rateChanged' + index + '" width="15%">费率（%）</td>';
 			output += '<td class="update rateChanged' + index + '" width="30%">';
-			output += 	'<input id="feeRate_a' + index + '" name="ardList[' + (index - 1) + '].feeRate" validType="percent" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
+			output += 	'<input id="feeRate_a' + index + '" name="ardList[' + (index - 1) + '].feeRate" validType="amount" required="true" type="text" class="easyui-validatebox" maxlength="4" missingMessage="请输入费率" />';
 			output += '</td>';
 			
 			$('#tdRate'+index).after(output);

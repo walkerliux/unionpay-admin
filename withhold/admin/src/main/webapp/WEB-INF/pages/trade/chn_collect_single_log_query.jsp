@@ -163,8 +163,8 @@ table tr td select {
 					
 					<tr>
 						
-						<td>签名值</td><td id="chkvalue"></td>
-						<td>预留手机号</td><td id="mobileforbank"></td>
+						<td>签名值</td><td  width="35%" id="chkvalue"></td>
+						<td>预留手机号</td><td  width="35%" id="mobileforbank"></td>
 					</tr>
 					<tr>
 						<td>证件号</td><td id=certid></td>

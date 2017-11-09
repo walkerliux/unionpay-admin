@@ -12,12 +12,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,14 +27,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FunctionService;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.CookieUtils;
 import com.unionpay.withhold.admin.utils.MD5Util;
-
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
+import com.unionpay.withhold.admin.utils.TokenProccessor;
 
 
 @Controller
@@ -99,13 +102,17 @@ public class LoginController {
 	 */
 	@ResponseBody
 	@RequestMapping("/validateUser")
-	public Map<String, Object> validateUser(TUser user,
-
+	public Map<String, Object> validateUser(TUser user,String token,
 			HttpServletRequest request, String randcode,HttpServletResponse response) {
-
-		sc = request.getSession().getServletContext();
 		Map<String, Object> returnMap = new HashMap<String, Object>();
-		String rand = "";
+		boolean b = isRepeatSubmit(request,token);//判断用户是否是重复提交
+		if(b==true){
+		    
+			returnMap.put("info", "请勿重复提交");
+		}else {
+		
+		
+		String rand ="";
 		HttpSession session = request.getSession(true);
 		if (session.getAttribute("randCheckCode") == null) {
 			rand = "";
@@ -132,6 +139,8 @@ public class LoginController {
 			if (DbUser.getLoginName().equals(user.getLoginName())
 					&& DbUser.getPwd().equals(MD5Util.MD5(passwordMark))) {
 				returnMap.put("ret", "success");
+				//登录成功
+				request.getSession().removeAttribute("tokenn");//移除session中的token
 			} else {
 				loginFlag = true;
 			}
@@ -143,6 +152,7 @@ public class LoginController {
 			returnMap.put("info", "用户名或密码错误！");
 		} else {
 			userService.putLoginMsgTORedis(response,request, DbUser);
+		}
 		}
 		return returnMap;
 	}
@@ -315,6 +325,7 @@ public class LoginController {
 		// 图象生效
 		g.dispose();
 		ImageIO.write(image, "JPEG", response.getOutputStream());
+		
 	}
 
 	/*
@@ -385,17 +396,32 @@ public class LoginController {
 		return ip;
 	}
 	
-	
-	 /**
-	  * 检测用户是否登陆
-	  * @param session
-	  * @param account
-	  * @return
-	  */
-	 public boolean checkLogin(HttpSession session,String account){
-		 
-		 return true;
-	 }
-	
-	
+	@RequestMapping(value="/getTokennn",method = RequestMethod.GET )
+	@ResponseBody
+	public String getToken(HttpServletRequest request){
+		String token = TokenProccessor.getInstance().makeToken();//创建令牌
+		request.getSession().setAttribute("tokenn", token);  //在服务器使用session保存token(令牌)
+		//String server_token = (String) request.getSession().getAttribute("token");
+		return token;
+	}
+	private boolean isRepeatSubmit(HttpServletRequest request,String token) {
+		//String client_token =(String) request.getSession().getAttribute("token");
+		// 1、如果用户提交的表单数据中没有token，则用户是重复提交了表单
+		if (token == null) {
+			return true;
+		}
+		// 取出存储在Session中的token
+		String server_token = (String) request.getSession().getAttribute("tokenn");
+		// 2、如果当前用户的Session中不存在Token(令牌)，则用户是重复提交了表单
+		if (server_token == null) {
+			return true;
+		}
+		// 3、存储在Session中的Token(令牌)与表单提交的Token(令牌)不同，则用户是重复提交了表单
+		if (!token.equals(server_token)) {
+			return true;
+		}
+
+		return false;
+	}
+
 }

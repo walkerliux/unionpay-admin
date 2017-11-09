@@ -30,6 +30,7 @@
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
+			<input id="tokenId" type="hidden"  name="token" /> 
 				<ul>
 					<li><input type="text" class="loginuser"
 						onclick="JavaScript:this.value=''" size="30" maxlength="128"
@@ -75,7 +76,17 @@
 	     
 	    
 		$(function(){
-				
+			$.ajax({
+				type : "get",
+				url : "<%=basePath%>login/getTokennn?rand="+new Date().getTime(),
+				dataType : "json",
+				success : function(json) {
+						
+					$("#tokenId").val(json);
+				} 
+			});
+			$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
+			<%-- $('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
 				if("?overtime" == location.search){
 					var parent = window.parent;
 					while(parent!=window.parent){
@@ -89,7 +100,7 @@
 						 
 					$("#info").html("操作超时,请重新登录");
 				} 
-				$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
+				
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
 // 						$('#theForm').form('submit', {  
@@ -99,7 +110,7 @@
 // 						    success:function(data){   
 // 						    	var json = eval('(' + data + ')')
 // 							    if(json.ret=='success'){
-<%-- 					    			window.location="<%=basePath%>"+"pages/querymenuAction.action"; --%>
+					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
 // 								}else if(json.ret=='err_user'){
 // 									$("#info").html(json.info);
 // 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
@@ -137,7 +148,7 @@
 						});
 				    }
 									
-				});
+				}); --%>
 			})
 			function login(){
 				if($('#processfile').validatebox("isValid")){
@@ -196,11 +207,11 @@
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
 				var randcode = $('#randcode').val();
-				
+				var token=$("#tokenId").val();
 				$.ajax({
 	        		type:"post",
 	        		url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
-	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode,"token":token},
 	        		async: false,
 	        		success:function(data){
 	        			if(data.ret=='success'){
