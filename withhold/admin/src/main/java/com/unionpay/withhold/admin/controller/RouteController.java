@@ -1,5 +1,7 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +50,17 @@ public class RouteController {
 	@RequestMapping(value = "/toRouteConfigManager", method = RequestMethod.GET)
 	public String toRouteConfigManager() {
 		return "/route/routeconfig_manager";
+	}
+	
+	/**
+	 * 查询路由版本列表
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getAllRouteList")
+	public List<TRoute> getAllRouteList() {
+		return routeService.getAllRouteList();
 	}
 	
 	/**

@@ -311,7 +311,7 @@
 			limit #{beginRow},#{pageSize}
 		</if>
 	</select>
-
+	
 	<select id="selectCountWithCondition" resultType="java.lang.Integer">
 		SELECT COUNT(*) FROM t_route AS r
 		<where>
@@ -322,5 +322,9 @@
 				AND r.ROUTNAME  LIKE CONCAT(CONCAT('%', #{route.routname}), '%')
 			</if>
 		</where>
+	</select>
+	
+	<select id="getAllRouteList" resultMap="BaseResultMap">
+		SELECT ROUTVER,ROUTNAME FROM `t_route` WHERE `STATUS` = 1;
 	</select>
 </mapper>

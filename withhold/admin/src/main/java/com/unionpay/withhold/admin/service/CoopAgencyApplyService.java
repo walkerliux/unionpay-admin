@@ -35,8 +35,24 @@ public interface CoopAgencyApplyService {
 
 	TCoopAgencyApply queryCoopAgencyCheckById(Long selfId);
 
+	/**
+	 * 审核拒绝
+	 * @param coopAgencyApply
+	 * @return
+	 */
 	ResultBean refuseCheck(TCoopAgencyApply coopAgencyApply);
 
+	/**
+	 * 审核通过
+	 * @param coopAgencyApply
+	 * @return
+	 */
 	ResultBean passCheck(TCoopAgencyApply coopAgencyApply);
+
+	/**
+	 * 获取渠道代码
+	 * @return
+	 */
+	ResultBean getCacode();
 
 }

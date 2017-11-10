@@ -17,6 +17,12 @@ public class CommonConstants {
 	// 商户密钥状态
 	/** 商户密钥状态-正常状态 **/
 	public final static String MERCH_MK_STATUS_NORMAL = "00";
+	
+	// 用户类型
+	/** 用户类型-普通用户 **/
+	public final static String USER_TYPE_COMMON = "0";
+	/** 用户类型-管理员 **/
+	public final static String USER_TYPE_ADMIN = "1";
 
 	// 风控版本状态
 	/** 风控版本状态-正常状态 **/

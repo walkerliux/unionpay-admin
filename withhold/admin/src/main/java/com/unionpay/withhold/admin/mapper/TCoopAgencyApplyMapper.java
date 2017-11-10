@@ -32,4 +32,6 @@ public interface TCoopAgencyApplyMapper {
     int selectCountWithCondition(@Param("coopAgencyApply")TCoopAgencyApply coopAgencyApply, @Param("statuses")List<String> statuses);
     
     TCoopAgencyApply selectCoopAgencyDetailById(Long selfId);
+    
+    Integer getCacode();
 }

@@ -79,6 +79,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			merchDetaApply.setInTime(merchDetaBack.getInTime());
 			merchDetaApply.setInUser(merchDetaBack.getInUser());
 			merchDetaApply.setRiskVer(merchDetaBack.getRiskVer());
+			merchDetaApply.setRoutVer(merchDetaBack.getRoutVer());
 			merchDetaApply.setStexaOpt(null);
 			merchDetaApply.setStexaTime(null);
 			merchDetaApply.setStexaUser(null);
@@ -116,6 +117,7 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			merchDetaApply.setInTime(merchDetaBack.getInTime());
 			merchDetaApply.setInUser(merchDetaBack.getInUser());
 			merchDetaApply.setRiskVer(merchDetaBack.getRiskVer());
+			merchDetaApply.setRoutVer(merchDetaBack.getRoutVer());
 			merchDetaApply.setStexaOpt(null);
 			merchDetaApply.setStexaTime(null);
 			merchDetaApply.setStexaUser(null);

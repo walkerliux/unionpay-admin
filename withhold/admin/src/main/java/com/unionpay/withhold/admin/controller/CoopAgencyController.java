@@ -104,6 +104,21 @@ public class CoopAgencyController {
 		}
 		return coopAgencyApplyService.queryCoopAgencyApplyById(selfId);
 	}
+	
+	/**
+	 * 获取渠道代码
+	 * 
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/getCacode")
+	public ResultBean getCacode() {
+		try {
+			return coopAgencyApplyService.getCacode();
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
 
 	/**
 	 * 注册

@@ -1,10 +1,17 @@
 package com.unionpay.withhold.admin.service;
 
+import java.util.List;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TRoute;
 
 public interface RouteService {
+	/**
+	 * 查询路由版本列表
+	 * @return
+	 */
+	List<TRoute> getAllRouteList();
 
 	/**
 	 * 查询路由版本分页信息

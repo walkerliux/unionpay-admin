@@ -649,4 +649,8 @@
 		#{selfId,jdbcType=DECIMAL}
 	</update>
 
+
+	<select id="getCacode" resultType="java.lang.Integer">
+		SELECT IF(COUNT(*)=0,1,(MAX(`CACODE`) + 1)) AS CACODE FROM `t_coop_agency_apply`
+	</select>
 </mapper>
