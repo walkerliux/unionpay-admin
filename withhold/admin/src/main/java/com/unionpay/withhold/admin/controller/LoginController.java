@@ -108,9 +108,8 @@ public class LoginController {
 		boolean b = isRepeatSubmit(request,token);//判断用户是否是重复提交
 		if(b==true){
 		    
-			returnMap.put("info", "请勿重复提交");
-		}else {
-		
+			//returnMap.put("info", "请勿重复提交");
+		}
 		
 		String rand ="";
 		HttpSession session = request.getSession(true);
@@ -153,7 +152,7 @@ public class LoginController {
 		} else {
 			userService.putLoginMsgTORedis(response,request, DbUser);
 		}
-		}
+		
 		return returnMap;
 	}
 

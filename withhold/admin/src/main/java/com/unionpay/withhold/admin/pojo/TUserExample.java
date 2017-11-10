@@ -1160,4 +1160,28 @@ public class TUserExample {
             this(condition, value, secondValue, null);
         }
     }
+    //添加查询条件
+    private String userName;
+    private String userCode;
+    private List<Integer> userIds;
+
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public List<Integer> getUserIds() {
+		return userIds;
+	}
+	public void setUserIds(List<Integer> userIds) {
+		this.userIds = userIds;
+	}
+    
 }

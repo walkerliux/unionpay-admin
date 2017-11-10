@@ -34,4 +34,6 @@ public interface TUserMapper {
 	List<TUser> selectByMap(Map<String, Object> variables);
 
 	TUser selectTUserByLoginName(TUserExample example);
+
+	List<TUser> selectByMyExample(TUserExample tUserExample);
 }

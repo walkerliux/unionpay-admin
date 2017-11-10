@@ -83,7 +83,7 @@ public class UserController {
 	public List<?> update(HttpServletRequest request,TUser user) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		user.setCreator(infoByToken.getLoginName());
+		user.setCreator(infoByToken.getUserId()+"");
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			userService.updateUser(user);
@@ -133,7 +133,7 @@ public class UserController {
 		ArrayList<String> list = new ArrayList<String>();
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		user.setCreator(infoByToken.getLoginName());
+		user.setCreator(infoByToken.getUserId()+"");
 		
 		
 		try {

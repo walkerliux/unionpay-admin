@@ -86,7 +86,7 @@
 				} 
 			});
 			$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
-			<%-- $('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
+			<%-- $('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime()); --%>
 				if("?overtime" == location.search){
 					var parent = window.parent;
 					while(parent!=window.parent){
@@ -110,7 +110,7 @@
 // 						    success:function(data){   
 // 						    	var json = eval('(' + data + ')')
 // 							    if(json.ret=='success'){
-					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
+					    			<%-- window.location="<%=basePath%>"+"pages/querymenuAction.action"; --%>
 // 								}else if(json.ret=='err_user'){
 // 									$("#info").html(json.info);
 // 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
@@ -131,11 +131,11 @@
 						var loginName = $('#loginname').val();
 						var pwd = $('#pwd').val();
 						var randcode = $('#randcode').val();
-						
+						var token=$("#tokenId").val();
 						$.ajax({
 							type:"post",
 							url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
-							data:{"loginName":loginName,"pwd":pwd,"randcode":randcode},
+							data:{"loginName":loginName,"pwd":pwd,"randcode":randcode,"token":token},
 							async: false,
 							success:function(data){
 								  if(data.ret=='success'){
@@ -148,7 +148,7 @@
 						});
 				    }
 									
-				}); --%>
+				});
 			})
 			function login(){
 				if($('#processfile').validatebox("isValid")){

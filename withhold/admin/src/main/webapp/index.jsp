@@ -31,7 +31,7 @@
 		<div class="loginbody">
 			<span class="systemlogo"></span>
 			<div class="loginbox">
-			<input id="tokenId"  name="token" /> 
+			<input id="tokenId" type="hidden" name="token" /> 
 				<ul>
 					<li><input type="text" class="loginuser"
 						onclick="JavaScript:this.value=''" size="30" maxlength="128"
@@ -87,7 +87,7 @@
 				} 
 			});
 			$('#rand_image').attr("src","<%=basePath%>login/validateCode?rand="+new Date().getTime());
-			<%-- if("?overtime" == location.search){
+			 if("?overtime" == location.search){
 					var parent = window.parent;
 					while(parent!=window.parent){
 						parent = window.parent;
@@ -110,7 +110,7 @@
 // 						    success:function(data){   
 // 						    	var json = eval('(' + data + ')')
 // 							    if(json.ret=='success'){
-					    			window.location="<%=basePath%>"+"pages/querymenuAction.action";
+					    			<%-- window.location="<%=basePath%>"+"pages/querymenuAction.action"; --%>
 // 								}else if(json.ret=='err_user'){
 // 									$("#info").html(json.info);
 // 									$('#rand_image').attr("src","login/validateCode?rand="+new Date().getTime());
@@ -132,7 +132,7 @@
 						var pwd = $('#pwd').val();
 						var randcode = $('#randcode').val();
 						var token=$("#tokenId").val();
-						alert(token);
+						//alert(token);
 						$.ajax({
 							type:"post",
 							url:"<%=basePath%>login/validateUser?rand="+new Date().getTime(),
@@ -150,7 +150,7 @@
 						
 				    }
 									
-				}); --%>
+				}); 
 			})
 			//页面加载完成 获取token
 		  /*  $(document).ready(function() {

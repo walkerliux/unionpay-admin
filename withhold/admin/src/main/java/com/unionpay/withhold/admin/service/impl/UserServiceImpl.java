@@ -118,18 +118,21 @@ public class UserServiceImpl implements UserService {
 		
 		if(user.getUserName()!=null&&!"".equals(user.getUserName())){
 			criteria.andUserNameEqualTo(user.getUserName());
+			tUserExample.setUserName(user.getUserName());
 		}
 		if(user.getUserCode()!=null&&!"".equals(user.getUserCode())){
 			criteria.andUserCodeEqualTo(user.getUserCode());
+			tUserExample.setUserCode(user.getUserCode());
 		}
 		if (userIds!=null&&userIds.size()>0) {
 			criteria.andUserIdIn(userIds);
+			tUserExample.setUserIds(userIds);
 		}
 		int total = tUserMapper.countByExample(tUserExample);
 		tUserExample.setPageNum(page);
 		tUserExample.setPageSize(rows);
 		tUserExample.setOrderByClause("USER_ID DESC");
-		List<TUser> list = tUserMapper.selectByExample(tUserExample);
+		List<TUser> list = tUserMapper.selectByMyExample(tUserExample);
 		
 		return new PageBean(total, list); 
 	}

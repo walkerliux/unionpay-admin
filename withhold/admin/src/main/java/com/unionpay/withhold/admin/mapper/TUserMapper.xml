@@ -355,4 +355,32 @@
   		select * from t_user where LOGIN_NAME=#{loginName}
     
   </select>
+  <!-- 自关联查询 -->
+  <select id="selectByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TUserExample" >
+    SELECT
+	a.*, b.USER_NAME creatorName
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM
+	t_user a
+	LEFT JOIN t_user b on b.USER_ID = a.CREATOR 
+	where 1=1
+    <if test="userName != null" >
+      and a.USER_NAME=#{userName}
+    </if>
+    <if test="userCode != null" >
+      and a.USER_CODE=#{userCode}
+    </if>
+    <if test="userIds != null" >
+      and a.USER_ID in
+      <foreach collection="userIds" index="index" item="userId" open="(" separator="," close=")">  
+        #{userId}  
+    </foreach>  
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    limit #{beginRow},#{pageSize}
+  </select>
 </mapper>

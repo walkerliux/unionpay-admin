@@ -257,7 +257,7 @@ table tr td select {
 					{field:'loginName',title:'登陆账号',width:180,align:'center'},
 					/* 
 					{field:'DEPT_NAME',title:'所属部门',width:100,align:'center'}, */
-					{field:'creator',title:'创建者',width:180,align:'center'},
+					{field:'creatorName',title:'创建者',width:180,align:'center'},
 					{field:'createDate',title:'创建时间',width:200,align:'center',
 						formatter:function(value, row) { 
 						if(value!=null){
@@ -410,6 +410,7 @@ table tr td select {
 						$("#user_code").css('background-color','#D2D2D2');
 						$("#user_name").val(json.userName);
 						$("#user_loginName").val(json.loginName);
+						$("#user_loginName").attr('readonly','readonly');
 						$("#user_organId").val(json.organId);
 						$("#user_status").val(json.status);
 						$("#user_isadmin").val(json.isadmin);
