@@ -80,11 +80,6 @@ public class FeeController {
 		
 		accumRateBean.getArdList().get(0).setStartRange("0");;
 		for (int i = 0; i < length; i++) {
-			//accumRateBean.getArdList().get(i).setInUser(UserHelper.getCurrentUser(request).getUserId());
-			// 起止金额由元转成分
-			//long parseLong = Long.parseLong(accumRateBean.getArdList().get(i).getStartRange())*100;
-			
-			
 			if (i>=1&&accumRateBean.getArdList().get(i).getStartRange()!=null&&!"".equals(accumRateBean.getArdList().get(i).getStartRange())) {
 				Double endRange = Double.parseDouble(accumRateBean.getArdList().get(i).getStartRange())*100;
 				Long longValue = endRange.longValue();

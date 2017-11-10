@@ -159,7 +159,7 @@ table tr td select {
 					</tr>
 					<tr>
 						
-						<td>签名信息</td><td id="signedmsg"></td>
+						<td>签名信息</td><td style="word-break:break-all" id="signedmsg"></td>
 						<td>协议用户编号</td><td id=protocoluserid></td>
 					</tr>
 					<tr>

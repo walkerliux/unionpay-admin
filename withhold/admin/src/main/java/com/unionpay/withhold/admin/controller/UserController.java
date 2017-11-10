@@ -134,12 +134,7 @@ public class UserController {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		user.setCreator(infoByToken.getLoginName());
-		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
-		passwordMark = passwordMark + "123456";
-		user.setPwd(MD5Util.MD5(passwordMark));
-		user.setCreateDate(new Date());
-		user.setPwdValid(new Date());
-		user.setStatus("00");
+		
 		
 		try {
 			userService.saveUser(user);

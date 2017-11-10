@@ -81,7 +81,7 @@ table tr td select {
 			<table id="test"></table>
 		</div>
 	</div>
-	<div id="w" class="easyui-window" closed="true" title="My Window"  style="width: 500px; height: 200px; padding: 5px;">
+	<div id="w" class="easyui-window" closed="true" title="My Window"  style="width: 600px; height: 200px; padding: 5px;">
 		<div class="easyui-layout" fit="true">
 			<div region="center" border="false" style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center" id="continer">
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo" border="1">
@@ -90,16 +90,16 @@ table tr td select {
 						<td colspan="4" class="head-title">接口参数</td>
 					</tr>
 					<tr>
-						<td>版本</td><td id="version"></td>
-						<td>网关号</td><td id="gateid"></td>
+						<td width="15%">版本</td ><td width="35%" id="version"></td>
+						<td width="15%">网关号</td><td width="35%" id="gateid"></td>
 					</tr>
 					<tr>
-						<td>私有域</td><td id="priv1"></td>
-						<td>交易手机串号IMEI</td><td id="imei"></td>
+						<td width="15%">私有域</td><td width="35%" id="priv1"></td>
+						<td width="15%">交易手机串号IMEI</td><td width="35%" id="imei"></td>
 					</tr>
 					<tr>
-						<td>PC 硬盘序列号</td><td id="disksn"></td>
-						<td>PC mac地址</td><td id="mac"></td>
+						<td width="15%">PC 硬盘序列号</td><td width="35%" id="disksn"></td>
+						<td width="15%">PC mac地址</td><td width="35%" id="mac"></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">基本信息</td>
@@ -109,8 +109,8 @@ table tr td select {
 						<td width="15%">交易序列号</td><td width="35%" id="txnseqno"></td>
 					</tr> 
 					<tr>
-						<td>商户编号</td><td id="merid"></td>
-						<td>商户日期</td><td id="transdate"></td>
+						<td width="15%">商户编号</td><td width="35%" id="merid"></td>
+						<td width="15%">商户日期</td><td width="35%" id="transdate"></td>
 					</tr>
 					
 					<tr>
@@ -129,12 +129,12 @@ table tr td select {
 						<td colspan="4" class="head-title">用户信息</td>
 					</tr>
 					
-						<td>证件类型</td><td id="certtype"></td>
-						<td>用户ID</td><td id="userid"></td>
+						<td width="15%">证件类型</td><td width="35%" id="certtype"></td>
+						<td width="15%">用户ID</td><td width="35%" id="userid"></td>
 					</tr>
 					<tr>
-						<td>用户注册邮箱</td><td id="usermail"></td>
-						<td>用户注册时间</td><td id="userregistertime"></td>
+						<td width="15%">用户注册邮箱</td><td width="35%" id="usermail"></td>
+						<td width="15%">用户注册时间</td><td width="35%" id="userregistertime"></td>
 					</tr>
 					<tr>
 						<td>用户注册手机号</td><td id="usermobile"></td>
@@ -150,21 +150,21 @@ table tr td select {
 						<td colspan="4" class="head-title">交易信息</td>
 					</tr>
 					<tr>
-						<td>交易要素</td><td id="factorid" colspan="3"></td>
+						<td width="15%">交易要素</td><td width="35%" id="factorid" colspan="3"></td>
 					</tr>
 					<tr>
-						<td>开户行号</td><td id="openbankid"></td>
-						<td>卡号/折号</td><td id=tcardno></td>
+						<td width="15%">开户行号</td><td width="35%" id="openbankid"></td>
+						<td width="15%">卡号/折号</td><td width="35%" id=tcardno></td>
 					</tr>
 					<tr>
-						<td>持卡人姓名</td><td id="usrname"></td>
-						<td>卡折标志</td><td id="cardtype"></td>
+						<td width="15%">持卡人姓名</td><td width="35%" id="usrname"></td>
+						<td width="15%">卡折标志</td><td width="35%" id="cardtype"></td>
 					</tr>
 					
 					<tr>
 						
-						<td>签名值</td><td  width="35%" id="chkvalue"></td>
-						<td>预留手机号</td><td  width="35%" id="mobileforbank"></td>
+						<td width="15%">签名值</td><td style="word-break:break-all" width="35%" id="chkvalue"></td>
+						<td width="15%">预留手机号</td><td  width="35%" id="mobileforbank"></td>
 					</tr>
 					<tr>
 						<td>证件号</td><td id=certid></td>
@@ -175,8 +175,8 @@ table tr td select {
 						<td colspan="4" class="head-title">订单处理信息</td>
 					</tr>
 					<tr>
-						<td>描述</td><td id="message"></td>
-						<td>应答信息</td><td id="responsecode"></td>
+						<td width="15%">描述</td><td width="35%" id="message"></td>
+						<td width="15%">应答信息</td><td width="35%" id="responsecode"></td>
 					</tr>
 					<tr>
 						<td>渠道类型</td><td id="termtype"></td>
@@ -184,7 +184,7 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>受理订单号</td><td id="tn"></td>
-					<td>用途</td><td id="purpose" ></td>
+						<td>用途</td><td id="purpose" ></td>
 					</tr>
 					
 					<tr>
@@ -375,7 +375,7 @@ table tr td select {
 			title : '实时代收渠道交易流水详细信息',
 			top : 90,
 			left : 100,
-			width : 900,
+			width : 1000,
 			modal : true,
 			minimizable : false,
 			collapsible : false,

@@ -13,6 +13,7 @@ import java.util.Map;
 
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -134,6 +135,13 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public void saveUser(TUser user) {
+		
+		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
+		passwordMark = passwordMark + "123456";
+		user.setPwd(MD5Util.MD5(passwordMark));
+		user.setCreateDate(new Date());
+		user.setPwdValid(new Date());
+		user.setStatus("00");
 		String value = jedisClient.get(REDIS_USER_CODE_KEY);
 		if (StringUtil.isNull(value)) {
 			jedisClient.set(REDIS_USER_CODE_KEY, REDIS_USER_CODE_START);

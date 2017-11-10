@@ -272,7 +272,7 @@ table tr td.update {
 		output += '<tr id="explain">';
 		output += 	'<td class="update">计算公式说明</td>';
 		output += 	'<td class="update" colspan="3">';
-		output += 		'例如:@a 固定金额; @f*@l 固定比例; @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率';
+		output += 		'例如:例如: 1. @a 固定金额; 2. @f*@l 固定比例; 3. @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率';
 		output += 	'</td>';
 		output += '</tr>';
 		$('#tableadd').html(output);
@@ -445,7 +445,7 @@ table tr td.update {
 				output += '<tr id="explain">';
 				output += 	'<td class="update">计算公式说明</td>';
 				output += 	'<td class="update" colspan="3">';
-				output += 		'例如:@a 固定金额; @f*@l 固定比例; @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率';
+				output += 		'例如:例如: 1. @a 固定金额; 2. @f*@l 固定比例; 3. @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率';
 				output += 	'</td>';
 				output += '</tr>';
 				$('#tableadd').html(output);
@@ -500,7 +500,7 @@ table tr td.update {
 					
 				}
 				output += '<tr height="50px"><td class="update">备注</td><td class="update" colspan="3" id="notes_d">' + (notes=="null"?"":notes) + '</td></tr>';
-				output += '<tr height="50px"><td class="update">计算公式说明</td><td class="update" colspan="3">例如:@a 固定金额; @f*@l 固定比例; @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率</td></tr>';
+				output += '<tr height="50px"><td class="update">计算公式说明</td><td class="update" colspan="3">例如: 1. @a 固定金额; 2. @f*@l 固定比例; 3. @a+(@f-@a)*@l 固定金额+（手续费-固定费用）*费率</td></tr>';
 				$('#tabledetail').html(output);
 				
 				$('#wdetail').window({
