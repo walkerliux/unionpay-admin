@@ -379,12 +379,13 @@ table tr td select {
 			    	//alert(data)
 		    		/* $('#w').window('close');
 		    		 search();
-		    		$('#btn_submit').linkbutton('enable');
+		    		
 		    		if(data=='true'){
 						$.messager.alert('提示',"保存成功");  
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					} */ 
+					
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){

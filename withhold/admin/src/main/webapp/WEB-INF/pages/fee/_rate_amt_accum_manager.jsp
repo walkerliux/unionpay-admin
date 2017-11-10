@@ -330,9 +330,11 @@ table tr td.update {
 		
 		$('#addForm').form('submit', {
 			onSubmit : function() {
+				$('#save_button_a').linkbutton('disable');	
 				return $('#addForm').form('validate');
 			},
 			success : function(data) {
+				$('#save_button_a').linkbutton('enable');
 				data=JSON.parse(data);
 				if (typeof(data.RET) == "undefined")
 				{

@@ -103,6 +103,7 @@
 				
 				$("#pwd,#loginname,#randcode,#loginbody").keydown(function(event){
 					if(event.keyCode==13){
+						
 // 						$('#theForm').form('submit', {  
 // 						    onSubmit: function(){  
 // 						        return $('#theForm').form('validate');   
@@ -213,6 +214,7 @@
 			$('#login_btn').click(function(){
 				//直接跳转，实际开发时别忘了去除
 				<%-- window.location="<%=basePath%>login/loginSuccess"; --%>
+				//$('#login_btn').linkbutton('disable');
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
 				var randcode = $('#randcode').val();
@@ -224,6 +226,7 @@
 	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode,"token":token},
 	        		async: false,
 	        		success:function(data){
+	        			 // $('#login_btn').linkbutton('enable');
 	        			  if(data.ret=='success'){
 	        				window.location="<%=basePath%>login/loginSuccess";
 	        			}else{

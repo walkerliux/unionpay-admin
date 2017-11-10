@@ -203,7 +203,7 @@
         
         	
 			$('#login_btn').click(function(){
-				
+				//$('#login_btn').linkbutton('disable');
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
 				var randcode = $('#randcode').val();
@@ -214,6 +214,7 @@
 	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode,"token":token},
 	        		async: false,
 	        		success:function(data){
+	        			//$('#login_btn').linkbutton('enable');
 	        			if(data.ret=='success'){
 	        				window.location="<%=basePath%>login/loginSuccess";
 	        			}else{

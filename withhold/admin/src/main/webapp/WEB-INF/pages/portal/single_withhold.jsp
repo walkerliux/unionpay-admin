@@ -114,7 +114,7 @@ table tr td select {
 		$('#searchForm').form('submit', {
 			onSubmit : function() {
 				if ($('#searchForm').form('validate')) {
-					//$('#btn_submit').linkbutton('disable');
+					$('#btn_submit').linkbutton('disable');
 					return true;
 				}
 				return false;
