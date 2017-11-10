@@ -256,26 +256,39 @@ table tr td select {
 		}
 		
 		function showAdd(){
-			$('#cacode').removeAttr("readonly");//取消只读的设置
-			showAllProvince();
-			//// 显示搜索条件中的上级渠道
-			showAllSuperCode("add");
-			$("#saveForm").attr("action","coopAgency/addApply");
+			//$('#cacode').removeAttr("readonly");//取消只读的设置
+			$('#cacode').attr("readonly","readonly");//设为只读
 			$('#saveForm :input').val('');
-			$('#w').window({
-				title: '新增渠道信息',
-				top:100,
-				left:400,
-				width: 800,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 360
+			$.ajax({
+			   type: "POST",
+			   url: "coopAgency/getCacode",
+			   dataType:"json",
+			   success: function(json){	
+				   $("#cacode").val(json.resultObj);
+					showAllProvince();
+					//// 显示搜索条件中的上级渠道
+					showAllSuperCode("add");
+					$("#saveForm").attr("action","coopAgency/addApply");
+					
+					$('#w').window({
+						title: '新增渠道信息',
+						top:100,
+						left:400,
+						width: 800,
+						modal: true,
+						minimizable:false,
+						collapsible:false,
+						maximizable:false,
+						shadow: false,
+						closed: false,
+						height: 360
+					});
+					$('#btn_submit').linkbutton('enable');	
+			    },
+				error : function(){
+					$.messager.alert('提示', '服务异常！');
+				}
 			});
-			$('#btn_submit').linkbutton('enable');	
 		}
 		
 		function showChange(selfId){
@@ -286,7 +299,6 @@ table tr td select {
 			   type: "POST",
 			   url: "coopAgency/queryApplyById",
 			   data: "selfId="+selfId,
-			   async: false,
 			   dataType:"json",
 			   success: function(json){	
 				   if (json == null) {

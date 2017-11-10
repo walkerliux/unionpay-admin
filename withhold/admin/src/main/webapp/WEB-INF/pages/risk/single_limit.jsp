@@ -170,13 +170,19 @@
 					field: 'minAmount',
 					title: '最小限额(元)',
 					width: 100,
-					align: 'center'
+					align: 'center',
+					formatter: function(value, rec){
+			    		return value/100;
+			    	}	
 				},
 				{
 					field: 'maxAmount',
 					title: '最大限额(元)',
 					width: 150,
-					align: 'center'
+					align: 'center',
+					formatter: function(value, rec){
+			    		return value/100;
+			    	}	
 				},
 				{
 					field: 'risklevel',
@@ -312,8 +318,8 @@
 				success: function(json) {
 					$("#tid").val(json.tid);
 					$("#notes").val(json.notes);
-					$("#maxAmount").val(json.maxAmount);
-					$("#minAmount").val(json.minAmount);
+					$("#maxAmount").val(json.maxAmount/100);
+					$("#minAmount").val(json.minAmount/100);
 					$("#riskver").attr("disabled", "disabled");
 					showRisk(json.caseid);
 					showRiskLevel(json.risklevel);

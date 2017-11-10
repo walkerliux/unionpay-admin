@@ -348,4 +348,10 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 
 		return new PageBean(count, list);
 	}
+
+	@Override
+	public ResultBean getCacode() {
+		String cacode = String.format("%08d", coopAgencyApplyMapper.getCacode());
+		return new ResultBean(cacode);
+	}
 }

@@ -33,4 +33,6 @@ public interface TRouteMapper {
 	List<TRoute> selectWithCondition(@Param("route")TRoute route, @Param("beginRow")Integer beginRow, @Param("pageSize")Integer pageSize);
 
 	int selectCountWithCondition(@Param("route")TRoute route);
+	
+	List<TRoute> getAllRouteList();
 }

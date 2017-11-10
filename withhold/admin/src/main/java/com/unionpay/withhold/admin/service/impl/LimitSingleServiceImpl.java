@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class LimitSingleServiceImpl implements LimitSingleService {
 			return new ResultBean("", "提交的单笔限额信息有误！");
 		} else if (limitSingle.getMinAmount().compareTo(limitSingle.getMaxAmount()) >= 0) {
 			return new ResultBean("", "最大限额应当大于最小限额！");
+		} else {
+			limitSingle.setMaxAmount(limitSingle.getMaxAmount().multiply(new BigDecimal("100")));
+			limitSingle.setMinAmount(limitSingle.getMinAmount().multiply(new BigDecimal("100")));
 		}
 		
 		// 验重、范围是否冲突、风险等级是否冲突
@@ -69,6 +73,9 @@ public class LimitSingleServiceImpl implements LimitSingleService {
 			return new ResultBean("", "提交的单笔限额信息有误！");
 		} else if (limitSingle.getMinAmount().compareTo(limitSingle.getMaxAmount()) >= 0) {
 			return new ResultBean("", "最大限额应当大于最小限额！");
+		} else {
+			limitSingle.setMaxAmount(limitSingle.getMaxAmount().multiply(new BigDecimal("100")));
+			limitSingle.setMinAmount(limitSingle.getMinAmount().multiply(new BigDecimal("100")));
 		}
 				
 		TLimitSingle limitSingleBack = limitSingleMapper.selectByPrimaryKey(limitSingle.getTid());

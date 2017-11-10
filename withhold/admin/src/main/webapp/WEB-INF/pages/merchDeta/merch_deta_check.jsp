@@ -123,7 +123,9 @@ table tr td select {
 						</tr>
 						<tr style="height: 25px">
 							<td class="update" width="15%">联系人邮箱</td>
-							<td class="update" id="contEmail" name="contEmail" align="left" colspan="3"></td>
+							<td class="update" id="contEmail" name="contEmail" align="left"></td>
+							<td class="update"></td>
+							<td class="update"></td>
 						</tr>
 						
 						<tr style="height: 25px">
@@ -146,7 +148,7 @@ table tr td select {
 						</tr>
 						
 						<tr>
-							<td colspan="4" class="head-title">手续费及风控配置（提示：收费代码通过计费管理配置，风控版本通过风控管理配置）</td>
+							<td colspan="4" class="head-title">手续费、风控及路由版本配置（提示：收费代码通过计费管理配置，风控版本通过风控管理配置，路由版本通过路由管理配置）</td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">收费代码</td>
@@ -159,6 +161,15 @@ table tr td select {
 								class="easyui-validatebox" required="true"
 								missingMessage="请选择风控版本" name="riskVer" />
 								<option value=''>--请选择风控版本--</option></select><font color="red">*</font></td>
+						</tr>
+						<tr style="height: 25px">
+							<td class="update">路由版本</td>
+							<td class="update" align="left" ><select id="routVer"
+								class="easyui-validatebox" required="true" name="routVer"
+								missingMessage="--请选择路由版本--"/>
+								<option value=''>--请选择路由版本--</option></select><font color="red">*</font></td>
+							<td class="update"></td>
+							<td class="update"></td>
 						</tr>
 					</table>
 				</form>
@@ -265,6 +276,7 @@ table tr td select {
 						$("#status").val(json.status);
 						showRisk(json.riskVer);
 						showRate(json.rateId);
+						showRoute(json.routVer);
 						
 						$('#w').window({
 							title: '审核商户信息',
@@ -277,7 +289,7 @@ table tr td select {
 							maximizable:false,
 							shadow: false,
 							closed: false,
-							height: 409
+							height: 435
 						});
 					}
 			    },
@@ -342,12 +354,18 @@ table tr td select {
 				$("#riskVer").focus();
 				return false;
 			}
+			if ($("#routVer").val() == "") {
+				$.messager.alert('提示',"请配置路由版本！");
+				$("#routVer").focus();
+				return false;
+			}
 			
 			$('.checkmd').linkbutton('disable');
 			var selfId = $("#selfId").val();
 			var status = $("#status").val();
 			var rateId = $("#rateId").val();
 			var riskVer = $("#riskVer").val();
+			var routVer = $("#routVer").val();
 			$.ajax({
 				type : "POST",
 				url: "merchDeta/passCheck",
@@ -356,7 +374,8 @@ table tr td select {
 					"selfId":selfId,
 					"status":status,
 					"rateId":rateId,
-					"riskVer":riskVer
+					"riskVer":riskVer,
+					"routVer":routVer
 				},
 				success: function(json) {
 					$('.checkmd').linkbutton('enable');
@@ -414,6 +433,23 @@ table tr td select {
 				}
 			});
 		}
-		
+		function showRoute(routver) {
+			$.ajax({
+				type: "POST",
+				url: "route/getAllRouteList",
+				dataType: "json",
+				success: function(json) {
+					var html = "<option value=''>--请选择路由版本--</option>";
+					$.each(json,function(key, value) {
+						if(value.routver==routver){
+							html += '<option value="' + value.routver + '" selected="selected">' + value.routname + '</option>';
+						}else{
+							html += '<option value="' + value.routver + '">' + value.routname + '</option>';
+						}
+					}) ;
+					$("#routVer").html(html);
+				}
+			});
+		}
 	</script>
 </html>

@@ -22,6 +22,11 @@ public class RouteServiceImpl implements RouteService {
 	private TRouteMapper routeMapper;
 
 	@Override
+	public List<TRoute> getAllRouteList() {
+		return routeMapper.getAllRouteList();
+	}
+	
+	@Override
 	public PageBean selectListWithCondition(TRoute route, Integer page, Integer rows) {
 		// 查分页数据
 		Integer beginRow = (page - 1) * rows;
