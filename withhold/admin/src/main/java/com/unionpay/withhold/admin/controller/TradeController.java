@@ -482,4 +482,6 @@ public class TradeController {
 		PageBean result =tradeService.getHYLCollectBakDeta(hyldkLog,stime,etime,page,rows);
 	    return result;
 	}
+	
+	
 }

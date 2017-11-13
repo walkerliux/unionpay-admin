@@ -203,6 +203,7 @@
         
         	
 			$('#login_btn').click(function(){
+				
 				//$('#login_btn').linkbutton('disable');
 				var loginName = $('#loginname').val();
 				var pwd = $('#pwd').val();
