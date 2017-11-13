@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,17 +34,27 @@ import com.unionpay.withhold.utils.DateUtil;
 @RequestMapping("/portalManager")
 public class MerchantPortalController {
 	@Value("${VERSION}")
-	private String VERSION;
+	private String VERSION;// 版本号
 	@Value("${ENCODING}")
-	private String ENCODING;
+	private String ENCODING;//编码格式
 	@Value("${TXNTYPE}")
-	private String TXNTYPE;
+	private String TXNTYPE;//交易类型
 	@Value("${TXNSUBTYPE}")
-	private String TXNSUBTYPE;
+	private String TXNSUBTYPE;//交易子类
 	@Value("${BIZTYPE}")
-	private String BIZTYPE;
+	private String BIZTYPE;//产品类型
 	@Value("${BACkURL}")
-	private String BACkURL;
+	private String BACkURL;// 通知地址
+	@Value("${DkType}")
+	private String DkType;//扣款类型
+	@Value("${SignMethod}")
+	private String SignMethod;// 签名方式
+	@Value("${EncryptCertId}")
+	private String EncryptCertId;// 加密证书ID
+	@Value("${Reserved}")
+	private String Reserved;//保留域
+	@Value("${AtType}")
+	private String AtType;//交易币种
 	@Autowired
 	private FEAPI feapi;
 	@Autowired
@@ -96,22 +105,22 @@ public class MerchantPortalController {
 		bean.setTransType(TXNTYPE);// 交易类型
 		bean.setTxnSubType(TXNSUBTYPE);//交易子类
 		bean.setTransTm(DateUtil.getCurrentDateTime());// 订单发送时间
-		bean.setAtType("156");// 交易币种
+		bean.setAtType(AtType);// 交易币种
 		// 交易金额(元转分)
 		String transAt = bean.getTransAt();
 		int parseInt = Integer.parseInt(transAt);
 		bean.setTransAt(parseInt*100+"");
 		// 扣款类型
-		bean.setDkType("1");
+		bean.setDkType(DkType);
 		// 系统商户号
 		bean.setMchntCd(loginName);
 		// 证书ID
 		TMerchMk mk= portalService.getCertId(loginName);
 		bean.setCertId(mk.getCertid());
 		// 签名方式
-		bean.setSignMethod("01");
+		bean.setSignMethod(SignMethod);
 		// 加密证书ID
-		bean.setEncryptCertId("0123");
+		bean.setEncryptCertId(EncryptCertId);
 		ResultBean resultBean = feapi.realTimeCollect(JSON.toJSONString(bean));
 		return resultBean;
 	}
@@ -167,7 +176,7 @@ public class MerchantPortalController {
 		batchCollectBean.setTxnSubType(TXNSUBTYPE);
 		batchCollectBean.setBizType(BIZTYPE);
 		batchCollectBean.setBackUrl(BACkURL);// 通知地址
-		batchCollectBean.setReserved("");// 保留域
+		batchCollectBean.setReserved(Reserved);// 保留域
 		batchCollectBean.setTxnTime(DateUtil.getCurrentDateTime());// 订单发送时间
 		batchCollectBean.setMerId(loginName);//商户号
 		batchCollectBean.setTotalQty(detaList.size()+"");// 总笔数
