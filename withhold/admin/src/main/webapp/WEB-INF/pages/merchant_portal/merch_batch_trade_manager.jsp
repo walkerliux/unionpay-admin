@@ -193,10 +193,10 @@ table tr td select {
 				var json = eval('(' + data + ')')
 				$('#w').window('close');
 				$('#btn_submit').linkbutton('enable');
-				if (json.resultBool == 'true') {
-					$.messager.alert('提示', "发起成功");
-				} else if (json.resultBool == "false") {
-					$.messager.alert('提示', "发起失败");
+				if (json.resultBool == true) {
+					$.messager.alert('提示', "发起批量交易成功");
+				} else if (json.resultBool == false) {
+					$.messager.alert('提示', "发起批量交易失败");
 				}
 
 				//alert(json)

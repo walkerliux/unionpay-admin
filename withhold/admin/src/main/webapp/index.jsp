@@ -212,6 +212,8 @@
         
         	
 			$('#login_btn').click(function(){
+				
+				
 				//直接跳转，实际开发时别忘了去除
 				<%-- window.location="<%=basePath%>login/loginSuccess"; --%>
 				//$('#login_btn').linkbutton('disable');
@@ -226,7 +228,7 @@
 	        		data:{"loginName":loginName,"pwd":pwd,"randcode":randcode,"token":token},
 	        		async: false,
 	        		success:function(data){
-	        			 // $('#login_btn').linkbutton('enable');
+	        			  //$('#login_btn').linkbutton('enable');
 	        			  if(data.ret=='success'){
 	        				window.location="<%=basePath%>login/loginSuccess";
 	        			}else{
@@ -235,7 +237,7 @@
 	        			}
 	        		}
 	        	});
-				
+				 
 // 				$('#theForm').form('submit', {  
 // 				    onSubmit: function(){  
 				    	
@@ -264,6 +266,6 @@
 // 				});  
 								
 			})
-
+			
 </script>
 </html>
