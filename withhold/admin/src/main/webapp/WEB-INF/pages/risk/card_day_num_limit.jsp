@@ -329,16 +329,22 @@
 					type: "GET",
 				  	url: "riskLimitCardNum/deleteLimitMemNumDay",
 				  	data: "&tid="+tid,
-				 	dataType: "text",
-				 	success:function(text){		
-				 		text=JSON.parse(text);
-		    			$.messager.alert('提示',text);   
-		    			search();
-						
-				 	}
+				 	dataType: "json",
+				 	success : function(json) {
+						if (json.resultBool == true) {
+							$.messager.alert('提示', "注销成功！");
+							//$('#w').window('close');
+							search();
+						} else {
+							$.messager.alert('提示', json.errMsg);
+						}
+					},
+					error : function() {
+						$.messager.alert('提示', '服务异常！');
+					}
 				});
-		    }   
-		});  
+			}
+		});
 	}
 	function startLimitMem(tid){
 		$.messager.confirm('提示','您是否想要启用此银行卡日累计限次?',function(r){   
@@ -347,15 +353,22 @@
 					type: "GET",
 				  	url: "riskLimitCardNum/startLimitMemDay",
 				  	data: "tid="+tid,
-				 	dataType: "text",
-				 	success:function(text){
-				 		text=JSON.parse(text);
-		    			$.messager.alert('提示',text);   
-		    			search();
-				 	}
+				 	dataType: "json",
+				 	success : function(json) {
+						if (json.resultBool == true) {
+							$.messager.alert('提示', "启用成功！");
+							//$('#w').window('close');
+							search();
+						} else {
+							$.messager.alert('提示', json.errMsg);
+						}
+					},
+					error : function() {
+						$.messager.alert('提示', '服务异常！');
+					}
 				});
-		    }   
-		});  
+			}
+		});
 	}
 	function closeAdd(){ 
 		$('#w').window('close');			
