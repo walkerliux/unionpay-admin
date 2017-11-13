@@ -12,6 +12,8 @@ import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.mapper.TLimitMemNumsDayMapper;
 import com.unionpay.withhold.admin.mapper.TRiskMapper;
 import com.unionpay.withhold.admin.pojo.TLimitMemNumsDay;
+import com.unionpay.withhold.admin.pojo.TLimitMemNumsDayExample;
+import com.unionpay.withhold.admin.pojo.TLimitSingleExample;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.service.LimitService;
 import com.unionpay.withhold.admin.utils.StringUtil;
@@ -43,23 +45,22 @@ public class LimitServiceImpl implements LimitService {
 		for (TLimitMemNumsDay tLimitMemNumsDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 			limitMenNumsDay.getLimitCount()>=tLimitMemNumsDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}else if(limitMenNumsDay.getRisklevel()==tLimitMemNumsDay.getRisklevel()){
-				return new ResultBean("此规定限次已存在");
+				return new ResultBean("","此规定限次已存在");
 			}else if(limitMenNumsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
 					   limitMenNumsDay.getLimitCount()<=tLimitMemNumsDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}
 		}
 		
 		limitMenNumsDay.setStatus("00");
 		int flag =limitMemNumsDayMapper.insertSelective(limitMenNumsDay);
 		if(flag>0){
-			return new ResultBean("操作成功");
+			return new ResultBean("","操作成功");
 		}else{
 			return new ResultBean("","添加失败！");
 		}
-
 	}
 
 	@Override
@@ -77,10 +78,12 @@ public class LimitServiceImpl implements LimitService {
 		for (TLimitMemNumsDay tLimitMemNumsDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 			   limitMenNumsDay.getLimitCount()>=tLimitMemNumsDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
+			}else if(limitMenNumsDay.getRisklevel()==tLimitMemNumsDay.getRisklevel()){
+				return new ResultBean("","此规定限次已存在");
 			}else if(limitMenNumsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
 					   limitMenNumsDay.getLimitCount()<=tLimitMemNumsDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}
 			}
 						

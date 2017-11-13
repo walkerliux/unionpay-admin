@@ -45,12 +45,12 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 				for (TLimitAmountsMemDay tLimitMemNumsDay : list) {
 					if(limitMenAmountsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 							limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())>=0){
-								return new ResultBean("此规定限额与其他限次冲突");
+								return new ResultBean("","此规定限额与其他限次冲突");
 							}else if(limitMenAmountsDay.getRisklevel()==tLimitMemNumsDay.getRisklevel()){
-								return new ResultBean("此规定限额已存在");
+								return new ResultBean("","此规定限额已存在");
 							}else if(limitMenAmountsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
 									   limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())<=0){
-								return new ResultBean("此规定限额与其他限次冲突");
+								return new ResultBean("","此规定限额与其他限次冲突");
 							}
 				}
 				
@@ -88,10 +88,12 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 		for (TLimitAmountsMemDay tLimitMemNumsDay : list) {
 			if(limitMenAmountsDay.getRisklevel()<tLimitMemNumsDay.getRisklevel()&&
 					limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())>=0){
-				return new ResultBean("此规定限额与其他限次冲突");
+				return new ResultBean("","此规定限额与其他限次冲突");
+			}else if(limitMenAmountsDay.getRisklevel()==tLimitMemNumsDay.getRisklevel()){
+				return new ResultBean("","此规定限额已存在");
 			}else if(limitMenAmountsDay.getRisklevel()>tLimitMemNumsDay.getRisklevel()&&
 					limitMenAmountsDay.getLimitAmount().compareTo(tLimitMemNumsDay.getLimitAmount())<=0){
-				return new ResultBean("此规定限额与其他限次冲突");
+				return new ResultBean("","此规定限额与其他限次冲突");
 			}
 		}
 		limitMenAmountsDay.setStatus("00");

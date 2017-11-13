@@ -39,12 +39,12 @@ public class LimitCardNumServiceImpl implements LimitCardNumService {
 		for (TLimitNumsPanDay tLimitNumsPanDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitNumsPanDay.getRisklevel()&&
 			limitMenNumsDay.getLimitCount()>=tLimitNumsPanDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}else if(limitMenNumsDay.getRisklevel()==tLimitNumsPanDay.getRisklevel()){
-				return new ResultBean("此规定限次已存在");
+				return new ResultBean("","此规定限次已存在");
 			}else if(limitMenNumsDay.getRisklevel()>tLimitNumsPanDay.getRisklevel()&&
 					   limitMenNumsDay.getLimitCount()<=tLimitNumsPanDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}
 		}
 		
@@ -74,10 +74,12 @@ public class LimitCardNumServiceImpl implements LimitCardNumService {
 		for (TLimitNumsPanDay tLimitNumsPanDay : list) {
 			if(limitMenNumsDay.getRisklevel()<tLimitNumsPanDay.getRisklevel()&&
 			   limitMenNumsDay.getLimitCount()>=tLimitNumsPanDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
+			}else if(limitMenNumsDay.getRisklevel()==tLimitNumsPanDay.getRisklevel()){
+				return new ResultBean("","此规定限次已存在");
 			}else if(limitMenNumsDay.getRisklevel()>tLimitNumsPanDay.getRisklevel()&&
 					   limitMenNumsDay.getLimitCount()<=tLimitNumsPanDay.getLimitCount()){
-				return new ResultBean("此规定限次与其他限次冲突");
+				return new ResultBean("","此规定限次与其他限次冲突");
 			}
 			}
 						

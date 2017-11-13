@@ -43,12 +43,12 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 		for (TLimitAmountsPanDay tlimitAmountsPanDay : list) {
 			if(limitAmountsPanDay.getRisklevel()<tlimitAmountsPanDay.getRisklevel()&&
 			limitAmountsPanDay.getLimitAmount()>=tlimitAmountsPanDay.getLimitAmount()){
-				return new ResultBean("此规定限额与其他限额冲突");
+				return new ResultBean("","此规定限额与其他限额冲突");
 			}else if(limitAmountsPanDay.getRisklevel()==tlimitAmountsPanDay.getRisklevel()){
-				return new ResultBean("此规定限额已存在");
+				return new ResultBean("","此规定限额已存在");
 			}else if(limitAmountsPanDay.getRisklevel()>tlimitAmountsPanDay.getRisklevel()&&
 					   limitAmountsPanDay.getLimitAmount()<=tlimitAmountsPanDay.getLimitAmount()){
-				return new ResultBean("此规定限额与其他限额冲突");
+				return new ResultBean("","此规定限额与其他限额冲突");
 			}
 		}
 		
@@ -83,10 +83,12 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 		for (TLimitAmountsPanDay tlimitAmountsPanDay : list) {
 			if(limitAmountsPanDay.getRisklevel()<tlimitAmountsPanDay.getRisklevel()&&
 			   limitAmountsPanDay.getLimitAmount()>=tlimitAmountsPanDay.getLimitAmount()){
-				return new ResultBean("此规定限额与其他限额冲突");
+				return new ResultBean("","此规定限额与其他限额冲突");
+			}else if(limitAmountsPanDay.getRisklevel()==tlimitAmountsPanDay.getRisklevel()){
+				return new ResultBean("","此规定限额已存在");
 			}else if(limitAmountsPanDay.getRisklevel()>tlimitAmountsPanDay.getRisklevel()&&
 					   limitAmountsPanDay.getLimitAmount()<=tlimitAmountsPanDay.getLimitAmount()){
-				return new ResultBean("此规定限额与其他限额冲突");
+				return new ResultBean("","此规定限额与其他限额冲突");
 			}
 			}
 						
