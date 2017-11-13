@@ -39,6 +39,11 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 	@Override
 	public ResultBean saveLimitMemAmountDay(
 			TLimitAmountsMemDay limitMenAmountsDay) {
+		limitMenAmountsDay.setStatus("00");
+		//把金额换算成分
+		BigDecimal v2 = new BigDecimal(100);	
+		limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));
+		
 		//判断交易限次是否有效
 				Long caseid = limitMenAmountsDay.getCaseid();
 				List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDay(caseid);
@@ -54,12 +59,6 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 							}
 				}
 				
-				limitMenAmountsDay.setStatus("00");
-				
-				
-				//把金额换算成分
-				BigDecimal v2 = new BigDecimal(100);	
-				limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));
 		
 				int flag =limitAmountsMemDayMapper.insertSelective(limitMenAmountsDay);
 				if(flag>0){
@@ -82,6 +81,10 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 	@Override
 	public ResultBean updateLimitMemMAmountDay(
 			TLimitAmountsMemDay limitMenAmountsDay) {
+		limitMenAmountsDay.setStatus("00");
+		//把金额单位换成分
+		BigDecimal v2 = new BigDecimal(100);
+		limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));	
 		//判断交易限次是否有效
 		Long caseid = limitMenAmountsDay.getCaseid();
 		List<TLimitAmountsMemDay> list = limitAmountsMemDayMapper.queryAllLimitMemNumsDayOther(caseid,limitMenAmountsDay.getTid());
@@ -96,10 +99,6 @@ public class LimitAmountServiceImpl implements LimitAmountService {
 				return new ResultBean("","此规定限额与其他限次冲突");
 			}
 		}
-		limitMenAmountsDay.setStatus("00");
-		//把金额单位换成分
-		BigDecimal v2 = new BigDecimal(100);
-		limitMenAmountsDay.setLimitAmount(limitMenAmountsDay.getLimitAmount().multiply(v2));	
 		
 		int flag =limitAmountsMemDayMapper.updateByPrimaryKey(limitMenAmountsDay);
 		if(flag>0){

@@ -35,6 +35,9 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 
 	@Override
 	public ResultBean saveLimitMemNumDay(TLimitAmountsPanDay limitAmountsPanDay) {
+		limitAmountsPanDay.setStatus("00");
+		//把金额单位换成分
+		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
 		
 		//判断交易限额是否有效
 		Long caseid = limitAmountsPanDay.getCaseid();
@@ -52,9 +55,6 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 			}
 		}
 		
-		limitAmountsPanDay.setStatus("00");
-		//把金额单位换成分
-		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
 		
 		int flag =limitAmountsPanDayMapper.insertSelective(limitAmountsPanDay);
 		if(flag>0){
@@ -76,6 +76,11 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 
 	@Override
 	public ResultBean updateLimitMemMNumDay(TLimitAmountsPanDay limitAmountsPanDay) {
+		limitAmountsPanDay.setStatus("00");
+		
+		//把金额单位换成分
+		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
+		
 		//判断交易限额是否有效
 		Long caseid = limitAmountsPanDay.getCaseid();
 		String cardtype= limitAmountsPanDay.getCardtype();
@@ -92,10 +97,6 @@ public class LimitCardAmtServiceImpl implements LimitCardAmtService {
 			}
 			}
 						
-		limitAmountsPanDay.setStatus("00");
-		
-		//把金额单位换成分
-		limitAmountsPanDay.setLimitAmount(limitAmountsPanDay.getLimitAmount()*100);
 		
 		int flag =limitAmountsPanDayMapper.updateByPrimaryKey(limitAmountsPanDay);
 		if(flag>0){
