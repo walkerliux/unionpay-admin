@@ -57,11 +57,11 @@ public class ReadExcel {
       
       //把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
        CommonsMultipartFile cf= (CommonsMultipartFile)Mfile; //获取本地存储路径
-       File file = new  File("D:\\fileupload");
+       File file = new  File("D:\\batchfile\\fileupload");
        //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
        if (!file.exists()) file.mkdirs();
        //新建一个文件
-       File file1 = new File("D:\\fileupload" + new Date().getTime() + ".xlsx"); 
+       File file1 = new File("D:\\batchfile\\fileupload" + new Date().getTime() + ".xlsx"); 
        //将上传的文件写入新建的文件中
        try {
            cf.getFileItem().write(file1); 
@@ -136,7 +136,7 @@ public class ReadExcel {
    * @param wb
    * @return
    */
-  public  String readFastRowExcelValue(String fileName,MultipartFile Mfile){
+ /* public  String readFastRowExcelValue(String fileName,MultipartFile Mfile){
 	//把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
       CommonsMultipartFile cf= (CommonsMultipartFile)Mfile; //获取本地存储路径
       File file = new  File("D:\\fileupload");
@@ -188,7 +188,7 @@ public class ReadExcel {
 	return null; 
 	  
 	
-  }
+  }*/
   /**
    * 读取Excel里面商户发起的交易信息
    * @param wb
@@ -209,7 +209,7 @@ public class ReadExcel {
        List<BatchCollectDetaBean> customerList=new ArrayList<BatchCollectDetaBean>();
        BatchCollectDetaBean customer;     
        
-      //循环Excel行数,从第4行开始。标题不入库
+      //循环Excel行数,从第1行开始。标题不入库
        for(int r=1;r<totalRows;r++){
            Row row = sheet.getRow(r);
            if (row == null) continue;
@@ -221,7 +221,9 @@ public class ReadExcel {
                Cell cell = row.getCell(c);
                customer.setCurrencyCode("156");//交易币种
                customer.setCertifTp("01");//证件类型
-               if (null != cell){
+               customer.setCvn2("");//cvn2
+               customer.setExpired("");	// 卡有效期
+              if (null != cell){
                    if(c==0){//
                 	   customer.setOrderId(cell.getStringCellValue());//商户订单号
                    }else if(c==1){
@@ -236,11 +238,11 @@ public class ReadExcel {
                 	   customer.setCertifId(cell.getStringCellValue());// 身份证件号
                    }else if(c==6){
                 	   customer.setPhoneNo(cell.getStringCellValue());// 手机号
-                   }else if(c==7){
+                   }/*else if(c==7){
                 	   customer.setCvn2(cell.getStringCellValue());//cvn2
                    }else if(c==8){
                 	   customer.setExpired(cell.getStringCellValue());	// 卡有效期
-                   }
+                   }*/
                    
                    //证件类型证件号
                }

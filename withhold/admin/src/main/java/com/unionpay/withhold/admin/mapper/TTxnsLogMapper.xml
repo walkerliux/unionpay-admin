@@ -10,8 +10,8 @@
     <result column="BUSICODE" property="busicode" jdbcType="CHAR" />
     <result column="AMOUNT" property="amount" jdbcType="DECIMAL" />
     <result column="TRADCOMM" property="tradcomm" jdbcType="DECIMAL" />
-    <result column="CHNLFEE" property="chnlfee" jdbcType="CHAR" />
-    <result column="COOPFEE" property="coopfee" jdbcType="CHAR" />
+    <result column="CHNLFEE" property="chnlfee" jdbcType="DECIMAL" />
+    <result column="COOPFEE" property="coopfee" jdbcType="DECIMAL" />
     <result column="TXNFEE" property="txnfee" jdbcType="DECIMAL" />
     <result column="RISKVER" property="riskver" jdbcType="VARCHAR" />
     <result column="SPLITVER" property="splitver" jdbcType="VARCHAR" />

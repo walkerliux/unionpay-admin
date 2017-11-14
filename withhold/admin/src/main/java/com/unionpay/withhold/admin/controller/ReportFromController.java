@@ -608,7 +608,7 @@ public class ReportFromController {
 			}else if(product.getTxnfee() == null&&product.getCoopfee()!=null){
 				cell10.setCellValue(fen2yuan(0l-product.getTxnfee()));
 			}else if(product.getTxnfee() != null&&product.getCoopfee()!=null){
-				String coop = fen2yuan(product.getTxnfee()-Long.parseLong(product.getCoopfee()));
+				String coop = fen2yuan(product.getTxnfee()-product.getCoopfee());
 				cell10.setCellValue(coop);
 			}
 			
@@ -740,7 +740,7 @@ public class ReportFromController {
 			}else if(product.getTxnfee() == null&&product.getCoopfee()!=null){
 				cell11.setCellValue(fen2yuan(0l-product.getTxnfee()));
 			}else if(product.getTxnfee() != null&&product.getCoopfee()!=null){
-				String coop = fen2yuan(product.getTxnfee()-Long.parseLong(product.getCoopfee()));
+				String coop = fen2yuan(product.getTxnfee()-product.getCoopfee());
 				cell11.setCellValue(coop);
 			}
 			//交易时间
@@ -874,7 +874,7 @@ public class ReportFromController {
 			}else if(product.getTxnfee() == null&&product.getCoopfee()!=null){
 				cell10.setCellValue(fen2yuan(0l-product.getTxnfee()));
 			}else if(product.getTxnfee() != null&&product.getCoopfee()!=null){
-				String coop = fen2yuan(product.getTxnfee()-Long.parseLong(product.getCoopfee()));
+				String coop = fen2yuan(product.getTxnfee()-product.getCoopfee());
 				cell10.setCellValue(coop);
 			}
 			//银联分润
@@ -884,11 +884,11 @@ public class ReportFromController {
 				//
 				cell11.setCellValue(fen2yuan(0l));
 			}else if (product.getChnlfee() == null&&product.getCoopfee()!=null){ 
-				cell11.setCellValue(fen2yuan(Long.parseLong(product.getCoopfee())));
+				cell11.setCellValue(fen2yuan(product.getCoopfee()));
 			}else if(product.getChnlfee() != null&&product.getCoopfee()==null){
-				cell11.setCellValue(fen2yuan(0l-Long.parseLong(product.getChnlfee())));
+				cell11.setCellValue(fen2yuan(0l-product.getChnlfee()));
 			}else if(product.getChnlfee() != null&&product.getCoopfee()!=null){
-				String coop = fen2yuan(Long.parseLong(product.getCoopfee())-Long.parseLong(product.getChnlfee()));
+				String coop = fen2yuan(product.getCoopfee()-product.getChnlfee());
 				cell11.setCellValue(coop);
 			}
 		}
@@ -1027,7 +1027,7 @@ public class ReportFromController {
 			} else if (product.getTxnfee() != null
 					&& product.getCoopfee() != null) {
 				String coop = fen2yuan(product.getTxnfee()
-						- Long.parseLong(product.getCoopfee()));
+						- product.getCoopfee());
 				cell11.setCellValue(coop);
 			}
 			//银联分润
@@ -1037,11 +1037,11 @@ public class ReportFromController {
 				//
 				cell12.setCellValue(fen2yuan(0l));
 			}else if (product.getChnlfee() == null&&product.getCoopfee()!=null){ 
-				cell12.setCellValue(fen2yuan(Long.parseLong(product.getCoopfee())));
+				cell12.setCellValue(fen2yuan(product.getCoopfee()));
 			}else if(product.getChnlfee() != null&&product.getCoopfee()==null){
-				cell12.setCellValue(fen2yuan(0l-Long.parseLong(product.getChnlfee())));
+				cell12.setCellValue(fen2yuan(0l-product.getChnlfee()));
 			}else if(product.getChnlfee() != null&&product.getCoopfee()!=null){
-				String coop = fen2yuan(Long.parseLong(product.getCoopfee())-Long.parseLong(product.getChnlfee()));
+				String coop = fen2yuan(product.getCoopfee()-product.getChnlfee());
 				cell12.setCellValue(coop);
 			}
 			// 交易时间

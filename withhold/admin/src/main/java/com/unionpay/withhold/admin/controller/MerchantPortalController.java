@@ -164,6 +164,22 @@ public class MerchantPortalController {
 		 //将json字符串数组转换为list
 		JSONObject jo=new JSONObject();  
 		List<BatchCollectDetaBean> detaList = jo.parseArray(jsonStr, BatchCollectDetaBean.class);
+		//将金额由元转分
+		int totalAmt=0;
+		for (BatchCollectDetaBean batchCollectDetaBean : detaList) {
+			String amt = batchCollectDetaBean.getAmt();
+			//int parseInt = Integer.parseInt(amt)*100;
+			double parseDouble = Double.parseDouble(amt)*100;
+			batchCollectDetaBean.setAmt(parseDouble+"");
+			totalAmt+=parseDouble;
+			//卡类型转换
+			if (batchCollectDetaBean.getCardType().equals("借记卡")) {
+				batchCollectDetaBean.setCardType("1");
+			}
+			if (batchCollectDetaBean.getCardType().equals("贷记卡")) {
+				batchCollectDetaBean.setCardType("2");
+			}
+		}
 		BatchCollectBean batchCollectBean = new BatchCollectBean();
 		batchCollectBean.setDetaList(detaList);//批次明细
 		batchCollectBean.setBatchNo(batchNo);//批次号
@@ -179,12 +195,8 @@ public class MerchantPortalController {
 		batchCollectBean.setReserved(Reserved);// 保留域
 		batchCollectBean.setTxnTime(DateUtil.getCurrentDateTime());// 订单发送时间
 		batchCollectBean.setMerId(loginName);//商户号
-		batchCollectBean.setTotalQty(detaList.size()+"");// 总笔数
-		int totalAmt=0;
-		for (BatchCollectDetaBean batchCollectDetaBean : detaList) {
-			String amt = batchCollectDetaBean.getAmt();
-			totalAmt+=Integer.parseInt(amt)*100;//元转分
-		}
+		batchCollectBean.setTotalQty(detaList.size()+"");//总笔数
+		
 		batchCollectBean.setTotalAmt(totalAmt+"");//交易总金额
 		
 		/**certid*/

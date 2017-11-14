@@ -36,12 +36,12 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="uploadForm"  enctype="multipart/form-data">
 				<table width="100%" >
-					 <tr style="height: 25px">
+					<!--  <tr style="height: 25px">
 							<td>交易要素</td>
 							<td align="left"><select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
 							
 							</select></td>
-						</tr>
+						</tr> -->
 					<!--<tr> 
 						<td align="right"></td>
 						<td  align="left" style="padding-left: 5px">

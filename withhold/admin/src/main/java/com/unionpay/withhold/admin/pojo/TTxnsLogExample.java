@@ -4,34 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TTxnsLogExample {
-	private int pageNum;
-	private int pageSize;
-	private int beginRow;
-	
-    public int getPageNum() {
-		return pageNum;
-	}
-
-	public void setPageNum(int pageNum) {
-		this.pageNum = pageNum;
-	}
-
-	public int getPageSize() {
-		return pageSize;
-	}
-
-	public void setPageSize(int pageSize) {
-		this.pageSize = pageSize;
-	}
-
-	public int getBeginRow() {
-		// 在mapper.xml使用begin属性时，对其进行计算
-		return (pageNum - 1) * pageSize;
-	}
-
-	public void setBeginRow(int beginRow) {
-		this.beginRow = beginRow;
-	}
     protected String orderByClause;
 
     protected boolean distinct;
@@ -682,62 +654,52 @@ public class TTxnsLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeEqualTo(String value) {
+        public Criteria andChnlfeeEqualTo(Long value) {
             addCriterion("CHNLFEE =", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeNotEqualTo(String value) {
+        public Criteria andChnlfeeNotEqualTo(Long value) {
             addCriterion("CHNLFEE <>", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeGreaterThan(String value) {
+        public Criteria andChnlfeeGreaterThan(Long value) {
             addCriterion("CHNLFEE >", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeGreaterThanOrEqualTo(String value) {
+        public Criteria andChnlfeeGreaterThanOrEqualTo(Long value) {
             addCriterion("CHNLFEE >=", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeLessThan(String value) {
+        public Criteria andChnlfeeLessThan(Long value) {
             addCriterion("CHNLFEE <", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeLessThanOrEqualTo(String value) {
+        public Criteria andChnlfeeLessThanOrEqualTo(Long value) {
             addCriterion("CHNLFEE <=", value, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeLike(String value) {
-            addCriterion("CHNLFEE like", value, "chnlfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlfeeNotLike(String value) {
-            addCriterion("CHNLFEE not like", value, "chnlfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andChnlfeeIn(List<String> values) {
+        public Criteria andChnlfeeIn(List<Long> values) {
             addCriterion("CHNLFEE in", values, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeNotIn(List<String> values) {
+        public Criteria andChnlfeeNotIn(List<Long> values) {
             addCriterion("CHNLFEE not in", values, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeBetween(String value1, String value2) {
+        public Criteria andChnlfeeBetween(Long value1, Long value2) {
             addCriterion("CHNLFEE between", value1, value2, "chnlfee");
             return (Criteria) this;
         }
 
-        public Criteria andChnlfeeNotBetween(String value1, String value2) {
+        public Criteria andChnlfeeNotBetween(Long value1, Long value2) {
             addCriterion("CHNLFEE not between", value1, value2, "chnlfee");
             return (Criteria) this;
         }
@@ -752,62 +714,52 @@ public class TTxnsLogExample {
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeEqualTo(String value) {
+        public Criteria andCoopfeeEqualTo(Long value) {
             addCriterion("COOPFEE =", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeNotEqualTo(String value) {
+        public Criteria andCoopfeeNotEqualTo(Long value) {
             addCriterion("COOPFEE <>", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeGreaterThan(String value) {
+        public Criteria andCoopfeeGreaterThan(Long value) {
             addCriterion("COOPFEE >", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeGreaterThanOrEqualTo(String value) {
+        public Criteria andCoopfeeGreaterThanOrEqualTo(Long value) {
             addCriterion("COOPFEE >=", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeLessThan(String value) {
+        public Criteria andCoopfeeLessThan(Long value) {
             addCriterion("COOPFEE <", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeLessThanOrEqualTo(String value) {
+        public Criteria andCoopfeeLessThanOrEqualTo(Long value) {
             addCriterion("COOPFEE <=", value, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeLike(String value) {
-            addCriterion("COOPFEE like", value, "coopfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopfeeNotLike(String value) {
-            addCriterion("COOPFEE not like", value, "coopfee");
-            return (Criteria) this;
-        }
-
-        public Criteria andCoopfeeIn(List<String> values) {
+        public Criteria andCoopfeeIn(List<Long> values) {
             addCriterion("COOPFEE in", values, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeNotIn(List<String> values) {
+        public Criteria andCoopfeeNotIn(List<Long> values) {
             addCriterion("COOPFEE not in", values, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeBetween(String value1, String value2) {
+        public Criteria andCoopfeeBetween(Long value1, Long value2) {
             addCriterion("COOPFEE between", value1, value2, "coopfee");
             return (Criteria) this;
         }
 
-        public Criteria andCoopfeeNotBetween(String value1, String value2) {
+        public Criteria andCoopfeeNotBetween(Long value1, Long value2) {
             addCriterion("COOPFEE not between", value1, value2, "coopfee");
             return (Criteria) this;
         }
@@ -5024,7 +4976,37 @@ public class TTxnsLogExample {
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
         }
+        
     }
+    private int pageNum;
+	private int pageSize;
+	private int beginRow;
+	
+    public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public int getBeginRow() {
+		// 在mapper.xml使用begin属性时，对其进行计算
+		return (pageNum - 1) * pageSize;
+	}
+
+	public void setBeginRow(int beginRow) {
+		this.beginRow = beginRow;
+	}
+    
     /*条件添加*/
     private String accsecmerno;//商户号
     private String apporderstatus;
@@ -5122,7 +5104,4 @@ public class TTxnsLogExample {
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
 	}
-
-	
-    
 }

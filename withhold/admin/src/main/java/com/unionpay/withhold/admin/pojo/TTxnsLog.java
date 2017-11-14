@@ -17,9 +17,9 @@ public class TTxnsLog {
 
     private Long tradcomm;//交易佣金
 
-    private String chnlfee;//通道成本
+    private Long chnlfee;//通道成本
 
-    private String coopfee;//代理商手续费
+    private Long coopfee;//代理商手续费
 
     private Long txnfee;//交易手续费(商户手续费)
 
@@ -203,20 +203,20 @@ public class TTxnsLog {
         this.tradcomm = tradcomm;
     }
 
-    public String getChnlfee() {
+    public Long getChnlfee() {
         return chnlfee;
     }
 
-    public void setChnlfee(String chnlfee) {
-        this.chnlfee = chnlfee == null ? null : chnlfee.trim();
+    public void setChnlfee(Long chnlfee) {
+        this.chnlfee = chnlfee;
     }
 
-    public String getCoopfee() {
+    public Long getCoopfee() {
         return coopfee;
     }
 
-    public void setCoopfee(String coopfee) {
-        this.coopfee = coopfee == null ? null : coopfee.trim();
+    public void setCoopfee(Long coopfee) {
+        this.coopfee = coopfee;
     }
 
     public Long getTxnfee() {
