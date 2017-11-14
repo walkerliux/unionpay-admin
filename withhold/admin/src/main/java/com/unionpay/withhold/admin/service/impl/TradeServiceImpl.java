@@ -93,7 +93,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tTxnsLogMapper.countByMyExample(tTxnsLogExample);
 		tTxnsLogExample.setPageNum(page);
 		tTxnsLogExample.setPageSize(rows);
-		tTxnsLogExample.setOrderByClause("TXNSEQNO");
+		tTxnsLogExample.setOrderByClause("TXNSEQNO DESC");
 		List<TTxnsLog> retureList = tTxnsLogMapper.selectByPageExample(tTxnsLogExample);
 		return new PageBean(total, retureList);
 	}
@@ -336,7 +336,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tTxnsLogMapper.countHistoryByMyExample(tTxnsLogExample);
 		tTxnsLogExample.setPageNum(page);
 		tTxnsLogExample.setPageSize(rows);
-		tTxnsLogExample.setOrderByClause("TXNSEQNO");
+		tTxnsLogExample.setOrderByClause("TXNSEQNO DESC");
 		List<TTxnsLog> retureList = tTxnsLogMapper.selectHistoryByPageExample(tTxnsLogExample);
 		return new PageBean(total, retureList);
 		

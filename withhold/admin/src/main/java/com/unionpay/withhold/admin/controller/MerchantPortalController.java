@@ -108,8 +108,9 @@ public class MerchantPortalController {
 		bean.setAtType(AtType);// 交易币种
 		// 交易金额(元转分)
 		String transAt = bean.getTransAt();
-		int parseInt = Integer.parseInt(transAt);
-		bean.setTransAt(parseInt*100+"");
+		Double d = Double.parseDouble(transAt)*100;
+		Long longValue = d.longValue();
+		bean.setTransAt(longValue+"");
 		// 扣款类型
 		bean.setDkType(DkType);
 		// 系统商户号
@@ -168,10 +169,10 @@ public class MerchantPortalController {
 		int totalAmt=0;
 		for (BatchCollectDetaBean batchCollectDetaBean : detaList) {
 			String amt = batchCollectDetaBean.getAmt();
-			//int parseInt = Integer.parseInt(amt)*100;
-			double parseDouble = Double.parseDouble(amt)*100;
-			batchCollectDetaBean.setAmt(parseDouble+"");
-			totalAmt+=parseDouble;
+			Double d = Double.parseDouble(amt)*100;
+			Long longValue = d.longValue();
+			batchCollectDetaBean.setAmt(longValue+"");
+			totalAmt+=longValue;
 			//卡类型转换
 			if (batchCollectDetaBean.getCardType().equals("借记卡")) {
 				batchCollectDetaBean.setCardType("1");

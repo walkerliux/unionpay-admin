@@ -122,16 +122,16 @@ table tr td select {
 					<tr>
 						<td>交易金额[合计](元)</td>
 						<td id="tamount"></td>
-						<td>交易手续费</td>
+						<td>交易(商户)手续费(元)</td>
 						<td id="ttxnfee"></td>
 						
 					</tr>
-					<!-- <tr>
-						<td>交易佣金(元)</td>
-						<td id="ttradcomm"></td>
-						<td>风控版本</td>
-						<td id="triskver"></td>
-					</tr> -->
+					 <tr>
+						<td>渠道(代理商)手续费(元)</td>
+						<td id="tcoopfee"></td>
+						<td>通道成本(元)</td>
+						<td id="tchnlfee"></td>
+					</tr> 
 					<!-- <tr>
 						<td>分润版本</td>
 						<td id="tsplitver"></td>
@@ -493,7 +493,8 @@ table tr td select {
 			   $("#taccmemberid").html("");
 			   $("#tapporderstatus").html("");
 			   $("#tapporderinfo").html("");
-			   
+			   $("#tchnlfee").html("");
+			   $("#tcoopfee").html("");
 			$('#w').window({
 				title: '交易流水详细信息',
 				top:50,
@@ -528,7 +529,9 @@ table tr td select {
 					   $("#tbusicode").html(json.busicode);
 					   $("#tamount").html(fenToYuan(json.amount));
 					   $("#ttradcomm").html(json.tradcomm);
-					   $("#ttxnfee").html(json.txnfee);
+					   $("#ttxnfee").html(fenToYuan(json.txnfee));
+					   $("#tchnlfee").html(fenToYuan(json.chnlfee));
+					   $("#tcoopfee").html(fenToYuan(json.coopfee));
 					   $("#triskver").html(json.riskver);
 					   $("#tsplitver").html(json.splitver);
 					   $("#tfeever").html(json.feever);
