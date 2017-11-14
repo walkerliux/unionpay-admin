@@ -159,7 +159,7 @@ public class RouteConfigServiceImpl implements RouteConfigService {
 		routeConfig.setCardtype(routeConfig.getCardtypes() == null || routeConfig.getCardtypes().length == 0 ? "" : StringUtils.join(routeConfig.getCardtypes(), ";"));
 		
 		// 是否设置默认值
-		if (routeConfig.getIsdef().equals(CommonConstants.ROUTECONFIG_ISDEF)) {
+		/*if (routeConfig.getIsdef().equals(CommonConstants.ROUTECONFIG_ISDEF)) {
 			TRouteConfigExample routeConfigExampleDef = new TRouteConfigExample();
 			TRouteConfigExample.Criteria criteriaDef = routeConfigExampleDef.createCriteria();
 			criteriaDef.andRoutverEqualTo(routeConfig.getRoutver());
@@ -169,7 +169,7 @@ public class RouteConfigServiceImpl implements RouteConfigService {
 			condition.setIsdef(CommonConstants.ROUTECONFIG_ISNOTDEF);
 			
 			routeConfigMapper.updateByExampleSelective(condition, routeConfigExampleDef);
-		}
+		}*/// 现在全部为非默认——2017.11.14
 		
 		routeConfig.setUptime(new Date());
 		routeConfig.setStatus(CommonConstants.ROUTECONFIG_STATUS_NORMAL);
