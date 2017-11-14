@@ -73,7 +73,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 		try {
 			InetAddress localAddress = OperationLogServiceImpl.getLocalHostLANAddress();
 			tOperationLog.setIp(localAddress.getHostAddress());
-			tOperationLog.setHostName(localAddress.getHostName());
+			//tOperationLog.setHostName(localAddress.getHostName());
 		} catch (Exception e) {	
 			e.printStackTrace();
 		}

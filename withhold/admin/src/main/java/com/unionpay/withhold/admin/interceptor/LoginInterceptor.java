@@ -41,8 +41,12 @@ public class LoginInterceptor implements HandlerInterceptor {
 		//user相同的情况下
 		if (!ipAddr.equals(ipRedis)||!browserInfo.equals(browser)) {
 			 PrintWriter out = response.getWriter();
-	            out.print("<script type='application/javascript'>  parent.location.href='../index.jsp' </script>");
-	            out.flush();
+			 out.println("<html>");      
+		        //out.println("window.open ('"+request.getContextPath()+"/"+"','_top')");      
+			 out.print("<script type='application/javascript'>  parent.location.href='../index.jsp' </script>");  
+		     out.println("</html>"); 
+	         out.flush();
+			
 			return false;
 		}
 		jedisClient.expire(REDIS_USER_KEY+":"+token, REDIS_SESSION_EXPIRE);
