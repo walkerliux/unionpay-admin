@@ -138,9 +138,7 @@ table tr td select {
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
-						</tr>
-						
-						
+						</tr>				
 						<tr style="height: 25px">
 							<td class="update" width="15%">渠道</td>
 							<td class="update" id="caname" name="caname" align="left"></td>							
@@ -151,6 +149,20 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update" width="15%">所属行业</td>
 							<td class="update" id="mcc" name="mcc" align="left" colspan="3"></td>
+						</tr>
+						<tr>
+							<td colspan="4" class="head-title"></td>
+						</tr>				
+						<tr style="height: 25px">
+							<td class="update" width="15%">收费代码</td>
+							<td class="update" id="rateDesc" name="rateDesc" align="left"></td>							
+							<td class="update" width="15%">风控版本</td>
+							<td class="update" id="riskname" name="riskname" align="left"></td>
+							
+						</tr>
+						<tr style="height: 25px">
+							<td class="update" width="15%">路由版本</td>
+							<td class="update" id="routname" name="routname" align="left" colspan="3"></td>
 						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
@@ -263,6 +275,9 @@ table tr td select {
 						$("#transfactorsName").html(json.transfactorsName);
 						$("#mcc").html("MCC大类：" + json.mccName + "，  MCC小类：" + json.mccListName);
 						$("#notes").val(json.notes);
+						$("#rateDesc").html(json.rateDesc);
+						$("#riskname").html(json.riskname);
+						$("#routname").html(json.routname);
 						
 						$('#w').window({
 							title: '商户详细信息',
@@ -275,7 +290,7 @@ table tr td select {
 							maximizable:false,
 							shadow: false,
 							closed: false,
-							height: 409
+							height: 488
 						});
 					}
 			    },

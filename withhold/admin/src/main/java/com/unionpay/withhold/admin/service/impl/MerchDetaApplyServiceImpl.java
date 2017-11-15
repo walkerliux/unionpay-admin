@@ -17,11 +17,13 @@ import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
+import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
 import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
 import com.unionpay.withhold.admin.pojo.TMerchRateConfigExample;
+import com.unionpay.withhold.admin.pojo.TRateAccum;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.admin.service.UserService;
@@ -36,6 +38,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 	private TMerchDetaMapper merchDetaMapper;
 	@Autowired
 	private TMerchRateConfigMapper merchRateConfigMapper;
+	@Autowired
+	private TRateAccumMapper rateAccumMapper;
 	@Autowired
 	private UserService userService;
 
@@ -220,6 +224,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				merchDetaMapper.insertSelective(merchDeta);
 				
 				// 判断扣率配置是否有变更，有的话，更新配置
+				TRateAccum rateAccum = rateAccumMapper.selectByPrimaryKey(Integer.valueOf(merchDetaApply.getRateId()));
 				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
@@ -228,7 +233,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				if (merchRateConfigList.size() > 0) {// 已存在
 					merchRateConfig = merchRateConfigList.get(0);
 					if (!String.valueOf(merchRateConfig.getRateId()).equals(merchDetaApply.getRateId())) {// 不相等，说明已发生变更
-						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));;
+						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+						merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
 					}
 				} else {
@@ -236,6 +242,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 					merchRateConfig.setTarget(MerchTargetTypeEnums.MERCH.getCode());
 					merchRateConfig.setMemberId(merchDetaApplyBack.getMemberId());
 					merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+					merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(merchDetaApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
@@ -265,6 +272,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				merchDetaMapper.updateByPrimaryKeySelective(merchDeta);
 				
 				// 判断扣率配置是否有变更，有的话，更新配置
+				TRateAccum rateAccum = rateAccumMapper.selectByPrimaryKey(Integer.valueOf(merchDetaApply.getRateId()));
 				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
@@ -273,7 +281,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 				if (merchRateConfigList.size() > 0) {// 已存在
 					merchRateConfig = merchRateConfigList.get(0);
 					if (!String.valueOf(merchRateConfig.getRateId()).equals(merchDetaApply.getRateId())) {// 不相等，说明已发生变更
-						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));;
+						merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+						merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
 					}
 				} else {
@@ -281,6 +290,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 					merchRateConfig.setTarget(MerchTargetTypeEnums.MERCH.getCode());
 					merchRateConfig.setMemberId(merchDetaApplyBack.getMemberId());
 					merchRateConfig.setRateId(Long.valueOf(merchDetaApply.getRateId()));
+					merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(merchDetaApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
