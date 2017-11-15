@@ -344,6 +344,18 @@ table tr td select {
 		}
 		
 		function showPara(tid){
+			$('#w').window({
+				title: '修改参数信息',
+				top:100,
+				width: 650,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 220
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "para/getSingleById",
@@ -387,18 +399,7 @@ table tr td select {
 				   }	
 			   }
 			});
-			$('#w').window({
-				title: '修改参数信息',
-				top:100,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 220
-			});
+			
 			$("#saveForm").attr("action","para/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
@@ -412,7 +413,7 @@ table tr td select {
 				   data: "tid="+tid,
 				   dataType:"json",
 				   success:function(data){
-// 					   success:function(data){   
+				   	if(data!=null){   
 				    		$('#w').window('close');
 				    		 search();
 				    		$('#btn_submit').linkbutton('enable');
@@ -421,260 +422,24 @@ table tr td select {
 							}else if(data=="false"){
 								$.messager.alert('提示',"注销失败");  
 							} 
-					    } 
+					    } }
 				});
 			    }   
 			});  
 		}
-		function paraPasswordReset(paraId){
-			$.messager.confirm('提示','您是否想要重置此用户密码?',function(r){   
-			    if (r){  
-			    	$.ajax({
-						type: "GET",
-					  	url: "para/resetPwd",
-					  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
-					 	dataType: "text",
-					 	success:function(data){
-					 		if(data=='true'){
-								$.messager.alert('提示',"保存成功");  
-							}else if(data=="false"){
-								$.messager.alert('提示',"保存失败");  
-							}
-					 	}
-					});
-			    }   
-			}); 
-		}
-		/* 用户配置角色 */		
-		function ToSelectRole(paraId){ 
-			$("#paraId_addrole").val(paraId);
-			var html="";
-			$('#w2').window({
-				title: '用户配置角色',
-				top:10,
-				width: 500,
-				collapsible:false,
-				minimizable:false,
-				maximizable:false,
-				modal: true,
-				shadow: false,
-				closed: false,
-				height: 510
-			});
-			$.ajax({
-				type: "GET",
-			  	url: "para/queryRoleAllList",
-			  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
-					})
-					$("#scope").html(html);
-			 	}
-			});
-			var htmlscope="";
-			$.ajax({
-				type: "GET",
-			  	url: "para/queryRoleListhave",
-			  	data: "rand="+new Date().getTime()+"&paraId="+paraId,
-			 	dataType: "json",
-			 	success:function(json){
-					$.each(json, function(key,value){
-						htmlscope += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
-					})
-				$("#selectScopes").html(htmlscope);
-			 	}
-			});
-			
-		}
-		function addToSelect(){ 
-	    	var selectScopes = document.myForm.selectScopes;
-	    	var str = "";
-	    	for(var k = 0; k < selectScopes.options.length; k++){
-	    		if(k==0){
-	    			str = selectScopes.options[k].value;
-	    		}
-	    		else{
-	    			str = str + selectScopes.options[k].value + ",";
-	    		}
-	    	}
-	    	var scopes = document.myForm.scope;
-	    	var scopenum = scopes.options.length;
-	    	var selectIndexs = scopes.selectedIndex;
-	    	for(var j = 0; j < scopenum; j ++){
-	    		var scope = scopes.options[j];
-	    		if(scope.selected == true){
-	    			if(str.indexOf(scope.value) == -1){ 
-	    				var scopeHtml = scope.innerHTML;
-	    				selectScopes.options.add(new Option(scopeHtml , scope.value));
-	    			}else{
-					    alert("请不要重复选择！");
-					}		
-	    		}    
-	    	}
-	    }
+	
+		
+		
 	     
-	    function delSelect2(){
-	    	var selectScopes = document.myForm.selectScopes;
-	    	for(var i = 0; i < selectScopes.options.length; i ++){
-	    		if(i >= 0 && i <= selectScopes.options.length-1 && selectScopes.options[i].selected){     
-	    			selectScopes.options[i] = null;
-	    			i --;
-	    		}  
-	    	}
-	    } 
-	   function AddparaRoleForm(){//保存用户角色
-		   var paraFunc = '';//定义数组
-		    $(document).ready(function(){
-		        $("#selectScopes option").each(function(){ //遍历全部option
-		            var txt = $(this).val(); //获取option的内容		          
-		            	paraFunc+=txt+",";; //添加到数组中
-		        });
-		    });
-		   if(paraFunc == ""){
-			   $('#w2').window('close');
-			   $.messager.alert('提示',"用户为配置角色！");
-			   return false;
-		   }
-		    $.ajax({
-				type: "POST",
-			    url: "para/SaveparaRole",
-			    data: "paraId="+$('#paraId_addrole').val()+"&paraFunc="+paraFunc,
-			    dataType: "text",
-			    success: function(data){
-					$('#w2').window('close');
-					if(data=='true'){
-						$.messager.alert('提示',"保存成功");  
-					}else if(data=="false"){
-						$.messager.alert('提示',"保存失败");  
-					}
-			    }
-			});
-		}
 	    
-		/*用户权限  */	    
-	    var roleFunction = null;
-		function ToparaAuthority(paraId){
-			$("#paraId").val(paraId);
-			$('#paraRoleW3').window({
-				title: '用户配置权限',
-				top:10,
-				width: 300,
-				collapsible:false,
-				minimizable:false,
-				maximizable:false,
-				modal: true,
-				shadow: false,
-				closed: false,
-				height: 510
-			});
-			var flag = true;
-			$('#tt2').tree({
-				checkbox: true,
-				animate:true,
-				url: 'para/queryFunction?paraId='+paraId,
-				onCheck:function(node, checked){
-					for(var i=0;i<roleFunction.length;i++){
-						if(node.id==roleFunction[i].functId){
-							if(checked==false){
-								$('#tt2').tree('check',node.target);
-							}else{
-								
-							}
-						}
-						
-						
-					}
-					
-					node.text = '<span style="color:blue">'+node.text+'</span>';
-				},
-				onBeforeExpand:function(node){
-					var child = $('#tt2').tree('getChildren', node.target);
-					if(child==""){
-						return false;
-					}
-				},
-				loadFilter: function(data){   
-					
-					if(flag){
-						roleFunction = data.roleFunction;
-						flag = false;
-					}
-			        return data.result;
-			    },   
-				onContextMenu: function(e, node){
-					e.preventDefault();
-					$('#tt2').tree('select', node.target);
-					$('#mm').menu('show', {
-						left: e.pageX,
-						top: e.pageY
-					});
-				}
-			});
-// 			var w =$("#authMenu").width();
-// 			$("#menu_div").css("margin-left",w/2.5+"px");
-		}
+		
 		function invokeFunction(){
 			showParaFunction($('#paraId').val())
 		}
 
-		function submitparaAuth(){
-			var fid = getChecked();
-			$.ajax({
-				type: "POST",
-			    url: "para/saveAuth",
-			    data: "paraId="+$('#paraId').val()+"&paraFunc="+fid,
-			    dataType: "text",
-			    success: function(data){
-					if(data=='true'){
-						$('#paraRoleW3').window('close');
-						$.messager.alert('提示',"保存成功");  
-					}else if(data=='false'){
-						$.messager.alert('提示',"保存失败");  
-					}
-			    }
-			});
-		}
 		
-		function getChecked(){
-			var nodes = $('#tt2').tree('getChecked');
-			var s = '';
-			var p = '';
-			for(var i=0; i<nodes.length; i++){
-				if (s != '') s += '|';
-				s += nodes[i].id;
-				var parent = $('#tt2').tree('getParent',nodes[i].target);
-				if(parent!=null){//有父节点的
-					if(!parent.checked){//判断是否已被勾选
-						if(p.indexOf(parent.id)<0){
-							p+=parent.id+"|";
-						}
-					}
-				}
-			}
-			var idArray = (p+s).split('|');
-			var flag = false;
-			var paraFunction = "";
-			for(var i=0;i<idArray.length;i++){
-				for(var j=0;j<roleFunction.length;j++){
-					if(idArray[i]==roleFunction[j].functId){
-						flag = true;
-					}
-				}
-				if(flag){//角色权限的Func_id
-					flag = false;
-				}else{//用户的权限
-					if (paraFunction != '') paraFunction += ',';
-					paraFunction+=idArray[i];
-				}
-			}
-			return paraFunction;
-		}
+		
 	</script>
 	
-<!--
 
-//-->
-</script>
 </html>

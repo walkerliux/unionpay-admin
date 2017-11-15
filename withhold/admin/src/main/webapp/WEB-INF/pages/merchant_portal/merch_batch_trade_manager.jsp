@@ -189,7 +189,7 @@ table tr td select {
 				return false;
 			},
 			success : function(data) {
-				//alert(data)
+				if(data!=null){
 				var json = eval('(' + data + ')')
 				$('#w').window('close');
 				$('#btn_submit').linkbutton('enable');
@@ -197,7 +197,7 @@ table tr td select {
 					$.messager.alert('提示', "发起批量交易成功");
 				} else if (json.resultBool == false) {
 					$.messager.alert('提示', "发起批量交易失败");
-				}
+				}}
 			},
 			error : function(){
 				$.messager.alert('提示', '服务异常！');

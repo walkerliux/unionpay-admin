@@ -359,6 +359,7 @@ table tr td select {
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					} */ 
+					if(data!=null){
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){
@@ -367,11 +368,23 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			    }   
+			    } }  
 			});  
 		}
 		
 		function showRsp(rspid){
+			$('#w').window({
+				title: '修改通信应答码信息',
+				top:200,
+				width: 650,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 300
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "rsp/getSingleById",
@@ -396,13 +409,14 @@ table tr td select {
 						 	dataType: "json",
 						 	async: false,
 						 	success:function(json){
+						 		if(json!=null){
 								$.each(json, function(key,value){
 									//html += '<option value=>'+value.name+'</option>';
 									html += '<option value="'+value.code+'">'+value.name+'</option>';
 								})
 								$("#chnltype").html(html);
 								
-						 	}
+						 	}}
 						});
 						setTimeout(function(){ 
 							$("#chnltype").val(json.chnltype);
@@ -415,18 +429,7 @@ table tr td select {
 				   }		
 			   }
 			});
-			$('#w').window({
-				title: '修改通信应答码信息',
-				top:200,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 300
-			});
+			
 			$("#saveForm").attr("action","rsp/update");
 			$('#btn_submit').linkbutton('enable');	
 		}

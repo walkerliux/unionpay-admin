@@ -232,6 +232,18 @@ table tr td select {
 		}
 		
 		function showBank(tid){
+			$('#w').window({
+				title: '修改银行信息',
+				top:200,
+				width: 650,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 220
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "bank/getSingleById",
@@ -249,18 +261,7 @@ table tr td select {
 				   }
 			   }
 			});
-			$('#w').window({
-				title: '修改银行信息',
-				top:200,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 220
-			});
+			
 			$("#saveForm").attr("action","bank/update");
 			$('#btn_submit').linkbutton('enable');	
 		}

@@ -264,7 +264,18 @@ table tr td select {
 		}
 		
 		function showbin(cardbin){
-			
+			$('#w').window({
+				title: '修改卡bin信息',
+				top:200,
+				width: 650,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 220
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "bin/getSingleById",
@@ -284,18 +295,7 @@ table tr td select {
 				   }		
 			   }
 			});
-			$('#w').window({
-				title: '修改卡bin信息',
-				top:200,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 220
-			});
+			
 			$("#saveForm").attr("action","bin/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
