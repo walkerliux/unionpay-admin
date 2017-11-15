@@ -15,19 +15,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.service.CheckBillService;
 
 @Controller
-@RequestMapping("/checkbill")
+@RequestMapping("/checkbill/")
 public class CheckBillController {
 	
 	@Autowired
 	private CheckBillService checkBillService;
 	
-    @RequestMapping("/toResult")
+    @RequestMapping("toResult")
     public String index() {
         return "/checkinfo/file_start";
     }
@@ -140,8 +141,7 @@ public class CheckBillController {
 	 */
 	@ResponseBody
 	@RequestMapping("startCheckFile")
-	public List<?> startCheckFile(String filestartid) {
-		checkBillService.checkBill(filestartid);
-		return null;
+	public ResultBean startCheckFile(String filestartid) {
+		return checkBillService.checkBill(filestartid);
 	}
 }

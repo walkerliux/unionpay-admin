@@ -31,4 +31,6 @@ public interface TBnkTxnMapper {
     int updateByPrimaryKey(TBnkTxn record);
     
     int updateByCheckBill(Map<String, Object> map);
+    
+    int insertMistake(Map<String, Object> map);
 }

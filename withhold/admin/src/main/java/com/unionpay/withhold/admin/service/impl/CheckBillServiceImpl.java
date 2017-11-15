@@ -24,6 +24,7 @@ import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.pojo.TSettProcessExample;
 import com.unionpay.withhold.admin.service.CheckBillService;
 import com.unionpay.withhold.utils.DateUtil;
+import com.unionpay.withhold.utils.LogHelper;
 
 @Service
 @Transactional
@@ -55,14 +56,26 @@ public class CheckBillServiceImpl implements CheckBillService {
 		map.put("filestartid", filestartid);
 		map.put("instiid", settProcess.getInstiid());
 		int flag =selfTxnMapper.insertFromTxnLog(map);
+		
+		TSettProcessExample example = new TSettProcessExample();
+		TSettProcessExample.Criteria criteria=example.createCriteria();
+		
+		criteria.andTidEqualTo(Integer.valueOf(filestartid));
 		if (flag>0) {
 			//2,对账(正确的改状态, 错误的需要写到差错表)
 			selfTxnMapper.updateByCheckBill(map);
 			bnkTxnMapper.updateByCheckBill(map);
+			selfTxnMapper.insertMistake(map);
+			bnkTxnMapper.insertMistake(map);
+			settProcess.setStatus("01");
+			settProcessMapper.updateByExampleSelective(settProcess, example);
 			return new ResultBean("对账完成");
 		}else{
+			settProcess.setStatus("01");
+			settProcessMapper.updateByExampleSelective(settProcess, example);
 			return new ResultBean("001","无数据需要对账");
 		}
+		
 		
 	}
 
@@ -84,6 +97,7 @@ public class CheckBillServiceImpl implements CheckBillService {
 		if (variables.containsKey("instiid")) {
 			criteria.andInstiidEqualTo(variables.get("instiid").toString());
 		}
+		example.setOrderByClause("tid desc");
 		return settProcessMapper.selectByExample(example);
 	}
 

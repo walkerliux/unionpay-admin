@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONObject;
 import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -44,6 +46,11 @@ public class LoginInterceptor implements HandlerInterceptor {
 			
 			if (requestType != null && requestType.equals("XMLHttpRequest")) {
 				 response.setHeader("sessionstatus", "timeout"); 
+				 JSONObject json = new JSONObject();
+				 json.put("errMsg", "您的登录已失效,请重新登录");
+				 request.setCharacterEncoding("UTF-8");
+				 response.setContentType("text/html;charset=utf-8");
+				 response.getWriter().write(json.toString());
 			}else {
 				PrintWriter out = response.getWriter();
 				out.println("<html>");      

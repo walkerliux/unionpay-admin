@@ -465,29 +465,55 @@
   <insert id="insertFromTxnLog" parameterType="map" >
    INSERT INTO t_self_txn (txnseqno, instiid, txndatetime, busicode,
                       amount, pan, merchno, systrcno, paytrcno,
-                      acqsettledate, status, RESULT, checking_id)
+                      acqsettledate, status, RESULT, checking_id,proid,payordno)
    			 SELECT t.txnseqno, t.payinst, t.payordfintime AS txndatetime, t.busicode,
                            t.amount, t.pan, t.payfirmerno,t.payrettsnseqno,NULL AS paytrcno,
-                           t.accsettledate,1,
+                           t.accsettledate,'00',
                            (CASE
                                WHEN t.retcode IS NULL
                                   THEN '01'
                                ELSE '00'
                             END
                            ) AS RESULT,
-                           #{filestartid} AS checking_id
+                           #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno
                       FROM t_txns_log t LEFT JOIN t_self_txn t1 on t.txnseqno=t1.TXNSEQNO
-                      WHERE t.INSTIID=#{instiid} and t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
+                      WHERE t.payinst=#{instiid} and t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
   </insert>
+  
+  <insert id="insertMistake" parameterType="map" >
+      INSERT INTO t_checkfile_mistake
+                     ( tid, txnseqno, instiid, payordno, txndatetime,
+                      busicode, amount, pan, merchno, systrcno, paytrcno,
+                      cfee, dfee, retcode, acqsettledate, proid, RESULT,
+                      mistatus, mistake_trade_source, datasource,
+                      mistakedesc)
+            SELECT  t1.tid, t1.txnseqno,
+                   t1.instiid, t1.payordno, t1.txndatetime, t1.busicode,
+                   t1.amount, t1.pan, t1.merchno, t1.systrcno, t1.paytrcno,
+                   t1.cfee, t1.dfee, t1.retcode, t1.acqsettledate, #{filestartid},
+                   t1.RESULT, '01', 0, 0, '本系统对账失败的记录'
+              FROM t_self_txn t1 LEFT JOIN t_checkfile_mistake t2 
+             on (t1.txnseqno = t2.txnseqno
+               AND t2.txnseqno IS NULL)
+               WHERE t1.txndatetime  &lt;  
+                                 (SELECT MAX(t.txndatetime)
+                                    FROM t_self_txn t
+                                   WHERE t.status = '9' AND t.proid = #{filestartid})
+               AND t1.status = '00'
+               AND t1.instiid =(SELECT t3.instiid
+                                              FROM t_sett_process t3
+                                             WHERE t3.tid =#{filestartid})
+  </insert>
+  
   <update id="updateByCheckBill" parameterType="map" >
    update t_self_txn t set  t.status = '9', t.proid = #{filestartid}, t.RESULT = '02'
-   where  exist (select s.id from t_self_txn s where 
-				s.instiid = b.instiid
+   where  exists (select s.tid from t_bnk_txn s where 
+				s.instiid = t.instiid AND
+				s.instiid=#{instiid}
 				AND s.pan=t.pan
                 AND IFNULL (s.amount, 0) = IFNULL (t.amount, 0)
-                AND s.systrcno = t.systrcno
                 AND s.payordno = t.payordno
-				AND t.status='1') 
+				AND t.status='00') 
   </update>
   
   
