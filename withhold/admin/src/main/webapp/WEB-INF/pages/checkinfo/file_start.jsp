@@ -150,13 +150,13 @@ table tr td select {
 					json =eval('('+json+')');
 					if (json.INFO == "执行成功!") {				
 						$.messager.alert('提示', json.INFO);
-						search();
 					} else {
-					$("#uploadbutton").show();
+						$("#uploadbutton").show();
 						$.messager.alert('提示', json.INFO);
 						$("#uploadbutton").show();
 						$("#uploadhint").hide();
 					}
+					search();
 				}
 			});
 		}		
@@ -175,10 +175,12 @@ table tr td select {
 			   data: "filestartid="+tId,
 			   dataType:"json",
 			   success:function(json){
-				$.each(json, function(key,value){
-		    		$.messager.alert('提示',value.INFO);   
+					if(json.resultBool==false){
+						$.messager.alert('提示',json.errMsg);   
+					}else{
+						$.messager.alert('提示',json.resultObj); 
+					}
 		    		search();
-				});
 			 	}
 			}); 
 	}
@@ -191,7 +193,7 @@ table tr td select {
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
-			url:'checkinfo/querySuccess',			
+			url:'checkbill/querySuccess',			
 			remoteSort: false,
 			idField:'tid',
 			queryParams:{
@@ -222,7 +224,7 @@ table tr td select {
 			singleSelect:true,
 			nowrap: false,
 			striped: true,
-			url:'checkinfo/queryFail',			
+			url:'checkbill/queryFail',			
 			remoteSort: false,
 			queryParams:{
 				"proid": proid
