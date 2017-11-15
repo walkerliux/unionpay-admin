@@ -198,55 +198,13 @@ table tr td select {
 				} else if (json.resultBool == false) {
 					$.messager.alert('提示', "发起批量交易失败");
 				}
-
-				//alert(json)
-				/* $.each(json, function(key,value){
-					$.messager.alert('提示',value);   
-					search();
-					closeAdd();
-					$('#btn_submit').linkbutton('enable');	
-				}) */
+			},
+			error : function(){
+				$.messager.alert('提示', '服务异常！');
 			}
 		});
 	}
 
-	/* function showbin(cardbin){
-		
-		$.ajax({
-		   type: "POST",
-		   url: "bin/getSingleById1",
-		   data: "cardbin="+cardbin,
-		   async: false,
-		   dataType:"json",
-		   success: function(json){	
-			   //alert(json.bankname);
-					$("#cardbin").val(json.cardbin);
-					$("#oldcardbin").val(json.cardbin);
-					$("#oldcardlen").val(json.cardlen);
-					$("#cardname").val(json.cardname);
-					$("#cardlen").val(json.cardlen);
-					//$("#bankcode").val(json.bankname);
-					$('#bankcode').combobox('select',json.bankname);
-					$("#type").val(json.type);
-					
-		   }
-		});
-		$('#w').window({
-			title: '修改卡bin信息',
-			top:200,
-			width: 650,
-			modal: true,
-			minimizable:false,
-			collapsible:false,
-			maximizable:false,
-			shadow: false,
-			closed: false,
-			height: 220
-		});
-		$("#saveForm").attr("action","bin/update");
-		$('#btn_submit').linkbutton('enable');	
-	} */
-	// 验证cardbin
 	function money() {
 		var cardbin = $("#cardbin").val();
 
@@ -304,6 +262,9 @@ table tr td select {
 										$("#transfactors,#Ttransfactors").html(
 												html);
 										//alert(html);
+									},
+									error : function(){
+										$.messager.alert('提示', '服务异常！');
 									}
 								});
 					})
@@ -322,6 +283,9 @@ table tr td select {
 				//alert(jsonStr)
 				$('#json_Str').val(jsonStr);
 
+			},
+			error : function(){
+				$.messager.alert('提示', '服务异常！');
 			}
 		});
 

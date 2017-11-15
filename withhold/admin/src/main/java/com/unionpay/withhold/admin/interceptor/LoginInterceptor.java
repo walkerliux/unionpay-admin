@@ -38,15 +38,23 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String browserInfo = SystemUtils.getRequestBrowserInfo(request);
 		//redis中浏览器
 		String browser = jedisClient.get(REDIS_BROWSER_KEY+":"+token);
+		String requestType = request.getHeader("X-Requested-With");//识别ajax的响应头  
 		//user相同的情况下
 		if (!ipAddr.equals(ipRedis)||!browserInfo.equals(browser)) {
-			 PrintWriter out = response.getWriter();
-			 out.println("<html>");      
-		        //out.println("window.open ('"+request.getContextPath()+"/"+"','_top')");      
-			 out.print("<script type='application/javascript'>  parent.location.href='../index.jsp' </script>");  
-		     out.println("</html>"); 
-	         out.flush();
 			
+			if (requestType != null && requestType.equals("XMLHttpRequest")) {
+				 response.setHeader("sessionstatus", "timeout"); 
+			}else {
+				PrintWriter out = response.getWriter();
+				out.println("<html>");      
+				out.println("<script>");      
+			    out.println("window.open ('"+request.getContextPath()+"/"+"','_top')");      
+			    out.println("</script>");       
+				 //out.print("<script type='application/javascript'>  parent.location.href='../index.jsp' </script>");  
+			    out.println("</html>");
+			    out.flush();
+			}
+	         
 			return false;
 		}
 		jedisClient.expire(REDIS_USER_KEY+":"+token, REDIS_SESSION_EXPIRE);

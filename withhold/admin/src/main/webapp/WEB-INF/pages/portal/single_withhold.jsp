@@ -120,6 +120,7 @@ table tr td select {
 				return false;
 			},
 			success : function(data) {
+				if(data!=null){
 				var json = eval('(' + data + ')')
 	    		$('#w').window('close');	
 	    		$('#btn_submit').linkbutton('enable'); 
@@ -134,6 +135,7 @@ table tr td select {
 					closeAdd();
 					$('#btn_submit').linkbutton('enable');
 				}) */
+			}
 			}
 		});
 	}

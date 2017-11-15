@@ -39,20 +39,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	$().maxlength();
 	}); 
 	
-	$.ajaxSetup({     
+	 $.ajaxSetup({     
 	    contentType:"application/x-www-form-urlencoded;charset=utf-8",     
 	    complete:function(XMLHttpRequest,textStatus){  
 	        // 通过XMLHttpRequest取得响应头，sessionstatus，  
 	        var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
-	        if(sessionstatus=="sessiontimeout"){     
-	        	$.messager.confirm('提示','您的登录已超时,请重新登录',function(r){if(r){
-	        		window.parent.location.replace("<%=basePath%>"+"login/logout?relogin=relogin");
+	        if(sessionstatus=="timeout"){     
+	        	$.messager.confirm('提示','您的登录已失效,请重新登录',function(r){
+	        		if(r){
+	        		window.parent.location.replace("<%=basePath%>"+"login/logout");
 	        		}
 	        	});
 	        }  
 	    }  
 	}); 
-	
+	<%-- $.ajaxSetup({
+	    contentType : "application/x-www-form-urlencoded;charset=utf-8",
+	    complete : function(XMLHttpRequest, textStatus) {
+	        var sessionstatus = XMLHttpRequest.getResponseHeader("sessionstatus"); // 通过XMLHttpRequest取得响应头，sessionstatus，
+	        if (sessionstatus == "timeout") {
+	            // 如果超时就处理 ，指定要跳转的页面
+	        	window.parent.location.replace("<%=basePath%>"+"login/logout");
+	        }
+	    }
+	}); --%>
 	</script>
 
 

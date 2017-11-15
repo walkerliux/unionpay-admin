@@ -231,7 +231,7 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   		
+				   		if(json!=null){
 						$("#tid").html(json.tid);
 						/* $("#user_code").attr('readonly','readonly');
 						$("#user_code").css('background-color','#D2D2D2'); */
@@ -276,6 +276,7 @@ table tr td select {
 						$("#syncnotify").html(json.syncnotify);
 						$("#notes").html(json.notes);
 						$("#remarks").html(json.remarks);
+			   }
 			   }
 			});
 		

@@ -509,6 +509,7 @@ table tr td.update {
 			url : "fee/queryAccumRateDeta?rateId=" + rateId,
 			dataType : "json",
 			success : function(json) {
+				if(json!=null){
 				output += '<tr><td colspan="4" class="head-title update">交易金额累计分段扣率</td></tr>';
 				output += '<tr><td class="update" width="15%">扣率代码</td><td class="update" colspan="3">' + rateId + '</td></tr>';
 				output += '<tr><td class="update" width="15%">扣率描述</td><td class="update" width="30%">' + rateDesc + '</td>';		
@@ -568,6 +569,7 @@ table tr td.update {
 					shadow : true,
 					closed : false,
 				});
+			}
 			}
 		});
 		

@@ -328,11 +328,13 @@ table tr td select {
 			   url: "user/showRoles",
 			   dataType:"json",
 			   success: function(json){
+				   if(json!=null){
 			   		var html ="<option value=''>--请选择用户角色--</option>";
 			   		$.each(json, function(key,value){
 			   			html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
 					})
 					$("#userRoleId,#user_roleId").html(html);
+			   }
 			   }
 			});
 		} 
@@ -376,16 +378,8 @@ table tr td select {
 			        return false;   
 			    },   
 			    success:function(data){ 
-			    	//alert(data)
-		    		/* $('#w').window('close');
-		    		 search();
-		    		
-		    		if(data=='true'){
-						$.messager.alert('提示',"保存成功");  
-					}else if(data=="false"){
-						$.messager.alert('提示',"保存失败");  
-					} */ 
-					
+			    	
+			    	if(data!=null){
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){
@@ -394,7 +388,8 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			    }   
+			    }  
+			    }
 			});  
 		}
 		
@@ -405,7 +400,8 @@ table tr td select {
 			   data: "userId="+userId,
 			   async: false,
 			   dataType:"json",
-			   success: function(json){					
+			   success: function(json){	
+				   if(json!=null){
 						$("#user_code").val(json.userCode);
 						$("#user_code").attr('readonly','readonly');
 						$("#user_code").css('background-color','#D2D2D2');
@@ -436,7 +432,7 @@ table tr td select {
 						setTimeout(function(){ 
 							$("#user_deptId").val(json.deptId);
 						},1); */
-					
+				   }
 			   }
 			});
 			$('#w').window({
@@ -464,7 +460,7 @@ table tr td select {
 				   data: "userId="+userId,
 				   dataType:"json",
 				   success:function(data){
-// 					   success:function(data){   
+				    if(data!=null){
 				    		$('#w').window('close');
 				    		 search();
 				    		$('#btn_submit').linkbutton('enable');
@@ -474,6 +470,7 @@ table tr td select {
 								$.messager.alert('提示',"注销失败");  
 							} 
 					    } 
+				   }
 				});
 			    }   
 			});  
@@ -519,10 +516,12 @@ table tr td select {
 			  	data: "rand="+new Date().getTime()+"&userId="+userId,
 			 	dataType: "json",
 			 	success:function(json){
-					$.each(json, function(key,value){
+			 		 if(json!=null){
+			 		$.each(json, function(key,value){
 						html += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
 					})
 					$("#scope").html(html);
+			 		 }
 			 	}
 			});
 			var htmlscope="";
@@ -532,10 +531,12 @@ table tr td select {
 			  	data: "rand="+new Date().getTime()+"&userId="+userId,
 			 	dataType: "json",
 			 	success:function(json){
-					$.each(json, function(key,value){
+			 		 if(json!=null){
+			 		$.each(json, function(key,value){
 						htmlscope += '<option value="'+value.roleId+'">'+value.roleName+'</option>';
 					})
 				$("#selectScopes").html(htmlscope);
+			 	}
 			 	}
 			});
 			
@@ -595,12 +596,14 @@ table tr td select {
 			    data: "userId="+$('#userId_addrole').val()+"&userFunc="+userFunc,
 			    dataType: "text",
 			    success: function(data){
-					$('#w2').window('close');
+			    	 if(data!=null){
+			    	$('#w2').window('close');
 					if(data=='true'){
 						$.messager.alert('提示',"保存成功");  
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					}
+			    	 }
 			    }
 			});
 		}
@@ -679,12 +682,14 @@ table tr td select {
 			    data: "userId="+$('#userId').val()+"&userFunc="+fid,
 			    dataType: "text",
 			    success: function(data){
-					if(data=='true'){
+			    	 if(data!=null){
+			    	if(data=='true'){
 						$('#userRoleW3').window('close');
 						$.messager.alert('提示',"保存成功");  
 					}else if(data=='false'){
 						$.messager.alert('提示',"保存失败");  
 					}
+			    	 }
 			    }
 			});
 		}

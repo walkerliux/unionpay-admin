@@ -516,10 +516,7 @@ table tr td select {
 				   data: "txnseqno="+txnseqno,
 				   dataType:"json",
 				   success:function(json){
-					   /* if(date.messg!=null){
-						   
-					   }else{ */
-						   //json=date.json;
+					   if(json!=null){
 					   
 					   $("#ttxnseqno").html(json.txnseqno);
 					   $("#ttxndate").html(b_changeDate(json.txndate));
@@ -590,8 +587,11 @@ table tr td select {
 					   $("#taccmemberid").html(json.accmemberid);
 					   $("#tapporderstatus").html(getStatus(json.apporderstatus));
 					   $("#tapporderinfo").html(json.apporderinfo);
-					  
-				 	}
+					   }
+					},
+				 	error : function(){
+						$.messager.alert('提示', '服务异常！');
+					}
 				});
 		}
 		

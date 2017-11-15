@@ -217,6 +217,7 @@ table tr td select {
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					} */ 
+					if(data!=null){
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){
@@ -225,7 +226,8 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			    }   
+			    }  
+			    }
 			});  
 		}
 		
@@ -237,14 +239,14 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   //alert(json.apicode);
+				   if(json!=null){
 						$("#tbankcode").val(json.bankcode);
 						$("#oldbankcode").val(json.bankcode);
 						$("#apicode").css('background-color','#D2D2D2');
 						$("#bankname").val(json.bankname);
 						$("#pbcBankcode").val(json.pbcBankcode);
 						$("#tid").val(json.tid);
-						
+				   }
 			   }
 			});
 			$('#w').window({

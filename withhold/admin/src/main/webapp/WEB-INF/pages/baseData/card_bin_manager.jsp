@@ -250,6 +250,7 @@ table tr td select {
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					} */ 
+					if(data!=null){
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){
@@ -258,7 +259,7 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			    }   
+			    } }  
 			});  
 		}
 		
@@ -271,7 +272,7 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   //alert(json.bankname);
+				   if(json!=null){
 						$("#cardbin").val(json.cardbin);
 						$("#oldcardbin").val(json.cardbin);
 						$("#oldcardlen").val(json.cardlen);
@@ -280,7 +281,7 @@ table tr td select {
 						//$("#bankcode").val(json.bankname);
 						$('#bankcode').combobox('select',json.bankname);
 						$("#type").val(json.type);
-						
+				   }		
 			   }
 			});
 			$('#w').window({
@@ -380,13 +381,14 @@ table tr td select {
 			data: "bankname=" +jp,
 			/* dataType: "json", */
 			success: function(json) {
+				if(json!=null){
 				var html;
 				$.each(json,function(key, value) {
-					alert(value.id);
+					//alert(value.id);
 					var codenode = value.id;
 					$("#bankcode").val(codenode);
 				});
-			}
+			}}
 		});
 	}
 	function invokeFunction() {

@@ -226,7 +226,8 @@ table tr td select {
 			   		}
 			        return false;   
 			    },   
-			    success:function(data){   
+			    success:function(data){ 
+			    	if(data!=null){
 			    	 var json = eval('(' + data + ')')
 			    	 
 			    	$.each(json, function(key,value){
@@ -235,7 +236,7 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			        	
+			    	}	
 				    
 			    }   
 			});  
@@ -248,6 +249,7 @@ table tr td select {
 			   data: "roleId="+roleId,
 			   dataType:"json",
 			   success: function(json){
+				   if(json!=null){
 			    $("#role_roleId").val(json.roleId);
 				$("#role_name").val(json.roleName);
 				$("#role_organId").val(json.organId);
@@ -267,7 +269,7 @@ table tr td select {
 				 	}
 				});
 				$("#role_deptId").val(json.deptId); */
-				
+				   }
 			   } 
 			});
 			$('#w').window({
@@ -294,12 +296,14 @@ table tr td select {
 				   data: "roleId="+roleId,
 				   dataType:"json",
 				   success:function(json){
+					   if(json!=null){
 						$.each(json, function(key,value){
 				    		$.messager.alert('提示',value);   
 				    		search();
 				    		closeAdd();
 						}) 
 				 	}
+				   }
 				});
 			    }   
 			});  
@@ -398,13 +402,14 @@ table tr td select {
 			    data: "roleId="+$('#roleId').val()+"&userFunc="+fid,
 			    dataType: "text",
 			    success: function(data){
-					
+			    	if(data!=null){
 					if(data=='true'){
 						$('#w2').window('close');
 						$.messager.alert('提示',"保存成功");  
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					}
+			    }
 			    }
 			});
 		}

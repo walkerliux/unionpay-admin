@@ -372,7 +372,7 @@ table tr td.update {
 			async : false,
 			dataType : "json",
 			success : function(json) {
-				
+				if(json!=null){
 				// 拼接交易金额累计分段扣率
 				output += '<tr>';
 				output += 	'<td colspan="4" class="head-title update">';
@@ -452,6 +452,7 @@ table tr td.update {
 				output += '</tr>';
 				$('#tableadd').html(output);
 				resize("wadd");
+			}
 			}
 		});
 		

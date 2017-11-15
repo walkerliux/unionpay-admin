@@ -379,7 +379,7 @@ table tr td select {
 			   async: false,
 			   dataType:"json",
 			   success: function(json){	
-				   //alert(json.apicode);
+				   if(json!=null){
 						$("#apicode").val(json.apicode);
 						$("#apicode").attr('readonly','readonly');
 						$("#apicode").css('background-color','#D2D2D2');
@@ -412,7 +412,7 @@ table tr td select {
 						$("#reason").val(json.reason);
 						$("#notes").val(json.notes);
 						$("#rsp_id").val(json.rspid);
-						
+				   }		
 			   }
 			});
 			$('#w').window({

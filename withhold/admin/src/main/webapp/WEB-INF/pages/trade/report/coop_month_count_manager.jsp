@@ -352,6 +352,7 @@ table tr td select {
 			async : false,
 			dataType : "json",
 			success : function(json) {
+				 if(json!=null){
 				$("#user_code").val(json.userCode);
 				$("#user_code").attr('readonly', 'readonly');
 				$("#user_code").css('background-color', '#D2D2D2');
@@ -362,7 +363,10 @@ table tr td select {
 				$("#user_isadmin").val(json.isadmin);
 				$("#user_id").val(json.userId);
 				$("#user_notes").val(json.notes);
-
+				 }
+			},
+			error : function(){
+				$.messager.alert('提示', '服务异常！');
 			}
 		});
 		$('#w').window({

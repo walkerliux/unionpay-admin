@@ -330,6 +330,7 @@ table tr td select {
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					} */ 
+					if(data!=null){
 			    	var json = eval('(' + data + ')')
 			    	 //alert(json)
 			    	$.each(json, function(key,value){
@@ -338,7 +339,7 @@ table tr td select {
 			    		closeAdd();
 			    		$('#btn_submit').linkbutton('enable');	
 					}) 
-			    }   
+			    }  } 
 			});  
 		}
 		
@@ -349,7 +350,8 @@ table tr td select {
 			   data: "tid="+tid,
 			   async: false,
 			   dataType:"json",
-			   success: function(json){					
+			   success: function(json){	
+				   if(json!=null){
 						$("#para_Code").val(json.paraCode);
 						$("#para_Code").attr('readonly','readonly');
 						$("#para_Code").css('background-color','#D2D2D2');
@@ -369,19 +371,20 @@ table tr td select {
 						 	dataType: "json",
 						 	async: false,
 						 	success:function(json){
+						 		if(json!=null){
 								$.each(json, function(key,value){
 									
 										html += '<option value="'+value.tid+'">'+value.paraName+'</option>';
 									
 								})
 								$("#parent_Id").html(html);
-								
+						 		}
 						 	}
 						});
 						setTimeout(function(){ 
 							$("#parent_Id").val(json.deptId);
 						},1); 
-					
+				   }	
 			   }
 			});
 			$('#w').window({
@@ -401,7 +404,7 @@ table tr td select {
 		}
 
 		function deletePara(tid){
-			$.messager.confirm('提示','您是否想要注销此用户?',function(r){   
+			$.messager.confirm('提示','您是否想要注销此数据?',function(r){   
 			   if (r){  
 				$.ajax({
 				   type: "POST",
