@@ -16,12 +16,14 @@ import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyApplyMapper;
 import com.unionpay.withhold.admin.mapper.TCoopAgencyMapper;
 import com.unionpay.withhold.admin.mapper.TMerchRateConfigMapper;
+import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyApplyExample;
 import com.unionpay.withhold.admin.pojo.TCoopAgencyExample;
 import com.unionpay.withhold.admin.pojo.TMerchRateConfig;
 import com.unionpay.withhold.admin.pojo.TMerchRateConfigExample;
+import com.unionpay.withhold.admin.pojo.TRateAccum;
 import com.unionpay.withhold.admin.service.CoopAgencyApplyService;
 import com.unionpay.withhold.utils.BeanCopyUtil;
 
@@ -34,6 +36,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 	private TCoopAgencyMapper coopAgencyMapper;
 	@Autowired
 	private TMerchRateConfigMapper merchRateConfigMapper;
+	@Autowired
+	private TRateAccumMapper rateAccumMapper;
 
 	@Override
 	public PageBean queryByPage(TCoopAgencyApplyExample coopAgencyApplyExample) {
@@ -231,6 +235,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgencyMapper.insertSelective(coopAgency);
 
 				// 判断扣率配置是否有变更，有的话，更新配置
+				TRateAccum rateAccum = rateAccumMapper.selectByPrimaryKey(Integer.valueOf(coopAgencyApply.getRateId()));
 				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
@@ -239,7 +244,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				if (merchRateConfigList.size() > 0) {// 已存在
 					merchRateConfig = merchRateConfigList.get(0);
 					if (!String.valueOf(merchRateConfig.getRateId()).equals(coopAgencyApply.getRateId())) {// 不相等，说明已发生变更
-						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));;
+						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
+						merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
 					}
 				} else {
@@ -247,6 +253,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
 					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
+					merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(coopAgencyApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
@@ -275,6 +282,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);
 
 				// 判断扣率配置是否有变更，有的话，更新配置
+				TRateAccum rateAccum = rateAccumMapper.selectByPrimaryKey(Integer.valueOf(coopAgencyApply.getRateId()));
 				TMerchRateConfig merchRateConfig = new TMerchRateConfig();
 				TMerchRateConfigExample merchRateConfigExample = new TMerchRateConfigExample();
 				TMerchRateConfigExample.Criteria criteria = merchRateConfigExample.createCriteria();
@@ -283,7 +291,8 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				if (merchRateConfigList.size() > 0) {// 已存在
 					merchRateConfig = merchRateConfigList.get(0);
 					if (!String.valueOf(merchRateConfig.getRateId()).equals(coopAgencyApply.getRateId())) {// 不相等，说明已发生变更
-						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));;
+						merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
+						merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 						merchRateConfigMapper.updateByPrimaryKeySelective(merchRateConfig);
 					}
 				} else {
@@ -291,6 +300,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 					merchRateConfig.setTarget(MerchTargetTypeEnums.COOPAGENCY.getCode());
 					merchRateConfig.setMemberId(agencyApplyBack.getCacode());
 					merchRateConfig.setRateId(Long.valueOf(coopAgencyApply.getRateId()));
+					merchRateConfig.setRateMethod(Short.valueOf(rateAccum.getRateMethod()));
 					merchRateConfig.setIntime(now);
 					merchRateConfig.setInuser(coopAgencyApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);

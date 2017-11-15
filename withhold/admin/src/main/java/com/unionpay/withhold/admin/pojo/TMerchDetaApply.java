@@ -74,6 +74,9 @@ public class TMerchDetaApply {
 	private String mccName;
 	private String mccListName;
 	private String rateId;
+	private String rateDesc;
+	private String riskname;
+	private String routname;
 
 	public Integer getSelfId() {
 		return selfId;
@@ -369,6 +372,30 @@ public class TMerchDetaApply {
 
 	public void setRateId(String rateId) {
 		this.rateId = rateId == null ? null : rateId.trim();
+	}
+
+	public String getRateDesc() {
+		return rateDesc;
+	}
+
+	public void setRateDesc(String rateDesc) {
+		this.rateDesc = rateDesc == null ? null : rateDesc.trim();
+	}
+
+	public String getRiskname() {
+		return riskname;
+	}
+
+	public void setRiskname(String riskname) {
+		this.riskname = riskname == null ? null : riskname.trim();
+	}
+
+	public String getRoutname() {
+		return routname;
+	}
+
+	public void setRoutname(String routname) {
+		this.routname = routname == null ? null : routname.trim();
 	}
 
 }

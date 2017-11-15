@@ -397,7 +397,12 @@
 					handler: function() {
 						showAddRoute();
 					}
-				}]
+				}],
+				onClickRow:function (index, row){
+					var routver = row["routver"];
+					var routname = row["routname"];
+					showRouteConfig(routver,routname);
+				}
 			});
 			var p = $('#route').datagrid('getPager');
 			$(p).pagination({
