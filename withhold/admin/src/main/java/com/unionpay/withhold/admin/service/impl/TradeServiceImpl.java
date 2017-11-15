@@ -93,7 +93,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tTxnsLogMapper.countByMyExample(tTxnsLogExample);
 		tTxnsLogExample.setPageNum(page);
 		tTxnsLogExample.setPageSize(rows);
-		tTxnsLogExample.setOrderByClause("TXNSEQNO DESC");
+		tTxnsLogExample.setOrderByClause("TID DESC");
 		List<TTxnsLog> retureList = tTxnsLogMapper.selectByPageExample(tTxnsLogExample);
 		return new PageBean(total, retureList);
 	}
@@ -126,7 +126,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tOrderCollectBatchMapper.countByMyExample(tOrderCollectBatchExample);
 		tOrderCollectBatchExample.setPageNum(page);
 		tOrderCollectBatchExample.setPageSize(rows);
-		tOrderCollectBatchExample.setOrderByClause("TID");
+		tOrderCollectBatchExample.setOrderByClause("TID DESC");
 		List<TOrderCollectBatch> returnList = tOrderCollectBatchMapper.selectByPageExample(tOrderCollectBatchExample);
 		return new PageBean(total, returnList);
 	}
@@ -167,7 +167,7 @@ public class TradeServiceImpl implements TradeService {
 		int tatol = tOrderCollectSingleMapper.countByExample(singleExample);
 		singleExample.setPageNum(page);
 		singleExample.setPageSize(rows);
-		singleExample.setOrderByClause("TID");
+		singleExample.setOrderByClause("TID DESC");
 		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectByExample(singleExample);
 		
 		return new PageBean(tatol, selectByExample);
@@ -201,7 +201,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkBatchMapper.countByExample(tChnlCpdkBatchExample);
 		tChnlCpdkBatchExample.setPageNum(page);
 		tChnlCpdkBatchExample.setPageSize(rows);
-		tChnlCpdkBatchExample.setOrderByClause("TID");
+		tChnlCpdkBatchExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkBatch> result = tChnlCpdkBatchMapper.selectByExample(tChnlCpdkBatchExample);
 		return new PageBean(total, result);
 	}
@@ -236,7 +236,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkLogMapper.countByExample(tChnlCpdkLogExample);
 		tChnlCpdkLogExample.setPageNum(page);
 		tChnlCpdkLogExample.setPageSize(rows);
-		tChnlCpdkLogExample.setOrderByClause("TID");
+		tChnlCpdkLogExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkLog> result = tChnlCpdkLogMapper.selectByExample(tChnlCpdkLogExample);
 		return new PageBean(total, result);
 	}
@@ -283,7 +283,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tOrderCollectDetaMapper.countByExample(tOrderCollectDetaExample);
 		tOrderCollectDetaExample.setPageNum(page);
 		tOrderCollectDetaExample.setPageSize(rows);
-		tOrderCollectDetaExample.setOrderByClause("TID");
+		tOrderCollectDetaExample.setOrderByClause("TID DESC");
 		List<TOrderCollectDeta> result = tOrderCollectDetaMapper.selectByExample(tOrderCollectDetaExample);
 		return new PageBean(total, result);
 	}
@@ -301,7 +301,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkBatchDetaMapper.countByExample(tChnlCpdkBatchDetaExample);
 		tChnlCpdkBatchDetaExample.setPageNum(page);
 		tChnlCpdkBatchDetaExample.setPageSize(rows);
-		tChnlCpdkBatchDetaExample.setOrderByClause("TID");
+		tChnlCpdkBatchDetaExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkBatchDeta> result = tChnlCpdkBatchDetaMapper.selectByExample(tChnlCpdkBatchDetaExample);
 		return new PageBean(total, result);
 	}
@@ -336,7 +336,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tTxnsLogMapper.countHistoryByMyExample(tTxnsLogExample);
 		tTxnsLogExample.setPageNum(page);
 		tTxnsLogExample.setPageSize(rows);
-		tTxnsLogExample.setOrderByClause("TXNSEQNO DESC");
+		tTxnsLogExample.setOrderByClause("TID DESC");
 		List<TTxnsLog> retureList = tTxnsLogMapper.selectHistoryByPageExample(tTxnsLogExample);
 		return new PageBean(total, retureList);
 		
@@ -377,7 +377,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tOrderCollectBatchMapper.countByMyExample_bak(tOrderCollectBatchExample);
 		tOrderCollectBatchExample.setPageNum(page);
 		tOrderCollectBatchExample.setPageSize(rows);
-		tOrderCollectBatchExample.setOrderByClause("TID");
+		tOrderCollectBatchExample.setOrderByClause("TID DESC");
 		List<TOrderCollectBatch> returnList = tOrderCollectBatchMapper.selectByPageExample_bak(tOrderCollectBatchExample);
 		return new PageBean(total, returnList);
 		
@@ -418,7 +418,7 @@ public class TradeServiceImpl implements TradeService {
 		int tatol = tOrderCollectSingleMapper.countByExample_bak(singleExample);
 		singleExample.setPageNum(page);
 		singleExample.setPageSize(rows);
-		singleExample.setOrderByClause("TID");
+		singleExample.setOrderByClause("TID DESC");
 		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectByExample_bak(singleExample);
 		
 		return new PageBean(tatol, selectByExample);
@@ -435,7 +435,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tOrderCollectDetaMapper.countByExample_bak(tOrderCollectDetaExample);
 		tOrderCollectDetaExample.setPageNum(page);
 		tOrderCollectDetaExample.setPageSize(rows);
-		tOrderCollectDetaExample.setOrderByClause("TID");
+		tOrderCollectDetaExample.setOrderByClause("TID DESC");
 		List<TOrderCollectDeta> result = tOrderCollectDetaMapper.selectByExample_bak(tOrderCollectDetaExample);
 		return new PageBean(total, result);
 		
@@ -488,7 +488,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkLogMapper.countByExample_bak(tChnlCpdkLogExample);
 		tChnlCpdkLogExample.setPageNum(page);
 		tChnlCpdkLogExample.setPageSize(rows);
-		tChnlCpdkLogExample.setOrderByClause("TID");
+		tChnlCpdkLogExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkLog> result = tChnlCpdkLogMapper.selectByExample_bak(tChnlCpdkLogExample);
 		return new PageBean(total, result);
 		
@@ -522,7 +522,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkBatchMapper.countByExample_bak(tChnlCpdkBatchExample);
 		tChnlCpdkBatchExample.setPageNum(page);
 		tChnlCpdkBatchExample.setPageSize(rows);
-		tChnlCpdkBatchExample.setOrderByClause("TID");
+		tChnlCpdkBatchExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkBatch> result = tChnlCpdkBatchMapper.selectByExample_bak(tChnlCpdkBatchExample);
 		return new PageBean(total, result);
 		
@@ -540,7 +540,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlCpdkBatchDetaMapper.countByExample_bak(tChnlCpdkBatchDetaExample);
 		tChnlCpdkBatchDetaExample.setPageNum(page);
 		tChnlCpdkBatchDetaExample.setPageSize(rows);
-		tChnlCpdkBatchDetaExample.setOrderByClause("TID");
+		tChnlCpdkBatchDetaExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkBatchDeta> result = tChnlCpdkBatchDetaMapper.selectByExample_bak(tChnlCpdkBatchDetaExample);
 		return new PageBean(total, result);
 	}
@@ -577,7 +577,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlHyldkLogMapper.countByExample(tChnlHyldkLogExample);
 		tChnlHyldkLogExample.setPageNum(page);
 		tChnlHyldkLogExample.setPageSize(rows);
-		tChnlHyldkLogExample.setOrderByClause("TID");
+		tChnlHyldkLogExample.setOrderByClause("TID DESC");
 		List<TChnlHyldkLog> list = tChnlHyldkLogMapper.selectByExample(tChnlHyldkLogExample);
 		return new PageBean(total, list);
 	}
@@ -614,7 +614,7 @@ public class TradeServiceImpl implements TradeService {
 		int total = tChnlHyldkLogBakMapper.countByExample(tChnlHyldkLogExample);
 		tChnlHyldkLogExample.setPageNum(page);
 		tChnlHyldkLogExample.setPageSize(rows);
-		tChnlHyldkLogExample.setOrderByClause("TID");
+		tChnlHyldkLogExample.setOrderByClause("TID DESC");
 		List<TChnlHyldkLogBak> list = tChnlHyldkLogBakMapper.selectByExample(tChnlHyldkLogExample);
 		return new PageBean(total, list);
 }
