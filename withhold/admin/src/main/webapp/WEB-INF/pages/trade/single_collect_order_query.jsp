@@ -342,6 +342,20 @@ table tr td select {
 		$("#status").html("");
 		$("#ordercommitime").html("");
 		$("#syncnotify").html("");  */
+		$('#w').window({
+			title : '实时代收订单详细信息',
+			top : 30,
+			left : 100,
+			width : 900,
+			modal : true,
+			minimizable : false,
+			collapsible : false,
+			maximizable : false,
+			shadow : false,
+			closed : false,
+			height : 650
+		});
+		
 		$.ajax({
 			   type: "POST",
 			   url: "trade/getSingleById",
@@ -401,19 +415,6 @@ table tr td select {
 				}
 			});
 		
-		$('#w').window({
-			title : '实时代收订单详细信息',
-			top : 30,
-			left : 100,
-			width : 900,
-			modal : true,
-			minimizable : false,
-			collapsible : false,
-			maximizable : false,
-			shadow : false,
-			closed : false,
-			height : 650
-		});
 		
 		function getStatus(value){
 			if (value == "00") {

@@ -242,7 +242,19 @@ table tr td select {
 			});  
 			 
 		}
-		function showRole(roleId){		
+		function showRole(roleId){
+			$('#w').window({
+				title: '修改角色',
+				top:100,
+				width: 650,
+				collapsible:false,
+				minimizable:false,
+				maximizable:false,
+				modal: true,
+				shadow: false,
+				closed: false,
+				height: 210
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "role/getSingleById",
@@ -272,23 +284,12 @@ table tr td select {
 				   }
 			   } 
 			});
-			$('#w').window({
-				title: '修改角色',
-				top:100,
-				width: 650,
-				collapsible:false,
-				minimizable:false,
-				maximizable:false,
-				modal: true,
-				shadow: false,
-				closed: false,
-				height: 210
-			});
+			
 			$("#roleForm").attr("action","role/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
 		function deleteRole(roleId){
-			$.messager.confirm('提示','您是否想要注销此角色?',function(r){   
+			$.messager.confirm('提示','角色注销后无法恢复，确定需要注销?',function(r){   
 			   if (r){  
 				$.ajax({
 				   type: "POST",

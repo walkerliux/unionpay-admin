@@ -387,6 +387,19 @@ table tr td select {
 		$("#notes").html("");
 		$("#remarks").html("");
 
+		$('#w').window({
+			title : '商户统计详细信息',
+			top : 90,
+			left : 100,
+			width : 900,
+			modal : true,
+			minimizable : false,
+			collapsible : false,
+			maximizable : false,
+			shadow : false,
+			closed : false,
+			height : 660
+		});
 		$.ajax({
 			type : "POST",
 			url : "statistic/getSingleById",
@@ -411,19 +424,7 @@ table tr td select {
 				$.messager.alert('提示', '服务异常！');
 			}
 		});
-		$('#w').window({
-			title : '商户统计详细信息',
-			top : 90,
-			left : 100,
-			width : 900,
-			modal : true,
-			minimizable : false,
-			collapsible : false,
-			maximizable : false,
-			shadow : false,
-			closed : false,
-			height : 660
-		});
+		
 		/* var rows = $('#test').datagrid('getSelected');
 		$("#msgid").html(rows["MSGID"]);
 		$("#txid").html(rows["TXID"]);

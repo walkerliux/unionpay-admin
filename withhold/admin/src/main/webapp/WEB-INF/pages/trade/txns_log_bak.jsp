@@ -390,12 +390,13 @@ table tr td select {
 				url: "coopAgency/queryAllSuperCode",
 				dataType: "json",
 				success: function(json) {
+					if(json!=null){
 					var html = "<option value=''>--请选择渠道--</option>";
 					$.each(json,function(key, value) {
 						html += '<option value="' + value.cacode + '">' + value.caname + '</option>';
 					});
 					$("#accfirmerno").html(html);
-				}
+				}}
 			});
 		}
 

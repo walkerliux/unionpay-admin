@@ -394,6 +394,18 @@ table tr td select {
 		}
 		
 		function showUser(userId){
+			$('#w').window({
+				title: '修改用户信息',
+				top:100,
+				width: 650,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 220
+			});
 			$.ajax({
 			   type: "POST",
 			   url: "user/getSingleById",
@@ -435,18 +447,7 @@ table tr td select {
 				   }
 			   }
 			});
-			$('#w').window({
-				title: '修改用户信息',
-				top:100,
-				width: 650,
-				modal: true,
-				minimizable:false,
-				collapsible:false,
-				maximizable:false,
-				shadow: false,
-				closed: false,
-				height: 220
-			});
+			
 			$("#saveForm").attr("action","user/update");
 			$('#btn_submit').linkbutton('enable');	
 		}
