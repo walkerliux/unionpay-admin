@@ -212,7 +212,11 @@ table tr td select {
 
 	    
 		function search(){
-			var data={'roleName':$('#roleName').val(),"deptId":$("#roleDeptId").val(),'organId':$("#roleOrganId").val()};
+			var data={
+				'roleName':$('#roleName').val()/* ,
+				"deptId":$("#roleDeptId").val(),
+				'organId':$("#roleOrganId").val() */
+			};
 			$('#test').datagrid('load',data);
 		}
 		

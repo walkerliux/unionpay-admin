@@ -59,7 +59,9 @@ public final class SystemUtils {
             browserVersion = "Camino";  
         }else if(header.indexOf("Konqueror")>0){  
             browserVersion = "Konqueror";  
-        }  
+        }else {
+        	browserVersion = "Other";
+		}  
         return browserVersion;  
     }  
   
