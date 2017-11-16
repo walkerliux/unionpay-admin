@@ -1,6 +1,7 @@
 package com.unionpay.withhold.admin.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -62,7 +63,7 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 	}
 	@Override
 	public ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl) {
-	
+		Date now = new Date();
 		TMerchChnlWithBLOBs merch =new TMerchChnlWithBLOBs();
 //		merch.setMerchno(merchChnl.getMerchno());
 //		merch.setMemberName(merchChnl.getMemberName());
@@ -85,6 +86,8 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 			
 			merch.setMerchno(merchChnl.getMerchno());
 			merch.setStatus("00");
+			merch.setIntime(now);
+			merch.setInuser(merchChnl.getInuser());
 			 flag = merchChnlMapper.insertSelective(merch);
 		}
 		

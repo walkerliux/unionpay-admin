@@ -457,6 +457,9 @@ public class MerchDetaController {
 		for (int i = 0; i < length; i++) {
 			merch=merchChnl.getArdList().get(i);
 		}*/
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		merchChnl.setInuser(infoByToken.getUserId());
 		try {
 			return merchChnlService.addMerchChnl(merchChnl);
 			
