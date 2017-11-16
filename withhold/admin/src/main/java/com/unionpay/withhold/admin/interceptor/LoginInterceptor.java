@@ -43,7 +43,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		String requestType = request.getHeader("X-Requested-With");//识别ajax的响应头  
 		//user相同的情况下
 		if (!ipAddr.equals(ipRedis)||!browserInfo.equals(browser)) {
-			
+			// 检测响应头是否属于AJAX请求
 			if (requestType != null && requestType.equals("XMLHttpRequest")) {
 				 response.setHeader("sessionstatus", "timeout"); 
 				 JSONObject json = new JSONObject();

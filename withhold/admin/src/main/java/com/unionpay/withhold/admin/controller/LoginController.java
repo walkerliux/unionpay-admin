@@ -249,23 +249,22 @@ public class LoginController {
 		ModelAndView result = new ModelAndView("/login");
 		
 		
-		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
-		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+	/*	String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);*/
 		
 
-		if (!isNull(infoByToken)) {
+		/*if (!isNull(infoByToken)) {
 			userService.delLoginMsgFromRedis(cookieValue);
-
-		}
-		Cookie[] cookies = request.getCookies();
+		}*/
+		/*Cookie[] cookies = request.getCookies();
 		if (cookies!=null) {
 			for (Cookie cookie : cookies) {
-				if (cookie.getName().equals("user.cookie")) {
+				if (cookie.getName().equals("eb_token")) {
 					cookie.setMaxAge(0);
 					response.addCookie(cookie);
 				}
 			}
-		}
+		}*/
 		
 	
 		return result;
