@@ -425,14 +425,14 @@ table tr td select {
 			$('#bankList').datagrid({
 				title:'文件夹列表',
 				iconCls:'icon-save',
-				height:600,
+				height:800,
 				nowrap: false,
 				striped: true,
 				singleSelect:true,
 				url:'ftp/query',
 				remoteSort: false,
 				columns:[[
-					{field:'folder',title:'文件夹名称',align:'center',width:130},
+					{field:'folder',title:'文件夹名称',align:'center',width:200},
 					
 					
 					
@@ -445,16 +445,7 @@ table tr td select {
 							}
 						}}
 					]],
-				pagination:true,
-				rownumbers:true
-				/* toolbar:[{
-					id:'btnadd',
-					text:'新增合同',
-					iconCls:'icon-add',
-					handler:function(){
-						showAdd(0);
-					}
-				}] */
+			
 			});
 		});
 

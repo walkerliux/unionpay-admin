@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,12 +25,24 @@ import com.unionpay.withhold.admin.utils.FTPUtils;
 @Controller
 @RequestMapping("/ftp")
 public class FTPController {
-	private static final String ROOTPATH="agency/";
-	private static final String USER="webftp";
-	private static final String PWD="webftp";
-	private static final String IPADDRESS="192.168.2.12";
-	private static final int PORTNUM=21;
-	private static final String DOWNLOADADDRESS="D:/DownLogFromFtp";
+	//private static final String ROOTPATH="agency/";
+	//private static final String USER="webftp";
+	//private static final String PWD="webftp";
+	//private static final String IPADDRESS="192.168.2.12";
+	//private static final int PORTNUM=21;
+	//private static final String DOWNLOADADDRESS="D:/DownLogFromFtp";
+	@Value("${IPADDRESS}")
+	private String IPADDRESS;
+	@Value("${PORTNUM}")
+	private int PORTNUM;
+	@Value("${USER}")
+	private String USER;
+	@Value("${PWD}")
+	private String PWD;
+	@Value("${ROOTPATH}")
+	private String ROOTPATH;
+	@Value("${DOWNLOADADDRESS}")
+	private String DOWNLOADADDRESS;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
