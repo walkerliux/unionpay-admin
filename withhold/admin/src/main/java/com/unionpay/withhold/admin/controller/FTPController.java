@@ -113,7 +113,7 @@ public class FTPController {
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String[] split = fileName.split("/");
 		 try {
-			 File file = new File("D:/DownLogFromFtp");
+			 File file = new File(DOWNLOADADDRESS);
 			 if(!file.exists()){
 				 file.mkdir();
 			 }
