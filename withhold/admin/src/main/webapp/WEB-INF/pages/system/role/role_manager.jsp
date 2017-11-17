@@ -25,19 +25,7 @@ table tr td select {
 						<td align="right" width="15%">角色名称</td>
 						<td align="left" style="padding-left: 5px" width="25%"><input
 							name="roleName" id="roleName" /></td>
-						<!-- <td align="right" width="15%">所属机构</td>
-						<td align="left" style="padding-left: 5px" width="25%"><select
-							id="roleOrganId" name="organId" onchange="showDept(1)">
-								<option value=''>--请选择所属机构--</option>
-						</select></td> 
-					</tr>
-					<tr>
-
-						 <td align="right" width="15%">所属部门</td>
-						<td align="left" style="padding-left: 5px" width="25%"><select
-							id="roleDeptId" name="deptId">
-								<option value=''>--请选择所属部门--</option>
-						</select></td> -->
+						
 						<td></td>
 						<td></td>
 						<td align="right">

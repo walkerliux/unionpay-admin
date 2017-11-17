@@ -33,7 +33,7 @@
 	
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
 		<constructor-arg name="host" value="${REDIS_URL}"></constructor-arg>
-		<constructor-arg name="port" value="6379"></constructor-arg>
+		<constructor-arg name="port" value="${REDIS_PORT}"></constructor-arg>
 		<constructor-arg name="poolConfig" ref="jedisPoolConfig"></constructor-arg>
 	</bean>
 	<bean id="jedisClient" class="com.unionpay.withhold.admin.dao.impl.JedisClientSingle"></bean> 
