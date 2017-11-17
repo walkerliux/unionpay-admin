@@ -51,7 +51,7 @@ public class RiskTradeServiceImpl implements RiskTradeService {
 		riskTradeLogExample.setPageNum(page);
 		riskTradeLogExample.setPageSize(rows);
 		//排序规则
-		riskTradeLogExample.setOrderByClause("TID");
+		riskTradeLogExample.setOrderByClause("TID DESC");
 		List<TRiskTradeLog> list = tRiskTradeLogMapper.selectByExample(riskTradeLogExample);
 		return new PageBean(total, list);
 	}

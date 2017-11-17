@@ -30,6 +30,8 @@ table tr td input {
 table tr td select {
 	height: 20px
 }
+
+}
 </style>
 	<div style="margin: 5px; border:" id="continer">
 		<div id="p" class="easyui-panel" title="上传Excel文件" style="height: 130px; padding: 10px; background: #fafafa;"
@@ -42,17 +44,11 @@ table tr td select {
 							
 							</select></td>
 						</tr> -->
-					<!--<tr> 
-						<td align="right"></td>
-						<td  align="left" style="padding-left: 5px">
-						<a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">解析</a> 
-						<a href="javascript:resize()" class="easyui-linkbutton" iconCls="icon-redo">清空</a></td>
-					</tr>  -->
+					<div>
+    					<input type="file" name="excelFile">
+    					<input type="button" id="btn" value="解析" >
+					</div>
 					
-					
-   					 <td><input  type="file" name="excelFile">
-   					 <input type="button" id="btn" value="解析"></td>
-   					 
 				</table>
 			</form>
 		</div>
