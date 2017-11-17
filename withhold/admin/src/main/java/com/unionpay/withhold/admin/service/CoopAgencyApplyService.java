@@ -55,4 +55,13 @@ public interface CoopAgencyApplyService {
 	 */
 	ResultBean getCacode();
 
+	/**
+	 * 
+	 * @param coopAgencyApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	PageBean selectAllWithCondition(TCoopAgencyApply coopAgencyApply, Integer page, Integer rows);
+
 }
