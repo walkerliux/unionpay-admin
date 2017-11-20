@@ -220,10 +220,10 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 		} else {
 			// 根据状态判断是哪种操作
 			if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.REGISTERCHECKING.getCode())) {
-				// 注册待审：修改申请表的状态为“不在用”，并添加数据到在用的表中
+				// 注册待审：修改申请表的状态为“在用”，并添加数据到在用的表中
 				Date now = new Date();
 				coopAgencyApply.setStexaTime(now);
-				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
+				coopAgencyApply.setStatus(CoopAgencyStatusEnums.NORMAL.getCode());
 				this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 
 				TCoopAgency coopAgency = BeanCopyUtil.copyBean(TCoopAgency.class, agencyApplyBack);
@@ -260,7 +260,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				}
 
 			} else if (coopAgencyApply.getStatus().equals(CoopAgencyStatusEnums.UPDATEAFTERCHECKED.getCode())) {
-				// 变更待审：修改申请表的状态为“不在用”，并更新数据到在用的表中
+				// 变更待审：修改申请表的状态为“在用”，并更新数据到在用的表中
 				Date now = new Date();
 				TCoopAgency coopAgency = new TCoopAgency();
 				/*coopAgency.setCaid(agencyApplyBack.getCaid());
@@ -270,7 +270,7 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 				coopAgencyMapper.updateByPrimaryKeySelective(coopAgency);*/
 
 				coopAgencyApply.setStexaTime(coopAgency.getStexaTime());
-				coopAgencyApply.setStatus(CoopAgencyStatusEnums.UNNORMAL.getCode());
+				coopAgencyApply.setStatus(CoopAgencyStatusEnums.NORMAL.getCode());
 				this.coopAgencyApplyMapper.updateByPrimaryKeySelective(coopAgencyApply);
 
 				coopAgency = BeanCopyUtil.copyBean(TCoopAgency.class, agencyApplyBack);
@@ -363,5 +363,14 @@ public class CoopAgencyApplyServiceImpl implements CoopAgencyApplyService {
 	public ResultBean getCacode() {
 		String cacode = String.format("%08d", coopAgencyApplyMapper.getCacode());
 		return new ResultBean(cacode);
+	}
+
+	@Override
+	public PageBean selectAllWithCondition(TCoopAgencyApply coopAgencyApply, Integer page, Integer rows) {
+		// 查分页数据
+		Integer beginRow = (page - 1) * rows;	
+		List<TCoopAgencyApply> list = coopAgencyApplyMapper.selectAllWithCondition(coopAgencyApply, beginRow, rows);
+		int count = coopAgencyApplyMapper.selectAllCountWithCondition(coopAgencyApply);
+		return new PageBean(count, list);
 	}
 }
