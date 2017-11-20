@@ -259,9 +259,7 @@ table tr td select {
 												html);
 										//alert(html);
 									},
-									error : function(){
-										$.messager.alert('提示', '服务异常！');
-									}
+								
 								});
 					})
 	//ajax上传Excel文件
