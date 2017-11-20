@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,11 @@ import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CheckBillService;
+import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.MyCookieUtils;
+import com.unionpay.withhold.utils.DateUtil;
 
 @Controller
 @RequestMapping("/checkbill/")
@@ -27,10 +32,15 @@ public class CheckBillController {
 	
 	@Autowired
 	private CheckBillService checkBillService;
-	
+	@Autowired
+	private UserService userService;
     @RequestMapping("toResult")
     public String index() {
         return "/checkinfo/file_start";
+    }
+    @RequestMapping("toResultSum")
+    public String toResultSum() {
+        return "/checkinfo/file_start_sum";
     }
     /**
 	 * 查询机构
@@ -130,6 +140,26 @@ public class CheckBillController {
 		return pageBean;
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping("querySuccessBymerch")
+	public PageBean querySuccessBymerch(HttpServletRequest request,String date,String page, String rows) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		String merchno=infoByToken.getUserId().toString();
+		if (!StringUtils.isBlank(date)) {
+			date=date.replace("-", "");
+		}else {
+			date=DateUtil.getCurrentDate();
+		}
+		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows));
+		List<TSelfTxn> failList = checkBillService.queryCheckFileInfo(merchno,date);
+		PageInfo<TSelfTxn> pageInfo=new PageInfo<>(failList);
+		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
+		return pageBean;
+	}
+	
+	
 	/**
 	 * 开始执行核对
 	 * 
@@ -144,4 +174,33 @@ public class CheckBillController {
 	public ResultBean startCheckFile(String filestartid) {
 		return checkBillService.checkBill(filestartid);
 	}
+	
+	
+	
+	/**
+	 * 拒绝处理意见
+	 * @author: zhangshd
+	 * @param filestartid
+	 * @return Object
+	 * @date: 2017年3月1日 下午4:56:23
+	 * @version v1.0
+	 */
+	@ResponseBody
+	@RequestMapping("dealmistake")
+	public ResultBean dealmistake(String result,String status,String iid,HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		return checkBillService.dealmistake(result,status,iid,infoByToken.getUserId().longValue());
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("dealReasult")
+	public PageBean dealReasult(String proid) {
+		List<Map<String, Object>> list =new ArrayList<>();
+		list.add(checkBillService.dealReasult(proid));
+		PageBean pageBean=new PageBean(0, list);
+		return pageBean;
+	}
+	
 }

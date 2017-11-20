@@ -27,4 +27,10 @@ public interface CheckBillService {
 
 	public List<TSelfTxn> querySuccess(Map<String, Object> variables);
 
+	public ResultBean dealmistake(String result, String status, String iid,long uid);
+
+	public Map<String, Object> dealReasult(String proid);
+
+	public List<TSelfTxn> queryCheckFileInfo(String merchno, String date);
+
 }

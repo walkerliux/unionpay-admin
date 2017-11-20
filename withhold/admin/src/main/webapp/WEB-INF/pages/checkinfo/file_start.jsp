@@ -25,6 +25,7 @@ table tr td select {
 			iconCls="icon-save" collapsible="true">
 			<form id="theForm" method="post"
 				action="checkbill/saveProcess">
+				<input type="hidden" id="hidproid" name="hidproid">
 				<table width="100%">
 					<tr height="26" id="fileadd1">
 						<td align="center">对账机构</td>
@@ -127,7 +128,8 @@ table tr td select {
 						return '<a id="sp'+rec.tid+'" href="javascript:startProcess('+rec.tid+')" style="color:blue;margin-left:10px">开始任务</a>';
 					}else{
 						return '<a href="javascript:showCheckSuccess(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看对账表</a>' + 
-						       '<a href="javascript:showCheckFail(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看差错表</a>';
+						       '<a href="javascript:showCheckFail(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看差错表</a>' +
+						       '<a href="javascript:showSumInfo(\'' + rec.tid + '\')" style="color:blue;margin-left:10px">查看汇总信息</a>' ;
 					}
 				}
 				}
@@ -216,7 +218,8 @@ table tr td select {
 		$('#check').attr("action","checkinfo/exportCheckSuccess");
 		$("#check").submit();
 	}
-	function showCheckFail(proid){				
+	function showCheckFail(proid){	
+		$("#hidproid").val(proid);
 		$('#success').datagrid({
 			title:'差错信息表',
 			iconCls:'icon-save',
@@ -237,7 +240,22 @@ table tr td select {
 				{field:'txndatetime',title:'交易时间',width:140,align:'center'},
 				{field:'busicode',title:'交易类型',width:140,align:'center'},
 				{field:'amount',title:'交易金额(元)',width:140,align:'center'},
-				{field:'mistakedesc',title:'差错原因',width:240,align:'center'}
+				{field:'mistakedesc',title:'差错原因',width:240,align:'center'},
+				{field:'1',title:'操作状态',width:260,align:'center',
+					formatter:function(value,rec){
+						if(rec.mistatus=="01"){
+							return '<a id="sp'+rec.tid+'" href="javascript:refuse('+rec.iid+')" style="color:blue;margin-left:10px">拒绝</a>'
+							+'<a id="sp'+rec.tid+'" href="javascript:unrefuse('+rec.iid+')" style="color:blue;margin-left:10px">处理</a>';
+						}
+						if(rec.mistatus=="19"){
+							return '拒绝处理';
+						}
+						if(rec.mistatus=="10"){
+							return '已处理';
+						}
+						
+					}
+				}
 			]],
 			pagination:true,
 			rownumbers:true
@@ -245,6 +263,81 @@ table tr td select {
 			
 	}
 	
+	function refuse(iid){
+		$.messager.prompt('拒绝处理', '请输入处理意见:', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: "checkbill/dealmistake",
+					   data: {
+						   "result":r,
+						   "status":"19",
+						   "iid":iid
+					   },
+					   dataType:"json",
+					   success:function(json){
+							if(json.resultBool==false){
+								$.messager.alert('提示',json.errMsg);   
+							}else{
+								$.messager.alert('提示',json.resultObj); 
+							}
+							showCheckFail($("#hidproid").val());
+					 	}
+					}); 
+			}
+		});
+	}
+	function unrefuse(iid){
+		$.messager.prompt('拒绝处理', '请输入处理意见:', function(r){
+			if (r){
+				$.ajax({
+					   type: "POST",
+					   url: "checkbill/dealmistake",
+					   data: {
+						   "result":r,
+						   "status":"10",
+						   "iid":iid
+					   },
+					   dataType:"json",
+					   success:function(json){
+							if(json.resultBool==false){
+								$.messager.alert('提示',json.errMsg);   
+							}else{
+								$.messager.alert('提示',json.resultObj); 
+							}
+							showCheckFail($("#hidproid").val());
+					 	}
+					}); 
+			}
+		});
+	}
+	function showSumInfo(proid){
+		$('#success').datagrid({
+			title:'对账信息汇总表',
+			iconCls:'icon-save',
+			height:400,
+			singleSelect:true,
+			nowrap: false,
+			striped: true,
+			url:'checkbill/dealReasult',			
+			remoteSort: false,
+			queryParams:{
+				"proid": proid
+				},
+			idField:'iid',
+			columns:[
+			[
+				{field:'succSum',title:'成功金额',width:140,align:'center'},
+				{field:'succNumber',title:'成功笔数',width:140,align:'center'},
+				{field:'failLocalSum',title:'平台失败金额',width:140,align:'center'},
+				{field:'failLocalNumber',title:'平台失败笔数',width:140,align:'center'},
+				{field:'failMerchSum',title:'商户失败金额',width:140,align:'center'},
+				{field:'failMerchNumber',title:'商户失败笔数',width:240,align:'center'},
+			]],
+			pagination:true,
+			rownumbers:true
+		});
+	}
 	function exportFail(proid){
 		$.messager.alert('提示',"敬请期待......");   
 	}

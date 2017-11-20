@@ -3,6 +3,8 @@ package com.unionpay.withhold.admin.mapper;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TCheckfileMistakeMapper {
@@ -27,4 +29,7 @@ public interface TCheckfileMistakeMapper {
     int updateByPrimaryKeySelective(TCheckfileMistake record);
 
     int updateByPrimaryKey(TCheckfileMistake record);
+    
+    Map<String, Object> localMistakeSum(Map<String, Object> map);
+    Map<String, Object> merchMistakeSum(Map<String, Object> map);
 }
