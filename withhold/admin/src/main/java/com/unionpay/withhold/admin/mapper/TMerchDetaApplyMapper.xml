@@ -795,7 +795,7 @@
 		LEFT JOIN t_para_dic AS pd ON pd.PARA_TYPE= 'TRANSFACTORS' AND mda.TRANSFACTORS = pd.PARA_CODE AND pd.`STATUS` = '1'
 		LEFT JOIN t_mcc_desc AS md ON mda.MCC = md.MCC
 		LEFT JOIN t_mcc_list AS ml ON mda.MCC_LIST = ml.MCCLIST AND ml.`STATUS` = '1'
-		LEFT JOIN t_merch_rate_config mr ON mda.MEMBER_ID = mr.MEMBER_ID
+		LEFT JOIN t_merch_rate_config mr ON mda.MEMBER_ID = mr.MEMBER_ID AND mr.TARGET = '1'
 		LEFT JOIN t_rate_accum ra ON mr.RATE_ID = ra.RATE_ID
 		LEFT JOIN t_risk r ON mda.RISK_VER=r.RISKVER
 		LEFT JOIN t_route ro ON mda.ROUT_VER=ro.ROUTVER

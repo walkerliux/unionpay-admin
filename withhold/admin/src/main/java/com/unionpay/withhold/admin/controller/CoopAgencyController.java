@@ -11,10 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-
-
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCoopAgency;
@@ -68,6 +64,16 @@ public class CoopAgencyController {
 	@RequestMapping(value = "/toModify", method = RequestMethod.GET)
 	public String toCoopAgencyModify() {
 		return "/coopAgency/coop_agency_modify";
+	}
+	
+	/**
+	 * 渠道变更页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/toQuery", method = RequestMethod.GET)
+	public String toCoopAgencyQuery() {
+		return "/coopAgency/coop_agency_query";
 	}
 
 	/**
@@ -303,6 +309,25 @@ public class CoopAgencyController {
 			return agencyService.commitLogout(coopAgency);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
+	
+	/**
+	 * 查询渠道信息（全部或按条件）
+	 * 
+	 * @param coopAgencyApply
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/queryAll")
+	public PageBean queryAllMerchDetaApply(TCoopAgencyApply coopAgencyApply,
+			@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer rows) {
+		if (null == coopAgencyApply) {
+			return null;
+		} else {
+			return coopAgencyApplyService.selectAllWithCondition(coopAgencyApply, page, rows);
 		}
 	}
 }

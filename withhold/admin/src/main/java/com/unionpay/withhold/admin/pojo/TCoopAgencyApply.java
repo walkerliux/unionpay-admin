@@ -54,6 +54,8 @@ public class TCoopAgencyApply {
 	private String cityName;
 	private String superName;
 	private String rateId;
+	private String rateDesc;
+	private String riskname;
 
 	/** 扣率代码 **/
 	private String busicode;
@@ -280,6 +282,22 @@ public class TCoopAgencyApply {
 
 	public void setRateId(String rateId) {
 		this.rateId = rateId == null ? null : rateId.trim();
+	}
+
+	public String getRateDesc() {
+		return rateDesc;
+	}
+
+	public void setRateDesc(String rateDesc) {
+		this.rateDesc = rateDesc == null ? null : rateDesc.trim();
+	}
+
+	public String getRiskname() {
+		return riskname;
+	}
+
+	public void setRiskname(String riskname) {
+		this.riskname = riskname == null ? null : riskname.trim();
 	}
 
 }
