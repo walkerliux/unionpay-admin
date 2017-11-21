@@ -637,4 +637,7 @@
       UPTIME = #{uptime,jdbcType=TIMESTAMP}
     where TID = #{tid,jdbcType=INTEGER}
   </update>
+  <select id="getHYLTtradeStatus" resultMap="BaseResultMap" >
+    SELECT b.retcode,b.errmsg from t_chnl_hyldk_log b GROUP BY b.retcode
+  </select>
 </mapper>

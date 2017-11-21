@@ -27,4 +27,6 @@ public interface TChnlHyldkLogMapper {
     int updateByPrimaryKeySelective(TChnlHyldkLog record);
 
     int updateByPrimaryKey(TChnlHyldkLog record);
+
+	List<TChnlHyldkLog> getHYLTtradeStatus();
 }

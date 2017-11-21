@@ -219,7 +219,11 @@ table tr td select {
 										{field:'caname',title:'渠道名称',width:152,align:'center',},
 										{field:'retdatetime',title:'交易时间',width:100,align:'center'},
 										{field:'retcode',title:'交易状态码',width:100,align:'center'},
-										{field:'tradeelement',title:'交易要素 ',width:158,align:'center'},
+										{field:'tradeelement',title:'交易要素 ',width:158,align:'center',
+											formatter : function(value, rec) {
+												return tradeBasic(rec.tradeelement);
+											}
+										},
 										{
 											field : 'amount',
 											title : '交易金额',
@@ -454,8 +458,24 @@ table tr td select {
 			var ret = intSum + dot;
 			return ret;
 		}
+	
 	function closeAdd(){
 		$('#w').window('close');
+	}
+	// 解析交易要素
+	function tradeBasic(value){
+		if (value == "1111") {
+			return "身份证号+卡号+手机号+姓名";
+		} 
+		if (value == "1110") {
+			return "身份证号+卡号+手机号";
+		} 
+		if (value == "1100") {
+			return "身份证号+卡号";
+		}
+		if (value == "1101") {
+			return "身份证号+卡号+姓名";
+		}
 	}
 </script>
 </html>

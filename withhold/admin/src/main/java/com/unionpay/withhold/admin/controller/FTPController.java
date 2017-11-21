@@ -10,9 +10,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +26,9 @@ import com.unionpay.withhold.admin.utils.FTPUtils;
 @Controller
 @RequestMapping("/ftp")
 public class FTPController {
+	
+	 private final static Logger logger = LoggerFactory.getLogger(FTPController.class);
+	 private String historyDir="";
 	//private static final String ROOTPATH="agency/";
 	//private static final String USER="webftp";
 	//private static final String PWD="webftp";
@@ -76,18 +80,18 @@ public class FTPController {
 		
 	}
 	/**
-	 * 查询文件夹下的所有文件
+	 * 查询实时文件
 	 * s
 	 * @return
 	 * @throws IOException 
 	 * @throws ParseException 
 	 */
 	@ResponseBody
-    @RequestMapping("/getFiles")
-	public List<FTPfiles> queryFiles(String folder) throws IOException {
+    @RequestMapping("/getFilesNow")
+	public List<FTPfiles> queryFilesAndfolder(String folder) throws IOException {
 			List<FTPfiles> resultList = new ArrayList<FTPfiles>();
 		if(FTPListAllFiles.login(IPADDRESS, PORTNUM, USER, PWD)){
-			List<String> filesList = FTPListAllFiles.filesList(ROOTPATH+folder + "/", "jpg");
+			List<String> filesList = FTPListAllFiles.filesList(ROOTPATH+folder + "/", "log");
 			  for (String fileName : filesList) {
 				  FTPfiles ftPfiles = new FTPfiles();
 				  ftPfiles.setFileName(fileName);
@@ -96,7 +100,34 @@ public class FTPController {
 			 
 		}
 		
+		return resultList;
 		
+	}
+	/**
+	 * 查询历史文件
+	 * s
+	 * @return
+	 * @throws IOException 
+	 * @throws ParseException 
+	 */
+	@ResponseBody
+    @RequestMapping("/getFilesHistory")
+	public List<FTPfiles> queryFiles(String folder) throws IOException {
+			List<FTPfiles> resultList = new ArrayList<FTPfiles>();
+		
+		if(FTPListAllFiles.login(IPADDRESS, PORTNUM, USER, PWD)){
+			List<String> listDirectory = FTPListAllFiles.directoryList(ROOTPATH+folder+"/");
+			historyDir=listDirectory.get(0);
+		}
+			
+		if(FTPListAllFiles.login(IPADDRESS, PORTNUM, USER, PWD)){
+			List<String> filesList = FTPListAllFiles.filesList(ROOTPATH+folder +"/"+historyDir+"/", "zip");
+			  for (String fileName : filesList) {
+				  FTPfiles ftPfiles = new FTPfiles();
+				  ftPfiles.setFileName(fileName);
+				  resultList.add(ftPfiles);
+			}
+		}
 		return resultList;
 		
 	}
@@ -117,15 +148,21 @@ public class FTPController {
 			 if(!file.exists()){
 				 file.mkdir();
 			 }
-			 
-			boolean flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/",split[1] , DOWNLOADADDRESS);
+			 boolean flag=false;
+			
+			if(split[1].contains("zip")){
+				flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/"+historyDir+"/",split[1] , DOWNLOADADDRESS);
+			}else{
+				flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/",split[1] , DOWNLOADADDRESS);
+			}
 			if (flag) {
 				hashMap.put("RET", "succ");
 			}
+			 logger.info("flag:"+flag);
 			
 		 } catch (Exception e) {
 			 hashMap.put("RET", "fail");
-			e.printStackTrace();
+			 logger.error("下载文件异常",e);
 		}
 		
 		return hashMap;

@@ -70,4 +70,12 @@ public interface TradeService {
 
 	PageBean getHYLCollectBakDeta(TChnlHyldkLogBak hyldkLog,String stime,String etime,int page,int rows);
 
+	List<TChnlHyldkLog> getHYLStatus();
+
+	List<TChnlHyldkLog> getHYLbakStatus();
+
+	List<TChnlCpdkLog> getCPStatus();
+
+	List<TChnlCpdkLog> getCPbakStatus();
+
 }

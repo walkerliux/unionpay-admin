@@ -320,11 +320,31 @@ table tr td select {
 				</form>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
-				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeAdd()">返回</a>
+				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeW2()">返回</a>
 			</div>
 		</div>
 	</div>
-	
+	<div id="w3" class="easyui-window" closed="true" title="My Window"
+		iconCls="icon-save" style="width: 500px; height: 400px; padding: 10px;">
+		<div class="easyui-layout" fit="true">
+			<div region="center" border="false"
+				style="padding: 10px; background: #fff; border: 1px solid #ccc;">
+				<form id="saveForm" action="paytongContract/auditContract" method="post">
+					<TABLE id=w3table style="BORDER-TOP-WIDTH: 0px; FONT-WEIGHT: normal; BORDER-LEFT-WIDTH: 0px;  BORDER-BOTTOM-WIDTH: 0px;  WIDTH: 100%;  FONT-STYLE: normal;  BORDER-RIGHT-WIDTH: 0px; TEXT-DECORATION: none">
+							<TBODY>
+									<TR style="FONT-WEIGHT: bold; FONT-STYLE: normal; BACKGROUND-COLOR: #eeeeee; TEXT-DECORATION: none">
+										<TD >文件名称</TD>
+										<TD>操作</TD>
+									</TR>
+							</TBODY>
+					</TABLE>
+				</form>
+			</div>
+			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
+				<a class="easyui-linkbutton" iconCls="icon-back" onclick="closeW3()">返回</a>
+			</div>
+		</div>
+	</div>
 	<!-- <div id="w3" class="easyui-window" closed="true" title="My Window"
 		iconCls="icon-save" style="width: 500px; height: 400px; padding: 10px;">
 		<div class="easyui-layout" fit="true">
@@ -358,9 +378,9 @@ table tr td select {
 	</div> -->
 </body>
 <script>
-  	var width = $("#continer").width();
+  	// var width = $("#continer").width();
 		$(function(){
-			$('#banknode_ins').combobox({
+			/*$('#banknode_ins').combobox({
 				editable:true,
 				required:true,
 				width:260,
@@ -420,7 +440,7 @@ table tr td select {
 		            $('#banknode_cred').combobox('reload', url);
 		            
 				}
-			});
+			}); */
 			
 			$('#bankList').datagrid({
 				title:'文件夹列表',
@@ -433,13 +453,12 @@ table tr td select {
 				remoteSort: false,
 				columns:[[
 					{field:'folder',title:'文件夹名称',align:'center',width:200},
-					
-					
-					
-					{field:'status',title:'操作',align:'center',width:160,rowspan:2,
+					{field:'status',title:'操作',align:'center',width:260,rowspan:2,
 						formatter:function(value,rec){
 							if(rec.status="00"){
-								return '<a href="javascript:findById('+rec.folder+')" style="color:blue;margin-left:10px">详情</a>';
+								return '<a href="javascript:findByNow(\''+rec.folder+'\')" style="color:blue;margin-left:10px">下载实时日志</a>'+
+								'<a href="javascript:findByHistory(\''+rec.folder+'\')" style="color:blue;margin-left:10px">下载历史日志</a>'
+								;
 							}else{
 								return "";
 							}
@@ -453,166 +472,13 @@ table tr td select {
 			$('#searchForm :input').val('');
 		}
 		
-		
-		
-		function showMerch(){
-			var merchNo = $("#merchNo").val();
-			$.ajax({
-				type: "POST",
-				url: "paytongContract/queryMerch",
-				data: "merchNo=" + merchNo,
-				dataType: "json",
-				success: function(json) {
-					$("#merchName").val(json.enterpriseName);
-					$("#contacts_people").val(json.contact);
-					$("#contacts_tel_no").val(json.contPhone);
-					//自动生成合同号
-					$.ajax({
-						type: "POST",
-						url: "paytongContract/generateContractNm",
-						data: "merchNo=" + merchNo,
-						dataType: "text",
-						success: function(json) {
-							$("#contractNum").val(json);
-						}
-					});
-				}
-			});
-		}
-		
-		function changeContractType(){
-			var contractType = $("#contractType").val();
-			if(contractType=='CT00'||contractType=='CT02'){
-				$('#cred_tbody').show();
-				$('#banknode_cred').combobox({
-					required:true,
-					width:260,
-					missingMessage:"请输入开户行",
-					valueField:'text',
-					textField:'text',
-					mode:'remote',
-					onSelect:function(record){
-						$("#banknode_cred_value").val(record.id);
-					},
-					onChange: function(newValue,oldValue){
-						if(newValue==null||newValue==""){
-							return;
-						}
-						if(newValue==oldValue){
-							return;
-						}
-						var url = 'paytongContract/queryBankNode?bankName='+encodeURI(newValue);
-// 						var url = 'paytongContract/queryBankNode?bankName='+newValue;
-			            $('#banknode_cred').combobox('reload', url);
-			            
-					}
-				});
-				
-				$('#credAccNo').validatebox({
-					missingMessage:"请输入收款人名称",
-				    required: false
-				});
-				$('#credName').validatebox({
-					missingMessage:"请输入收款人账号",
-				    required: false
-				});
-			}else{
-				$('#cred_tbody').hide();
-				$('#banknode_cred').combobox({
-					required:false,
-					width:260,
-					missingMessage:"请输入开户行",
-					valueField:'text',
-					textField:'text',
-					mode:'remote',
-					onSelect:function(record){
-						$("#banknode_cred_value").val(record.id);
-					},
-					onChange: function(newValue,oldValue){
-						if(newValue==null||newValue==""){
-							return;
-						}
-						if(newValue==oldValue){
-							return;
-						}
-						var url = 'paytongContract/queryBankNode?bankName='+encodeURI(newValue);
-// 						var url = 'paytongContract/queryBankNode?bankName='+newValue;
-			            $('#banknode_cred').combobox('reload', url);
-			            
-					}
-				});
-				
-				$('#credAccNo').validatebox({
-				    required: false
-				});
-				$('#credName').validatebox({
-				    required: false
-				});
-				
-				
-				
-				
-			}
-		}
-		
-		function closeAdd(){
-			$('#w').window('close');
+		function closeW2(){
 			$('#w2').window('close');
+		}	
+		function closeW3(){
 			$('#w3').window('close');
-			$('#w4').window('close');
-			$('#w5').window('close');
-			
-		}		
-		function search(){
-			var data={'merchNo':$('#a_merchNo').val(),'contractNum':$('#a_contractNum').val(),
-					'debName':$("#a_debName").val(),'credName':$("#a_credName").val(),
-					'debAccNo':$("#a_debAccNo").val(),'credAccNo':$("#a_credAccNo").val()};
-			$('#bankList').datagrid('load',data);
+	
 		}
-		function saveContract(){
-			if($('#debTranLimitType').val() != "00" && ($('#debAccyAmoLimit').val() <=0 || $('#debAccyAmoLimit').val() == null)){
-				$.messager.alert('提示', '请输入累计付款金额上限！');
-				return false;
-			}
-			if($('#debTransLimitType').val() != "00" && ($('#debTransLimit').val() <=0 || $('#debTransLimit').val() == null)){
-				$.messager.alert('提示', '请输入付款次数限制！');
-				return false;
-			}
-			if($('#credTranLimitType').val() != "00" && ($('#credAccuAmoLimit').val() <=0 || $('#credAccuAmoLimit').val() == null)){
-				$.messager.alert('提示', '请输入累计收款金额上限！');
-				return false;
-			}
-			if($('#credTransLimitType').val() != "00" && ($('#credTransLimit').val() <=0 || $('#credTransLimit').val() == null)){
-				$.messager.alert('提示', '请输入收款次数限制！！');
-				return false;
-			}
-			$('#saveForm').form('submit', {  
-			    onSubmit: function(){  
-			    	if($('#saveForm').form('validate')){
-			    		$('#btn_submit').linkbutton('disable');	
-			    		return true;   
-				    }
-			        return false;   
-			    }, 
-			    success:function(json){
-			    	$('#btn_submit').linkbutton('enable');	
-			    	json = eval('(' + json + ')');
-					if(json.RET == "succ"){
-						 $.messager.alert('提示', '操作成功');
-						 search();
-						 closeAdd();
-					}else{
-						 $.messager.alert("提示",json.INFO);
-					}
-			    }
-			});  
-		}
-		
-		
-		
-		
-		
-		
 		
 		function downfile(fileName){
 			//alert(fileName);
@@ -626,12 +492,10 @@ table tr td select {
 						success: function(json) {
 							if(json.RET == "succ"){
 			    				$.messager.alert('提示',"下载成功!");
-				    			search();
-					    		closeAdd();
+					    		//close();
 					    	}else{
 					    		$.messager.alert('提示',"下载失败"); 
-					    		search();
-					    		closeAdd();
+					    		//closeAdd();
 					    	}
 						}
 					});
@@ -639,26 +503,22 @@ table tr td select {
 				
             });
 		}
-		function findById(folder){
+		function findByNow(folder){
 			$("#FILETABLE").html("");
-			 $("#b_cvlexaOpt").val('');
 			$.ajax({
 			   type: "POST",
-			   url: "ftp/getFiles",
+			   url: "ftp/getFilesNow",
 			   data: "folder="+folder,
 			   dataType:"json",
 			   success: function(data){
-				   //alert($("#FILETABLE").html());
-				  // $("#FILETABLE").html("");
-				   //var $table = $("#FILETABLE");
 				   var $tr = '';
 				   $.each(data,function(i,n){
-					   //alert(n.fileName);
-		//'<a href="javascript:downfile('+folder+n.fileName+')" style="color:blue;margin-left:10px">下载</a>';
-		               $tr+= "<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:downfile('"+folder+"/"+n.fileName+"') style=color:blue;margin-left:10px"+">下载</a>"+"</td>"+"</tr>";
-		              
-		              //$table.append($tr);
-				   })
+						if(n.fileName.indexOf(".log") > 0){
+		              		 $tr+= "<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:downfile('"+folder+"/"+n.fileName+"') style=color:blue;margin-left:10px"+">点击下载</a>"+"</td>"+"</tr>";
+						}/* else{
+							 $tr+= "<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:showAllfiles(\'"+folder+"/"+n.fileName+"\') style=color:blue;margin-left:10px"+">查看</a>"+"</td>"+"</tr>";
+						}
+ */				   })
 				   
 				   $("#FILETABLE").html($tr);
 				}
@@ -677,45 +537,35 @@ table tr td select {
 				height: 760
 			});
 		}
-		
-		function fenToYuan(value){
-			if(value == null){
-				return "0.00";
-			}
-			var str = (value/100).toFixed(2) + '';
-			var intSum = str.substring(0,str.indexOf(".")).replace( /\B(?=(?:\d{3})+$)/g, ',' );
-			var dot = str.substring(str.length,str.indexOf("."))
-			var ret = intSum + dot;
-			return ret;
+		function findByHistory(folder){
+			$("#w3table").html("");
+			$.ajax({
+				   type: "POST",
+				   url: "ftp/getFilesHistory",
+				   data: "folder="+folder,
+				   dataType:"json",
+				   success: function(data){
+					   var $tr = '';
+					   $.each(data,function(i,n){
+						   $tr+= "<tr>"+"<td>"+n.fileName+"</td>"+"<td><a href=javascript:downfile('"+folder+"/"+n.fileName+"') style=color:blue;margin-left:10px"+">点击下载</a>"+"</td>"+"</tr>";
+					   })
+					   $("#w3table").html($tr);
+					   }
+				   });
+			$('#w3').window({
+				title: '文件详情',
+				left:200,
+				top:30,
+				width: 900,
+				modal: true,
+				minimizable:false,
+				collapsible:false,
+				maximizable:false,
+				shadow: false,
+				closed: false,
+				height: 760
+			});
 		}
-		function isChinese(temp)  
-		{  
-		 var re = /[^\u4e00-\u9fa5]/;  
-		 if(re.test(temp)) return false;  
-		 return true;  
-		}  
-		
-		function cancelContract(){
-			$('#cancelForm').form('submit', {  
-			    onSubmit: function(){  
-			    	if($('#cancelForm').form('validate')){
-			    		$('#btn_submit_cancel').linkbutton('disable');	
-			    		return true;   
-				    }
-			        return false;   
-			    }, 
-			    success:function(json){
-			    	$('#btn_submit_cancel').linkbutton('enable');	
-			    	json = eval('(' + json + ')');
-					if(json.RET == "succ"){
-						 $.messager.alert('提示', '操作成功');
-						 search();
-						 closeAdd();
-					}else{
-						 $.messager.alert("提示",json.INFO);
-					}
-			    }
-			});  
-		}
+	
 	</script>
 </html>

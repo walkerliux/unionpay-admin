@@ -32,4 +32,8 @@ public interface TChnlCpdkLogMapper {
 
 	List<TChnlCpdkLog> selectByExample_bak(
 			TChnlCpdkLogExample tChnlCpdkLogExample);
+
+	List<TChnlCpdkLog> getCPtradeStatus();
+
+	List<TChnlCpdkLog> getCPbaktradeStatus();
 }

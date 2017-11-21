@@ -55,12 +55,15 @@ table tr td select {
 						<input name="reqsn" id="req_sn" /></td>
 						<td align="right" width="10%">交易状态</td>
 						<td style="padding-left: 5px">
-						<select name="retcode" id="ret_code" style="width: 150px">
+						<!-- <select name="retcode" id="ret_code" style="width: 150px">
 								<option value="">--请选择应答状态--</option>
 								<option value="PR05">已成功</option>
 								<option value="PR09">已拒绝</option>
 								<option value="PR32">逾期退回</option>
-						</select></td> 
+						</select></td> --> 
+						<select id="ret_code" name="retcode" style="width: 150px">
+								<option value=''>--请选择交易状态--</option>
+						</select></td>
 					</tr>
 					<tr>
 					
@@ -201,6 +204,7 @@ table tr td select {
 <script>
 	var width = $("#continer").width();
 	$(function() {
+		showStatus();
 		$('#test')
 				.datagrid(
 						{
@@ -269,22 +273,10 @@ table tr td select {
 										}
 									},
 									{
-										field : 'retcode',
+										field : 'errmsg',
 										title : '交易状态',
 										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											if (rec.retcode == "PR05") {
-												return "已成功";
-											}
-											if (rec.retcode == "PR09") {
-												return "已拒绝";
-											}
-											if (rec.retcode == "PR32") {
-												return "逾期退回";
-											}
-											
-										}
+										align : 'center'
 									},
 									{
 										field : 'ID',
@@ -414,14 +406,31 @@ table tr td select {
 		$("#id").html(rows["id"]);
 		$("#tel").html(rows["tel"]);
 		$("#remark").html(rows["remark"]);
-		$("#retcode").html(analysisStatus(rows["retcode"]));
+		$("#retcode").html(rows["retcode"]);
 		$("#errmsg").html(rows["errmsg"]);
 		$("#reserve1").html(rows["reserve1"]);
 		$("#reserve2").html(rows["reserve2"]);
 		$("#intime").html(formatTime(rows["intime"]));
 		$("#uptime").html(formatTime(rows["uptime"]));
 	}
-
+	function showStatus(){		
+		$.ajax({
+		   type: "POST",
+		   url: "trade/showHYLStatus",
+		   dataType:"json",
+		   success: function(json){
+			   if(json!=null){
+		   		var html ="<option value=''>--请选择交易状态--</option>";
+		   		$.each(json, function(key,value){
+		   			if(value!=null){
+		   			html += '<option value="'+value.retcode+'">'+value.errmsg+'</option>';
+		   			}
+				})
+				$("#ret_code").html(html);
+		   }
+		   }
+		});
+	} 
 	// 格式化日期时间
 	function changeDateTime(value) {
 		var dateString = value;

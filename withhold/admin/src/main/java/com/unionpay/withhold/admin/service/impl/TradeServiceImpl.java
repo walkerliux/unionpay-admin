@@ -618,5 +618,30 @@ public class TradeServiceImpl implements TradeService {
 		List<TChnlHyldkLogBak> list = tChnlHyldkLogBakMapper.selectByExample(tChnlHyldkLogExample);
 		return new PageBean(total, list);
 }
+
+	@Override
+	public List<TChnlHyldkLog> getHYLStatus() {
+		List<TChnlHyldkLog> list=tChnlHyldkLogMapper.getHYLTtradeStatus();
+		
+		return list;
+	}
+
+	@Override
+	public List<TChnlHyldkLog> getHYLbakStatus() {
+		List<TChnlHyldkLog> list=tChnlHyldkLogBakMapper.getHYLTtradebakStatus();
+		return list;
+	}
+
+	@Override
+	public List<TChnlCpdkLog> getCPStatus() {
+		List<TChnlCpdkLog> list=tChnlCpdkLogMapper.getCPtradeStatus();
+		return list;
+	}
+
+	@Override
+	public List<TChnlCpdkLog> getCPbakStatus() {
+		List<TChnlCpdkLog> list=tChnlCpdkLogMapper.getCPbaktradeStatus();
+		return list;
+	}
 	
 }

@@ -484,4 +484,52 @@ public class TradeController {
 	}
 	
 	
+	/**
+	 * 获取好易联交易状态
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/showHYLStatus")
+	@ResponseBody
+	public List<?> getHYLStatus() {
+		List<TChnlHyldkLog> result =tradeService.getHYLStatus();
+	    return result;
+	}
+	/**
+	 * 获取好易联历史交易状态
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/showHYLbakStatus")
+	@ResponseBody
+	public List<?> getHYLbakStatus() {
+		List<TChnlHyldkLog> result =tradeService.getHYLbakStatus();
+	    return result;
+	}
+	/**
+	 * 获取CP交易状态
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/showCPStatus")
+	@ResponseBody
+	public List<?> getCPStatus() {
+		List<TChnlCpdkLog> result =tradeService.getCPStatus();
+	    return result;
+	}
+	/**
+	 * 获取CP交易状态
+	 * @param batchno
+	 * @param page rows
+	 * @return
+	 */
+	@RequestMapping("/showCPbakStatus")
+	@ResponseBody
+	public List<?> getCPbakStatus() {
+		List<TChnlCpdkLog> result =tradeService.getCPbakStatus();
+	    return result;
+	}
 }

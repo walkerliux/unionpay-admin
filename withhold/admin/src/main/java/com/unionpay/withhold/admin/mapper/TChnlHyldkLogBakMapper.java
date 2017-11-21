@@ -1,8 +1,11 @@
 package com.unionpay.withhold.admin.mapper;
 
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLog;
 import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak;
 import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TChnlHyldkLogBakMapper {
@@ -27,4 +30,6 @@ public interface TChnlHyldkLogBakMapper {
     int updateByPrimaryKeySelective(TChnlHyldkLogBak record);
 
     int updateByPrimaryKey(TChnlHyldkLogBak record);
+
+	List<TChnlHyldkLog> getHYLTtradebakStatus();
 }

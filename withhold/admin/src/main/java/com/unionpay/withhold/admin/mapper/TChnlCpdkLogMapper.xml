@@ -160,4 +160,12 @@
     </if>
     limit #{beginRow},#{pageSize}
   </select>
+  <!-- 交易状态查询 -->
+   <select id="getCPtradeStatus" resultMap="BaseResultMap">
+   select a.TRANSSTAT,a.MESSAGE from t_chnl_cpdk_log a GROUP BY a.TRANSSTAT
+   </select>
+   <!-- 历史交易状态查询 -->
+   <select id="getCPbaktradeStatus" resultMap="BaseResultMap">
+   select a.TRANSSTAT,a.MESSAGE from t_chnl_cpdk_log_bak a GROUP BY a.TRANSSTAT
+   </select>
 </mapper>

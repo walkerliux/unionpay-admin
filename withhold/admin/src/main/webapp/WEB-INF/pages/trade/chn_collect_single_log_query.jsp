@@ -55,12 +55,15 @@ table tr td select {
 						<input name="orderno" id="orderno" /></td>
 						<td align="right" width="10%">交易状态</td>
 						<td style="padding-left: 5px">
-						<select name="transstat" id="transstat" style="width: 150px">
+						<!-- <select name="transstat" id="transstat" style="width: 150px">
 								<option value="">--请选择应答状态--</option>
 								<option value="PR05">已成功</option>
 								<option value="PR09">已拒绝</option>
 								<option value="PR32">逾期退回</option>
-						</select></td> 
+						</select></td>  -->
+						<select id="transstat" name="transstat" style="width: 150px">
+								<option value=''>--请选择交易状态--</option>
+						</select></td>
 					</tr>
 					<tr>
 					
@@ -204,6 +207,7 @@ table tr td select {
 <script>
 	var width = $("#continer").width();
 	$(function() {
+		showStatus();
 		$('#test')
 				.datagrid(
 						{
@@ -272,22 +276,10 @@ table tr td select {
 										} */
 									},
 									{
-										field : 'transstat',
+										field : 'message',
 										title : '交易状态',
 										width : 120,
-										align : 'center',
-										formatter : function(value, rec) {
-											if (rec.transstat == "PR05") {
-												return "已成功";
-											}
-											if (rec.transstat == "PR09") {
-												return "已拒绝";
-											}
-											if (rec.transstat == "PR32") {
-												return "逾期退回";
-											}
-											
-										}
+										align : 'center'
 									},
 									{
 										field : 'ID',
@@ -421,17 +413,34 @@ table tr td select {
 		$("#codeinputtype").html(rows["codeinputtype"]);
 		$("#mobileforbank").html(rows["mobileforbank"]);
 		$("#orderdesc").html(rows["orderdesc"]);
-		
+		$("#factorid").html(tradeBasic(rows["factorid"]));
 		$("#chkvalue").html(rows["chkvalue"]);
 		$("#responsecode").html(rows["responsecode"]);
 		$("#message").html(rows["message"]);
-		$("#transstat").html(analysisStatus(rows["transstat"]));
+		$("#transstat").html(rows["transstat"]);
 		$("#chnlretdate").html(changeDate(rows["chnlretdate"]));
 		$("#intime").html(rows["intime"]);
 		$("#uptime").html(rows["uptime"]);
 		$("#chnlfee").html(fenToYuan(rows["chnlfee"]));
 	}
-
+	function showStatus(){		
+		$.ajax({
+		   type: "POST",
+		   url: "trade/showCPStatus",
+		   dataType:"json",
+		   success: function(json){
+			   if(json!=null){
+		   		var html ="<option value=''>--请选择交易状态--</option>";
+		   		$.each(json, function(key,value){
+		   			if(value!=null){
+		   			html += '<option value="'+value.transstat+'">'+value.message+'</option>';
+		   			}
+				})
+				$("#transstat").html(html);
+		   }
+		   }
+		});
+	}
 	// 格式化日期时间
 	function changeDateTime(value) {
 		var dateString = value;
@@ -534,7 +543,21 @@ table tr td select {
 		}
 		
 	}
-	
+	// 解析交易要素
+	function tradeBasic(value){
+		if (value == "1111") {
+			return "身份证号+卡号+手机号+姓名";
+		} 
+		if (value == "1110") {
+			return "身份证号+卡号+手机号";
+		} 
+		if (value == "1100") {
+			return "身份证号+卡号";
+		}
+		if (value == "1101") {
+			return "身份证号+卡号+姓名";
+		}
+	}
 	function closeAdd() {
 		$('#w').window('close');
 	}
