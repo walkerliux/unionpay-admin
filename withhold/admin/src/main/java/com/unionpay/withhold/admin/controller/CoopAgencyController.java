@@ -18,6 +18,7 @@ import com.unionpay.withhold.admin.pojo.TCoopAgencyApply;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CoopAgencyApplyService;
 import com.unionpay.withhold.admin.service.CoopAgencyService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
@@ -36,6 +37,8 @@ public class CoopAgencyController {
 	private CoopAgencyService agencyService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OperationLogService operationLogService;
 	/**
 	 * 渠道申请页面
 	 * 
@@ -140,6 +143,7 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注册渠道");
 			return coopAgencyApplyService.addCoopAgencyApply(coopAgencyApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -160,6 +164,7 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgencyApply.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "变更待审");
 			return coopAgencyApplyService.updateCoopAgencyApply(coopAgencyApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -222,6 +227,7 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgencyApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "审核被拒");
 			return coopAgencyApplyService.refuseCheck(coopAgencyApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -242,6 +248,7 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgencyApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "审核通过");
 			return coopAgencyApplyService.passCheck(coopAgencyApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -293,12 +300,19 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgency.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "在用变更");
 			return agencyService.updateCoopAgencyInUse(coopAgency);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
 		}
 	}
 
+	/**
+	 * 注销
+	 * @param request
+	 * @param coopAgency
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping("/commitLogout")
 	public ResultBean commitLogout(HttpServletRequest request, TCoopAgency coopAgency) {
@@ -306,6 +320,7 @@ public class CoopAgencyController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		coopAgency.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "在用注销");
 			return agencyService.commitLogout(coopAgency);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");

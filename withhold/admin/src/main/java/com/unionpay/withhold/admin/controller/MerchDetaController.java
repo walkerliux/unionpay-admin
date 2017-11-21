@@ -23,6 +23,7 @@ import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.MerchChnlService;
 import com.unionpay.withhold.admin.service.MerchDetaApplyService;
 import com.unionpay.withhold.admin.service.MerchDetaService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -46,6 +47,8 @@ public class MerchDetaController {
 	private UserService userService;
 	@Autowired
 	private MerchChnlService merchChnlService;
+	@Autowired
+	private OperationLogService operationLogService;
 	
 
 	/**
@@ -167,6 +170,7 @@ public class MerchDetaController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注册商户");
 			return merchDetaApplyService.addMerchDetaApply(merchDetaApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -187,6 +191,7 @@ public class MerchDetaController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDetaApply.setInUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "变更待审");
 			return merchDetaApplyService.updateMerchDetaApply(merchDetaApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -238,6 +243,7 @@ public class MerchDetaController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		merchDetaApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "审核被拒");
 			return merchDetaApplyService.refuseCheck(merchDetaApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -258,6 +264,7 @@ public class MerchDetaController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		merchDetaApply.setStexaUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "审核通过");
 			return merchDetaApplyService.passCheck(merchDetaApply);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -309,6 +316,7 @@ public class MerchDetaController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDeta.setInUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "在用变更");
 			return merchDetaService.updateMerchDetaInUse(merchDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -328,6 +336,7 @@ public class MerchDetaController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		merchDeta.setInUser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "在用注销");
 			return merchDetaService.commitLogout(merchDeta);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -417,6 +426,7 @@ public class MerchDetaController {
 //		merchDetaApply.setInUser(infoByToken.getUserId().longValue())
 //		merchChnl.setTid(Integer.parseInt(tid));
 		try {
+			operationLogService.addOperationLog(request, "修改商户通道信息");
 			return merchChnlService.updateMerchDChnl(merchChnl);
 			
 		} catch (Exception e) {
@@ -461,6 +471,7 @@ public class MerchDetaController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		merchChnl.setInuser(infoByToken.getUserId());
 		try {
+			operationLogService.addOperationLog(request, "增加通道信息");
 			return merchChnlService.addMerchChnl(merchChnl);
 			
 		} catch (Exception e) {

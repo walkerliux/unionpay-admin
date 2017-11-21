@@ -29,6 +29,7 @@ import com.unionpay.withhold.admin.service.CardBlackListService;
 import com.unionpay.withhold.admin.service.CardWhiteListService;
 import com.unionpay.withhold.admin.service.CardholderBlackListService;
 import com.unionpay.withhold.admin.service.LimitSingleService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskCaseService;
 import com.unionpay.withhold.admin.service.RiskService;
@@ -53,7 +54,8 @@ public class RiskController {
 	private LimitSingleService limitSingleService;
 	@Autowired
 	private ParaDicService paraDicService;
-
+	@Autowired
+	private OperationLogService operationLogService;
 	@Autowired
 	private UserService userService;
 
@@ -237,6 +239,7 @@ public class RiskController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		risk.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增风控版本");
 			return riskService.addRisk(risk);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -257,6 +260,7 @@ public class RiskController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		risk.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改风控版本");
 			return riskService.updateRisk(risk);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -290,6 +294,7 @@ public class RiskController {
 		riskCase.setInuser(infoByToken.getUserId().longValue());
 		riskCase.setActiveflag(riskCaseService.changRiskStrategy(checkboxList));
 		try {
+			operationLogService.addOperationLog(request, "添加风控实例");
 			return riskCaseService.addRiskCase(riskCase);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -311,6 +316,7 @@ public class RiskController {
 		riskCase.setUpuser(infoByToken.getUserId().longValue());
 		riskCase.setActiveflag(riskCaseService.changRiskStrategy(checkboxList));
 		try {
+			operationLogService.addOperationLog(request, "修改风控实例");
 			return riskCaseService.updateRiskCase(riskCase);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -360,6 +366,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistPan.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增银行卡黑名单");
 			return cardBlackListService.addCardBlackList(blacklistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -380,6 +387,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改银行卡黑名单");
 			return cardBlackListService.updateCardBlackList(blacklistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -400,6 +408,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注销银行卡黑名单");
 			return cardBlackListService.logoutCardBlackList(blacklistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -420,6 +429,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "启用银行卡黑名单");
 			return cardBlackListService.startCardBlackList(blacklistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -471,6 +481,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistIdnum.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增持卡人黑名单");
 			return cardholderBlackListService.addCardholderBlackList(blacklistIdnum);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -491,6 +502,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改持卡人黑名单");
 			return cardholderBlackListService.updateCardholderBlackList(blacklistIdnum);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -511,6 +523,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注销持卡人黑名单");
 			return cardholderBlackListService.logoutCardholderBlackList(blacklistIdnum);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -531,6 +544,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		blacklistIdnum.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "启用持卡人黑名单");
 			return cardholderBlackListService.startCardholderBlackList(blacklistIdnum);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -581,6 +595,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		whitelistPan.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增银行卡白名单");
 			return cardWhiteListService.addCardWhiteList(whitelistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -601,6 +616,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改银行卡白名单");
 			return cardWhiteListService.updateCardWhiteList(whitelistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -621,6 +637,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注销银行卡白名单");
 			return cardWhiteListService.logoutCardWhiteList(whitelistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -641,6 +658,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		whitelistPan.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "启用银行卡白名单");
 			return cardWhiteListService.startCardWhiteList(whitelistPan);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -691,6 +709,7 @@ public class RiskController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		limitSingle.setInuser(infoByToken.getUserId().longValue());*/
 		try {
+			operationLogService.addOperationLog(request, "新增单等限额");
 			return limitSingleService.addLimitSingle(limitSingle);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -711,6 +730,7 @@ public class RiskController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		limitSingle.setInuser(infoByToken.getUserId().longValue());*/
 		try {
+			operationLogService.addOperationLog(request, "修改单笔限额");
 			return limitSingleService.updateLimitSingle(limitSingle);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -731,6 +751,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		limitSingle.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注销单笔限额");
 			return limitSingleService.logoutLimitSingle(limitSingle);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -751,6 +772,7 @@ public class RiskController {
 //		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 //		limitSingle.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "启用单笔限额");
 			return limitSingleService.startLimitSingle(limitSingle);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
