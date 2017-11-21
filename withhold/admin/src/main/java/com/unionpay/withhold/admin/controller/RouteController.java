@@ -17,6 +17,7 @@ import com.unionpay.withhold.admin.pojo.RouteConfigCheckbox;
 import com.unionpay.withhold.admin.pojo.TRoute;
 import com.unionpay.withhold.admin.pojo.TRouteConfig;
 import com.unionpay.withhold.admin.pojo.TUser;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RouteConfigService;
 import com.unionpay.withhold.admin.service.RouteService;
 import com.unionpay.withhold.admin.service.UserService;
@@ -31,6 +32,8 @@ public class RouteController {
 	private RouteConfigService routeConfigService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private OperationLogService operationLogService;
 	
 	/**
 	 * 路由版本
@@ -104,6 +107,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		route.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增路由版本");
 			return routeService.addRoute(route);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -124,6 +128,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		route.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改路由版本");
 			return routeService.updateRoute(route);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -182,6 +187,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		routeConfig.setInuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "新增路由配置");
 			return routeConfigService.addRouteConfig(routeConfig);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -202,6 +208,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		routeConfig.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "修改路由配置");
 			return routeConfigService.updateRouteConfig(routeConfig);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -223,6 +230,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		routeConfig.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "注销路由配置");
 			return routeConfigService.logoutRouteConfig(routeConfig);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -243,6 +251,7 @@ public class RouteController {
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		routeConfig.setUpuser(infoByToken.getUserId().longValue());
 		try {
+			operationLogService.addOperationLog(request, "启用路由配置");
 			return routeConfigService.startRouteConfig(routeConfig);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
