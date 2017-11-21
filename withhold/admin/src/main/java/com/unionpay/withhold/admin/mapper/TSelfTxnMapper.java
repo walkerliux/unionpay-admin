@@ -35,4 +35,8 @@ public interface TSelfTxnMapper {
     int updateByCheckBill(Map<String, Object> map);
     
     int insertMistake(Map<String, Object> map);
+    
+    Map<String,Object> localSuccessSum(Map<String, Object> map);
+    
+    List<TSelfTxn> queryCheckFileInfo(Map<String, Object> map);
 }

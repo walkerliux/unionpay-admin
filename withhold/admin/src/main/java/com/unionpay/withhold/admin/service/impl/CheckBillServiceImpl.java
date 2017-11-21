@@ -1,5 +1,6 @@
 package com.unionpay.withhold.admin.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,6 @@ import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.pojo.TSettProcessExample;
 import com.unionpay.withhold.admin.service.CheckBillService;
 import com.unionpay.withhold.utils.DateUtil;
-import com.unionpay.withhold.utils.LogHelper;
 
 @Service
 @Transactional
@@ -50,7 +50,6 @@ public class CheckBillServiceImpl implements CheckBillService {
 		if (StringUtils.isNotEmpty(filestartid)) {
 			settProcess=settProcessMapper.selectByPrimaryKey(Integer.valueOf(filestartid));
 		}
-		
 		//1,迁移数据
 		Map<String, Object> map = new HashMap<>();
 		map.put("filestartid", filestartid);
@@ -143,5 +142,50 @@ public class CheckBillServiceImpl implements CheckBillService {
 		criteria.andResultEqualTo("02");
 		List<TSelfTxn> list = selfTxnMapper.selectByExample(example);
 		return list;
+	}
+
+	@Override
+	public ResultBean dealmistake(String result, String status, String iid,long uid) {
+		TCheckfileMistakeExample example= new TCheckfileMistakeExample();
+		TCheckfileMistakeExample.Criteria criteria=example.createCriteria();
+		TCheckfileMistake mistake=new TCheckfileMistake();
+		mistake.setMistatus(status);
+		mistake.setDealOpinion(result);
+		mistake.setDealOperatorId(uid);
+		mistake.setDealDate(new Date());
+		criteria.andIidEqualTo(Integer.valueOf(iid));
+		int flag =checkfileMistakeMapper.updateByExampleSelective(mistake, example);
+		if (flag>0) {
+			return new ResultBean("处理完成");
+		}else{
+			return new ResultBean("01","处理失败");
+		}
+		
+	}
+
+	@Override
+	public Map<String, Object> dealReasult(String proid) {
+		Map<String, Object> paramap=new HashMap<>();
+		Map<String, Object> map=new HashMap<>();
+		paramap.put("proid", proid);
+		Map<String, Object> returnMap =new HashMap<>();
+		returnMap=selfTxnMapper.localSuccessSum(paramap);
+		map.put("succSum", returnMap.get("sums"));
+		map.put("succNumber", returnMap.get("number"));
+	    returnMap=checkfileMistakeMapper.localMistakeSum(paramap);
+	    map.put("failLocalSum", returnMap.get("sums"));
+		map.put("failLocalNumber", returnMap.get("number"));
+	    returnMap=checkfileMistakeMapper.merchMistakeSum(paramap);
+	    map.put("failMerchSum", returnMap.get("sums"));
+		map.put("failMerchNumber", returnMap.get("number"));
+		return map;
+	}
+
+	@Override
+	public List<TSelfTxn> queryCheckFileInfo(String merchno, String date) {
+		Map<String, Object> param=new HashMap<>();
+		param.put("merchno", merchno);
+		param.put("date", date);
+		return selfTxnMapper.queryCheckFileInfo(param);
 	}
 }

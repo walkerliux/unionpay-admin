@@ -450,6 +450,7 @@
 				t.instiid = b.instiid AND
 				t.instiid=#{instiid}
 				AND t.pan=b.pan
+				AND b.merchno=t.merchno
                 AND t.amount = b.amount
                 AND t.payordno = b.payordno
 				AND t.status='00')
@@ -466,10 +467,11 @@
                    t1.amount, t1.pan, t1.merchno, t1.systrcno, t1.paytrcno,
                    t1.cfee, t1.dfee, t1.retcode, t1.acqsettledate, #{filestartid},
                    t1.RESULT, '01', 0, 0, '非本系统对账失败的记录'
-              FROM t_bnk_txn t1 LEFT JOIN t_checkfile_mistake t2
-             on ( t1.payordno = t2.payordno
-               AND t2.systrcno IS NULL)
-               where t1.txndatetime  &lt;
+             FROM t_bnk_txn t1 LEFT JOIN t_checkfile_mistake t2
+             on ( t1.payordno = t2.payordno)
+             where 
+               t2.payordno IS NULL and 
+               t1.txndatetime  &lt;
                                  (SELECT MAX(t.txndatetime)
                                     FROM t_self_txn t
                                    WHERE t.status = '9' AND t.proid = #{filestartid})

@@ -714,4 +714,10 @@
       REMARKS = #{remarks,jdbcType=VARCHAR}
     where IID = #{iid,jdbcType=INTEGER}
   </update>
+  <select id="localMistakeSum" parameterType="string" resultType="map" >
+    select SUM(s.AMOUNT) as sums,COUNT(1) as number from t_checkfile_mistake s where s.PROID=#{proid} and  s.TXNSEQNO is not NULL
+  </select>
+  <select id="merchMistakeSum" parameterType="string" resultType="map" >
+    select SUM(s.AMOUNT) as sums,COUNT(1) as number from t_checkfile_mistake s where s.PROID=#{proid} and  s.TXNSEQNO is NULL
+  </select>
 </mapper>

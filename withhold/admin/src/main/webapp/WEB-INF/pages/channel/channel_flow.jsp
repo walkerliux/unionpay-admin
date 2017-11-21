@@ -61,9 +61,9 @@ table tr td select {
 						<td align="left" style="padding-left: 5px">
 							<select id="s_target" name="target"/>
 								<option value=''>----全部----</option>
-								<option value='0'>渠道</option>
+								<option value='0'>通道</option>
 								<option value='1'>商户</option>
-								</select>
+							</select>
 						</td>
 						<td align="right">通道名称</td>
 						<td id ="channelName" align="left" style="padding-left: 5px">
@@ -104,8 +104,8 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update" align="right">控制目标</td>
 							<td class="update" align="left" style="padding-left: 5px">
-								<select id="target" name="target"/>
-									<option value='0'>渠道</option>
+								<select id="target" name="target" onchange="change()"/>
+									<option value='0'>通道</option>
 									<option value='1'>商户</option>
 								</select>
 							</td>
@@ -120,16 +120,16 @@ table tr td select {
 							<td colspan="4" class="head-title"></td>
 						</tr>
 						<tr>
-							<td class="update" align="right">商户号</td>
-							<td class="update" align="left" style="padding-left: 5px">
-								<input name="merchno" id="merchno" maxlength="8" class="easyui-validatebox" required="true"/>
-							</td>
 							<td class="update" align="right">控制类型</td>
 							<td class="update" align="left" style="padding-left: 5px">
 								<select id="controltype" name="controltype"/>
 									<option value='1'>按并发控制</option>
 									<option value='0'>按时间控制</option>
 									</select>
+							</td>
+							<td id="mtd" class="update" align="right">商户号</td>
+							<td id="mtdi"class="update" align="left" style="padding-left: 5px">
+								<input name="merchno" id="merchno" maxlength="8" class="easyui-validatebox" required="true"/>
 							</td>
 						</tr>
 						<tr>
@@ -169,7 +169,7 @@ table tr td select {
 		$(function(){
 			showAllChannl();
 			$('#channelList').datagrid({
-				title:'渠道信息列表',
+				title:'通道信息列表',
 				iconCls:'icon-save',
 				height:600,
 				nowrap: false,
@@ -181,7 +181,7 @@ table tr td select {
 					{field:'target',title:'控制目标',align:'center',width:120,
 						formatter:function(value,rec){
 							if (value=="0") {
-								return "渠道";
+								return "通道";
 							}else  {
 								return "商户";
 							}
@@ -252,7 +252,7 @@ table tr td select {
 			$("#saveForm").attr("action","channel/addChannelFlow");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增渠道信息',
+				title: '新增通道信息',
 				top:100,
 				left:400,
 				width: 800,
@@ -265,6 +265,7 @@ table tr td select {
 				height: 360
 			});
 			$('#btn_submit').linkbutton('enable');	
+			change();
 		}
 		
 		function showdown(tid){
@@ -313,6 +314,7 @@ table tr td select {
 			$("#saveForm").attr("action","channel/updateChannelFlow");
 			$("#submitok").show();
 			getinfo(selfId);
+			change();
 		}
 		function getinfo(selfId){
 			$.ajax({
@@ -325,7 +327,6 @@ table tr td select {
 					   if (json == null) {
 							$.messager.alert('提示', '该通道信息不存在，或已被变更，请刷新一下数据再试试！');
 						} else {
-							
 							$("#target").find("option").eq(json.target).attr("selected","selected");
 							
 							$("#controltype").find("option").eq(json.controltype).attr("selected","selected");
@@ -337,7 +338,7 @@ table tr td select {
 							$("#tid").val(json.tid);
 							$("#status").val(json.status);
 							$('#w').window({
-								title: '变更渠道信息',
+								title: '变更通道信息',
 								top:100,
 								left:400,
 								width: 800,
@@ -434,5 +435,14 @@ table tr td select {
 		function closeAdd(){
 			$('#w').window('close');
 		}	
+		function change(){
+			if($('#target').val()=="0"){
+				$("#mtd").hide();
+				$("#mtdi").hide();
+			}else{
+				$("#mtd").show();
+				$("#mtdi").show();
+			}
+		}
 	</script>
 </html>
