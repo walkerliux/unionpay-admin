@@ -146,7 +146,7 @@ public class FTPController {
 		 try {
 			 File file = new File(DOWNLOADADDRESS);
 			 if(!file.exists()){
-				 file.mkdir();
+				 file.mkdirs();
 			 }
 			 boolean flag=false;
 			
