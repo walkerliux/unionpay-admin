@@ -1,11 +1,18 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,26 +30,33 @@ import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CheckBillService;
 import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.ConfigParamsExcelHeader;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
+import com.unionpay.withhold.admin.utils.excel.ExcelUtil;
 import com.unionpay.withhold.utils.DateUtil;
 
 @Controller
 @RequestMapping("/checkbill/")
 public class CheckBillController {
-	
+
 	@Autowired
 	private CheckBillService checkBillService;
 	@Autowired
 	private UserService userService;
-    @RequestMapping("toResult")
-    public String index() {
-        return "/checkinfo/file_start";
-    }
-    @RequestMapping("toResultSum")
-    public String toResultSum() {
-        return "/checkinfo/file_start_sum";
-    }
-    /**
+
+	@Autowired
+	private ConfigParamsExcelHeader config;
+	@RequestMapping("toResult")
+	public String index() {
+		return "/checkinfo/file_start";
+	}
+
+	@RequestMapping("toResultSum")
+	public String toResultSum() {
+		return "/checkinfo/file_start_sum";
+	}
+
+	/**
 	 * 查询机构
 	 * 
 	 * @author: zhangshd
@@ -56,7 +70,7 @@ public class CheckBillController {
 		List<?> list = checkBillService.getAllChannel();
 		return list;
 	}
-	
+
 	/**
 	 * 任务分页查询（新增任务，开始对账）
 	 * 
@@ -67,7 +81,7 @@ public class CheckBillController {
 	 */
 	@ResponseBody
 	@RequestMapping("queryProcess")
-	public PageBean queryProcess(String instiid,String startDate, String endDate, String page, String rows) {
+	public PageBean queryProcess(String instiid, String startDate, String endDate, String page, String rows) {
 		Map<String, Object> variables = new HashMap<String, Object>();
 		if (!StringUtils.isBlank(startDate)) {
 			variables.put("startDate", startDate.replace("-", ""));
@@ -80,13 +94,14 @@ public class CheckBillController {
 		}
 		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows));
 		List<TSettProcess> processList = checkBillService.queryPorcess(variables);
-		PageInfo<TSettProcess> pageInfo=new PageInfo<>(processList);
-		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), processList);
+		PageInfo<TSettProcess> pageInfo = new PageInfo<>(processList);
+		PageBean pageBean = new PageBean(new Long(pageInfo.getTotal()).intValue(), processList);
 		return pageBean;
 	}
-	
+
 	/**
 	 * 生成任务
+	 * 
 	 * @param instiid
 	 * @return
 	 */
@@ -96,8 +111,7 @@ public class CheckBillController {
 		Map<String, Object> map = checkBillService.saveProcess(instiid);
 		return map;
 	}
-	
-	
+
 	/**
 	 * 查询对账差错的记录
 	 * 
@@ -114,8 +128,8 @@ public class CheckBillController {
 		variables.put("proid", request.getParameter("proid"));
 		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows));
 		List<TCheckfileMistake> failList = checkBillService.queryFail(variables);
-		PageInfo<TCheckfileMistake> pageInfo=new PageInfo<>(failList);
-		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
+		PageInfo<TCheckfileMistake> pageInfo = new PageInfo<>(failList);
+		PageBean pageBean = new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
 		return pageBean;
 	}
 
@@ -135,31 +149,56 @@ public class CheckBillController {
 		variables.put("proid", request.getParameter("proid"));
 		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows));
 		List<TSelfTxn> failList = checkBillService.querySuccess(variables);
-		PageInfo<TSelfTxn> pageInfo=new PageInfo<>(failList);
-		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
+		PageInfo<TSelfTxn> pageInfo = new PageInfo<>(failList);
+		PageBean pageBean = new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
 		return pageBean;
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping("querySuccessBymerch")
-	public PageBean querySuccessBymerch(HttpServletRequest request,String date,String page, String rows) {
+	public PageBean querySuccessBymerch(HttpServletRequest request, String date, String page, String rows) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		String merchno=infoByToken.getUserId().toString();
+		String merchno = infoByToken.getUserId().toString();
 		if (!StringUtils.isBlank(date)) {
-			date=date.replace("-", "");
-		}else {
-			date=DateUtil.getCurrentDate();
+			date = date.replace("-", "");
+		} else {
+			date = DateUtil.getCurrentDate();
 		}
 		PageHelper.startPage(Integer.valueOf(page), Integer.valueOf(rows));
-		List<TSelfTxn> failList = checkBillService.queryCheckFileInfo(merchno,date);
-		PageInfo<TSelfTxn> pageInfo=new PageInfo<>(failList);
-		PageBean pageBean=new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
+		List<TSelfTxn> failList = checkBillService.queryCheckFileInfo(merchno, date);
+		PageInfo<TSelfTxn> pageInfo = new PageInfo<>(failList);
+		PageBean pageBean = new PageBean(new Long(pageInfo.getTotal()).intValue(), failList);
 		return pageBean;
 	}
-	
-	
+
+	@ResponseBody
+	@RequestMapping("querySuccessFileBymerch")
+	public void querySuccessFileBymerch(HttpServletRequest request, String date, HttpServletResponse response) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		String merchno = infoByToken.getUserId().toString();
+		if (!StringUtils.isBlank(date)) {
+			date = date.replace("-", "");
+		} else {
+			date = DateUtil.getCurrentDate();
+		}
+		
+		List<TSelfTxn> failList = checkBillService.queryCheckFileInfo(merchno, date);
+		String[] headers = {"txnseqno", "instiid", "payordno", "txndatetime", "busicode", "amount", "pan",
+				"merchno", "paytrcno","acqsettledate", "status","result"};
+		String path =request.getSession().getServletContext().getRealPath("/")+File.separator+merchno+"-"+date+".xls";
+		File file=new File(path);
+		try {
+			response.addHeader("Content-Disposition",
+					"attachment;filename=" + new String((merchno+"-"+date+".xls").replaceAll(" ", "").getBytes("utf-8"), "iso8859-1"));
+			response.addHeader("Content-Length", "" + file.length());
+			ExcelUtil.exportExcel(headers, failList,response.getOutputStream() , config.getParams());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * 开始执行核对
 	 * 
@@ -174,11 +213,10 @@ public class CheckBillController {
 	public ResultBean startCheckFile(String filestartid) {
 		return checkBillService.checkBill(filestartid);
 	}
-	
-	
-	
+
 	/**
 	 * 拒绝处理意见
+	 * 
 	 * @author: zhangshd
 	 * @param filestartid
 	 * @return Object
@@ -187,20 +225,19 @@ public class CheckBillController {
 	 */
 	@ResponseBody
 	@RequestMapping("dealmistake")
-	public ResultBean dealmistake(String result,String status,String iid,HttpServletRequest request) {
+	public ResultBean dealmistake(String result, String status, String iid, HttpServletRequest request) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		return checkBillService.dealmistake(result,status,iid,infoByToken.getUserId().longValue());
+		return checkBillService.dealmistake(result, status, iid, infoByToken.getUserId().longValue());
 	}
-	
-	
+
 	@ResponseBody
 	@RequestMapping("dealReasult")
 	public PageBean dealReasult(String proid) {
-		List<Map<String, Object>> list =new ArrayList<>();
+		List<Map<String, Object>> list = new ArrayList<>();
 		list.add(checkBillService.dealReasult(proid));
-		PageBean pageBean=new PageBean(0, list);
+		PageBean pageBean = new PageBean(0, list);
 		return pageBean;
 	}
-	
+
 }

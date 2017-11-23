@@ -64,7 +64,7 @@ table tr td select {
 	}); 	
 	$(function(){
 		$('#test').datagrid({
-			title:'任务列表',
+			title:'信息列表',
 			iconCls:'icon-save',
 			height:400,
 			singleSelect:true,
@@ -83,7 +83,15 @@ table tr td select {
 				{field:'instiid',title:'收费单位代码',width:140,align:'center'},
 			]],
 			pagination:true,
-			rownumbers:true
+			rownumbers:true,
+			toolbar:[{
+				id:'btnadd',
+				text:'导出对账文件',
+				iconCls:'icon-add',
+				handler:function(){
+					window.location='<%=basePath%>checkbill/querySuccessFileBymerch?date='+$('#startDate').datebox('getValue');
+				}
+			}]
 		});
 	});
 	function search(){
