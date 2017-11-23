@@ -15,6 +15,7 @@ import org.apache.commons.net.ftp.FTPClient;
  * ftp上传下载工具类
  */
 public class FTPUtils {
+	
 
 	/** 
 	 * Description: 向FTP服务器上传文件 
@@ -101,7 +102,7 @@ public class FTPUtils {
 			// 如果采用默认端口，可以使用ftp.connect(host)的方式直接连接FTP服务器
 			ftp.login(username, password);// 登录
 			ftp.setBufferSize(1024);
-			ftp.enterLocalPassiveMode();
+			ftp.enterLocalPassiveMode();// ftp启动被动模式
 			ftp.setFileType(FTPClient.BINARY_FILE_TYPE);
 			ftp.changeWorkingDirectory(remotePath);// 转移到FTP服务器目录
 			File localFile = new File(localPath + "/" + fileName);

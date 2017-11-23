@@ -1,14 +1,25 @@
 package com.unionpay.withhold.admin.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -140,7 +151,7 @@ public class FTPController {
 	 */
 	@ResponseBody
     @RequestMapping("/downloadFile")
-	public Map<String, Object> downloadFile(String fileName){
+	public Map<String, Object> downloadFile(String fileName,HttpServletRequest request,HttpServletResponse response){
 		Map<String, Object> hashMap = new HashMap<String, Object>();
 		String[] split = fileName.split("/");
 		 try {
@@ -155,17 +166,72 @@ public class FTPController {
 			}else{
 				flag = FTPUtils.downloadFile(IPADDRESS, PORTNUM, USER, PWD,ROOTPATH+split[0]+"/",split[1] , DOWNLOADADDRESS);
 			}
+			
 			if (flag) {
-				hashMap.put("RET", "succ");
+				ServletContext servletContext = request.getSession().getServletContext();
+				String path = servletContext.getRealPath("/");  
+				boolean result = download(response,split[1],DOWNLOADADDRESS+"/"+split[1]);
+				if(result){
+					hashMap.put("RET", "succ");
+				}
 			}
-			 logger.info("flag:"+flag);
+			 logger.info("flag:"+flag); 
 			
 		 } catch (Exception e) {
 			 hashMap.put("RET", "fail");
 			 logger.error("下载文件异常",e);
 		}
 		
-		return hashMap;
+		return null;
 	}
 	
+	/** 
+     * @Description:自定义下载文件名方法 
+     * @param response 
+     * @param fileName 
+     * @param filePath 
+     * @throws IOException 
+     */  
+    public boolean download(HttpServletResponse response, String fileName, String filePath) throws Exception{  
+    	
+    	File file = new File(filePath); 
+        boolean result=false;
+        if(file.isFile()){  
+            String filaname = new String((fileName).getBytes("utf-8"),"ISO8859-1");  
+            //response.reset();  
+            response.setContentType("application/octet-stream;charset=utf-8");
+            //response.setContentType("application/x-download");
+            response.setHeader("Content-Disposition","attachment;filename=" + filaname);  
+            FileInputStream fis =null;
+            BufferedInputStream bis = null;
+            ServletOutputStream os=null;
+            try {
+            	fis = new FileInputStream(file);
+            	
+				bis = new BufferedInputStream(fis);
+				os = response.getOutputStream();
+				byte[] b = new byte[1024]; 
+				int i = 0;
+				while ((i = bis.read(b)) != -1){
+					
+				    os.write(b,0,i);  
+				}
+				
+				result=true;
+			} catch (Exception e) {
+				result=false;
+				e.printStackTrace();
+			}  finally{
+				fis.close();
+				bis.close();  
+				os.flush();
+				response.flushBuffer();
+			}
+        }else{  
+        	result=false;
+            throw new Exception("下载类型不是文件或不存在！"); 
+            
+        } 
+        return result;
+    }  
 }
