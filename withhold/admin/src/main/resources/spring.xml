@@ -52,7 +52,7 @@
 				pointcut-ref="pointcut" throwing="ex" />
 		</aop:aspect>
 	</aop:config>
-
+	<bean  class="com.unionpay.withhold.admin.utils.ConfigParamsExcelHeader"/>
 	<import resource="spring-mybatis.xml" />
 
 	<import resource="applicationContext-jedis.xml"/> 
