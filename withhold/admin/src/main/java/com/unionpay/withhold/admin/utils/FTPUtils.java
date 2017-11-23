@@ -109,6 +109,7 @@ public class FTPUtils {
 			is = new FileOutputStream(localFile);
 			ftp.retrieveFile(fileName, is);
 			result = true;
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
@@ -123,7 +124,7 @@ public class FTPUtils {
 		System.out.println("excute time:"+(System.currentTimeMillis()-currentTime));
 		return result;
 	}
-	
+
 	public static void main(String[] args) {
 		try {
 	        FileInputStream in=new FileInputStream(new File("D:\\DownLogFromFtp\\60755bdf27a344c0bbf154db83496ca0.jpg"));

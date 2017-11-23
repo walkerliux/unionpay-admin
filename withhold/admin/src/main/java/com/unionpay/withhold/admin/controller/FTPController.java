@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -30,9 +31,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.unionpay.withhold.admin.Bean.FTPfiles;
+import com.unionpay.withhold.admin.Bean.MyTimer;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.utils.FTPListAllFiles;
 import com.unionpay.withhold.admin.utils.FTPUtils;
+
 
 @Controller
 @RequestMapping("/ftp")
@@ -168,20 +171,21 @@ public class FTPController {
 			}
 			
 			if (flag) {
-				ServletContext servletContext = request.getSession().getServletContext();
-				String path = servletContext.getRealPath("/");  
+				
 				boolean result = download(response,split[1],DOWNLOADADDRESS+"/"+split[1]);
 				if(result){
 					hashMap.put("RET", "succ");
 				}
 			}
 			 logger.info("flag:"+flag); 
-			
+		
 		 } catch (Exception e) {
 			 hashMap.put("RET", "fail");
 			 logger.error("下载文件异常",e);
 		}
-		
+		//5分钟后删除下载到服务器的文件
+		Timer timer = new Timer();
+		timer.schedule(new MyTimer(split[1],DOWNLOADADDRESS), 300000);
 		return null;
 	}
 	
