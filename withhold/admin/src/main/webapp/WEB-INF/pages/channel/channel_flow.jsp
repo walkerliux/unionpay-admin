@@ -129,7 +129,7 @@ table tr td select {
 							</td>
 							<td id="mtd" class="update" align="right">商户号</td>
 							<td id="mtdi"class="update" align="left" style="padding-left: 5px">
-								<input name="merchno" id="merchno" maxlength="8" class="easyui-validatebox" required="true"/>
+								<input name="merchno" id="merchno" maxlength="8" class="easyui-validatebox" />
 							</td>
 						</tr>
 						<tr>
@@ -439,6 +439,7 @@ table tr td select {
 			if($('#target').val()=="0"){
 				$("#mtd").hide();
 				$("#mtdi").hide();
+				$("#merchno").val("");
 			}else{
 				$("#mtd").show();
 				$("#mtdi").show();
