@@ -118,8 +118,8 @@ public class MerchantPortalController {
 		// 系统商户号
 		bean.setMchntCd(loginName);
 		// 证书ID
-		TMerchMk mk= portalService.getCertId(loginName);
-		bean.setCertId(mk.getCertid());
+		/*TMerchMk mk= portalService.getCertId(loginName);
+		bean.setCertId(mk.getCertid());*/
 		// 签名方式
 		bean.setSignMethod(SignMethod);
 		// 加密证书ID
@@ -203,8 +203,8 @@ public class MerchantPortalController {
 		batchCollectBean.setTotalAmt(totalAmt+"");//交易总金额
 		
 		/**certid*/
-		TMerchMk certId = portalService.getCertId(loginName);
-		batchCollectBean.setCertId(certId.getCertid());
+		/*TMerchMk certId = portalService.getCertId(loginName);
+		batchCollectBean.setCertId(certId.getCertid());*/
 		
 		ResultBean resultBean = feapi.batchCollect(JSON.toJSONString(batchCollectBean));
 		return resultBean;
