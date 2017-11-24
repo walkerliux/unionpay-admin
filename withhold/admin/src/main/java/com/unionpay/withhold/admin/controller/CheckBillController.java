@@ -159,7 +159,7 @@ public class CheckBillController {
 	public PageBean querySuccessBymerch(HttpServletRequest request, String date, String page, String rows) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		String merchno = infoByToken.getUserId().toString();
+		String merchno = infoByToken.getLoginName().toString();
 		if (!StringUtils.isBlank(date)) {
 			date = date.replace("-", "");
 		} else {

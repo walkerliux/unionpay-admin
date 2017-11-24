@@ -528,9 +528,5 @@
     where t.ACCSECMERNO=#{merchno}  and s.status='9' and s.RESULT='02'
     	and s.ACQSETTLEDATE = #{date} 
   </select>
-  
-  
-  
-  
-  
+
 </mapper>
