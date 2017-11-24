@@ -465,7 +465,7 @@
   <insert id="insertFromTxnLog" parameterType="map" >
    INSERT INTO t_self_txn (txnseqno, instiid, txndatetime, busicode,
                       amount, pan, merchno, systrcno, paytrcno,
-                      acqsettledate, status, RESULT, checking_id,proid,payordno,merchno)
+                      acqsettledate, status, RESULT, checking_id,proid,payordno)
    			 SELECT t.txnseqno, t.payinst, t.payordfintime AS txndatetime, t.busicode,
                            t.amount, t.pan, t.payfirmerno,t.payrettsnseqno,NULL AS paytrcno,
                            t.accsettledate,'00',
@@ -475,7 +475,7 @@
                                ELSE '00'
                             END
                            ) AS RESULT,
-                           #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno,paysecmerno
+                           #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno
                       FROM t_txns_log t LEFT JOIN t_self_txn t1 on t.txnseqno=t1.TXNSEQNO
                       WHERE t.payinst=#{instiid} and t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
   </insert>
@@ -491,7 +491,7 @@
                    t1.instiid, t1.payordno, t1.txndatetime, t1.busicode,
                    t1.amount, t1.pan, t1.merchno, t1.systrcno, t1.paytrcno,
                    t1.cfee, t1.dfee, t1.retcode, t1.acqsettledate, #{filestartid},
-                   t1.RESULT, '01', 0, 0, '本系统对账失败的记录'
+                   t1.RESULT, '01', 0, 0, '本系有此记录对方文件无此记录'
             FROM t_self_txn t1 LEFT JOIN t_checkfile_mistake t2 
             on (t1.txnseqno = t2.txnseqno)
             WHERE 
@@ -524,7 +524,7 @@
   </select>
   
   <select id="queryCheckFileInfo" parameterType="string" resultMap="BaseResultMap" >
-    select s.* from t_self_txn s join t_txns_log t on s.merchno=t.PAYSECMERNO 
+    select s.* from t_self_txn s join t_txns_log t on s.TXNSEQNO=t.TXNSEQNO
     where t.ACCSECMERNO=#{merchno}  and s.status='9' and s.RESULT='02'
     	and s.ACQSETTLEDATE = #{date} 
   </select>
