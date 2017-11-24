@@ -264,6 +264,7 @@ table tr td select {
 					})
 	//ajax上传Excel文件
 	$('#btn').click(function() {
+		//$('#btn').linkbutton('disable');	
 		$.ajax({
 			url : 'portalManager/showDetails',
 			type : 'POST',
@@ -272,6 +273,7 @@ table tr td select {
 			processData : false,
 			contentType : false,
 			success : function(json) {
+				//$('#btn').linkbutton('enable');	
 				$('#excelDetail').datagrid('loadData', json);
 				var jsonStr = JSON.stringify(json);
 				//alert(jsonStr)

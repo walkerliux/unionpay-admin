@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletOutputStream;
@@ -186,6 +187,24 @@ public class FTPController {
 		//5分钟后删除下载到服务器的文件
 		Timer timer = new Timer();
 		timer.schedule(new MyTimer(split[1],DOWNLOADADDRESS), 300000);
+		
+		/*final String filen=split[1];
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					TimeUnit.MINUTES.sleep(5);
+					File file = new File(DOWNLOADADDRESS+"/"+filen);
+					if (file.exists()&&file.isFile()) {
+						file.delete();
+					}
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}).start();*/
 		return null;
 	}
 	

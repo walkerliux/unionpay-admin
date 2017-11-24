@@ -55,6 +55,8 @@ public class MerchantPortalController {
 	private String Reserved;//保留域
 	@Value("${AtType}")
 	private String AtType;//交易币种
+	@Value("${EXCELPATH}")
+	private String EXCELPATH;
 	@Autowired
 	private FEAPI feapi;
 	@Autowired
@@ -145,7 +147,7 @@ public class MerchantPortalController {
         
         ReadExcel readExcel=new ReadExcel();
         //解析excel，获取客户信息集合。
-        List<BatchCollectDetaBean> dateList = readExcel.getExcelInfo(name ,excelFile);
+        List<BatchCollectDetaBean> dateList = readExcel.getExcelInfo(name ,excelFile,EXCELPATH);
         //批量导入。参数：文件名，文件。
         
        return dateList;

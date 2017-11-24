@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,12 +15,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import com.unionpay.withhold.admin.Bean.MyTimer;
 import com.unionpay.withhold.trade.api.bean.BatchCollectDetaBean;
 
 public class ReadExcel {
+	
 	 //总行数
     private int totalRows = 0;  
     //总条数
@@ -53,22 +57,24 @@ public class ReadExcel {
    * @param fielName
    * @return
    */
-  public List<BatchCollectDetaBean> getExcelInfo(String fileName,MultipartFile Mfile){
+  public List<BatchCollectDetaBean> getExcelInfo(String fileName,MultipartFile Mfile,String EXCELPATH){
       
       //把spring文件上传的MultipartFile转换成CommonsMultipartFile类型
        CommonsMultipartFile cf= (CommonsMultipartFile)Mfile; //获取本地存储路径
-       File file = new  File("D:/batchfile/fileupload");
+       File file = new  File(EXCELPATH);
        //创建一个目录 （它的路径名由当前 File 对象指定，包括任一必须的父路径。）
        if (!file.exists()) file.mkdirs();
        //新建一个文件
-       File file1 = new File("D:/batchfile/fileupload" + new Date().getTime() + ".xlsx"); 
+       String filenameString=EXCELPATH + new Date().getTime() + ".xlsx";
+       File file1 = new File(filenameString); 
        //将上传的文件写入新建的文件中
        try {
            cf.getFileItem().write(file1); 
        } catch (Exception e) {
            e.printStackTrace();
        }
-       
+       Timer timer = new Timer();
+       timer.schedule(new MyTimer(filenameString,""), 300000);
        //初始化客户信息的集合    
        List<BatchCollectDetaBean> customerList=new ArrayList<BatchCollectDetaBean>();
        //初始化输入流

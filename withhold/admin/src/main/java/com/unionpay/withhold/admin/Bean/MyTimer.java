@@ -15,9 +15,17 @@ public class MyTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		File file = new File(localPath+"/"+fileName);
-		if (file.exists()&&file.isFile()) {
-			file.delete();
+		if (localPath!=null&&!"".equals("")) {
+			File file = new File(localPath+"/"+fileName);
+			if (file.exists()&&file.isFile()) {
+				file.delete();
+			}
+		}else {
+			File file = new File(fileName);
+			if (file.exists()&&file.isFile()) {
+				file.delete();
+			}
 		}
+		
 	}
 }
