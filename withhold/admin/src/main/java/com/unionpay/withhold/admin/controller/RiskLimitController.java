@@ -15,6 +15,7 @@ import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TLimitMemNumsDay;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.service.LimitService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.service.RiskService;
 import com.unionpay.withhold.admin.utils.StringUtil;
@@ -28,6 +29,8 @@ public class RiskLimitController {
 	private ParaDicService paraDicService;
 	@Autowired
 	private LimitService limitService;
+	@Autowired
+	private OperationLogService operationLogService;
 	/**
 	 * 查询风控列表
 	 * @return
@@ -74,6 +77,7 @@ public class RiskLimitController {
 		}
 			
 			try {
+				operationLogService.addOperationLog(request, "保存商户单日累计限额");
 				limitMenNumsDay.setCaseid(caseids);
 				return limitService.saveLimitMemNumDay(limitMenNumsDay);
 			} catch (Exception e) {
@@ -98,7 +102,7 @@ public class RiskLimitController {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateLimitMemMNumDay")
-	public ResultBean updateLimitMemMNumDay(TLimitMemNumsDay limitMenNumsDay,String caseid) {
+	public ResultBean updateLimitMemMNumDay(TLimitMemNumsDay limitMenNumsDay,String caseid, HttpServletRequest request) {
 		Long caseids;
 		if(StringUtil.isNotEmpty(caseid)){
 			caseids=Long.valueOf(caseid);
@@ -106,6 +110,7 @@ public class RiskLimitController {
 			return  new ResultBean("", "风控版本不能为空！");
 		}
 		try {
+			operationLogService.addOperationLog(request, "修改商户单日限额");
 			limitMenNumsDay.setCaseid(caseids);
 			return limitService.updateLimitMemMNumDay( limitMenNumsDay);
 		} catch (Exception e) {
@@ -119,9 +124,10 @@ public class RiskLimitController {
 	 */
 	@ResponseBody
 	@RequestMapping("/deleteLimitMemNumDay")
-	public ResultBean deleteLimitMemNumDay(TLimitMemNumsDay limitMenNumsDay) {
+	public ResultBean deleteLimitMemNumDay(TLimitMemNumsDay limitMenNumsDay, HttpServletRequest request) {
 		
 		try {
+			operationLogService.addOperationLog(request, "注销商户累计次数");
 			return limitService.deleteLimitMemNumDay(limitMenNumsDay);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -134,9 +140,10 @@ public class RiskLimitController {
 	 */
 	@ResponseBody
 	@RequestMapping("/startLimitMemDay")
-	public ResultBean startLimitMemDay(TLimitMemNumsDay limitMenNumsDay) {
+	public ResultBean startLimitMemDay(TLimitMemNumsDay limitMenNumsDay, HttpServletRequest request) {
 		
 		try {
+			operationLogService.addOperationLog(request, "启用商户累计额数");
 			return limitService.startLimitMemDay(limitMenNumsDay);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
