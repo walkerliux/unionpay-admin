@@ -70,12 +70,10 @@ public class CheckBillServiceImpl implements CheckBillService {
 			settProcessMapper.updateByExampleSelective(settProcess, example);
 			return new ResultBean("对账完成");
 		}else{
-			settProcess.setStatus("01");
+			settProcess.setStatus("99");
 			settProcessMapper.updateByExampleSelective(settProcess, example);
 			return new ResultBean("001","无数据需要对账");
 		}
-		
-		
 	}
 
 	@Override

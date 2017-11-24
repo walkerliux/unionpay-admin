@@ -466,7 +466,7 @@
                    t1.instiid, t1.payordno, t1.txndatetime, t1.busicode,
                    t1.amount, t1.pan, t1.merchno, t1.systrcno, t1.paytrcno,
                    t1.cfee, t1.dfee, t1.retcode, t1.acqsettledate, #{filestartid},
-                   t1.RESULT, '01', 0, 0, '非本系统对账失败的记录'
+                   t1.RESULT, '01', 0, 0, '非本系统有此记录 系统中有此记录'
              FROM t_bnk_txn t1 LEFT JOIN t_checkfile_mistake t2
              on ( t1.payordno = t2.payordno)
              where 
