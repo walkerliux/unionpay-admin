@@ -17,9 +17,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 
+
 import com.unionpay.withhold.admin.Bean.ChnlType;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TRspmsg;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.RspMsgService;
 import com.unionpay.withhold.admin.utils.EnumUtils;
 
@@ -29,7 +31,8 @@ import com.unionpay.withhold.admin.utils.EnumUtils;
 public class RspMsgController {
 	@Autowired
 	private RspMsgService rspMsgService;
-	
+	@Autowired
+	private OperationLogService operationLogService;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
@@ -86,7 +89,7 @@ public class RspMsgController {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			rspMsgService.updateTRspmsg(rspmsg);
-			
+			operationLogService.addOperationLog(request, "更新通道应答码");
 			list.add("更新成功");
 		} catch (Exception e) {
 			list.add("更新失败");
@@ -96,7 +99,7 @@ public class RspMsgController {
 		return list;
 	}
 	/**
-	 * 新增用户信息
+	 * 新增通道应答码
 	 * 
 	 * @return
 	 */
@@ -106,6 +109,7 @@ public class RspMsgController {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			rspMsgService.saveTRspmsg(rspmsg);
+			operationLogService.addOperationLog(request, "新增通道应答码");
 			list.add("保存成功");
 		} catch (Exception e) {
 			list.add("保存失败");

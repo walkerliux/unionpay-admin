@@ -18,11 +18,13 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TbankInsti;
 import com.unionpay.withhold.admin.service.CardBinService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 
 @Controller
 @RequestMapping("/bin")
 public class CardBinController {
-	
+	@Autowired
+	private OperationLogService operationLogService;
 	@Autowired
 	private CardBinService cardBinService;
 	@ResponseBody
@@ -63,7 +65,7 @@ public class CardBinController {
 	 */
 	@ResponseBody
    @RequestMapping("/update")
-	public List<?> update(TCardBin bin) {
+	public List<?> update(TCardBin bin,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			List<TbankInsti> TbankInstis = cardBinService.selectTbankInstis(bin.getBankcode());
@@ -72,7 +74,7 @@ public class CardBinController {
 			int binlen = bin.getCardbin().length();
 			bin.setBinlen((short)binlen);
 			cardBinService.updateTCardBin(bin);
-			
+			operationLogService.addOperationLog(request, "修改cardbin");
 			list.add("更新成功");
 		} catch (Exception e) {
 			list.add("更新失败");
@@ -88,7 +90,7 @@ public class CardBinController {
 	 */
 	@ResponseBody
     @RequestMapping("/save")
-	public List<?> save(TCardBin bin) {
+	public List<?> save(TCardBin bin,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			List<TbankInsti> TbankInstis = cardBinService.selectTbankInstis(bin.getBankcode());
@@ -98,6 +100,7 @@ public class CardBinController {
 			bin.setBinlen((short)binlen);
 			
 			cardBinService.saveTCardBin(bin);
+			operationLogService.addOperationLog(request, "新增cardbin");
 			list.add("保存成功");
 		} catch (Exception e) {
 			list.add("保存失败");

@@ -16,6 +16,7 @@ import com.unionpay.withhold.admin.Bean.AccumRateBean;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FeeService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
@@ -27,6 +28,8 @@ public class FeeController {
 	private UserService userService;
 	@Autowired
 	private FeeService feeService;
+	@Autowired
+	private OperationLogService operationLogService;
 	/**
 	 * 交易金额分段扣率页面
 	 * 
@@ -108,6 +111,7 @@ public class FeeController {
 		}
 		try {
 			feeService.addAmtAccumRate(accumRateBean);
+			operationLogService.addOperationLog(request, "新增交易金额分段扣率");
 			map.put("RET", "succ");
 			map.put("INFO", "添加成功");
 			return map;
@@ -179,6 +183,7 @@ public class FeeController {
 		}
 		try {
 			feeService.updateAccumRate(accumRateBean);
+			operationLogService.addOperationLog(request, "修改交易金额分段扣率");
 			map.put("RET", "succ");
 			map.put("INFO", "修改成功");
 			return map;
@@ -244,6 +249,7 @@ public class FeeController {
 		}
 		try {
 			feeService.savespefee(accumRateBean);
+			operationLogService.addOperationLog(request, "新增特殊公式扣率");
 			map.put("RET", "succ");
 			map.put("INFO", "添加成功");
 			return map;
@@ -310,6 +316,7 @@ public class FeeController {
 		}
 		try {
 			feeService.updateSpecialFeeRate(accumRateBean);
+			operationLogService.addOperationLog(request, "修改特殊公式扣率");
 			map.put("RET", "succ");
 			map.put("INFO", "修改成功");
 			return map;

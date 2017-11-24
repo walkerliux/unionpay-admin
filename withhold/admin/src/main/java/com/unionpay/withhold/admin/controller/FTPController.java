@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.unionpay.withhold.admin.Bean.FTPfiles;
 import com.unionpay.withhold.admin.Bean.MyTimer;
 import com.unionpay.withhold.admin.Bean.PageBean;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.utils.FTPListAllFiles;
 import com.unionpay.withhold.admin.utils.FTPUtils;
 
@@ -62,6 +64,8 @@ public class FTPController {
 	private String ROOTPATH;
 	@Value("${DOWNLOADADDRESS}")
 	private String DOWNLOADADDRESS;
+	@Autowired
+	private OperationLogService operationLogService;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index(HttpServletRequest request) {
@@ -205,6 +209,7 @@ public class FTPController {
 				}
 			}
 		}).start();*/
+		operationLogService.addOperationLog(request, "下载log日志");
 		return null;
 	}
 	

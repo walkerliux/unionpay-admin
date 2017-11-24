@@ -18,6 +18,7 @@ import com.unionpay.withhold.admin.pojo.TOrderCollectBatch;
 import com.unionpay.withhold.admin.pojo.TOrderCollectDeta;
 import com.unionpay.withhold.admin.pojo.TOrderCollectSingle;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.TradeService;
 
 @Controller
@@ -25,7 +26,6 @@ import com.unionpay.withhold.admin.service.TradeService;
 public class TradeController {
 	@Autowired
 	private TradeService tradeService;
-
 	/**
 	 * 订单实时查询页面
 	 * @author: 

@@ -5,6 +5,10 @@ import java.util.List;
 
 
 
+
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TBank;
-
 import com.unionpay.withhold.admin.service.BankService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 
 @Controller
 @RequestMapping("/bank")
 public class BankController {
-	
+	@Autowired
+	private OperationLogService operationLogService;
 	@Autowired
 	private BankService bankService;
 	
@@ -71,12 +76,13 @@ public class BankController {
 	 */
 	@ResponseBody
    @RequestMapping("/update")
-	public List<?> update(TBank bank) {
+	public List<?> update(TBank bank,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			int num=bankService.countByOldAndNewCode(bank);
 			if (num==0) {
 				bankService.updateTBank(bank);
+				operationLogService.addOperationLog(request, "修改银行信息");
 				list.add("更新成功");
 			}else {
 				list.add("已存在相同银行代码,更新失败");
@@ -96,12 +102,13 @@ public class BankController {
 	 */
 	@ResponseBody
     @RequestMapping("/save")
-	public List<?> save(TBank bank) {
+	public List<?> save(TBank bank,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			TBank paraDic=bankService.getSingleBycode(bank.getBankcode());
 			if (paraDic==null) {
 				bankService.saveTBank(bank);
+				operationLogService.addOperationLog(request, "新增银行信息");
 				list.add("保存成功");
 			}else {
 				list.add("已存在相同银行代码,保存失败");

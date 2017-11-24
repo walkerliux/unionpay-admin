@@ -15,6 +15,7 @@ import com.unionpay.withhold.admin.Bean.ChnlType;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TRspmsg;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.utils.EnumUtils;
 
@@ -24,7 +25,8 @@ import com.unionpay.withhold.admin.utils.EnumUtils;
 public class ParaDicController {
 	@Autowired
 	private ParaDicService paraDicService;
-	
+	@Autowired
+	private OperationLogService operationLogService;
 	@ResponseBody
     @RequestMapping("/index")
     public ModelAndView index() {
@@ -86,12 +88,12 @@ public class ParaDicController {
 	 */
 	@ResponseBody
    @RequestMapping("/update")
-	public List<?> update(TParaDic paraDic) {
+	public List<?> update(TParaDic paraDic,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			paraDic.setStatus(new Short("0"));
 			paraDicService.updateTParaDic(paraDic);
-			
+			operationLogService.addOperationLog(request, "修改系统参数");
 			list.add("更新成功");
 		} catch (Exception e) {
 			list.add("更新失败");
@@ -107,11 +109,12 @@ public class ParaDicController {
 	 */
 	@ResponseBody
     @RequestMapping("/save")
-	public List<?> save(TParaDic paraDic) {
+	public List<?> save(TParaDic paraDic,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
 			paraDic.setStatus(new Short("0"));
 			paraDicService.saveTParaDic(paraDic);
+			operationLogService.addOperationLog(request, "新增系统参数");
 			list.add("保存成功");
 		} catch (Exception e) {
 			list.add("保存失败");
@@ -127,15 +130,15 @@ public class ParaDicController {
 	 */
 	@ResponseBody
     @RequestMapping("/delete")
-	public String delete(Long tid){
+	public String delete(Long tid,HttpServletRequest request){
 		TParaDic paraDic=paraDicService.getSingleById(tid);
 		paraDic.setStatus(new Short("1"));
 		
 		try {
 			paraDicService.updateTParaDic(paraDic);
-			
+			operationLogService.addOperationLog(request, "注销系统参数");
 			return "true";
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			
 			e.printStackTrace();
 		}

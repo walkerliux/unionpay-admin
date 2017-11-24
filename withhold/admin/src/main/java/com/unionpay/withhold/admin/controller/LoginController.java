@@ -245,7 +245,7 @@ public class LoginController {
 	@ResponseBody
 	@RequestMapping("/logout")
 	public ModelAndView logout(HttpServletRequest request) {
-
+		operationLogService.addOperationLog(request, "退出成功");
 		ModelAndView result = new ModelAndView("/login");
 		
 		

@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.pojo.TTxnsLog;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.TTxnsLogService;
 
 @Controller
@@ -43,7 +44,8 @@ public class ReportFromController {
 
 	@Autowired
 	private TTxnsLogService tTxnsLogService;
-	
+	@Autowired
+	private OperationLogService operationLogService;
 	/**
 	 * 渠道月分润报表页面
 	 * @author: 
@@ -249,7 +251,7 @@ public class ReportFromController {
 				+ ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
-		
+		operationLogService.addOperationLog(request, "下载分润报表");
 		return null;
 		
 	}
@@ -493,6 +495,7 @@ public class ReportFromController {
 				+ ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
+		operationLogService.addOperationLog(request, "下载分润报表");
     	return null;
     }
 	/**
@@ -622,6 +625,7 @@ public class ReportFromController {
 				+ ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
+		operationLogService.addOperationLog(request, "下载分润报表");
 		return null;
 	}
 	/**
@@ -757,6 +761,7 @@ public class ReportFromController {
 				+ ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
+		operationLogService.addOperationLog(request, "下载分润报表");
     	return null;
     }
 	//
@@ -901,6 +906,7 @@ public class ReportFromController {
 				+ ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
+		operationLogService.addOperationLog(request, "下载分润报表");
 		return null;
 		
 	}
@@ -1057,6 +1063,7 @@ public class ReportFromController {
 				+ new String((str).getBytes("gbk"), "iso8859-1") + ".xls");
 		ServletOutputStream os = response.getOutputStream();
 		workbook.write(os);
+		operationLogService.addOperationLog(request, "下载分润报表");
 		return null;
 
 	}
