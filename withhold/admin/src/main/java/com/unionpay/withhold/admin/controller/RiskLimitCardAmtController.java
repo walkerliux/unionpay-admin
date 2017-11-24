@@ -12,6 +12,7 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TLimitAmountsPanDay;
 import com.unionpay.withhold.admin.service.LimitCardAmtService;
+import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.utils.StringUtil;
 
 
@@ -20,6 +21,8 @@ import com.unionpay.withhold.admin.utils.StringUtil;
 public class RiskLimitCardAmtController {
 	@Autowired
 	private LimitCardAmtService limitCardAmtService;
+	@Autowired
+	private OperationLogService operationLogService;
 	
 	/**
 	 * 查询银行卡单日累计限次
@@ -57,6 +60,7 @@ public class RiskLimitCardAmtController {
 		}
 			
 			try {
+				operationLogService.addOperationLog(request, "保存银行卡单日累计限次");
 				limitAmountsPanDay.setCaseid(caseids);
 				return limitCardAmtService.saveLimitMemNumDay(limitAmountsPanDay);
 			} catch (Exception e) {
@@ -81,7 +85,7 @@ public class RiskLimitCardAmtController {
 	 */
 	@ResponseBody
 	@RequestMapping("/updateLimitMemMNumDay")
-	public ResultBean updateLimitMemMNumDay(TLimitAmountsPanDay limitAmountsPanDay,String caseid) {
+	public ResultBean updateLimitMemMNumDay(TLimitAmountsPanDay limitAmountsPanDay,HttpServletRequest request,String caseid) {
 		Long caseids;
 		if(StringUtil.isNotEmpty(caseid)){
 			caseids=Long.valueOf(caseid);
@@ -89,6 +93,7 @@ public class RiskLimitCardAmtController {
 			return  new ResultBean("", "风控版本不能为空！");
 		}
 		try {
+			operationLogService.addOperationLog(request, "修改商户单日限额");
 			limitAmountsPanDay.setCaseid(caseids);
 			return limitCardAmtService.updateLimitMemMNumDay( limitAmountsPanDay);
 		} catch (Exception e) {
@@ -102,9 +107,10 @@ public class RiskLimitCardAmtController {
 	 */
 	@ResponseBody
 	@RequestMapping("/deleteLimitMemNumDay")
-	public ResultBean deleteLimitMemNumDay(TLimitAmountsPanDay limitAmountsPanDay) {
+	public ResultBean deleteLimitMemNumDay(HttpServletRequest request,TLimitAmountsPanDay limitAmountsPanDay) {
 		
 		try {
+			operationLogService.addOperationLog(request, "注销商户累计次数");
 			return limitCardAmtService.deleteLimitMemNumDay(limitAmountsPanDay);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
@@ -117,9 +123,10 @@ public class RiskLimitCardAmtController {
 	 */
 	@ResponseBody
 	@RequestMapping("/startLimitMemDay")
-	public ResultBean startLimitMemDay(TLimitAmountsPanDay limitAmountsPanDay) {
+	public ResultBean startLimitMemDay(HttpServletRequest request,TLimitAmountsPanDay limitAmountsPanDay) {
 		
 		try {
+			operationLogService.addOperationLog(request, "启用商户累计额数");
 			return limitCardAmtService.startLimitMemDay(limitAmountsPanDay);
 		} catch (Exception e) {
 			return new ResultBean("", "服务器异常，请稍后再试！");
