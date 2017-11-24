@@ -193,7 +193,8 @@ table tr td select {
 					$.messager.alert('提示', "发起批量交易成功");
 				} else if (json.resultBool == false) {
 					$.messager.alert('提示', "发起批量交易失败");
-				}}
+				}
+				}
 			},
 			error : function(){
 				$.messager.alert('提示', '服务异常！');
