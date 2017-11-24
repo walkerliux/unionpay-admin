@@ -177,7 +177,7 @@ public class CheckBillController {
 	public void querySuccessFileBymerch(HttpServletRequest request, String date, HttpServletResponse response) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		String merchno = infoByToken.getUserId().toString();
+		String merchno = infoByToken.getLoginName().toString();
 		if (!StringUtils.isBlank(date)) {
 			date = date.replace("-", "");
 		} else {
