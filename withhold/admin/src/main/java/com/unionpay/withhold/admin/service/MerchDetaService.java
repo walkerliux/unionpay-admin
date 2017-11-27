@@ -1,5 +1,7 @@
 package com.unionpay.withhold.admin.service;
 
+import java.util.List;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
@@ -35,5 +37,7 @@ public interface MerchDetaService {
 	 * @return
 	 */
 	ResultBean commitLogout(TMerchDeta merchDeta);
+	
+	List<TMerchDeta> selectAllMerchDates();
 	
 }
