@@ -132,25 +132,28 @@ table tr td select {
 						<tr style="height: 25px">
 							<td class="update">商户公钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<input type="text" id="memberpubkey" name="memberpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " validType="url" />
-							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " rows="3" cols="81" id="memberpubkey" maxlength="2048" name="memberpubkey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<input type="text" id="memberpubkey" name="memberpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " validType="url" />
+								<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥证书 " rows="3" cols="81" id="memberpubkey" maxlength="2048" name="memberpubkey" style="resize: none;"
+										onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<font color="red">*</font>
 							</td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">平台公钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<input type="text" id="localpubkey" name="localpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台公钥证书 " validType="url" />
-							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台公钥 证书" rows="3" cols="81" id="localpubkey" maxlength="2048" name="localpubkey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<input type="text" id="localpubkey" name="localpubkey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台公钥证书 " validType="url" />
+								<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台公钥 证书" rows="3" cols="81" id="localpubkey" maxlength="2048" name="localpubkey" style="resize: none;"
+										onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<font color="red">*</font>
 							</td>
 						</tr>
 						<tr style="height: 25px">
 							<td class="update">平台私钥证书</td>
 							<td class="update" align="left" colspan="3">
-							<input type="text" id="localprikey" name="localprikey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台私钥证书 " validType="url" />
-							<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台私钥 证书" rows="3" cols="81" id="localprikey" maxlength="2048" name="localprikey" style="resize: none;"
-									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<input type="text" id="localprikey" name="localprikey" maxlength="128" class="easyui-validatebox" required="true" missingMessage="请输入平台私钥证书 " validType="url" />
+								<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台私钥 证书" rows="3" cols="81" id="localprikey" maxlength="2048" name="localprikey" style="resize: none;"
+										onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<font color="red">*</font>
 							</td>
 						</tr>
 						<tr>
