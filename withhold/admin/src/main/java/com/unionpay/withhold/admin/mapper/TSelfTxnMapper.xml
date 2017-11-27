@@ -477,7 +477,7 @@
                            ) AS RESULT,
                            #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno
                       FROM t_txns_log t LEFT JOIN t_self_txn t1 on t.txnseqno=t1.TXNSEQNO
-                      WHERE t.payinst=#{instiid} and t1.TXNSEQNO is null and (substring(t.retcode,-2) = '00' OR t.retcode IS NULL)
+                      WHERE t.payinst=#{instiid} and t1.TXNSEQNO is null and t.retcode = '0000'
   </insert>
   
   <insert id="insertMistake" parameterType="map" >
@@ -515,7 +515,8 @@
 				AND s.merchno=t.merchno
                 AND IFNULL (s.amount, 0) = IFNULL (t.amount, 0)
                 AND s.payordno = t.payordno
-				AND t.status='00') 
+				AND t.status='00'
+				AND s.retcode='0000') 
   </update>
   
   

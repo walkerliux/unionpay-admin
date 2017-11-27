@@ -6,17 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alibaba.druid.util.StringUtils;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.mapper.TLimitMemNumsDayMapper;
 import com.unionpay.withhold.admin.mapper.TRiskMapper;
 import com.unionpay.withhold.admin.pojo.TLimitMemNumsDay;
-import com.unionpay.withhold.admin.pojo.TLimitMemNumsDayExample;
-import com.unionpay.withhold.admin.pojo.TLimitSingleExample;
 import com.unionpay.withhold.admin.pojo.TRisk;
 import com.unionpay.withhold.admin.service.LimitService;
-import com.unionpay.withhold.admin.utils.StringUtil;
 @Service
 @Transactional
 public class LimitServiceImpl implements LimitService {

@@ -17,6 +17,7 @@ import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApplyExample;
+import com.unionpay.withhold.admin.pojo.TMerchDetaExample;
 import com.unionpay.withhold.admin.service.MerchDetaService;
 import com.unionpay.withhold.utils.BeanCopyUtil;
 
@@ -125,6 +126,12 @@ public class MerchDetaServiceImpl implements MerchDetaService {
 			int count = merchDetaApplyMapper.insertSelective(merchDetaApply);
 			return count == 0 ? new ResultBean("", "注销申请提交失败，请稍后再试 ！") : new ResultBean("注销申请已提交成功 ！");
 		}
+	}
+
+	@Override
+	public List<TMerchDeta> selectAllMerchDates() {
+		TMerchDetaExample example = new  TMerchDetaExample();
+		return  merchDetaMapper.selectByExample(example);
 	}
 
 	

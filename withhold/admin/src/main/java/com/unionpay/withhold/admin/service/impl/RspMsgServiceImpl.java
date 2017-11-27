@@ -6,15 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.unionpay.withhold.admin.Bean.ChnlType;
-import com.unionpay.withhold.admin.Bean.ChnlTypeEnum;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TRspmsgMapper;
 import com.unionpay.withhold.admin.pojo.TRspmsg;
 import com.unionpay.withhold.admin.pojo.TRspmsgExample;
 import com.unionpay.withhold.admin.pojo.TRspmsgExample.Criteria;
 import com.unionpay.withhold.admin.service.RspMsgService;
-import com.unionpay.withhold.admin.utils.EnumUtils;
 @Service
 @Transactional
 public class RspMsgServiceImpl implements RspMsgService {
