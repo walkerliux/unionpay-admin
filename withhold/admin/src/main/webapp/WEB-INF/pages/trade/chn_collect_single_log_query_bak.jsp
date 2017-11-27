@@ -44,15 +44,15 @@ table tr td select {
 				<table width="100%">
 					<tr>
 						<td align="right" width="10%">商户号</td>
-						<td align="left" style="padding-left: 5px" width="25%"><input name="merid" id="merid" /></td>
+						<td align="left" style="padding-left: 5px" width="25%"><input name="merid" id="tmerid" /></td>
 						<td align="right" width="10%">交易卡号</td>
-						<td align="left" style="padding-left: 5px" width="15%"><input name="cardno" id="cardno" /></td>
+						<td align="left" style="padding-left: 5px" width="15%"><input name="cardno" id="tcardno" /></td>
 					</tr>
 					
 					<tr>
 						<td align="right" width="10%">定单号</td>
 						<td align="left" style="padding-left: 5px" width="25%">
-						<input name="orderno" id="orderno" /></td>
+						<input name="orderno" id="torderno" /></td>
 						<td align="right" width="10%">交易状态</td>
 						<td style="padding-left: 5px">
 						<!-- <select name="transstat" id="transstat" style="width: 150px">
@@ -61,8 +61,9 @@ table tr td select {
 								<option value="PR09">已拒绝</option>
 								<option value="PR32">逾期退回</option>
 						</select></td>  -->
-						<select id="transstat" name="transstat" style="width: 150px">
-								<option value=''>--请选择交易状态--</option>
+						<select id="ttransstat" name="transstat" style="width: 150px">
+								<option value='1001'>交易成功</option>
+								<option value='0001'>交易失败</option>
 						</select></td>
 					</tr>
 					<tr>
@@ -207,7 +208,7 @@ table tr td select {
 <script>
 	var width = $("#continer").width();
 	$(function() {
-		showStatus();
+		//showStatus();
 		$('#test')
 				.datagrid(
 						{
@@ -276,7 +277,7 @@ table tr td select {
 										} */
 									},
 									{
-										field : 'transstat',
+										field : 'message',
 										title : '交易状态',
 										width : 120,
 										align : 'center'
@@ -305,10 +306,10 @@ table tr td select {
 
 	function search() {
 		var data = {
-			"merid" : $('#merid').val(),
-			"cardno" : $('#cardno').val(),
-			"orderno" : $('#orderno').val(),
-			"transstat" : $('#transstat').val(),
+			"merid" : $('#tmerid').val(),
+			"cardno" : $('#tcardno').val(),
+			"orderno" : $('#torderno').val(),
+			"transstat" : $('#ttransstat').val(),
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')
 		}
@@ -481,18 +482,7 @@ table tr td select {
 			return hour + ":" + minte + ":" + s;
 		}
 	}
-	// 解析状态
-	function analysisStatus(value) {
-		if (value == "PR05") {
-			return "已成功";
-		}
-		if (value == "PR09") {
-			return "已拒绝";
-		}
-		if (value == "PR32") {
-			return "逾期退回";
-		}
-	}
+	
 	// 转换金额格式：分-->元
 	function fenToYuan(value) {
 		var str = (value / 100).toFixed(2) + '';

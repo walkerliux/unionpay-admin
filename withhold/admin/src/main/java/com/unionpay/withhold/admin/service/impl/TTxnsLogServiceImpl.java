@@ -190,8 +190,8 @@ public class TTxnsLogServiceImpl implements TTxnsLogService {
 			tTxnsLogExample.setDayormonth(dayormonth);
 		}
 		if (stime!=null&&etime!=null&&!"".equals(stime)&&!"".equals(etime)) {
-			String startTime = DateTimeReplaceUtil.replace(stime).substring(0,8);
-			String endTime = DateTimeReplaceUtil.replace(etime).substring(0,8);
+			String startTime = DateTimeReplaceUtil.replace(stime);
+			String endTime = DateTimeReplaceUtil.replace(etime);
 			tTxnsLogExample.setStarttime(startTime);
 			tTxnsLogExample.setEndtime(endTime);
 			

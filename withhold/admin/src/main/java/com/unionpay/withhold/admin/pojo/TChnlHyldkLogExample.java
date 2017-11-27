@@ -2388,6 +2388,7 @@ public class TChnlHyldkLogExample {
             this(condition, value, secondValue, null);
         }
     }
+    
     private int pageNum;
 	private int pageSize;
 	private int beginRow;
@@ -2411,4 +2412,62 @@ public class TChnlHyldkLogExample {
 	public void setBeginRow(int beginRow) {
 		this.beginRow = beginRow;
 	}
+	
+	private String merchantid;
+	private String accountno;
+	private String retcode;
+	private String reqsn;
+	private Date stime;
+	private Date etime;
+
+	public String getMerchantid() {
+		return merchantid;
+	}
+
+	public void setMerchantid(String merchantid) {
+		this.merchantid = merchantid;
+	}
+
+	public String getAccountno() {
+		return accountno;
+	}
+
+	public void setAccountno(String accountno) {
+		this.accountno = accountno;
+	}
+
+	public String getRetcode() {
+		return retcode;
+	}
+
+	public void setRetcode(String retcode) {
+		this.retcode = retcode;
+	}
+
+	public String getReqsn() {
+		return reqsn;
+	}
+
+	public void setReqsn(String reqsn) {
+		this.reqsn = reqsn;
+	}
+
+	public Date getStime() {
+		return stime;
+	}
+
+	public void setStime(Date stime) {
+		this.stime = stime;
+	}
+
+	public Date getEtime() {
+		return etime;
+	}
+
+	public void setEtime(Date etime) {
+		this.etime = etime;
+	}
+
+	
+	
 }
