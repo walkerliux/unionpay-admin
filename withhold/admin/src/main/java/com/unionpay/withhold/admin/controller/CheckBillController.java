@@ -31,6 +31,7 @@ import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CheckBillService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.ConfigParamsExcelHeader;
+import com.unionpay.withhold.admin.utils.MapTrans;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 import com.unionpay.withhold.admin.utils.excel.ExcelUtil;
 import com.unionpay.withhold.utils.DateUtil;
@@ -185,15 +186,19 @@ public class CheckBillController {
 		}
 		
 		List<TSelfTxn> failList = checkBillService.queryCheckFileInfo(merchno, date);
+		List<Map<String, Object>> datas=new ArrayList<>();
+		for (TSelfTxn tSelfTxn : failList) {
+			datas.add(MapTrans.transBean2Map(tSelfTxn));
+		}
+		
 		String[] headers = {"txnseqno", "instiid", "payordno", "txndatetime", "busicode", "amount", "pan",
 				"merchno", "paytrcno","acqsettledate", "status","result"};
-		String path =request.getSession().getServletContext().getRealPath("/")+File.separator+merchno+"-"+date+".xls";
-		File file=new File(path);
+		//String path =request.getSession().getServletContext().getRealPath("/")+File.separator+merchno+"-"+date+".xls";
+		//File file=new File(path);
 		try {
 			response.addHeader("Content-Disposition",
 					"attachment;filename=" + new String((merchno+"-"+date+".xls").replaceAll(" ", "").getBytes("utf-8"), "iso8859-1"));
-			response.addHeader("Content-Length", "" + file.length());
-			ExcelUtil.exportExcel(headers, failList,response.getOutputStream() , config.getParams());
+			ExcelUtil.exportExcel(headers, datas,response.getOutputStream() , config.getParams());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
