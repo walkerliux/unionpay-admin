@@ -119,7 +119,7 @@ public class MerchantPortalController {
 		bean.setMchntCd(loginName);
 		// 证书ID
 		//TMerchMk mk= portalService.getCertId(loginName);
-		bean.setCertId("");
+		bean.setCertId("0000");
 		// 签名方式
 		bean.setSignMethod(SignMethod);
 		// 加密证书ID
@@ -204,7 +204,7 @@ public class MerchantPortalController {
 		
 		/**certid*/
 		//TMerchMk certId = portalService.getCertId(loginName);
-		batchCollectBean.setCertId("");
+		batchCollectBean.setCertId("0000");
 		
 		ResultBean resultBean = feapi.batchCollect(JSON.toJSONString(batchCollectBean));
 		return resultBean;
