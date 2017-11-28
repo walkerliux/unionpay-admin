@@ -81,13 +81,13 @@ table tr td select {
 							<td>交易要素</td>
 							<td align="left"><select id="Ttransfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
 							
-							</select></td>
+							</select><font color="red">*</font></td>
 						</tr>
 						<tr style="height: 25px">
 						<td>交易批次号</td>
 						<td align="left"><input type="text" id="batchNo"
 							name="batchNo" class="easyui-validatebox" required="true"
-							maxlength="20" missingMessage="请输入交易批次号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							maxlength="20" missingMessage="请输入交易批次号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></span></td>
 						</tr>
 						
 					</table>
@@ -287,6 +287,24 @@ table tr td select {
 		});
 
 	});
+	function isordernum() {
+		var cardbin = $("#0").val();
+		
+		var masg;
+		var isok = true;
+		if (cardbin != null && !isNaN(cardbin)) {
+
+			$("#order_id").html("");
+		} else {
+			masg = "请输入正确的数值";
+			$("#order_id").css("color", "red");
+
+			isok = false;
+			$("#order_id").html(masg);
+			//$("#order_id,#pan_id,#phone_num,#id_card,#amount").html(masg);
+		}
+		return isok;
+	}
 </script>
 
 </html>

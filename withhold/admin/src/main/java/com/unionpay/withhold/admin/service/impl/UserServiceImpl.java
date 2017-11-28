@@ -145,6 +145,7 @@ public class UserServiceImpl implements UserService {
 		user.setCreateDate(new Date());
 		user.setPwdValid(new Date());
 		user.setStatus("00");
+		user.setIsadmin("0");
 		String value = jedisClient.get(REDIS_USER_CODE_KEY);
 		if (StringUtil.isNull(value)) {
 			jedisClient.set(REDIS_USER_CODE_KEY, REDIS_USER_CODE_START);
@@ -201,6 +202,7 @@ public class UserServiceImpl implements UserService {
 		jedisClient.expire(REDIS_BROWSER_KEY+":"+user.getUserId(), REDIS_SESSION_EXPIRE);
 		//登录者信息
 		jedisClient.set(REDIS_USER_KEY+":"+user.getUserId(), JsonUtils.objectToJson(user));
+		//给ip brower设置过期时间
 		jedisClient.expire(REDIS_USER_KEY+":"+user.getUserId(), REDIS_SESSION_EXPIRE);
 		MyCookieUtils.setCookie(request, response, "eb_token", user.getUserId().toString());
 		
