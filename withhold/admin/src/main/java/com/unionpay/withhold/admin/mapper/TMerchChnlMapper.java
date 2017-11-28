@@ -54,4 +54,5 @@ public interface TMerchChnlMapper {
 	 
 	 List<TMerchChnl> selectupdateByMerchno( @Param("merchno")String merchno, @Param("tid")Integer tid);
 	
+	 int selectCountWithCHO(@Param("record") TMerchChnlWithBLOBs record);
 }

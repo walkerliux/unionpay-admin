@@ -561,4 +561,13 @@
 		AND TID !=#{tid}
 		</if>
   </select>
+  
+  <select id="selectCountWithCHO" resultType="java.lang.Integer">
+		select COUNT(*) 
+		FROM 
+		t_merch_chnl
+		WHERE 
+		CHNLCODE=#{record.chnlcode} AND CHNLMERCNO=#{record.chnlmercno}
+		 AND `STATUS`='00'
+	</select>
 </mapper>

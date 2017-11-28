@@ -465,7 +465,7 @@
   <insert id="insertFromTxnLog" parameterType="map" >
    INSERT INTO t_self_txn (txnseqno, instiid, txndatetime, busicode,
                       amount, pan, merchno, systrcno, paytrcno,
-                      acqsettledate, status, RESULT, checking_id,proid,payordno)
+                      acqsettledate, status, RESULT, checking_id,proid,payordno,retcode)
    			 SELECT t.txnseqno, t.payinst, t.payordfintime AS txndatetime, t.busicode,
                            t.amount, t.pan, t.payfirmerno,t.payrettsnseqno,NULL AS paytrcno,
                            t.accsettledate,'00',
@@ -475,7 +475,7 @@
                                ELSE '00'
                             END
                            ) AS RESULT,
-                           #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno
+                           #{filestartid} AS checking_id ,#{filestartid} AS proid,t.payordno,t.retcode
                       FROM t_txns_log t LEFT JOIN t_self_txn t1 on t.txnseqno=t1.TXNSEQNO
                       WHERE t.payinst=#{instiid} and t1.TXNSEQNO is null and t.retcode = '0000'
   </insert>
