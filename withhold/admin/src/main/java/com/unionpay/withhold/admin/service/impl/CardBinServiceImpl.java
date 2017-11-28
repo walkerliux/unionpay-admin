@@ -10,7 +10,6 @@ import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.mapper.TCardBinMapper;
 import com.unionpay.withhold.admin.pojo.TCardBin;
 import com.unionpay.withhold.admin.pojo.TCardBinExample;
-import com.unionpay.withhold.admin.pojo.TCardBinExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TbankInsti;
 import com.unionpay.withhold.admin.service.CardBinService;
 @Service

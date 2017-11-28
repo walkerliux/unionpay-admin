@@ -4,22 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
-
-
-
-
-
-
-
-
-
 
 import com.unionpay.withhold.admin.Bean.AccRateBean;
 import com.unionpay.withhold.admin.Bean.AccumRateBean;
@@ -28,16 +16,13 @@ import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TRateAccumDetaMapper;
 import com.unionpay.withhold.admin.mapper.TRateAccumMapper;
 import com.unionpay.withhold.admin.mapper.TSpeFeeDetaMapper;
-import com.unionpay.withhold.admin.mapper.TSpeFeeMapper;
 import com.unionpay.withhold.admin.pojo.TRateAccum;
 import com.unionpay.withhold.admin.pojo.TRateAccumDeta;
 import com.unionpay.withhold.admin.pojo.TRateAccumDetaExample;
 import com.unionpay.withhold.admin.pojo.TRateAccumDetaExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TRateAccumExample;
-import com.unionpay.withhold.admin.pojo.TSpeFee;
 import com.unionpay.withhold.admin.pojo.TSpeFeeDeta;
 import com.unionpay.withhold.admin.pojo.TSpeFeeDetaExample;
-import com.unionpay.withhold.admin.pojo.TSpeFeeExample;
 import com.unionpay.withhold.admin.service.FeeService;
 
 @Service

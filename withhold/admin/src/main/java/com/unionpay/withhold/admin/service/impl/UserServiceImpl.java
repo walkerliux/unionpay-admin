@@ -2,17 +2,7 @@ package com.unionpay.withhold.admin.service.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-
-
-
-
-
-
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,13 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
-import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TParaDicMapper;
 import com.unionpay.withhold.admin.mapper.TUserMapper;

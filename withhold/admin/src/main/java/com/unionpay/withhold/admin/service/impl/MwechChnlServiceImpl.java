@@ -1,17 +1,14 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
-import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.mapper.TMerchChnlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
