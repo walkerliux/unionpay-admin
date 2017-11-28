@@ -91,21 +91,21 @@ table tr td select {
 							<td>用户名称</td>
 							<td align="left"><input type="text" id="user_name"
 								name="userName" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入用户名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+								maxlength="20" missingMessage="请输入用户名称" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>登录账号</td>
 							<td align="left"><input type="text" id="user_loginName"
 								name="loginName" class="easyui-validatebox" required="true"
-								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
-							<td>用户类型</td>
+								maxlength="32" missingMessage="请输入登录账号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
+							<!-- <td>用户类型</td>
 							<td align="left"><select id="user_isadmin"
 								class="easyui-validatebox" required="true" name="isadmin"
 								missingMessage="请选择用户类型">
 									<option value=''>--请选择用户类型--</option>
 									<option value='1'>管理员</option>
 									<option value='0'>普通用户</option>
-							</select></td>
+							</select></td> -->
 							
 						</tr>
 						<!-- <tr style="height: 25px">
@@ -242,7 +242,7 @@ table tr td select {
 				url:'user/query',
 				remoteSort: false,
 				columns:[[
-					{field:'isadmin',title:'用户类型',align:'center',width:150,
+					/* {field:'isadmin',title:'用户类型',align:'center',width:150,
 						formatter:function(value, row) { 
 							if(value=="1"){
 								return "管理员";
@@ -251,7 +251,8 @@ table tr td select {
 								return "普通用户";
 							}
 						}
-					},
+					}, */
+					{field:'roleName',title:'用户角色',align:'center',width:150},
 					{field:'userName',title:'用户名称',align:'center',width:150},
 					{field:'userCode',title:'用户代码',width:100,align:'center'},
 					{field:'loginName',title:'登陆账号',width:180,align:'center'},
@@ -556,19 +557,31 @@ table tr td select {
 	    	var scopes = document.myForm.scope;
 	    	var scopenum = scopes.options.length;
 	    	var selectIndexs = scopes.selectedIndex;
-	    	for(var j = 0; j < scopenum; j ++){
-	    		var scope = scopes.options[j];
-	    		if(scope.selected == true){
-	    			if(str.indexOf(scope.value) == -1){ 
-	    				var scopeHtml = scope.innerHTML;
-	    				selectScopes.options.add(new Option(scopeHtml , scope.value));
-	    			}else{
-					    alert("请不要重复选择！");
-					}		
-	    		}    
-	    	}
-	    }
-	     
+	    	if(str.length==0){
+	    		for(var j = 0; j < scopenum; j ++){
+	    			var scope = scopes.options[j];
+	    			if(scope.selected == true){
+	    				if(str.indexOf(scope.value) == -1){ 
+	    					var scopeHtml = scope.innerHTML;
+	    					selectScopes.options.add(new Option(scopeHtml , scope.value));
+	    				}else{
+					    	alert("请不要重复选择！");
+						}		
+	    			}    
+	    		}
+	    	}else{
+	    		for(var j = 0; j < scopenum; j ++){
+	    			var scope = scopes.options[j];
+	    			if(scope.selected == true){
+	    				if(str.indexOf(scope.value) == -1){ 
+	    					 $.messager.alert('提示',"一个用户只能配置一个角色!");
+	    				}else{
+	    				 	$.messager.alert('提示',"请不要重复选择！");
+						}		
+	    			}    
+	    		}
+	   	 	}
+		} 
 	    function delSelect2(){
 	    	var selectScopes = document.myForm.selectScopes;
 	    	for(var i = 0; i < selectScopes.options.length; i ++){
@@ -730,9 +743,5 @@ table tr td select {
 			return userFunction;
 		}
 	</script>
-	
-<!--
 
-//-->
-</script>
 </html>

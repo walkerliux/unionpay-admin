@@ -358,13 +358,15 @@
   <!-- 自关联查询 -->
   <select id="selectByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TUserExample" >
     SELECT
-	a.*, b.USER_NAME creatorName
+	a.*, b.USER_NAME creatorName,d.ROLE_NAME roleName
     <if test="distinct" >
       distinct
     </if>
     FROM
 	t_user a
 	LEFT JOIN t_user b on b.USER_ID = a.CREATOR 
+	LEFT JOIN t_user_role c on c.USER_ID=a.USER_ID
+	LEFT JOIN t_role d on d.ROLE_ID=c.ROLE_ID
 	where 1=1
     <if test="userName != null" >
       and a.USER_NAME=#{userName}

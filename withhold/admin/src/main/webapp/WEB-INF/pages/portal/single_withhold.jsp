@@ -60,7 +60,7 @@ table tr td select {
 						<td align="right">商户订单号</td>
 						<td align="left" style="padding-left: 5px"><input
 							name="orderId" id="0" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入商户订单号" onkeyup="isordernum()"/><span id="order_id"></span></td>
+								maxlength="20" missingMessage="请输入商户订单号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
 						<td align="right">交易要素</td>
 							<td class="right" align="left">
 							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="factorId"/>
@@ -70,32 +70,32 @@ table tr td select {
 					<tr >
 						<td align="right" class="6">银行卡号</td>
 						<td align="left" style="padding-left: 5px"><input
-							class="6" name="priAcctId" id="6" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入银行卡号" onkeyup="ispan()"/><span id="pan_id"></span></td>
+							class="6" name="priAcctId" id="6"  class="easyui-validatebox" required="true"
+							type="text"	maxlength="20" missingMessage="请输入银行卡号" validtype="number"/><font color="red">*</font></td>
 					</tr>			
 					<tr >	
 						<td align="right" class="2">姓名</td>
 						<td align="left" style="padding-left: 5px"><input
-							class="2" name="name" id="2" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入持卡人姓名" onkeyup="value=value.replace(/<[^<]+>/g,'')"/></td>
+							class="2" name="name" id="2"  class="easyui-validatebox" required="true"
+							type="text"	maxlength="10" missingMessage="请输入持卡人姓名" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
 					</tr>	
 					<tr>
 						<td align="right"  class='3'>手机号</td>
 						<td align="left" style="padding-left: 5px"><input
-							class="3" name="phone" id="3" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入手机号" onkeyup="isphone()"/><span id="phone_num"></span></td>
+							type="text" class="3" name="phone" id="3"  class="easyui-validatebox" required="true"
+								maxlength="11" missingMessage="请输入手机号" validtype="mobile"/><font color="red">*</font></td>
 					</tr>			
 					<tr >		
 						<td align="right" class="4">身份证号</td>
 						<td align="left" style="padding-left: 5px"><input
-							class='4' name="idCard" id="4" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入身份证号" onkeyup="isId()"/><span id="id_card"></span></td>
+							type="text" class='4' name="idCard" id="4" class="easyui-validatebox" required="true"
+								maxlength="18" missingMessage="请输入身份证号" validtype="idcard"/><font color="red">*</font></td>
 					</tr>
 					<tr >
 						<td align="right" name="5">交易金额(元)</td>
 						<td align="left" style="padding-left: 5px"><input
-							 name="transAt" id="5" maxlength="64" class="easyui-validatebox" required="true"
-								maxlength="20" missingMessage="请输入交易金额" onkeyup="money()"/><span id="amount"></span></td>
+							 name="transAt" id="5"  class="easyui-validatebox" required="true"
+							type="text"	maxlength="20" missingMessage="请输入交易金额" validtype="money"/><font color="red">*</font></td>
 
 					</tr>		
 					</table>
@@ -168,80 +168,8 @@ table tr td select {
 
 			});
 	});
-	//验证
-	function isordernum() {
-		var cardbin = $("#0").val();
-		
-		var masg;
-		var isok = true;
-		if (cardbin != null && !isNaN(cardbin)) {
-
-			$("#order_id").html("");
-		} else {
-			masg = "请输入正确的数值";
-			$("#order_id").css("color", "red");
-
-			isok = false;
-			$("#order_id").html(masg);
-			//$("#order_id,#pan_id,#phone_num,#id_card,#amount").html(masg);
-		}
-		return isok;
-	}
-	function ispan() {
-		var cardbin = $("#6").val();
-		
-		var masg;
-		var isok = true;
-		if (cardbin != null && !isNaN(cardbin)) {
-
-			$("#pan_id").html("");
-		} else {
-			masg = "请输入正确的数值";
-			$("#pan_id").css("color", "red");
-
-			isok = false;
-			$("#pan_id").html(masg);
-			//$("#order_id,#pan_id,#phone_num,#id_card,#amount").html(masg);
-		}
-		return isok;
-	}
-	function isphone() {
-		var cardbin = $("#3").val();
-		
-		var masg;
-		var isok = true;
-		if (cardbin != null && !isNaN(cardbin)) {
-
-			$("#phone_num").html("");
-		} else {
-			masg = "请输入正确的数值";
-			$("#phone_num").css("color", "red");
-
-			isok = false;
-			$("#phone_num").html(masg);
-			//$("#order_id,#pan_id,#phone_num,#id_card,#amount").html(masg);
-		}
-		return isok;
-	}
-	function isId() {
-		var cardbin = $("#4").val();
 	
-		var masg;
-		var isok = true;
-		if (cardbin != null && !isNaN(cardbin)) {
-
-			$("#id_card").html("");
-		} else {
-			masg = "请输入正确的数值";
-			$("#id_card").css("color", "red");
-
-			isok = false;
-			$("#id_card").html(masg);
-			//$("#order_id,#pan_id,#phone_num,#id_card,#amount").html(masg);
-		}
-		return isok;
-	}
-	function money() {
+	function ismoney() {
 		var cardbin = $("#5").val();
 		
 		var masg;
@@ -259,5 +187,54 @@ table tr td select {
 		}
 		return isok;
 	}
+	
+	 $(function() {
+		//设置text需要验证
+		$('input[type=text]').validatebox();
+		//18.验证数字
+		$.extend($.fn.validatebox.defaults.rules, {
+			//验证数字
+			number : {
+				validator : function(value, param) {
+					return /^[0-9]+.?[0-9]*$/.test(value);
+				},
+				message : '请输入数字卡号'
+			},
+			//.移动手机号码验证
+			mobile : {
+				//value值为文本框中的值
+				validator : function(value) {
+					var reg = /^1[3|4|5|8|9]\d{9}$/;
+					return reg.test(value);
+				},
+				message : '输入手机号码格式不准确'
+			},
+			//验证身份证
+			idcard : {// 验证身份证
+				validator : function(value) {
+					return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
+				},
+				message : '身份证号码格式不正确'
+			},
+			name: {
+				validator: function (value) {
+				return /^[\Α-\￥]+$/i.test(value) | /^\w+[\w\s]+\w+$/i.test(value);
+				},
+				message: '请输入中文/英文姓名'
+				},
+			money:{//
+				validator: function (value) {
+					return /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/.test(value);
+				},
+				message: '请输入正确格式的金额(小数位最多两位)'
+				},
+			pan:{
+				validator: function (value) {
+					return /^(\d{16}|\d{19})$/;
+				},
+				message: '请输入银行卡号'
+				},
+		});
+	}) 
 </script>
 </html>

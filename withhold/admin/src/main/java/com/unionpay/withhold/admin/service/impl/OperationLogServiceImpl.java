@@ -57,6 +57,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 		int total = tOperationLogMapper.countByExample(operationLogExample);
 		operationLogExample.setPageNum(page);
 		operationLogExample.setPageSize(rows);
+		operationLogExample.setOrderByClause("LOG_ID DESC");
 		List<TOperationLog> list = tOperationLogMapper.selectByExample(operationLogExample);
 		
 		return new PageBean(total, list);

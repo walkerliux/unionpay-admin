@@ -18,11 +18,11 @@ public class RoleServiceImpl implements RoleService {
 	@Autowired
 	private TRoleMapper tRoleMapper;
 	@Override
-	public List<TRole> findByProperty(String string) {
+	public List<TRole> findByProperty(String status) {
 		TRoleExample tRoleExample = new TRoleExample();
 		Criteria criteria = tRoleExample.createCriteria();
 		
-		criteria.andStatusEqualTo(string);
+		criteria.andStatusEqualTo(status);
 		List<TRole> result = tRoleMapper.selectByExample(tRoleExample);
 		return result;
 	}
