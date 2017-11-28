@@ -168,4 +168,76 @@
    <select id="getCPbaktradeStatus" resultMap="BaseResultMap">
    select a.TRANSSTAT,a.MESSAGE from t_chnl_cpdk_log_bak a GROUP BY a.TRANSSTAT
    </select>
+    <!-- CHINAPAY交易条件查询 -->
+  <select id="selectCPByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
+    SELECT a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM t_chnl_cpdk_log a WHERE 1=1
+    
+    <if test="merid != null" >
+     and a.MERID=#{merid}
+    </if>
+    <if test="cardno!=null">
+	and a.CARDNO=#{cardno}
+	</if>
+	 <if test="orderno!=null">
+	and a.ORDERNO=#{orderno}
+	</if>
+	<if test='transstat==null or transstat =="1001"'>
+	and a.TRANSSTAT ='1001'
+	</if>
+	<if test='transstat!=null and transstat !="1001"'>
+	and a.TRANSSTAT !='1001'
+	</if> 
+	<if test="stime!=null">
+	and a.INTIME &gt;=#{stime}
+	</if>
+	<if test="etime!=null">
+	and a.INTIME &lt;#{etime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
+    <!-- CHINAPAY历史交易条件查询 -->
+  <select id="selectCPBakByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
+    SELECT a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM t_chnl_cpdk_log_bak a WHERE 1=1
+    
+    <if test="merid != null" >
+     and a.MERID=#{merid}
+    </if>
+    <if test="cardno!=null">
+	and a.CARDNO=#{cardno}
+	</if>
+	 <if test="orderno!=null">
+	and a.ORDERNO=#{orderno}
+	</if>
+	<if test='transstat==null or transstat =="1001"'>
+	and a.TRANSSTAT ='1001'
+	</if>
+	<if test='transstat!=null and transstat !="1001"'>
+	and a.TRANSSTAT !='1001'
+	</if> 
+	<if test="stime!=null">
+	and a.INTIME &gt;=#{stime}
+	</if>
+	<if test="etime!=null">
+	and a.INTIME &lt;#{etime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
 </mapper>

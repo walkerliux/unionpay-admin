@@ -52,7 +52,7 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="15%">
 						<select name="retcode"
 							id="retcode" style="width: 150px">
-								<option value="">--请选择订单状态--</option>
+								<!-- <option value="">--请选择订单状态--</option> -->
 								<option value="0000">成功</option>
 								<option value="01">失败</option>
 						</select></td>
@@ -62,12 +62,12 @@ table tr td select {
 						 <td align="right" width="15%">开始时间</td>
 						<td align="left" style="padding-left: 5px" width="25%">
 							<input id="stime" name="stime" type="text"
-							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+							style="width: 120PX"   class="easyui-datebox" data-options="showSeconds:true" ></input> 
 						</td> 
 						 <td align="right" width="15%">截止时间</td>
 						 <td align="left" style="padding-left: 5px" width="25%">
 						 	<input id="etime" name="etime" type="text"
-							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+							style="width: 120PX"   class="easyui-datebox" data-options="showSeconds:true" ></input> 
 						<td></td>
 						<td align="right" width="10%"></td>
 						<!-- <td align="left" style="padding-left: 5px" width="15%"></td> -->
@@ -281,13 +281,17 @@ table tr td select {
 										{field:'accsecmerno',title:'系统商户',width:180,align:'center'},
 										{field:'memberName',title:'商户名称',width:144,align:'center'},
 										{field:'accordno',title:'商户订单',width:144,align:'center'},
-										{field:'paysecmerno',title:'外部商户号',width:146,align:'center'},
+										{field:'payfirmerno',title:'外部商户号',width:146,align:'center'},
 										{field:'payinst',title:'通道号',width:90,align:'center',},
 										{field:'chnlname',title:'通道名称',width:148,align:'center'},
 										{field:'payordno',title:'通道订单',width:200,align:'center'},
 										{field:'accfirmerno',title:'渠道号',width:100,align:'center'},
 										{field:'caname',title:'渠道名称',width:152,align:'center',},
-										{field:'retdatetime',title:'交易时间',width:100,align:'center'},
+										{field:'retdatetime',title:'交易时间',width:100,align:'center',
+											formatter : function(value, rec) {
+												return changeDateTime(rec.retdatetime);
+											}	
+										},
 										{field:'retcode',title:'交易状态码',width:100,align:'center'},
 										{field:'tradeelement',title:'交易要素 ',width:158,align:'center',
 											formatter : function(value, rec) {

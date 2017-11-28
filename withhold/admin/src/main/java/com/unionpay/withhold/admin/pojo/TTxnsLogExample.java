@@ -5008,6 +5008,9 @@ public class TTxnsLogExample {
 	}
     
     /*条件添加*/
+	private String txnseqno;
+	private String accordno;
+	private String payordno;
     private String accsecmerno;//商户号
     private String apporderstatus;
     private String pan;
@@ -5104,4 +5107,29 @@ public class TTxnsLogExample {
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
 	}
+
+	public String getTxnseqno() {
+		return txnseqno;
+	}
+
+	public void setTxnseqno(String txnseqno) {
+		this.txnseqno = txnseqno;
+	}
+
+	public String getAccordno() {
+		return accordno;
+	}
+
+	public void setAccordno(String accordno) {
+		this.accordno = accordno;
+	}
+
+	public String getPayordno() {
+		return payordno;
+	}
+
+	public void setPayordno(String payordno) {
+		this.payordno = payordno;
+	}
+	
 }

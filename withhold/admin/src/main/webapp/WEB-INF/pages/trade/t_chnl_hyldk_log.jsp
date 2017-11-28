@@ -62,7 +62,8 @@ table tr td select {
 								<option value="PR32">逾期退回</option>
 						</select></td> --> 
 						<select id="ret_code" name="retcode" style="width: 150px">
-								<option value=''>--请选择交易状态--</option>
+								<option value="0000"> 交易成功</option>
+								<option value="0001">交易失败</option>
 						</select></td>
 					</tr>
 					<tr>
@@ -204,7 +205,7 @@ table tr td select {
 <script>
 	var width = $("#continer").width();
 	$(function() {
-		showStatus();
+		//showStatus();
 		$('#test')
 				.datagrid(
 						{
@@ -481,18 +482,7 @@ table tr td select {
 			  return ""; 
 			} 
 	}
-	// 解析状态
-	function analysisStatus(value) {
-		if (value == "PR05") {
-			return "已成功";
-		}
-		if (value == "PR09") {
-			return "已拒绝";
-		}
-		if (value == "PR32") {
-			return "逾期退回";
-		}
-	}
+	
 	// 转换金额格式：分-->元
 	function fenToYuan(value) {
 		var str = (value / 100).toFixed(2) + '';

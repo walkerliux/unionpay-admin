@@ -179,12 +179,25 @@
   <!-- 实时核心流水统计查询 -->
   <select id="countByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_log a where 1=1
+    <if test="payordno!=null">
+	and a.PAYORDNO=#{payordno}
+	</if>
+	<if test="accordno!=null">
+	and a.ACCORDNO=#{accordno}
+	</if>
+	<if test="txnseqno!=null">
+	and a.TXNSEQNO=#{txnseqno}
+	</if>
+	
     <if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test="apporderstatus!=null">
-	and a.APPORDERSTATUS=#{apporderstatus}
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
@@ -210,12 +223,25 @@
 	 t_txns_log a
 	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
 	 where 1=1
+	<if test="payordno!=null">
+	and a.PAYORDNO=#{payordno}
+	</if>
+	<if test="accordno!=null">
+	and a.ACCORDNO=#{accordno}
+	</if>
+	<if test="txnseqno!=null">
+	and a.TXNSEQNO=#{txnseqno}
+	</if>
+	
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test="apporderstatus!=null">
-	and a.APPORDERSTATUS=#{apporderstatus}
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
@@ -237,12 +263,24 @@
 <!-- 历史核心流水查询 -->
 	<select id="countHistoryByMyExample" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" resultType="java.lang.Integer" >
     select count(*) from t_txns_log_bak a where 1=1
+    <if test="payordno!=null">
+	and a.PAYORDNO=#{payordno}
+	</if>
+	<if test="accordno!=null">
+	and a.ACCORDNO=#{accordno}
+	</if>
+	<if test="txnseqno!=null">
+	and a.TXNSEQNO=#{txnseqno}
+	</if>
     <if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test="apporderstatus!=null">
-	and a.APPORDERSTATUS=#{apporderstatus}
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
@@ -267,12 +305,24 @@
 	 t_txns_log_bak a
 	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
 	 where 1=1
+	<if test="payordno!=null">
+	and a.PAYORDNO=#{payordno}
+	</if>
+	<if test="accordno!=null">
+	and a.ACCORDNO=#{accordno}
+	</if>
+	<if test="txnseqno!=null">
+	and a.TXNSEQNO=#{txnseqno}
+	</if>
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test="apporderstatus!=null">
-	and a.APPORDERSTATUS=#{apporderstatus}
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
 	<if test="pan!=null">
 	and a.PAN=#{pan}
 	</if>
@@ -315,18 +365,18 @@
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.ACCSECMERNO
@@ -355,18 +405,18 @@
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
 	
-  	 <if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+  	 <if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	  	 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.ACCSECMERNO
@@ -396,18 +446,18 @@ SELECT
 	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	
-  	 <if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+  	 <if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	  	 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.ACCFIRMERNO
@@ -418,7 +468,7 @@ SELECT
    	a.ACCFIRMERNO,
 	b.CANAME caname,
 	COUNT(a.ACCFIRMERNO) total,
-	SUM(a.AMOUNT) amout,
+	SUM(a.AMOUNT) amount,
 	sum(a.TXNFEE) txnfee,
 	sum(a.CHNLFEE) chnlfee,
 	sum(a.COOPFEE) coopfee
@@ -436,18 +486,18 @@ SELECT
 	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	
-  	 <if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+  	 <if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	  	 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.ACCFIRMERNO
@@ -477,18 +527,18 @@ SELECT
 	and a.PAYINST=#{payinst}
 	</if>
 	
-  	 <if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+  	 <if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	  	 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.PAYINST
@@ -500,7 +550,7 @@ SELECT
 	a.PAYINST,
 	b.CHNLNAME chnlname,
 	COUNT(a.PAYINST) total,
-	SUM(a.AMOUNT) amout,
+	SUM(a.AMOUNT) amount,
 	sum(a.TXNFEE) txnfee,
 	sum(a.CHNLFEE) chnlfee,
 	sum(a.COOPFEE) coopfee
@@ -518,18 +568,18 @@ SELECT
 	and a.PAYINST=#{payinst}
 	</if>
 	
-  	 <if test='retcode!=null and retcode =="0000"'>
-	and a.RETCODE =#{retcode}
+  	 <if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
 	and a.RETCODE !='0000'
 	</if> 
 	  	 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	GROUP BY
 	a.PAYINST
@@ -571,10 +621,10 @@ SELECT
 	and a.RETCODE !='0000'
 	</if> 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	<if test='beginRow!="-1" and pageSize!="0"'>
 	limit #{beginRow},#{pageSize}
@@ -616,10 +666,10 @@ SELECT
 	and a.RETCODE !='0000'
 	</if> 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	<if test='beginRow!="-1" and pageSize!="0"'>
 	limit #{beginRow},#{pageSize}
@@ -661,10 +711,10 @@ SELECT
 	and a.RETCODE !='0000'
 	</if> 
 	<if test="starttime!=null">
-	and a.RETDATETIME &gt;=#{starttime}
+	and a.TXNDATE &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
-	and a.RETDATETIME &lt;#{endtime}
+	and a.TXNDATE &lt;#{endtime}
 	</if>
 	<if test='beginRow!="-1" and pageSize!="0"'>
 	limit #{beginRow},#{pageSize}

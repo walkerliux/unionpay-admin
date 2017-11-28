@@ -640,4 +640,76 @@
   <select id="getHYLTtradeStatus" resultMap="BaseResultMap" >
     SELECT b.retcode,b.errmsg from t_chnl_hyldk_log b GROUP BY b.retcode
   </select>
+  <!-- 好易联实时交易条件查询 -->
+  <select id="selectByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
+    SELECT a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM t_chnl_hyldk_log a WHERE 1=1
+    
+    <if test="merchantid != null" >
+     and a.MERCHANTID=#{merchantid}
+    </if>
+    <if test="accountno!=null">
+	and a.ACCOUNTNO=#{accountno}
+	</if>
+	 <if test="reqsn!=null">
+	and a.REQSN=#{reqsn}
+	</if>
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	<if test="stime!=null">
+	and a.INTIME &gt;=#{stime}
+	</if>
+	<if test="etime!=null">
+	and a.INTIME &lt;#{etime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
+   <!-- 好易联历史交易条件查询 -->
+  <select id="selectHYLBakByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
+    SELECT a.* 
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM t_chnl_hyldk_log_bak a WHERE 1=1
+    
+    <if test="merchantid != null" >
+     and a.MERCHANTID=#{merchantid}
+    </if>
+    <if test="accountno!=null">
+	and a.ACCOUNTNO=#{accountno}
+	</if>
+	 <if test="reqsn!=null">
+	and a.REQSN=#{reqsn}
+	</if>
+	<if test='retcode==null or retcode =="0000"'>
+	and a.RETCODE ='0000'
+	</if>
+	<if test='retcode!=null and retcode !="0000"'>
+	and a.RETCODE !='0000'
+	</if> 
+	<if test="stime!=null">
+	and a.INTIME &gt;=#{stime}
+	</if>
+	<if test="etime!=null">
+	and a.INTIME &lt;#{etime}
+	</if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
 </mapper>

@@ -47,20 +47,27 @@ table tr td select {
 						<td align="right" width="10%">商户号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="accsecmerno" id="accsecmerno" maxlength="32" /></td>
+						<td align="right" width="10%">商户订单号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="accordno" id="accordno" maxlength="32" /></td>
+						<td align="right" width="10%">支付订单号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="payordno" id="payordno" maxlength="32" /></td>
+					</tr>
+					<tr>
+						<td align="right" width="10%">交易序列号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="txnseqno" id="txnseqno" maxlength="32" /></td>
 						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input
 							name="pan" id="pan" maxlength="32" /></td>
 					</tr>
 					<tr>
 						<td align="right" width="10%">交易状态</td>
-						<td style="padding-left: 5px"><select name="apporderstatus"
-							id="apporderstatus" style="width: 150px">
-								<option value="">--请选择订单状态--</option>
-								<option value="00">支付成功</option>
-								<option value="01">订单提交成功,但未支付</option>
-								<option value="02">支付中</option>
-								<option value="03">支付失败</option>
-								<option value="04">订单失效</option>
+						<td style="padding-left: 5px"><select name="retcode"
+							id="retcode" style="width: 150px">
+								<option value="0000"> 交易成功</option>
+								<option value="0001">交易失败</option>
 						</select></td>
 						<td align="right" width="10%">交易渠道
 						<td colspan="1" style="padding-left: 5px"><select name="accfirmerno" id="accfirmerno" style="width:150px">
@@ -181,7 +188,7 @@ table tr td select {
 						<td></td>
 					</tr>
 					<tr>
-						<td colspan="4" class="head-title">渠道方信息</td>
+						<td colspan="4" class="head-title">通道方信息</td>
 					</tr>
 					<tr>
 						<td>订单号</td>
@@ -203,7 +210,7 @@ table tr td select {
 						<td id="tpayretinfo"></td>
 					</tr>
 					<tr>
-						<td>渠道名称</td>
+						<td>通道名称</td>
 						<td id="tpayinst"></td>
 						<td></td>
 						<td></td>
@@ -348,24 +355,7 @@ table tr td select {
 							return changeDate(rec.txndate+rec.txntime);
 						}
 					},
-					{field:'apporderstatus',title:'交易状态',width:120,align:'center',
-						formatter : function(value, rec) {
-							if (rec.apporderstatus == "00") {
-								return "支付成功";
-							} 
-							if (rec.apporderstatus == "01") {
-								return "订单提交成功,但未支付";
-							} 
-							if (rec.apporderstatus == "02") {
-								return "支付中";
-							} 
-							if (rec.apporderstatus == "03") {
-								return "支付失败";
-							} 
-							if (rec.apporderstatus == "04") {
-								return "订单失效";
-							} 
-						}
+					{field:'retinfo',title:'交易状态',width:120,align:'center'
 					},
 					{field:'TXNSEQNO_OG',title:'操作',width:100,align:'center',
 					formatter:function(value,rec){
@@ -399,6 +389,7 @@ table tr td select {
 				}}
 			});
 		}
+		
 
 	
 		function getStatus(value){
@@ -424,10 +415,12 @@ table tr td select {
 			"accfirmerno":$('#accfirmerno').val(),
 			"pan":$('#pan').val(),
 			"accsecmerno":$('#accsecmerno').val(),
- 			"apporderstatus":$('#apporderstatus').val(),
+ 			"retcode":$('#retcode').val(),
 			"stime":$('#stime').datebox('getValue'),
 			"etime":$('#etime').datebox('getValue'), 
-			
+			"accordno":$('#accordno').val(),
+			"payordno":$('#payordno').val(),
+			"txnseqno":$('#txnseqno').val(),
 		}
 			$('#test').datagrid('load',data);
 		}

@@ -29,4 +29,10 @@ public interface TChnlHyldkLogMapper {
     int updateByPrimaryKey(TChnlHyldkLog record);
 
 	List<TChnlHyldkLog> getHYLTtradeStatus();
+
+	List<TChnlHyldkLog> selectByMyExample(
+			TChnlHyldkLogExample tChnlHyldkLogExample);
+
+	List<TChnlHyldkLog> selectHYLBakByMyExample(
+			TChnlHyldkLogExample tChnlHyldkLogExample);
 }
