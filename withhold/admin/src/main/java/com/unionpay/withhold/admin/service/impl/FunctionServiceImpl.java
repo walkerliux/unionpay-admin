@@ -1,9 +1,7 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,11 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.mapper.TFunctionMapper;
 import com.unionpay.withhold.admin.mapper.TUserFunctMapper;
 import com.unionpay.withhold.admin.pojo.TFunction;
-import com.unionpay.withhold.admin.pojo.TFunctionExample;
-import com.unionpay.withhold.admin.pojo.TFunctionExample.Criteria;
 import com.unionpay.withhold.admin.pojo.TUser;
-import com.unionpay.withhold.admin.pojo.TUserFunct;
-import com.unionpay.withhold.admin.pojo.TUserFunctExample;
 import com.unionpay.withhold.admin.service.FunctionService;
 @Service
 @Transactional

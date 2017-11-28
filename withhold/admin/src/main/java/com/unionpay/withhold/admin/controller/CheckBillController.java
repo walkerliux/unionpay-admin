@@ -14,6 +14,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.unionpay.withhold.admin.Bean.FtpBean;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
@@ -29,8 +31,10 @@ import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.CheckBillService;
+import com.unionpay.withhold.admin.service.FtpService;
 import com.unionpay.withhold.admin.service.UserService;
 import com.unionpay.withhold.admin.utils.ConfigParamsExcelHeader;
+import com.unionpay.withhold.admin.utils.FTPUtilsForJob;
 import com.unionpay.withhold.admin.utils.MapTrans;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 import com.unionpay.withhold.admin.utils.excel.ExcelUtil;
@@ -47,6 +51,10 @@ public class CheckBillController {
 
 	@Autowired
 	private ConfigParamsExcelHeader config;
+	
+	@Autowired
+	private FtpService ftpService;
+	
 	@RequestMapping("toResult")
 	public String index() {
 		return "/checkinfo/file_start";
@@ -179,6 +187,7 @@ public class CheckBillController {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
 		String merchno = infoByToken.getLoginName().toString();
+		merchno="200000000001588";
 		if (!StringUtils.isBlank(date)) {
 			date = date.replace("-", "");
 		} else {
@@ -193,11 +202,30 @@ public class CheckBillController {
 		
 		String[] headers = {"txnseqno", "instiid", "payordno", "txndatetime", "busicode", "amount", "pan",
 				"merchno", "paytrcno","acqsettledate", "status","result"};
-		//String path =request.getSession().getServletContext().getRealPath("/")+File.separator+merchno+"-"+date+".xls";
-		//File file=new File(path);
+		String dirpath = request.getSession().getServletContext().getRealPath("/")+File.separator+"checkbillfile";
+		File dir=new File(dirpath);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		String filename=File.separator+merchno+"-"+date+".xls";
+		String path =dirpath+filename;
+		File file=new File(path);
+		FtpBean ftpBean=ftpService.getFtpBean();
 		try {
+			OutputStream outputStream=new FileOutputStream(file);
+			ExcelUtil.exportExcel(headers, datas,outputStream, config.getParams());
+			InputStream inputStream=new FileInputStream(file);
+			FTPUtilsForJob.uploadFile(ftpBean.getIp(), Integer.valueOf(ftpBean.getPort()), ftpBean.getUsers(), ftpBean.getPwd(), "", "checkbillfiles/", filename, inputStream);
 			response.addHeader("Content-Disposition",
 					"attachment;filename=" + new String((merchno+"-"+date+".xls").replaceAll(" ", "").getBytes("utf-8"), "iso8859-1"));
+			ExcelUtil.exportExcel(headers, datas,response.getOutputStream(), config.getParams());
+			inputStream.close();
+			outputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			FileUtils.deleteDirectory(dir);
 			ExcelUtil.exportExcel(headers, datas,response.getOutputStream() , config.getParams());
 		} catch (IOException e) {
 			e.printStackTrace();

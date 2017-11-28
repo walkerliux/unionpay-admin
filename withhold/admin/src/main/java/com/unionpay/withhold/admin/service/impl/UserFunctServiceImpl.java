@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.mapper.TUserFunctMapper;
-import com.unionpay.withhold.admin.pojo.TRoleFunct;
 import com.unionpay.withhold.admin.pojo.TUserFunct;
 import com.unionpay.withhold.admin.pojo.TUserFunctExample;
 import com.unionpay.withhold.admin.pojo.TUserFunctExample.Criteria;

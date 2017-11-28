@@ -144,6 +144,15 @@ public class TUser {
     }
     //添加creatName
     private String creatorName;
+    private String roleName;
+    
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 
 	public String getCreatorName() {
 		return creatorName;

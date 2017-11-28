@@ -85,7 +85,7 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			TUser user = new TUser();
 			user.setUserName(merchDetaApply.getMemberName());
 			user.setLoginName(merchDetaApply.getMemberId());
-			user.setIsadmin(CommonConstants.USER_TYPE_COMMON);
+			// user.setIsadmin(CommonConstants.USER_TYPE_COMMON);
 			user.setCreator(merchDetaApply.getInUser().toString());
 			user.setNotes("注册商户时初始化用户");
 			userService.saveUser(user);

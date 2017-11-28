@@ -5,18 +5,21 @@ import java.net.NetworkInterface;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TOperationLogMapper;
 import com.unionpay.withhold.admin.pojo.TOperationLog;
 import com.unionpay.withhold.admin.pojo.TOperationLogExample;
-import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TOperationLogExample.Criteria;
+import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.utils.JsonUtils;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
@@ -54,6 +57,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 		int total = tOperationLogMapper.countByExample(operationLogExample);
 		operationLogExample.setPageNum(page);
 		operationLogExample.setPageSize(rows);
+		operationLogExample.setOrderByClause("LOG_ID DESC");
 		List<TOperationLog> list = tOperationLogMapper.selectByExample(operationLogExample);
 		
 		return new PageBean(total, list);
