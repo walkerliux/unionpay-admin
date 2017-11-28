@@ -30,9 +30,20 @@ public interface MerchChnlService {
 	 */
 	TMerchChnlWithBLOBs querydateMerchDChnlById(Integer tid);
 	
-	
+	/**
+	 * 增加通道信息
+	 * @param merchChnl
+	 * @return
+	 */
 	ResultBean addMerchChnl(TMerchChnlWithBLOBs merchChnl);
-	
+	/**
+	 * 查询商户通道信息
+	 * @param merchDeta
+	 * @param chnlcode
+	 * @param page
+	 * @param rows
+	 * @return
+	 */
 	PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
 			Integer page, Integer rows);
 

@@ -1,17 +1,17 @@
 package com.unionpay.withhold.admin.service.impl;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
-import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
+
 import com.unionpay.withhold.admin.mapper.TMerchChnlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
@@ -48,6 +48,11 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 			}
 		}
 		
+		//判断商户通道，通道商户号唯一性
+		int num = merchChnlMapper.selectCountWithCHO(merchChnl);
+		if(num>0){
+			return new ResultBean("", "通道的商户通道号重复！");	
+		}
 		
 		int flag = merchChnlMapper.updateByPrimaryKeySelective( merchChnl);
 		if (flag > 0) {
@@ -82,8 +87,11 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 					return new ResultBean("", "通道配置重复！");	
 				}
 			}
-			
-			
+			//判断商户通道，通道商户号唯一性
+			int num = merchChnlMapper.selectCountWithCHO(merch);
+			if(num>0){
+				return new ResultBean("", "通道的商户通道号重复！");	
+			}
 			merch.setMerchno(merchChnl.getMerchno());
 			merch.setStatus("00");
 			merch.setIntime(now);
