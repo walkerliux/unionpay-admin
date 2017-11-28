@@ -226,6 +226,7 @@ public class CheckBillController {
 		}
 		try {
 			FileUtils.deleteDirectory(dir);
+			ExcelUtil.exportExcel(headers, datas,response.getOutputStream() , config.getParams());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

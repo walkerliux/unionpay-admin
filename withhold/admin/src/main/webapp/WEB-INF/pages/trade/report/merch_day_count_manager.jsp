@@ -58,12 +58,12 @@ table tr td select {
 						 <td align="right" width="15%">开始时间</td>
 						<td align="left" style="padding-left: 5px" width="25%">
 							<input id="stime" name="stime" type="text"
-							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+							style="width: 120PX" class="easyui-datebox" data-options="showSeconds:true" ></input> 
 						</td> 
 						 <td align="right" width="15%">截止时间</td>
 						 <td align="left" style="padding-left: 5px" width="25%">
 						 	<input id="etime" name="etime" type="text"
-							style="width: 120PX" class="easyui-datetimebox" data-options="showSeconds:true" ></input> 
+							style="width: 120PX" class="easyui-datebox" data-options="showSeconds:true" ></input> 
 						<td></td>
 						<td align="right" width="10%"></td>
 						

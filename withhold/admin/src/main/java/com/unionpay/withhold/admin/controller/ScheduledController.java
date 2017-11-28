@@ -2,7 +2,6 @@ package com.unionpay.withhold.admin.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,14 +13,10 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.unionpay.withhold.admin.Bean.FtpBean;
-import com.unionpay.withhold.admin.mapper.TMerchCheckfileMapper;
 import com.unionpay.withhold.admin.pojo.TMerchCheckfile;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;

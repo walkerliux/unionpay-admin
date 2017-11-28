@@ -3080,4 +3080,49 @@ public class TChnlCpdkLogExample {
             this(condition, value, secondValue, null);
         }
     }
+    /**新增条件查询**/
+    private String merid;
+    private String cardno;
+    private String transstat;
+    private String orderno;
+    private String etime;
+    private String stime;
+
+	public String getMerid() {
+		return merid;
+	}
+	public void setMerid(String merid) {
+		this.merid = merid;
+	}
+	public String getCardno() {
+		return cardno;
+	}
+	public void setCardno(String cardno) {
+		this.cardno = cardno;
+	}
+	public String getTransstat() {
+		return transstat;
+	}
+	public void setTransstat(String transstat) {
+		this.transstat = transstat;
+	}
+	public String getOrderno() {
+		return orderno;
+	}
+	public void setOrderno(String orderno) {
+		this.orderno = orderno;
+	}
+	public String getEtime() {
+		return etime;
+	}
+	public void setEtime(String etime) {
+		this.etime = etime;
+	}
+	public String getStime() {
+		return stime;
+	}
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+    
 }

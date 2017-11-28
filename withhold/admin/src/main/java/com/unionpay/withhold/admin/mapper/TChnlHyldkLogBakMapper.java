@@ -3,6 +3,7 @@ package com.unionpay.withhold.admin.mapper;
 import com.unionpay.withhold.admin.pojo.TChnlHyldkLog;
 import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBak;
 import com.unionpay.withhold.admin.pojo.TChnlHyldkLogBakExample;
+import com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample;
 
 import java.util.List;
 
@@ -32,4 +33,6 @@ public interface TChnlHyldkLogBakMapper {
     int updateByPrimaryKey(TChnlHyldkLogBak record);
 
 	List<TChnlHyldkLog> getHYLTtradebakStatus();
+
+	
 }
