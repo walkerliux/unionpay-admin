@@ -91,7 +91,11 @@ public class ParaDicController {
 	public List<?> update(TParaDic paraDic,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
-			paraDic.setStatus(new Short("0"));
+			if (paraDic.getParentId()!=null&&paraDic.getParentId()!=0) {
+				TParaDic dic=paraDicService.selectByTid(paraDic.getParentId());
+				paraDic.setParaType(dic.getParaCode());
+			}
+			paraDic.setStatus(new Short("1"));
 			paraDicService.updateTParaDic(paraDic);
 			operationLogService.addOperationLog(request, "修改系统参数");
 			list.add("更新成功");
@@ -112,7 +116,12 @@ public class ParaDicController {
 	public List<?> save(TParaDic paraDic,HttpServletRequest request) {
 		ArrayList<String> list = new ArrayList<String>();
 		try {
-			paraDic.setStatus(new Short("0"));
+			//当新建的参数有父类时，获取父类的paracode作为子类的paratype
+			if (paraDic.getParentId()!=null&&paraDic.getParentId()!=0) {
+				TParaDic dic=paraDicService.selectByTid(paraDic.getParentId());
+				paraDic.setParaType(dic.getParaCode());
+			}
+			paraDic.setStatus(new Short("1"));
 			paraDicService.saveTParaDic(paraDic);
 			operationLogService.addOperationLog(request, "新增系统参数");
 			list.add("保存成功");
@@ -132,7 +141,7 @@ public class ParaDicController {
     @RequestMapping("/delete")
 	public String delete(Long tid,HttpServletRequest request){
 		TParaDic paraDic=paraDicService.getSingleById(tid);
-		paraDic.setStatus(new Short("1"));
+		paraDic.setStatus(new Short("0"));
 		
 		try {
 			paraDicService.updateTParaDic(paraDic);

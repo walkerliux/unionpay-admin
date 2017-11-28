@@ -27,5 +27,7 @@ public interface ParaDicService {
 	 */
 	List<TParaDic> selectParaDicByParentCode(String paraCode);
 
+	TParaDic selectByTid(Long parentId);
+
 
 }
