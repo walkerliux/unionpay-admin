@@ -65,6 +65,8 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		jedisClient.expire(REDIS_USER_KEY+":"+token, REDIS_SESSION_EXPIRE);
+		jedisClient.expire(REDIS_IP_KEY+":"+token, REDIS_SESSION_EXPIRE);
+		jedisClient.expire(REDIS_BROWSER_KEY+":"+token, REDIS_SESSION_EXPIRE);
 		return true;
 	}
 

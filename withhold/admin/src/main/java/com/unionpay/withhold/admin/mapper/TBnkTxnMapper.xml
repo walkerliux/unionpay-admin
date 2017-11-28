@@ -445,7 +445,8 @@
     where TID = #{tid,jdbcType=INTEGER}
   </update>
   <update id="updateByCheckBill" parameterType="map" >
-   update t_bnk_txn t set  t.status = '9', t.proid = #{filestartid}, t.RESULT = '02', t.txnseqno=b.txnseqno
+   update t_bnk_txn t set  t.status = '9', t.proid = #{filestartid}, t.RESULT = '02', 
+			t.txnseqno=(select txnseqno from t_txns_log s where t.instiid = s.PAYINST  and t.payordno = s.payordno)
    where  exists (select b.tid from t_self_txn b where
 				t.instiid = b.instiid AND
 				t.instiid=#{instiid}
