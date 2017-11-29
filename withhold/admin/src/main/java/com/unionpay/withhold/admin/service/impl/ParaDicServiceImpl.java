@@ -36,7 +36,7 @@ public class ParaDicServiceImpl implements ParaDicService {
 		tParaDicExample.setPageNum(page);
 		tParaDicExample.setPageSize(rows);
 		
-		tParaDicExample.setOrderByClause("TID ASC");
+		tParaDicExample.setOrderByClause("TID DESC");
 		
 		
 		//List<TParaDic> list = tParaDicMapper.selectByExample(tParaDicExample);
@@ -70,6 +70,11 @@ public class ParaDicServiceImpl implements ParaDicService {
 	@Override
 	public List<TParaDic> selectParaDicByParentCode(String paraCode) {
 		return tParaDicMapper.selectParaDicByParentCode(paraCode);
+	}
+	@Override
+	public TParaDic selectByTid(Long parentId) {
+		
+		return tParaDicMapper.selectByPrimaryKey(parentId);
 	}
 
 

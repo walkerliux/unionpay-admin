@@ -103,26 +103,26 @@ table tr td select {
 									<option value=''>--请选择父级参数--</option>
 									<option value='0'>--无父级--</option>
 							</select></td>
-							<td>参数类型</td>
-							<td align="left"><%-- <input type="text" id="para_Type"
-								name="paraType" class="easyui-validatebox" required="true"
-								maxlength="7" missingMessage="请输入参数类型" onkeyup="value=value.replace(/<[^<]+>/g,'')"/> --%>
-								<select id="para_Type"
-								class="easyui-validatebox" required="true" name="paraType"
-								missingMessage="请选择参数类型">
-									<option value=''>--请选择参数类型--</option>
-									<option value='0'>--无父级--</option>
-							</select>
-								</td>
-						</tr>
-						<tr style="height: 25px">
 							<td>是否可改</td>
 							<td align="left"><select id="has_Sub"
 								class="easyui-validatebox" required="true" name="hasSub"
 								missingMessage="请选择是否可改">
 									<option value=''>--请选择是否可改--</option>
 									<option value='1'>是</option>
-									<option value='0'>否</option>
+									<option value='0'>否</option></select></td>
+							<%-- <td>参数类型</td>
+							<td align="left"><input type="text" id="para_Type"
+								name="paraType" class="easyui-validatebox" required="true"
+								maxlength="7" missingMessage="请输入参数类型" onkeyup="value=value.replace(/<[^<]+>/g,'')"/>
+								<select id="para_Type"
+								class="easyui-validatebox" required="true" name="paraType"
+								missingMessage="请选择参数类型">
+									<option value=''>--请选择参数类型--</option>
+									<option value='0'>--无父级--</option>
+							</select>
+								</td> --%>
+						</tr>
+						<tr style="height: 25px">
 							<td>附加</td>
 							<td align="left"><input type="text" id="para_added"
 								name="added" class="easyui-validatebox" 
@@ -193,7 +193,7 @@ table tr td select {
 					},
 					{field:'status',title:'状态',width:160,align:'center',
 						formatter:function(value,rec){
-							if(value==0){
+							if(value==1){
 								return "已使用";
 							}else{
 								return "已停用";
@@ -201,9 +201,10 @@ table tr td select {
 						}
 					},
 					{field:'added',title:'附加',width:100,align:'center'},
+					{field:'remarks',title:'备注',width:200,align:'center'},
 					{field:'tid',title:'操作',align:'center',width:250,rowspan:2,
 						formatter:function(value,rec){
-							if(rec.status=="00"&&rec.hasSub==1){
+							if(rec.status=="1"&&rec.hasSub==1){
 								return '<a href="javascript:showPara('+value+')" style="color:blue;margin-left:10px">修改</a>'+
 							
 								'<a href="javascript:deletePara('+value+')" style="color:blue;margin-left:10px">注销</a>'
@@ -290,16 +291,16 @@ table tr td select {
 			$("#saveForm").attr("action","para/save");
 			$('#saveForm :input').val('');
 			$('#w').window({
-				title: '新增用户信息',
+				title: '新增系统参数',
 				top:100,
-				width: 650,
+				width: 700,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 240
+				height: 260
 			});
 			$('#btn_submit').linkbutton('enable');	
 		}
@@ -347,14 +348,14 @@ table tr td select {
 			$('#w').window({
 				title: '修改参数信息',
 				top:100,
-				width: 650,
+				width: 700,
 				modal: true,
 				minimizable:false,
 				collapsible:false,
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 220
+				height: 260
 			});
 			$.ajax({
 			   type: "POST",
@@ -365,8 +366,8 @@ table tr td select {
 			   success: function(json){	
 				   if(json!=null){
 						$("#para_Code").val(json.paraCode);
-						$("#para_Code").attr('readonly','readonly');
-						$("#para_Code").css('background-color','#D2D2D2');
+						/* $("#para_Code").attr('readonly','readonly');
+						$("#para_Code").css('background-color','#D2D2D2'); */
 						$("#para_Name").val(json.paraName);
 						$("#para_Type").val(json.paraType);
 						$("#para_added").val(json.added);						
