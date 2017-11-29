@@ -40,7 +40,7 @@ public class CardWhiteListServiceImpl implements CardWhiteListService {
 			return new ResultBean("", "该银行卡已存在！");
 		}
 		
-		whitelistPan.setStatus(CommonConstants.LIST_STATUS_UNNORMAL);
+		whitelistPan.setStatus(CommonConstants.LIST_STATUS_NORMAL);
 		
 		count = whitelistPanMapper.insertSelective(whitelistPan);
 		return count > 0 ? new ResultBean("新银行卡白名单添加成功！") : new ResultBean("", "新银行卡白名单添加失败！");

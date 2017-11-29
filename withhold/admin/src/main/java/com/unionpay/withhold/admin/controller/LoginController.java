@@ -129,26 +129,32 @@ public class LoginController {
 
 		TUser userBean = new TUser();
 		userBean.setLoginName(user.getLoginName());
-		userBean.setStatus("00");
+		//userBean.setStatus("00");
 		userBean.setPwd(MD5Util.MD5(passwordMark));
 		TUser DbUser = userService.getLoginUser(userBean);
 
 		boolean loginFlag = false;
-		if (DbUser != null) {
+		if (DbUser != null&&DbUser.getStatus().equals("00")) {
 			if (DbUser.getLoginName().equals(user.getLoginName())
 					&& DbUser.getPwd().equals(MD5Util.MD5(passwordMark))) {
 				returnMap.put("ret", "success");
 				//登录成功
 				request.getSession().removeAttribute("tokenn");//移除session中的token
 			} else {
-				loginFlag = true;
+				returnMap.put("ret", "err_user");
+				returnMap.put("info", "用户名或密码错误！");
+				loginFlag=true;
 			}
 		} else {
-			loginFlag = true;
+			returnMap.put("ret", "err_user");
+			returnMap.put("info", "用户已被注销！");
+			loginFlag=true;
 		}
 		if (loginFlag) {
-			returnMap.put("ret", "err_user");
-			returnMap.put("info", "用户名或密码错误！");
+			if(DbUser==null){
+				returnMap.put("ret", "err_user");
+				returnMap.put("info", "用户名或密码错误！");
+			}
 		} else {
 			userService.putLoginMsgTORedis(response,request, DbUser);
 		}

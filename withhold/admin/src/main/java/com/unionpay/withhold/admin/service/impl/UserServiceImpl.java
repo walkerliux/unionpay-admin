@@ -64,7 +64,9 @@ public class UserServiceImpl implements UserService {
 		if (user.getLoginName()!=null&&!"".equals(user.getLoginName())) {
 			example.setLoginName(user.getLoginName());
 		}
-
+		/*if (user.getStatus()!=null&&!"".equals(user.getStatus())) {
+			example.setStatus(user.getStatus());
+		}*/
 		TUser users = tUserMapper.selectTUserByLoginName(example);
 		
 		return users;

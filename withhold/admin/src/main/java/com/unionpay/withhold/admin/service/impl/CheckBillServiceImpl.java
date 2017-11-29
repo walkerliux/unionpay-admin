@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.unionpay.withhold.admin.mapper.TSelfTxnMapper;
 import com.unionpay.withhold.admin.mapper.TSettProcessMapper;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistakeExample;
+import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TChnlDetaExample;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSelfTxnExample;
@@ -66,7 +68,7 @@ public class CheckBillServiceImpl implements CheckBillService {
 			bnkTxnMapper.updateByCheckBill(map);
 			selfTxnMapper.insertMistake(map);
 			bnkTxnMapper.insertMistake(map);
-			settProcess.setStatus("01");
+			settProcess.setStatus("99");
 			settProcessMapper.updateByExampleSelective(settProcess, example);
 			return new ResultBean("对账完成");
 		}else{
@@ -77,7 +79,7 @@ public class CheckBillServiceImpl implements CheckBillService {
 	}
 
 	@Override
-	public List<?> getAllChannel() {
+	public List<TChnlDeta> getAllChannel() {
 		return chnlDetaMapper.selectByExample(new TChnlDetaExample());
 	}
 
@@ -99,7 +101,7 @@ public class CheckBillServiceImpl implements CheckBillService {
 	}
 
 	@Override
-	public Map<String, Object> saveProcess(String instiid) {
+	public boolean saveProcess(String instiid) {
 		Map<String, Object> resultMap = new HashMap<>();
 		TSettProcess settProcess = new TSettProcess();
 		settProcess.setInstiid(instiid);
@@ -109,13 +111,10 @@ public class CheckBillServiceImpl implements CheckBillService {
 		settProcess.setStarttime(DateUtil.getCurrentDateTime());
 		int flag = settProcessMapper.insertSelective(settProcess);
 		if (flag>0) {
-			resultMap.put("INFO", "任务添加成功");
-			resultMap.put("CODE", "00");
+			return true;
 		}else{
-			resultMap.put("INFO", "任务添加失败");
-			resultMap.put("CODE", "01");
+			return false;
 		}
-		return resultMap;
 	}
 
 	@Override
@@ -185,5 +184,19 @@ public class CheckBillServiceImpl implements CheckBillService {
 		param.put("merchno", merchno);
 		param.put("date", date);
 		return selfTxnMapper.queryCheckFileInfo(param);
+	}
+
+	@Override
+	public TSettProcess isPorcess(String instid, String date) {
+		TSettProcessExample example = new TSettProcessExample();
+		TSettProcessExample.Criteria criteria=example.createCriteria();
+		criteria.andStarttimeLike(date+"%");
+		criteria.andInstiidEqualTo(instid);
+		example.setOrderByClause("tid desc");
+	    List<TSettProcess> list =settProcessMapper.selectByExample(example);
+	    if (CollectionUtils.isEmpty(list)) {
+			return list.get(0);
+		}
+		return null;
 	}
 }

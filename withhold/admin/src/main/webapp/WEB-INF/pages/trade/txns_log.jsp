@@ -177,9 +177,9 @@ table tr td select {
 					</tr>
 					
 					<tr>
-						<td>订单提交时间</td>
+						<td>受理提交时间</td>
 						<td id="taccordcommitime"></td>
-						<td>订单完成时间</td>
+						<td>受理完成时间</td>
 						<td id="taccordfintime"></td>
 					</tr>
 					<tr>
@@ -198,9 +198,9 @@ table tr td select {
 						<td id="tpayfirmerno"></td>
 					</tr>
 					<tr>
-						<td>订单提交时间</td>
+						<td>通道提交时间</td>
 						<td id="tpayordcomtime"></td>
-						<td>订单完成时间</td>
+						<td>通道完成时间</td>
 						<td id="tpayordfintime"></td>
 					</tr>
 					
@@ -216,18 +216,6 @@ table tr td select {
 						<td></td>
 						<td></td>
 					</tr>
-					<!-- <tr>
-						<td>应用定单号</td>
-						<td id="tappordno"></td>
-						<td>应用所属机构</td>
-						<td id="tappinst"></td>
-					</tr>
-					<tr>
-						<td>应用定单提交时间</td>
-						<td id="tappordcommitime"></td>
-						<td>应用定单完成时间</td>
-						<td id="tappordfintime"></td>
-					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">中心信息</td>
 					</tr>
@@ -240,8 +228,10 @@ table tr td select {
 					<tr>
 						<td>中心应答时间</td>
 						<td id="tretdatetime"></td>
-						<td>交易查询流水</td>
-						<td id="ttradeseltxn"></td>
+						<td>原交易序列号</td>
+						<td id="ttxnseqno_og"></td>
+						<!-- <td>交易查询流水</td>
+						<td id="ttradeseltxn"></td> -->
 						
 					</tr>
 					<tr>
@@ -250,31 +240,6 @@ table tr td select {
 						<td>交易流水表标志位</td>
 						<td id="ttradetxnflag"></td>
 					</tr>
-					<tr>
-						<td>原交易序列号</td>
-						<td id="ttxnseqno_og"></td>
-						<td></td>
-						<td></td>
-					</tr>
-					
-					<!-- <tr>
-						<td>受理委托机构号</td>
-						<td id="taccmemberid"></td>
-						<td>应用定单状态</td>
-						<td id="tapporderstatus"></td>
-					</tr>
-					
-					<tr>
-						<td>应用订单应答信息</td>
-						<td id="tapporderinfo"></td>
-						<td>备注</td>
-						<td id="tnotes"></td>
-					</tr> -->
-<!-- 					<tr> -->
-<!-- 						<td>备注</td> -->
-<!-- 						<td id="tremarks"></td> -->
-						
-<!-- 					</tr> -->
 				</table>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 5px 0;">
@@ -331,7 +296,7 @@ table tr td select {
 			$('#test').datagrid({
 				title:'交易信息列表',
 				iconCls:'icon-save',
-				height:400,
+				height:500,
 				singleSelect:true,
 				nowrap: false,
 				striped: true,
@@ -552,10 +517,10 @@ table tr td select {
 					   $("#taccfirmerno").html(json.accfirmerno);
 					   $("#taccsettledate").html(changeDate(json.accsettledate).substring(0,10));
 					   $("#taccordcommitime").html(changeDate(json.accordcommitime));
-					   //$("#taccordfintime").html(json.ACCORDFINTIME);
+					   $("#taccordfintime").html(json.accordfintime);
 					   $("#tpaytype").html(json.paytype);
 					   $("#tpayordno").html(json.payordno);
-                       $("#tpayinst").html(json.CHNLNAME);
+                       $("#tpayinst").html(json.chnlname);
 					   $("#tpayfirmerno").html(json.payfirmerno);
 					   $("#tpaysecmerno").html(json.paysecmerno);
 					   $("#tpayordcomtime").html(changeDate(json.payordcomtime));
