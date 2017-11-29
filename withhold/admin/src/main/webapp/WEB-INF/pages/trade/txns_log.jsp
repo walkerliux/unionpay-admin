@@ -63,13 +63,14 @@ table tr td select {
 							name="pan" id="pan" maxlength="32" /></td>
 					</tr>
 					<tr>
-						<td align="right" width="10%">交易状态</td>
+						<td align="right" width="10%">交易结果</td>
 						<td style="padding-left: 5px"><select name="retcode"
 							id="retcode" style="width: 150px">
-								<option value="0000"> 交易成功</option>
+								<option value="">--请选择交易结果--</option>
+								<option value="0000">交易成功</option>
 								<option value="0001">交易失败</option>
 						</select></td>
-						<td align="right" width="10%">交易渠道
+						<td align="right" width="10%">交易渠道</td>
 						<td colspan="1" style="padding-left: 5px"><select name="accfirmerno" id="accfirmerno" style="width:150px">
 								 <option value="">--请选择交易渠道--</option>
 								<%--<c:forEach items="${channel}" var="channel">
@@ -343,7 +344,7 @@ table tr td select {
 					{field:'accfirmerno',title:'渠道号',width:150,align:'center'},
 					{field:'accsecmerno',title:'商户号',width:150,align:'center'},
 					{field:'memberName',title:'商户名称',width:120,align:'center'},
-					{field:'pan',title:'交易卡号',width:120,align:'center'},
+					{field:'pan',title:'交易卡号',width:160,align:'center'},
 					{field:'panName',title:'姓名',width:150,align:'center'},
 					{field:'amount',title:'交易金额(元)',width:120,align:'center',
 						 formatter:function(value,rec){
@@ -355,7 +356,7 @@ table tr td select {
 							return changeDate(rec.txndate+rec.txntime);
 						}
 					},
-					{field:'retinfo',title:'交易状态',width:120,align:'center'
+					{field:'retinfo',title:'交易结果',width:120,align:'center'
 					},
 					{field:'TXNSEQNO_OG',title:'操作',width:100,align:'center',
 					formatter:function(value,rec){

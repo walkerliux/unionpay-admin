@@ -225,7 +225,7 @@ table tr td select {
 	  								{
 										field : 'txnseqno',
 										title : '交易序列号',
-										width : 120,
+										width : 150,
 										align : 'center'
 									},
 									{
@@ -243,13 +243,13 @@ table tr td select {
 									{
 										field : 'orderno',
 										title : '订单号',
-										width : 120,
+										width : 150,
 										align : 'center'
 									},
 									{
 										field : 'cardno',
 										title : '交易卡号',
-										width : 120,
+										width : 150,
 										align : 'center'
 									},
 									{
