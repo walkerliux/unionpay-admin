@@ -26,6 +26,7 @@ import com.github.pagehelper.PageInfo;
 import com.unionpay.withhold.admin.Bean.FtpBean;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+import com.unionpay.withhold.admin.enums.MerchCheckTypeEnums;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
@@ -117,8 +118,22 @@ public class CheckBillController {
 	@ResponseBody
 	@RequestMapping("saveProcess")
 	public Map<String, Object> saveProcess(String instiid) {
-		Map<String, Object> map = checkBillService.saveProcess(instiid);
-		return map;
+		Map<String, Object> resultMap = new HashMap<>();
+		
+		if (!MerchCheckTypeEnums.exist(instiid, "1")) {
+			resultMap.put("INFO", "此机构暂时不能提供对账");
+			resultMap.put("CODE", "02");
+			return resultMap;
+		}
+		boolean flag=checkBillService.saveProcess(instiid);
+		if (flag) {
+			resultMap.put("INFO", "任务添加成功");
+			resultMap.put("CODE", "00");
+		}else{
+			resultMap.put("INFO", "任务添加失败");
+			resultMap.put("CODE", "01");
+		}
+		return resultMap;
 	}
 
 	/**

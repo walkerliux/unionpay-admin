@@ -40,7 +40,7 @@ public class CardBlackListServiceImpl implements CardBlackListService {
 			return new ResultBean("", "该银行卡已存在！");
 		}
 		
-		blacklistPan.setStatus(CommonConstants.LIST_STATUS_UNNORMAL);
+		blacklistPan.setStatus(CommonConstants.LIST_STATUS_NORMAL);
 		
 		count = blacklistPanMapper.insertSelective(blacklistPan);
 		return count > 0 ? new ResultBean("新银行卡黑名单添加成功！") : new ResultBean("", "新银行卡黑名单添加失败！");

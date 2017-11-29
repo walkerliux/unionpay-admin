@@ -3,11 +3,14 @@ package com.unionpay.withhold.admin.service.impl;
 
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
+import com.unionpay.withhold.admin.constant.CommonConstants;
 import com.unionpay.withhold.admin.mapper.TMerchChnlMapper;
 import com.unionpay.withhold.admin.mapper.TMerchDetaMapper;
 import com.unionpay.withhold.admin.pojo.TMerchChnl;
@@ -117,6 +120,34 @@ public class MwechChnlServiceImpl implements MerchChnlService {
 		
 
 		return new PageBean(count, list);
+		
+	}
+	@Override
+	public ResultBean logoutMerchChnl(TMerchChnlWithBLOBs merchChnl) {
+		TMerchChnlWithBLOBs merchChnlBack = merchChnlMapper.selectByPrimaryKey(merchChnl.getTid());
+		if(null == merchChnlBack){
+			return new ResultBean("", "信息有误，操作失败！");
+		}else if(!merchChnlBack.getStatus().equals(CommonConstants.LIST_STATUS_NORMAL)){
+			return new ResultBean("", "该单笔限额规则已被注销！");
+		}else{
+			merchChnl.setStatus(CommonConstants.LIST_STATUS_UNNORMAL);
+			int count =merchChnlMapper.updateByPrimaryKeySelective(merchChnl);
+			return count > 0 ? new ResultBean("注销成功！") : new ResultBean("", "注销失败！");
+		}
+		
+	}
+	@Override
+	public ResultBean startMerchChnl(TMerchChnlWithBLOBs merchChnl) {
+		TMerchChnlWithBLOBs merchChnlBack = merchChnlMapper.selectByPrimaryKey(merchChnl.getTid());
+		if(null == merchChnlBack){
+			return new ResultBean("", "信息有误，操作失败！");
+		}else if(merchChnlBack.getStatus().equals(CommonConstants.LIST_STATUS_NORMAL)){
+			return new ResultBean("", "该单笔限额规则已被启用！");
+		}else{
+			merchChnl.setStatus(CommonConstants.LIST_STATUS_NORMAL);
+			int count =merchChnlMapper.updateByPrimaryKeySelective(merchChnl);
+			return count > 0 ? new ResultBean("启用成功！") : new ResultBean("", "启用失败！");
+		}
 		
 	}
 	

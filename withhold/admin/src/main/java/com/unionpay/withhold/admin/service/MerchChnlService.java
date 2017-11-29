@@ -46,5 +46,17 @@ public interface MerchChnlService {
 	 */
 	PageBean queryaddMerchChnl(TMerchDeta merchDeta, String chnlcode,
 			Integer page, Integer rows);
+	/**
+	 * 注销商户通道信息
+	 * @param merchChnl
+	 * @return
+	 */
+	ResultBean logoutMerchChnl(TMerchChnlWithBLOBs merchChnl);
+	/**
+	 * 启动商户通道信息
+	 * @param merchChnl
+	 * @return
+	 */
+	ResultBean startMerchChnl(TMerchChnlWithBLOBs merchChnl);
 
 }
