@@ -139,7 +139,7 @@ table tr td.update {
 						<td class="update" align="left" colspan="3">
 						<!-- <input type="text" id="uprikey" name="prikey" class="easyui-validatebox" 
 						required="true" maxlength="64" missingMessage="请输入商户私钥 " /><font color="red">*</font></td> -->
-						<textarea class="easyui-validatebox"  missingMessage="请输入商户私钥" required="true" rows="3" cols="81" id="uprikey" maxlength="2048" name="prikey" style="resize: none;"
+						<textarea class="easyui-validatebox"  missingMessage="请输入商户私钥"  rows="3" cols="81" id="uprikey" maxlength="2048" name="prikey" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td>
 						</tr>
 						
@@ -147,7 +147,7 @@ table tr td.update {
 						 <tr>
 						<td class="update" width="15%">商户私钥密码 </td>
 						<td class="update" align="left" colspan="3">
-						<textarea class="easyui-validatebox"  missingMessage="请输入商户私钥密码" required="true" rows="3" cols="81" id="uprikeypwd" maxlength="2048" name="prikeypwd" style="resize: none;"
+						<textarea class="easyui-validatebox"  missingMessage="请输入商户私钥密码"  rows="3" cols="81" id="uprikeypwd" maxlength="2048" name="prikeypwd" style="resize: none;"
 									onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea></td> 
 						
 						</tr>
@@ -429,7 +429,7 @@ table tr td.update {
 		output +='<tr>';
 		output +='<td class="update" width="15%">商户私钥密码 </td>';
 		output +='<td class="update" align="left" colspan="3">';
-		output +='<input type="text" id="prikeypwd' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].prikeypwd" class="easyui-validatebox" required="true" maxlength="2048" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
+		output +='<input type="text" id="prikeypwd' + (segmentIndex + 1) + '" name="ardList[' + segmentIndex + '].prikeypwd" class="easyui-validatebox"  maxlength="2048" missingMessage="请输入商户私钥 " /><font color="red">*</font></td>';
 	//	output +='<textarea class="easyui-validatebox" required="true" missingMessage="请输入商户公钥 " rows="3" cols="81" id="prikey' + (segmentIndex + 1) + '" maxlength="2048" name="ardList[' + segmentIndex + '].prikey"  style="resize: none;></textarea></td>';
 		output +='</tr>';
 		
@@ -674,7 +674,7 @@ table tr td.update {
 				output +='<tr>';
 				output +='<td class="update" width="15%">商户私钥密码 </td>';
 				output +='<td class="update" align="left" colspan="3">';
-				output +='<input readonly="readonly" type="text" id="prikeypwd' + (i + 1) + '" name="ardList['+i+'].prikeypwd" class="easyui-validatebox" required="true" maxlength="2048" value="' + rows[i].prikeypwd + '" /><font color="red">*</font></td>';
+				output +='<input readonly="readonly" type="text" id="prikeypwd' + (i + 1) + '" name="ardList['+i+'].prikeypwd" class="easyui-validatebox"  maxlength="2048" value="' + rows[i].prikeypwd + '" /><font color="red">*</font></td>';
 				//output +='<textarea class="easyui-validatebox"   rows="3" cols="81" id="prikey' + (i + 1) + '" maxlength="2048" name="ardList['+i+'].prikey"  style="resize: none; value="' + rows[i].prikey + '"></textarea></td>';
 				output +='</tr>';
 				
