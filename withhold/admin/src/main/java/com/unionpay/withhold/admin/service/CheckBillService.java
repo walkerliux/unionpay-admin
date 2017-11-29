@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.pojo.TCheckfileMistake;
+import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
 
@@ -17,11 +18,11 @@ import com.unionpay.withhold.admin.pojo.TSettProcess;
 public interface CheckBillService {
 	public ResultBean checkBill(String filestartid);
 
-	public List<?> getAllChannel();
+	public List<TChnlDeta> getAllChannel();
 
 	public List<TSettProcess> queryPorcess(Map<String, Object> variables);
 
-	public Map<String, Object> saveProcess(String instiid);
+	public boolean saveProcess(String instiid);
 
 	public List<TCheckfileMistake> queryFail(Map<String, Object> variables);
 
@@ -32,5 +33,7 @@ public interface CheckBillService {
 	public Map<String, Object> dealReasult(String proid);
 
 	public List<TSelfTxn> queryCheckFileInfo(String merchno, String date);
+	
+	public TSettProcess isPorcess(String instid ,String date);
 
 }
