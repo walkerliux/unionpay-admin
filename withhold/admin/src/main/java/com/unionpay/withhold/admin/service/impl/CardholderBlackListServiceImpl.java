@@ -40,7 +40,7 @@ public class CardholderBlackListServiceImpl implements CardholderBlackListServic
 			return new ResultBean("", "该持卡人已存在！");
 		}
 		
-		blacklistIdnum.setStatus(CommonConstants.LIST_STATUS_UNNORMAL);
+		blacklistIdnum.setStatus(CommonConstants.LIST_STATUS_NORMAL);
 		
 		count = blacklistIdnumMapper.insertSelective(blacklistIdnum);
 		return count > 0 ? new ResultBean("新持卡人黑名单添加成功！") : new ResultBean("", "新持卡人黑名单添加失败！");
