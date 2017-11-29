@@ -352,7 +352,7 @@
     where USER_ID = #{userId,jdbcType=INTEGER}
   </update>
   <select id="selectTUserByLoginName" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TUserExample">
-  		select * from t_user where LOGIN_NAME=#{loginName}
+  		select * from t_user a where a.LOGIN_NAME=#{loginName} 
     
   </select>
   <!-- 自关联查询 -->

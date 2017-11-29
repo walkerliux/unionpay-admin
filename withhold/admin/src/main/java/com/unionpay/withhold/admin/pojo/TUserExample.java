@@ -29,14 +29,7 @@ public class TUserExample {
 		this.beginRow = beginRow;
 	}
 	
-	private String loginName;
-	public String getLoginName() {
-		return loginName;
-	}
-
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
-	}
+	
     protected String orderByClause;
 
     protected boolean distinct;
@@ -1164,7 +1157,22 @@ public class TUserExample {
     private String userName;
     private String userCode;
     private List<Integer> userIds;
+    private String loginName;
+    private String status;
+    
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getLoginName() {
+		return loginName;
+	}
 
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
 	public String getUserName() {
 		return userName;
 	}
