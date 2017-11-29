@@ -156,6 +156,15 @@ table tr td select {
 								<font color="red">*</font>
 							</td>
 						</tr>
+						<tr style="height: 25px">
+							<td class="update">平台私钥证书密码</td>
+							<td class="update" align="left" colspan="3">
+								<input type="text" id="platformpfxpwd" name="platformpfxpwd" maxlength="32" class="easyui-validatebox" required="true" missingMessage="请输入平台私钥证书 " onkeyup="value=value.replace(/<[^<]+>/g,'')"/>
+								<%-- <textarea class="easyui-validatebox" required="true" missingMessage="请输入平台私钥 证书" rows="3" cols="81" id="localprikey" maxlength="2048" name="localprikey" style="resize: none;"
+										onkeyup="value=value.replace(/<[^<]+>/g,'')"></textarea> --%>
+								<font color="red">*</font>
+							</td>
+						</tr>
 						<tr>
 							<td colspan="4" class="head-title"></td>
 						</tr>
@@ -269,6 +278,7 @@ table tr td select {
 					$("#memberpubkey").val(json.memberpubkey);
 					$("#localpubkey").val(json.localpubkey);
 					$("#localprikey").val(json.localprikey);
+					$("#platformpfxpwd").val(json.platformpfxpwd);
 					
 					$("#notes").val(json.notes);
 					
@@ -280,14 +290,14 @@ table tr td select {
 					title : '管理商户密钥',
 					top : 100,
 					left : 400,
-					width : 800,
+					width : 850,
 					modal : true,
 					minimizable : false,
 					collapsible : false,
 					maximizable : false,
 					shadow : false,
 					closed : false,
-					height : 385
+					height : 415
 				});
 			},
 			error : function(){
