@@ -569,5 +569,8 @@
 		WHERE 
 		CHNLCODE=#{record.chnlcode} AND CHNLMERCNO=#{record.chnlmercno}
 		 AND `STATUS`='00'
+		 <if test="record.tid != null and record.tid !=''">
+		AND TID !=#{record.tid} 
+		</if>
 	</select>
 </mapper>
