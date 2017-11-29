@@ -225,6 +225,8 @@ table tr td select {
 				},
 			money:{//
 				validator: function (value) {
+					/* var reg =/^(([1-9]\d*)|([0-9]\d*\.\d?[1-9]{1}))$/;
+					return reg.test(value); */
 					return /^(([1-9][0-9]*)|(([0]\.\d{0,2}|[1-9][0-9]*\.\d{0,2})))$/.test(value);
 				},
 				message: '请输入正确格式的金额(小数位最多两位)'

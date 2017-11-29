@@ -657,11 +657,11 @@
 	 <if test="reqsn!=null">
 	and a.REQSN=#{reqsn}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
-	and a.RETCODE !='0000'
+	and (a.RETCODE !='0000' or a.RETCODE is NULL)
 	</if> 
 	<if test="stime!=null">
 	and a.INTIME &gt;=#{stime}
@@ -693,11 +693,11 @@
 	 <if test="reqsn!=null">
 	and a.REQSN=#{reqsn}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
-	and a.RETCODE !='0000'
+	and (a.RETCODE !='0000' or a.RETCODE is NULL)
 	</if> 
 	<if test="stime!=null">
 	and a.INTIME &gt;=#{stime}

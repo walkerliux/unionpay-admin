@@ -56,6 +56,7 @@ table tr td select {
 						<td align="right" width="10%">交易结果</td>
 						<td style="padding-left: 5px">
 						<select id="ret_code" name="retcode" style="width: 150px">
+							<option value="">--请选择交易结果--</option>
 								<option value="0000">交易成功</option>
 								<option value="0001">交易失败</option>
 						</select></td>

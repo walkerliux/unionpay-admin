@@ -185,11 +185,11 @@
 	 <if test="orderno!=null">
 	and a.ORDERNO=#{orderno}
 	</if>
-	<if test='transstat==null or transstat =="1001"'>
+	<if test='transstat!=null and transstat =="1001"'>
 	and a.TRANSSTAT ='1001'
 	</if>
 	<if test='transstat!=null and transstat !="1001"'>
-	and a.TRANSSTAT !='1001'
+	and (a.TRANSSTAT !='1001' or a.TRANSSTAT is NULL)
 	</if> 
 	<if test="stime!=null">
 	and a.INTIME &gt;=#{stime}
@@ -221,11 +221,11 @@
 	 <if test="orderno!=null">
 	and a.ORDERNO=#{orderno}
 	</if>
-	<if test='transstat==null or transstat =="1001"'>
+	<if test='transstat!=null and transstat =="1001"'>
 	and a.TRANSSTAT ='1001'
 	</if>
 	<if test='transstat!=null and transstat !="1001"'>
-	and a.TRANSSTAT !='1001'
+	and (a.TRANSSTAT !='1001' or a.TRANSSTAT is NULL)
 	</if> 
 	<if test="stime!=null">
 	and a.INTIME &gt;=#{stime}
