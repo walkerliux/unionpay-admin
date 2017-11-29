@@ -50,19 +50,13 @@ table tr td select {
 					</tr>
 					
 					<tr>
-						<td align="right" width="10%">定单号</td>
+						<td align="right" width="10%">订单号</td>
 						<td align="left" style="padding-left: 5px" width="25%">
 						<input name="reqsn" id="req_sn" /></td>
-						<td align="right" width="10%">交易状态</td>
+						<td align="right" width="10%">交易结果</td>
 						<td style="padding-left: 5px">
-						<!-- <select name="retcode" id="ret_code" style="width: 150px">
-								<option value="">--请选择应答状态--</option>
-								<option value="PR05">已成功</option>
-								<option value="PR09">已拒绝</option>
-								<option value="PR32">逾期退回</option>
-						</select></td> --> 
 						<select id="ret_code" name="retcode" style="width: 150px">
-								<option value="0000"> 交易成功</option>
+								<option value="0000">交易成功</option>
 								<option value="0001">交易失败</option>
 						</select></td>
 					</tr>
@@ -305,7 +299,7 @@ table tr td select {
 		var data = {
 			"merchantid" : $('#merchant_id ').val(),
 			"accountno" : $('#account_no').val(),
-			"reqsn" : $('#re_qsn').val(),
+			"reqsn" : $('#req_sn').val(),
 			"retcode" : $('#ret_code').val(),
 			"stime" : $('#stime').datebox('getValue'),
 			"etime" : $('#etime').datebox('getValue')

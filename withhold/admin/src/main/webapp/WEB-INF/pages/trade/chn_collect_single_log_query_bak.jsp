@@ -53,14 +53,8 @@ table tr td select {
 						<td align="right" width="10%">定单号</td>
 						<td align="left" style="padding-left: 5px" width="25%">
 						<input name="orderno" id="torderno" /></td>
-						<td align="right" width="10%">交易状态</td>
+						<td align="right" width="10%">交易结果</td>
 						<td style="padding-left: 5px">
-						<!-- <select name="transstat" id="transstat" style="width: 150px">
-								<option value="">--请选择应答状态--</option>
-								<option value="PR05">已成功</option>
-								<option value="PR09">已拒绝</option>
-								<option value="PR32">逾期退回</option>
-						</select></td>  -->
 						<select id="ttransstat" name="transstat" style="width: 150px">
 								<option value='1001'>交易成功</option>
 								<option value='0001'>交易失败</option>

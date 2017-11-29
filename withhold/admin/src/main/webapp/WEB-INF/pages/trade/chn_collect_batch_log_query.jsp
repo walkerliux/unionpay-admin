@@ -288,7 +288,7 @@ table tr td select {
 												return changeDate(rec.transdate);
 											}	
 										},
-										{field:'cardno',title:'付款账号',width:140,align:'center'},
+										{field:'cardno',title:'付款账号',width:200,align:'center'},
 										{field:'usrname',title:'付款账户名称',width:120,align:'center'},
 										{field:'certid',title:'证件号',width:140,align:'center'},
 										{field:'transamt',title:'金额（元）',width:120,align:'center',
