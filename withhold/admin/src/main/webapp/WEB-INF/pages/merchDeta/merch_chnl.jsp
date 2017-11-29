@@ -212,14 +212,14 @@ table tr td.update {
 										},
 										{field:'tid',title:'操作',align:'center',width:120,rowspan:2,
 											formatter:function(value,rec){
-												if(rec.status=="00"){
-													return '<a href="javascript:showChange(\''+value+'\')" style="color:blue;margin-left:10px">修改</a>';
-												}else{
-													return '';
+												if (rec.status == "00") {
+													return '<a href="javascript:showChange(' + value + ')" style="color:blue;margin-left:10px">修改</a>&nbsp;&nbsp;<a href="javascript:logout(' + value + ')" style="color:blue;margin-left:10px">注销</a>';
+												} else {
+													return '<a href="javascript:start(' + value + ')" style="color:blue;margin-left:10px">启用</a>';
+							
 												}
 											}
-										}
-									]],
+										}]],
 							pagination : true,
 							rownumbers : true,
 							toolbar : [ {
@@ -697,6 +697,62 @@ table tr td.update {
 				$.parser.parse('#tableadd');
 			}
 		});	
+	}
+	
+	function logout(tid) {
+		$.messager.confirm('提示', '您是否想要注销此商户通道?',
+				function(r) {
+					if (r) {
+						$.ajax({
+							type : "POST",
+							url : "merchDeta/logoutMerchChnl",
+							dataType : "json",
+							data : {
+								"tid" : tid
+							},
+							success : function(json) {
+								if (json.resultBool == true) {
+									$.messager.alert('提示', "注销成功！");
+									//$('#w').window('close');
+									search();
+								} else {
+									$.messager.alert('提示', json.errMsg);
+								}
+							},
+							error : function() {
+								$.messager.alert('提示', '服务异常！');
+							}
+						});
+					}
+				});
+	}
+	
+	function start(tid) {
+		$.messager.confirm('提示', '您是否想要启用此商户通道?',
+				function(r) {
+					if (r) {
+						$.ajax({
+							type : "POST",
+							url : "merchDeta/startMerchChnl",
+							dataType : "json",
+							data : {
+								"tid" : tid
+							},
+							success : function(json) {
+								if (json.resultBool == true) {
+									$.messager.alert('提示', "启用成功！");
+									//$('#w').window('close');
+									search();
+								} else {
+									$.messager.alert('提示', json.errMsg);
+								}
+							},
+							error : function() {
+								$.messager.alert('提示', '服务异常！');
+							}
+						});
+					}
+				});
 	}
 </script>
 </html>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
 import com.unionpay.withhold.admin.enums.ParaDicCodeEnums;
+import com.unionpay.withhold.admin.pojo.TLimitSingle;
 import com.unionpay.withhold.admin.pojo.TMerchChnlWithBLOBs;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
 import com.unionpay.withhold.admin.pojo.TMerchDetaApply;
@@ -479,5 +480,31 @@ public class MerchDetaController {
 		}
 		
 	}
+	@ResponseBody
+	@RequestMapping("/logoutMerchChnl")
+	public ResultBean logoutLimitSingle(TMerchChnlWithBLOBs merchChnl, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		limitSingle.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			operationLogService.addOperationLog(request, "注销商户通道信息");
+			return merchChnlService.logoutMerchChnl(merchChnl);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
 	
+	@ResponseBody
+	@RequestMapping("/startMerchChnl")
+	public ResultBean startLimitSingle(TMerchChnlWithBLOBs merchChnl, HttpServletRequest request) {
+//		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+//		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+//		limitSingle.setUpuser(infoByToken.getUserId().longValue());
+		try {
+			operationLogService.addOperationLog(request, "启用商户通道信息");
+			return merchChnlService.startMerchChnl(merchChnl);
+		} catch (Exception e) {
+			return new ResultBean("", "服务器异常，请稍后再试！");
+		}
+	}
 }
