@@ -240,14 +240,14 @@ table tr td select {
 										}	
 									},
 									{field:'orderid',title:'商户订单号',width:150,align:'center'},
-									{field:'cardno',title:'交易卡号',width:100,align:'center'},									
+									{field:'cardno',title:'交易卡号',width:200,align:'center'},									
 									{field:'customernm',title:'姓名',width:150,align:'center'},
 									{field:'txnamt',title:'交易金额(元)',width:130,align:'center',
 										formatter:function(value,rec){
 											return fenToYuan(rec.txnamt);
 										}
 									},
-									{field:'tn',title:'受理订单号',width:100,align:'center'},
+									{field:'tn',title:'受理订单号',width:200,align:'center'},
 									
 									{field:'status',title:'交易状态',width:148,align:'center',
 										formatter : function(value, rec) {

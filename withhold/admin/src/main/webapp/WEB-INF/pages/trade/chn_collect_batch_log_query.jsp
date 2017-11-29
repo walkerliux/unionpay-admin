@@ -231,9 +231,9 @@ table tr td select {
 							idField : 'MSGID',
 							columns : [ [
 								{field:'tn',title:'受理批次号',width:130,align:'center'},
-								{field:'merid',title:'商户号',width:90,align:'center'},
-								{field:'filename',title:'文件名',width:90,align:'center'},
-								{field:'hpfilename',title:'回盘文件名',width:90,align:'center'},
+								{field:'merid',title:'商户号',width:150,align:'center'},
+								{field:'filename',title:'文件名',width:120,align:'center'},
+								{field:'hpfilename',title:'回盘文件名',width:120,align:'center'},
 								{field:'batchno',title:'批次号',width:130,align:'center'},
 								{field:'totalnum',title:'总笔数',width:120,align:'center'},
 								{field:'totalamt',title:'总金额（元）',width:120,align:'center',
@@ -281,14 +281,14 @@ table tr td select {
 									columns:[
 									[
 										{field:'batchno',title:'批次号',width:130,align:'center'},
-										{field:'txnseqno',title:'交易流水号',width:90,align:'center'},
-										{field:'orderno',title:'订单号',width:90,align:'center'},
+										{field:'txnseqno',title:'交易流水号',width:150,align:'center'},
+										{field:'orderno',title:'订单号',width:150,align:'center'},
 										{field:'transdate',title:'提交日期',width:90,align:'center',
 											formatter : function(value, rec) {
 												return changeDate(rec.transdate);
 											}	
 										},
-										{field:'cardno',title:'付款账号',width:140,align:'center'},
+										{field:'cardno',title:'付款账号',width:200,align:'center'},
 										{field:'usrname',title:'付款账户名称',width:120,align:'center'},
 										{field:'certid',title:'证件号',width:140,align:'center'},
 										{field:'transamt',title:'金额（元）',width:120,align:'center',

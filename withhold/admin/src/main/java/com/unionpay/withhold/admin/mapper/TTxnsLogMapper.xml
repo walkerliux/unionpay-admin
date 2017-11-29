@@ -192,7 +192,7 @@
     <if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
@@ -236,7 +236,7 @@
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
@@ -275,7 +275,7 @@
     <if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>
@@ -317,7 +317,7 @@
 	<if test="accsecmerno!=null">
 	and a.ACCSECMERNO=#{accsecmerno}
 	</if>
-	<if test='retcode==null or retcode =="0000"'>
+	<if test='retcode!=null and retcode =="0000"'>
 	and a.RETCODE ='0000'
 	</if>
 	<if test='retcode!=null and retcode !="0000"'>

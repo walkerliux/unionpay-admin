@@ -59,7 +59,7 @@ table tr td select {
 					<tr> -->
 						<td align="right">用户角色</td>
 						<td align="left" style="padding-left: 5px">
-						<select id="userRoleId" name="roleId" onchange="showRole(1)">
+						<select id="userRoleId" name="roleId">
 								<option value=''>--请选择用户角色--</option>
 						</select></td>
 						<td align="right" colspan="3">
@@ -617,7 +617,9 @@ table tr td select {
 					}else if(data=="false"){
 						$.messager.alert('提示',"保存失败");  
 					}
-			    	 }
+					var data={'userName':$('#userName').val(),'userCode':$('#userCode').val(),'deptId':$("#userDeptId").val(),'roleId':$("#userRoleId").val(),'organId':$("#userOrganId").val()};
+					$('#userList').datagrid('load',data);
+			    	}
 			    }
 			});
 		}

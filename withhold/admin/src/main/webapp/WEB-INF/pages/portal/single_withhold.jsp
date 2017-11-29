@@ -62,7 +62,7 @@ table tr td select {
 							name="orderId" id="0" maxlength="64" class="easyui-validatebox" required="true"
 								maxlength="20" missingMessage="请输入商户订单号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
 						<td align="right">交易要素</td>
-							<td class="right" align="left">
+							<td class="right" align="left" >
 							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="factorId"/>
 							
 							</select><font color="red">*</font></td>
@@ -204,10 +204,11 @@ table tr td select {
 			mobile : {
 				//value值为文本框中的值
 				validator : function(value) {
-					var reg = /^1[3|4|5|8|9]\d{9}$/;
+					var reg = /^1[0|1|2|3|4|5|6|7|8|9]\d{9}$/;
 					return reg.test(value);
+					//return /^[0-9]+.?[0-9]*$/.test(value);
 				},
-				message : '输入手机号码格式不准确'
+				message : '输入11位手机号码'
 			},
 			//验证身份证
 			idcard : {// 验证身份证

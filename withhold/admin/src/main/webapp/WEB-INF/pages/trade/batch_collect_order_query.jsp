@@ -227,8 +227,8 @@ table tr td select {
 									columns:[
 									[
 										{field:'batchno',title:'批次号',width:180,align:'center'},
-										{field:'orderid',title:'订单号',width:144,align:'center'},
-										{field:'amt',title:'单笔金额(元)',width:146,align:'center',
+										{field:'orderid',title:'订单号',width:180,align:'center'},
+										{field:'amt',title:'单笔金额(元)',width:100,align:'center',
 											formatter:function(value,rec){
 												return fenToYuan(rec.amt);
 											}
@@ -241,10 +241,10 @@ table tr td select {
 											}
 										},
 										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
-										{field:'cardno',title:'交易卡号',width:148,align:'center'},
-										{field:'customernm',title:'持卡人姓名',width:200,align:'center'},
+										{field:'cardno',title:'交易卡号',width:180,align:'center'},
+										{field:'customernm',title:'持卡人姓名',width:150,align:'center'},
 										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
-										{field:'cardtype',title:'卡属类型',width:152,align:'center',
+										{field:'cardtype',title:'卡属类型',width:100,align:'center',
 											formatter : function(value, rec) {
 												if (rec.cardtype == "1") {
 													return "借记卡";
