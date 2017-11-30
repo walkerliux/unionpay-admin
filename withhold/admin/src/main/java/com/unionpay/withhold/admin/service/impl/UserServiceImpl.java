@@ -16,10 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.dao.JedisClient;
 import com.unionpay.withhold.admin.mapper.TParaDicMapper;
+import com.unionpay.withhold.admin.mapper.TRoleMapper;
 import com.unionpay.withhold.admin.mapper.TUserMapper;
 import com.unionpay.withhold.admin.mapper.TUserRoleMapper;
 import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TParaDicExample;
+import com.unionpay.withhold.admin.pojo.TRole;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.pojo.TUserExample;
 import com.unionpay.withhold.admin.pojo.TUserExample.Criteria;
@@ -52,7 +54,8 @@ public class UserServiceImpl implements UserService {
 	private TUserRoleMapper tUserRoleMapper;
 	@Autowired
 	private TParaDicMapper tParaDicMapper;
-	
+	@Autowired
+	private TRoleMapper TRoleMapper;
 	@Autowired
 	JedisClient jedisClient;
 
@@ -211,6 +214,40 @@ public class UserServiceImpl implements UserService {
 		jedisClient.del(REDIS_USER_KEY+":"+token);
 		jedisClient.del(REDIS_IP_KEY+":"+token);
 		jedisClient.del(REDIS_BROWSER_KEY+":"+token);
+		
+	}
+	@Override
+	public void saveNewMerchant(TUser user) {
+		//创建商户自动赋予商户（用户）商户门户管理的权限
+		String passwordMark = "w5y1j5z1s1l1z6z0y8z1m1l0c5r5y3z4";
+		passwordMark = passwordMark + "123456";
+		user.setPwd(MD5Util.MD5(passwordMark));
+		user.setCreateDate(new Date());
+		user.setPwdValid(new Date());
+		user.setStatus("00");
+		user.setIsadmin("0");
+		String value = jedisClient.get(REDIS_USER_CODE_KEY);
+		if (StringUtil.isNull(value)) {
+			jedisClient.set(REDIS_USER_CODE_KEY, REDIS_USER_CODE_START);
+		}
+		String  codeId= jedisClient.incr(REDIS_USER_CODE_KEY)+"";
+		TParaDicExample tParaDicExample = new TParaDicExample();
+		com.unionpay.withhold.admin.pojo.TParaDicExample.Criteria createCriteria = tParaDicExample.createCriteria();
+		createCriteria.andParaCodeEqualTo("userIdPrefix");
+		List<TParaDic> list = tParaDicMapper.selectByExample(tParaDicExample);
+		if (list!=null&&list.size()>0) {
+			TParaDic tParaDic = list.get(0);
+			String paraName = tParaDic.getParaName();
+			user.setUserCode(paraName+codeId);
+		}
+		
+		tUserMapper.insert(user);
+		//给商户赋予商户管理的角色
+		
+		TUserRole tUserRole = new TUserRole();
+		tUserRole.setUserId(user.getUserId().longValue());
+		tUserRole.setRoleId(1l);
+		tUserRoleMapper.insert(tUserRole);
 		
 	}
 	
