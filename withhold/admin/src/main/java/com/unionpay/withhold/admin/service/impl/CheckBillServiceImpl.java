@@ -102,7 +102,6 @@ public class CheckBillServiceImpl implements CheckBillService {
 
 	@Override
 	public boolean saveProcess(String instiid) {
-		Map<String, Object> resultMap = new HashMap<>();
 		TSettProcess settProcess = new TSettProcess();
 		settProcess.setInstiid(instiid);
 		settProcess.setStage("11");
@@ -194,7 +193,7 @@ public class CheckBillServiceImpl implements CheckBillService {
 		criteria.andInstiidEqualTo(instid);
 		example.setOrderByClause("tid desc");
 	    List<TSettProcess> list =settProcessMapper.selectByExample(example);
-	    if (CollectionUtils.isEmpty(list)) {
+	    if (!CollectionUtils.isEmpty(list)) {
 			return list.get(0);
 		}
 		return null;

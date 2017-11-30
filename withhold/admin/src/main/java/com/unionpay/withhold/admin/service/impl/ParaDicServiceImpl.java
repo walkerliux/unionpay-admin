@@ -2,6 +2,7 @@ package com.unionpay.withhold.admin.service.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TParaDicExample;
 import com.unionpay.withhold.admin.pojo.TParaDicExample.Criteria;
 import com.unionpay.withhold.admin.service.ParaDicService;
+import com.unionpay.withhold.admin.utils.StringUtil;
 @Service
 @Transactional
 public class ParaDicServiceImpl implements ParaDicService {
@@ -75,6 +77,19 @@ public class ParaDicServiceImpl implements ParaDicService {
 	public TParaDic selectByTid(Long parentId) {
 		
 		return tParaDicMapper.selectByPrimaryKey(parentId);
+	}
+	@Override
+	public List<TParaDic> selectByTypeAndStatus(String type, Short Status) {
+		TParaDicExample example = new TParaDicExample();
+		TParaDicExample.Criteria criteria=example.createCriteria();
+		if (!StringUtil.isEmpty(type)) {
+			criteria.andParaTypeEqualTo(type);
+		}
+		if (Status!=null) {
+			criteria.andStatusEqualTo(Status);
+		}
+		List<TParaDic> list =tParaDicMapper.selectByExample(example);
+		return list ;
 	}
 
 
