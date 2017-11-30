@@ -114,14 +114,14 @@ table tr td select {
 						<td>版本</td><td id="version"></td>
 						<td>编码方式</td><td id="encoding"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>
 						<td>交易子类</td><td id="txnsubtype"></td>
 					</tr>
 					<tr>
 						<td>产品类型</td><td id="biztype"></td>
 						<td></td><td></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">基本信息</td>
 					</tr>
@@ -130,13 +130,13 @@ table tr td select {
 						<td width="15%">订单交易时间</td><td width="35%" id="txntime"></td>
 					</tr>
 					<tr>
-						<td>委托机构号</td><td id="merid"></td>
-						<td>委托机构名称</td><td id="mername"></td>
+						<td>商户号</td><td id="merid"></td>
+						<td>商户名称</td><td id="mername"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>商户简称</td><td id="merabbr"></td>
 						<td>订单描述</td><td id="orderdesc"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>金额(元)</td><td id="txnamt"></td>
 						<td>交易币种</td><td id="currencycode"></td>
@@ -145,22 +145,23 @@ table tr td select {
 						<td>状态</td><td id="status"></td>
 						<td>通知地址</td><td id="backurl"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>接入类型</td><td id="accesstype"></td>
 						<td>合作机构号</td><td id="coopinstiid"></td>
-					</tr>
+					</tr> -->
 					
 					
 					<tr>
 						<td colspan="4" class="head-title">付款方信息</td>
 					</tr>
 					<tr>
-						<td>交易要素</td><td id="factorid" colspan="3"></td>
-					</tr>
-					<tr>
-						<td>付款人银行号</td><td id="bankcode"></td>
+						<td>交易要素</td><td id="factorid"></td>
 						<td>银行卡号</td><td id="cardno"></td>
 					</tr>
+					<!-- <tr>
+						<td>付款人银行号</td><td id="bankcode"></td>
+						
+					</tr> -->
 					<tr>
 						
 						<td>持卡人姓名</td><td id="customernm"></td>
@@ -170,17 +171,17 @@ table tr td select {
 						<td>身份证号</td><td id="idcard"></td>
 						<td>扣款类型</td><td id="dktype"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>摘要</td><td id="summary" ></td>
 						 <td>保留域</td><td id="reserved"></td> 
-					</tr>
+					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">订单处理信息</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>响应码</td><td id="respcode"></td>
 						<td>应答信息</td><td id="respmsg"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>受理订单号</td><td id="tn"></td>
 						<td>交易序列号</td><td id="relatetradetxn"></td>
@@ -189,10 +190,10 @@ table tr td select {
 						<td>订单提交时间</td><td id="ordercommitime"></td>
 						<td>异步通知结果</td><td id="syncnotify"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>备注</td><td id="notes"></td>
 						<td>标记</td><td id="remarks"></td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<div region="south" border="false" style="text-align: center; padding: 15px 0;">
@@ -353,7 +354,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 650
+			height : 500
 		});
 		
 		$.ajax({
@@ -491,16 +492,16 @@ table tr td select {
 	}
 	// 解析交易要素
 	function tradeBasic(value){
-		if (value == "1111") {
+		if (value == "0107") {
 			return "身份证号+卡号+手机号+姓名";
 		} 
-		if (value == "1110") {
+		if (value == "0106") {
 			return "身份证号+卡号+手机号";
 		} 
-		if (value == "1100") {
+		if (value == "0102") {
 			return "身份证号+卡号";
 		}
-		if (value == "1101") {
+		if (value == "0104") {
 			return "身份证号+卡号+姓名";
 		}
 	}

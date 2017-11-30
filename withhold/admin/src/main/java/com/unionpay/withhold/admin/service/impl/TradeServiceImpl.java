@@ -259,18 +259,9 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public TOrderCollectSingle getSingleById(String tid) {
-		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
-		Criteria criteria = singleExample.createCriteria();
-		criteria.andTidEqualTo(Long.parseLong(tid));
-		singleExample.setPageNum(1);
-		singleExample.setPageSize(1);
-		List<TOrderCollectSingle> list= tOrderCollectSingleMapper.selectByExample(singleExample);
-		if (list!=null&&list.size()>0) {
-			TOrderCollectSingle tOrderCollectSingle = list.get(0);
-			return tOrderCollectSingle;
-		}
 		
-		return null;
+		TOrderCollectSingle tOrderCollectSingle=tOrderCollectSingleMapper.selectInfoByTid(Long.parseLong(tid));
+		return tOrderCollectSingle;
 	}
 
 
@@ -463,18 +454,9 @@ public class TradeServiceImpl implements TradeService {
 
 	@Override
 	public Object getOrderSingleById_bak(String tid) {
-		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
-		Criteria criteria = singleExample.createCriteria();
-		criteria.andTidEqualTo(Long.parseLong(tid));
-		singleExample.setPageNum(1);
-		singleExample.setPageSize(1);
-		List<TOrderCollectSingle> list= tOrderCollectSingleMapper.selectByExample_bak(singleExample);
-		if (list!=null&&list.size()>0) {
-			TOrderCollectSingle tOrderCollectSingle = list.get(0);
-			return tOrderCollectSingle;
-		}
 		
-		return null;
+		TOrderCollectSingle tOrderCollectSingle=tOrderCollectSingleMapper.selectHisInfoByTid(Long.parseLong(tid));
+		return tOrderCollectSingle;
 		
 	}
 
