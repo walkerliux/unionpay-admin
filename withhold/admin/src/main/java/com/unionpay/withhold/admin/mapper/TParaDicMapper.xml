@@ -9,7 +9,7 @@
 		<result column="PARA_TYPE" property="paraType" jdbcType="VARCHAR" />
 		<result column="HAS_SUB" property="hasSub" jdbcType="DECIMAL" />
 		<result column="STATUS" property="status" jdbcType="DECIMAL" />
-		<result column="ADDED" property="added" jdbcType="DECIMAL" />
+		<result column="ADDED" property="added" jdbcType="VARCHAR" />
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
 		<result column="CHECKED" property="checked" />
 	</resultMap>
@@ -123,7 +123,7 @@
 		values (#{tid,jdbcType=DECIMAL}, #{paraCode,jdbcType=VARCHAR},
 		#{parentId,jdbcType=DECIMAL},
 		#{paraName,jdbcType=VARCHAR}, #{paraType,jdbcType=VARCHAR}, #{hasSub,jdbcType=DECIMAL},
-		#{status,jdbcType=DECIMAL}, #{added,jdbcType=DECIMAL},
+		#{status,jdbcType=DECIMAL}, #{added,jdbcType=VARCHAR},
 		#{remarks,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -181,7 +181,7 @@
 				#{status,jdbcType=DECIMAL},
 			</if>
 			<if test="added != null">
-				#{added,jdbcType=DECIMAL},
+				#{added,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
 				#{remarks,jdbcType=VARCHAR},
@@ -226,7 +226,7 @@
 				STATUS = #{record.status,jdbcType=DECIMAL},
 			</if>
 			<if test="record.added != null">
-				ADDED = #{record.added,jdbcType=DECIMAL},
+				ADDED = #{record.added,jdbcType=VARCHAR},
 			</if>
 			<if test="record.remarks != null">
 				REMARKS = #{record.remarks,jdbcType=VARCHAR},
@@ -245,7 +245,7 @@
 		PARA_TYPE = #{record.paraType,jdbcType=VARCHAR},
 		HAS_SUB = #{record.hasSub,jdbcType=DECIMAL},
 		STATUS = #{record.status,jdbcType=DECIMAL},
-		ADDED = #{record.added,jdbcType=DECIMAL},
+		ADDED = #{record.added,jdbcType=VARCHAR},
 		REMARKS = #{record.remarks,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -273,7 +273,7 @@
 				STATUS = #{status,jdbcType=DECIMAL},
 			</if>
 			<if test="added != null">
-				ADDED = #{added,jdbcType=DECIMAL},
+				ADDED = #{added,jdbcType=VARCHAR},
 			</if>
 			<if test="remarks != null">
 				REMARKS = #{remarks,jdbcType=VARCHAR},
@@ -289,7 +289,7 @@
 		PARA_TYPE = #{paraType,jdbcType=VARCHAR},
 		HAS_SUB = #{hasSub,jdbcType=DECIMAL},
 		STATUS = #{status,jdbcType=DECIMAL},
-		ADDED = #{added,jdbcType=DECIMAL},
+		ADDED = #{added,jdbcType=VARCHAR},
 		REMARKS = #{remarks,jdbcType=VARCHAR}
 		where TID = #{tid,jdbcType=DECIMAL}
 	</update>
