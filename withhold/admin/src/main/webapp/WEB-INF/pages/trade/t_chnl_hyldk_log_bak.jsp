@@ -142,7 +142,7 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>交易代码</td><td id="trxcode" ></td>
-						<td>交易流水号</td><td id="reqsn" ></td>
+						<td>支付订单号</td><td id="reqsn" ></td>
 					</tr>
 					<tr>
 						<td>账号</td><td id="accountno"></td>

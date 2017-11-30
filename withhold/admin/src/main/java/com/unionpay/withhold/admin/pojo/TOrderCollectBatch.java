@@ -270,4 +270,14 @@ public class TOrderCollectBatch {
     public void setCoopinstiid(String coopinstiid) {
         this.coopinstiid = coopinstiid == null ? null : coopinstiid.trim();
     }
+    private String memberName;
+
+	public String getMemberName() {
+		return memberName;
+	}
+
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+    
 }

@@ -120,7 +120,7 @@ public class CheckFileTaskController{
 				merchCheckfile.setFilename(filename);
 				merchCheckfile.setIntime(DateUtil.getCurrentDateTime());
 				merchCheckfile.setMerchno(merchno);
-				merchCheckfile.setUri("/checkbillfiles/");
+				merchCheckfile.setUri("checkbillfiles/");
 				merchFileService.insertOrUpdate(merchCheckfile);
 			} catch (Exception e) {
 				e.printStackTrace();

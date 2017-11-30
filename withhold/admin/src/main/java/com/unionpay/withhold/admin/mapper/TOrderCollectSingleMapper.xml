@@ -737,4 +737,14 @@
     </if>
     limit #{beginRow},#{pageSize}
   </select>
+  <select id="selectInfoByTid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT a.*,b.MEMBER_NAME memberName
+    from t_order_collect_single a LEFT JOIN t_merch_deta b on a.MERID=b.MEMBER_ID
+    where a.TID=#{tid,jdbcType=BIGINT}
+  </select>
+  <select id="selectHisInfoByTid" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    SELECT a.*,b.MEMBER_NAME memberName
+    from t_order_collect_single_bak a LEFT JOIN t_merch_deta b on a.MERID=b.MEMBER_ID
+    where a.TID=#{tid,jdbcType=BIGINT}
+  </select>
 </mapper>

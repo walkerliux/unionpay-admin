@@ -92,11 +92,16 @@ public class CheckFileTask implements SchedulingConfigurer {
 				}
 				logger.info("cron change to: " + cron);
 			}
-		}, 0, 10, TimeUnit.SECONDS);
+		}, 0, 1, TimeUnit.HOURS);
 	}
 	private void invoke() {
 		String date = DateUtil.getCurrentDate();
 		checkbill(date);
+		try {
+			TimeUnit.SECONDS.sleep(30);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		checkbillfile(date);
 	}
 
@@ -160,7 +165,7 @@ public class CheckFileTask implements SchedulingConfigurer {
 				merchCheckfile.setFilename(filename);
 				merchCheckfile.setIntime(DateUtil.getCurrentDateTime());
 				merchCheckfile.setMerchno(merchno);
-				merchCheckfile.setUri("/checkbillfiles/");
+				merchCheckfile.setUri("checkbillfiles/");
 				merchFileService.insertOrUpdate(merchCheckfile);
 			} catch (Exception e) {
 				e.printStackTrace();
