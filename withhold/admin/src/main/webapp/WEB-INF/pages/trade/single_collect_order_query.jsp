@@ -379,7 +379,7 @@ table tr td select {
 						$("#txnsubtype").html(json.txnsubtype);
 						$("#biztype").html(json.biztype);
 						$("#backurl").html(json.backurl);
-						$("#mername").html(json.mername);
+						$("#mername").html(json.memberName);
 						$("#merabbr").html(json.merabbr);
 						$("#orderid").html(json.orderid);
 						$("#certid").html(json.certid);
