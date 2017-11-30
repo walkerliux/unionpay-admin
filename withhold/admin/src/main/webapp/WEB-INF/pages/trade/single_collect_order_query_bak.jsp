@@ -224,7 +224,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '实时代收订单信息列表',
+							title : '实时代收订单历史信息列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -345,7 +345,7 @@ table tr td select {
 		$("#syncnotify").html("");  */
 
 		$('#w').window({
-			title : '实时代收订单详细信息',
+			title : '实时代收订单历史详细信息',
 			top : 30,
 			left : 100,
 			width : 900,

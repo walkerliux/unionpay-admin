@@ -221,7 +221,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '批量代收渠道批次列表',
+							title : 'ChinaPay批量代收批次列表',
 							height : 400,
 							singleSelect : true,
 							nowrap : false,
@@ -270,7 +270,7 @@ table tr td select {
 							onClickRow: function (index, row) { 
 								var batchno= row["batchno"];
 								$('#detailInfo').datagrid({
-									title:'批量代收渠道批次明细列表',
+									title:'ChinaPay批量代收明细列表',
 									height:400,
 									singleSelect:true,
 									nowrap: false,
@@ -359,7 +359,7 @@ table tr td select {
 		$("#hprespcode").html("");
 		$("#hprespmessage").html("");  
 		$('#w').window({
-			title: '批次详细信息',
+			title: 'ChinaPay批次详细信息',
 			top:90,
 			left:100,
 			width:900,

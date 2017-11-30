@@ -207,7 +207,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '实时代收渠道流水信息列表',
+							title : 'ChinaPay实时流水信息列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -360,7 +360,7 @@ table tr td select {
 		
 		
 		$('#w').window({
-			title : '实时代收渠道交易流水详细信息',
+			title : 'ChinaPay实时流水信息详情',
 			top : 90,
 			left : 100,
 			width : 900,

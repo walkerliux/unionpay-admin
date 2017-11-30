@@ -194,7 +194,7 @@ table tr td select {
 								var stime = $('#stime').datebox('getValue');
 								var etime = $('#etime').datebox('getValue');
 								$('#detailInfo').datagrid({
-									title:'商户统计列表详情',
+									title:'通道统计列表详情',
 									
 									height:400,
 									singleSelect:true,

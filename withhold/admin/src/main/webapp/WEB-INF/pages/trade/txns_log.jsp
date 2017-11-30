@@ -156,15 +156,8 @@ table tr td select {
 					<tr>
 						<td>交易卡号所属银行</td>
 						<td id="tcardinstino"></td>
-						<!-- <td>转入帐号</td>
-						<td id="tinpan"></td> -->
-						
-					<!-- </tr>
-					<tr>
-						<td>转入帐号类型</td>
-						<td id="tincardtype"></td>
-						<td>转入帐号所属银行</td>
-						<td id="tincardinstino"></td> -->
+						<td></td>
+						<td></td>
 					</tr>
 					<tr>
 						<td colspan="4" class="head-title">受理方信息</td>
@@ -307,6 +300,7 @@ table tr td select {
 				[
 					{field:'txnseqno',title:'交易序列号',width:120,align:'center'},
 					{field:'accfirmerno',title:'渠道号',width:150,align:'center'},
+					{field:'caname',title:'渠道名称',width:150,align:'center'},
 					{field:'accsecmerno',title:'商户号',width:150,align:'center'},
 					{field:'memberName',title:'商户名称',width:120,align:'center'},
 					{field:'pan',title:'交易卡号',width:160,align:'center'},
@@ -504,7 +498,7 @@ table tr td select {
 					   if(json.cardtype=="2"){
 						   $("#tcardtype").html("信用卡");
 					   }
-					   $("#tcardinstino").html(json.cardinstino);
+					   $("#tcardinstino").html(json.bankName);
 					  /*  $("#tinpan").html(json.INPAN);
 					   if(json.INCARDTYPE=="1"){
 						   $("#tincardtype").html("借记卡");

@@ -696,6 +696,15 @@ public class TTxnsLog {
 	private String caname;//渠道名
 	private String tradeelement;//TRADEELEMENT
 	private int total;//count统计总数
+	private String bankName;
+	
+	public String getBankName() {
+		return bankName;
+	}
+
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
 
 	public String getChnlname() {
 		return chnlname;

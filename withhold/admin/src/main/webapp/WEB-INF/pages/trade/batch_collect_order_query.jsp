@@ -158,7 +158,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '批量代收批次列表',
+							title : '批量代收订单列表',
 							
 							height : 400,
 							singleSelect : true,
@@ -215,7 +215,7 @@ table tr td select {
 							onClickRow: function (index, row) { 
 								var batchno= row["batchno"];
 								$('#detailInfo').datagrid({
-									title:'批量代收明细表',
+									title:'批量代收订单明细表',
 									
 									height:400,
 									singleSelect:true,
@@ -327,7 +327,7 @@ table tr td select {
 		$("#remarks").html("");
 		   
 		$('#w').window({
-			title: '代收批次详细信息',
+			title: '批量代收订单详细信息',
 			top:90,
 			left:100,
 			width:900,

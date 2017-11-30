@@ -142,7 +142,7 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>交易代码</td><td id="trxcode" ></td>
-						<td>支付订单</td><td id="reqsn" ></td>
+						<td>支付订单号</td><td id="reqsn" ></td>
 					</tr>
 					<tr>
 						<td>账号</td><td id="accountno"></td>
@@ -357,7 +357,7 @@ table tr td select {
 		
 		
 		$('#w').window({
-			title : '实时代收渠道交易流水详细信息',
+			title : '好易联实时流水详细信息',
 			top : 90,
 			left : 100,
 			width : 900,
