@@ -89,7 +89,7 @@ public class PortalManagerController {
 	public PageBean getSingleOrderByPage(TOrderCollectSingle orderSingle,String stime,String etime,int page,int rows, HttpServletRequest request) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		String merid =infoByToken.getUserName();
+		String merid =infoByToken.getLoginName();
 		orderSingle.setMerid(merid);
 		PageBean resultBean =tradeService.getSingleOrderByPage(orderSingle,stime,etime,page,rows);
 	    return resultBean;
@@ -106,7 +106,7 @@ public class PortalManagerController {
 	public PageBean getBatchOrderByPage(TOrderCollectBatch orderBatch,String stime,String etime,int page,int rows,HttpServletRequest request) {
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
-		String merid =infoByToken.getUserName();
+		String merid =infoByToken.getLoginName();
 		orderBatch.setMerid(merid);
 		PageBean resultBean =tradeService.getBatchOrderByPage(orderBatch,stime,etime,page,rows);
 	    return resultBean;
