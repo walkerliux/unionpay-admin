@@ -170,29 +170,29 @@ table tr td select {
 						<td colspan="4" class="head-title">受理方信息</td>
 					</tr>
 					<tr>
-						<td>订单号</td>
+						<td>商户订单号</td>
 						<td id="taccordno"></td>
-						<td>委托机构号</td>
+						<td>商户号</td>
 						<td id="taccsecmerno"></td>
 					</tr>
-					
+					<tr>
+						<td>受理清算日期</td>
+						<td id="taccsettledate"></td>
+						<td>商户名称</td>
+						<td id="tmemberName"></td>
+					</tr>
 					<tr>
 						<td>受理提交时间</td>
 						<td id="taccordcommitime"></td>
 						<td>受理完成时间</td>
 						<td id="taccordfintime"></td>
 					</tr>
-					<tr>
-						<td>受理清算日期</td>
-						<td id="taccsettledate"></td>
-						<td></td>
-						<td></td>
-					</tr>
+					
 					<tr>
 						<td colspan="4" class="head-title">通道方信息</td>
 					</tr>
 					<tr>
-						<td>订单号</td>
+						<td>支付订单号</td>
 						<td id="tpayordno"></td>
 						<td>发送方代码</td>
 						<td id="tpayfirmerno"></td>
@@ -456,6 +456,7 @@ table tr td select {
 			   $("#tapporderinfo").html("");
 			   $("#tchnlfee").html("");
 			   $("#tcoopfee").html("");
+			   $("#tmemberName").html("");
 			$('#w').window({
 				title: '交易流水详细信息',
 				top:50,
@@ -467,7 +468,7 @@ table tr td select {
 				maximizable:false,
 				shadow: false,
 				closed: false,
-				height: 690
+				height: 640
 			});
 		
 	
@@ -478,7 +479,7 @@ table tr td select {
 				   dataType:"json",
 				   success:function(json){
 					   if(json!=null){
-					   
+						   $("#tmemberName").html(json.memberName); 
 					   $("#ttxnseqno").html(json.txnseqno);
 					   $("#ttxndate").html(b_changeDate(json.txndate));
 					   $("#ttxntime").html(c_changeDate(json.txntime));

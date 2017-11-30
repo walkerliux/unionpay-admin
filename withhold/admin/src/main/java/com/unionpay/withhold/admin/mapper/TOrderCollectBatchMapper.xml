@@ -141,11 +141,14 @@
 	</if>
   </select>
  <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
-    select a.* 
+    SELECT
+	a.*, b.MEMBER_NAME memberName
     <if test="distinct" >
       distinct
     </if>
-    from t_order_collect_batch a where 1=1
+   FROM
+	t_order_collect_batch a
+	LEFT JOIN t_merch_deta b ON a.MERID = b.MEMBER_ID where 1=1
    <if test="merid!=null">
 	and a.MERID=#{merid}
 	</if>
@@ -187,11 +190,14 @@
 	</if>
   </select>
  <select id="selectByPageExample_bak" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectBatchExample" >
-    select a.* 
+    SELECT
+	a.*, b.MEMBER_NAME memberName
     <if test="distinct" >
       distinct
     </if>
-    from t_order_collect_batch_bak a where 1=1
+    FROM
+	t_order_collect_batch_bak a
+    LEFT JOIN t_merch_deta b ON a.MERID = b.MEMBER_ID where 1=1
    <if test="merid!=null">
 	and a.MERID=#{merid}
 	</if>

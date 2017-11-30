@@ -91,14 +91,14 @@ table tr td select {
 						<td width="15%">版本</td><td width="35%" id="version"></td>
 						<td width="15%">编码方式</td><td width="35%" id="encoding"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>
 						<td>交易子类</td><td id="txnsubtype"></td>
 					</tr>
 					<tr>
 						<td>产品类型</td><td id="biztype"></td>
 						<td></td><td></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">基本信息</td>
 					</tr>
@@ -107,8 +107,8 @@ table tr td select {
 						<td>批次交易时间</td><td id="txntime"></td>
 					</tr>
 					<tr>
-						<td>委托机构号</td><td id="merid"></td>
-						<td>委托机构名称</td><td id="mername"></td>
+						<td>商户号</td><td id="merid"></td>
+						<td>商户名称</td><td id="mername"></td>
 					</tr>
 					<tr>
 						<td>总笔数</td><td id="totalqty"></td>
@@ -117,10 +117,10 @@ table tr td select {
 					<tr>
 						<td colspan="4" class="head-title">批次处理信息</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>响应码</td><td id="respcode"></td>
 						<td>应答信息</td><td id="respmsg"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>订单提交时间</td><td id="ordercommitime"></td>
 						<td>异步通知结果</td><td id="syncnotify"></td>
@@ -243,7 +243,7 @@ table tr td select {
 										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
 										{field:'cardno',title:'交易卡号',width:180,align:'center'},
 										{field:'customernm',title:'持卡人姓名',width:150,align:'center'},
-										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
+										/* {field:'bankcode',title:'卡属银行号',width:100,align:'center'}, */
 										{field:'cardtype',title:'卡属类型',width:100,align:'center',
 											formatter : function(value, rec) {
 												if (rec.cardtype == "1") {
@@ -254,8 +254,8 @@ table tr td select {
 												}
 											}	
 										},
-										{field:'respcode',title:'响应码',width:100,align:'center'},
-										{field:'respmsg',title:'应答信息',width:100,align:'center'},
+										/* {field:'respcode',title:'响应码',width:100,align:'center'},
+										{field:'respmsg',title:'应答信息',width:100,align:'center'}, */
 										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
 										{field:'status',title:'状态',width:159,align:'center',
 											formatter : function(value, rec) {
@@ -337,7 +337,7 @@ table tr td select {
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 420
+			height: 360
 		});
 		function getStatus(value){
 			if (value == "00") {
@@ -381,7 +381,7 @@ table tr td select {
 		$("#syncnotify").html(rows["syncnotify"]);
 		$("#notes").html(rows["notes"]);
 		$("#remarks").html(rows["remarks"]);
-		$("#mername").html(rows["mername"]);
+		$("#mername").html(rows["memberName"]);
 	}
 	function fenToYuan(value){
 		var str = (value/100).toFixed(2) + '';

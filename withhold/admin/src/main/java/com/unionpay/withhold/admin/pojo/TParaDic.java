@@ -25,7 +25,7 @@ public class TParaDic {
 
     private Short status;
 
-    private Long added;
+    private String added;
 
     private String remarks;
     
@@ -87,11 +87,11 @@ public class TParaDic {
         this.status = status;
     }
 
-    public Long getAdded() {
+    public String getAdded() {
         return added;
     }
 
-    public void setAdded(Long added) {
+    public void setAdded(String added) {
         this.added = added;
     }
 

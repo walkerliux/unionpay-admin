@@ -9,7 +9,7 @@
 		<result column="PARA_TYPE" property="paraType" jdbcType="VARCHAR" />
 		<result column="HAS_SUB" property="hasSub" jdbcType="DECIMAL" />
 		<result column="STATUS" property="status" jdbcType="DECIMAL" />
-		<result column="ADDED" property="added" jdbcType="DECIMAL" />
+		<result column="ADDED" property="added" jdbcType="VARCHAR" />
 		<result column="REMARKS" property="remarks" jdbcType="VARCHAR" />
 		<result column="CHECKED" property="checked" />
 	</resultMap>

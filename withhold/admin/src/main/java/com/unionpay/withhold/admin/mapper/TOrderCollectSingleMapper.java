@@ -32,4 +32,8 @@ public interface TOrderCollectSingleMapper {
 
 	List<TOrderCollectSingle> selectByExample_bak(
 			TOrderCollectSingleExample singleExample);
+
+	TOrderCollectSingle selectInfoByTid(Long tid);
+
+	TOrderCollectSingle selectHisInfoByTid(long parseLong);
 }
