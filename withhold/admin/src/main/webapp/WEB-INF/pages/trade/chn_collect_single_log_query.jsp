@@ -94,12 +94,14 @@ table tr td select {
 					</tr>
 					<tr>
 						<td width="15%">私有域</td><td width="35%" id="priv1"></td>
-						<td width="15%">交易手机串号IMEI</td><td width="35%" id="imei"></td>
+						<td></td>
+						<td></td>
+						<!-- <td width="15%">交易手机串号IMEI</td><td width="35%" id="imei"></td> -->
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="15%">PC 硬盘序列号</td><td width="35%" id="disksn"></td>
 						<td width="15%">PC mac地址</td><td width="35%" id="mac"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">基本信息</td>
 					</tr>
@@ -124,7 +126,7 @@ table tr td select {
 						<td>订单描述</td><td id="orderdesc"></td>
 						<td>交易模式</td><td id="paymode"></td>
 					</tr>
-					<tr>
+				<!-- 	<tr>
 						<td colspan="4" class="head-title">用户信息</td>
 					</tr>
 					
@@ -143,32 +145,32 @@ table tr td select {
 					<tr>
 						<td>短信验证码输入操作特征</td><td id="codeinputtype"></td>
 						<td>手机所在基站序列号</td><td id="basestationsn"></td>
-					</tr>
+					</tr> -->
 					
 					<tr>
 						<td colspan="4" class="head-title">交易信息</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td width="15%">交易要素</td><td width="35%" id="factorid" colspan="3"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td width="15%">开户行号</td><td width="35%" id="openbankid"></td>
-						<td width="15%">卡号/折号</td><td width="35%" id=tcardno></td>
+						<td width="15%">卡号/折号</td><td width="35%" id="cardno"></td>
 					</tr>
 					<tr>
 						<td width="15%">持卡人姓名</td><td width="35%" id="usrname"></td>
 						<td width="15%">卡折标志</td><td width="35%" id="cardtype"></td>
 					</tr>
-					
+					<tr>
+						<td width="15%">证件类型</td><td width="35%" id="certtype"></td>
+						<td>证件号</td><td id=certid></td>
+					</tr>
 					<tr>
 						
 						<td width="15%">签名值</td><td style="word-break:break-all" width="35%" id="chkvalue"></td>
 						<td width="15%">预留手机号</td><td  width="35%" id="mobileforbank"></td>
 					</tr>
-					<tr>
-						<td>证件号</td><td id=certid></td>
-						
-					</tr>
+					
 					
 					<tr>
 						<td colspan="4" class="head-title">订单处理信息</td>
@@ -381,7 +383,7 @@ table tr td select {
 		$("#transtype").html(rows["transtype"]);
 		$("#openbankid").html(rows["openbankid"]);
 		$("#cardtype").html(cardType(rows["cardtype"]));
-		$("#tcardno").html(rows["cardno"]);
+		$("#cardno").html(rows["cardno"]);
 		$("#usrname").html(rows["usrname"]);
 		$("#certtype").html(certType(rows["certtype"]));
 		$("#certid").html(rows["certid"]);
@@ -409,7 +411,7 @@ table tr td select {
 		$("#codeinputtype").html(rows["codeinputtype"]);
 		$("#mobileforbank").html(rows["mobileforbank"]);
 		$("#orderdesc").html(rows["orderdesc"]);
-		$("#factorid").html(tradeBasic(rows["factorid"]));
+		/* $("#factorid").html(tradeBasic(rows["factorid"])); */
 		$("#chkvalue").html(rows["chkvalue"]);
 		$("#responsecode").html(rows["responsecode"]);
 		$("#message").html(rows["message"]);

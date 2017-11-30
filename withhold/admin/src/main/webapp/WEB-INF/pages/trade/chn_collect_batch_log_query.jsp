@@ -179,13 +179,15 @@ table tr td select {
 						<td>附言</td><td colspan="3"><span id="POSTSCRIPT"></span></td>
 					</tr> -->
 					<tr>
-						<td>描述</td><td><span id="message"></span></td>				
-						
-					</tr>
-					<tr>
 						<td>更新时间</td><td><span id="uptime"></span></td>					
 						<td>插入时间</td><td><span id="intimes"></span></td>
 					</tr>
+					<tr>
+						<td>描述</td><td><span id="message"></span></td>				
+						<td></td>
+						<td></td>
+					</tr>
+					
 					
 					<!-- <tr>
 						<td colspan="4" class="head-title">应答报文信息</td>
@@ -280,17 +282,17 @@ table tr td select {
 									idField:'TID',
 									columns:[
 									[
-										{field:'batchno',title:'批次号',width:130,align:'center'},
-										{field:'txnseqno',title:'交易流水号',width:150,align:'center'},
-										{field:'orderno',title:'订单号',width:150,align:'center'},
-										{field:'transdate',title:'提交日期',width:90,align:'center',
+										{field:'batchno',title:'批次号',width:150,align:'center'},
+										{field:'txnseqno',title:'交易流水号',width:180,align:'center'},
+										{field:'orderno',title:'订单号',width:180,align:'center'},
+										{field:'transdate',title:'提交日期',width:120,align:'center',
 											formatter : function(value, rec) {
 												return changeDate(rec.transdate);
 											}	
 										},
 										{field:'cardno',title:'付款账号',width:200,align:'center'},
 										{field:'usrname',title:'付款账户名称',width:120,align:'center'},
-										{field:'certid',title:'证件号',width:140,align:'center'},
+										{field:'certid',title:'证件号',width:180,align:'center'},
 										{field:'transamt',title:'金额（元）',width:120,align:'center',
 											formatter : function(value, rec) {
 												return fenToYuan(rec.transamt);
@@ -461,7 +463,7 @@ table tr td select {
 	
 	function showBatchDetail(){
 		$('#w2').window({
-			title: '代收渠道交易详细信息',
+			title: 'ChinaPay批量代收明细详情',
 			top:90,
 			left:100,
 			width:900,
@@ -471,7 +473,7 @@ table tr td select {
 			maximizable:false,
 			shadow: false,
 			closed: false,
-			height: 560
+			height: 400
 		});
 		$("#detailinfo span").html("");
 		var rows = $('#detailInfo').datagrid('getSelected');
