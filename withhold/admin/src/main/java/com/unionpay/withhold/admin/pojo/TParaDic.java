@@ -92,7 +92,7 @@ public class TParaDic {
     }
 
     public void setAdded(String added) {
-        this.added = added;
+        this.added = added == null ? null : added.trim();
     }
 
     public String getRemarks() {

@@ -6,6 +6,7 @@ import java.util.List;
 public class TParaDicExample {
 	private int pageNum;
 	private int pageSize;
+	@SuppressWarnings("unused")
 	private int beginRow;
 	private String parentId;
 	private String paraCode;
@@ -620,52 +621,52 @@ public class TParaDicExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddedEqualTo(Long value) {
+        public Criteria andAddedEqualTo(String value) {
             addCriterion("ADDED =", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedNotEqualTo(Long value) {
+        public Criteria andAddedNotEqualTo(String value) {
             addCriterion("ADDED <>", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedGreaterThan(Long value) {
+        public Criteria andAddedGreaterThan(String value) {
             addCriterion("ADDED >", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedGreaterThanOrEqualTo(Long value) {
+        public Criteria andAddedGreaterThanOrEqualTo(String value) {
             addCriterion("ADDED >=", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedLessThan(Long value) {
+        public Criteria andAddedLessThan(String value) {
             addCriterion("ADDED <", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedLessThanOrEqualTo(Long value) {
+        public Criteria andAddedLessThanOrEqualTo(String value) {
             addCriterion("ADDED <=", value, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedIn(List<Long> values) {
+        public Criteria andAddedIn(List<String> values) {
             addCriterion("ADDED in", values, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedNotIn(List<Long> values) {
+        public Criteria andAddedNotIn(List<String> values) {
             addCriterion("ADDED not in", values, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedBetween(Long value1, Long value2) {
+        public Criteria andAddedBetween(String value1, String value2) {
             addCriterion("ADDED between", value1, value2, "added");
             return (Criteria) this;
         }
 
-        public Criteria andAddedNotBetween(Long value1, Long value2) {
+        public Criteria andAddedNotBetween(String value1, String value2) {
             addCriterion("ADDED not between", value1, value2, "added");
             return (Criteria) this;
         }
