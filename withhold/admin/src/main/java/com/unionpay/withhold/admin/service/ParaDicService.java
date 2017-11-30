@@ -29,5 +29,5 @@ public interface ParaDicService {
 
 	TParaDic selectByTid(Long parentId);
 
-
+	List<TParaDic> selectByTypeAndStatus(String type,Short Status);
 }

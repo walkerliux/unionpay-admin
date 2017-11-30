@@ -5,7 +5,6 @@ public enum MerchCheckTypeEnums {
 	CP("CP100001","1"), 
 	HYL("HYL10001","1"),
 	;
-	;
 	private String code;
 	private String type;//对账方式
 	private MerchCheckTypeEnums(String code,String type) {

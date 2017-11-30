@@ -53,7 +53,7 @@ public class LimitServiceImpl implements LimitService {
 		limitMenNumsDay.setStatus("00");
 		int flag =limitMemNumsDayMapper.insertSelective(limitMenNumsDay);
 		if(flag>0){
-			return new ResultBean("","操作成功");
+			return new ResultBean("操作成功");
 		}else{
 			return new ResultBean("","添加失败！");
 		}

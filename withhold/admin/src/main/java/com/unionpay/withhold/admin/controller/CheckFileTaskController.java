@@ -1,4 +1,4 @@
-package com.unionpay.withhold.admin.task;
+package com.unionpay.withhold.admin.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,59 +7,35 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.scheduling.Trigger;
-import org.springframework.scheduling.TriggerContext;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.SchedulingConfigurer;
-import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-import org.springframework.scheduling.support.CronTrigger;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.unionpay.withhold.admin.Bean.FtpBean;
 import com.unionpay.withhold.admin.enums.MerchCheckTypeEnums;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
 import com.unionpay.withhold.admin.pojo.TMerchCheckfile;
 import com.unionpay.withhold.admin.pojo.TMerchDeta;
-import com.unionpay.withhold.admin.pojo.TParaDic;
 import com.unionpay.withhold.admin.pojo.TSelfTxn;
 import com.unionpay.withhold.admin.pojo.TSettProcess;
 import com.unionpay.withhold.admin.service.CheckBillService;
 import com.unionpay.withhold.admin.service.FtpService;
 import com.unionpay.withhold.admin.service.MerchDetaService;
 import com.unionpay.withhold.admin.service.MerchFileService;
-import com.unionpay.withhold.admin.service.ParaDicService;
 import com.unionpay.withhold.admin.utils.ConfigParamsExcelHeader;
 import com.unionpay.withhold.admin.utils.FTPUtilsForJob;
 import com.unionpay.withhold.admin.utils.MapTrans;
 import com.unionpay.withhold.admin.utils.excel.ExcelUtil;
 import com.unionpay.withhold.utils.DateUtil;
 
-/**
- * 自动对账, 并且自动生成对账文件
- * @author: zhangshd
- * @date:   2017年11月29日 下午3:03:40   
- * @version :v1.0
- */
-@Lazy(false)
-@Component
-@EnableScheduling
-public class CheckFileTask implements SchedulingConfigurer {
-	private final Logger logger = LoggerFactory.getLogger(getClass());
-	
+@Controller
+@RequestMapping("/checktask")
+public class CheckFileTaskController{
 	@Autowired
 	private CheckBillService checkBillService;
 	
@@ -71,29 +47,13 @@ public class CheckFileTask implements SchedulingConfigurer {
 	
 	@Autowired
 	private MerchFileService merchFileService;
-	
-	@Autowired
-	private ParaDicService paraDicService;
 	@Autowired
 	private FtpService ftpService;
-	private static String cron;
-	public CheckFileTask() {
-		cron = "0 0 18 * * ?";
-		ScheduledExecutorService scheduledExecutor = Executors.newSingleThreadScheduledExecutor();
-		scheduledExecutor.scheduleAtFixedRate(new Runnable() {
-			@Override
-			public void run() {
-				List<TParaDic> list =paraDicService.selectByTypeAndStatus("CHECKBILL", Short.valueOf("1"));
-				if (!CollectionUtils.isEmpty(list)) {
-					cron=list.get(0).getParaCode();
-				}
-				if(StringUtils.isEmpty(cron)) {
-					cron = "0 0 18 * * ?";
-				}
-				logger.info("cron change to: " + cron);
-			}
-		}, 0, 10, TimeUnit.SECONDS);
-	}
+	@ResponseBody
+    @RequestMapping("/index")
+    public void index() {
+        invoke();
+    }
 	private void invoke() {
 		String date = DateUtil.getCurrentDate();
 		checkbill(date);
@@ -172,27 +132,4 @@ public class CheckFileTask implements SchedulingConfigurer {
 			e.printStackTrace();
 		}
 	}
-	@Override
-	public void configureTasks(ScheduledTaskRegistrar taskRegistrar) {
-		taskRegistrar.addTriggerTask(new Runnable() {
-			@Override
-			public void run() {
-				// 任务逻辑
-				String starttime=DateUtil.getCurrentDateTime();
-				logger.info("定时对账任务开始===时间:"+starttime);
-				invoke();
-				String endtime=DateUtil.getCurrentDateTime();
-				logger.info("定时对账任务结束===时间:"+DateUtil.getCurrentDateTime()+"==耗时:"+(Long.valueOf(endtime)-Long.valueOf(starttime)));
-			}
-		}, new Trigger() {
-			@Override
-			public Date nextExecutionTime(TriggerContext triggerContext) {
-				// 任务触发，可修改任务的执行周期
-				CronTrigger trigger = new CronTrigger(cron);
-				Date nextExec = trigger.nextExecutionTime(triggerContext);
-				return nextExec;
-			}
-		});
-	}
-
 }

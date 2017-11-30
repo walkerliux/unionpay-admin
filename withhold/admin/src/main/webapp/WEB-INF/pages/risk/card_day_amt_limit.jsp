@@ -51,7 +51,7 @@
 						<select id="caseid" name="caseid" class="easyui-validatebox" missingMessage="请选选择风控版本" required="true">
 						<option value=''></option>
 						</select></td>						
-							<td align="right" width="15%">交易金额限制</td>
+							<td align="right" width="15%">交易金额限制（元）</td>
 							<td align="left" style="padding-left: 5px" width="25%">
 							<input name="limitAmount" id="limitAmount" maxlength="8" onkeyup="this.value=this.value.replace(/[^\d]/g,'') " /></td>
 						</tr>
@@ -111,7 +111,7 @@
 				columns:[
 				[
 					{field:'riskname',title:'风控版本',width:150,align:'center'},	
-					{field:'limitAmount',title:'累计限额',width:100,align:'center'},
+					{field:'limitAmount',title:'累计限额（元）',width:100,align:'center'},
 					{field:'risklevel',title:'风险等级',width:100,align:'center',
 						formatter:function(value,rec){
 							if(value=="1"){
