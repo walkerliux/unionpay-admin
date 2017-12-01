@@ -79,7 +79,7 @@ table tr td select {
 					<table width="100%" cellpadding="2" cellspacing="2">
 						<tr style="height: 25px">
 							<td>交易要素</td>
-							<td align="left"><select id="Ttransfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors"/>
+							<td align="left"><select id="Ttransfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="transfactors">
 							
 							</select><font color="red">*</font></td>
 						</tr>
