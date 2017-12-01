@@ -362,7 +362,7 @@ table tr td select {
 		}
 		var rows = $('#test').datagrid('getSelected');
 		$("#tid").html(rows["tid"]);
-		$("#accesstype").html(rows["accesstype"]);
+		$("#accesstype").html(changeAccesstype(rows["accesstype"]));
 		$("#coopinstiid").html(rows["coopinstiid"]);
 		$("#merid").html(rows["merid"]);
 		$("#version").html(rows["version"]);
@@ -393,6 +393,16 @@ table tr td select {
 		var dot = str.substring(str.length,str.indexOf("."));
 		var ret = intSum + dot;
 		return ret;
+	}
+	//接入类型转化
+	function changeAccesstype(value){
+		//accesstype
+		if(value=="1"){
+			return "门户";
+		}
+		if(value=="0"){
+			return "接口";
+		}
 	}
 	function closeAdd(){
 		$('#w').window('close');

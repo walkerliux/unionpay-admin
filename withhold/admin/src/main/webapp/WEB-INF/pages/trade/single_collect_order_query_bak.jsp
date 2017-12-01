@@ -372,7 +372,7 @@ table tr td select {
 						$("#tid").html(json.tid);
 						/* $("#user_code").attr('readonly','readonly');
 						$("#user_code").css('background-color','#D2D2D2'); */
-						$("#accesstype").html(json.accesstype);
+						$("#accesstype").html(changeAccesstype(json.accesstype));
 						$("#coopinstiid").html(json.coopinstiid);
 						$("#merid").html(json.merid);
 						$("#version").html(json.version);
@@ -507,6 +507,16 @@ table tr td select {
 		}
 		if (value == "0104") {
 			return "身份证号+卡号+姓名";
+		}
+	}
+	//接入类型转化
+	function changeAccesstype(value){
+		//accesstype
+		if(value=="1"){
+			return "门户";
+		}
+		if(value=="0"){
+			return "接口";
 		}
 	}
 </script>
