@@ -183,7 +183,7 @@ public class MerchantPortalController {
 			if (batchCollectDetaBean.getCardType().equals("借记卡")) {
 				batchCollectDetaBean.setCardType("1");
 			}
-			if (batchCollectDetaBean.getCardType().equals("贷记卡")) {
+			if (batchCollectDetaBean.getCardType().equals("信用卡")) {
 				batchCollectDetaBean.setCardType("2");
 			}
 		}
