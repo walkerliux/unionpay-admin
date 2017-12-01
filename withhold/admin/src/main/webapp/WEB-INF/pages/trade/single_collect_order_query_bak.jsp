@@ -311,42 +311,42 @@ table tr td select {
 		$('#w').window('close');
 	}	
 	function queryOrderSingle(tid) {
-		/*  $("#tid").html("");
+		 $("#tid").html("");
 		$("#accesstype").html("");
 		$("#coopinstiid").html("");
 		$("#merid").html("");
 		$("#version").html("");
 		$("#encoding").html("");
 		$("#txntype").html("");
+		$("#certid").html("");
 		$("#txnsubtype").html("");
 		$("#biztype").html("");
 		$("#backurl").html("");
-		$("#txntime").html("");
-		$("#orderid").html("");
-		
 		$("#mername").html("");
-		$("#merabbr").html("");
-		$("#paytimeout").html("");
 		
-		$("#currencycode").html("");
+		$("#merabbr").html("");
+		$("#orderid").html("");
+		$("#certid").html("");
+		
+		$("#txntime").html("");
+		$("#paytimeout").html("");
 		$("#txnamt").html("");
-		$("#debtorbank").html("");
-		$("#debtoraccount").html("");
-		$("#debtorname").html("");
-		$("#debtorconsign").html("");
-		$("#creditorbank").html("");
-		$("#creditoraccount").html("");
-		$("#creditorname").html("");
-		$("#proprietary").html("");
-		$("#summary").html("");
+		$("#currencycode").html("");
+		$("#bankcode").html("");
+		$("#cardno").html("");
+		$("#customernm").html("");
+		$("#factorid").html("");
+		$("#phone").html("");
+		$("#idcard").html("");
+		$("#dktype").html("");
+		$("#orderdesc").html("");
 		$("#reserved").html("");
 		$("#respcode").html("");
 		$("#respmsg").html("");
 		$("#tn").html("");
-		$("#relatetradetxn").html("");
-		$("#status").html("");
+		$("#syncnotify").html("");
 		$("#ordercommitime").html("");
-		$("#syncnotify").html("");  */
+		$("#status").html("");  
 
 		$('#w').window({
 			title : '实时代收订单历史详细信息',
