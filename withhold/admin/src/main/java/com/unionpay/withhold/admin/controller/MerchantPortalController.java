@@ -37,12 +37,16 @@ public class MerchantPortalController {
 	private String VERSION;// 版本号
 	@Value("${ENCODING}")
 	private String ENCODING;//编码格式
-	@Value("${TXNTYPE}")
-	private String TXNTYPE;//交易类型
+	@Value("${TXNTYPE_SINGLE}")
+	private String TXNTYPE_SINGLE;//实时交易类型
+	@Value("${TXNTYPE_BATCH}")
+	private String TXNTYPE_BATCH;//批量交易类型
 	@Value("${TXNSUBTYPE}")
 	private String TXNSUBTYPE;//交易子类
-	@Value("${BIZTYPE}")
-	private String BIZTYPE;//产品类型
+	@Value("${BIZTYPE_SINGLE}")
+	private String BIZTYPE_SINGLE;//实时产品类型
+	@Value("${BIZTYPE_BATCH}")
+	private String BIZTYPE_BATCH;//批量产品类型
 	@Value("${BACkURL}")
 	private String BACkURL;// 通知地址
 	@Value("${DkType}")
@@ -103,8 +107,8 @@ public class MerchantPortalController {
 		bean.setEncoding(ENCODING);// 编码方式
 		bean.setVersion(VERSION);//版本
 		bean.setBackUrl(BACkURL);// 后台通知地址
-		bean.setBizType(BIZTYPE);//产品类型
-		bean.setTransType(TXNTYPE);// 交易类型
+		bean.setBizType(BIZTYPE_SINGLE);//产品类型
+		bean.setTransType(TXNTYPE_SINGLE);// 实时交易类型
 		bean.setTxnSubType(TXNSUBTYPE);//交易子类
 		bean.setTransTm(DateUtil.getCurrentDateTime());// 订单发送时间
 		bean.setAtType(AtType);// 交易币种
@@ -190,10 +194,10 @@ public class MerchantPortalController {
 		batchCollectBean.setVersion(VERSION);// 版本
 		batchCollectBean.setEncoding(ENCODING);// 编码方式
 		/**交易类型*/
-		batchCollectBean.setTxnType(TXNTYPE);
+		batchCollectBean.setTxnType(TXNTYPE_BATCH);
 		/**交易子类*/
 		batchCollectBean.setTxnSubType(TXNSUBTYPE);
-		batchCollectBean.setBizType(BIZTYPE);
+		batchCollectBean.setBizType(BIZTYPE_BATCH);
 		batchCollectBean.setBackUrl(BACkURL);// 通知地址
 		batchCollectBean.setReserved(Reserved);// 保留域
 		batchCollectBean.setTxnTime(DateUtil.getCurrentDateTime());// 订单发送时间

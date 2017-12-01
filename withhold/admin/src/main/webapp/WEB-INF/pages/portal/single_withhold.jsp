@@ -149,7 +149,7 @@ table tr td select {
 				url : "portalManager/getTransfactors",
 				dataType : "json",
 				success : function(json) {
-					var html = '<option value="' + json.paraCode + '" selected="selected">'
+					var html = '<option value="' + json.added + '" selected="selected">'
 							+ json.paraName + '</option>';
 					$("#transfactors").html(html);
 					if (json.paraCode.charAt(0) == '0') {

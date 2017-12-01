@@ -254,7 +254,7 @@ table tr td select {
 									dataType : "json",
 									success : function(json) {
 
-										var html = '<option value="' + json.paraCode + '" selected="selected">'
+										var html = '<option value="' + json.added + '" selected="selected">'
 												+ json.paraName + '</option>';
 										$("#transfactors,#Ttransfactors").html(
 												html);
