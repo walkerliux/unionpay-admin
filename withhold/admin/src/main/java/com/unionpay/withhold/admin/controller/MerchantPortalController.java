@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.unionpay.withhold.admin.pojo.TMerchMk;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.PortalService;
 import com.unionpay.withhold.admin.service.UserService;
@@ -126,6 +125,7 @@ public class MerchantPortalController {
 		bean.setCertId("0000");
 		// 签名方式
 		bean.setSignMethod(SignMethod);
+		bean.setAccessType(1);//接入类型 商户门户发起默认为1
 		// 加密证书ID
 		bean.setEncryptCertId(EncryptCertId);
 		ResultBean resultBean = feapi.realTimeCollect(JSON.toJSONString(bean));
@@ -205,7 +205,7 @@ public class MerchantPortalController {
 		batchCollectBean.setTotalQty(detaList.size()+"");//总笔数
 		
 		batchCollectBean.setTotalAmt(totalAmt+"");//交易总金额
-		
+		batchCollectBean.setAccessType(1);//接入类型 商户门户发起默认为1
 		/**certid*/
 		//TMerchMk certId = portalService.getCertId(loginName);
 		batchCollectBean.setCertId("0000");

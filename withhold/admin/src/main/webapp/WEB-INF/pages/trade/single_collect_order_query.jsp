@@ -103,16 +103,16 @@ table tr td select {
 				style="padding: 10px; background: #fff; border: 1px solid #ccc; text-align: center">
 				<table width="100%" cellpadding="2" cellspacing="2" id="groupinfo"
 					border="1">
-					<!-- <tr>
-						<td>标志</td><td id="tid"></td>
-						<td>接入类型</td><td id="accesstype"></td>
-					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">接口参数</td>
 					</tr>
 					<tr>
 						<td>版本</td><td id="version"></td>
 						<td>编码方式</td><td id="encoding"></td>
+					</tr>
+					 <tr>
+						<td>接入类型</td><td id="accesstype"></td>
+						<td></td><td></td>
 					</tr>
 					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>

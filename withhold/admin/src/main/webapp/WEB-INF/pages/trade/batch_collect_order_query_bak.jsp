@@ -91,6 +91,10 @@ table tr td select {
 						<td width="15%">版本</td><td width="35%" id="version"></td>
 						<td width="15%">编码方式</td><td width="35%" id="encoding"></td>
 					</tr>
+					<tr>
+						<td>接入类型</td><td id="accesstype"></td>
+						<td></td><td></td>
+					</tr>
 					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>
 						<td>交易子类</td><td id="txnsubtype"></td>
