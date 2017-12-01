@@ -354,7 +354,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 500
+			height : 550
 		});
 		
 		$.ajax({

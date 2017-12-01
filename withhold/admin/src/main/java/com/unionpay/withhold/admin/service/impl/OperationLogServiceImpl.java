@@ -67,6 +67,9 @@ public class OperationLogServiceImpl implements OperationLogService {
 
 		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
 		String userValue = jedisClient.get(REDIS_USER_KEY+":"+cookieValue);
+		if (userValue!=null&&!"".equals(userValue)) {
+			
+		
 		TUser tUser = JsonUtils.jsonToPojo(userValue,TUser.class);
 		TOperationLog tOperationLog = new TOperationLog();
 		tOperationLog.setUserId(tUser.getUserId().toString());
@@ -83,7 +86,7 @@ public class OperationLogServiceImpl implements OperationLogService {
 		}
 		
 		tOperationLogMapper.insertSelective(tOperationLog);
-		
+		}
 	}
 	
 	public static InetAddress getLocalHostLANAddress() throws Exception {
