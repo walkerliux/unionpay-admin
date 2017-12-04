@@ -243,7 +243,7 @@ table tr td select {
 										 /* field:'DEBTORCONSIGN',title:'合同号',width:150,align:'center'}, */ 
 										{field:'cardno',title:'交易卡号',width:148,align:'center'},
 										{field:'customernm',title:'持卡人姓名',width:200,align:'center'},
-										{field:'bankcode',title:'卡属银行号',width:100,align:'center'},
+										/* {field:'bankcode',title:'卡属银行号',width:100,align:'center'}, */
 										{field:'cardtype',title:'卡属类型',width:152,align:'center',
 											formatter : function(value, rec) {
 												if (rec.cardtype == "1") {
@@ -254,8 +254,8 @@ table tr td select {
 												}
 											}	
 										},
-										{field:'respcode',title:'响应码',width:100,align:'center'},
-										{field:'respmsg',title:'应答信息',width:100,align:'center'},
+										/* {field:'respcode',title:'响应码',width:100,align:'center'},
+										{field:'respmsg',title:'应答信息',width:100,align:'center'}, */
 										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
 										{field:'status',title:'状态',width:159,align:'center',
 											formatter : function(value, rec) {
