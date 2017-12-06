@@ -2412,13 +2412,21 @@ public class TChnlHyldkLogExample {
 	public void setBeginRow(int beginRow) {
 		this.beginRow = beginRow;
 	}
-	
+	private String txnseqno;
 	private String merchantid;
 	private String accountno;
 	private String retcode;
 	private String reqsn;
 	private Date stime;
 	private Date etime;
+
+	public String getTxnseqno() {
+		return txnseqno;
+	}
+
+	public void setTxnseqno(String txnseqno) {
+		this.txnseqno = txnseqno;
+	}
 
 	public String getMerchantid() {
 		return merchantid;

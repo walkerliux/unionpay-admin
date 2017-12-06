@@ -221,6 +221,9 @@ public class TradeServiceImpl implements TradeService {
 	public PageBean getChnCollectSingleLogByPage(TChnlCpdkLog tChnlCpdkLog,
 			String stime, String etime, int page, int rows) {
 		TChnlCpdkLogExample tChnlCpdkLogExample = new TChnlCpdkLogExample();
+		if (tChnlCpdkLog.getTxnseqno()!=null&&!"".equals(tChnlCpdkLog.getTxnseqno())) {
+			tChnlCpdkLogExample.setTxnseqno(tChnlCpdkLog.getTxnseqno());
+		}
 		// 商户号
 		if (tChnlCpdkLog.getMerid()!=null&&!"".equals(tChnlCpdkLog.getMerid())) {
 			tChnlCpdkLogExample.setMerid(tChnlCpdkLog.getMerid());
@@ -464,6 +467,9 @@ public class TradeServiceImpl implements TradeService {
 	public PageBean getChnCollectSingleLogByPage_bak(TChnlCpdkLog tChnlCpdkLog,
 			String stime, String etime, int page, int rows) {
 		TChnlCpdkLogExample tChnlCpdkLogExample = new TChnlCpdkLogExample();
+		if (tChnlCpdkLog.getTxnseqno()!=null&&!"".equals(tChnlCpdkLog.getTxnseqno())) {
+			tChnlCpdkLogExample.setTxnseqno(tChnlCpdkLog.getTxnseqno());
+		}
 		// 商户号
 		if (tChnlCpdkLog.getMerid()!=null&&!"".equals(tChnlCpdkLog.getMerid())) {
 			tChnlCpdkLogExample.setMerid(tChnlCpdkLog.getMerid());
@@ -548,6 +554,10 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getHYLCollectDeta(TChnlHyldkLog hyldkLog,String stime,String etime,int page,int rows) {
 		TChnlHyldkLogExample tChnlHyldkLogExample = new TChnlHyldkLogExample();
+		//  交易序列号
+		if (hyldkLog.getTxnseqno()!=null&&!"".equals(hyldkLog.getTxnseqno())) {
+			tChnlHyldkLogExample.setTxnseqno(hyldkLog.getTxnseqno());
+		}
 		// 商户号
 		if (hyldkLog.getMerchantid()!=null&&!"".equals(hyldkLog.getMerchantid())) {
 			tChnlHyldkLogExample.setMerchantid(hyldkLog.getMerchantid());
@@ -585,6 +595,10 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public PageBean getHYLCollectBakDeta(TChnlHyldkLogBak hyldkLog,String stime,String etime,int page,int rows) {
 		TChnlHyldkLogExample tChnlHyldkLogExample = new TChnlHyldkLogExample();
+		//  交易序列号
+		if (hyldkLog.getTxnseqno()!=null&&!"".equals(hyldkLog.getTxnseqno())) {
+			tChnlHyldkLogExample.setTxnseqno(hyldkLog.getTxnseqno());
+		}
 		// 商户号
 		if (hyldkLog.getMerchantid()!=null&&!"".equals(hyldkLog.getMerchantid())) {
 			tChnlHyldkLogExample.setMerchantid(hyldkLog.getMerchantid());

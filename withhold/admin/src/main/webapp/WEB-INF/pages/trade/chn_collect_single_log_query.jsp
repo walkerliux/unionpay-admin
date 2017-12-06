@@ -47,6 +47,9 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="25%"><input name="merid" id="tmerid" /></td>
 						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input name="cardno" id="tcardno" /></td>
+						<td align="right" width="10%">交易序列号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="txnseqno" id="txnseq_no" maxlength="32" /></td>
 					</tr>
 					
 					<tr>
@@ -303,6 +306,7 @@ table tr td select {
 
 	function search() {
 		var data = {
+			"txnseqno" : $('#txnseq_no').val(),	
 			"merid" : $('#tmerid').val(),
 			"cardno" : $('#tcardno').val(),
 			"orderno" : $('#torderno').val(),
