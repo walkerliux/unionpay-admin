@@ -141,7 +141,7 @@ table tr td select {
 									},
 									{field:'tn',title:'受理订单号',width:200,align:'center'},
 									
-									{field:'status',title:'交易状态',width:148,align:'center',
+									{field:'status',title:'订单状态',width:148,align:'center',
 										formatter : function(value, rec) {
 											if (rec.status == "00") {
 												return "支付成功";
