@@ -786,7 +786,44 @@
 	<if test='beginRow!="-1" and pageSize!="0"'>
 	limit #{beginRow},#{pageSize}
 	</if>
-    
-   
+  </select>
+  
+   <select id="selectHisOrderInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectSingleExample" >
+    SELECT
+	a.*, b.retinfo
+    <if test="distinct" >
+      distinct
+    </if>
+    FROM
+	t_order_collect_single_bak a
+	LEFT JOIN t_txns_log b ON b.TXNSEQNO = a.RELATETRADETXN
+	where 1=1
+	<if test="merid!=null">
+	and a.MERID =#{merid}
+	</if>
+	<if test="cardno!=null">
+	and a.CARDNO =#{cardno}
+	</if>
+	<if test="tn!=null">
+	and a.TN =#{tn}
+	</if>
+	<if test="status!=null">
+	and a.`STATUS` =#{status}
+	</if>
+	<if test="orderid!=null">
+	and a.ORDERID =#{orderid}
+	</if>
+	<if test="stime!=null">
+	and a.TXNTIME &gt;=#{stime}
+	</if>
+	<if test="etime!=null">
+	and a.TXNTIME &lt;#{etime}
+	</if>
+	<if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+	<if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
   </select>
 </mapper>

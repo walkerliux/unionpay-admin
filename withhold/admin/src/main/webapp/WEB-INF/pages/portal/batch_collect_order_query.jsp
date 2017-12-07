@@ -257,7 +257,7 @@ table tr td select {
 										/* {field:'respcode',title:'响应码',width:100,align:'center'},
 										{field:'respmsg',title:'应答信息',width:100,align:'center'}, */
 										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
-										{field:'status',title:'状态',width:159,align:'center',
+										{field:'status',title:'订单状态',width:159,align:'center',
 											formatter : function(value, rec) {
 												if (rec.status == "00") {
 													return "交易完成";
@@ -276,6 +276,7 @@ table tr td select {
 												} 
 											}		
 										},
+										{field:'retinfo',title:'交易结果',width:180,align:'center'},
 									]],
 									pagination:true,
 									rownumbers:true,

@@ -50,7 +50,16 @@ public class PortalManagerController {
 		 ModelAndView result=new ModelAndView("/portal/single_collect_order_query");
 	     return result;
 	}
-	
+	/**
+	 * 门户历史订单实时查询页面
+	 * @return ModelAndView
+	 * @version v1.0
+	 */
+	@RequestMapping("/single_collect_order_query_bak")
+	public ModelAndView showSingle_collect_order_query_bak() {
+		 ModelAndView result=new ModelAndView("/portal/single_collect_order_query_bak");
+	     return result;
+	}
 	/**
 	 * 门户订单批量查询页面
 	 * @author: 
@@ -63,7 +72,18 @@ public class PortalManagerController {
 		 ModelAndView result=new ModelAndView("/portal/batch_collect_order_query");
 	     return result;
 	}
-	
+	/**
+	 * 门户历史订单批量查询页面
+	 * @author: 
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/batch_collect_order_query_bak")
+	public ModelAndView showBatch_collect_order_query_bak() {
+		 ModelAndView result=new ModelAndView("/portal/batch_collect_order_query_bak");
+	     return result;
+	}
 	/**
 	 * 门户订单批量查询页面
 	 * @author: 
@@ -95,6 +115,23 @@ public class PortalManagerController {
 	    return resultBean;
 	}
 	/**
+	 * 历史订单实时条件分页查询 
+	 * @author:yinguanghui
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getHisSingleOrderByPage")
+	@ResponseBody
+	public PageBean getHisSingleOrderByPage(TOrderCollectSingle orderSingle,String stime,String etime,int page,int rows, HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		String merid =infoByToken.getLoginName();
+		orderSingle.setMerid(merid);
+		PageBean resultBean =tradeService.getSingleOrderByPage_bak(orderSingle,stime,etime,page,rows);
+	    return resultBean;
+	}
+	/**
 	 * 订单批量条件分页查询
 	 * @author:yinguanghui
 	 * @return ModelAndView
@@ -109,6 +146,23 @@ public class PortalManagerController {
 		String merid =infoByToken.getLoginName();
 		orderBatch.setMerid(merid);
 		PageBean resultBean =tradeService.getBatchOrderByPage(orderBatch,stime,etime,page,rows);
+	    return resultBean;
+	}
+	/**
+	 * 订单批量条件分页查询
+	 * @author:yinguanghui
+	 * @return ModelAndView
+	 * 
+	 * @version v1.0
+	 */
+	@RequestMapping("/getHisBatchOrderByPage")
+	@ResponseBody
+	public PageBean getHisBatchOrderByPage(TOrderCollectBatch orderBatch,String stime,String etime,int page,int rows,HttpServletRequest request) {
+		String cookieValue = MyCookieUtils.getCookieValue(request, "eb_token");
+		TUser infoByToken = userService.getUserInfoByToken(cookieValue);
+		String merid =infoByToken.getLoginName();
+		orderBatch.setMerid(merid);
+		PageBean resultBean =tradeService.getBatchOrderByPage_bak(orderBatch,stime,etime,page,rows);
 	    return resultBean;
 	}
 	

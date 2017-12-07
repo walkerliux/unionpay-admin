@@ -39,4 +39,7 @@ public interface TOrderCollectSingleMapper {
 
 	List<TOrderCollectSingle> selectOrderInfo(
 			TOrderCollectSingleExample singleExample);
+
+	List<TOrderCollectSingle> selectHisOrderInfo(
+			TOrderCollectSingleExample singleExample);
 }

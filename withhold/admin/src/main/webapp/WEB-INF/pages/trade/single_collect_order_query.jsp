@@ -250,7 +250,7 @@ table tr td select {
 									},
 									{field:'tn',title:'受理订单号',width:200,align:'center'},
 									
-									{field:'status',title:'交易状态',width:148,align:'center',
+									{field:'status',title:'订单状态',width:148,align:'center',
 										formatter : function(value, rec) {
 											if (rec.status == "00") {
 												return "支付成功";
@@ -269,7 +269,7 @@ table tr td select {
 											} 
 										}
 									},
-									/* {field:'retinfo',title:'交易结果',width:200,align:'center'}, */
+									{field:'retinfo',title:'交易结果',width:180,align:'center'}, 
 									{field : 'ID',title : '操作',width : 100,lign : 'center',
 										formatter : function(value, rec) {
 											if (rec.tid!= null) {
