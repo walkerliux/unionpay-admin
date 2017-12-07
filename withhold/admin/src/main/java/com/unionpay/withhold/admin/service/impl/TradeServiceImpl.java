@@ -250,6 +250,7 @@ public class TradeServiceImpl implements TradeService {
 		tChnlCpdkLogExample.setPageSize(rows);
 		tChnlCpdkLogExample.setOrderByClause("TID DESC");
 		List<TChnlCpdkLog> result = tChnlCpdkLogMapper.selectCPByMyExample(tChnlCpdkLogExample);
+		
 		return new PageBean(total, result);
 	}
 

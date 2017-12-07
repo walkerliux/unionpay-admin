@@ -277,7 +277,7 @@ table tr td select {
 										} */
 									},
 									{
-										field : 'message',
+										field : 'reason',
 										title : '交易状态',
 										width : 120,
 										align : 'center'
