@@ -269,6 +269,7 @@ table tr td select {
 											} 
 										}
 									},
+									/* {field:'retinfo',title:'交易结果',width:200,align:'center'}, */
 									{field : 'ID',title : '操作',width : 100,lign : 'center',
 										formatter : function(value, rec) {
 											if (rec.tid!= null) {

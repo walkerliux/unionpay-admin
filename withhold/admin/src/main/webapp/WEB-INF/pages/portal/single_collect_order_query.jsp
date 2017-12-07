@@ -160,6 +160,7 @@ table tr td select {
 											} 
 										}
 									},
+									{field:'retinfo',title:'交易结果',width:180,align:'center'},
 									 ] ],
 							pagination : true,
 							rownumbers : true

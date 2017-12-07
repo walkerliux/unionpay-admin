@@ -36,4 +36,7 @@ public interface TOrderCollectSingleMapper {
 	TOrderCollectSingle selectInfoByTid(Long tid);
 
 	TOrderCollectSingle selectHisInfoByTid(long parseLong);
+
+	List<TOrderCollectSingle> selectOrderInfo(
+			TOrderCollectSingleExample singleExample);
 }

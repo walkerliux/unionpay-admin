@@ -2790,4 +2790,56 @@ public class TOrderCollectSingleExample {
             this(condition, value, secondValue, null);
         }
     }
+    private String merid;
+    private String cardno;
+    private String tn;
+    private String status;
+    private String orderid;
+    private String stime;
+    private String etime;
+
+	public String getMerid() {
+		return merid;
+	}
+	public void setMerid(String merid) {
+		this.merid = merid;
+	}
+	public String getCardno() {
+		return cardno;
+	}
+	public void setCardno(String cardno) {
+		this.cardno = cardno;
+	}
+	public String getTn() {
+		return tn;
+	}
+	public void setTn(String tn) {
+		this.tn = tn;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getOrderid() {
+		return orderid;
+	}
+	public void setOrderid(String orderid) {
+		this.orderid = orderid;
+	}
+	public String getStime() {
+		return stime;
+	}
+	public void setStime(String stime) {
+		this.stime = stime;
+	}
+	public String getEtime() {
+		return etime;
+	}
+	public void setEtime(String etime) {
+		this.etime = etime;
+	}
+    
+    
 }

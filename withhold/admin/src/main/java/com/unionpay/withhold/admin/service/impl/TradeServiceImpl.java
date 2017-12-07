@@ -147,39 +147,46 @@ public class TradeServiceImpl implements TradeService {
 			String stime, String etime, int page, int rows) {
 		
 		TOrderCollectSingleExample singleExample = new TOrderCollectSingleExample();
-		Criteria criteria = singleExample.createCriteria();
+		//Criteria criteria = singleExample.createCriteria();
 		//商户号
 		if (orderSingle.getMerid()!=null&&!"".equals(orderSingle.getMerid())) {
-			criteria.andMeridEqualTo(orderSingle.getMerid());
+			//criteria.andMeridEqualTo(orderSingle.getMerid());
+			singleExample.setMerid(orderSingle.getMerid());
 		}
 		//交易卡号
 		if (orderSingle.getCardno()!=null&&!"".equals(orderSingle.getCardno())) {
-			criteria.andCardnoEqualTo(orderSingle.getCardno());
+			//criteria.andCardnoEqualTo(orderSingle.getCardno());
+			singleExample.setCardno(orderSingle.getCardno());
 		}
 		//受理订单号
 		if (orderSingle.getTn()!=null&&!"".equals(orderSingle.getTn())) {
-			criteria.andTnEqualTo(orderSingle.getTn());
+			//criteria.andTnEqualTo(orderSingle.getTn());
+			singleExample.setTn(orderSingle.getTn());
 		}
 		//交易状态
 		if (orderSingle.getStatus()!=null&&!"".equals(orderSingle.getStatus())) {
-			criteria.andStatusEqualTo(orderSingle.getStatus());
+			//criteria.andStatusEqualTo(orderSingle.getStatus());
+			singleExample.setStatus(orderSingle.getStatus());
 		}
 		//商户订单号
 		if (orderSingle.getOrderid()!=null&&!"".equals(orderSingle.getOrderid())) {
-			criteria.andOrderidEqualTo(orderSingle.getOrderid());
+			//criteria.andOrderidEqualTo(orderSingle.getOrderid());
+			singleExample.setOrderid(orderSingle.getOrderid());
 		}
 		
 		//起止时间
 		if (stime!=null&&!"".equals(stime)&&etime!=null&&!"".equals(etime)) {
 			String st = DateTimeReplaceUtil.replace(stime);
 			String et = DateTimeReplaceUtil.replace(etime);
-			criteria.andTxntimeBetween(st, et);
+			//criteria.andTxntimeBetween(st, et);
+			singleExample.setStime(st);
+			singleExample.setEtime(et);
 		}
-		int tatol = tOrderCollectSingleMapper.countByExample(singleExample);
+		int tatol = tOrderCollectSingleMapper.selectOrderInfo(singleExample).size();
 		singleExample.setPageNum(page);
 		singleExample.setPageSize(rows);
 		singleExample.setOrderByClause("TID DESC");
-		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectByExample(singleExample);
+		List<TOrderCollectSingle> selectByExample = tOrderCollectSingleMapper.selectOrderInfo(singleExample);
 		
 		return new PageBean(tatol, selectByExample);
 	}
