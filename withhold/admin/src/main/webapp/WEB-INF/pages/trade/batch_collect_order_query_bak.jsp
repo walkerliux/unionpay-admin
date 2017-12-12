@@ -91,6 +91,10 @@ table tr td select {
 						<td width="15%">版本</td><td width="35%" id="version"></td>
 						<td width="15%">编码方式</td><td width="35%" id="encoding"></td>
 					</tr>
+					<tr>
+						<td>接入类型</td><td id="accesstype"></td>
+						<td></td><td></td>
+					</tr>
 					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>
 						<td>交易子类</td><td id="txnsubtype"></td>
@@ -158,7 +162,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '批量代收批次列表',
+							title : '批量代收历史订单列表',
 							
 							height : 400,
 							singleSelect : true,
@@ -215,7 +219,7 @@ table tr td select {
 							onClickRow: function (index, row) { 
 								var batchno= row["batchno"];
 								$('#detailInfo').datagrid({
-									title:'批量代收明细表',
+									title:'批量代收历史订单明细表',
 									
 									height:400,
 									singleSelect:true,
@@ -257,7 +261,7 @@ table tr td select {
 										/* {field:'respcode',title:'响应码',width:100,align:'center'},
 										{field:'respmsg',title:'应答信息',width:100,align:'center'}, */
 										{field:'relatetradetxn',title:'交易序列号',width:158,align:'center'},
-										{field:'status',title:'状态',width:159,align:'center',
+										{field:'status',title:'订单状态',width:159,align:'center',
 											formatter : function(value, rec) {
 												if (rec.status == "00") {
 													return "交易完成";
@@ -276,6 +280,7 @@ table tr td select {
 												} 
 											}		
 										},
+										{field:'retinfo',title:'交易结果',width:180,align:'center'},
 									]],
 									pagination:true,
 									rownumbers:true,
@@ -327,7 +332,7 @@ table tr td select {
 		$("#remarks").html("");
 		   
 		$('#w').window({
-			title: '代收批次详细信息',
+			title: '批量代收历史订单详细信息',
 			top:90,
 			left:100,
 			width:900,
@@ -358,7 +363,7 @@ table tr td select {
 		}
 		var rows = $('#test').datagrid('getSelected');
 		$("#tid").html(rows["tid"]);
-		$("#accesstype").html(rows["accesstype"]);
+		$("#accesstype").html(changeAccesstype(rows["accesstype"]));
 		$("#coopinstiid").html(rows["coopinstiid"]);
 		$("#merid").html(rows["merid"]);
 		$("#version").html(rows["version"]);
@@ -389,6 +394,16 @@ table tr td select {
 		var dot = str.substring(str.length,str.indexOf("."));
 		var ret = intSum + dot;
 		return ret;
+	}
+	//接入类型转化
+	function changeAccesstype(value){
+		//accesstype
+		if(value=="1"){
+			return "门户";
+		}
+		if(value=="0"){
+			return "接口";
+		}
 	}
 	function closeAdd(){
 		$('#w').window('close');

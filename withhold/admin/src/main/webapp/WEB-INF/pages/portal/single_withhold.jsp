@@ -63,7 +63,7 @@ table tr td select {
 								maxlength="20" missingMessage="请输入商户订单号" onkeyup="value=value.replace(/<[^<]+>/g,'')"/><font color="red">*</font></td>
 						<td align="right">交易要素</td>
 							<td class="right" align="left" >
-							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="factorId"/>
+							<select id="transfactors" class="easyui-validatebox" required="true" missingMessage="请选择交易要素" name="factorId">
 							
 							</select><font color="red">*</font></td>
 					</tr>			
@@ -149,7 +149,7 @@ table tr td select {
 				url : "portalManager/getTransfactors",
 				dataType : "json",
 				success : function(json) {
-					var html = '<option value="' + json.paraCode + '" selected="selected">'
+					var html = '<option value="' + json.added + '" selected="selected">'
 							+ json.paraName + '</option>';
 					$("#transfactors").html(html);
 					if (json.paraCode.charAt(0) == '0') {

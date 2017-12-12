@@ -114,6 +114,10 @@ table tr td select {
 						<td>版本</td><td id="version"></td>
 						<td>编码方式</td><td id="encoding"></td>
 					</tr>
+					<tr>
+						<td>接入类型</td><td id="accesstype"></td>
+						<td></td><td></td>
+					</tr> 
 					<!-- <tr>
 						<td>交易类型</td><td id="txntype"></td>
 						<td>交易子类</td><td id="txnsubtype"></td>
@@ -224,7 +228,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '实时代收订单信息列表',
+							title : '实时代收订单历史信息列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -250,7 +254,7 @@ table tr td select {
 									},
 									{field:'tn',title:'受理订单号',width:200,align:'center'},
 									
-									{field:'status',title:'交易状态',width:148,align:'center',
+									{field:'status',title:'订单状态',width:148,align:'center',
 										formatter : function(value, rec) {
 											if (rec.status == "00") {
 												return "支付成功";
@@ -269,6 +273,7 @@ table tr td select {
 											} 
 										}
 									},
+									{field:'retinfo',title:'交易结果',width:180,align:'center'},
 									{field : 'ID',title : '操作',width : 100,lign : 'center',
 										formatter : function(value, rec) {
 											if (rec.tid!= null) {
@@ -307,45 +312,45 @@ table tr td select {
 		$('#w').window('close');
 	}	
 	function queryOrderSingle(tid) {
-		/*  $("#tid").html("");
+		 $("#tid").html("");
 		$("#accesstype").html("");
 		$("#coopinstiid").html("");
 		$("#merid").html("");
 		$("#version").html("");
 		$("#encoding").html("");
 		$("#txntype").html("");
+		$("#certid").html("");
 		$("#txnsubtype").html("");
 		$("#biztype").html("");
 		$("#backurl").html("");
-		$("#txntime").html("");
-		$("#orderid").html("");
-		
 		$("#mername").html("");
-		$("#merabbr").html("");
-		$("#paytimeout").html("");
 		
-		$("#currencycode").html("");
+		$("#merabbr").html("");
+		$("#orderid").html("");
+		$("#certid").html("");
+		
+		$("#txntime").html("");
+		$("#paytimeout").html("");
 		$("#txnamt").html("");
-		$("#debtorbank").html("");
-		$("#debtoraccount").html("");
-		$("#debtorname").html("");
-		$("#debtorconsign").html("");
-		$("#creditorbank").html("");
-		$("#creditoraccount").html("");
-		$("#creditorname").html("");
-		$("#proprietary").html("");
-		$("#summary").html("");
+		$("#currencycode").html("");
+		$("#bankcode").html("");
+		$("#cardno").html("");
+		$("#customernm").html("");
+		$("#factorid").html("");
+		$("#phone").html("");
+		$("#idcard").html("");
+		$("#dktype").html("");
+		$("#orderdesc").html("");
 		$("#reserved").html("");
 		$("#respcode").html("");
 		$("#respmsg").html("");
 		$("#tn").html("");
-		$("#relatetradetxn").html("");
-		$("#status").html("");
+		$("#syncnotify").html("");
 		$("#ordercommitime").html("");
-		$("#syncnotify").html("");  */
+		$("#status").html("");  
 
 		$('#w').window({
-			title : '实时代收订单详细信息',
+			title : '实时代收订单历史详细信息',
 			top : 30,
 			left : 100,
 			width : 900,
@@ -355,7 +360,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 500
+			height : 550
 		});
 		$.ajax({
 			   type: "POST",
@@ -368,7 +373,7 @@ table tr td select {
 						$("#tid").html(json.tid);
 						/* $("#user_code").attr('readonly','readonly');
 						$("#user_code").css('background-color','#D2D2D2'); */
-						$("#accesstype").html(json.accesstype);
+						$("#accesstype").html(changeAccesstype(json.accesstype));
 						$("#coopinstiid").html(json.coopinstiid);
 						$("#merid").html(json.merid);
 						$("#version").html(json.version);
@@ -503,6 +508,16 @@ table tr td select {
 		}
 		if (value == "0104") {
 			return "身份证号+卡号+姓名";
+		}
+	}
+	//接入类型转化
+	function changeAccesstype(value){
+		//accesstype
+		if(value=="1"){
+			return "门户";
+		}
+		if(value=="0"){
+			return "接口";
 		}
 	}
 </script>

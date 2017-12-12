@@ -29,6 +29,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.admin.Bean.FtpBean;
 import com.unionpay.withhold.admin.enums.MerchCheckTypeEnums;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
@@ -115,11 +116,13 @@ public class CheckFileTask implements SchedulingConfigurer {
 			}
 			//1,判断是否今天产生过该机构的任务
 			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			logger.info("判断定时对账任务是否存在:"+JSON.toJSONString(settProcess));
 			if (settProcess!=null) {
 				continue;
 			}
 			//2,生成任务
 			boolean flag= checkBillService.saveProcess(tChnlDeta.getInsticode());
+			logger.info("定时对账任务生成:"+JSON.toJSONString(settProcess));
 			//如果任务 没有添加成功则跳出
 			if (!flag) {
 				continue;

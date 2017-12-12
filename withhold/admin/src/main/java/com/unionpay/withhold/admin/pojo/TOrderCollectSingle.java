@@ -372,6 +372,15 @@ public class TOrderCollectSingle {
     }
     //关联商户名
     private String memberName;
+    private String retinfo;
+    
+	public String getRetinfo() {
+		return retinfo;
+	}
+
+	public void setRetinfo(String retinfo) {
+		this.retinfo = retinfo;
+	}
 
 	public String getMemberName() {
 		return memberName;

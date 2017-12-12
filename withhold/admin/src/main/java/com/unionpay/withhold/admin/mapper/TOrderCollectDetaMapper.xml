@@ -139,4 +139,40 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
+  <!-- 关联核心流水显示通道返回结果 -->
+   <select id="selectHisBatchDetaInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectDetaExample" >
+  	SELECT
+	a.*, b.retinfo
+	FROM
+	t_order_collect_deta_bak a
+	LEFT JOIN t_txns_log b ON b.TXNSEQNO = a.RELATETRADETXN
+	where 1=1
+	<if test="batchNo != null" >
+    AND a.BATCHNO =#{batchNo}
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
+  
+   <select id="selectBatchDetaInfo" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TOrderCollectDetaExample" >
+  	SELECT
+	a.*, b.retinfo
+	FROM
+	t_order_collect_deta a
+	LEFT JOIN t_txns_log b ON b.TXNSEQNO = a.RELATETRADETXN
+	where 1=1
+	<if test="batchNo != null" >
+    AND a.BATCHNO =#{batchNo}
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test='beginRow!="-1" and pageSize!="0"'>
+	limit #{beginRow},#{pageSize}
+	</if>
+  </select>
 </mapper>

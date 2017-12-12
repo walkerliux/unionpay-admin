@@ -88,8 +88,8 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 			// user.setIsadmin(CommonConstants.USER_TYPE_COMMON);
 			user.setCreator(merchDetaApply.getInUser().toString());
 			user.setNotes("注册商户时初始化用户");
-			userService.saveUser(user);
-			
+			//userService.saveUser(user);
+			userService.saveNewMerchant(user);
 			return new ResultBean("操作成功 ！");
 		} else {
 			return new ResultBean("", "新增商户失败！");

@@ -368,7 +368,7 @@
     where FUNCT_ID = #{functId,jdbcType=DECIMAL}
   </update>
   <select id="selectAll" resultMap="BaseResultMap">
-  	select * from t_function ORDER BY FUNCT_ORDER
+  	select * from t_function where `STATUS`="00" ORDER BY FUNCT_ORDER
   </select>
    <select id="selectByUnion" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     SELECT
@@ -392,6 +392,7 @@ FROM
 			t_function t2
 		WHERE
 			t1.FUNCT_ID = t2.FUNCT_ID
+		AND t2.`STATUS`="00"
 		AND t1.USER_ID = #{userId,jdbcType=INTEGER}
 		UNION
 			SELECT
@@ -408,6 +409,7 @@ FROM
 			WHERE
 				t3.ROLE_ID = t4.ROLE_ID
 			AND t4.FUNCT_ID = t5.FUNCT_ID
+			AND t5.`STATUS`="00"
 			AND t3.USER_ID = #{userId,jdbcType=INTEGER}
 	) t32
 ORDER BY

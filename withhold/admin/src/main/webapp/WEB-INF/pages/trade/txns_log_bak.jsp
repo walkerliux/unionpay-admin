@@ -308,6 +308,7 @@ table tr td select {
 				[
 					{field:'txnseqno',title:'交易序列号',width:120,align:'center'},
 					{field:'accfirmerno',title:'渠道号',width:150,align:'center'},
+					{field:'caname',title:'渠道名称',width:150,align:'center'},
 					{field:'accsecmerno',title:'商户号',width:150,align:'center'},
 					{field:'memberName',title:'商户名称',width:120,align:'center'},
 					{field:'pan',title:'交易卡号',width:160,align:'center'},
@@ -504,7 +505,7 @@ table tr td select {
 					   if(json.cardtype=="2"){
 						   $("#tcardtype").html("信用卡");
 					   }
-					   $("#tcardinstino").html(json.cardinstino);
+					   $("#tcardinstino").html(json.bankName);
 					  /*  $("#tinpan").html(json.INPAN);
 					   if(json.INCARDTYPE=="1"){
 						   $("#tincardtype").html("借记卡");

@@ -410,4 +410,14 @@ public class TChnlCpdkLog {
     public void setChnlfee(String chnlfee) {
         this.chnlfee = chnlfee == null ? null : chnlfee.trim();
     }
+    private String reason;
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+    
 }
