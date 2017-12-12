@@ -47,6 +47,9 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="25%"><input name="merchantid" id="merchant_id" /></td>
 						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input name="accountno" id="account_no" /></td>
+						<td align="right" width="10%">交易序列号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="txnseqno" id="txnseq_no" maxlength="32" /></td>
 					</tr>
 					
 					<tr>
@@ -205,7 +208,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '好易联实时流水信息列表',
+							title : '好易联历史实时流水信息列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -299,6 +302,7 @@ table tr td select {
 
 	function search() {
 		var data = {
+			"txnseqno" : $('#txnseq_no').val(),
 			"merchantid" : $('#merchant_id ').val(),
 			"accountno" : $('#account_no').val(),
 			"reqsn" : $('#req_sn').val(),
@@ -375,7 +379,7 @@ table tr td select {
 		
 		
 		$('#w').window({
-			title : '实时代收渠道交易流水详细信息',
+			title : '好易联历史实时流水详细信息',
 			top : 90,
 			left : 100,
 			width : 900,

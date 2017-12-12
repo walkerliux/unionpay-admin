@@ -170,12 +170,16 @@
    </select>
     <!-- CHINAPAY交易条件查询 -->
   <select id="selectCPByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
-    SELECT a.* 
+    SELECT a.*, b.REASON reason
     <if test="distinct" >
       distinct
     </if>
-    FROM t_chnl_cpdk_log a WHERE 1=1
-    
+    FROM t_chnl_cpdk_log a 
+    LEFT JOIN t_rspmsg b ON a.TRANSSTAT = b.CHNLRSPCODE
+    WHERE b.CHNLTYPE = "CP"
+    <if test="txnseqno != null" >
+     and a.TXNSEQNO=#{txnseqno}
+    </if>
     <if test="merid != null" >
      and a.MERID=#{merid}
     </if>
@@ -206,12 +210,16 @@
   </select>
     <!-- CHINAPAY历史交易条件查询 -->
   <select id="selectCPBakByMyExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TChnlHyldkLogExample" >
-    SELECT a.* 
+    SELECT a.*, b.REASON reason
     <if test="distinct" >
       distinct
     </if>
-    FROM t_chnl_cpdk_log_bak a WHERE 1=1
-    
+    FROM t_chnl_cpdk_log a 
+    LEFT JOIN t_rspmsg b ON a.TRANSSTAT = b.CHNLRSPCODE
+    WHERE b.CHNLTYPE = "CP"
+    <if test="txnseqno != null" >
+     and a.TXNSEQNO=#{txnseqno}
+    </if>
     <if test="merid != null" >
      and a.MERID=#{merid}
     </if>

@@ -110,7 +110,7 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TUser" >
+  <insert id="insert" parameterType="com.unionpay.withhold.admin.pojo.TUser" useGeneratedKeys="true" keyProperty="userId">
     insert into t_user (USER_ID, USER_CODE, USER_NAME, 
       LOGIN_NAME, PWD, PWD_VALID, 
       PWD_ERROR_NUMBER, LAST_LOGIN_TIME, CREATOR, 

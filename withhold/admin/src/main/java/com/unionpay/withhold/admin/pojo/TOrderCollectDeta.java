@@ -220,4 +220,14 @@ public class TOrderCollectDeta {
     public void setExpired(String expired) {
         this.expired = expired == null ? null : expired.trim();
     }
+    private String retinfo;
+
+	public String getRetinfo() {
+		return retinfo;
+	}
+
+	public void setRetinfo(String retinfo) {
+		this.retinfo = retinfo;
+	}
+    
 }

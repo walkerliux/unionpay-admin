@@ -17,5 +17,11 @@ public interface TOrderCollectDetaMapper {
 	List<TOrderCollectDeta> selectByExample_bak(
 			TOrderCollectDetaExample tOrderCollectDetaExample);
 
+	List<TOrderCollectDeta> selectHisBatchDetaInfo(
+			TOrderCollectDetaExample tOrderCollectDetaExample);
+
+	List<TOrderCollectDeta> selectBatchDetaInfo(
+			TOrderCollectDetaExample tOrderCollectDetaExample);
+
    
 }

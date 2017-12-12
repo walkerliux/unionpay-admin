@@ -126,7 +126,7 @@ table tr td select {
 							<td>附加</td>
 							<td align="left"><input type="text" id="para_added"
 								name="added" class="easyui-validatebox" 
-								maxlength="20"  onkeyup="money()"/><span id="ADDVALUE"></span></td>
+								maxlength="20"  /><span id="ADDVALUE"></span></td>
 						</tr>
 						<tr style="height: 25px">
 							<td>备注</td>

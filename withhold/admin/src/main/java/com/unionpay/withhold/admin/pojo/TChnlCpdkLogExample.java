@@ -3087,7 +3087,14 @@ public class TChnlCpdkLogExample {
     private String orderno;
     private String etime;
     private String stime;
-
+    private String txnseqno;
+    
+	public String getTxnseqno() {
+		return txnseqno;
+	}
+	public void setTxnseqno(String txnseqno) {
+		this.txnseqno = txnseqno;
+	}
 	public String getMerid() {
 		return merid;
 	}

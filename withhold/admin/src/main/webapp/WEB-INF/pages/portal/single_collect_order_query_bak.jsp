@@ -120,7 +120,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'portalManager/getSingleOrderByPage',
+							url : 'portalManager/getHisSingleOrderByPage',
 							remoteSort : false,
 							idField : 'tid',
 							columns : [ [

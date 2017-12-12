@@ -164,7 +164,7 @@ table tr td select {
 							singleSelect : true,
 							nowrap : false,
 							striped : true,
-							url : 'portalManager/getBatchOrderByPage',
+							url : 'portalManager/getHisBatchOrderByPage',
 							remoteSort : false,
 							idField : 'MSGID',
 							columns : [ [
@@ -221,7 +221,7 @@ table tr td select {
 									singleSelect:true,
 									nowrap: false,
 									striped: true,
-									url:'trade/getCollectOrderDetaByBatchNo?batchno='+batchno,	
+									url:'trade/getCollectOrderDetaByBatchNo_bak?batchno='+batchno,	
 									remoteSort: false,
 									idField:'TID',
 									columns:[

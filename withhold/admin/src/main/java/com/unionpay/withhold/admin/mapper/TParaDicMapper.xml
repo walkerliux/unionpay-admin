@@ -366,7 +366,8 @@
 	<select id="selectParaDicByParaCode" resultMap="BaseResultMap">
 		SELECT
 			PARA_CODE,
-			PARA_NAME
+			PARA_NAME,
+			ADDED
 		FROM
 			`t_para_dic`
 		WHERE

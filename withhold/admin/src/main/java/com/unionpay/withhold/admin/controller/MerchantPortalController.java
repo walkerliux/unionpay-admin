@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.unionpay.withhold.admin.pojo.TMerchMk;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.PortalService;
 import com.unionpay.withhold.admin.service.UserService;
@@ -37,12 +36,16 @@ public class MerchantPortalController {
 	private String VERSION;// 版本号
 	@Value("${ENCODING}")
 	private String ENCODING;//编码格式
-	@Value("${TXNTYPE}")
-	private String TXNTYPE;//交易类型
+	@Value("${TXNTYPE_SINGLE}")
+	private String TXNTYPE_SINGLE;//实时交易类型
+	@Value("${TXNTYPE_BATCH}")
+	private String TXNTYPE_BATCH;//批量交易类型
 	@Value("${TXNSUBTYPE}")
 	private String TXNSUBTYPE;//交易子类
-	@Value("${BIZTYPE}")
-	private String BIZTYPE;//产品类型
+	@Value("${BIZTYPE_SINGLE}")
+	private String BIZTYPE_SINGLE;//实时产品类型
+	@Value("${BIZTYPE_BATCH}")
+	private String BIZTYPE_BATCH;//批量产品类型
 	@Value("${BACkURL}")
 	private String BACkURL;// 通知地址
 	@Value("${DkType}")
@@ -103,8 +106,8 @@ public class MerchantPortalController {
 		bean.setEncoding(ENCODING);// 编码方式
 		bean.setVersion(VERSION);//版本
 		bean.setBackUrl(BACkURL);// 后台通知地址
-		bean.setBizType(BIZTYPE);//产品类型
-		bean.setTransType(TXNTYPE);// 交易类型
+		bean.setBizType(BIZTYPE_SINGLE);//产品类型
+		bean.setTransType(TXNTYPE_SINGLE);// 实时交易类型
 		bean.setTxnSubType(TXNSUBTYPE);//交易子类
 		bean.setTransTm(DateUtil.getCurrentDateTime());// 订单发送时间
 		bean.setAtType(AtType);// 交易币种
@@ -122,6 +125,7 @@ public class MerchantPortalController {
 		bean.setCertId("0000");
 		// 签名方式
 		bean.setSignMethod(SignMethod);
+		bean.setAccessType(1);//接入类型 商户门户发起默认为1
 		// 加密证书ID
 		bean.setEncryptCertId(EncryptCertId);
 		ResultBean resultBean = feapi.realTimeCollect(JSON.toJSONString(bean));
@@ -179,7 +183,7 @@ public class MerchantPortalController {
 			if (batchCollectDetaBean.getCardType().equals("借记卡")) {
 				batchCollectDetaBean.setCardType("1");
 			}
-			if (batchCollectDetaBean.getCardType().equals("贷记卡")) {
+			if (batchCollectDetaBean.getCardType().equals("信用卡")) {
 				batchCollectDetaBean.setCardType("2");
 			}
 		}
@@ -190,10 +194,10 @@ public class MerchantPortalController {
 		batchCollectBean.setVersion(VERSION);// 版本
 		batchCollectBean.setEncoding(ENCODING);// 编码方式
 		/**交易类型*/
-		batchCollectBean.setTxnType(TXNTYPE);
+		batchCollectBean.setTxnType(TXNTYPE_BATCH);
 		/**交易子类*/
 		batchCollectBean.setTxnSubType(TXNSUBTYPE);
-		batchCollectBean.setBizType(BIZTYPE);
+		batchCollectBean.setBizType(BIZTYPE_BATCH);
 		batchCollectBean.setBackUrl(BACkURL);// 通知地址
 		batchCollectBean.setReserved(Reserved);// 保留域
 		batchCollectBean.setTxnTime(DateUtil.getCurrentDateTime());// 订单发送时间
@@ -201,7 +205,7 @@ public class MerchantPortalController {
 		batchCollectBean.setTotalQty(detaList.size()+"");//总笔数
 		
 		batchCollectBean.setTotalAmt(totalAmt+"");//交易总金额
-		
+		batchCollectBean.setAccessType(1);//接入类型 商户门户发起默认为1
 		/**certid*/
 		//TMerchMk certId = portalService.getCertId(loginName);
 		batchCollectBean.setCertId("0000");

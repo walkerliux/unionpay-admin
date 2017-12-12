@@ -32,5 +32,7 @@ public interface UserService {
 	public abstract TUser getUserInfoByToken(String token);
 	
 	public abstract void delLoginMsgFromRedis(String token);
-
+	
+	//创建商户-
+	public abstract void saveNewMerchant(TUser user);
 }

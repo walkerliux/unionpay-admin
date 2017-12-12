@@ -47,6 +47,9 @@ table tr td select {
 						<td align="left" style="padding-left: 5px" width="25%"><input name="merid" id="tmerid" /></td>
 						<td align="right" width="10%">交易卡号</td>
 						<td align="left" style="padding-left: 5px" width="15%"><input name="cardno" id="tcardno" /></td>
+						<td align="right" width="10%">交易序列号</td>
+						<td align="left" style="padding-left: 5px" width="15%"><input
+							name="txnseqno" id="txnseq_no" maxlength="32" /></td>
 					</tr>
 					
 					<tr>
@@ -94,12 +97,14 @@ table tr td select {
 					</tr>
 					<tr>
 						<td>私有域</td><td id="priv1"></td>
-						<td>交易手机串号IMEI</td><td id="imei"></td>
+						<td></td>
+						<td></td>
+						<!-- <td>交易手机串号IMEI</td><td id="imei"></td> -->
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>PC 硬盘序列号</td><td id="disksn"></td>
 						<td>PC mac地址</td><td id="mac"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td colspan="4" class="head-title">基本信息</td>
 					</tr>
@@ -124,7 +129,7 @@ table tr td select {
 						<td>订单描述</td><td id="orderdesc"></td>
 						<td>交易模式</td><td id="paymode"></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td colspan="4" class="head-title">用户信息</td>
 					</tr>
 					
@@ -143,32 +148,32 @@ table tr td select {
 					<tr>
 						<td>短信验证码输入操作特征</td><td id="codeinputtype"></td>
 						<td>手机所在基站序列号</td><td id="basestationsn"></td>
-					</tr>
+					</tr> -->
 					
 					<tr>
 						<td colspan="4" class="head-title">交易信息</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>交易要素</td><td id="factorid" colspan="3"></td>
-					</tr>
+					</tr> -->
 					<tr>
 						<td>开户行号</td><td id="openbankid"></td>
-						<td>卡号/折号</td><td id=tcardno></td>
+						<td>卡号/折号</td><td id="cardno"></td>
 					</tr>
 					<tr>
 						<td>持卡人姓名</td><td id="usrname"></td>
 						<td>卡折标志</td><td id="cardtype"></td>
 					</tr>
-					
+					<tr>
+						<td width="15%">证件类型</td><td width="35%" id="certtype"></td>
+						<td>证件号</td><td id=certid></td>
+					</tr>
 					<tr>
 						
 						<td width="15%">签名值</td><td  style="word-break:break-all" id="chkvalue"></td>
 						<td width="15%">预留手机号</td><td  width="35%" id="mobileforbank"></td>
 					</tr>
-					<tr>
-						<td>证件号</td><td id=certid></td>
-						
-					</tr>
+					
 					
 					<tr>
 						<td colspan="4" class="head-title">订单处理信息</td>
@@ -207,7 +212,7 @@ table tr td select {
 		$('#test')
 				.datagrid(
 						{
-							title : '实时代收渠道流水信息列表',
+							title : 'ChinaPay实时流水信息列表',
 							height : 500,
 							singleSelect : true,
 							nowrap : false,
@@ -272,7 +277,7 @@ table tr td select {
 										} */
 									},
 									{
-										field : 'message',
+										field : 'reason',
 										title : '交易状态',
 										width : 120,
 										align : 'center'
@@ -301,6 +306,7 @@ table tr td select {
 
 	function search() {
 		var data = {
+			"txnseqno" : $('#txnseq_no').val(),
 			"merid" : $('#tmerid').val(),
 			"cardno" : $('#tcardno').val(),
 			"orderno" : $('#torderno').val(),
@@ -360,7 +366,7 @@ table tr td select {
 		
 		
 		$('#w').window({
-			title : '实时代收渠道交易流水详细信息',
+			title : 'ChinaPay实时流水信息详情',
 			top : 90,
 			left : 100,
 			width : 900,
@@ -370,7 +376,7 @@ table tr td select {
 			maximizable : false,
 			shadow : false,
 			closed : false,
-			height : 660
+			height : 670
 		});
 		var rows = $('#test').datagrid('getSelected');
 		$("#merid").html(rows["merid"]);
@@ -381,7 +387,7 @@ table tr td select {
 		$("#transtype").html(rows["transtype"]);
 		$("#openbankid").html(rows["openbankid"]);
 		$("#cardtype").html(cardType(rows["cardtype"]));
-		$("#tcardno").html(rows["cardno"]);
+		$("#cardno").html(rows["cardno"]);
 		$("#usrname").html(rows["usrname"]);
 		$("#certtype").html(certType(rows["certtype"]));
 		$("#certid").html(rows["certid"]);
@@ -409,7 +415,7 @@ table tr td select {
 		$("#codeinputtype").html(rows["codeinputtype"]);
 		$("#mobileforbank").html(rows["mobileforbank"]);
 		$("#orderdesc").html(rows["orderdesc"]);
-		$("#factorid").html(tradeBasic(rows["factorid"]));
+		/* $("#factorid").html(tradeBasic(rows["factorid"])); */
 		$("#chkvalue").html(rows["chkvalue"]);
 		$("#responsecode").html(rows["responsecode"]);
 		$("#message").html(rows["message"]);

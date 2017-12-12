@@ -159,21 +159,23 @@
   <!-- 核心流水详情 -->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT
-	a.*, b.CHNLNAME chnlname,c.MEMBER_NAME memberName
+	a.*, b.CHNLNAME chnlname,c.MEMBER_NAME memberName,d.BANKNAME bankName
     FROM
 	t_txns_log a
 	LEFT JOIN t_chnl_deta b ON a.PAYINST = b.CHNLCODE
 	LEFT JOIN t_merch_deta c on a.ACCSECMERNO =c.MEMBER_ID
+	LEFT JOIN t_bank d on a.CARDINSTINO=d.BANKCODE
 	where a.TXNSEQNO=#{txnseqno,jdbcType=CHAR}
 	
   </select>
  <select id="selectHistoryByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     SELECT
-	a.*, b.CHNLNAME chnlname,c.MEMBER_NAME memberName
+	a.*, b.CHNLNAME chnlname,c.MEMBER_NAME memberName,d.BANKNAME bankName
     FROM
 	t_txns_log_bak a
 	LEFT JOIN t_chnl_deta b ON a.PAYINST = b.CHNLCODE
 	LEFT JOIN t_merch_deta c on a.ACCSECMERNO =c.MEMBER_ID
+	LEFT JOIN t_bank d on a.CARDINSTINO=d.BANKCODE
 	where a.TXNSEQNO=#{txnseqno,jdbcType=CHAR}
   </select>
   
@@ -223,13 +225,14 @@
   </select>
   <!-- 实时核心流水查询 -->
   <select id="selectByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
-    select a.*, b.MEMBER_NAME memberName
+    select a.*, b.MEMBER_NAME memberName,c.CANAME caname
     <if test="distinct" >
       distinct
     </if>
      FROM
 	 t_txns_log a
 	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
+	 LEFT JOIN t_coop_agency c ON a.ACCFIRMERNO=c.CACODE
 	 where 1=1
 	<if test="payordno!=null">
 	and a.PAYORDNO=#{payordno}
@@ -305,13 +308,14 @@
   </select>
 <!-- 历史核心流水查询 -->
   <select id="selectHistoryByPageExample" resultMap="BaseResultMap" parameterType="com.unionpay.withhold.admin.pojo.TTxnsLogExample" >
-    select a.*, b.MEMBER_NAME memberName
+    select a.*, b.MEMBER_NAME memberName,c.CANAME caname
     <if test="distinct" >
       distinct
     </if>
      FROM
 	 t_txns_log_bak a
 	 LEFT JOIN t_merch_deta b ON a.ACCSECMERNO = b.MEMBER_ID
+	 LEFT JOIN t_coop_agency c ON a.ACCFIRMERNO=c.CACODE
 	 where 1=1
 	<if test="payordno!=null">
 	and a.PAYORDNO=#{payordno}
