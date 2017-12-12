@@ -20,6 +20,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.PortalService;
 import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.AmtParseUtil;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 import com.unionpay.withhold.admin.utils.ReadExcel;
 import com.unionpay.withhold.trade.api.FEAPI;
@@ -113,9 +114,8 @@ public class MerchantPortalController {
 		bean.setAtType(AtType);// 交易币种
 		// 交易金额(元转分)
 		String transAt = bean.getTransAt();
-		Double d = Double.parseDouble(transAt)*100;
-		Long longValue = d.longValue();
-		bean.setTransAt(longValue+"");
+		Long amt = AmtParseUtil.strToLongAmt(transAt);
+		bean.setTransAt(amt+"");
 		// 扣款类型
 		bean.setDkType(DkType);
 		// 系统商户号
@@ -174,11 +174,11 @@ public class MerchantPortalController {
 		//将金额由元转分
 		int totalAmt=0;
 		for (BatchCollectDetaBean batchCollectDetaBean : detaList) {
-			String amt = batchCollectDetaBean.getAmt();
-			Double d = Double.parseDouble(amt)*100;
-			Long longValue = d.longValue();
-			batchCollectDetaBean.setAmt(longValue+"");
-			totalAmt+=longValue;
+			String amtyuan = batchCollectDetaBean.getAmt();
+			 Long amtfen = AmtParseUtil.strToLongAmt(amtyuan);
+			
+			batchCollectDetaBean.setAmt(amtfen+"");
+			totalAmt+=amtfen;
 			//卡类型转换
 			if (batchCollectDetaBean.getCardType().equals("借记卡")) {
 				batchCollectDetaBean.setCardType("1");

@@ -18,6 +18,7 @@ import com.unionpay.withhold.admin.pojo.TUser;
 import com.unionpay.withhold.admin.service.FeeService;
 import com.unionpay.withhold.admin.service.OperationLogService;
 import com.unionpay.withhold.admin.service.UserService;
+import com.unionpay.withhold.admin.utils.AmtParseUtil;
 import com.unionpay.withhold.admin.utils.MyCookieUtils;
 
 
@@ -84,29 +85,24 @@ public class FeeController {
 		accumRateBean.getArdList().get(0).setStartRange("0");;
 		for (int i = 0; i < length; i++) {
 			if (i>=1&&accumRateBean.getArdList().get(i).getStartRange()!=null&&!"".equals(accumRateBean.getArdList().get(i).getStartRange())) {
-				Double endRange = Double.parseDouble(accumRateBean.getArdList().get(i).getStartRange())*100;
-				Long longValue = endRange.longValue();
-				//Long endRange = Long.valueOf(startRange)*100;
+				 Long amtfen = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getStartRange());
 				//分界线金额 上一段的end
-				accumRateBean.getArdList().get(i-1).setEndrange(longValue.toString());
+				accumRateBean.getArdList().get(i-1).setEndrange(amtfen.toString());
 				//本段的Start
-				accumRateBean.getArdList().get(i).setStartRange(longValue.toString());
+				accumRateBean.getArdList().get(i).setStartRange(amtfen.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMinFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMinFee())) {
-				Double minFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMinFee())*100;
-				Long longValue = minFee.longValue();
-				accumRateBean.getArdList().get(i).setMinFee(longValue.toString());
+				 Long minFeefen = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMinFee());
+				accumRateBean.getArdList().get(i).setMinFee(minFeefen.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMaxFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMaxFee())) {
-				Double maxFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMaxFee())*100;
-				Long longValue = maxFee.longValue();
-				accumRateBean.getArdList().get(i).setMaxFee(longValue.toString());
+				Long maxFeefen = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMaxFee());
+				accumRateBean.getArdList().get(i).setMaxFee(maxFeefen.toString());
 			}
 			//费率小数转整数
 			if (accumRateBean.getArdList().get(i).getFeeRate()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFeeRate())) {
-				Double feeRate = Double.parseDouble(accumRateBean.getArdList().get(i).getFeeRate())*100;
-				Long longValue = feeRate.longValue();
-				accumRateBean.getArdList().get(i).setFeeRate(longValue.toString());
+				Long feeRatefee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFeeRate());
+				accumRateBean.getArdList().get(i).setFeeRate(feeRatefee.toString());
 			}
 		}
 		try {
@@ -156,29 +152,25 @@ public class FeeController {
 		accumRateBean.getArdList().get(0).setStartRange("0");;
 		for (int i = 0; i < length; i++) {
 			if (i>=1&&accumRateBean.getArdList().get(i).getStartRange()!=null&&!"".equals(accumRateBean.getArdList().get(i).getStartRange())) {
-				Double endRange = Double.parseDouble(accumRateBean.getArdList().get(i).getStartRange())*100;
-				Long longValue = endRange.longValue();
-				//Long endRange = Long.valueOf(startRange)*100;
+				Long endRange = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getStartRange());
+				
 				//分界线金额 上一段的end
-				accumRateBean.getArdList().get(i-1).setEndrange(longValue.toString());
+				accumRateBean.getArdList().get(i-1).setEndrange(endRange.toString());
 				//本段的Start
-				accumRateBean.getArdList().get(i).setStartRange(longValue.toString());
+				accumRateBean.getArdList().get(i).setStartRange(endRange.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMinFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMinFee())) {
-				Double minFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMinFee())*100;
-				Long longValue = minFee.longValue();
-				accumRateBean.getArdList().get(i).setMinFee(longValue.toString());
+				Long minFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMinFee());
+				accumRateBean.getArdList().get(i).setMinFee(minFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMaxFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMaxFee())) {
-				Double maxFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMaxFee())*100;
-				Long longValue = maxFee.longValue();
-				accumRateBean.getArdList().get(i).setMaxFee(longValue.toString());
+				Long maxFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMaxFee());
+				accumRateBean.getArdList().get(i).setMaxFee(maxFee.toString());
 			}
 			//费率小数转整数
 			if (accumRateBean.getArdList().get(i).getFeeRate()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFeeRate())) {
-				Double feeRate = Double.parseDouble(accumRateBean.getArdList().get(i).getFeeRate())*100;
-				Long longValue = feeRate.longValue();
-				accumRateBean.getArdList().get(i).setFeeRate(longValue.toString());
+				Long feeRate = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFeeRate());
+				accumRateBean.getArdList().get(i).setFeeRate(feeRate.toString());
 			}
 		}
 		try {
@@ -227,24 +219,20 @@ public class FeeController {
 		//将元转分
 		for (int i = 0; i < length; i++) {
 			if (accumRateBean.getArdList().get(i).getMinFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMinFee())) {
-				Double minFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMinFee())*100;
-				Long longValue = minFee.longValue();
-				accumRateBean.getArdList().get(i).setMinFee(longValue.toString());
+				Long minFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMinFee());
+				accumRateBean.getArdList().get(i).setMinFee(minFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMaxFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMaxFee())) {
-				Double maxFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMaxFee())*100;
-				Long longValue = maxFee.longValue();
-				accumRateBean.getArdList().get(i).setMaxFee(longValue.toString());
+				Long maxFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMaxFee());
+				accumRateBean.getArdList().get(i).setMaxFee(maxFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getFixFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFixFee())) {
-				Double fixFee = Double.parseDouble(accumRateBean.getArdList().get(i).getFixFee())*100;
-				Long longValue = fixFee.longValue();
-				accumRateBean.getArdList().get(i).setFixFee(longValue.toString());
+				Long fixFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFixFee());
+				accumRateBean.getArdList().get(i).setFixFee(fixFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getFeeRate()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFeeRate())) {
-				Double Fee = Double.parseDouble(accumRateBean.getArdList().get(i).getFeeRate())*100;
-				Long longValue = Fee.longValue();
-				accumRateBean.getArdList().get(i).setFeeRate(longValue.toString());
+				Long feeRate = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFeeRate());
+				accumRateBean.getArdList().get(i).setFeeRate(feeRate.toString());
 			}
 		}
 		try {
@@ -294,24 +282,20 @@ public class FeeController {
 		for (int i = 0; i < length; i++) {
 		
 			if (accumRateBean.getArdList().get(i).getMinFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMinFee())) {
-				Double minFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMinFee())*100;
-				Long longValue = minFee.longValue();
-				accumRateBean.getArdList().get(i).setMinFee(longValue.toString());
+				Long minFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMinFee());
+				accumRateBean.getArdList().get(i).setMinFee(minFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getMaxFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getMaxFee())) {
-				Double maxFee = Double.parseDouble(accumRateBean.getArdList().get(i).getMaxFee())*100;
-				Long longValue = maxFee.longValue();
-				accumRateBean.getArdList().get(i).setMaxFee(longValue.toString());
+				Long maxFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getMaxFee());
+				accumRateBean.getArdList().get(i).setMaxFee(maxFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getFixFee()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFixFee())) {
-				Double fixFee = Double.parseDouble(accumRateBean.getArdList().get(i).getFixFee())*100;
-				Long longValue = fixFee.longValue();
-				accumRateBean.getArdList().get(i).setFixFee(longValue.toString());
+				Long fixFee = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFixFee());
+				accumRateBean.getArdList().get(i).setFixFee(fixFee.toString());
 			}
 			if (accumRateBean.getArdList().get(i).getFeeRate()!=null&&!"".equals(accumRateBean.getArdList().get(i).getFeeRate())) {
-				Double Fee = Double.parseDouble(accumRateBean.getArdList().get(i).getFeeRate())*100;
-				Long longValue = Fee.longValue();
-				accumRateBean.getArdList().get(i).setFeeRate(longValue.toString());
+				Long feeRate = AmtParseUtil.strToLongAmt(accumRateBean.getArdList().get(i).getFeeRate());
+				accumRateBean.getArdList().get(i).setFeeRate(feeRate.toString());
 			}
 		}
 		try {
