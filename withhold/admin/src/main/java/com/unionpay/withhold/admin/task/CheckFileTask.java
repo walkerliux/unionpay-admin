@@ -29,6 +29,7 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
 
+import com.alibaba.fastjson.JSON;
 import com.unionpay.withhold.admin.Bean.FtpBean;
 import com.unionpay.withhold.admin.enums.MerchCheckTypeEnums;
 import com.unionpay.withhold.admin.pojo.TChnlDeta;
@@ -92,11 +93,16 @@ public class CheckFileTask implements SchedulingConfigurer {
 				}
 				logger.info("cron change to: " + cron);
 			}
-		}, 0, 10, TimeUnit.SECONDS);
+		}, 0, 1, TimeUnit.HOURS);
 	}
 	private void invoke() {
 		String date = DateUtil.getCurrentDate();
 		checkbill(date);
+		try {
+			TimeUnit.SECONDS.sleep(30);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		checkbillfile(date);
 	}
 
@@ -105,21 +111,23 @@ public class CheckFileTask implements SchedulingConfigurer {
 		List<TChnlDeta> list = checkBillService.getAllChannel();
 		
 		for (TChnlDeta tChnlDeta : list) {
-			if (!MerchCheckTypeEnums.exist(tChnlDeta.getInsticode(), "1")) {
+			if (!MerchCheckTypeEnums.exist(tChnlDeta.getChnlcode(), "1")) {
 				continue;
 			}
 			//1,判断是否今天产生过该机构的任务
-			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
+			logger.info("判断定时对账任务是否存在:"+JSON.toJSONString(settProcess));
 			if (settProcess!=null) {
 				continue;
 			}
 			//2,生成任务
-			boolean flag= checkBillService.saveProcess(tChnlDeta.getInsticode());
+			boolean flag= checkBillService.saveProcess(tChnlDeta.getChnlcode());
+			logger.info("定时对账任务生成:"+JSON.toJSONString(settProcess));
 			//如果任务 没有添加成功则跳出
 			if (!flag) {
 				continue;
 			}
-			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
 			//3,执行任务
 			if (settProcessNew!=null) {
 				checkBillService.checkBill(Integer.toString(settProcessNew.getTid()));
@@ -160,7 +168,7 @@ public class CheckFileTask implements SchedulingConfigurer {
 				merchCheckfile.setFilename(filename);
 				merchCheckfile.setIntime(DateUtil.getCurrentDateTime());
 				merchCheckfile.setMerchno(merchno);
-				merchCheckfile.setUri("/checkbillfiles/");
+				merchCheckfile.setUri("checkbillfiles/");
 				merchFileService.insertOrUpdate(merchCheckfile);
 			} catch (Exception e) {
 				e.printStackTrace();

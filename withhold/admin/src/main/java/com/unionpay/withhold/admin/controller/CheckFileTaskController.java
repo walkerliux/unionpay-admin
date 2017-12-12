@@ -65,21 +65,21 @@ public class CheckFileTaskController{
 		List<TChnlDeta> list = checkBillService.getAllChannel();
 		
 		for (TChnlDeta tChnlDeta : list) {
-			if (!MerchCheckTypeEnums.exist(tChnlDeta.getInsticode(), "1")) {
+			if (!MerchCheckTypeEnums.exist(tChnlDeta.getChnlcode(), "1")) {
 				continue;
 			}
 			//1,判断是否今天产生过该机构的任务
-			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
 			if (settProcess!=null) {
 				continue;
 			}
 			//2,生成任务
-			boolean flag= checkBillService.saveProcess(tChnlDeta.getInsticode());
+			boolean flag= checkBillService.saveProcess(tChnlDeta.getChnlcode());
 			//如果任务 没有添加成功则跳出
 			if (!flag) {
 				continue;
 			}
-			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
 			//3,执行任务
 			if (settProcessNew!=null) {
 				checkBillService.checkBill(Integer.toString(settProcessNew.getTid()));
@@ -120,7 +120,7 @@ public class CheckFileTaskController{
 				merchCheckfile.setFilename(filename);
 				merchCheckfile.setIntime(DateUtil.getCurrentDateTime());
 				merchCheckfile.setMerchno(merchno);
-				merchCheckfile.setUri("/checkbillfiles/");
+				merchCheckfile.setUri("checkbillfiles/");
 				merchFileService.insertOrUpdate(merchCheckfile);
 			} catch (Exception e) {
 				e.printStackTrace();
