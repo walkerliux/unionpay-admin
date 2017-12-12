@@ -111,23 +111,23 @@ public class CheckFileTask implements SchedulingConfigurer {
 		List<TChnlDeta> list = checkBillService.getAllChannel();
 		
 		for (TChnlDeta tChnlDeta : list) {
-			if (!MerchCheckTypeEnums.exist(tChnlDeta.getInsticode(), "1")) {
+			if (!MerchCheckTypeEnums.exist(tChnlDeta.getChnlcode(), "1")) {
 				continue;
 			}
 			//1,判断是否今天产生过该机构的任务
-			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcess = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
 			logger.info("判断定时对账任务是否存在:"+JSON.toJSONString(settProcess));
 			if (settProcess!=null) {
 				continue;
 			}
 			//2,生成任务
-			boolean flag= checkBillService.saveProcess(tChnlDeta.getInsticode());
+			boolean flag= checkBillService.saveProcess(tChnlDeta.getChnlcode());
 			logger.info("定时对账任务生成:"+JSON.toJSONString(settProcess));
 			//如果任务 没有添加成功则跳出
 			if (!flag) {
 				continue;
 			}
-			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getInsticode(), date);
+			TSettProcess settProcessNew = checkBillService.isPorcess(tChnlDeta.getChnlcode(), date);
 			//3,执行任务
 			if (settProcessNew!=null) {
 				checkBillService.checkBill(Integer.toString(settProcessNew.getTid()));
