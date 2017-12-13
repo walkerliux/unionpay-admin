@@ -522,7 +522,7 @@ table tr td.update {
 						output += '<tr><td colspan="4" class="head-title update">段' + i +'</td></tr>';
 						heightAdd += 26;
 						if (i != 1) {
-							output += '<tr><td class="update" width="15%">分界线' + (i-1) + '(元)</td><td class="update" colspan="3">' + row.STARTRANGE/100 + '</td></tr>';
+							output += '<tr><td class="update" width="15%">分界线' + (i-1) + '(元)</td><td class="update" colspan="3">' + row.startrange/100 + '</td></tr>';
 							heightAdd += 26;
 						}
 						output += '<tr><td class="update" width="15%">计费方式</td><td class="update" width="30%">固定金额</td>';
