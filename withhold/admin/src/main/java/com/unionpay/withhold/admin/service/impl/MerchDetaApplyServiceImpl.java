@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.unionpay.withhold.admin.Bean.PageBean;
 import com.unionpay.withhold.admin.Bean.ResultBean;
-import com.unionpay.withhold.admin.constant.CommonConstants;
 import com.unionpay.withhold.admin.enums.MerchDetaStatusEnums;
 import com.unionpay.withhold.admin.enums.MerchTargetTypeEnums;
 import com.unionpay.withhold.admin.mapper.TMerchDetaApplyMapper;
@@ -82,14 +81,13 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 		// 添加
 		count = merchDetaApplyMapper.insertSelective(merchDetaApply);
 		if (count > 0) {
+			/* 注册时不创建用户，改为注册审核通过时创建
 			TUser user = new TUser();
 			user.setUserName(merchDetaApply.getMemberName());
 			user.setLoginName(merchDetaApply.getMemberId());
-			// user.setIsadmin(CommonConstants.USER_TYPE_COMMON);
 			user.setCreator(merchDetaApply.getInUser().toString());
 			user.setNotes("注册商户时初始化用户");
-			//userService.saveUser(user);
-			userService.saveNewMerchant(user);
+			userService.saveNewMerchant(user);*/
 			return new ResultBean("操作成功 ！");
 		} else {
 			return new ResultBean("", "新增商户失败！");
@@ -247,6 +245,14 @@ public class MerchDetaApplyServiceImpl implements MerchDetaApplyService {
 					merchRateConfig.setInuser(merchDetaApply.getStexaUser());
 					merchRateConfigMapper.insertSelective(merchRateConfig);
 				}
+				
+				// 注册审核通过时创建用户
+				TUser user = new TUser();
+				user.setUserName(merchDetaApplyBack.getMemberName());
+				user.setLoginName(merchDetaApplyBack.getMemberId());
+				user.setCreator(merchDetaApplyBack.getInUser().toString());
+				user.setNotes("商户注册审核通过时初始化用户");
+				userService.saveNewMerchant(user);
 			} else if (merchDetaApply.getStatus().equals(MerchDetaStatusEnums.UPDATEAFTERCHECKED.getCode())) {
 				// 变更待审：修改申请表的状态为“在用”，更新在用表中的信息
 				Date now = new Date();
