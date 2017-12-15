@@ -216,7 +216,7 @@
 	</if>
 	
 	<if test="starttime!=null">
-	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
 	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
@@ -260,7 +260,7 @@
 	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	<if test="starttime!=null">
-	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
 	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
@@ -300,7 +300,7 @@
 	</if>
 	
 	<if test="starttime!=null">
-	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
 	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
@@ -342,7 +342,7 @@
 	and a.ACCFIRMERNO=#{accfirmerno}
 	</if>
 	<if test="starttime!=null">
-	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;#{starttime}
+	and CONCAT(a.TXNDATE,a.TXNTIME) &gt;=#{starttime}
 	</if>
 	<if test="endtime!=null">
 	and CONCAT(a.TXNDATE,a.TXNTIME) &lt;#{endtime}
